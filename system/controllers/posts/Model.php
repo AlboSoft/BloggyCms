@@ -376,6 +376,8 @@ class PostModel implements ModelAPI {
         $perPage = max(1, $perPage);
         $offset = ($page - 1) * $perPage;
         
+        $visibilityCondition = $this->buildVisibilityCondition($userGroups);
+        
         $sql = "
             SELECT 
                 p.*, 
@@ -403,21 +405,15 @@ class PostModel implements ModelAPI {
                 GROUP BY post_id
             ) cm ON p.id = cm.post_id
             WHERE p.status = 'published'
+            {$visibilityCondition['where']}
             GROUP BY p.id, c.name, c.slug, u.username, u.display_name, 
                     u.avatar, u.bio, u.website, cm.comments_count
             ORDER BY p.created_at DESC";
         
-        $allPosts = $this->db->fetchAll($sql);
+        $allPosts = $this->db->fetchAll($sql, $visibilityCondition['params']);
         
-        $visiblePosts = [];
-        foreach ($allPosts as $post) {
-            if ($this->checkPostVisibility($post['id'], $userGroups)) {
-                $visiblePosts[] = $post;
-            }
-        }
-        
-        $totalPosts = count($visiblePosts);
-        $posts = array_slice($visiblePosts, $offset, $perPage);
+        $totalPosts = count($allPosts);
+        $posts = array_slice($allPosts, $offset, $perPage);
         
         foreach ($posts as &$post) {
             $tags = [];
