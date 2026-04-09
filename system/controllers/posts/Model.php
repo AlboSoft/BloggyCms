@@ -583,7 +583,7 @@ class PostModel implements ModelAPI {
             "SELECT likes_count FROM posts WHERE id = ?",
             [$postId]
         );
-        return $result ? (int)$result['likez_count'] : 0;
+        return $result ? (int)$result['likes_count'] : 0;
     }
 
     /**
