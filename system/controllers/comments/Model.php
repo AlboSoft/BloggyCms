@@ -376,7 +376,9 @@ class CommentModel implements ModelAPI {
             try {
                 $user = $this->userModel->getById($userId);
                 $isAdmin = $user && (!empty($user['is_admin']) || $user['role'] === 'admin');
-            } catch (Exception $e) {}
+            } catch (Exception $e) {
+                error_log("Ошибка проверки admin статуса пользователя: " . $e->getMessage());
+            }
         }
         
         return [

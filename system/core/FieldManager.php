@@ -82,7 +82,9 @@ class FieldManager {
                             self::$fieldClasses[$type] = $className;
                         }
                     }
-                } catch (Exception $e) {}
+                } catch (Exception $e) {
+                    error_log("Ошибка загрузки поля {$className}: " . $e->getMessage());
+                }
             }
         }
     }

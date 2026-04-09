@@ -31,7 +31,9 @@ class DefaultLatestPostsBlock extends BaseHtmlBlock {
                     $options[$category['id']] = htmlspecialchars($category['name']);
                 }
             }
-        } catch (Exception $e) {}
+        } catch (Exception $e) {
+            error_log("Ошибка получения категорий для HTML блока: " . $e->getMessage());
+        }
         return $options;
     }
     

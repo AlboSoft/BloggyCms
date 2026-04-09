@@ -54,7 +54,9 @@ class BackupHelper {
             if ($oldestTime !== null) {
                 $stats['oldest_backup'] = date('d.m.Y H:i', $oldestTime);
             }
-        } catch (Exception $e) {}
+        } catch (Exception $e) {
+            error_log("Ошибка получения статистики резервных копий: " . $e->getMessage());
+        }
         
         $stats['total_size'] = self::formatFileSize($stats['total_size']);
         
@@ -181,7 +183,9 @@ class BackupHelper {
                     }
                 }
             }
-        } catch (Exception $e) {}
+        } catch (Exception $e) {
+            error_log("Ошибка очистки резервных копий: " . $e->getMessage());
+        }
         
         return $deletedCount;
     }

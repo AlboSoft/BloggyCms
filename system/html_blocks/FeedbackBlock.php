@@ -35,7 +35,9 @@ class FeedbackBlock extends BaseHtmlBlock {
             foreach ($activeForms as $form) {
                 $forms[$form['slug']] = htmlspecialchars($form['name']);
             }
-        } catch (Exception $e) {}
+        } catch (Exception $e) {
+            error_log("Ошибка получения форм для FeedbackBlock: " . $e->getMessage());
+        }
         return $forms;
     }
     

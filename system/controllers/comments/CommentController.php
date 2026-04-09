@@ -78,7 +78,9 @@ class CommentController extends Controller {
         try {
             $notificationModel = new NotificationModel($this->db);
             $notificationModel->createTable();
-        } catch (Exception $e) {}
+        } catch (Exception $e) {
+            error_log("Ошибка создания таблицы уведомлений: " . $e->getMessage());
+        }
     }
     
     /**
@@ -98,7 +100,9 @@ class CommentController extends Controller {
                 if ($user && !empty($user['avatar'])) {
                     return $this->formatAvatarUrl($user['avatar']);
                 }
-            } catch (Exception $e) {}
+            } catch (Exception $e) {
+                error_log("Ошибка получения аватара пользователя: " . $e->getMessage());
+            }
         }
         
         return BASE_URL . '/uploads/avatars/default.png';
@@ -153,7 +157,9 @@ class CommentController extends Controller {
                         return $user['username'];
                     }
                 }
-            } catch (Exception $e) {}
+            } catch (Exception $e) {
+                error_log("Ошибка получения имени пользователя: " . $e->getMessage());
+            }
         }
         
         return 'Аноним';
@@ -192,7 +198,9 @@ class CommentController extends Controller {
                         }
                     }
                 }
-            } catch (Exception $e) {}
+            } catch (Exception $e) {
+                error_log("Ошибка получения групп пользователя: " . $e->getMessage());
+            }
         }
         
         $isAdmin = false;
@@ -200,7 +208,9 @@ class CommentController extends Controller {
             try {
                 $user = $this->userModel->getById($userId);
                 $isAdmin = $user && (!empty($user['is_admin']) || $user['role'] === 'admin');
-            } catch (Exception $e) {}
+            } catch (Exception $e) {
+                error_log("Ошибка проверки admin статуса: " . $e->getMessage());
+            }
         }
         
         $createdAt = $comment['created_at'];

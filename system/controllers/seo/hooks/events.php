@@ -37,7 +37,9 @@ function regenerate_seo_files($data = []) {
         
         $seoModel->clearCache();
         
-    } catch (Exception $e) {}
+    } catch (Exception $e) {
+        error_log("Ошибка обновления SEO файлов: " . $e->getMessage());
+    }
 }
 
 // При создании поста

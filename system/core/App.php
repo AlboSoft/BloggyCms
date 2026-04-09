@@ -64,7 +64,9 @@ class App {
                 foreach ($hookFiles as $hookFile) {
                     try {
                         require_once $hookFile;
-                    } catch (Exception $e) {}
+                    } catch (Exception $e) {
+                        error_log("Ошибка загрузки хука {$hookFile}: " . $e->getMessage());
+                    }
                 }
             }
         }
@@ -103,7 +105,9 @@ class App {
             
             $this->registerBaseShortcodes();
             
-        } catch (Exception $e) {}
+        } catch (Exception $e) {
+            error_log("Ошибка инициализации шорткодов полей: " . $e->getMessage());
+        }
     }
     
     /**
