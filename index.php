@@ -71,123 +71,6 @@ try {
     die("Ошибка подключения к базе данных: " . $e->getMessage());
 }
 
-require_once SYSTEM_PATH . '/helpers/Shortcodes.php';
-require_once SYSTEM_PATH . '/helpers/FragmentHelper.php';
-
-if (class_exists('FragmentHelper') && class_exists('ShortcodeRegistry')) {
-    FragmentHelper::registerShortcodes();
-}
-
-$currentLocale = 'ru_RU';
-
-if (isset($_SESSION['admin_language'])) {
-    $langDir = SYSTEM_PATH . '/languages/' . $_SESSION['admin_language'];
-    if (is_dir($langDir)) {
-        $currentLocale = $_SESSION['admin_language'];
-    }
-}
-elseif (isset($_SESSION['user_language'])) {
-    $langDir = SYSTEM_PATH . '/languages/' . $_SESSION['user_language'];
-    if (is_dir($langDir)) {
-        $currentLocale = $_SESSION['user_language'];
-    }
-}
-else {
-    try {
-        $settingsModel = new SettingsModel($db);
-        $generalSettings = $settingsModel->get('general');
-        
-        if (strpos($_SERVER['REQUEST_URI'], '/admin') === 0) {
-            $adminLang = $generalSettings['admin_language'] ?? '';
-            if (!empty($adminLang)) {
-                $langDir = SYSTEM_PATH . '/languages/' . $adminLang;
-                if (is_dir($langDir)) {
-                    $currentLocale = $adminLang;
-                }
-            }
-        } 
-        else {
-            $siteLang = $generalSettings['site_language'] ?? '';
-            if (!empty($siteLang)) {
-                $langDir = SYSTEM_PATH . '/languages/' . $siteLang;
-                if (is_dir($langDir)) {
-                    $currentLocale = $siteLang;
-                }
-            }
-        }
-    } catch (Exception $e) {}
-}
-
-$loadedLanguageFiles = [];
-$loadedLanguageConstants = [];
-
-function loadLanguageFiles($dir, &$loadedFiles, &$loadedConstants = []) {
-    if (!is_dir($dir)) {
-        return;
-    }
-    
-    $items = scandir($dir);
-    
-    $manifestFiles = [];
-    $languageFiles = [];
-    $subdirs = [];
-    
-    foreach ($items as $item) {
-        if ($item === '.' || $item === '..') continue;
-        
-        $fullPath = $dir . '/' . $item;
-        
-        if (is_dir($fullPath)) {
-            $subdirs[] = $fullPath;
-        } elseif ($item === 'manifest.php') {
-            $manifestFiles[] = $fullPath;
-        } elseif (pathinfo($item, PATHINFO_EXTENSION) === 'php') {
-            $languageFiles[] = $fullPath;
-        }
-    }
-    
-    foreach ($manifestFiles as $manifestFile) {
-        $realPath = realpath($manifestFile);
-        if ($realPath) {
-            $relativePath = str_replace(BASE_PATH . '/', '', $realPath);
-            if (!in_array($relativePath, $loadedFiles)) {
-                $loadedFiles[] = $relativePath;
-                require_once $realPath;
-                error_log("LOADED [manifest]: " . $relativePath);
-            }
-        }
-    }
-    
-    foreach ($languageFiles as $langFile) {
-        $realPath = realpath($langFile);
-        if ($realPath) {
-            $relativePath = str_replace(BASE_PATH . '/', '', $realPath);
-            if (!in_array($relativePath, $loadedFiles)) {
-                $loadedFiles[] = $relativePath;
-                require_once $realPath;
-                error_log("LOADED: " . $relativePath);
-            }
-        }
-    }
-    
-    foreach ($subdirs as $subdir) {
-        loadLanguageFiles($subdir, $loadedFiles, $loadedConstants);
-    }
-}
-
-$languagePath = SYSTEM_PATH . '/languages/' . $currentLocale;
-
-if (is_dir($languagePath)) {
-    loadLanguageFiles($languagePath, $loadedLanguageFiles, $loadedLanguageConstants);
-} else {
-    $fallbackPath = SYSTEM_PATH . '/languages/ru_RU';
-    if (is_dir($fallbackPath)) {
-        loadLanguageFiles($fallbackPath, $loadedLanguageFiles, $loadedLanguageConstants);
-    }
-}
-
-define('CURRENT_LOCALE', $currentLocale);
-
 spl_autoload_register(function ($class) use ($db) {
     if ($class === 'AchievementTriggers') {
         $file = ROOT_PATH . '/system/controllers/users/AchievementTriggers.php';
@@ -307,6 +190,123 @@ spl_autoload_register(function ($class) use ($db) {
     }
 });
 
+require_once SYSTEM_PATH . '/helpers/Shortcodes.php';
+require_once SYSTEM_PATH . '/helpers/FragmentHelper.php';
+
+if (class_exists('FragmentHelper') && class_exists('ShortcodeRegistry')) {
+    FragmentHelper::registerShortcodes();
+}
+
+$currentLocale = 'ru_RU';
+
+if (isset($_SESSION['admin_language'])) {
+    $langDir = SYSTEM_PATH . '/languages/' . $_SESSION['admin_language'];
+    if (is_dir($langDir)) {
+        $currentLocale = $_SESSION['admin_language'];
+    }
+}
+elseif (isset($_SESSION['user_language'])) {
+    $langDir = SYSTEM_PATH . '/languages/' . $_SESSION['user_language'];
+    if (is_dir($langDir)) {
+        $currentLocale = $_SESSION['user_language'];
+    }
+}
+else {
+    try {
+        $settingsModel = new SettingsModel($db);
+        $generalSettings = $settingsModel->get('general');
+        
+        if (strpos($_SERVER['REQUEST_URI'], '/admin') === 0) {
+            $adminLang = $generalSettings['admin_language'] ?? '';
+            if (!empty($adminLang)) {
+                $langDir = SYSTEM_PATH . '/languages/' . $adminLang;
+                if (is_dir($langDir)) {
+                    $currentLocale = $adminLang;
+                }
+            }
+        } 
+        else {
+            $siteLang = $generalSettings['site_language'] ?? '';
+            if (!empty($siteLang)) {
+                $langDir = SYSTEM_PATH . '/languages/' . $siteLang;
+                if (is_dir($langDir)) {
+                    $currentLocale = $siteLang;
+                }
+            }
+        }
+    } catch (Throwable $e) {}
+}
+
+$loadedLanguageFiles = [];
+$loadedLanguageConstants = [];
+
+function loadLanguageFiles($dir, &$loadedFiles, &$loadedConstants = []) {
+    if (!is_dir($dir)) {
+        return;
+    }
+    
+    $items = scandir($dir);
+    
+    $manifestFiles = [];
+    $languageFiles = [];
+    $subdirs = [];
+    
+    foreach ($items as $item) {
+        if ($item === '.' || $item === '..') continue;
+        
+        $fullPath = $dir . '/' . $item;
+        
+        if (is_dir($fullPath)) {
+            $subdirs[] = $fullPath;
+        } elseif ($item === 'manifest.php') {
+            $manifestFiles[] = $fullPath;
+        } elseif (pathinfo($item, PATHINFO_EXTENSION) === 'php') {
+            $languageFiles[] = $fullPath;
+        }
+    }
+    
+    foreach ($manifestFiles as $manifestFile) {
+        $realPath = realpath($manifestFile);
+        if ($realPath) {
+            $relativePath = str_replace(BASE_PATH . '/', '', $realPath);
+            if (!in_array($relativePath, $loadedFiles)) {
+                $loadedFiles[] = $relativePath;
+                require_once $realPath;
+                error_log("LOADED [manifest]: " . $relativePath);
+            }
+        }
+    }
+    
+    foreach ($languageFiles as $langFile) {
+        $realPath = realpath($langFile);
+        if ($realPath) {
+            $relativePath = str_replace(BASE_PATH . '/', '', $realPath);
+            if (!in_array($relativePath, $loadedFiles)) {
+                $loadedFiles[] = $relativePath;
+                require_once $realPath;
+                error_log("LOADED: " . $relativePath);
+            }
+        }
+    }
+    
+    foreach ($subdirs as $subdir) {
+        loadLanguageFiles($subdir, $loadedFiles, $loadedConstants);
+    }
+}
+
+$languagePath = SYSTEM_PATH . '/languages/' . $currentLocale;
+
+if (is_dir($languagePath)) {
+    loadLanguageFiles($languagePath, $loadedLanguageFiles, $loadedLanguageConstants);
+} else {
+    $fallbackPath = SYSTEM_PATH . '/languages/ru_RU';
+    if (is_dir($fallbackPath)) {
+        loadLanguageFiles($fallbackPath, $loadedLanguageFiles, $loadedLanguageConstants);
+    }
+}
+
+define('CURRENT_LOCALE', $currentLocale);
+
 function loadAllHelpers($dir) {
     if (!is_dir($dir)) return;
     
@@ -374,7 +374,7 @@ try {
     $app = new App();
     $app->run();
     
-} catch (Exception $e) {
+} catch (Throwable $e) {
     
     if (defined('DEBUG') && DEBUG === true) {
         echo '<h1>Error</h1>';
