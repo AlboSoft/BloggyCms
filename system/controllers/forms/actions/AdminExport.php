@@ -10,14 +10,14 @@ class AdminExport extends FormAction {
     public function execute() {
         $formId = $this->params['id'] ?? null;
         if (!$formId) {
-            \Notification::error('ID формы не указан');
+            \Notification::error(LANG_ACTION_FORMS_ADMINEXPORT_ID_NOT_SPECIFIED);
             $this->redirect(ADMIN_URL . '/forms');
             return;
         }
         
         $form = $this->formModel->getById($formId);
         if (!$form) {
-            \Notification::error('Форма не найдена');
+            \Notification::error(LANG_ACTION_FORMS_ADMINEXPORT_FORM_NOT_FOUND);
             $this->redirect(ADMIN_URL . '/forms');
             return;
         }
@@ -25,7 +25,7 @@ class AdminExport extends FormAction {
         $csvContent = $this->formModel->exportSubmissionsToCSV($formId);
         
         if (empty($csvContent)) {
-            \Notification::warning('Нет данных для экспорта');
+            \Notification::warning(LANG_ACTION_FORMS_ADMINEXPORT_NO_DATA);
             $this->redirect(ADMIN_URL . '/forms/show/' . $formId);
             return;
         }

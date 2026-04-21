@@ -17,17 +17,17 @@ class AdminDelete extends CommentAction {
         $id = $this->params['id'] ?? null;
         
         if (!$id) {
-            \Notification::error('ID комментария не указан');
+            \Notification::error(LANG_ACTION_COMMENTS_ADMINDELETE_ID_NOT_SPECIFIED);
             $this->redirect(ADMIN_URL . '/comments');
             return;
         }
         
         try {
             $this->commentModel->deleteComment($id);
-            \Notification::success('Комментарий успешно удален');
+            \Notification::success(LANG_ACTION_COMMENTS_ADMINDELETE_SUCCESS);
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при удалении комментария');
+            \Notification::error(LANG_ACTION_COMMENTS_ADMINDELETE_ERROR);
         }
         
         $this->redirect(ADMIN_URL . '/comments');

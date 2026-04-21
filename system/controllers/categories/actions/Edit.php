@@ -8,7 +8,7 @@ namespace categories\actions;
 */
 class Edit extends CategoryAction {
     
-    protected $pageTitle = 'Редактирование категории';
+    protected $pageTitle;
     
     /**
     * Метод выполнения редактирования категории
@@ -19,24 +19,24 @@ class Edit extends CategoryAction {
         $id = $this->params['id'] ?? null;
         
         if (!$id) {
-            \Notification::error('ID категории не указан');
+            \Notification::error(LANG_ACTION_CATEGORIES_EDIT_ID_NOT_SPECIFIED);
             $this->redirect(ADMIN_URL . '/categories');
             return;
         }
 
-        $this->pageTitle = 'Редактирование категории';
-        $this->addBreadcrumb('Категории', ADMIN_URL . '/categories');
+        $this->pageTitle = LANG_ACTION_CATEGORIES_EDIT_PAGE_TITLE;
+        $this->addBreadcrumb(LANG_ACTION_CATEGORIES_EDIT_BREADCRUMB_CATEGORIES, ADMIN_URL . '/categories');
         
         try {
             $category = $this->categoryModel->getById($id);
             
             if (!$category) {
-                \Notification::error('Категория не найдена');
+                \Notification::error(LANG_ACTION_CATEGORIES_EDIT_CATEGORY_NOT_FOUND);
                 $this->redirect(ADMIN_URL . '/categories');
                 return;
             }
             
-            $this->addBreadcrumb('Редактирование: ' . $category['name']);
+            $this->addBreadcrumb(LANG_ACTION_CATEGORIES_EDIT_BREADCRUMB_EDIT . $category['name']);
             
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 try {
@@ -85,7 +85,7 @@ class Edit extends CategoryAction {
                     $result = $this->categoryModel->update($id, $data);
                     
                     if (!$result) {
-                        throw new \Exception('Не удалось обновить категорию');
+                        throw new \Exception(LANG_ACTION_CATEGORIES_EDIT_UPDATE_FAILED);
                     }
                     
                     $fieldModel = new \FieldModel($this->db);
@@ -123,16 +123,16 @@ class Edit extends CategoryAction {
                                 );
                             }
                         } catch (\Exception $e) {
-                            \Notification::error("Ошибка обработки поля {$field['name']}: " . $e->getMessage());
+                            \Notification::error(sprintf(LANG_ACTION_CATEGORIES_EDIT_FIELD_ERROR, $field['name'], $e->getMessage()));
                         }
                     }
                     
-                    \Notification::success('Категория успешно обновлена');
+                    \Notification::success(LANG_ACTION_CATEGORIES_EDIT_SUCCESS);
                     $this->redirect(ADMIN_URL . '/categories');
                     return;
                     
                 } catch (\Exception $e) {
-                    \Notification::error('Ошибка при обновлении категории: ' . $e->getMessage());
+                    \Notification::error(LANG_ACTION_CATEGORIES_EDIT_ERROR . $e->getMessage());
                     $category = $this->categoryModel->getById($id);
                     $this->render('admin/categories/form', [
                         'category' => $category, 
@@ -149,7 +149,7 @@ class Edit extends CategoryAction {
             ]);
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при загрузке категории: ' . $e->getMessage());
+            \Notification::error(LANG_ACTION_CATEGORIES_EDIT_LOAD_ERROR . $e->getMessage());
             $this->redirect(ADMIN_URL . '/categories');
         }
     }

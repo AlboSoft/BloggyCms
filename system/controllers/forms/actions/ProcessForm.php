@@ -13,10 +13,10 @@ class ProcessForm extends FormAction {
             if ($this->isAjaxRequest()) {
                 $this->jsonResponse([
                     'success' => false,
-                    'message' => 'Форма не указана'
+                    'message' => LANG_ACTION_FORMS_PROCESSFORM_FORM_NOT_SPECIFIED
                 ]);
             } else {
-                \Notification::error('Форма не указана');
+                \Notification::error(LANG_ACTION_FORMS_PROCESSFORM_FORM_NOT_SPECIFIED);
                 $this->redirect(BASE_URL);
             }
             return;
@@ -27,10 +27,10 @@ class ProcessForm extends FormAction {
             if ($this->isAjaxRequest()) {
                 $this->jsonResponse([
                     'success' => false,
-                    'message' => 'Форма не найдена или неактивна'
+                    'message' => LANG_ACTION_FORMS_PROCESSFORM_FORM_NOT_FOUND
                 ]);
             } else {
-                \Notification::error('Форма не найдена или неактивна');
+                \Notification::error(LANG_ACTION_FORMS_PROCESSFORM_FORM_NOT_FOUND);
                 $this->redirect(BASE_URL);
             }
             return;
@@ -40,10 +40,10 @@ class ProcessForm extends FormAction {
             if ($this->isAjaxRequest()) {
                 $this->jsonResponse([
                     'success' => false,
-                    'message' => 'Неверный метод запроса'
+                    'message' => LANG_ACTION_FORMS_PROCESSFORM_INVALID_METHOD
                 ]);
             } else {
-                \Notification::error('Неверный метод запроса');
+                \Notification::error(LANG_ACTION_FORMS_PROCESSFORM_INVALID_METHOD);
                 $this->redirect(BASE_URL . '/form/' . $slug);
             }
             return;
@@ -61,14 +61,14 @@ class ProcessForm extends FormAction {
             if ($csrfEnabled) {
                 $token = $_POST['csrf_token'] ?? '';
                 if (!$this->verifyCsrfToken($token, $slug)) {
-                    throw new \Exception('Неверный токен безопасности. Пожалуйста, обновите страницу и попробуйте снова.');
+                    throw new \Exception(LANG_ACTION_FORMS_PROCESSFORM_CSRF_ERROR);
                 }
             }
             
             $captchaEnabled = $settings['captcha_enabled'] ?? false;
             if ($captchaEnabled) {
                 if (!$this->verifyCaptcha($settings)) {
-                    throw new \Exception('Проверка капчи не пройдена');
+                    throw new \Exception(LANG_ACTION_FORMS_PROCESSFORM_CAPTCHA_FAILED);
                 }
             }
 
@@ -80,7 +80,7 @@ class ProcessForm extends FormAction {
                     
                     $this->jsonResponse([
                         'success' => true,
-                        'message' => $form['success_message'] ?? 'Форма успешно отправлена!',
+                        'message' => $form['success_message'] ?? LANG_ACTION_FORMS_PROCESSFORM_DEFAULT_SUCCESS,
                         'submission_id' => $submissionId
                     ]);
                     return;
@@ -89,7 +89,7 @@ class ProcessForm extends FormAction {
             
             if (!empty($settings['limit_submissions'])) {
                 if (!$this->checkSubmissionLimits($form['id'], $settings)) {
-                    throw new \Exception('Превышен лимит отправок. Попробуйте позже.');
+                    throw new \Exception(LANG_ACTION_FORMS_PROCESSFORM_LIMIT_EXCEEDED);
                 }
             }
             
@@ -115,7 +115,7 @@ class ProcessForm extends FormAction {
                 $this->executeActions($form, $postData, $submissionId);
             }
             
-            $successMessage = $form['success_message'] ?? 'Форма успешно отправлена!';
+            $successMessage = $form['success_message'] ?? LANG_ACTION_FORMS_PROCESSFORM_DEFAULT_SUCCESS;
             
             $redirectUrl = null;
             foreach ($form['actions'] ?? [] as $action) {
@@ -125,13 +125,18 @@ class ProcessForm extends FormAction {
                 }
             }
             
-            $this->jsonResponse([
-                'success' => true,
-                'message' => $successMessage,
-                'submission_id' => $submissionId,
-                'redirect' => $redirectUrl
-            ]);
-            return;
+            $isAjaxRequest = $this->isAjaxRequest();
+            $ajaxEnabled = $form['settings']['ajax_enabled'] ?? true;
+            
+            if ($isAjaxRequest || $ajaxEnabled) {
+                $this->jsonResponse([
+                    'success' => true,
+                    'message' => $successMessage,
+                    'submission_id' => $submissionId,
+                    'redirect' => $redirectUrl
+                ]);
+                return;
+            }
             
             \Notification::success($successMessage);
             
@@ -307,11 +312,11 @@ class ProcessForm extends FormAction {
             if ($required) {
                 if ($fieldType === 'file') {
                     if (!$file || $file['error'] === UPLOAD_ERR_NO_FILE) {
-                        $errors[$fieldName] = "Поле '{$fieldLabel}' обязательно для заполнения";
+                        $errors[$fieldName] = sprintf(LANG_ACTION_FORMS_PROCESSFORM_FIELD_REQUIRED, $fieldLabel);
                         continue;
                     }
                 } elseif (empty($value) && $value !== '0') {
-                    $errors[$fieldName] = "Поле '{$fieldLabel}' обязательно для заполнения";
+                    $errors[$fieldName] = sprintf(LANG_ACTION_FORMS_PROCESSFORM_FIELD_REQUIRED, $fieldLabel);
                     continue;
                 }
             }
@@ -324,17 +329,17 @@ class ProcessForm extends FormAction {
                 switch ($fieldType) {
                     case 'email':
                         if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
-                            $errors[$fieldName] = "Поле '{$fieldLabel}' должно содержать корректный email";
+                            $errors[$fieldName] = sprintf(LANG_ACTION_FORMS_PROCESSFORM_FIELD_EMAIL, $fieldLabel);
                         }
                         break;
                     case 'number':
                         if (!is_numeric($value)) {
-                            $errors[$fieldName] = "Поле '{$fieldLabel}' должно содержать число";
+                            $errors[$fieldName] = sprintf(LANG_ACTION_FORMS_PROCESSFORM_FIELD_NUMBER, $fieldLabel);
                         }
                         break;
                     case 'tel':
                         if (!preg_match('/^[\d\s\-\+\(\)]+$/', $value)) {
-                            $errors[$fieldName] = "Поле '{$fieldLabel}' должно содержать корректный номер телефона";
+                            $errors[$fieldName] = sprintf(LANG_ACTION_FORMS_PROCESSFORM_FIELD_TEL, $fieldLabel);
                         }
                         break;
                 }
@@ -343,12 +348,12 @@ class ProcessForm extends FormAction {
             if ($fieldType === 'file' && $file && $file['error'] === UPLOAD_ERR_OK) {
                 $maxSize = 5 * 1024 * 1024;
                 if ($file['size'] > $maxSize) {
-                    $errors[$fieldName] = "Файл слишком большой. Максимальный размер: 5MB";
+                    $errors[$fieldName] = LANG_ACTION_FORMS_PROCESSFORM_FILE_TOO_LARGE;
                 }
                 
                 $allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'application/pdf'];
                 if (!in_array($file['type'], $allowedTypes)) {
-                    $errors[$fieldName] = "Разрешены только JPEG, PNG, GIF и PDF файлы";
+                    $errors[$fieldName] = LANG_ACTION_FORMS_PROCESSFORM_FILE_TYPE_ERROR;
                 }
             }
         }
@@ -365,7 +370,7 @@ class ProcessForm extends FormAction {
             }
             
             $to = $this->parseTemplate($notification['to'] ?? '', $data);
-            $subject = $this->parseTemplate($notification['subject'] ?? 'Новая отправка формы', $data);
+            $subject = $this->parseTemplate($notification['subject'] ?? LANG_ACTION_FORMS_PROCESSFORM_NOTIFICATION_SUBJECT, $data);
             $message = $this->parseTemplate($notification['message'] ?? '', $data);
             $from = $notification['from'] ?? 'noreply@' . $_SERVER['HTTP_HOST'];
             

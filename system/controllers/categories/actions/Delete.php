@@ -16,7 +16,7 @@ class Delete extends CategoryAction {
         $id = $this->params['id'] ?? null;
         
         if (!$id) {
-            \Notification::error('ID категории не указан');
+            \Notification::error(LANG_ACTION_CATEGORIES_DELETE_ID_NOT_SPECIFIED);
             $this->redirect(ADMIN_URL . '/categories');
             return;
         }
@@ -24,9 +24,9 @@ class Delete extends CategoryAction {
         try {
             $category = $this->categoryModel->getById($id);
             
-            $this->addBreadcrumb('Панель управления', ADMIN_URL);
-            $this->addBreadcrumb('Категории', ADMIN_URL . '/categories');
-            $this->addBreadcrumb('Удаление: ' . ($category ? $category['name'] : 'Категория #' . $id));
+            $this->addBreadcrumb(LANG_ACTION_CATEGORIES_DELETE_BREADCRUMB_DASHBOARD, ADMIN_URL);
+            $this->addBreadcrumb(LANG_ACTION_CATEGORIES_DELETE_BREADCRUMB_CATEGORIES, ADMIN_URL . '/categories');
+            $this->addBreadcrumb(LANG_ACTION_CATEGORIES_DELETE_BREADCRUMB_DELETE . ($category ? $category['name'] : LANG_ACTION_CATEGORIES_DELETE_CATEGORY_PREFIX . $id));
             
             $postsCount = $this->categoryModel->getPostsCount($id);
             
@@ -46,18 +46,18 @@ class Delete extends CategoryAction {
                         
                         $this->categoryModel->delete($id);
                         
-                        $postsWord = get_numeric_ending($postsCount, ['пост', 'поста', 'постов']);
-                        \Notification::success("Категория удалена. {$postsCount} {$postsWord} перемещены в выбранную категорию.");
+                        $postsWord = get_numeric_ending($postsCount, explode('|', LANG_ACTION_CATEGORIES_DELETE_POSTS_ENDING));
+                        \Notification::success(sprintf(LANG_ACTION_CATEGORIES_DELETE_MOVE_SUCCESS, $postsCount, $postsWord));
                         
                     } 
                     elseif ($deleteAction === 'delete_all') {
                         $this->categoryModel->deleteWithPosts($id);
-                        $postsWord = get_numeric_ending($postsCount, ['пост', 'поста', 'постов']);
-                        \Notification::success("Категория и {$postsCount} {$postsWord} удалены.");
+                        $postsWord = get_numeric_ending($postsCount, explode('|', LANG_ACTION_CATEGORIES_DELETE_POSTS_ENDING));
+                        \Notification::success(sprintf(LANG_ACTION_CATEGORIES_DELETE_DELETE_ALL_SUCCESS, $postsCount, $postsWord));
                         
                     } 
                     else {
-                        \Notification::error('Не выбран способ удаления');
+                        \Notification::error(LANG_ACTION_CATEGORIES_DELETE_NO_ACTION);
                         $this->redirect(ADMIN_URL . '/categories');
                         return;
                     }
@@ -75,11 +75,11 @@ class Delete extends CategoryAction {
                 }
                 
                 $this->categoryModel->delete($id);
-                \Notification::success('Категория успешно удалена');
+                \Notification::success(LANG_ACTION_CATEGORIES_DELETE_SUCCESS);
             }
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при удалении категории: ' . $e->getMessage());
+            \Notification::error(LANG_ACTION_CATEGORIES_DELETE_ERROR . $e->getMessage());
         }
         
         $this->redirect(ADMIN_URL . '/categories');
@@ -102,7 +102,7 @@ class Delete extends CategoryAction {
             'category' => $category,
             'postsCount' => $postsCount,
             'otherCategories' => $otherCategories,
-            'pageTitle' => 'Удаление категории'
+            'pageTitle' => LANG_ACTION_CATEGORIES_DELETE_PAGE_TITLE
         ]);
     }
 }

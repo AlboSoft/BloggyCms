@@ -1,8 +1,8 @@
 <?php
 return [
-    'name' => 'Отладка',
+    'name' => LANG_CONTROLLER_DEBUG_MANIFEST_NAME,
     'author' => 'BloggyCMS',
     'version' => '1.0.0',
     'has_settings' => false,
-    'description' => 'Управление режимом отладки и просмотр ошибок системы'
+    'description' => LANG_CONTROLLER_DEBUG_MANIFEST_DESCRIPTION
 ];

@@ -17,13 +17,13 @@ class Reorder extends CategoryAction {
         
         try {
             if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-                throw new \Exception('Invalid request method');
+                throw new \Exception(LANG_ACTION_CATEGORIES_REORDER_INVALID_METHOD);
             }
             
             $input = json_decode(file_get_contents('php://input'), true);
             
             if (!isset($input['order']) || !is_array($input['order'])) {
-                throw new \Exception('Invalid order data');
+                throw new \Exception(LANG_ACTION_CATEGORIES_REORDER_INVALID_DATA);
             }
             
             foreach ($input['order'] as $item) {
@@ -36,7 +36,7 @@ class Reorder extends CategoryAction {
             
             echo json_encode([
                 'success' => true, 
-                'message' => 'Порядок категорий обновлен'
+                'message' => LANG_ACTION_CATEGORIES_REORDER_SUCCESS
             ]);
             
         } catch (\Exception $e) {

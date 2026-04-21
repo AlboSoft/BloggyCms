@@ -11,11 +11,11 @@ class CommentController extends Controller {
     private $categoryModel;
     
     protected $controllerInfo = [
-        'name' => 'Комментарии',
+        'name' => LANG_CONTROLLER_COMMENTS_MANIFEST_NAME,
         'author' => 'BloggyCMS', 
         'version' => '1.0.0',
         'has_settings' => true,
-        'description' => 'Управление комментариями пользователей'
+        'description' => LANG_CONTROLLER_COMMENTS_MANIFEST_DESCRIPTION
     ];
     
     /**
@@ -117,7 +117,7 @@ class CommentController extends Controller {
             } catch (Exception $e) {}
         }
         
-        return 'Аноним';
+        return LANG_CONTROLLER_COMMENTS_ANONYMOUS;
     }
     
     /**
@@ -169,7 +169,7 @@ class CommentController extends Controller {
         $commentTime = strtotime($createdAt);
         
         if (($now - $commentTime) < 300) {
-            $displayDate = 'Только что';
+            $displayDate = LANG_CONTROLLER_COMMENTS_JUST_NOW;
         } else {
             $displayDate = date('d.m.Y H:i', $commentTime);
         }
@@ -256,7 +256,7 @@ class CommentController extends Controller {
     public function getCommentAction($id) {
         if (!$this->isAjaxRequest()) {
             http_response_code(400);
-            echo json_encode(['success' => false, 'message' => 'Только AJAX запросы']);
+            echo json_encode(['success' => false, 'message' => LANG_CONTROLLER_COMMENTS_AJAX_ONLY]);
             return;
         }
         
@@ -265,7 +265,7 @@ class CommentController extends Controller {
             
             if (!$comment) {
                 http_response_code(404);
-                echo json_encode(['success' => false, 'message' => 'Комментарий не найден']);
+                echo json_encode(['success' => false, 'message' => LANG_CONTROLLER_COMMENTS_NOT_FOUND]);
                 return;
             }
             
@@ -281,7 +281,7 @@ class CommentController extends Controller {
             http_response_code(500);
             echo json_encode([
                 'success' => false,
-                'message' => 'Ошибка при получении комментария: ' . $e->getMessage()
+                'message' => LANG_CONTROLLER_COMMENTS_GET_ERROR . $e->getMessage()
             ]);
         }
     }

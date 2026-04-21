@@ -10,7 +10,7 @@ class AdminToggleStatus extends FormAction {
     public function execute() {
         $id = $this->params['id'] ?? null;
         if (!$id) {
-            \Notification::error('ID формы не указан');
+            \Notification::error(LANG_ACTION_FORMS_ADMINTOGGLESTATUS_ID_NOT_SPECIFIED);
             $this->redirect(ADMIN_URL . '/forms');
             return;
         }
@@ -18,7 +18,7 @@ class AdminToggleStatus extends FormAction {
         try {
             $form = $this->formModel->getById($id);
             if (!$form) {
-                throw new \Exception('Форма не найдена');
+                throw new \Exception(LANG_ACTION_FORMS_ADMINTOGGLESTATUS_FORM_NOT_FOUND);
             }
             
             $newStatus = ($form['status'] === 'active') ? 'inactive' : 'active';
@@ -29,14 +29,14 @@ class AdminToggleStatus extends FormAction {
             ]);
             
             if ($success) {
-                $statusText = $newStatus === 'active' ? 'активна' : 'неактивна';
-                \Notification::success('Форма теперь ' . $statusText);
+                $statusText = $newStatus === 'active' ? LANG_ACTION_FORMS_ADMINTOGGLESTATUS_ACTIVE : LANG_ACTION_FORMS_ADMINTOGGLESTATUS_INACTIVE;
+                \Notification::success(sprintf(LANG_ACTION_FORMS_ADMINTOGGLESTATUS_SUCCESS, $statusText));
             } else {
-                throw new \Exception('Не удалось изменить статус формы');
+                throw new \Exception(LANG_ACTION_FORMS_ADMINTOGGLESTATUS_UPDATE_FAILED);
             }
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка: ' . $e->getMessage());
+            \Notification::error(LANG_ACTION_FORMS_ADMINTOGGLESTATUS_ERROR . $e->getMessage());
         }
         
         $this->redirect(ADMIN_URL . '/forms');

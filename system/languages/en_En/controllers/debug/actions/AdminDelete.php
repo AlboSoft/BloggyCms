@@ -1,0 +1,5 @@
+<?php
+define('LANG_ACTION_DEBUG_ADMINDELETE_AJAX_ONLY', 'AJAX requests only');
+define('LANG_ACTION_DEBUG_ADMINDELETE_ID_NOT_SPECIFIED', 'ID not specified');
+define('LANG_ACTION_DEBUG_ADMINDELETE_SUCCESS', 'Log deleted');
+define('LANG_ACTION_DEBUG_ADMINDELETE_ERROR', 'Error deleting');

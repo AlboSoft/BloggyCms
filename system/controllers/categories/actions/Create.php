@@ -8,7 +8,7 @@ namespace categories\actions;
 */
 class Create extends CategoryAction {
     
-    protected $pageTitle = 'Создание категории';
+    protected $pageTitle;
     
     /**
     * Метод выполнения создания категории
@@ -16,9 +16,9 @@ class Create extends CategoryAction {
     */
     public function execute() {
 
-        $this->pageTitle = 'Создание категории';
-        $this->addBreadcrumb('Категории', ADMIN_URL . '/categories');
-        $this->addBreadcrumb('Создание категории');
+        $this->pageTitle = LANG_ACTION_CATEGORIES_CREATE_PAGE_TITLE;
+        $this->addBreadcrumb(LANG_ACTION_CATEGORIES_CREATE_BREADCRUMB_CATEGORIES, ADMIN_URL . '/categories');
+        $this->addBreadcrumb(LANG_ACTION_CATEGORIES_CREATE_BREADCRUMB_CREATE);
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
@@ -69,16 +69,16 @@ class Create extends CategoryAction {
                             );
                         }
                     } catch (\Exception $e) {
-                        \Notification::error("Ошибка обработки поля {$field['name']}: " . $e->getMessage());
+                        \Notification::error(sprintf(LANG_ACTION_CATEGORIES_CREATE_FIELD_ERROR, $field['name'], $e->getMessage()));
                     }
                 }
                 
-                \Notification::success('Категория успешно создана');
+                \Notification::success(LANG_ACTION_CATEGORIES_CREATE_SUCCESS);
                 $this->redirect(ADMIN_URL . '/categories');
                 return;
                 
             } catch (\Exception $e) {
-                \Notification::error('Ошибка при создании категории: ' . $e->getMessage());
+                \Notification::error(LANG_ACTION_CATEGORIES_CREATE_ERROR . $e->getMessage());
 
                 $this->render('admin/categories/form', [
                     'data' => $_POST,

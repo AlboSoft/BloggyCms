@@ -111,16 +111,16 @@ abstract class FieldAction {
     */
     protected function getFieldTypeName($type) {
         $types = [
-            'text' => 'Текст',
-            'textarea' => 'Текстовая область',
-            'number' => 'Число',
-            'select' => 'Выпадающий список',
-            'checkbox' => 'Чекбокс',
-            'file' => 'Файл',
-            'date' => 'Дата',
-            'color' => 'Цвет',
-            'email' => 'Email',
-            'url' => 'URL'
+            'text' => LANG_ACTION_FIELDS_FIELDACTION_TYPE_TEXT,
+            'textarea' => LANG_ACTION_FIELDS_FIELDACTION_TYPE_TEXTAREA,
+            'number' => LANG_ACTION_FIELDS_FIELDACTION_TYPE_NUMBER,
+            'select' => LANG_ACTION_FIELDS_FIELDACTION_TYPE_SELECT,
+            'checkbox' => LANG_ACTION_FIELDS_FIELDACTION_TYPE_CHECKBOX,
+            'file' => LANG_ACTION_FIELDS_FIELDACTION_TYPE_FILE,
+            'date' => LANG_ACTION_FIELDS_FIELDACTION_TYPE_DATE,
+            'color' => LANG_ACTION_FIELDS_FIELDACTION_TYPE_COLOR,
+            'email' => LANG_ACTION_FIELDS_FIELDACTION_TYPE_EMAIL,
+            'url' => LANG_ACTION_FIELDS_FIELDACTION_TYPE_URL
         ];
         return $types[$type] ?? $type;
     }
@@ -133,10 +133,10 @@ abstract class FieldAction {
     */
     protected function getEntityName($entityType, $forBreadcrumbs = false) {
         $names = [
-            'post' => ['default' => 'Записей', 'breadcrumbs' => 'Записи'],
-            'page' => ['default' => 'Страниц', 'breadcrumbs' => 'Страницы'],
-            'category' => ['default' => 'Категорий', 'breadcrumbs' => 'Категории'],
-            'user' => ['default' => 'Пользователей', 'breadcrumbs' => 'Пользователи']
+            'post' => ['default' => LANG_ACTION_FIELDS_FIELDACTION_ENTITY_POST_DEFAULT, 'breadcrumbs' => LANG_ACTION_FIELDS_FIELDACTION_ENTITY_POST_BREADCRUMBS],
+            'page' => ['default' => LANG_ACTION_FIELDS_FIELDACTION_ENTITY_PAGE_DEFAULT, 'breadcrumbs' => LANG_ACTION_FIELDS_FIELDACTION_ENTITY_PAGE_BREADCRUMBS],
+            'category' => ['default' => LANG_ACTION_FIELDS_FIELDACTION_ENTITY_CATEGORY_DEFAULT, 'breadcrumbs' => LANG_ACTION_FIELDS_FIELDACTION_ENTITY_CATEGORY_BREADCRUMBS],
+            'user' => ['default' => LANG_ACTION_FIELDS_FIELDACTION_ENTITY_USER_DEFAULT, 'breadcrumbs' => LANG_ACTION_FIELDS_FIELDACTION_ENTITY_USER_BREADCRUMBS]
         ];
         
         if (isset($names[$entityType])) {

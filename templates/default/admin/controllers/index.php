@@ -2,10 +2,10 @@
     <table class="table table-hover align-middle">
         <thead class="table-light">
             <tr>
-                <th width="30%">Контроллер</th>
-                <th width="35%">Информация</th>
-                <th width="25%">Статус</th>
-                <th width="10%" class="text-end">Действия</th>
+                <th width="30%"><?php echo LANG_TEMPLATE_CONTROLLERS_INDEX_TABLE_CONTROLLER; ?></th>
+                <th width="35%"><?php echo LANG_TEMPLATE_CONTROLLERS_INDEX_TABLE_INFO; ?></th>
+                <th width="25%"><?php echo LANG_TEMPLATE_CONTROLLERS_INDEX_TABLE_STATUS; ?></th>
+                <th width="10%" class="text-end"><?php echo LANG_TEMPLATE_CONTROLLERS_INDEX_TABLE_ACTIONS; ?></th>
             </tr>
         </thead>
         <tbody>
@@ -14,7 +14,7 @@
                     <td>
                         <div class="d-flex align-items-center">
                             <?php if($controller['is_system']) { ?>
-                                <span class="badge bg-info text-info me-2" title="Системный контроллер" style="min-width: 32px; text-align: center;" data-bs-toggle="tooltip">
+                                <span class="badge bg-info text-info me-2" title="<?php echo LANG_TEMPLATE_CONTROLLERS_INDEX_SYSTEM_TITLE; ?>" style="min-width: 32px; text-align: center;" data-bs-toggle="tooltip">
                                     <?php echo bloggy_icon('bs', 'shield-fill-check', '16', '#0dcaf0'); ?>
                                 </span>
                             <?php } else { ?>
@@ -31,7 +31,7 @@
                                 </div>
                             </div>
                         </div>
-                    </td>
+                    </div>
                     <td>
                         <div class="controller-info">
                             <?php if(!empty($controller['description'])) { ?>
@@ -40,53 +40,53 @@
                                 </div>
                             <?php } ?>
                             <div class="d-flex flex-wrap align-items-center gap-2">
-                                <span class="badge bg-light text-dark border" data-bs-toggle="tooltip" title = "Разработчик">
+                                <span class="badge bg-light text-dark border" data-bs-toggle="tooltip" title="<?php echo LANG_TEMPLATE_CONTROLLERS_INDEX_AUTHOR_TITLE; ?>">
                                     <?php echo bloggy_icon('bs', 'person', '12', '#6c757d', 'me-1'); ?>
                                     <?php echo html($controller['author']) ?>
                                 </span>
-                                <span class="badge bg-light text-dark border" data-bs-toggle="tooltip" title = "Версия">
+                                <span class="badge bg-light text-dark border" data-bs-toggle="tooltip" title="<?php echo LANG_TEMPLATE_CONTROLLERS_INDEX_VERSION_TITLE; ?>">
                                     <?php echo bloggy_icon('bs', 'tag', '12', '#6c757d', 'me-1'); ?>
                                     v<?php echo html($controller['version']) ?>
                                 </span>
                                 <?php if($controller['actions_count'] > 0) { ?>
-                                    <span class="badge bg-light text-dark border" data-bs-toggle="tooltip" title = "Количество экшенов">
+                                    <span class="badge bg-light text-dark border" data-bs-toggle="tooltip" title="<?php echo LANG_TEMPLATE_CONTROLLERS_INDEX_ACTIONS_TITLE; ?>">
                                         <?php echo bloggy_icon('bs', 'lightning', '12', '#6c757d', 'me-1'); ?>
                                         <?php echo $controller['actions_count'] ?>
                                     </span>
                                 <?php } ?>
                             </div>
                         </div>
-                    </td>
+                    </div>
                     <td>
                         <div class="d-flex flex-wrap gap-2">
                             <?php if($controller['has_settings']) { ?>
-                                <span class="badge bg-success text-success border" title="Есть настройки">
+                                <span class="badge bg-success text-success border" title="<?php echo LANG_TEMPLATE_CONTROLLERS_INDEX_HAS_SETTINGS_TITLE; ?>">
                                     <?php echo bloggy_icon('bs', 'gear-fill', '14', '#0a4a2cff', 'me-1'); ?>
-                                    Настройки
+                                    <?php echo LANG_TEMPLATE_CONTROLLERS_INDEX_HAS_SETTINGS; ?>
                                 </span>
                             <?php } ?>
                             
                             <?php if($controller['has_routing']) { ?>
-                                <span class="badge bg-primary text-primary border" title="Есть маршрутизация">
+                                <span class="badge bg-primary text-primary border" title="<?php echo LANG_TEMPLATE_CONTROLLERS_INDEX_HAS_ROUTING_TITLE; ?>">
                                     <?php echo bloggy_icon('bs', 'signpost-split', '14', '#afcbf5ff', 'me-1'); ?>
-                                    Роутинг
+                                    <?php echo LANG_TEMPLATE_CONTROLLERS_INDEX_HAS_ROUTING; ?>
                                 </span>
                             <?php } ?>
                             
                             <?php if($controller['is_system']) { ?>
-                                <span class="badge bg-info text-info border" title="Системный контроллер">
+                                <span class="badge bg-info text-info border" title="<?php echo LANG_TEMPLATE_CONTROLLERS_INDEX_SYSTEM_TITLE; ?>">
                                     <?php echo bloggy_icon('bs', 'shield-fill-check', '14', '#0b7c92ff', 'me-1'); ?>
-                                    Системный
+                                    <?php echo LANG_TEMPLATE_CONTROLLERS_INDEX_SYSTEM; ?>
                                 </span>
                             <?php } ?>
                         </div>
-                    </td>
+                    </div>
                     <td>
                         <div class="d-flex justify-content-end gap-1">
                             <?php if($controller['has_settings']) { ?>
                                 <a href="<?= ADMIN_URL ?>/settings?tab=components&controller=<?= $controller['path'] ?>"
                                    class="btn btn-sm btn-outline-primary border"
-                                   title="Настройки контроллера"
+                                   title="<?php echo LANG_TEMPLATE_CONTROLLERS_INDEX_SETTINGS_BTN_TITLE; ?>"
                                    data-bs-toggle="tooltip">
                                     <?php echo bloggy_icon('bs', 'gear-fill', '16'); ?>
                                 </a>
@@ -94,7 +94,7 @@
                             
                             <button type="button" 
                                     class="btn btn-sm btn-outline-secondary border controller-info-btn"
-                                    title="Подробная информация"
+                                    title="<?php echo LANG_TEMPLATE_CONTROLLERS_INDEX_INFO_BTN_TITLE; ?>"
                                     data-bs-toggle="modal"
                                     data-bs-target="#controllerInfoModal"
                                     data-controller='<?= html(json_encode([
@@ -111,7 +111,7 @@
                                 <?php echo bloggy_icon('bs', 'info-circle', '16'); ?>
                             </button>
                         </div>
-                    </td>
+                    </div>
                 </tr>
             <?php } ?>
         </tbody>
@@ -122,14 +122,14 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="controllerInfoModalLabel">Детальная информация</h5>
+                <h5 class="modal-title" id="controllerInfoModalLabel"><?php echo LANG_TEMPLATE_CONTROLLERS_INDEX_MODAL_TITLE; ?></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
                 <div id="controllerInfoContent"></div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?php echo LANG_TEMPLATE_CONTROLLERS_INDEX_MODAL_CLOSE; ?></button>
             </div>
         </div>
     </div>
@@ -160,41 +160,41 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="row mb-3">
                     <div class="col-6">
                         <div class="mb-2">
-                            <small class="text-muted d-block">Путь:</small>
+                            <small class="text-muted d-block"><?php echo LANG_TEMPLATE_CONTROLLERS_INDEX_MODAL_PATH; ?></small>
                             <code>/controllers/${controllerData.path}</code>
                         </div>
                         <div class="mb-2">
-                            <small class="text-muted d-block">Автор:</small>
+                            <small class="text-muted d-block"><?php echo LANG_TEMPLATE_CONTROLLERS_INDEX_MODAL_AUTHOR; ?></small>
                             <div>${controllerData.author}</div>
                         </div>
                         <div class="mb-2">
-                            <small class="text-muted d-block">Версия:</small>
+                            <small class="text-muted d-block"><?php echo LANG_TEMPLATE_CONTROLLERS_INDEX_MODAL_VERSION; ?></small>
                             <div>${controllerData.version}</div>
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="mb-2">
-                            <small class="text-muted d-block">Тип:</small>
+                            <small class="text-muted d-block"><?php echo LANG_TEMPLATE_CONTROLLERS_INDEX_MODAL_TYPE; ?></small>
                             <div>
                                 ${controllerData.is_system ? 
-                                    '<span class="badge bg-info text-white">Системный</span>' : 
-                                    '<span class="badge bg-secondary text-white">Пользовательский</span>'}
+                                    '<span class="badge bg-info text-white"><?php echo LANG_TEMPLATE_CONTROLLERS_INDEX_MODAL_TYPE_SYSTEM; ?></span>' : 
+                                    '<span class="badge bg-secondary text-white"><?php echo LANG_TEMPLATE_CONTROLLERS_INDEX_MODAL_TYPE_CUSTOM; ?></span>'}
                             </div>
                         </div>
                         <div class="mb-2">
-                            <small class="text-muted d-block">Настройки:</small>
+                            <small class="text-muted d-block"><?php echo LANG_TEMPLATE_CONTROLLERS_INDEX_MODAL_SETTINGS; ?></small>
                             <div>
                                 ${controllerData.has_settings ? 
-                                    '<span class="badge bg-success text-white">Доступны</span>' : 
-                                    '<span class="badge bg-secondary text-white">Не доступны</span>'}
+                                    '<span class="badge bg-success text-white"><?php echo LANG_TEMPLATE_CONTROLLERS_INDEX_MODAL_SETTINGS_AVAILABLE; ?></span>' : 
+                                    '<span class="badge bg-secondary text-white"><?php echo LANG_TEMPLATE_CONTROLLERS_INDEX_MODAL_SETTINGS_UNAVAILABLE; ?></span>'}
                             </div>
                         </div>
                         <div class="mb-2">
-                            <small class="text-muted d-block">Роутинг:</small>
+                            <small class="text-muted d-block"><?php echo LANG_TEMPLATE_CONTROLLERS_INDEX_MODAL_ROUTING; ?></small>
                             <div>
                                 ${controllerData.has_routing ? 
-                                    '<span class="badge bg-primary text-white">Настроен</span>' : 
-                                    '<span class="badge bg-secondary text-white">Не настроен</span>'}
+                                    '<span class="badge bg-primary text-white"><?php echo LANG_TEMPLATE_CONTROLLERS_INDEX_MODAL_ROUTING_CONFIGURED; ?></span>' : 
+                                    '<span class="badge bg-secondary text-white"><?php echo LANG_TEMPLATE_CONTROLLERS_INDEX_MODAL_ROUTING_NOT_CONFIGURED; ?></span>'}
                             </div>
                         </div>
                     </div>
@@ -206,7 +206,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="row">
                         <div class="col-12">
                             <div class="mb-2">
-                                <small class="text-muted d-block">Описание:</small>
+                                <small class="text-muted d-block"><?php echo LANG_TEMPLATE_CONTROLLERS_INDEX_MODAL_DESCRIPTION; ?></small>
                                 <div class="alert alert-light bg-light border">
                                     ${controllerData.description}
                                 </div>
@@ -221,10 +221,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="row">
                         <div class="col-12">
                             <div class="mb-2">
-                                <small class="text-muted d-block">Количество экшенов:</small>
+                                <small class="text-muted d-block"><?php echo LANG_TEMPLATE_CONTROLLERS_INDEX_MODAL_ACTIONS_COUNT; ?></small>
                                 <div class="d-flex align-items-center">
                                     <span class="badge bg-light text-dark border">
-                                        ${controllerData.actions_count} экшенов
+                                        ${controllerData.actions_count} <?php echo LANG_TEMPLATE_CONTROLLERS_INDEX_MODAL_ACTIONS; ?>
                                     </span>
                                 </div>
                             </div>

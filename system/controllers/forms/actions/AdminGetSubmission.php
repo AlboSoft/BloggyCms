@@ -13,7 +13,7 @@ class AdminGetSubmission extends FormAction {
             header('Content-Type: application/json');
             echo json_encode([
                 'success' => false,
-                'message' => 'ID отправки не указан'
+                'message' => LANG_ACTION_FORMS_ADMINGETSUBMISSION_ID_NOT_SPECIFIED
             ]);
             exit;
         }
@@ -26,7 +26,7 @@ class AdminGetSubmission extends FormAction {
             );
             
             if (!$submission) {
-                throw new \Exception('Отправка не найдена');
+                throw new \Exception(LANG_ACTION_FORMS_ADMINGETSUBMISSION_NOT_FOUND);
             }
             
             $submission['data'] = json_decode($submission['data'], true) ?: [];

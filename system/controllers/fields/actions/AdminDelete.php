@@ -17,7 +17,7 @@ class AdminDelete extends FieldAction {
         $id = $this->params['id'] ?? null;
         
         if (!$id) {
-            \Notification::error('ID поля не указан');
+            \Notification::error(LANG_ACTION_FIELDS_ADMINDELETE_ID_NOT_SPECIFIED);
             $this->redirect(ADMIN_URL . '/fields');
             return;
         }
@@ -28,10 +28,10 @@ class AdminDelete extends FieldAction {
         
             $this->fieldModel->delete($id);
             
-            \Notification::success('Поле успешно удалено');
+            \Notification::success(LANG_ACTION_FIELDS_ADMINDELETE_SUCCESS);
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при удалении поля');
+            \Notification::error(LANG_ACTION_FIELDS_ADMINDELETE_ERROR);
         }
         
         if (isset($field['entity_type'])) {

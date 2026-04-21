@@ -10,7 +10,7 @@ class AdminGetLogs extends DebugAction {
     
     public function execute() {
         if (!$this->isAjaxRequest()) {
-            $this->jsonResponse(['success' => false, 'message' => 'Только AJAX запросы']);
+            $this->jsonResponse(['success' => false, 'message' => LANG_ACTION_DEBUG_ADMINGETLOGS_AJAX_ONLY]);
             return;
         }
         

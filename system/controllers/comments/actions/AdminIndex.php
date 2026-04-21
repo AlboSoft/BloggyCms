@@ -14,8 +14,8 @@ class AdminIndex extends CommentAction {
     */
     public function execute() {
         try {
-            $this->addBreadcrumb('Панель управления', ADMIN_URL);
-            $this->addBreadcrumb('Комментарии');
+            $this->addBreadcrumb(LANG_ACTION_COMMENTS_ADMININDEX_BREADCRUMB_DASHBOARD, ADMIN_URL);
+            $this->addBreadcrumb(LANG_ACTION_COMMENTS_ADMININDEX_BREADCRUMB_COMMENTS);
 
             $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
             $perPage = 20;
@@ -27,11 +27,11 @@ class AdminIndex extends CommentAction {
                 'total' => $result['total'],
                 'pages' => $result['pages'],
                 'current_page' => $result['current_page'],
-                'pageTitle' => 'Управление комментариями'
+                'pageTitle' => LANG_ACTION_COMMENTS_ADMININDEX_PAGE_TITLE
             ]);
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при загрузке списка комментариев');
+            \Notification::error(LANG_ACTION_COMMENTS_ADMININDEX_ERROR);
             $this->redirect(ADMIN_URL);
         }
     }

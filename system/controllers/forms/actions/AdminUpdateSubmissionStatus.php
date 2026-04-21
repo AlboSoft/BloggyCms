@@ -14,7 +14,7 @@ class AdminUpdateSubmissionStatus extends FormAction {
         if (!$submissionId || !$status) {
             $this->jsonResponse([
                 'success' => false,
-                'message' => 'Не указаны необходимые параметры'
+                'message' => LANG_ACTION_FORMS_ADMINUPDATESUBMISSIONSTATUS_MISSING_PARAMS
             ]);
             return;
         }
@@ -23,7 +23,7 @@ class AdminUpdateSubmissionStatus extends FormAction {
         if (!in_array($status, $validStatuses)) {
             $this->jsonResponse([
                 'success' => false,
-                'message' => 'Неверный статус'
+                'message' => LANG_ACTION_FORMS_ADMINUPDATESUBMISSIONSTATUS_INVALID_STATUS
             ]);
             return;
         }
@@ -33,25 +33,25 @@ class AdminUpdateSubmissionStatus extends FormAction {
             
             if ($success) {
                 $statusTexts = [
-                    'new' => 'Новый',
-                    'read' => 'Прочитан',
-                    'processed' => 'Обработан',
-                    'spam' => 'Спам'
+                    'new' => LANG_ACTION_FORMS_ADMINUPDATESUBMISSIONSTATUS_STATUS_NEW,
+                    'read' => LANG_ACTION_FORMS_ADMINUPDATESUBMISSIONSTATUS_STATUS_READ,
+                    'processed' => LANG_ACTION_FORMS_ADMINUPDATESUBMISSIONSTATUS_STATUS_PROCESSED,
+                    'spam' => LANG_ACTION_FORMS_ADMINUPDATESUBMISSIONSTATUS_STATUS_SPAM
                 ];
                 
-                \Notification::success('Статус изменен на: ' . $statusTexts[$status]);
+                \Notification::success(LANG_ACTION_FORMS_ADMINUPDATESUBMISSIONSTATUS_CHANGED . $statusTexts[$status]);
                 
                 $this->jsonResponse([
                     'success' => true,
-                    'message' => 'Статус обновлен',
+                    'message' => LANG_ACTION_FORMS_ADMINUPDATESUBMISSIONSTATUS_UPDATED,
                     'status_text' => $statusTexts[$status]
                 ]);
             } else {
-                throw new \Exception('Не удалось обновить статус');
+                throw new \Exception(LANG_ACTION_FORMS_ADMINUPDATESUBMISSIONSTATUS_UPDATE_FAILED);
             }
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка: ' . $e->getMessage());
+            \Notification::error(LANG_ACTION_FORMS_ADMINUPDATESUBMISSIONSTATUS_ERROR . $e->getMessage());
             $this->jsonResponse([
                 'success' => false,
                 'message' => $e->getMessage()

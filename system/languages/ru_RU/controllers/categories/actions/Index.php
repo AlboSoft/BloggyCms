@@ -1,0 +1,6 @@
+<?php
+
+define('LANG_ACTION_CATEGORIES_INDEX_BREADCRUMB_HOME', 'Главная');
+define('LANG_ACTION_CATEGORIES_INDEX_BREADCRUMB_CATEGORIES', 'Категории');
+define('LANG_ACTION_CATEGORIES_INDEX_PAGE_TITLE', 'Все категории');
+define('LANG_ACTION_CATEGORIES_INDEX_ERROR', 'Ошибка при загрузке категорий');

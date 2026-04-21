@@ -6,16 +6,16 @@ add_admin_js('templates/default/admin/assets/js/controllers/form-settings.js');
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h4 class="mb-0">
             <?php echo bloggy_icon('bs', 'gear', '24', '#000', 'me-2'); ?>
-            Настройки формы: <?php echo html($form['name']); ?>
+            <?php echo sprintf(LANG_TEMPLATE_FORMS_SETTINGS_TITLE, html($form['name'])); ?>
         </h4>
         <div>
             <a href="<?php echo ADMIN_URL; ?>/forms" class="btn btn-outline-secondary me-2">
                 <?php echo bloggy_icon('bs', 'arrow-left', '16', '#000', 'me-2'); ?>
-                Назад
+                <?php echo LANG_TEMPLATE_FORMS_SETTINGS_BACK_BTN; ?>
             </a>
             <a href="<?php echo ADMIN_URL; ?>/forms/edit/<?php echo $form['id']; ?>" class="btn btn-outline-primary">
                 <?php echo bloggy_icon('bs', 'pencil', '16', '#000', 'me-2'); ?>
-                Редактировать форму
+                <?php echo LANG_TEMPLATE_FORMS_SETTINGS_EDIT_FORM_BTN; ?>
             </a>
         </div>
     </div>
@@ -27,7 +27,7 @@ add_admin_js('templates/default/admin/assets/js/controllers/form-settings.js');
                     <div class="card-header bg-white border-0 d-flex justify-content-between align-items-center">
                         <h5 class="card-title mb-0">
                             <?php echo bloggy_icon('bs', 'sliders', '20', '#000', 'me-2'); ?>
-                            Основные настройки
+                            <?php echo LANG_TEMPLATE_FORMS_SETTINGS_MAIN_TITLE; ?>
                         </h5>
                     </div>
                     <div class="card-body">
@@ -35,21 +35,21 @@ add_admin_js('templates/default/admin/assets/js/controllers/form-settings.js');
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">
                                     <?php echo bloggy_icon('bs', 'check-circle', '16', '#000', 'me-1'); ?>
-                                    Сообщение об успешной отправке
+                                    <?php echo LANG_TEMPLATE_FORMS_SETTINGS_SUCCESS_MESSAGE_LABEL; ?>
                                 </label>
                                 <textarea class="form-control" 
                                           name="success_message" 
-                                          rows="2"><?php echo html($settings['success_message'] ?? 'Форма успешно отправлена!'); ?></textarea>
+                                          rows="2"><?php echo html($settings['success_message'] ?? LANG_TEMPLATE_FORMS_SETTINGS_DEFAULT_SUCCESS_MESSAGE); ?></textarea>
                             </div>
                             
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">
                                     <?php echo bloggy_icon('bs', 'exclamation-triangle', '16', '#000', 'me-1'); ?>
-                                    Сообщение об ошибке
+                                    <?php echo LANG_TEMPLATE_FORMS_SETTINGS_ERROR_MESSAGE_LABEL; ?>
                                 </label>
                                 <textarea class="form-control" 
                                           name="error_message" 
-                                          rows="2"><?php echo html($settings['error_message'] ?? 'Произошла ошибка при отправке формы.'); ?></textarea>
+                                          rows="2"><?php echo html($settings['error_message'] ?? LANG_TEMPLATE_FORMS_SETTINGS_DEFAULT_ERROR_MESSAGE); ?></textarea>
                             </div>
                         </div>
                         
@@ -63,7 +63,7 @@ add_admin_js('templates/default/admin/assets/js/controllers/form-settings.js');
                                            id="show_labels"
                                            <?php echo !empty($settings['show_labels']) ? 'checked' : ''; ?>>
                                     <label class="form-check-label" for="show_labels">
-                                        Показывать подписи полей
+                                        <?php echo LANG_TEMPLATE_FORMS_SETTINGS_SHOW_LABELS; ?>
                                     </label>
                                 </div>
                                 
@@ -74,7 +74,7 @@ add_admin_js('templates/default/admin/assets/js/controllers/form-settings.js');
                                            id="show_descriptions"
                                            <?php echo !empty($settings['show_descriptions']) ? 'checked' : ''; ?>>
                                     <label class="form-check-label" for="show_descriptions">
-                                        Показывать описания полей
+                                        <?php echo LANG_TEMPLATE_FORMS_SETTINGS_SHOW_DESCRIPTIONS; ?>
                                     </label>
                                 </div>
                             </div>
@@ -87,9 +87,9 @@ add_admin_js('templates/default/admin/assets/js/controllers/form-settings.js');
                                            id="store_submissions"
                                            <?php echo !empty($settings['store_submissions']) ? 'checked' : ''; ?>>
                                     <label class="form-check-label" for="store_submissions">
-                                        Сохранять отправки в БД
+                                        <?php echo LANG_TEMPLATE_FORMS_SETTINGS_STORE_SUBMISSIONS; ?>
                                     </label>
-                                    <div class="form-text small">Сохранять все данные отправок</div>
+                                    <div class="form-text small"><?php echo LANG_TEMPLATE_FORMS_SETTINGS_STORE_SUBMISSIONS_HINT; ?></div>
                                 </div>
                                 
                                 <div class="form-check mb-2">
@@ -99,7 +99,7 @@ add_admin_js('templates/default/admin/assets/js/controllers/form-settings.js');
                                            id="csrf_protection"
                                            <?php echo !empty($settings['csrf_protection'] ?? true) ? 'checked' : ''; ?>>
                                     <label class="form-check-label" for="csrf_protection">
-                                        Защита от CSRF атак
+                                        <?php echo LANG_TEMPLATE_FORMS_SETTINGS_CSRF_PROTECTION; ?>
                                     </label>
                                 </div>
                                 
@@ -110,7 +110,7 @@ add_admin_js('templates/default/admin/assets/js/controllers/form-settings.js');
                                            id="email_validation"
                                            <?php echo !empty($settings['email_validation']) ? 'checked' : ''; ?>>
                                     <label class="form-check-label" for="email_validation">
-                                        Проверять email адреса
+                                        <?php echo LANG_TEMPLATE_FORMS_SETTINGS_EMAIL_VALIDATION; ?>
                                     </label>
                                 </div>
                             </div>
@@ -122,7 +122,7 @@ add_admin_js('templates/default/admin/assets/js/controllers/form-settings.js');
                     <div class="card-header bg-white border-0">
                         <h5 class="card-title mb-0">
                             <?php echo bloggy_icon('bs', 'shield-check', '20', '#000', 'me-2'); ?>
-                            Защита от спама
+                            <?php echo LANG_TEMPLATE_FORMS_SETTINGS_SPAM_TITLE; ?>
                         </h5>
                     </div>
                     <div class="card-body">
@@ -136,16 +136,16 @@ add_admin_js('templates/default/admin/assets/js/controllers/form-settings.js');
                                            <?php echo !empty($settings['captcha_enabled']) ? 'checked' : ''; ?>
                                            onchange="toggleCaptchaSettings()">
                                     <label class="form-check-label" for="captcha_enabled">
-                                        Включить капчу
+                                        <?php echo LANG_TEMPLATE_FORMS_SETTINGS_CAPTCHA_ENABLE; ?>
                                     </label>
-                                    <div class="form-text small">Защита от автоматических отправок</div>
+                                    <div class="form-text small"><?php echo LANG_TEMPLATE_FORMS_SETTINGS_CAPTCHA_HINT; ?></div>
                                 </div>
                                 
                                 <div id="captcha_settings" style="<?php echo !empty($settings['captcha_enabled']) ? '' : 'display: none;'; ?>">
                                     <div class="mb-3">
                                         <label class="form-label">
                                             <?php echo bloggy_icon('bs', 'question-circle', '16', '#000', 'me-1'); ?>
-                                            Тип капчи
+                                            <?php echo LANG_TEMPLATE_FORMS_SETTINGS_CAPTCHA_TYPE; ?>
                                         </label>
                                         <select class="form-select" name="captcha_type" id="captcha_type" onchange="updateCaptchaExample()">
                                             <?php foreach ($captchaTypes as $type => $info) { ?>
@@ -162,21 +162,21 @@ add_admin_js('templates/default/admin/assets/js/controllers/form-settings.js');
                                     <div class="mb-3">
                                         <label class="form-label">
                                             <?php echo bloggy_icon('bs', 'chat-left-text', '16', '#000', 'me-1'); ?>
-                                            Вопрос капчи
+                                            <?php echo LANG_TEMPLATE_FORMS_SETTINGS_CAPTCHA_QUESTION; ?>
                                         </label>
                                         <input type="text"
                                             class="form-control"
                                             name="captcha_question"
                                             id="captcha_question"
-                                            value="<?php echo html($settings['captcha_question'] ?? 'Сколько будет 2 + 2?'); ?>"
-                                            placeholder="Введите вопрос для капчи">
-                                        <div class="form-text small">Или оставьте стандартный вопрос</div>
+                                            value="<?php echo html($settings['captcha_question'] ?? LANG_TEMPLATE_FORMS_SETTINGS_CAPTCHA_DEFAULT_QUESTION); ?>"
+                                            placeholder="<?php echo LANG_TEMPLATE_FORMS_SETTINGS_CAPTCHA_QUESTION_PLACEHOLDER; ?>">
+                                        <div class="form-text small"><?php echo LANG_TEMPLATE_FORMS_SETTINGS_CAPTCHA_QUESTION_HINT; ?></div>
                                     </div>
                                     
                                     <div class="mb-3">
                                         <label class="form-label">
                                             <?php echo bloggy_icon('bs', 'key', '16', '#000', 'me-1'); ?>
-                                            Секретный ключ
+                                            <?php echo LANG_TEMPLATE_FORMS_SETTINGS_CAPTCHA_SECRET; ?>
                                         </label>
                                         <div class="input-group">
                                             <input type="text"
@@ -188,7 +188,7 @@ add_admin_js('templates/default/admin/assets/js/controllers/form-settings.js');
                                                 <?php echo bloggy_icon('bs', 'arrow-clockwise', '16', '#000'); ?>
                                             </button>
                                         </div>
-                                        <div class="form-text small">Используется для шифрования ответов</div>
+                                        <div class="form-text small"><?php echo LANG_TEMPLATE_FORMS_SETTINGS_CAPTCHA_SECRET_HINT; ?></div>
                                     </div>
                                     
                                     <div class="mb-3">
@@ -196,15 +196,15 @@ add_admin_js('templates/default/admin/assets/js/controllers/form-settings.js');
                                             <div class="card-body">
                                                 <h6 class="card-title">
                                                     <?php echo bloggy_icon('bs', 'eye', '16', '#000', 'me-2'); ?>
-                                                    Пример капчи
+                                                    <?php echo LANG_TEMPLATE_FORMS_SETTINGS_CAPTCHA_EXAMPLE_TITLE; ?>
                                                 </h6>
                                                 <div id="captcha_example">
-                                                    <p><strong>Вопрос:</strong> <?php echo html($captchaExample['question']); ?></p>
-                                                    <p><strong>Ответ:</strong> <?php echo html($captchaExample['answer']); ?></p>
+                                                    <p><strong><?php echo LANG_TEMPLATE_FORMS_SETTINGS_CAPTCHA_EXAMPLE_QUESTION; ?></strong> <?php echo html($captchaExample['question']); ?></p>
+                                                    <p><strong><?php echo LANG_TEMPLATE_FORMS_SETTINGS_CAPTCHA_EXAMPLE_ANSWER; ?></strong> <?php echo html($captchaExample['answer']); ?></p>
                                                 </div>
                                                 <button type="button" class="btn btn-outline-secondary btn-sm" onclick="updateCaptchaExample()">
                                                     <?php echo bloggy_icon('bs', 'arrow-clockwise', '16', '#000', 'me-1'); ?>
-                                                    Сгенерировать новый пример
+                                                    <?php echo LANG_TEMPLATE_FORMS_SETTINGS_CAPTCHA_GENERATE_BTN; ?>
                                                 </button>
                                             </div>
                                         </div>
@@ -212,15 +212,15 @@ add_admin_js('templates/default/admin/assets/js/controllers/form-settings.js');
                                 </div>
 
                                 <script>
-                                document.getElementById('captcha_type').addEventListener('change', function() {
-                                    const type = this.value;
-                                    const externalSettings = document.getElementById('external_captcha_settings');
-                                    if (['recaptcha', 'hcaptcha'].includes(type)) {
-                                        externalSettings.style.display = 'block';
-                                    } else {
-                                        externalSettings.style.display = 'none';
-                                    }
-                                });
+                                    document.getElementById('captcha_type').addEventListener('change', function() {
+                                        const type = this.value;
+                                        const externalSettings = document.getElementById('external_captcha_settings');
+                                        if (['recaptcha', 'hcaptcha'].includes(type)) {
+                                            externalSettings.style.display = 'block';
+                                        } else {
+                                            externalSettings.style.display = 'none';
+                                        }
+                                    });
                                 </script>
                             </div>
                             
@@ -233,7 +233,7 @@ add_admin_js('templates/default/admin/assets/js/controllers/form-settings.js');
                                            <?php echo !empty($settings['spam_protection']) ? 'checked' : ''; ?>
                                            onchange="toggleSpamSettings()">
                                     <label class="form-check-label" for="spam_protection">
-                                        Фильтр спам-слов
+                                        <?php echo LANG_TEMPLATE_FORMS_SETTINGS_SPAM_FILTER; ?>
                                     </label>
                                 </div>
                                 
@@ -241,13 +241,13 @@ add_admin_js('templates/default/admin/assets/js/controllers/form-settings.js');
                                     <div class="mb-3">
                                         <label class="form-label">
                                             <?php echo bloggy_icon('bs', 'ban', '16', '#000', 'me-1'); ?>
-                                            Спам-слова
+                                            <?php echo LANG_TEMPLATE_FORMS_SETTINGS_SPAM_WORDS; ?>
                                         </label>
                                         <textarea class="form-control" 
                                                   name="spam_keywords" 
                                                   rows="4"
-                                                  placeholder="Каждое слово с новой строки"><?php echo html($settings['spam_keywords'] ?? ''); ?></textarea>
-                                        <div class="form-text small">Отправки содержащие эти слова будут помечаться как спам</div>
+                                                  placeholder="<?php echo LANG_TEMPLATE_FORMS_SETTINGS_SPAM_WORDS_PLACEHOLDER; ?>"><?php echo html($settings['spam_keywords'] ?? ''); ?></textarea>
+                                        <div class="form-text small"><?php echo LANG_TEMPLATE_FORMS_SETTINGS_SPAM_WORDS_HINT; ?></div>
                                     </div>
                                 </div>
                                 
@@ -259,7 +259,7 @@ add_admin_js('templates/default/admin/assets/js/controllers/form-settings.js');
                                            <?php echo !empty($settings['limit_submissions']) ? 'checked' : ''; ?>
                                            onchange="toggleLimitSettings()">
                                     <label class="form-check-label" for="limit_submissions">
-                                        Ограничить количество отправок
+                                        <?php echo LANG_TEMPLATE_FORMS_SETTINGS_LIMIT_SUBMISSIONS; ?>
                                     </label>
                                 </div>
                                 
@@ -268,27 +268,27 @@ add_admin_js('templates/default/admin/assets/js/controllers/form-settings.js');
                                         <div class="col-md-6 mb-3">
                                             <label class="form-label">
                                                 <?php echo bloggy_icon('bs', 'calendar-day', '16', '#000', 'me-1'); ?>
-                                                Макс. в день
+                                                <?php echo LANG_TEMPLATE_FORMS_SETTINGS_MAX_PER_DAY; ?>
                                             </label>
                                             <input type="number" 
                                                    class="form-control" 
                                                    name="max_submissions_per_day" 
                                                    min="0"
                                                    value="<?php echo html($settings['max_submissions_per_day'] ?? 0); ?>">
-                                            <div class="form-text small">0 = без ограничений</div>
+                                            <div class="form-text small"><?php echo LANG_TEMPLATE_FORMS_SETTINGS_MAX_PER_DAY_HINT; ?></div>
                                         </div>
                                         
                                         <div class="col-md-6 mb-3">
                                             <label class="form-label">
                                                 <?php echo bloggy_icon('bs', 'pc-display', '16', '#000', 'me-1'); ?>
-                                                Макс. с одного IP
+                                                <?php echo LANG_TEMPLATE_FORMS_SETTINGS_MAX_PER_IP; ?>
                                             </label>
                                             <input type="number" 
                                                    class="form-control" 
                                                    name="max_submissions_per_ip" 
                                                    min="0"
                                                    value="<?php echo html($settings['max_submissions_per_ip'] ?? 0); ?>">
-                                            <div class="form-text small">0 = без ограничений</div>
+                                            <div class="form-text small"><?php echo LANG_TEMPLATE_FORMS_SETTINGS_MAX_PER_IP_HINT; ?></div>
                                         </div>
                                     </div>
                                 </div>
@@ -301,7 +301,7 @@ add_admin_js('templates/default/admin/assets/js/controllers/form-settings.js');
                     <div class="card-header bg-white border-0">
                         <h5 class="card-title mb-0">
                             <?php echo bloggy_icon('bs', 'bell', '20', '#000', 'me-2'); ?>
-                            Настройки уведомлений
+                            <?php echo LANG_TEMPLATE_FORMS_SETTINGS_NOTIFICATIONS_TITLE; ?>
                         </h5>
                     </div>
                     <div class="card-body">
@@ -315,7 +315,7 @@ add_admin_js('templates/default/admin/assets/js/controllers/form-settings.js');
                                            <?php echo !empty($notifications[0]['enabled'] ?? false) ? 'checked' : ''; ?>
                                            onchange="toggleAdminNotification()">
                                     <label class="form-check-label" for="notify_admin_enabled">
-                                        Уведомлять администратора
+                                        <?php echo LANG_TEMPLATE_FORMS_SETTINGS_NOTIFY_ADMIN; ?>
                                     </label>
                                 </div>
                                 
@@ -323,7 +323,7 @@ add_admin_js('templates/default/admin/assets/js/controllers/form-settings.js');
                                     <div class="mb-3">
                                         <label class="form-label">
                                             <?php echo bloggy_icon('bs', 'envelope', '16', '#000', 'me-1'); ?>
-                                            Email администратора
+                                            <?php echo LANG_TEMPLATE_FORMS_SETTINGS_ADMIN_EMAIL; ?>
                                         </label>
                                         <input type="email" 
                                                class="form-control" 
@@ -335,36 +335,36 @@ add_admin_js('templates/default/admin/assets/js/controllers/form-settings.js');
                                     <div class="mb-3">
                                         <label class="form-label">
                                             <?php echo bloggy_icon('bs', 'person-circle', '16', '#000', 'me-1'); ?>
-                                            Отправитель
+                                            <?php echo LANG_TEMPLATE_FORMS_SETTINGS_SENDER; ?>
                                         </label>
                                         <input type="text" 
                                                class="form-control" 
                                                name="admin_from" 
                                                value="<?php echo html($notifications[0]['from'] ?? ''); ?>"
-                                               placeholder="Имя <email@example.com>">
+                                               placeholder="<?php echo LANG_TEMPLATE_FORMS_SETTINGS_SENDER_PLACEHOLDER; ?>">
                                     </div>
                                     
                                     <div class="mb-3">
                                         <label class="form-label">
                                             <?php echo bloggy_icon('bs', 'card-heading', '16', '#000', 'me-1'); ?>
-                                            Тема письма
+                                            <?php echo LANG_TEMPLATE_FORMS_SETTINGS_SUBJECT; ?>
                                         </label>
                                         <input type="text" 
                                                class="form-control" 
                                                name="admin_subject" 
-                                               value="<?php echo html($notifications[0]['subject'] ?? 'Новая отправка формы'); ?>">
+                                               value="<?php echo html($notifications[0]['subject'] ?? LANG_TEMPLATE_FORMS_SETTINGS_DEFAULT_ADMIN_SUBJECT); ?>">
                                     </div>
                                     
                                     <div class="mb-3">
                                         <label class="form-label">
                                             <?php echo bloggy_icon('bs', 'card-text', '16', '#000', 'me-1'); ?>
-                                            Текст письма
+                                            <?php echo LANG_TEMPLATE_FORMS_SETTINGS_MESSAGE; ?>
                                         </label>
                                         <textarea class="form-control" 
                                                   name="admin_message" 
-                                                  rows="4"><?php echo html($notifications[0]['message'] ?? 'Поступила новая отправка формы.'); ?></textarea>
+                                                  rows="4"><?php echo html($notifications[0]['message'] ?? LANG_TEMPLATE_FORMS_SETTINGS_DEFAULT_ADMIN_MESSAGE); ?></textarea>
                                         <div class="form-text small">
-                                            Используйте переменные: {имя_поля}, {date}, {time}, {ip}
+                                            <?php echo LANG_TEMPLATE_FORMS_SETTINGS_MESSAGE_VARIABLES; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -379,7 +379,7 @@ add_admin_js('templates/default/admin/assets/js/controllers/form-settings.js');
                                            <?php echo !empty($notifications[1]['enabled'] ?? false) ? 'checked' : ''; ?>
                                            onchange="toggleUserNotification()">
                                     <label class="form-check-label" for="notify_user_enabled">
-                                        Уведомлять пользователя
+                                        <?php echo LANG_TEMPLATE_FORMS_SETTINGS_NOTIFY_USER; ?>
                                     </label>
                                 </div>
                                 
@@ -387,49 +387,49 @@ add_admin_js('templates/default/admin/assets/js/controllers/form-settings.js');
                                     <div class="mb-3">
                                         <label class="form-label">
                                             <?php echo bloggy_icon('bs', 'input-cursor', '16', '#000', 'me-1'); ?>
-                                            Поле с email пользователя
+                                            <?php echo LANG_TEMPLATE_FORMS_SETTINGS_USER_EMAIL_FIELD; ?>
                                         </label>
                                         <input type="text" 
                                                class="form-control" 
                                                name="user_email_field" 
                                                value="<?php echo html($notifications[1]['to_field'] ?? '{email}'); ?>"
-                                               placeholder="{email} или имя_поля">
-                                        <div class="form-text small">Имя поля формы, содержащего email</div>
+                                               placeholder="{email}">
+                                        <div class="form-text small"><?php echo LANG_TEMPLATE_FORMS_SETTINGS_USER_EMAIL_FIELD_HINT; ?></div>
                                     </div>
                                     
                                     <div class="mb-3">
                                         <label class="form-label">
                                             <?php echo bloggy_icon('bs', 'person-circle', '16', '#000', 'me-1'); ?>
-                                            Отправитель
+                                            <?php echo LANG_TEMPLATE_FORMS_SETTINGS_SENDER; ?>
                                         </label>
                                         <input type="text" 
                                                class="form-control" 
                                                name="user_from" 
                                                value="<?php echo html($notifications[1]['from'] ?? ''); ?>"
-                                               placeholder="Имя <email@example.com>">
+                                               placeholder="<?php echo LANG_TEMPLATE_FORMS_SETTINGS_SENDER_PLACEHOLDER; ?>">
                                     </div>
                                     
                                     <div class="mb-3">
                                         <label class="form-label">
                                             <?php echo bloggy_icon('bs', 'card-heading', '16', '#000', 'me-1'); ?>
-                                            Тема письма
+                                            <?php echo LANG_TEMPLATE_FORMS_SETTINGS_SUBJECT; ?>
                                         </label>
                                         <input type="text" 
                                                class="form-control" 
                                                name="user_subject" 
-                                               value="<?php echo html($notifications[1]['subject'] ?? 'Ваша форма отправлена'); ?>">
+                                               value="<?php echo html($notifications[1]['subject'] ?? LANG_TEMPLATE_FORMS_SETTINGS_DEFAULT_USER_SUBJECT); ?>">
                                     </div>
                                     
                                     <div class="mb-3">
                                         <label class="form-label">
                                             <?php echo bloggy_icon('bs', 'card-text', '16', '#000', 'me-1'); ?>
-                                            Текст письма
+                                            <?php echo LANG_TEMPLATE_FORMS_SETTINGS_MESSAGE; ?>
                                         </label>
                                         <textarea class="form-control" 
                                                   name="user_message" 
-                                                  rows="4"><?php echo html($notifications[1]['message'] ?? 'Спасибо за вашу заявку!'); ?></textarea>
+                                                  rows="4"><?php echo html($notifications[1]['message'] ?? LANG_TEMPLATE_FORMS_SETTINGS_DEFAULT_USER_MESSAGE); ?></textarea>
                                         <div class="form-text small">
-                                            Используйте переменные: {имя_поля}, {date}, {time}
+                                            <?php echo LANG_TEMPLATE_FORMS_SETTINGS_MESSAGE_VARIABLES_SHORT; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -444,7 +444,7 @@ add_admin_js('templates/default/admin/assets/js/controllers/form-settings.js');
                     <div class="card-header bg-white border-0">
                         <h5 class="card-title mb-0">
                             <?php echo bloggy_icon('bs', 'lightning', '20', '#000', 'me-2'); ?>
-                            Действия после отправки
+                            <?php echo LANG_TEMPLATE_FORMS_SETTINGS_ACTIONS_TITLE; ?>
                         </h5>
                     </div>
                     <div class="card-body">
@@ -457,7 +457,7 @@ add_admin_js('templates/default/admin/assets/js/controllers/form-settings.js');
                                        <?php echo !empty(array_filter($actions, function($a) { return $a['type'] === 'redirect' && !empty($a['enabled']); })) ? 'checked' : ''; ?>
                                        onchange="toggleRedirectSettings()">
                                 <label class="form-check-label" for="redirect_enabled">
-                                    Перенаправление
+                                    <?php echo LANG_TEMPLATE_FORMS_SETTINGS_REDIRECT; ?>
                                 </label>
                             </div>
                             
@@ -467,7 +467,7 @@ add_admin_js('templates/default/admin/assets/js/controllers/form-settings.js');
                                 })); 
                                 echo $redirectEnabled ? '' : 'display: none;'; 
                             ?>">
-                                <label class="form-label small">URL для перенаправления:</label>
+                                <label class="form-label small"><?php echo LANG_TEMPLATE_FORMS_SETTINGS_REDIRECT_URL; ?></label>
                                 <?php 
                                     $redirectAction = array_values(array_filter($actions, function($a) { 
                                         return $a['type'] === 'redirect'; 
@@ -478,7 +478,7 @@ add_admin_js('templates/default/admin/assets/js/controllers/form-settings.js');
                                        name="redirect_url" 
                                        value="<?php echo html($redirectAction['url'] ?? ''); ?>"
                                        placeholder="https://example.com/thank-you">
-                                <div class="form-text small">Оставьте пустым для перезагрузки страницы</div>
+                                <div class="form-text small"><?php echo LANG_TEMPLATE_FORMS_SETTINGS_REDIRECT_URL_HINT; ?></div>
                             </div>
                         </div>
                         
@@ -491,7 +491,7 @@ add_admin_js('templates/default/admin/assets/js/controllers/form-settings.js');
                                        <?php echo !empty(array_filter($actions, function($a) { return $a['type'] === 'webhook' && !empty($a['enabled']); })) ? 'checked' : ''; ?>
                                        onchange="toggleWebhookSettings()">
                                 <label class="form-check-label" for="webhook_enabled">
-                                    Вебхук
+                                    <?php echo LANG_TEMPLATE_FORMS_SETTINGS_WEBHOOK; ?>
                                 </label>
                             </div>
                             
@@ -507,7 +507,7 @@ add_admin_js('templates/default/admin/assets/js/controllers/form-settings.js');
                                     }))[0] ?? []; 
                                 ?>
                                 <div class="mb-2">
-                                    <label class="form-label small">URL вебхука:</label>
+                                    <label class="form-label small"><?php echo LANG_TEMPLATE_FORMS_SETTINGS_WEBHOOK_URL; ?></label>
                                     <input type="text" 
                                            class="form-control form-control-sm" 
                                            name="webhook_url" 
@@ -516,7 +516,7 @@ add_admin_js('templates/default/admin/assets/js/controllers/form-settings.js');
                                 </div>
                                 
                                 <div class="mb-2">
-                                    <label class="form-label small">Метод:</label>
+                                    <label class="form-label small"><?php echo LANG_TEMPLATE_FORMS_SETTINGS_WEBHOOK_METHOD; ?></label>
                                     <select class="form-select form-select-sm" name="webhook_method">
                                         <option value="POST" <?php echo ($webhookAction['method'] ?? 'POST') === 'POST' ? 'selected' : ''; ?>>POST</option>
                                         <option value="GET" <?php echo ($webhookAction['method'] ?? '') === 'GET' ? 'selected' : ''; ?>>GET</option>
@@ -525,7 +525,7 @@ add_admin_js('templates/default/admin/assets/js/controllers/form-settings.js');
                                 </div>
                                 
                                 <div class="mb-2">
-                                    <label class="form-label small">Заголовки (необязательно):</label>
+                                    <label class="form-label small"><?php echo LANG_TEMPLATE_FORMS_SETTINGS_WEBHOOK_HEADERS; ?></label>
                                     <textarea class="form-control form-control-sm" 
                                               name="webhook_headers" 
                                               rows="3"
@@ -547,17 +547,17 @@ add_admin_js('templates/default/admin/assets/js/controllers/form-settings.js');
                         <div class="d-grid gap-2">
                             <button type="submit" class="btn btn-primary">
                                 <?php echo bloggy_icon('bs', 'check-lg', '20', '#fff', 'me-2'); ?>
-                                Сохранить настройки
+                                <?php echo LANG_TEMPLATE_FORMS_SETTINGS_SAVE_BTN; ?>
                             </button>
                             <a href="<?php echo ADMIN_URL; ?>/forms/preview/<?php echo $form['id']; ?>" 
                                class="btn btn-outline-secondary">
                                 <?php echo bloggy_icon('bs', 'eye', '16', '#000', 'me-2'); ?>
-                                Предпросмотр
+                                <?php echo LANG_TEMPLATE_FORMS_SETTINGS_PREVIEW_BTN; ?>
                             </a>
                             <a href="<?php echo ADMIN_URL; ?>/forms" 
                                class="btn btn-outline-secondary">
                                 <?php echo bloggy_icon('bs', 'arrow-left', '16', '#000', 'me-2'); ?>
-                                К списку форм
+                                <?php echo LANG_TEMPLATE_FORMS_SETTINGS_BACK_TO_LIST; ?>
                             </a>
                         </div>
                     </div>
@@ -617,9 +617,9 @@ add_admin_js('templates/default/admin/assets/js/controllers/form-settings.js');
         const type = document.getElementById('captcha_type').value;
         const question = document.getElementById('captcha_question').value;
         const descriptions = {
-            'math': 'Простой математический пример (2+2, 5*3 и т.д.)',
-            'text': 'Вопрос с текстовым ответом',
-            'logic': 'Простая логическая задача'
+            'math': '<?php echo LANG_TEMPLATE_FORMS_SETTINGS_CAPTCHA_MATH_DESC; ?>',
+            'text': '<?php echo LANG_TEMPLATE_FORMS_SETTINGS_CAPTCHA_TEXT_DESC; ?>',
+            'logic': '<?php echo LANG_TEMPLATE_FORMS_SETTINGS_CAPTCHA_LOGIC_DESC; ?>'
         };
         document.getElementById('captcha_type_description').textContent = descriptions[type] || '';
         
@@ -634,22 +634,22 @@ add_admin_js('templates/default/admin/assets/js/controllers/form-settings.js');
         .then(data => {
             if (data.success) {
                 document.getElementById('captcha_example').innerHTML = `
-                    <p><strong>Вопрос:</strong> ${data.question}</p>
-                    <p><strong>Ответ:</strong> ${data.answer || '(Пользовательский вопрос - ответ не генерируется)'}</p>
+                    <p><strong><?php echo LANG_TEMPLATE_FORMS_SETTINGS_CAPTCHA_EXAMPLE_QUESTION; ?></strong> ${data.question}</p>
+                    <p><strong><?php echo LANG_TEMPLATE_FORMS_SETTINGS_CAPTCHA_EXAMPLE_ANSWER; ?></strong> ${data.answer || '<?php echo LANG_TEMPLATE_FORMS_SETTINGS_CAPTCHA_NO_ANSWER; ?>'}</p>
                 `;
             }
         })
         .catch(error => {
             const examples = {
-                'math': { question: 'Сколько будет 7 + 3?', answer: '10' },
-                'text': { question: 'Столица России?', answer: 'Москва' },
-                'logic': { question: 'Что идет не двигаясь с места?', answer: 'время' }
+                'math': { question: '<?php echo LANG_TEMPLATE_FORMS_SETTINGS_CAPTCHA_MATH_EXAMPLE_QUESTION; ?>', answer: '10' },
+                'text': { question: '<?php echo LANG_TEMPLATE_FORMS_SETTINGS_CAPTCHA_TEXT_EXAMPLE_QUESTION; ?>', answer: '<?php echo LANG_TEMPLATE_FORMS_SETTINGS_CAPTCHA_TEXT_EXAMPLE_ANSWER; ?>' },
+                'logic': { question: '<?php echo LANG_TEMPLATE_FORMS_SETTINGS_CAPTCHA_LOGIC_EXAMPLE_QUESTION; ?>', answer: '<?php echo LANG_TEMPLATE_FORMS_SETTINGS_CAPTCHA_LOGIC_EXAMPLE_ANSWER; ?>' }
             };
             
             const example = examples[type] || examples.math;
             document.getElementById('captcha_example').innerHTML = `
-                <p><strong>Вопрос:</strong> ${example.question}</p>
-                <p><strong>Ответ:</strong> ${example.answer}</p>
+                <p><strong><?php echo LANG_TEMPLATE_FORMS_SETTINGS_CAPTCHA_EXAMPLE_QUESTION; ?></strong> ${example.question}</p>
+                <p><strong><?php echo LANG_TEMPLATE_FORMS_SETTINGS_CAPTCHA_EXAMPLE_ANSWER; ?></strong> ${example.answer}</p>
             `;
         });
     }

@@ -16,13 +16,13 @@ class AdminEntity extends FieldAction {
         $entityType = $this->params['entityType'] ?? null;
         
         if (!$entityType) {
-            \Notification::error('Тип сущности не указан');
+            \Notification::error(LANG_ACTION_FIELDS_ADMINENTITY_ENTITY_NOT_SPECIFIED);
             $this->redirect(ADMIN_URL . '/fields');
             return;
         }
         
-        $this->addBreadcrumb('Панель управления', ADMIN_URL);
-        $this->addBreadcrumb('Поля', ADMIN_URL . '/fields');
+        $this->addBreadcrumb(LANG_ACTION_FIELDS_ADMINENTITY_BREADCRUMB_DASHBOARD, ADMIN_URL);
+        $this->addBreadcrumb(LANG_ACTION_FIELDS_ADMINENTITY_BREADCRUMB_FIELDS, ADMIN_URL . '/fields');
         $this->addBreadcrumb($this->getEntityName($entityType, true));
         
         $fields = $this->fieldModel->getByEntityType($entityType);
@@ -32,7 +32,7 @@ class AdminEntity extends FieldAction {
             'entityType' => $entityType,
             'entityName' => $this->getEntityName($entityType),
             'fieldModel' => $this->fieldModel,
-            'pageTitle' => 'Поля для ' . $this->getEntityName($entityType)
+            'pageTitle' => LANG_ACTION_FIELDS_ADMINENTITY_PAGE_TITLE . $this->getEntityName($entityType)
         ]);
     }
 

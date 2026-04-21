@@ -17,7 +17,7 @@ class UploadImage extends CategoryAction {
         if (!isset($_FILES['upload']) || $_FILES['upload']['error'] !== UPLOAD_ERR_OK) {
             echo json_encode([
                 'error' => [
-                    'message' => 'Ошибка при загрузке файла'
+                    'message' => LANG_ACTION_CATEGORIES_UPLOADIMAGE_UPLOAD_ERROR
                 ]
             ]);
             return;
@@ -44,7 +44,7 @@ class UploadImage extends CategoryAction {
         if (!in_array($file['type'], $allowedTypes)) {
             echo json_encode([
                 'error' => [
-                    'message' => 'Недопустимый тип файла'
+                    'message' => LANG_ACTION_CATEGORIES_UPLOADIMAGE_INVALID_TYPE
                 ]
             ]);
             return;
@@ -57,7 +57,7 @@ class UploadImage extends CategoryAction {
         } else {
             echo json_encode([
                 'error' => [
-                    'message' => 'Не удалось сохранить загруженный файл'
+                    'message' => LANG_ACTION_CATEGORIES_UPLOADIMAGE_SAVE_ERROR
                 ]
             ]);
         }

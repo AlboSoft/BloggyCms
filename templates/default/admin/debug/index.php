@@ -7,7 +7,7 @@ add_admin_css('templates/default/admin/assets/css/controllers/debug.css');
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h4 class="mb-0">
             <?php echo bloggy_icon('bs', 'bug', '24', '#000', 'me-2'); ?>
-            Отладка системы
+            <?php echo LANG_TEMPLATE_DEBUG_INDEX_TITLE; ?>
         </h4>
         <div class="d-flex gap-2">
             <div class="debug-toggle-switch">
@@ -16,7 +16,7 @@ add_admin_css('templates/default/admin/assets/css/controllers/debug.css');
                            <?php echo $debug_enabled ? 'checked' : ''; ?>>
                     <label class="form-check-label" for="debugModeToggle">
                         <?php echo bloggy_icon('bs', $debug_enabled ? 'eye' : 'eye-slash', '16', '#000', 'me-1'); ?>
-                        Режим отладки
+                        <?php echo LANG_TEMPLATE_DEBUG_INDEX_DEBUG_MODE; ?>
                     </label>
                 </div>
             </div>
@@ -30,7 +30,7 @@ add_admin_css('templates/default/admin/assets/css/controllers/debug.css');
                     <div class="d-flex align-items-center">
                         <div class="flex-grow-1">
                             <h4 class="mb-0" id="stat-errors"><?php echo $stats['errors']; ?></h4>
-                            <small>Ошибок</small>
+                            <small><?php echo LANG_TEMPLATE_DEBUG_INDEX_STAT_ERRORS; ?></small>
                         </div>
                         <?php echo bloggy_icon('bs', 'exclamation-triangle', '32', '#fff'); ?>
                     </div>
@@ -43,7 +43,7 @@ add_admin_css('templates/default/admin/assets/css/controllers/debug.css');
                     <div class="d-flex align-items-center">
                         <div class="flex-grow-1">
                             <h4 class="mb-0" id="stat-warnings"><?php echo $stats['warnings']; ?></h4>
-                            <small>Предупреждений</small>
+                            <small><?php echo LANG_TEMPLATE_DEBUG_INDEX_STAT_WARNINGS; ?></small>
                         </div>
                         <?php echo bloggy_icon('bs', 'exclamation', '32', '#000'); ?>
                     </div>
@@ -56,7 +56,7 @@ add_admin_css('templates/default/admin/assets/css/controllers/debug.css');
                     <div class="d-flex align-items-center">
                         <div class="flex-grow-1">
                             <h4 class="mb-0" id="stat-notices"><?php echo $stats['notices']; ?></h4>
-                            <small>Уведомлений</small>
+                            <small><?php echo LANG_TEMPLATE_DEBUG_INDEX_STAT_NOTICES; ?></small>
                         </div>
                         <?php echo bloggy_icon('bs', 'info-circle', '32', '#fff'); ?>
                     </div>
@@ -69,7 +69,7 @@ add_admin_css('templates/default/admin/assets/css/controllers/debug.css');
                     <div class="d-flex align-items-center">
                         <div class="flex-grow-1">
                             <h4 class="mb-0" id="stat-exceptions"><?php echo $stats['exceptions']; ?></h4>
-                            <small>Исключений</small>
+                            <small><?php echo LANG_TEMPLATE_DEBUG_INDEX_STAT_EXCEPTIONS; ?></small>
                         </div>
                         <?php echo bloggy_icon('bs', 'bug', '32', '#fff'); ?>
                     </div>
@@ -82,7 +82,7 @@ add_admin_css('templates/default/admin/assets/css/controllers/debug.css');
                     <div class="d-flex align-items-center">
                         <div class="flex-grow-1">
                             <h4 class="mb-0" id="stat-unfixed"><?php echo $stats['unfixed']; ?></h4>
-                            <small>Неисправленных</small>
+                            <small><?php echo LANG_TEMPLATE_DEBUG_INDEX_STAT_UNFIXED; ?></small>
                         </div>
                         <?php echo bloggy_icon('bs', 'wrench', '32', '#fff'); ?>
                     </div>
@@ -95,7 +95,7 @@ add_admin_css('templates/default/admin/assets/css/controllers/debug.css');
                     <div class="d-flex align-items-center">
                         <div class="flex-grow-1">
                             <h4 class="mb-0" id="stat-total"><?php echo $stats['total']; ?></h4>
-                            <small>Всего записей</small>
+                            <small><?php echo LANG_TEMPLATE_DEBUG_INDEX_STAT_TOTAL; ?></small>
                         </div>
                         <?php echo bloggy_icon('bs', 'database', '32', '#fff'); ?>
                     </div>
@@ -108,33 +108,33 @@ add_admin_css('templates/default/admin/assets/css/controllers/debug.css');
         <div class="card-body">
             <div class="row g-3 align-items-end">
                 <div class="col-md-3">
-                    <label class="form-label">Тип ошибки</label>
+                    <label class="form-label"><?php echo LANG_TEMPLATE_DEBUG_INDEX_FILTER_TYPE; ?></label>
                     <select class="form-select" id="filter-type">
-                        <option value="">Все типы</option>
-                        <option value="error">Ошибки PHP</option>
-                        <option value="warning">Предупреждения</option>
-                        <option value="notice">Уведомления</option>
-                        <option value="exception">Исключения</option>
+                        <option value=""><?php echo LANG_TEMPLATE_DEBUG_INDEX_FILTER_ALL; ?></option>
+                        <option value="error"><?php echo LANG_TEMPLATE_DEBUG_INDEX_FILTER_ERRORS; ?></option>
+                        <option value="warning"><?php echo LANG_TEMPLATE_DEBUG_INDEX_FILTER_WARNINGS; ?></option>
+                        <option value="notice"><?php echo LANG_TEMPLATE_DEBUG_INDEX_FILTER_NOTICES; ?></option>
+                        <option value="exception"><?php echo LANG_TEMPLATE_DEBUG_INDEX_FILTER_EXCEPTIONS; ?></option>
                     </select>
                 </div>
                 <div class="col-md-3">
                     <div class="form-check form-switch">
                         <input class="form-check-input" type="checkbox" id="filter-unfixed" role="switch">
                         <label class="form-check-label" for="filter-unfixed">
-                            Только неисправленные
+                            <?php echo LANG_TEMPLATE_DEBUG_INDEX_FILTER_ONLY_UNFIXED; ?>
                         </label>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <button class="btn btn-primary w-100" id="apply-filters">
                         <?php echo bloggy_icon('bs', 'funnel', '16', '#fff', 'me-1'); ?>
-                        Применить фильтр
+                        <?php echo LANG_TEMPLATE_DEBUG_INDEX_APPLY_FILTER_BTN; ?>
                     </button>
                 </div>
                 <div class="col-md-3">
                     <button class="btn btn-outline-danger w-100" id="delete-all-logs">
                         <?php echo bloggy_icon('bs', 'trash', '16', '#000', 'me-1'); ?>
-                        Удалить все логи
+                        <?php echo LANG_TEMPLATE_DEBUG_INDEX_DELETE_ALL_BTN; ?>
                     </button>
                 </div>
             </div>
@@ -145,7 +145,7 @@ add_admin_css('templates/default/admin/assets/css/controllers/debug.css');
         <div class="card-header bg-white border-0 d-flex justify-content-between align-items-center">
             <h5 class="card-title mb-0">
                 <?php echo bloggy_icon('bs', 'list-ul', '20', '#000', 'me-2'); ?>
-                Журнал ошибок
+                <?php echo LANG_TEMPLATE_DEBUG_INDEX_LOG_TITLE; ?>
             </h5>
             <span class="badge bg-secondary" id="logs-count">0</span>
         </div>
@@ -155,18 +155,18 @@ add_admin_css('templates/default/admin/assets/css/controllers/debug.css');
                     <thead class="table-light">
                         <tr>
                             <th width="50"></th>
-                            <th>Тип</th>
-                            <th>Сообщение</th>
-                            <th>Файл</th>
-                            <th>Дата</th>
-                            <th width="120" class="text-end">Действия</th>
+                            <th><?php echo LANG_TEMPLATE_DEBUG_INDEX_TABLE_TYPE; ?></th>
+                            <th><?php echo LANG_TEMPLATE_DEBUG_INDEX_TABLE_MESSAGE; ?></th>
+                            <th><?php echo LANG_TEMPLATE_DEBUG_INDEX_TABLE_FILE; ?></th>
+                            <th><?php echo LANG_TEMPLATE_DEBUG_INDEX_TABLE_DATE; ?></th>
+                            <th width="120" class="text-end"><?php echo LANG_TEMPLATE_DEBUG_INDEX_TABLE_ACTIONS; ?></th>
                         </tr>
                     </thead>
                     <tbody id="logs-tbody">
                         <tr>
                             <td colspan="6" class="text-center py-5">
                                 <div class="spinner-border text-primary" role="status"></div>
-                                <p class="mt-2 text-muted">Загрузка логов...</p>
+                                <p class="mt-2 text-muted"><?php echo LANG_TEMPLATE_DEBUG_INDEX_LOADING; ?></p>
                             </td>
                         </tr>
                     </tbody>
@@ -185,7 +185,7 @@ add_admin_css('templates/default/admin/assets/css/controllers/debug.css');
             <div class="modal-header">
                 <h5 class="modal-title">
                     <?php echo bloggy_icon('bs', 'file-text', '18', '#000', 'me-2'); ?>
-                    Детали ошибки
+                    <?php echo LANG_TEMPLATE_DEBUG_INDEX_MODAL_TITLE; ?>
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
@@ -195,10 +195,10 @@ add_admin_css('templates/default/admin/assets/css/controllers/debug.css');
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Закрыть</button>
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"><?php echo LANG_TEMPLATE_DEBUG_INDEX_MODAL_CLOSE; ?></button>
                 <button type="button" class="btn btn-success" id="mark-fixed-btn" style="display: none;">
                     <?php echo bloggy_icon('bs', 'check-lg', '16', '#fff', 'me-1'); ?>
-                    Отметить как исправленную
+                    <?php echo LANG_TEMPLATE_DEBUG_INDEX_MODAL_MARK_FIXED; ?>
                 </button>
             </div>
         </div>

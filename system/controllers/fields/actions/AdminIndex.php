@@ -13,15 +13,15 @@ class AdminIndex extends FieldAction {
     * @return void
     */
     public function execute() {
-        $this->addBreadcrumb('Панель управления', ADMIN_URL);
-        $this->addBreadcrumb('Поля');
+        $this->addBreadcrumb(LANG_ACTION_FIELDS_ADMININDEX_BREADCRUMB_DASHBOARD, ADMIN_URL);
+        $this->addBreadcrumb(LANG_ACTION_FIELDS_ADMININDEX_BREADCRUMB_FIELDS);
         
         $fields = $this->fieldModel->getAll();
         
         $this->render('admin/fields/index', [
             'fields' => $fields,
             'fieldModel' => $this->fieldModel,
-            'pageTitle' => 'Управление полями'
+            'pageTitle' => LANG_ACTION_FIELDS_ADMININDEX_PAGE_TITLE
         ]);
     }
 

@@ -8,8 +8,8 @@ namespace forms\actions;
 class AdminIndex extends FormAction {
     
     public function execute() {
-        $this->addBreadcrumb('Панель управления', ADMIN_URL);
-        $this->addBreadcrumb('Формы');
+        $this->addBreadcrumb(LANG_ACTION_FORMS_ADMININDEX_BREADCRUMB_DASHBOARD, ADMIN_URL);
+        $this->addBreadcrumb(LANG_ACTION_FORMS_ADMININDEX_BREADCRUMB_FORMS);
         
         $forms = $this->formModel->getAll();
         $statistics = $this->formModel->getStatistics();
@@ -17,7 +17,7 @@ class AdminIndex extends FormAction {
         $this->render('admin/forms/index', [
             'forms' => $forms,
             'statistics' => $statistics,
-            'pageTitle' => 'Управление формами',
+            'pageTitle' => LANG_ACTION_FORMS_ADMININDEX_PAGE_TITLE,
             'formModel' => $this->formModel
         ]);
     }

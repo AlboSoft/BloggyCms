@@ -1,0 +1,21 @@
+<?php
+
+define('LANG_TEMPLATE_FIELDS_ENTITY_TITLE', 'Поля для %s');
+define('LANG_TEMPLATE_FIELDS_ENTITY_ADD_BTN', 'Добавить поле');
+define('LANG_TEMPLATE_FIELDS_ENTITY_NO_FIELDS_TITLE', 'Поля не созданы');
+define('LANG_TEMPLATE_FIELDS_ENTITY_NO_FIELDS_TEXT', 'Создайте первое поле для %s');
+define('LANG_TEMPLATE_FIELDS_ENTITY_TABLE_NAME', 'Название');
+define('LANG_TEMPLATE_FIELDS_ENTITY_TABLE_SYSTEM_NAME', 'Системное имя');
+define('LANG_TEMPLATE_FIELDS_ENTITY_TABLE_TYPE', 'Тип');
+define('LANG_TEMPLATE_FIELDS_ENTITY_TABLE_REQUIRED', 'Обязательное');
+define('LANG_TEMPLATE_FIELDS_ENTITY_TABLE_STATUS', 'Статус');
+define('LANG_TEMPLATE_FIELDS_ENTITY_TABLE_ACTIONS', 'Действия');
+define('LANG_TEMPLATE_FIELDS_ENTITY_YES', 'Да');
+define('LANG_TEMPLATE_FIELDS_ENTITY_NO', 'Нет');
+define('LANG_TEMPLATE_FIELDS_ENTITY_ACTIVE', 'Включено');
+define('LANG_TEMPLATE_FIELDS_ENTITY_INACTIVE', 'Отключено');
+define('LANG_TEMPLATE_FIELDS_ENTITY_DISABLE_TITLE', 'Отключить');
+define('LANG_TEMPLATE_FIELDS_ENTITY_ENABLE_TITLE', 'Включить');
+define('LANG_TEMPLATE_FIELDS_ENTITY_EDIT_TITLE', 'Редактировать');
+define('LANG_TEMPLATE_FIELDS_ENTITY_DELETE_TITLE', 'Удалить');
+define('LANG_TEMPLATE_FIELDS_ENTITY_DELETE_CONFIRM', 'Вы уверены, что хотите удалить это поле?');

@@ -1,0 +1,21 @@
+<?php
+
+define('LANG_TEMPLATE_FIELDS_INDEX_TITLE', 'Управление полями');
+define('LANG_TEMPLATE_FIELDS_INDEX_ENTITY_TYPES', 'Типы сущностей');
+define('LANG_TEMPLATE_FIELDS_INDEX_ENTITY_POSTS', 'Записи');
+define('LANG_TEMPLATE_FIELDS_INDEX_ENTITY_PAGES', 'Страницы');
+define('LANG_TEMPLATE_FIELDS_INDEX_ENTITY_CATEGORIES', 'Категории');
+define('LANG_TEMPLATE_FIELDS_INDEX_ENTITY_USERS', 'Пользователи');
+define('LANG_TEMPLATE_FIELDS_INDEX_ALL_FIELDS', 'Все поля системы');
+define('LANG_TEMPLATE_FIELDS_INDEX_NO_FIELDS_TITLE', 'Поля не созданы');
+define('LANG_TEMPLATE_FIELDS_INDEX_NO_FIELDS_TEXT', 'Выберите тип сущности для создания первого поля');
+define('LANG_TEMPLATE_FIELDS_INDEX_CREATE_BTN', 'Создать поле');
+define('LANG_TEMPLATE_FIELDS_INDEX_TABLE_NAME', 'Название');
+define('LANG_TEMPLATE_FIELDS_INDEX_TABLE_SYSTEM_NAME', 'Системное имя');
+define('LANG_TEMPLATE_FIELDS_INDEX_TABLE_TYPE', 'Тип');
+define('LANG_TEMPLATE_FIELDS_INDEX_TABLE_ENTITY', 'Сущность');
+define('LANG_TEMPLATE_FIELDS_INDEX_TABLE_STATUS', 'Статус');
+define('LANG_TEMPLATE_FIELDS_INDEX_TABLE_ACTIONS', 'Действия');
+define('LANG_TEMPLATE_FIELDS_INDEX_ACTIVE', 'Включено');
+define('LANG_TEMPLATE_FIELDS_INDEX_INACTIVE', 'Отключено');
+define('LANG_TEMPLATE_FIELDS_INDEX_TO_ENTITY_TITLE', 'К сущности');

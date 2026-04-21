@@ -12,7 +12,7 @@ class AdminGetStructure extends FormAction {
         if (!$id) {
             $this->jsonResponse([
                 'success' => false,
-                'message' => 'ID формы не указан'
+                'message' => LANG_ACTION_FORMS_ADMINGETSTRUCTURE_ID_NOT_SPECIFIED
             ]);
             return;
         }
@@ -20,7 +20,7 @@ class AdminGetStructure extends FormAction {
         try {
             $form = $this->formModel->getById($id);
             if (!$form) {
-                throw new \Exception('Форма не найдена');
+                throw new \Exception(LANG_ACTION_FORMS_ADMINGETSTRUCTURE_FORM_NOT_FOUND);
             }
             
             $structure = $form['structure'] ?? [];

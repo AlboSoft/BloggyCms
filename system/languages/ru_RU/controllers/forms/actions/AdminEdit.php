@@ -1,0 +1,23 @@
+<?php
+
+define('LANG_ACTION_FORMS_ADMINEDIT_ID_NOT_SPECIFIED', 'ID формы не указан');
+define('LANG_ACTION_FORMS_ADMINEDIT_NOT_FOUND', 'Форма не найдена');
+define('LANG_ACTION_FORMS_ADMINEDIT_BREADCRUMB_DASHBOARD', 'Панель управления');
+define('LANG_ACTION_FORMS_ADMINEDIT_BREADCRUMB_FORMS', 'Формы');
+define('LANG_ACTION_FORMS_ADMINEDIT_BREADCRUMB_EDIT', 'Редактирование: ');
+define('LANG_ACTION_FORMS_ADMINEDIT_NAME_REQUIRED', 'Название формы обязательно');
+define('LANG_ACTION_FORMS_ADMINEDIT_STRUCTURE_PARSE_ERROR', 'Ошибка при разборе структуры формы: ');
+define('LANG_ACTION_FORMS_ADMINEDIT_STRUCTURE_ERROR', 'Ошибки в структуре формы: ');
+define('LANG_ACTION_FORMS_ADMINEDIT_DUPLICATE_FIELD', 'Имя поля "%s" используется несколько раз');
+define('LANG_ACTION_FORMS_ADMINEDIT_DEFAULT_SUCCESS_MESSAGE', 'Форма успешно отправлена!');
+define('LANG_ACTION_FORMS_ADMINEDIT_DEFAULT_ERROR_MESSAGE', 'Произошла ошибка при отправке формы.');
+define('LANG_ACTION_FORMS_ADMINEDIT_SUCCESS', 'Форма успешно обновлена');
+define('LANG_ACTION_FORMS_ADMINEDIT_UPDATE_FAILED', 'Не удалось обновить форму');
+define('LANG_ACTION_FORMS_ADMINEDIT_PAGE_TITLE', 'Редактирование формы: ');
+define('LANG_ACTION_FORMS_ADMINEDIT_DEFAULT_ADMIN_SUBJECT', 'Новая отправка формы');
+define('LANG_ACTION_FORMS_ADMINEDIT_DEFAULT_ADMIN_MESSAGE', 'Поступила новая отправка формы.');
+define('LANG_ACTION_FORMS_ADMINEDIT_DEFAULT_USER_SUBJECT', 'Ваша форма отправлена');
+define('LANG_ACTION_FORMS_ADMINEDIT_DEFAULT_USER_MESSAGE', 'Спасибо за вашу заявку!');
+define('LANG_ACTION_FORMS_ADMINEDIT_ACTION_SAVE_DB', 'Сохранить в базу данных');
+define('LANG_ACTION_FORMS_ADMINEDIT_ACTION_REDIRECT', 'Редирект после отправки');
+define('LANG_ACTION_FORMS_ADMINEDIT_ACTION_WEBHOOK', 'Отправить на вебхук');

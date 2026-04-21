@@ -10,21 +10,21 @@ class AdminEdit extends FormAction {
     public function execute() {
         $id = $this->params['id'] ?? null;
         if (!$id) {
-            \Notification::error('ID формы не указан');
+            \Notification::error(LANG_ACTION_FORMS_ADMINEDIT_ID_NOT_SPECIFIED);
             $this->redirect(ADMIN_URL . '/forms');
             return;
         }
         
         $form = $this->formModel->getById($id);
         if (!$form) {
-            \Notification::error('Форма не найдена');
+            \Notification::error(LANG_ACTION_FORMS_ADMINEDIT_NOT_FOUND);
             $this->redirect(ADMIN_URL . '/forms');
             return;
         }
 
-        $this->addBreadcrumb('Панель управления', ADMIN_URL);
-        $this->addBreadcrumb('Формы', ADMIN_URL . '/forms');
-        $this->addBreadcrumb('Редактирование: ' . html($form['name']));
+        $this->addBreadcrumb(LANG_ACTION_FORMS_ADMINEDIT_BREADCRUMB_DASHBOARD, ADMIN_URL);
+        $this->addBreadcrumb(LANG_ACTION_FORMS_ADMINEDIT_BREADCRUMB_FORMS, ADMIN_URL . '/forms');
+        $this->addBreadcrumb(LANG_ACTION_FORMS_ADMINEDIT_BREADCRUMB_EDIT . html($form['name']));
         
         $templates = $this->controller->getAvailableTemplates();
         $currentTheme = $this->controller->getCurrentTheme();
@@ -36,25 +36,25 @@ class AdminEdit extends FormAction {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
                 if (empty(trim($_POST['name']))) {
-                    throw new \Exception('Название формы обязательно');
+                    throw new \Exception(LANG_ACTION_FORMS_ADMINEDIT_NAME_REQUIRED);
                 }
                 
                 $formStructure = json_decode($_POST['form_structure'] ?? '[]', true);
                 if (json_last_error() !== JSON_ERROR_NONE) {
-                    throw new \Exception('Ошибка при разборе структуры формы: ' . json_last_error_msg());
+                    throw new \Exception(LANG_ACTION_FORMS_ADMINEDIT_STRUCTURE_PARSE_ERROR . json_last_error_msg());
                 }
                 
                 list($isValid, $validationErrors) = $this->formModel->validateFormStructure($formStructure);
                 
                 if (!$isValid) {
-                    throw new \Exception('Ошибки в структуре формы: ' . implode(', ', $validationErrors));
+                    throw new \Exception(LANG_ACTION_FORMS_ADMINEDIT_STRUCTURE_ERROR . implode(', ', $validationErrors));
                 }
                 
                 $fieldNames = [];
                 foreach ($formStructure as $field) {
                     if (!empty($field['name']) && $field['type'] !== 'submit') {
                         if (in_array($field['name'], $fieldNames)) {
-                            throw new \Exception('Имя поля "' . $field['name'] . '" используется несколько раз');
+                            throw new \Exception(sprintf(LANG_ACTION_FORMS_ADMINEDIT_DUPLICATE_FIELD, $field['name']));
                         }
                         $fieldNames[] = $field['name'];
                     }
@@ -72,8 +72,8 @@ class AdminEdit extends FormAction {
                     'template' => $_POST['template'] ?? 'default',
                     'structure' => $processedStructure,
                     'settings' => $settings,
-                    'success_message' => trim($_POST['success_message'] ?? 'Форма успешно отправлена!'),
-                    'error_message' => trim($_POST['error_message'] ?? 'Произошла ошибка при отправке формы.'),
+                    'success_message' => trim($_POST['success_message'] ?? LANG_ACTION_FORMS_ADMINEDIT_DEFAULT_SUCCESS_MESSAGE),
+                    'error_message' => trim($_POST['error_message'] ?? LANG_ACTION_FORMS_ADMINEDIT_DEFAULT_ERROR_MESSAGE),
                     'status' => $_POST['status'] ?? 'active',
                     'notifications' => $notifications,
                     'actions' => $actions,
@@ -83,10 +83,10 @@ class AdminEdit extends FormAction {
                 $success = $this->formModel->update($id, $formData);
                 
                 if ($success) {
-                    \Notification::success('Форма успешно обновлена');
+                    \Notification::success(LANG_ACTION_FORMS_ADMINEDIT_SUCCESS);
                     $this->redirect(ADMIN_URL . '/forms/edit/' . $id);
                 } else {
-                    throw new \Exception('Не удалось обновить форму');
+                    throw new \Exception(LANG_ACTION_FORMS_ADMINEDIT_UPDATE_FAILED);
                 }
                 
             } catch (\Exception $e) {
@@ -114,7 +114,7 @@ class AdminEdit extends FormAction {
             'validationTypes' => $this->controller->getValidationTypes(),
             'templates' => $templates,
             'currentTheme' => $currentTheme,
-            'pageTitle' => 'Редактирование формы: ' . html($form['name']),
+            'pageTitle' => LANG_ACTION_FORMS_ADMINEDIT_PAGE_TITLE . html($form['name']),
             'isEdit' => true,
             'settings' => $settings,
             'notifications' => $notifications,
@@ -217,8 +217,8 @@ class AdminEdit extends FormAction {
                 'type' => 'admin',
                 'to' => trim($postData['admin_email'] ?? ($adminNotification['to'] ?? '')),
                 'from' => trim($postData['admin_from'] ?? ($adminNotification['from'] ?? '')),
-                'subject' => trim($postData['admin_subject'] ?? ($adminNotification['subject'] ?? 'Новая отправка формы')),
-                'message' => trim($postData['admin_message'] ?? ($adminNotification['message'] ?? 'Поступила новая отправка формы.'))
+                'subject' => trim($postData['admin_subject'] ?? ($adminNotification['subject'] ?? LANG_ACTION_FORMS_ADMINEDIT_DEFAULT_ADMIN_SUBJECT)),
+                'message' => trim($postData['admin_message'] ?? ($adminNotification['message'] ?? LANG_ACTION_FORMS_ADMINEDIT_DEFAULT_ADMIN_MESSAGE))
             ];
         } else {
             $notifications[] = !empty($currentNotifications[0]) ? $currentNotifications[0] : [];
@@ -231,8 +231,8 @@ class AdminEdit extends FormAction {
                 'type' => 'user',
                 'to_field' => trim($postData['user_email_field'] ?? ($userNotification['to_field'] ?? '{email}')),
                 'from' => trim($postData['user_from'] ?? ($userNotification['from'] ?? '')),
-                'subject' => trim($postData['user_subject'] ?? ($userNotification['subject'] ?? 'Ваша форма отправлена')),
-                'message' => trim($postData['user_message'] ?? ($userNotification['message'] ?? 'Спасибо за вашу заявку!'))
+                'subject' => trim($postData['user_subject'] ?? ($userNotification['subject'] ?? LANG_ACTION_FORMS_ADMINEDIT_DEFAULT_USER_SUBJECT)),
+                'message' => trim($postData['user_message'] ?? ($userNotification['message'] ?? LANG_ACTION_FORMS_ADMINEDIT_DEFAULT_USER_MESSAGE))
             ];
         } else {
             $notifications[] = !empty($currentNotifications[1]) ? $currentNotifications[1] : [];
@@ -251,7 +251,7 @@ class AdminEdit extends FormAction {
         $actions[] = [
             'enabled' => array_key_exists('store_submissions', $postData) ? !empty($postData['store_submissions']) : ($currentSaveAction['enabled'] ?? true),
             'type' => 'save_to_db',
-            'name' => 'Сохранить в базу данных'
+            'name' => LANG_ACTION_FORMS_ADMINEDIT_ACTION_SAVE_DB
         ];
         
         if (array_key_exists('redirect_enabled', $postData) || array_key_exists('redirect_url', $postData)) {
@@ -259,7 +259,7 @@ class AdminEdit extends FormAction {
             $actions[] = [
                 'enabled' => !empty($postData['redirect_enabled']),
                 'type' => 'redirect',
-                'name' => 'Редирект после отправки',
+                'name' => LANG_ACTION_FORMS_ADMINEDIT_ACTION_REDIRECT,
                 'url' => trim($postData['redirect_url'] ?? ($currentRedirectAction['url'] ?? ''))
             ];
         } else {
@@ -286,7 +286,7 @@ class AdminEdit extends FormAction {
             $actions[] = [
                 'enabled' => !empty($postData['webhook_enabled']),
                 'type' => 'webhook',
-                'name' => 'Отправить на вебхук',
+                'name' => LANG_ACTION_FORMS_ADMINEDIT_ACTION_WEBHOOK,
                 'url' => trim($postData['webhook_url'] ?? ($currentWebhookAction['url'] ?? '')),
                 'method' => $postData['webhook_method'] ?? ($currentWebhookAction['method'] ?? 'POST'),
                 'headers' => !empty($headers) ? $headers : ($currentWebhookAction['headers'] ?? [])

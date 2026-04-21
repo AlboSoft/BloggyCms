@@ -9,32 +9,32 @@ class AdminCreate extends FormAction {
     
     public function execute() {
 
-        $this->addBreadcrumb('Панель управления', ADMIN_URL);
-        $this->addBreadcrumb('Формы', ADMIN_URL . '/forms');
-        $this->addBreadcrumb('Создание формы');
+        $this->addBreadcrumb(LANG_ACTION_FORMS_ADMINCREATE_BREADCRUMB_DASHBOARD, ADMIN_URL);
+        $this->addBreadcrumb(LANG_ACTION_FORMS_ADMINCREATE_BREADCRUMB_FORMS, ADMIN_URL . '/forms');
+        $this->addBreadcrumb(LANG_ACTION_FORMS_ADMINCREATE_BREADCRUMB_CREATE);
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
                 if (empty(trim($_POST['name']))) {
-                    throw new \Exception('Название формы обязательно');
+                    throw new \Exception(LANG_ACTION_FORMS_ADMINCREATE_NAME_REQUIRED);
                 }
                 
                 $formStructure = json_decode($_POST['form_structure'] ?? '[]', true);
                 if (json_last_error() !== JSON_ERROR_NONE) {
-                    throw new \Exception('Ошибка при разборе структуры формы: ' . json_last_error_msg());
+                    throw new \Exception(LANG_ACTION_FORMS_ADMINCREATE_STRUCTURE_PARSE_ERROR . json_last_error_msg());
                 }
                 
                 list($isValid, $validationErrors) = $this->formModel->validateFormStructure($formStructure);
                 
                 if (!$isValid) {
-                    throw new \Exception('Ошибки в структуре формы: ' . implode(', ', $validationErrors));
+                    throw new \Exception(LANG_ACTION_FORMS_ADMINCREATE_STRUCTURE_ERROR . implode(', ', $validationErrors));
                 }
                 
                 $fieldNames = [];
                 foreach ($formStructure as $field) {
                     if (!empty($field['name']) && $field['type'] !== 'submit') {
                         if (in_array($field['name'], $fieldNames)) {
-                            throw new \Exception('Имя поля "' . $field['name'] . '" используется несколько раз');
+                            throw new \Exception(sprintf(LANG_ACTION_FORMS_ADMINCREATE_DUPLICATE_FIELD, $field['name']));
                         }
                         $fieldNames[] = $field['name'];
                     }
@@ -47,8 +47,8 @@ class AdminCreate extends FormAction {
                     'slug' => $slug,
                     'description' => trim($_POST['description'] ?? ''),
                     'template' => $_POST['template'] ?? 'default',
-                    'success_message' => trim($_POST['success_message'] ?? 'Форма успешно отправлена!'),
-                    'error_message' => trim($_POST['error_message'] ?? 'Произошла ошибка при отправке формы.'),
+                    'success_message' => trim($_POST['success_message'] ?? LANG_ACTION_FORMS_ADMINCREATE_DEFAULT_SUCCESS_MESSAGE),
+                    'error_message' => trim($_POST['error_message'] ?? LANG_ACTION_FORMS_ADMINCREATE_DEFAULT_ERROR_MESSAGE),
                     'status' => $_POST['status'] ?? 'active',
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s')
@@ -62,10 +62,10 @@ class AdminCreate extends FormAction {
                 $formId = $this->formModel->create($formData);
                 
                 if (!$formId) {
-                    throw new \Exception('Не удалось создать форму в базе данных');
+                    throw new \Exception(LANG_ACTION_FORMS_ADMINCREATE_DB_ERROR);
                 }
                 
-                \Notification::success('Форма успешно создана');
+                \Notification::success(LANG_ACTION_FORMS_ADMINCREATE_SUCCESS);
                 
                 $this->redirect(ADMIN_URL . '/forms');
                 
@@ -85,7 +85,7 @@ class AdminCreate extends FormAction {
                     'validationTypes' => $this->controller->getValidationTypes(),
                     'templates' => $templates,
                     'currentTheme' => $currentTheme,
-                    'pageTitle' => 'Создание формы',
+                    'pageTitle' => LANG_ACTION_FORMS_ADMINCREATE_PAGE_TITLE,
                     'isEdit' => false,
                     'settings' => $this->prepareSettings($_POST),
                     'notifications' => $this->prepareNotifications($_POST),
@@ -109,7 +109,7 @@ class AdminCreate extends FormAction {
             'validationTypes' => $this->controller->getValidationTypes(),
             'templates' => $templates,
             'currentTheme' => $currentTheme,
-            'pageTitle' => 'Создание формы',
+            'pageTitle' => LANG_ACTION_FORMS_ADMINCREATE_PAGE_TITLE,
             'isEdit' => false,
             'settings' => $this->getFormSettings(),
             'notifications' => $this->getDefaultNotifications(),
@@ -210,8 +210,8 @@ class AdminCreate extends FormAction {
                 'type' => 'admin',
                 'to' => trim($postData['admin_email'] ?? ''),
                 'from' => trim($postData['admin_from'] ?? ''),
-                'subject' => trim($postData['admin_subject'] ?? 'Новая отправка формы'),
-                'message' => trim($postData['admin_message'] ?? 'Поступила новая отправка формы.')
+                'subject' => trim($postData['admin_subject'] ?? LANG_ACTION_FORMS_ADMINCREATE_DEFAULT_ADMIN_SUBJECT),
+                'message' => trim($postData['admin_message'] ?? LANG_ACTION_FORMS_ADMINCREATE_DEFAULT_ADMIN_MESSAGE)
             ];
         }
         
@@ -221,8 +221,8 @@ class AdminCreate extends FormAction {
                 'type' => 'user',
                 'to_field' => trim($postData['user_email_field'] ?? '{email}'),
                 'from' => trim($postData['user_from'] ?? ''),
-                'subject' => trim($postData['user_subject'] ?? 'Ваша форма отправлена'),
-                'message' => trim($postData['user_message'] ?? 'Спасибо за вашу заявку!')
+                'subject' => trim($postData['user_subject'] ?? LANG_ACTION_FORMS_ADMINCREATE_DEFAULT_USER_SUBJECT),
+                'message' => trim($postData['user_message'] ?? LANG_ACTION_FORMS_ADMINCREATE_DEFAULT_USER_MESSAGE)
             ];
         }
         
@@ -242,14 +242,14 @@ class AdminCreate extends FormAction {
         $actions[] = [
             'enabled' => !empty($postData['store_submissions']),
             'type' => 'save_to_db',
-            'name' => 'Сохранить в базу данных'
+            'name' => LANG_ACTION_FORMS_ADMINCREATE_ACTION_SAVE_DB
         ];
         
         if (!empty($postData['redirect_enabled']) || !empty($postData['redirect_url'])) {
             $actions[] = [
                 'enabled' => !empty($postData['redirect_enabled']),
                 'type' => 'redirect',
-                'name' => 'Редирект после отправки',
+                'name' => LANG_ACTION_FORMS_ADMINCREATE_ACTION_REDIRECT,
                 'url' => trim($postData['redirect_url'] ?? '')
             ];
         }
@@ -271,7 +271,7 @@ class AdminCreate extends FormAction {
             $actions[] = [
                 'enabled' => !empty($postData['webhook_enabled']),
                 'type' => 'webhook',
-                'name' => 'Отправить на вебхук',
+                'name' => LANG_ACTION_FORMS_ADMINCREATE_ACTION_WEBHOOK,
                 'url' => trim($postData['webhook_url'] ?? ''),
                 'method' => $postData['webhook_method'] ?? 'POST',
                 'headers' => $headers

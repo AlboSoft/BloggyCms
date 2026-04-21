@@ -31,7 +31,7 @@ class FormController extends Controller {
     public function renderForm($slug) {
         $form = $this->formModel->getBySlug($slug);
         if (!$form || $form['status'] !== 'active') {
-            return '<!-- Форма не найдена или неактивна -->';
+            return LANG_CONTROLLER_FORM_NOT_FOUND_COMMENT;
         }
         
         if (!isset($_SESSION['csrf_token'])) {
@@ -61,7 +61,7 @@ class FormController extends Controller {
                     <?php if ($field['type'] === 'submit') { ?>
                         <div class="form-group mb-3">
                             <button type="submit" class="btn btn-primary">
-                                <?= html($field['label'] ?? 'Отправить') ?>
+                                <?= html($field['label'] ?? LANG_CONTROLLER_FORM_DEFAULT_SUBMIT_LABEL) ?>
                             </button>
                         </div>
                     <?php } elseif ($field['type'] !== 'hidden') { ?>
@@ -95,7 +95,7 @@ class FormController extends Controller {
                                     name="<?= html($field['name']) ?>"
                                     class="form-select"
                                     <?= !empty($field['required']) ? 'required' : '' ?>>
-                                    <option value=""><?= html($field['placeholder'] ?? 'Выберите...') ?></option>
+                                    <option value=""><?= html($field['placeholder'] ?? LANG_CONTROLLER_FORM_SELECT_PLACEHOLDER) ?></option>
                                     <?php foreach ($field['options'] ?? [] as $option) { ?>
                                     <option value="<?= html($option['value'] ?? '') ?>">
                                         <?= html($option['label'] ?? '') ?>

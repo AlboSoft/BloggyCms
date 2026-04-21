@@ -1,0 +1,36 @@
+<?php
+
+define('LANG_TEMPLATE_CATEGORIES_INDEX_TITLE', 'Категории');
+define('LANG_TEMPLATE_CATEGORIES_INDEX_FIELDS_BTN', 'Дополнительные поля');
+define('LANG_TEMPLATE_CATEGORIES_INDEX_SETTINGS_BTN', 'Настройки');
+define('LANG_TEMPLATE_CATEGORIES_INDEX_CREATE_BTN', 'Создать категорию');
+define('LANG_TEMPLATE_CATEGORIES_INDEX_NO_CATEGORIES_TITLE', 'Категории пока не созданы');
+define('LANG_TEMPLATE_CATEGORIES_INDEX_NO_CATEGORIES_TEXT', 'Создайте первую категорию для ваших постов');
+define('LANG_TEMPLATE_CATEGORIES_INDEX_STAT_TOTAL_CATEGORIES', 'Всего категорий');
+define('LANG_TEMPLATE_CATEGORIES_INDEX_STAT_TOTAL_POSTS', 'Всего постов');
+define('LANG_TEMPLATE_CATEGORIES_INDEX_STAT_PROTECTED', 'Защищенных');
+define('LANG_TEMPLATE_CATEGORIES_INDEX_STAT_NOINDEX', 'Noindex');
+define('LANG_TEMPLATE_CATEGORIES_INDEX_SEARCH_PLACEHOLDER', 'Поиск по названию, описанию или URL...');
+define('LANG_TEMPLATE_CATEGORIES_INDEX_COUNT_ENDING', 'категория|категории|категорий');
+define('LANG_TEMPLATE_CATEGORIES_INDEX_TABLE_IMAGE', 'Изобр.');
+define('LANG_TEMPLATE_CATEGORIES_INDEX_TABLE_CATEGORY', 'Категория');
+define('LANG_TEMPLATE_CATEGORIES_INDEX_TABLE_STATS', 'Статистика');
+define('LANG_TEMPLATE_CATEGORIES_INDEX_TABLE_STATUS', 'Статус');
+define('LANG_TEMPLATE_CATEGORIES_INDEX_TABLE_ACTIONS', 'Действия');
+define('LANG_TEMPLATE_CATEGORIES_INDEX_DRAG_TITLE', 'Перетащите для изменения порядка');
+define('LANG_TEMPLATE_CATEGORIES_INDEX_PASSWORD_TITLE', 'Защищена паролем');
+define('LANG_TEMPLATE_CATEGORIES_INDEX_URL_TITLE', 'URL категории');
+define('LANG_TEMPLATE_CATEGORIES_INDEX_POSTS_ENDING', 'пост|поста|постов');
+define('LANG_TEMPLATE_CATEGORIES_INDEX_ORDER_LABEL', 'Порядок:');
+define('LANG_TEMPLATE_CATEGORIES_INDEX_PASSWORD_BADGE_TITLE', 'Защищена паролем');
+define('LANG_TEMPLATE_CATEGORIES_INDEX_PASSWORD_BADGE', 'С паролем');
+define('LANG_TEMPLATE_CATEGORIES_INDEX_OPEN_BADGE_TITLE', 'Открытый доступ');
+define('LANG_TEMPLATE_CATEGORIES_INDEX_OPEN_BADGE', 'Без пароля');
+define('LANG_TEMPLATE_CATEGORIES_INDEX_INDEX_BADGE_TITLE', 'Индексируется');
+define('LANG_TEMPLATE_CATEGORIES_INDEX_INDEX_BADGE', 'Index');
+define('LANG_TEMPLATE_CATEGORIES_INDEX_VIEW_TITLE', 'Просмотр на сайте');
+define('LANG_TEMPLATE_CATEGORIES_INDEX_EDIT_TITLE', 'Редактировать');
+define('LANG_TEMPLATE_CATEGORIES_INDEX_DELETE_CONFIRM', 'Вы уверены, что хотите удалить категорию "%s"? Все посты в этой категории станут без категории.');
+define('LANG_TEMPLATE_CATEGORIES_INDEX_DELETE_TITLE', 'Удалить');
+define('LANG_TEMPLATE_CATEGORIES_INDEX_NO_RESULTS_TITLE', 'Категории не найдены');
+define('LANG_TEMPLATE_CATEGORIES_INDEX_NO_RESULTS_TEXT', 'Попробуйте изменить поисковый запрос');

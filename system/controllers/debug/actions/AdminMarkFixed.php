@@ -10,14 +10,14 @@ class AdminMarkFixed extends DebugAction {
     
     public function execute() {
         if (!$this->isAjaxRequest()) {
-            $this->jsonResponse(['success' => false, 'message' => 'Только AJAX запросы']);
+            $this->jsonResponse(['success' => false, 'message' => LANG_ACTION_DEBUG_ADMINMARKFIXED_AJAX_ONLY]);
             return;
         }
         
         $id = $this->params['id'] ?? null;
         
         if (!$id) {
-            $this->jsonResponse(['success' => false, 'message' => 'ID не указан']);
+            $this->jsonResponse(['success' => false, 'message' => LANG_ACTION_DEBUG_ADMINMARKFIXED_ID_NOT_SPECIFIED]);
             return;
         }
         
@@ -25,7 +25,7 @@ class AdminMarkFixed extends DebugAction {
         
         $this->jsonResponse([
             'success' => $result,
-            'message' => $result ? 'Ошибка отмечена как исправленная' : 'Ошибка при обновлении'
+            'message' => $result ? LANG_ACTION_DEBUG_ADMINMARKFIXED_SUCCESS : LANG_ACTION_DEBUG_ADMINMARKFIXED_ERROR
         ]);
     }
 }

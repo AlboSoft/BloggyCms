@@ -2,23 +2,23 @@
 
 return [
     'comment_add' => [
-        'title' => 'Комментирование записей',
-        'description' => 'Возможность добавлять комментарии к записям, где это позволено'
+        'title' => LANG_CONTROLLER_COMMENTS_PERMISSION_ADD_TITLE,
+        'description' => LANG_CONTROLLER_COMMENTS_PERMISSION_ADD_DESC
     ],
     'comment_add_no_moderations' => [
-        'title' => 'Комментирование записей без модерации',
-        'description' => 'Возможность добавлять комментарии к записям без модерации'
+        'title' => LANG_CONTROLLER_COMMENTS_PERMISSION_ADD_NO_MOD_TITLE,
+        'description' => LANG_CONTROLLER_COMMENTS_PERMISSION_ADD_NO_MOD_DESC
     ],
     'comment_edit' => [
-        'title' => 'Изменение комментариев',
-        'description' => 'Возможность изменять свои комментарии'
+        'title' => LANG_CONTROLLER_COMMENTS_PERMISSION_EDIT_TITLE,
+        'description' => LANG_CONTROLLER_COMMENTS_PERMISSION_EDIT_DESC
     ],
     'comment_edit_no_moderations' => [
-        'title' => 'Изменение комментариев без модерации',
-        'description' => 'Возможность изменять свои комментарии без модерации'
+        'title' => LANG_CONTROLLER_COMMENTS_PERMISSION_EDIT_NO_MOD_TITLE,
+        'description' => LANG_CONTROLLER_COMMENTS_PERMISSION_EDIT_NO_MOD_DESC
     ],
     'comment_delete' => [
-        'title' => 'Удаление комментариев',
-        'description' => 'Возможность удалять свои комментарии'
+        'title' => LANG_CONTROLLER_COMMENTS_PERMISSION_DELETE_TITLE,
+        'description' => LANG_CONTROLLER_COMMENTS_PERMISSION_DELETE_DESC
     ],
 ];

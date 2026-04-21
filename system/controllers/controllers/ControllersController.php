@@ -8,11 +8,11 @@
 class ControllersController extends Controller {
     
     protected $controllerInfo = [
-        'name' => 'Управление контроллерами',
+        'name' => LANG_CONTROLLER_CONTROLLERS_MANIFEST_NAME,
         'author' => 'BloggyCMS', 
         'version' => '1.0.0',
         'has_settings' => false,
-        'description' => 'Просмотр всех контроллеров системы'
+        'description' => LANG_CONTROLLER_CONTROLLERS_MANIFEST_DESCRIPTION
     ];
     
     /**
@@ -37,7 +37,7 @@ class ControllersController extends Controller {
     * @return mixed
     */
     public function adminIndexAction() {
-        $this->pageTitle = 'Управление контроллерами';
+        $this->pageTitle = LANG_CONTROLLER_CONTROLLERS_MANIFEST_NAME;
         $action = new \controllers\actions\AdminIndex($this->db);
         $action->setController($this);
         return $action->execute();

@@ -10,7 +10,7 @@ class AdminToggle extends DebugAction {
     
     public function execute() {
         if (!$this->isAjaxRequest()) {
-            $this->jsonResponse(['success' => false, 'message' => 'Только AJAX запросы']);
+            $this->jsonResponse(['success' => false, 'message' => LANG_ACTION_DEBUG_ADMINTOGGLE_AJAX_ONLY]);
             return;
         }
         
@@ -27,7 +27,7 @@ class AdminToggle extends DebugAction {
             \DebugHandler::init($newState, $this->db);
             \SettingsHelper::clearCache('general');
             
-            $message = $newState ? '🐛 Режим отладки ВКЛЮЧЕН. Все ошибки будут сохраняться в лог.' : 'Режим отладки ВЫКЛЮЧЕН. Логирование ошибок остановлено.';
+            $message = $newState ? LANG_ACTION_DEBUG_ADMINTOGGLE_ENABLED : LANG_ACTION_DEBUG_ADMINTOGGLE_DISABLED;
             $_SESSION['toast'] = [
                 'type' => $newState ? 'success' : 'warning',
                 'message' => $message
@@ -38,8 +38,8 @@ class AdminToggle extends DebugAction {
             'success' => $result,
             'debug_enabled' => $newState,
             'message' => $result 
-                ? ($newState ? 'Режим отладки включен' : 'Режим отладки выключен')
-                : 'Ошибка при изменении состояния'
+                ? ($newState ? LANG_ACTION_DEBUG_ADMINTOGGLE_ON : LANG_ACTION_DEBUG_ADMINTOGGLE_OFF)
+                : LANG_ACTION_DEBUG_ADMINTOGGLE_ERROR
         ]);
     }
 }

@@ -2,7 +2,7 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h4 class="mb-0">
             <?php echo bloggy_icon('bs', 'chat-dots', '24', '#000', 'me-2'); ?>
-            Управление комментариями
+            <?php echo LANG_TEMPLATE_COMMENTS_INDEX_TITLE; ?>
         </h4>
     </div>
 
@@ -11,21 +11,21 @@
             <?php if (empty($comments)) { ?>
                 <div class="text-center py-5">
                     <?php echo bloggy_icon('bs', 'chat-dots', '48', '#6c757d', 'mb-3'); ?>
-                    <h5 class="text-muted mb-2">Нет комментариев</h5>
-                    <p class="text-muted small mb-0">Сейчас в Вашем блоге нет ни одного комментария. Как только они появятся - они будут отображены тут</p>
+                    <h5 class="text-muted mb-2"><?php echo LANG_TEMPLATE_COMMENTS_INDEX_NO_COMMENTS_TITLE; ?></h5>
+                    <p class="text-muted small mb-0"><?php echo LANG_TEMPLATE_COMMENTS_INDEX_NO_COMMENTS_TEXT; ?></p>
                 </div>
             <?php } else { ?>
                 <div class="table-responsive">
                     <table class="table table-hover align-middle">
                         <thead class="table-light">
                              <tr>
-                                <th>ID</th>
-                                <th>Пост</th>
-                                <th>Автор</th>
-                                <th>Комментарий</th>
-                                <th>Статус</th>
-                                <th>Дата</th>
-                                <th class="text-end">Действия</th>
+                                <th><?php echo LANG_TEMPLATE_COMMENTS_INDEX_TABLE_ID; ?></th>
+                                <th><?php echo LANG_TEMPLATE_COMMENTS_INDEX_TABLE_POST; ?></th>
+                                <th><?php echo LANG_TEMPLATE_COMMENTS_INDEX_TABLE_AUTHOR; ?></th>
+                                <th><?php echo LANG_TEMPLATE_COMMENTS_INDEX_TABLE_COMMENT; ?></th>
+                                <th><?php echo LANG_TEMPLATE_COMMENTS_INDEX_TABLE_STATUS; ?></th>
+                                <th><?php echo LANG_TEMPLATE_COMMENTS_INDEX_TABLE_DATE; ?></th>
+                                <th class="text-end"><?php echo LANG_TEMPLATE_COMMENTS_INDEX_TABLE_ACTIONS; ?></th>
                              </tr>
                         </thead>
                         <tbody>
@@ -47,6 +47,11 @@
                                     </td>
                                     <td>
                                         <?php
+                                        $statusLabels = [
+                                            'pending' => LANG_TEMPLATE_COMMENTS_INDEX_STATUS_PENDING,
+                                            'approved' => LANG_TEMPLATE_COMMENTS_INDEX_STATUS_APPROVED,
+                                            'spam' => LANG_TEMPLATE_COMMENTS_INDEX_STATUS_SPAM
+                                        ];
                                         $statusClass = [
                                             'pending' => 'warning',
                                             'approved' => 'success',
@@ -54,7 +59,7 @@
                                         ][$comment['status']] ?? 'secondary';
                                         ?>
                                         <span class="badge bg-<?php echo $statusClass; ?>">
-                                            <?php echo $comment['status']; ?>
+                                            <?php echo $statusLabels[$comment['status']] ?? $comment['status']; ?>
                                         </span>
                                     </td>
                                     <td>
@@ -66,28 +71,28 @@
                                         <div class="d-flex justify-content-end gap-2">
                                             <a href="<?php echo ADMIN_URL; ?>/comments/edit/<?php echo $comment['id']; ?>" 
                                                class="btn btn-sm btn-outline-primary"
-                                               title="Редактировать">
+                                               title="<?php echo LANG_TEMPLATE_COMMENTS_INDEX_ACTION_EDIT; ?>">
                                                 <?php echo bloggy_icon('bs', 'pencil', '16', '#000'); ?>
                                             </a>
                                             <?php if ($comment['status'] === 'pending') { ?>
                                                 <a href="<?php echo ADMIN_URL; ?>/comments/approve/<?php echo $comment['id']; ?>" 
                                                    class="btn btn-sm btn-outline-success"
-                                                   title="Одобрить">
+                                                   title="<?php echo LANG_TEMPLATE_COMMENTS_INDEX_ACTION_APPROVE; ?>">
                                                     <?php echo bloggy_icon('bs', 'check-lg', '16', '#000'); ?>
                                                 </a>
                                             <?php } ?>
                                             <a href="<?php echo ADMIN_URL; ?>/comments/delete/<?php echo $comment['id']; ?>" 
                                                class="btn btn-sm btn-outline-danger"
-                                               onclick="return confirm('Вы уверены, что хотите удалить этот комментарий?')"
-                                               title="Удалить">
+                                               onclick="return confirm('<?php echo LANG_TEMPLATE_COMMENTS_INDEX_CONFIRM_DELETE; ?>')"
+                                               title="<?php echo LANG_TEMPLATE_COMMENTS_INDEX_ACTION_DELETE; ?>">
                                                 <?php echo bloggy_icon('bs', 'trash', '16', '#000'); ?>
                                             </a>
                                         </div>
-                                    </td>
+                                     </td>
                                 </tr>
                             <?php } ?>
                         </tbody>
-                    </table>
+                     </table>
                 </div>
 
                 <?php if ($pages > 1) { ?>

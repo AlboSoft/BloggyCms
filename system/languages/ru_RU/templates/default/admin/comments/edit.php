@@ -1,0 +1,12 @@
+<?php
+
+define('LANG_TEMPLATE_COMMENTS_EDIT_TITLE', 'Редактирование комментария');
+define('LANG_TEMPLATE_COMMENTS_EDIT_BACK_BTN', 'Назад к комментариям');
+define('LANG_TEMPLATE_COMMENTS_EDIT_COMMENT_LABEL', 'Комментарий:');
+define('LANG_TEMPLATE_COMMENTS_EDIT_COMMENT_PLACEHOLDER', 'Текст комментария');
+define('LANG_TEMPLATE_COMMENTS_EDIT_STATUS_LABEL', 'Статус:');
+define('LANG_TEMPLATE_COMMENTS_EDIT_STATUS_PENDING', 'На модерации');
+define('LANG_TEMPLATE_COMMENTS_EDIT_STATUS_APPROVED', 'Одобрен');
+define('LANG_TEMPLATE_COMMENTS_EDIT_STATUS_SPAM', 'Спам');
+define('LANG_TEMPLATE_COMMENTS_EDIT_SAVE_BTN', 'Сохранить');
+define('LANG_TEMPLATE_COMMENTS_EDIT_CANCEL_BTN', 'Отмена');

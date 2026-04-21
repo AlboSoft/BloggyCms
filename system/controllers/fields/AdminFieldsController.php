@@ -10,11 +10,11 @@ class AdminFieldsController extends Controller {
     private $fieldModel;
 
     protected $controllerInfo = [
-        'name' => 'Поля',
+        'name' => LANG_CONTROLLER_FIELDS_MANIFEST_NAME,
         'author' => 'BloggyCMS', 
         'version' => '1.0.0',
         'has_settings' => false,
-        'description' => 'Управление дополнительными полями'
+        'description' => LANG_CONTROLLER_FIELDS_MANIFEST_DESCRIPTION
     ];
     
     /**

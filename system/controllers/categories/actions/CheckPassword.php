@@ -20,7 +20,7 @@ class CheckPassword extends CategoryAction {
             header('Content-Type: application/json');
             echo json_encode([
                 'success' => false, 
-                'message' => 'ID категории не указан'
+                'message' => LANG_ACTION_CATEGORIES_CHECKPASSWORD_ID_NOT_SPECIFIED
             ]);
             return;
         }
@@ -29,7 +29,7 @@ class CheckPassword extends CategoryAction {
             header('Content-Type: application/json');
             echo json_encode([
                 'success' => false, 
-                'message' => 'Метод не поддерживается'
+                'message' => LANG_ACTION_CATEGORIES_CHECKPASSWORD_METHOD_NOT_SUPPORTED
             ]);
             return;
         }
@@ -43,7 +43,7 @@ class CheckPassword extends CategoryAction {
                 header('Content-Type: application/json');
                 echo json_encode([
                     'success' => false, 
-                    'message' => 'Категория не найдена'
+                    'message' => LANG_ACTION_CATEGORIES_CHECKPASSWORD_CATEGORY_NOT_FOUND
                 ]);
                 return;
             }
@@ -61,7 +61,7 @@ class CheckPassword extends CategoryAction {
                 header('Content-Type: application/json');
                 echo json_encode([
                     'success' => false, 
-                    'message' => 'Неверный пароль'
+                    'message' => LANG_ACTION_CATEGORIES_CHECKPASSWORD_INVALID_PASSWORD
                 ]);
             }
             
@@ -69,7 +69,7 @@ class CheckPassword extends CategoryAction {
             header('Content-Type: application/json');
             echo json_encode([
                 'success' => false, 
-                'message' => 'Ошибка при проверке пароля'
+                'message' => LANG_ACTION_CATEGORIES_CHECKPASSWORD_ERROR
             ]);
         }
     }

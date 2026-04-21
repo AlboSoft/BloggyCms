@@ -22,10 +22,10 @@ class Add extends CommentAction {
                 header('Content-Type: application/json');
                 echo json_encode([
                     'success' => false,
-                    'message' => 'Неверный метод запроса'
+                    'message' => LANG_ACTION_COMMENTS_ADD_INVALID_METHOD
                 ]);
             } else {
-                \Notification::error('Неверный метод запроса');
+                \Notification::error(LANG_ACTION_COMMENTS_ADD_INVALID_METHOD);
                 $this->redirect(BASE_URL);
             }
             return;
@@ -33,26 +33,26 @@ class Add extends CommentAction {
         
         try {
             if (!\AuthHelper::canAddComment()) {
-                $this->sendError('У вас нет прав на добавление комментариев', $isAjax);
+                $this->sendError(LANG_ACTION_COMMENTS_ADD_NO_PERMISSION, $isAjax);
                 return;
             }
 
             if (empty($_POST['post_id'])) {
-                $this->sendError('Ошибка: ID поста не указан', $isAjax);
+                $this->sendError(LANG_ACTION_COMMENTS_ADD_NO_POST_ID, $isAjax);
                 return;
             }
 
             if (empty($_POST['content'])) {
-                $this->sendError('Пожалуйста, напишите комментарий', $isAjax);
+                $this->sendError(LANG_ACTION_COMMENTS_ADD_EMPTY_CONTENT, $isAjax);
                 return;
             }
 
-            $authorName = 'Аноним';
+            $authorName = LANG_ACTION_COMMENTS_ADD_ANONYMOUS;
             $currentUserId = $this->getCurrentUserId();
             
             if ($currentUserId) {
                 $user = $this->userModel->getById($currentUserId);
-                $authorName = $user['display_name'] ?? $user['username'] ?? 'Пользователь';
+                $authorName = $user['display_name'] ?? $user['username'] ?? LANG_ACTION_COMMENTS_ADD_USER;
             } elseif (!empty($_POST['author_name'])) {
                 $authorName = $_POST['author_name'];
             }
@@ -101,8 +101,8 @@ class Add extends CommentAction {
                         'is_admin' => $this->isAdmin(),
                         'needs_moderation' => $status === 'pending',
                         'message' => $status === 'approved' 
-                            ? 'Комментарий успешно добавлен' 
-                            : 'Комментарий отправлен на модерацию'
+                            ? LANG_ACTION_COMMENTS_ADD_SUCCESS_APPROVED
+                            : LANG_ACTION_COMMENTS_ADD_SUCCESS_PENDING
                     ];
                     
                     header('Content-Type: application/json');
@@ -111,7 +111,7 @@ class Add extends CommentAction {
                 } 
                 else {
                     if ($status === 'pending') {
-                        \Notification::success('Комментарий отправлен на модерацию. Он появится после проверки администратором.');
+                        \Notification::success(LANG_ACTION_COMMENTS_ADD_PENDING_NOTICE);
                         
                         $post = $this->postModel->getById($_POST['post_id']);
                         if ($post) {
@@ -120,15 +120,15 @@ class Add extends CommentAction {
                             return;
                         }
                     } else {
-                        \Notification::success('Комментарий успешно добавлен');
+                        \Notification::success(LANG_ACTION_COMMENTS_ADD_SUCCESS_APPROVED);
                     }
                 }
             } else {
-                throw new \Exception('Не удалось сохранить комментарий');
+                throw new \Exception(LANG_ACTION_COMMENTS_ADD_SAVE_ERROR);
             }
             
         } catch (\Exception $e) {
-            $message = 'Ошибка при добавлении комментария: ' . $e->getMessage();
+            $message = LANG_ACTION_COMMENTS_ADD_ERROR . $e->getMessage();
             
             if ($isAjax) {
                 http_response_code(500);
@@ -181,7 +181,7 @@ class Add extends CommentAction {
                 
                 return $notificationModel->addNewCommentNotification($commentId, [
                     'user_id' => $commentData['user_id'] ?? null,
-                    'author_name' => $commentData['author_name'] ?? 'Аноним',
+                    'author_name' => $commentData['author_name'] ?? LANG_ACTION_COMMENTS_ADD_ANONYMOUS,
                     'content' => $commentData['content'] ?? ''
                 ]);
             }

@@ -10,14 +10,14 @@ class FormView extends FormAction {
     public function execute() {
         $slug = $this->params['slug'] ?? null;
         if (!$slug) {
-            \Notification::error('Форма не указана');
+            \Notification::error(LANG_ACTION_FORMS_FORMVIEW_FORM_NOT_SPECIFIED);
             $this->redirect(BASE_URL);
             return;
         }
         
         $form = $this->formModel->getBySlug($slug);
         if (!$form || $form['status'] !== 'active') {
-            \Notification::error('Форма не найдена или неактивна');
+            \Notification::error(LANG_ACTION_FORMS_FORMVIEW_FORM_NOT_FOUND);
             $this->redirect(BASE_URL);
             return;
         }
@@ -28,6 +28,7 @@ class FormView extends FormAction {
         $showLabels = $settings['show_labels'] ?? true;
         $showDescriptions = $settings['show_descriptions'] ?? true;
         $recaptchaSiteKey = $settings['recaptcha_site_key'] ?? '';
+        $recaptchaEnabled = $settings['recaptcha_enabled'] ?? false;
         
         $formHtml = \FormRenderer::render($slug, [
             'class' => 'form-view',
@@ -37,6 +38,8 @@ class FormView extends FormAction {
             'recaptcha' => $recaptchaEnabled,
             'recaptcha_site_key' => $recaptchaSiteKey
         ]);
+        
+        $additionalScripts = '';
         
         $this->render('forms/view', [
             'form' => $form,

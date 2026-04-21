@@ -1,0 +1,20 @@
+<?php
+
+define('LANG_TEMPLATE_CATEGORIES_DELETE_TITLE', 'Удаление категории');
+define('LANG_TEMPLATE_CATEGORIES_DELETE_CATEGORY_LABEL', 'Категория:');
+define('LANG_TEMPLATE_CATEGORIES_DELETE_WARNING_TITLE', 'Внимание!');
+define('LANG_TEMPLATE_CATEGORIES_DELETE_WARNING_TEXT', 'В этой категории содержится');
+define('LANG_TEMPLATE_CATEGORIES_DELETE_CHOOSE_ACTION', 'Выберите способ удаления:');
+define('LANG_TEMPLATE_CATEGORIES_DELETE_POSTS_ENDING', 'пост|поста|постов');
+define('LANG_TEMPLATE_CATEGORIES_DELETE_POSTS_ENDING_SHORT', 'пост|поста|постов');
+define('LANG_TEMPLATE_CATEGORIES_DELETE_MOVE_TITLE', 'Переместить посты');
+define('LANG_TEMPLATE_CATEGORIES_DELETE_MOVE_DESC', 'Все посты будут перенесены в другую категорию');
+define('LANG_TEMPLATE_CATEGORIES_DELETE_SELECT_CATEGORY', '-- Выберите категорию --');
+define('LANG_TEMPLATE_CATEGORIES_DELETE_DELETE_ALL_TITLE', 'Удалить всё');
+define('LANG_TEMPLATE_CATEGORIES_DELETE_DELETE_ALL_DESC', 'Категория и все посты (');
+define('LANG_TEMPLATE_CATEGORIES_DELETE_CONFIRM_BTN', 'Подтвердить удаление');
+define('LANG_TEMPLATE_CATEGORIES_DELETE_CANCEL_BTN', 'Отмена');
+define('LANG_TEMPLATE_CATEGORIES_DELETE_INFO_TITLE', 'Информация о категории');
+define('LANG_TEMPLATE_CATEGORIES_DELETE_INFO_POSTS', 'Постов');
+define('LANG_TEMPLATE_CATEGORIES_DELETE_INFO_CREATED', 'Создана');
+define('LANG_TEMPLATE_CATEGORIES_DELETE_INFO_POSITION', 'Позиция');

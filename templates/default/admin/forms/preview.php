@@ -2,11 +2,11 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h4 class="mb-0">
             <?php echo bloggy_icon('bs', 'eye', '24', '#000', 'me-2'); ?>
-            Предпросмотр формы: <?php echo html($form['name']); ?>
+            <?php echo sprintf(LANG_TEMPLATE_FORMS_PREVIEW_TITLE, html($form['name'])); ?>
         </h4>
         <a href="<?php echo ADMIN_URL; ?>/forms" class="btn btn-outline-secondary">
             <?php echo bloggy_icon('bs', 'arrow-left', '16', '#000', 'me-2'); ?>
-            Назад к списку
+            <?php echo LANG_TEMPLATE_FORMS_PREVIEW_BACK_BTN; ?>
         </a>
     </div>
     

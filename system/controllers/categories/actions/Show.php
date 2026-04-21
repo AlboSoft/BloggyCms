@@ -17,7 +17,7 @@ class Show extends CategoryAction {
         $slug = $this->params['slug'] ?? null;
         
         if (!$slug) {
-            \Notification::error('Slug категории не указан');
+            \Notification::error(LANG_ACTION_CATEGORIES_SHOW_SLUG_NOT_SPECIFIED);
             $this->redirect(BASE_URL);
             return;
         }
@@ -26,18 +26,18 @@ class Show extends CategoryAction {
             $category = $this->categoryModel->getBySlug($slug);
 
             if (!$category) {
-                \Notification::error('Категория не найдена');
+                \Notification::error(LANG_ACTION_CATEGORIES_SHOW_CATEGORY_NOT_FOUND);
                 $this->redirect(BASE_URL);
                 return;
             }
             
-            $this->addBreadcrumb('Главная', BASE_URL);
+            $this->addBreadcrumb(LANG_ACTION_CATEGORIES_SHOW_BREADCRUMB_HOME, BASE_URL);
             
             if (!empty($category['parent_id'])) {
                 $this->addParentCategoryBreadcrumbs($category['parent_id']);
             }
             
-            $this->addBreadcrumb('Категории', BASE_URL . '/categories');
+            $this->addBreadcrumb(LANG_ACTION_CATEGORIES_SHOW_BREADCRUMB_CATEGORIES, BASE_URL . '/categories');
             $this->addBreadcrumb($category['name']);
             $this->setPageTitle($category['name']);
             
@@ -62,7 +62,7 @@ class Show extends CategoryAction {
             $categories = $this->categoryModel->getAll();
             
             if (!$hasAccess) {
-                \Notification::warning('Эта категория защищена паролем');
+                \Notification::warning(LANG_ACTION_CATEGORIES_SHOW_PASSWORD_PROTECTED);
             }
             
             /**
@@ -79,7 +79,7 @@ class Show extends CategoryAction {
             ]);
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при загрузке категории');
+            \Notification::error(LANG_ACTION_CATEGORIES_SHOW_LOAD_ERROR);
             $this->redirect(BASE_URL);
         }
     }

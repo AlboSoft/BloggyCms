@@ -10,7 +10,7 @@ class AdminDelete extends FormAction {
     public function execute() {
         $id = $this->params['id'] ?? null;
         if (!$id) {
-            \Notification::error('ID формы не указан');
+            \Notification::error(LANG_ACTION_FORMS_ADMINDELETE_ID_NOT_SPECIFIED);
             $this->redirect(ADMIN_URL . '/forms');
             return;
         }
@@ -18,15 +18,15 @@ class AdminDelete extends FormAction {
         try {
             $form = $this->formModel->getById($id);
             if (!$form) {
-                throw new \Exception('Форма не найдена');
+                throw new \Exception(LANG_ACTION_FORMS_ADMINDELETE_NOT_FOUND);
             }
 
             $this->deleteFormWithRelations($id);
             
-            \Notification::success('Форма успешно удалена');
+            \Notification::success(LANG_ACTION_FORMS_ADMINDELETE_SUCCESS);
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при удалении формы: ' . $e->getMessage());
+            \Notification::error(LANG_ACTION_FORMS_ADMINDELETE_ERROR . $e->getMessage());
         }
         
         $this->redirect(ADMIN_URL . '/forms');
@@ -64,7 +64,7 @@ class AdminDelete extends FormAction {
             $result = $db->delete('forms', ['id' => $formId]);
             
             if ($result === false) {
-                throw new \Exception('Ошибка базы данных при удалении формы');
+                throw new \Exception(LANG_ACTION_FORMS_ADMINDELETE_DB_ERROR);
             }
             
             $db->commit();

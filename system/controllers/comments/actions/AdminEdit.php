@@ -16,7 +16,7 @@ class AdminEdit extends CommentAction {
         $id = $this->params['id'] ?? null;
         
         if (!$id) {
-            \Notification::error('ID комментария не указан');
+            \Notification::error(LANG_ACTION_COMMENTS_ADMINEDIT_ID_NOT_SPECIFIED);
             $this->redirect(ADMIN_URL . '/comments');
             return;
         }
@@ -25,14 +25,14 @@ class AdminEdit extends CommentAction {
             $comment = $this->commentModel->getCommentById($id);
             
             if (!$comment) {
-                \Notification::error('Комментарий не найден');
+                \Notification::error(LANG_ACTION_COMMENTS_ADMINEDIT_NOT_FOUND);
                 $this->redirect(ADMIN_URL . '/comments');
                 return;
             }
             
-            $this->addBreadcrumb('Панель управления', ADMIN_URL);
-            $this->addBreadcrumb('Комментарии', ADMIN_URL . '/comments');
-            $this->addBreadcrumb('Редактирование комментария #' . $id);
+            $this->addBreadcrumb(LANG_ACTION_COMMENTS_ADMINEDIT_BREADCRUMB_DASHBOARD, ADMIN_URL);
+            $this->addBreadcrumb(LANG_ACTION_COMMENTS_ADMINEDIT_BREADCRUMB_COMMENTS, ADMIN_URL . '/comments');
+            $this->addBreadcrumb(LANG_ACTION_COMMENTS_ADMINEDIT_BREADCRUMB_EDIT . $id);
 
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $data = [
@@ -42,7 +42,7 @@ class AdminEdit extends CommentAction {
                 
                 $this->commentModel->updateComment($id, $data);
 
-                \Notification::success('Комментарий успешно обновлен');
+                \Notification::success(LANG_ACTION_COMMENTS_ADMINEDIT_SUCCESS);
                 
                 $this->redirect(ADMIN_URL . '/comments');
                 return;
@@ -50,11 +50,11 @@ class AdminEdit extends CommentAction {
 
             $this->render('admin/comments/edit', [
                 'comment' => $comment,
-                'pageTitle' => 'Редактирование комментария'
+                'pageTitle' => LANG_ACTION_COMMENTS_ADMINEDIT_PAGE_TITLE
             ]);
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при редактировании комментария');
+            \Notification::error(LANG_ACTION_COMMENTS_ADMINEDIT_ERROR);
             $this->redirect(ADMIN_URL . '/comments');
         }
     }

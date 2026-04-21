@@ -9,9 +9,9 @@ namespace debug\actions;
 class AdminIndex extends DebugAction {
     
     public function execute() {
-        $this->addBreadcrumb('Панель управления', ADMIN_URL);
-        $this->addBreadcrumb('Отладка');
-        $this->setPageTitle('Отладка системы');
+        $this->addBreadcrumb(LANG_ACTION_DEBUG_ADMININDEX_BREADCRUMB_DASHBOARD, ADMIN_URL);
+        $this->addBreadcrumb(LANG_ACTION_DEBUG_ADMININDEX_BREADCRUMB_DEBUG);
+        $this->setPageTitle(LANG_ACTION_DEBUG_ADMININDEX_PAGE_TITLE);
         
         $stats = $this->debugModel->getStats();
         $debugEnabled = \SettingsHelper::get('general', 'debug_mode', false);
@@ -22,7 +22,7 @@ class AdminIndex extends DebugAction {
             'stats' => $stats,
             'debug_enabled' => $debugEnabled,
             'error_logs' => $errorLogs,
-            'pageTitle' => 'Отладка системы'
+            'pageTitle' => LANG_ACTION_DEBUG_ADMININDEX_PAGE_TITLE
         ]);
     }
     

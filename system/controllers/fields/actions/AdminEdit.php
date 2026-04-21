@@ -17,22 +17,22 @@ class AdminEdit extends FieldAction {
         $id = $this->params['id'] ?? null;
         
         if (!$id) {
-            \Notification::error('ID поля не указан');
+            \Notification::error(LANG_ACTION_FIELDS_ADMINEDIT_ID_NOT_SPECIFIED);
             $this->redirect(ADMIN_URL . '/fields');
             return;
         }
         
         $field = $this->fieldModel->getById($id);
         if (!$field) {
-            \Notification::error('Поле не найдено');
+            \Notification::error(LANG_ACTION_FIELDS_ADMINEDIT_NOT_FOUND);
             $this->redirect(ADMIN_URL . '/fields');
             return;
         }
         
-        $this->addBreadcrumb('Панель управления', ADMIN_URL);
-        $this->addBreadcrumb('Поля', ADMIN_URL . '/fields');
+        $this->addBreadcrumb(LANG_ACTION_FIELDS_ADMINEDIT_BREADCRUMB_DASHBOARD, ADMIN_URL);
+        $this->addBreadcrumb(LANG_ACTION_FIELDS_ADMINEDIT_BREADCRUMB_FIELDS, ADMIN_URL . '/fields');
         $this->addBreadcrumb($this->getEntityName($field['entity_type'], true), ADMIN_URL . '/fields/entity/' . $field['entity_type']);
-        $this->addBreadcrumb('Редактирование поля: ' . $field['name']);
+        $this->addBreadcrumb(LANG_ACTION_FIELDS_ADMINEDIT_BREADCRUMB_EDIT . $field['name']);
         
         $config = json_decode($field['config'] ?? '{}', true);
         
@@ -57,12 +57,12 @@ class AdminEdit extends FieldAction {
                 
                 $this->fieldModel->update($id, $data);
                 
-                \Notification::success('Поле успешно обновлено');
+                \Notification::success(LANG_ACTION_FIELDS_ADMINEDIT_SUCCESS);
                 
                 $this->redirect(ADMIN_URL . "/fields/entity/{$field['entity_type']}");
                 
             } catch (\Exception $e) {
-                \Notification::error('Ошибка при обновлении поля: ' . $e->getMessage());
+                \Notification::error(LANG_ACTION_FIELDS_ADMINEDIT_ERROR . $e->getMessage());
             }
         }
         
@@ -85,7 +85,7 @@ class AdminEdit extends FieldAction {
             'fieldTypes' => $fieldTypes,
             'entityType' => $field['entity_type'],
             'entityName' => $this->getEntityName($field['entity_type']),
-            'pageTitle' => 'Редактирование поля'
+            'pageTitle' => LANG_ACTION_FIELDS_ADMINEDIT_PAGE_TITLE
         ]);
     }
 

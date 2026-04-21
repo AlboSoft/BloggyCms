@@ -13,8 +13,8 @@ class AdminIndex extends ControllersAction {
     */
     public function execute() {
         try {
-            $this->addBreadcrumb('Панель управления', ADMIN_URL);
-            $this->addBreadcrumb('Контроллеры');
+            $this->addBreadcrumb(LANG_ACTION_CONTROLLERS_ADMININDEX_BREADCRUMB_DASHBOARD, ADMIN_URL);
+            $this->addBreadcrumb(LANG_ACTION_CONTROLLERS_ADMININDEX_BREADCRUMB_CONTROLLERS);
 
             $controllers = $this->getAllControllers();
             
@@ -26,13 +26,13 @@ class AdminIndex extends ControllersAction {
             });
             
             $hints = [
-                "Системные контроллеры отмечены синим бейджем",
-                "Настройки доступны только у контроллеров с файлом Settings.php",
-                "Роутинг указывает на наличие файла routes.php",
-                "Кликните на иконку информации для подробных сведений",
-                "Вы можете перейти к настройкам контроллера кликнув на иконку настроек",
-                "Контроллеры без роутинга обычно используются как внутренние модули",
-                "Версия контроллера указана в его описании",
+                LANG_ACTION_CONTROLLERS_ADMININDEX_HINT_1,
+                LANG_ACTION_CONTROLLERS_ADMININDEX_HINT_2,
+                LANG_ACTION_CONTROLLERS_ADMININDEX_HINT_3,
+                LANG_ACTION_CONTROLLERS_ADMININDEX_HINT_4,
+                LANG_ACTION_CONTROLLERS_ADMININDEX_HINT_5,
+                LANG_ACTION_CONTROLLERS_ADMININDEX_HINT_6,
+                LANG_ACTION_CONTROLLERS_ADMININDEX_HINT_7,
             ];
             
             $randomHint = $hints[array_rand($hints)];
@@ -40,11 +40,11 @@ class AdminIndex extends ControllersAction {
             return $this->render('admin/controllers/index', [
                 'controllers' => $controllers,
                 'randomHint' => $randomHint,
-                'pageTitle' => 'Управление контроллерами'
+                'pageTitle' => LANG_ACTION_CONTROLLERS_ADMININDEX_PAGE_TITLE
             ]);
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при загрузке контроллеров: ' . $e->getMessage());
+            \Notification::error(LANG_ACTION_CONTROLLERS_ADMININDEX_ERROR . $e->getMessage());
             $this->redirect(\ADMIN_URL);
         }
     }
@@ -127,7 +127,7 @@ class AdminIndex extends ControllersAction {
             'admin', 'auth', 'settings', 'users', 'posts', 'categories', 
             'pages', 'menu', 'comments', 'profile', 'search', 
             'tags', 'fields', 'html_blocks', 'icons', 'postblocks', 'home', 'fragments',
-            'docs', 'addons', 'archive', 'forms', 'login_attempt', 'notifications', 'seo', 'debug'
+            'docs', 'addons', 'archive', 'forms', 'login_attempt', 'notifications', 'seo', 'debug', 'language'
         ];
         $info['is_system'] = in_array(strtolower($dirName), $systemControllers);
         

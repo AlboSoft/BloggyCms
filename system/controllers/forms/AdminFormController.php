@@ -16,13 +16,13 @@ class AdminFormController extends Controller {
         $this->formModel = new FormModel($db);
         
         if (!isset($_SESSION['user_id'])) {
-            \Notification::error('Пожалуйста, авторизуйтесь для доступа к панели управления');
+            \Notification::error(LANG_CONTROLLER_ADMINFORM_AUTH_REQUIRED);
             $this->redirect(ADMIN_URL . '/login');
             return;
         }
         
         if (!isset($_SESSION['is_admin']) || !$_SESSION['is_admin']) {
-            \Notification::error('У вас нет прав доступа к панели управления');
+            \Notification::error(LANG_CONTROLLER_ADMINFORM_ACCESS_DENIED);
             $this->redirect(BASE_URL);
             return;
         }
@@ -277,9 +277,9 @@ class AdminFormController extends Controller {
                     <div class="col-md-12">
                         <div class="d-flex align-items-center mb-2">
                             <span class="badge bg-secondary me-2"><?= strtoupper($fieldType) ?></span>
-                            <strong><?= $fieldLabel ?: 'Без названия' ?></strong>
+                            <strong><?= $fieldLabel ?: LANG_CONTROLLER_ADMINFORM_NO_TITLE ?></strong>
                             <?php if ($required): ?>
-                                <span class="badge bg-danger ms-2">Обязательное</span>
+                                <span class="badge bg-danger ms-2"><?php echo LANG_CONTROLLER_ADMINFORM_REQUIRED_BADGE; ?></span>
                             <?php endif; ?>
                             <?php if (!empty($fieldName)): ?>
                                 <small class="text-muted ms-2">(name: <?= $fieldName ?>)</small>
@@ -339,22 +339,22 @@ class AdminFormController extends Controller {
     */
     private function getFieldTypeLabel($type) {
         $labels = [
-            'text' => 'Текстовое поле',
-            'textarea' => 'Текстовая область',
-            'email' => 'Email',
-            'tel' => 'Телефон',
-            'number' => 'Число',
-            'date' => 'Дата',
-            'select' => 'Выпадающий список',
-            'checkbox' => 'Галочка',
-            'radio' => 'Радио кнопки',
-            'file' => 'Файл',
-            'password' => 'Пароль',
-            'hidden' => 'Скрытое поле',
-            'submit' => 'Кнопка отправки'
+            'text' => LANG_CONTROLLER_ADMINFORM_FIELD_TYPE_TEXT,
+            'textarea' => LANG_CONTROLLER_ADMINFORM_FIELD_TYPE_TEXTAREA,
+            'email' => LANG_CONTROLLER_ADMINFORM_FIELD_TYPE_EMAIL,
+            'tel' => LANG_CONTROLLER_ADMINFORM_FIELD_TYPE_TEL,
+            'number' => LANG_CONTROLLER_ADMINFORM_FIELD_TYPE_NUMBER,
+            'date' => LANG_CONTROLLER_ADMINFORM_FIELD_TYPE_DATE,
+            'select' => LANG_CONTROLLER_ADMINFORM_FIELD_TYPE_SELECT,
+            'checkbox' => LANG_CONTROLLER_ADMINFORM_FIELD_TYPE_CHECKBOX,
+            'radio' => LANG_CONTROLLER_ADMINFORM_FIELD_TYPE_RADIO,
+            'file' => LANG_CONTROLLER_ADMINFORM_FIELD_TYPE_FILE,
+            'password' => LANG_CONTROLLER_ADMINFORM_FIELD_TYPE_PASSWORD,
+            'hidden' => LANG_CONTROLLER_ADMINFORM_FIELD_TYPE_HIDDEN,
+            'submit' => LANG_CONTROLLER_ADMINFORM_FIELD_TYPE_SUBMIT
         ];
         
-        return $labels[$type] ?? 'Неизвестное поле';
+        return $labels[$type] ?? LANG_CONTROLLER_ADMINFORM_FIELD_TYPE_UNKNOWN;
     }
     
     /**
@@ -466,7 +466,7 @@ class AdminFormController extends Controller {
                 
                 default: ?>
                     <div class="alert alert-warning small p-2">
-                        Превью недоступно для типа "<?= $type ?>"
+                        <?php echo LANG_CONTROLLER_ADMINFORM_PREVIEW_UNAVAILABLE . $type; ?>
                     </div>
             <?php } ?>
         </div>
@@ -480,79 +480,79 @@ class AdminFormController extends Controller {
     public function getAvailableFieldTypes() {
         return [
             'text' => [
-                'label' => 'Текстовое поле',
+                'label' => LANG_CONTROLLER_ADMINFORM_FIELD_TYPE_TEXT,
                 'icon' => 'input-cursor-text',
                 'has_options' => false,
                 'has_placeholder' => true
             ],
             'textarea' => [
-                'label' => 'Текстовая область',
+                'label' => LANG_CONTROLLER_ADMINFORM_FIELD_TYPE_TEXTAREA,
                 'icon' => 'textarea-t',
                 'has_options' => false,
                 'has_placeholder' => true
             ],
             'email' => [
-                'label' => 'Email',
+                'label' => LANG_CONTROLLER_ADMINFORM_FIELD_TYPE_EMAIL,
                 'icon' => 'envelope',
                 'has_options' => false,
                 'has_placeholder' => true
             ],
             'tel' => [
-                'label' => 'Телефон',
+                'label' => LANG_CONTROLLER_ADMINFORM_FIELD_TYPE_TEL,
                 'icon' => 'telephone',
                 'has_options' => false,
                 'has_placeholder' => true
             ],
             'number' => [
-                'label' => 'Число',
+                'label' => LANG_CONTROLLER_ADMINFORM_FIELD_TYPE_NUMBER,
                 'icon' => '123',
                 'has_options' => false,
                 'has_placeholder' => true
             ],
             'date' => [
-                'label' => 'Дата',
+                'label' => LANG_CONTROLLER_ADMINFORM_FIELD_TYPE_DATE,
                 'icon' => 'calendar',
                 'has_options' => false,
                 'has_placeholder' => true
             ],
             'select' => [
-                'label' => 'Выпадающий список',
+                'label' => LANG_CONTROLLER_ADMINFORM_FIELD_TYPE_SELECT,
                 'icon' => 'menu-down',
                 'has_options' => true,
                 'has_placeholder' => true
             ],
             'checkbox' => [
-                'label' => 'Галочка',
+                'label' => LANG_CONTROLLER_ADMINFORM_FIELD_TYPE_CHECKBOX,
                 'icon' => 'check-square',
                 'has_options' => false,
                 'has_placeholder' => false
             ],
             'radio' => [
-                'label' => 'Радио кнопки',
+                'label' => LANG_CONTROLLER_ADMINFORM_FIELD_TYPE_RADIO,
                 'icon' => 'circle',
                 'has_options' => true,
                 'has_placeholder' => false
             ],
             'file' => [
-                'label' => 'Файл',
+                'label' => LANG_CONTROLLER_ADMINFORM_FIELD_TYPE_FILE,
                 'icon' => 'paperclip',
                 'has_options' => false,
                 'has_placeholder' => false
             ],
             'password' => [
-                'label' => 'Пароль',
+                'label' => LANG_CONTROLLER_ADMINFORM_FIELD_TYPE_PASSWORD,
                 'icon' => 'key',
                 'has_options' => false,
                 'has_placeholder' => true
             ],
             'hidden' => [
-                'label' => 'Скрытое поле',
+                'label' => LANG_CONTROLLER_ADMINFORM_FIELD_TYPE_HIDDEN,
                 'icon' => 'eye-slash',
                 'has_options' => false,
                 'has_placeholder' => false
             ],
             'submit' => [
-                'label' => 'Кнопка отправки',
+                'label' => LANG_CONTROLLER_ADMINFORM_FIELD_TYPE_SUBMIT,
                 'icon' => 'send',
                 'has_options' => false,
                 'has_placeholder' => false
@@ -566,34 +566,34 @@ class AdminFormController extends Controller {
     public function getValidationTypes() {
         return [
             'required' => [
-                'label' => 'Обязательное поле',
-                'description' => 'Поле должно быть заполнено'
+                'label' => LANG_CONTROLLER_ADMINFORM_VALIDATION_REQUIRED_LABEL,
+                'description' => LANG_CONTROLLER_ADMINFORM_VALIDATION_REQUIRED_DESC
             ],
             'email' => [
-                'label' => 'Email',
-                'description' => 'Проверка формата email'
+                'label' => LANG_CONTROLLER_ADMINFORM_VALIDATION_EMAIL_LABEL,
+                'description' => LANG_CONTROLLER_ADMINFORM_VALIDATION_EMAIL_DESC
             ],
             'url' => [
-                'label' => 'URL',
-                'description' => 'Проверка формата URL'
+                'label' => LANG_CONTROLLER_ADMINFORM_VALIDATION_URL_LABEL,
+                'description' => LANG_CONTROLLER_ADMINFORM_VALIDATION_URL_DESC
             ],
             'numeric' => [
-                'label' => 'Число',
-                'description' => 'Допустимы только цифры'
+                'label' => LANG_CONTROLLER_ADMINFORM_VALIDATION_NUMERIC_LABEL,
+                'description' => LANG_CONTROLLER_ADMINFORM_VALIDATION_NUMERIC_DESC
             ],
             'min' => [
-                'label' => 'Минимальное значение',
-                'description' => 'Минимальное значение (для чисел) или длина (для текста)',
+                'label' => LANG_CONTROLLER_ADMINFORM_VALIDATION_MIN_LABEL,
+                'description' => LANG_CONTROLLER_ADMINFORM_VALIDATION_MIN_DESC,
                 'has_param' => true
             ],
             'max' => [
-                'label' => 'Максимальное значение',
-                'description' => 'Максимальное значение (для чисел) или длина (для текста)',
+                'label' => LANG_CONTROLLER_ADMINFORM_VALIDATION_MAX_LABEL,
+                'description' => LANG_CONTROLLER_ADMINFORM_VALIDATION_MAX_DESC,
                 'has_param' => true
             ],
             'regex' => [
-                'label' => 'Регулярное выражение',
-                'description' => 'Проверка по регулярному выражению',
+                'label' => LANG_CONTROLLER_ADMINFORM_VALIDATION_REGEX_LABEL,
+                'description' => LANG_CONTROLLER_ADMINFORM_VALIDATION_REGEX_DESC,
                 'has_param' => true
             ]
         ];
@@ -639,7 +639,7 @@ class AdminFormController extends Controller {
                     if ($op === '-') {
                         $a = max($a, $b) + rand(0, 5);
                     }
-                    $question = "Сколько будет $a $op $b?";
+                    $question = LANG_CONTROLLER_ADMINFORM_CAPTCHA_MATH_QUESTION . "$a $op $b?";
                     $answer = eval("return $a $op $b;");
                 }
                 break;
@@ -650,9 +650,9 @@ class AdminFormController extends Controller {
                     $answer = '';
                 } else {
                     $questions = [
-                        'Столица России?' => 'Москва',
-                        'Сколько дней в неделе?' => '7',
-                        'Какого цвета трава?' => 'Зеленый'
+                        LANG_CONTROLLER_ADMINFORM_CAPTCHA_TEXT_QUESTION_1 => LANG_CONTROLLER_ADMINFORM_CAPTCHA_TEXT_ANSWER_1,
+                        LANG_CONTROLLER_ADMINFORM_CAPTCHA_TEXT_QUESTION_2 => LANG_CONTROLLER_ADMINFORM_CAPTCHA_TEXT_ANSWER_2,
+                        LANG_CONTROLLER_ADMINFORM_CAPTCHA_TEXT_QUESTION_3 => LANG_CONTROLLER_ADMINFORM_CAPTCHA_TEXT_ANSWER_3
                     ];
                     $question = array_rand($questions);
                     $answer = $questions[$question];
@@ -665,9 +665,9 @@ class AdminFormController extends Controller {
                     $answer = '';
                 } else {
                     $questions = [
-                        'Что тяжелее: 1 кг пуха или 1 кг железа?' => 'одинаково',
-                        'Что идет не двигаясь с места?' => 'время',
-                        'Что можно увидеть с закрытыми глазами?' => 'сон'
+                        LANG_CONTROLLER_ADMINFORM_CAPTCHA_LOGIC_QUESTION_1 => LANG_CONTROLLER_ADMINFORM_CAPTCHA_LOGIC_ANSWER_1,
+                        LANG_CONTROLLER_ADMINFORM_CAPTCHA_LOGIC_QUESTION_2 => LANG_CONTROLLER_ADMINFORM_CAPTCHA_LOGIC_ANSWER_2,
+                        LANG_CONTROLLER_ADMINFORM_CAPTCHA_LOGIC_QUESTION_3 => LANG_CONTROLLER_ADMINFORM_CAPTCHA_LOGIC_ANSWER_3
                     ];
                     $question = array_rand($questions);
                     $answer = $questions[$question];
@@ -675,12 +675,12 @@ class AdminFormController extends Controller {
                 break;
                 
             case 'image':
-                $question = 'Введите символы с изображения';
+                $question = LANG_CONTROLLER_ADMINFORM_CAPTCHA_IMAGE_QUESTION;
                 $answer = 'ABCD';
                 break;
                 
             default:
-                $question = 'Сколько будет 2 + 2?';
+                $question = LANG_CONTROLLER_ADMINFORM_CAPTCHA_DEFAULT_QUESTION;
                 $answer = '4';
         }
         

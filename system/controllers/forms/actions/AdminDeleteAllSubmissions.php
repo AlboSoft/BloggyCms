@@ -13,7 +13,7 @@ class AdminDeleteAllSubmissions extends FormAction {
             header('Content-Type: application/json');
             echo json_encode([
                 'success' => false,
-                'message' => 'ID формы не указан'
+                'message' => LANG_ACTION_FORMS_ADMINDELETEALLSUBMISSIONS_ID_NOT_SPECIFIED
             ]);
             exit;
         }
@@ -35,7 +35,7 @@ class AdminDeleteAllSubmissions extends FormAction {
             header('Content-Type: application/json');
             echo json_encode([
                 'success' => true,
-                'message' => 'Все отправки удалены',
+                'message' => LANG_ACTION_FORMS_ADMINDELETEALLSUBMISSIONS_SUCCESS,
                 'count' => $deletedCount
             ]);
             exit;

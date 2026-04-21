@@ -13,7 +13,7 @@ class FormSubmit extends FormAction {
         if (!$slug) {
             $this->jsonResponse([
                 'success' => false,
-                'message' => 'Форма не указана'
+                'message' => LANG_ACTION_FORMS_FORMSUBMIT_FORM_NOT_SPECIFIED
             ]);
             return;
         }
@@ -22,7 +22,7 @@ class FormSubmit extends FormAction {
         if (!$form || $form['status'] !== 'active') {
             $this->jsonResponse([
                 'success' => false,
-                'message' => 'Форма не найдена или неактивна'
+                'message' => LANG_ACTION_FORMS_FORMSUBMIT_FORM_NOT_FOUND
             ]);
             return;
         }
@@ -30,7 +30,7 @@ class FormSubmit extends FormAction {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             $this->jsonResponse([
                 'success' => false,
-                'message' => 'Неверный метод запроса'
+                'message' => LANG_ACTION_FORMS_FORMSUBMIT_INVALID_METHOD
             ]);
             return;
         }
@@ -46,20 +46,20 @@ class FormSubmit extends FormAction {
             if ($csrfEnabled) {
                 $token = $_POST['csrf_token'] ?? '';
                 if (!$this->verifyCsrfToken($token, $slug)) {
-                    throw new \Exception('Неверный токен безопасности. Пожалуйста, обновите страницу и попробуйте снова.');
+                    throw new \Exception(LANG_ACTION_FORMS_FORMSUBMIT_CSRF_ERROR);
                 }
             }
             
             $captchaEnabled = $settings['captcha_enabled'] ?? false;
             if ($captchaEnabled) {
                 if (!$this->verifyCaptcha($settings)) {
-                    throw new \Exception('Проверка капчи не пройдена');
+                    throw new \Exception(LANG_ACTION_FORMS_FORMSUBMIT_CAPTCHA_FAILED);
                 }
             }
             
             if (!empty($settings['limit_submissions'])) {
                 if (!$this->checkSubmissionLimits($form['id'], $settings)) {
-                    throw new \Exception('Превышен лимит отправок. Попробуйте позже.');
+                    throw new \Exception(LANG_ACTION_FORMS_FORMSUBMIT_LIMIT_EXCEEDED);
                 }
             }
             
@@ -71,7 +71,7 @@ class FormSubmit extends FormAction {
                     
                     $this->jsonResponse([
                         'success' => true,
-                        'message' => $form['success_message'] ?? 'Форма успешно отправлена!',
+                        'message' => $form['success_message'] ?? LANG_ACTION_FORMS_FORMSUBMIT_DEFAULT_SUCCESS,
                         'submission_id' => $submissionId
                     ]);
                     return;
@@ -97,7 +97,7 @@ class FormSubmit extends FormAction {
                 \FormRenderer::executeActions($form, $postData, $submissionId);
             }
             
-            $successMessage = $form['success_message'] ?? 'Форма успешно отправлена!';
+            $successMessage = $form['success_message'] ?? LANG_ACTION_FORMS_FORMSUBMIT_DEFAULT_SUCCESS;
             
             $redirectUrl = null;
             foreach ($form['actions'] ?? [] as $action) {

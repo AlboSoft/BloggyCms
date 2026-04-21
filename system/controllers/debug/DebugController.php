@@ -9,11 +9,11 @@ class DebugController extends Controller {
     private $debugModel;
     
     protected $controllerInfo = [
-        'name' => 'Отладка',
+        'name' => LANG_CONTROLLER_DEBUG_MANIFEST_NAME,
         'author' => 'BloggyCMS',
         'version' => '1.0.0',
         'has_settings' => false,
-        'description' => 'Просмотр и управление ошибками системы в режиме отладки'
+        'description' => LANG_CONTROLLER_DEBUG_MANIFEST_DESCRIPTION
     ];
     
     /**

@@ -1,0 +1,28 @@
+<?php
+
+define('LANG_TEMPLATE_FIELDS_FORM_EDIT_TITLE', 'Edit Field');
+define('LANG_TEMPLATE_FIELDS_FORM_CREATE_TITLE', 'Create Field');
+define('LANG_TEMPLATE_FIELDS_FORM_BACK_BTN', 'Back to Fields');
+define('LANG_TEMPLATE_FIELDS_FORM_MAIN_TITLE', 'Main Settings');
+define('LANG_TEMPLATE_FIELDS_FORM_NAME_LABEL', 'Field Name');
+define('LANG_TEMPLATE_FIELDS_FORM_NAME_PLACEHOLDER', 'Example: Price, Phone, Email');
+define('LANG_TEMPLATE_FIELDS_FORM_NAME_HINT', 'Human-readable field name');
+define('LANG_TEMPLATE_FIELDS_FORM_SYSTEM_NAME_LABEL', 'System Name');
+define('LANG_TEMPLATE_FIELDS_FORM_SYSTEM_NAME_PLACEHOLDER', 'Example: price, phone, email');
+define('LANG_TEMPLATE_FIELDS_FORM_SYSTEM_NAME_HINT', 'Only Latin letters, numbers and underscores');
+define('LANG_TEMPLATE_FIELDS_FORM_TYPE_LABEL', 'Field Type');
+define('LANG_TEMPLATE_FIELDS_FORM_TYPE_SELECT', 'Select field type');
+define('LANG_TEMPLATE_FIELDS_FORM_DESCRIPTION_LABEL', 'Description');
+define('LANG_TEMPLATE_FIELDS_FORM_DESCRIPTION_PLACEHOLDER', 'Optional field description');
+define('LANG_TEMPLATE_FIELDS_FORM_SETTINGS_TITLE', 'Field Settings');
+define('LANG_TEMPLATE_FIELDS_FORM_PARAMS_TITLE', 'Field Parameters');
+define('LANG_TEMPLATE_FIELDS_FORM_SORT_ORDER_LABEL', 'Sort Order');
+define('LANG_TEMPLATE_FIELDS_FORM_SORT_ORDER_HINT', 'Lower number = higher in list');
+define('LANG_TEMPLATE_FIELDS_FORM_REQUIRED_LABEL', 'Required Field');
+define('LANG_TEMPLATE_FIELDS_FORM_ACTIVE_LABEL', 'Active Field');
+define('LANG_TEMPLATE_FIELDS_FORM_SHOW_IN_POST_LABEL', 'Show in Post');
+define('LANG_TEMPLATE_FIELDS_FORM_SHOW_IN_POST_HINT', 'Display field on post page');
+define('LANG_TEMPLATE_FIELDS_FORM_SHOW_IN_LIST_LABEL', 'Show in List');
+define('LANG_TEMPLATE_FIELDS_FORM_SHOW_IN_LIST_HINT', 'Display field in posts list');
+define('LANG_TEMPLATE_FIELDS_FORM_UPDATE_BTN', 'Update Field');
+define('LANG_TEMPLATE_FIELDS_FORM_CREATE_BTN', 'Create Field');

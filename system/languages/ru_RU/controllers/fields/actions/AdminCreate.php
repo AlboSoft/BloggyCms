@@ -1,0 +1,10 @@
+<?php
+
+define('LANG_ACTION_FIELDS_ADMINCREATE_ENTITY_NOT_SPECIFIED', 'Тип сущности не указан');
+define('LANG_ACTION_FIELDS_ADMINCREATE_BREADCRUMB_DASHBOARD', 'Панель управления');
+define('LANG_ACTION_FIELDS_ADMINCREATE_BREADCRUMB_FIELDS', 'Поля');
+define('LANG_ACTION_FIELDS_ADMINCREATE_BREADCRUMB_CREATE', 'Создание поля');
+define('LANG_ACTION_FIELDS_ADMINCREATE_REQUIRED_FIELDS', 'Заполните все обязательные поля');
+define('LANG_ACTION_FIELDS_ADMINCREATE_SUCCESS', 'Поле успешно создано');
+define('LANG_ACTION_FIELDS_ADMINCREATE_ERROR', 'Ошибка при создании поля: ');
+define('LANG_ACTION_FIELDS_ADMINCREATE_PAGE_TITLE', 'Создание поля');

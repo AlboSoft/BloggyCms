@@ -23,11 +23,11 @@ class AdminApprove extends CommentAction {
                 header('Content-Type: application/json');
                 echo json_encode([
                     'success' => false,
-                    'message' => 'ID комментария не указан'
+                    'message' => LANG_ACTION_COMMENTS_ADMINAPPROVE_ID_NOT_SPECIFIED
                 ]);
                 return;
             } else {
-                \Notification::error('ID комментария не указан');
+                \Notification::error(LANG_ACTION_COMMENTS_ADMINAPPROVE_ID_NOT_SPECIFIED);
                 $this->redirect(ADMIN_URL . '/comments');
                 return;
             }
@@ -41,11 +41,11 @@ class AdminApprove extends CommentAction {
                     header('Content-Type: application/json');
                     echo json_encode([
                         'success' => false,
-                        'message' => 'Комментарий не найден'
+                        'message' => LANG_ACTION_COMMENTS_ADMINAPPROVE_NOT_FOUND
                     ]);
                     return;
                 } else {
-                    \Notification::error('Комментарий не найден');
+                    \Notification::error(LANG_ACTION_COMMENTS_ADMINAPPROVE_NOT_FOUND);
                     $this->redirect(ADMIN_URL . '/comments');
                     return;
                 }
@@ -57,11 +57,11 @@ class AdminApprove extends CommentAction {
                     header('Content-Type: application/json');
                     echo json_encode([
                         'success' => false,
-                        'message' => 'Комментарий уже одобрен'
+                        'message' => LANG_ACTION_COMMENTS_ADMINAPPROVE_ALREADY_APPROVED
                     ]);
                     return;
                 } else {
-                    \Notification::warning('Комментарий уже одобрен');
+                    \Notification::warning(LANG_ACTION_COMMENTS_ADMINAPPROVE_ALREADY_APPROVED);
                     $this->redirect(ADMIN_URL . '/comments');
                     return;
                 }
@@ -78,7 +78,7 @@ class AdminApprove extends CommentAction {
                     header('Content-Type: application/json');
                     echo json_encode([
                         'success' => true,
-                        'message' => 'Комментарий успешно одобрен',
+                        'message' => LANG_ACTION_COMMENTS_ADMINAPPROVE_SUCCESS,
                         'comment_id' => $id,
                         'new_status' => 'approved'
                     ]);
@@ -90,14 +90,14 @@ class AdminApprove extends CommentAction {
                         echo json_encode([
                             'success' => true,
                             'comment' => $commentData,
-                            'message' => 'Комментарий одобрен',
+                            'message' => LANG_ACTION_COMMENTS_ADMINAPPROVE_APPROVED,
                             'comment_id' => $id
                         ]);
                     } else {
                         header('Content-Type: application/json');
                         echo json_encode([
                             'success' => true,
-                            'message' => 'Комментарий успешно одобрен',
+                            'message' => LANG_ACTION_COMMENTS_ADMINAPPROVE_SUCCESS,
                             'comment_id' => $id
                         ]);
                     }
@@ -105,11 +105,11 @@ class AdminApprove extends CommentAction {
                 return;
             } 
             else {
-                \Notification::success('Комментарий успешно одобрен');
+                \Notification::success(LANG_ACTION_COMMENTS_ADMINAPPROVE_SUCCESS);
             }
             
         } catch (\Exception $e) {
-            $errorMessage = 'Ошибка при одобрении комментария: ' . $e->getMessage();
+            $errorMessage = LANG_ACTION_COMMENTS_ADMINAPPROVE_ERROR . $e->getMessage();
             
             if ($isAjax) {
                 http_response_code(500);

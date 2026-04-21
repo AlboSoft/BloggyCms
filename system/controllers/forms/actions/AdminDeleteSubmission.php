@@ -13,7 +13,7 @@ class AdminDeleteSubmission extends FormAction {
             header('Content-Type: application/json');
             echo json_encode([
                 'success' => false,
-                'message' => 'ID отправки не указан'
+                'message' => LANG_ACTION_FORMS_ADMINDELETESUBMISSION_ID_NOT_SPECIFIED
             ]);
             exit;
         }
@@ -25,12 +25,12 @@ class AdminDeleteSubmission extends FormAction {
             if ($success) {
                 echo json_encode([
                     'success' => true,
-                    'message' => 'Отправка успешно удалена'
+                    'message' => LANG_ACTION_FORMS_ADMINDELETESUBMISSION_SUCCESS
                 ]);
             } else {
                 echo json_encode([
                     'success' => false,
-                    'message' => 'Не удалось удалить отправку'
+                    'message' => LANG_ACTION_FORMS_ADMINDELETESUBMISSION_FAILED
                 ]);
             }
             exit;

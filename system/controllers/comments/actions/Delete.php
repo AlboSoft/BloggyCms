@@ -18,28 +18,28 @@ class Delete extends CommentAction {
         $isAjax = $this->isAjaxRequest();
         
         if (!$id) {
-            $this->sendError('ID комментария не указан', $isAjax);
+            $this->sendError(LANG_ACTION_COMMENTS_DELETE_ID_NOT_SPECIFIED, $isAjax);
             return;
         }
         
         try {
             $currentUserId = $this->getCurrentUserId();
             if (!$currentUserId) {
-                $this->sendError('Необходимо авторизоваться для удаления комментария', $isAjax);
+                $this->sendError(LANG_ACTION_COMMENTS_DELETE_NOT_AUTH, $isAjax);
                 return;
             }
 
             $comment = $this->commentModel->getCommentById($id);
             
             if (!$comment) {
-                $this->sendError('Комментарий не найден', $isAjax);
+                $this->sendError(LANG_ACTION_COMMENTS_DELETE_NOT_FOUND, $isAjax);
                 return;
             }
 
             $userId = $comment['user_id'] ?? null;
             
             if (!\AuthHelper::canDeleteComment($userId)) {
-                $this->sendError('У вас нет прав для удаления этого комментария', $isAjax);
+                $this->sendError(LANG_ACTION_COMMENTS_DELETE_NO_PERMISSION, $isAjax);
                 return;
             }
 
@@ -55,20 +55,20 @@ class Delete extends CommentAction {
                     header('Content-Type: application/json');
                     echo json_encode([
                         'success' => true,
-                        'message' => 'Комментарий успешно удален',
+                        'message' => LANG_ACTION_COMMENTS_DELETE_SUCCESS,
                         'comment_id' => $id,
                         'has_replies' => $this->hasChildComments($id)
                     ]);
                     return;
                 } else {
-                    \Notification::success('Комментарий успешно удален');
+                    \Notification::success(LANG_ACTION_COMMENTS_DELETE_SUCCESS);
                 }
             } else {
-                throw new \Exception('Не удалось удалить комментарий');
+                throw new \Exception(LANG_ACTION_COMMENTS_DELETE_FAILED);
             }
             
         } catch (\Exception $e) {
-            $this->sendError('Ошибка при удалении комментария: ' . $e->getMessage(), $isAjax);
+            $this->sendError(LANG_ACTION_COMMENTS_DELETE_ERROR . $e->getMessage(), $isAjax);
         }
         
         if (!$isAjax) {

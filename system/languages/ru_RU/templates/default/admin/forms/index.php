@@ -1,0 +1,27 @@
+<?php
+
+define('LANG_TEMPLATE_FORMS_INDEX_TITLE', 'Управление формами');
+define('LANG_TEMPLATE_FORMS_INDEX_CREATE_BTN', 'Создать форму');
+define('LANG_TEMPLATE_FORMS_INDEX_STAT_TOTAL_FORMS', 'Всего форм');
+define('LANG_TEMPLATE_FORMS_INDEX_STAT_ACTIVE_FORMS', 'Активных форм');
+define('LANG_TEMPLATE_FORMS_INDEX_STAT_TOTAL_SUBMISSIONS', 'Всего отправок');
+define('LANG_TEMPLATE_FORMS_INDEX_STAT_NEW_SUBMISSIONS', 'Новых отправок');
+define('LANG_TEMPLATE_FORMS_INDEX_NO_FORMS_TITLE', 'Формы не созданы');
+define('LANG_TEMPLATE_FORMS_INDEX_NO_FORMS_TEXT', 'Создайте вашу первую форму для сайта');
+define('LANG_TEMPLATE_FORMS_INDEX_TABLE_ID', 'ID');
+define('LANG_TEMPLATE_FORMS_INDEX_TABLE_NAME', 'Название');
+define('LANG_TEMPLATE_FORMS_INDEX_TABLE_SLUG', 'Слаг');
+define('LANG_TEMPLATE_FORMS_INDEX_TABLE_FIELDS', 'Поля');
+define('LANG_TEMPLATE_FORMS_INDEX_TABLE_SUBMISSIONS', 'Отправки');
+define('LANG_TEMPLATE_FORMS_INDEX_TABLE_STATUS', 'Статус');
+define('LANG_TEMPLATE_FORMS_INDEX_TABLE_DATE', 'Дата создания');
+define('LANG_TEMPLATE_FORMS_INDEX_TABLE_ACTIONS', 'Действия');
+define('LANG_TEMPLATE_FORMS_INDEX_FIELDS_COUNT', 'полей');
+define('LANG_TEMPLATE_FORMS_INDEX_SUBMISSIONS_COUNT', 'отправок');
+define('LANG_TEMPLATE_FORMS_INDEX_STATUS_ACTIVE', 'Активна');
+define('LANG_TEMPLATE_FORMS_INDEX_STATUS_INACTIVE', 'Неактивна');
+define('LANG_TEMPLATE_FORMS_INDEX_ACTION_PREVIEW', 'Предпросмотр');
+define('LANG_TEMPLATE_FORMS_INDEX_ACTION_EDIT', 'Редактировать');
+define('LANG_TEMPLATE_FORMS_INDEX_ACTION_SETTINGS', 'Настройки');
+define('LANG_TEMPLATE_FORMS_INDEX_ACTION_DELETE', 'Удалить');
+define('LANG_TEMPLATE_FORMS_INDEX_DELETE_CONFIRM', 'Вы уверены, что хотите удалить форму "');

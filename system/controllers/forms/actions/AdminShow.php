@@ -13,22 +13,22 @@ class AdminShow extends FormAction {
     public function execute() {
         $id = $this->params['id'] ?? null;
         if (!$id) {
-            \Notification::error('ID формы не указан');
+            \Notification::error(LANG_ACTION_FORMS_ADMINSHOW_ID_NOT_SPECIFIED);
             $this->redirect(ADMIN_URL . '/forms');
             return;
         }
         
         $form = $this->formModel->getById($id);
         if (!$form) {
-            \Notification::error('Форма не найдена');
+            \Notification::error(LANG_ACTION_FORMS_ADMINSHOW_FORM_NOT_FOUND);
             $this->redirect(ADMIN_URL . '/forms');
             return;
         }
         
-        $this->addBreadcrumb('Панель управления', ADMIN_URL);
-        $this->addBreadcrumb('Формы', ADMIN_URL . '/forms');
+        $this->addBreadcrumb(LANG_ACTION_FORMS_ADMINSHOW_BREADCRUMB_DASHBOARD, ADMIN_URL);
+        $this->addBreadcrumb(LANG_ACTION_FORMS_ADMINSHOW_BREADCRUMB_FORMS, ADMIN_URL . '/forms');
         $this->addBreadcrumb(html($form['name']), ADMIN_URL . '/forms/edit/' . $id);
-        $this->addBreadcrumb('Отправки');
+        $this->addBreadcrumb(LANG_ACTION_FORMS_ADMINSHOW_BREADCRUMB_SUBMISSIONS);
         
         $page = $_GET['page'] ?? 1;
         $perPage = 20;
@@ -59,7 +59,7 @@ class AdminShow extends FormAction {
             'spamCount' => $statusStats['spam'],
             'currentPage' => $page,
             'totalPages' => $totalPages,
-            'pageTitle' => 'Отправки формы: ' . html($form['name']),
+            'pageTitle' => LANG_ACTION_FORMS_ADMINSHOW_PAGE_TITLE . html($form['name']),
             'formModel' => $this->formModel
         ]);
     }

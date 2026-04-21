@@ -10,22 +10,22 @@ class AdminSettings extends FormAction {
     public function execute() {
         $id = $this->params['id'] ?? null;
         if (!$id) {
-            \Notification::error('ID формы не указан');
+            \Notification::error(LANG_ACTION_FORMS_ADMINSETTINGS_ID_NOT_SPECIFIED);
             $this->redirect(ADMIN_URL . '/forms');
             return;
         }
         
         $form = $this->formModel->getById($id);
         if (!$form) {
-            \Notification::error('Форма не найдена');
+            \Notification::error(LANG_ACTION_FORMS_ADMINSETTINGS_FORM_NOT_FOUND);
             $this->redirect(ADMIN_URL . '/forms');
             return;
         }
 
-        $this->addBreadcrumb('Панель управления', ADMIN_URL);
-        $this->addBreadcrumb('Формы', ADMIN_URL . '/forms');
-        $this->addBreadcrumb('Редактирование: ' . html($form['name']), ADMIN_URL . '/forms/edit/' . $id);
-        $this->addBreadcrumb('Настройки');
+        $this->addBreadcrumb(LANG_ACTION_FORMS_ADMINSETTINGS_BREADCRUMB_DASHBOARD, ADMIN_URL);
+        $this->addBreadcrumb(LANG_ACTION_FORMS_ADMINSETTINGS_BREADCRUMB_FORMS, ADMIN_URL . '/forms');
+        $this->addBreadcrumb(LANG_ACTION_FORMS_ADMINSETTINGS_BREADCRUMB_EDIT . html($form['name']), ADMIN_URL . '/forms/edit/' . $id);
+        $this->addBreadcrumb(LANG_ACTION_FORMS_ADMINSETTINGS_BREADCRUMB_SETTINGS);
         
         $settings = $form['settings'] ?? $this->getFormSettings();
         $notifications = $form['notifications'] ?? $this->getDefaultNotifications();
@@ -50,10 +50,10 @@ class AdminSettings extends FormAction {
                 $success = $this->formModel->update($id, $formData);
                 
                 if ($success) {
-                    \Notification::success('Настройки формы успешно обновлены');
+                    \Notification::success(LANG_ACTION_FORMS_ADMINSETTINGS_SUCCESS);
                     $this->redirect(ADMIN_URL . '/forms/settings/' . $id);
                 } else {
-                    throw new \Exception('Не удалось обновить настройки');
+                    throw new \Exception(LANG_ACTION_FORMS_ADMINSETTINGS_UPDATE_FAILED);
                 }
                 
             } catch (\Exception $e) {
@@ -68,7 +68,7 @@ class AdminSettings extends FormAction {
             'actions' => $actions,
             'captchaTypes' => $captchaTypes,
             'captchaExample' => $captchaExample,
-            'pageTitle' => 'Настройки формы: ' . html($form['name'])
+            'pageTitle' => LANG_ACTION_FORMS_ADMINSETTINGS_PAGE_TITLE . html($form['name'])
         ]);
     }
     
@@ -136,8 +136,8 @@ class AdminSettings extends FormAction {
             'type' => 'admin',
             'to' => $postData['admin_email'] ?? '',
             'from' => $postData['admin_from'] ?? '',
-            'subject' => $postData['admin_subject'] ?? 'Новая отправка формы',
-            'message' => $postData['admin_message'] ?? 'Поступила новая отправка формы.'
+            'subject' => $postData['admin_subject'] ?? LANG_ACTION_FORMS_ADMINSETTINGS_DEFAULT_ADMIN_SUBJECT,
+            'message' => $postData['admin_message'] ?? LANG_ACTION_FORMS_ADMINSETTINGS_DEFAULT_ADMIN_MESSAGE
         ];
         
         $userNotification = [
@@ -145,8 +145,8 @@ class AdminSettings extends FormAction {
             'type' => 'user',
             'to_field' => $postData['user_email_field'] ?? '{email}',
             'from' => $postData['user_from'] ?? '',
-            'subject' => $postData['user_subject'] ?? 'Ваша форма отправлена',
-            'message' => $postData['user_message'] ?? 'Спасибо за вашу заявку!'
+            'subject' => $postData['user_subject'] ?? LANG_ACTION_FORMS_ADMINSETTINGS_DEFAULT_USER_SUBJECT,
+            'message' => $postData['user_message'] ?? LANG_ACTION_FORMS_ADMINSETTINGS_DEFAULT_USER_MESSAGE
         ];
         
         $notifications = [$adminNotification, $userNotification];
@@ -163,14 +163,14 @@ class AdminSettings extends FormAction {
         $actions[] = [
             'enabled' => true,
             'type' => 'save_to_db',
-            'name' => 'Сохранить в базу данных'
+            'name' => LANG_ACTION_FORMS_ADMINSETTINGS_ACTION_SAVE_DB
         ];
         
         if (!empty($postData['redirect_enabled'])) {
             $actions[] = [
                 'enabled' => true,
                 'type' => 'redirect',
-                'name' => 'Редирект после отправки',
+                'name' => LANG_ACTION_FORMS_ADMINSETTINGS_ACTION_REDIRECT,
                 'url' => $postData['redirect_url'] ?? ''
             ];
         }
@@ -192,7 +192,7 @@ class AdminSettings extends FormAction {
             $actions[] = [
                 'enabled' => true,
                 'type' => 'webhook',
-                'name' => 'Отправить на вебхук',
+                'name' => LANG_ACTION_FORMS_ADMINSETTINGS_ACTION_WEBHOOK,
                 'url' => $postData['webhook_url'] ?? '',
                 'method' => $postData['webhook_method'] ?? 'POST',
                 'headers' => $headers
@@ -203,7 +203,7 @@ class AdminSettings extends FormAction {
             $actions[] = [
                 'enabled' => true,
                 'type' => 'send_email',
-                'name' => 'Отправить email',
+                'name' => LANG_ACTION_FORMS_ADMINSETTINGS_ACTION_SEND_EMAIL,
                 'to' => $postData['email_action_to'] ?? '',
                 'subject' => $postData['email_action_subject'] ?? '',
                 'template' => $postData['email_action_template'] ?? ''
@@ -219,20 +219,20 @@ class AdminSettings extends FormAction {
     private function getCaptchaTypes() {
         return [
             'math' => [
-                'name' => 'Математическая',
-                'description' => 'Простой математический пример (2+2, 5*3 и т.д.)'
+                'name' => LANG_ACTION_FORMS_ADMINSETTINGS_CAPTCHA_MATH_NAME,
+                'description' => LANG_ACTION_FORMS_ADMINSETTINGS_CAPTCHA_MATH_DESC
             ],
             'text' => [
-                'name' => 'Текстовая',
-                'description' => 'Вопрос с текстовым ответом'
+                'name' => LANG_ACTION_FORMS_ADMINSETTINGS_CAPTCHA_TEXT_NAME,
+                'description' => LANG_ACTION_FORMS_ADMINSETTINGS_CAPTCHA_TEXT_DESC
             ],
             'logic' => [
-                'name' => 'Логическая',
-                'description' => 'Простая логическая задача'
+                'name' => LANG_ACTION_FORMS_ADMINSETTINGS_CAPTCHA_LOGIC_NAME,
+                'description' => LANG_ACTION_FORMS_ADMINSETTINGS_CAPTCHA_LOGIC_DESC
             ],
             'image' => [ 
-                'name' => 'Изображение',
-                'description' => 'Символы на картинке (требует GD)'
+                'name' => LANG_ACTION_FORMS_ADMINSETTINGS_CAPTCHA_IMAGE_NAME,
+                'description' => LANG_ACTION_FORMS_ADMINSETTINGS_CAPTCHA_IMAGE_DESC
             ]
         ];
     }
@@ -252,15 +252,15 @@ class AdminSettings extends FormAction {
                     $a = max($a, $b) + rand(0, 5);
                 }
                 
-                $question = "Сколько будет $a $op $b?";
+                $question = LANG_ACTION_FORMS_ADMINSETTINGS_CAPTCHA_MATH_QUESTION . "$a $op $b?";
                 $answer = eval("return $a $op $b;");
                 break;
                 
             case 'text':
                 $questions = [
-                    'Столица России?' => 'Москва',
-                    'Сколько дней в неделе?' => '7',
-                    'Какого цвета трава?' => 'Зеленый'
+                    LANG_ACTION_FORMS_ADMINSETTINGS_CAPTCHA_TEXT_Q1 => LANG_ACTION_FORMS_ADMINSETTINGS_CAPTCHA_TEXT_A1,
+                    LANG_ACTION_FORMS_ADMINSETTINGS_CAPTCHA_TEXT_Q2 => LANG_ACTION_FORMS_ADMINSETTINGS_CAPTCHA_TEXT_A2,
+                    LANG_ACTION_FORMS_ADMINSETTINGS_CAPTCHA_TEXT_Q3 => LANG_ACTION_FORMS_ADMINSETTINGS_CAPTCHA_TEXT_A3
                 ];
                 $question = array_rand($questions);
                 $answer = $questions[$question];
@@ -268,16 +268,16 @@ class AdminSettings extends FormAction {
                 
             case 'logic':
                 $questions = [
-                    'Что тяжелее: 1 кг пуха или 1 кг железа?' => 'одинаково',
-                    'Что идет не двигаясь с места?' => 'время',
-                    'Что можно увидеть с закрытыми глазами?' => 'сон'
+                    LANG_ACTION_FORMS_ADMINSETTINGS_CAPTCHA_LOGIC_Q1 => LANG_ACTION_FORMS_ADMINSETTINGS_CAPTCHA_LOGIC_A1,
+                    LANG_ACTION_FORMS_ADMINSETTINGS_CAPTCHA_LOGIC_Q2 => LANG_ACTION_FORMS_ADMINSETTINGS_CAPTCHA_LOGIC_A2,
+                    LANG_ACTION_FORMS_ADMINSETTINGS_CAPTCHA_LOGIC_Q3 => LANG_ACTION_FORMS_ADMINSETTINGS_CAPTCHA_LOGIC_A3
                 ];
                 $question = array_rand($questions);
                 $answer = $questions[$question];
                 break;
                 
             default:
-                $question = 'Сколько будет 2 + 2?';
+                $question = LANG_ACTION_FORMS_ADMINSETTINGS_CAPTCHA_DEFAULT_QUESTION;
                 $answer = '4';
         }
         

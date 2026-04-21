@@ -12,7 +12,7 @@ class AdminGetSettings extends FieldAction {
         $type = $this->params['type'] ?? null;
         
         if (!$type) {
-            echo '<div class="alert alert-warning">Тип поля не указан</div>';
+            echo '<div class="alert alert-warning">' . LANG_ACTION_FIELDS_ADMINGETSETTINGS_TYPE_NOT_SPECIFIED . '</div>';
             exit;
         }
         
@@ -27,10 +27,10 @@ class AdminGetSettings extends FieldAction {
                 $settingsForm = $fieldInstance->getSettingsForm();
                 echo $settingsForm;
             } else {
-                echo '<div class="alert alert-warning">Настройки для этого типа поля не найдены</div>';
+                echo '<div class="alert alert-warning">' . LANG_ACTION_FIELDS_ADMINGETSETTINGS_NOT_FOUND . '</div>';
             }
         } catch (\Exception $e) {
-            echo '<div class="alert alert-danger">Ошибка: ' . html($e->getMessage()) . '</div>';
+            echo '<div class="alert alert-danger">' . LANG_ACTION_FIELDS_ADMINGETSETTINGS_ERROR . html($e->getMessage()) . '</div>';
         }
         
         exit;

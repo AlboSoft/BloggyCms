@@ -16,7 +16,7 @@ class AdminToggle extends FieldAction {
         $id = $this->params['id'] ?? null;
         
         if (!$id) {
-            \Notification::error('ID поля не указан');
+            \Notification::error(LANG_ACTION_FIELDS_ADMINTOGGLE_ID_NOT_SPECIFIED);
             $this->redirect(ADMIN_URL . '/fields');
             return;
         }
@@ -24,7 +24,7 @@ class AdminToggle extends FieldAction {
         try {
             $field = $this->fieldModel->getById($id);
             if (!$field) {
-                throw new \Exception('Поле не найдено');
+                throw new \Exception(LANG_ACTION_FIELDS_ADMINTOGGLE_NOT_FOUND);
             }
             
             $newStatus = $field['is_active'] ? 0 : 1;
@@ -43,14 +43,14 @@ class AdminToggle extends FieldAction {
             $result = $this->fieldModel->update($id, $data);
             
             if ($result) {
-                $statusText = $newStatus ? 'включено' : 'отключено';
-                \Notification::success("Поле {$statusText}");
+                $statusText = $newStatus ? LANG_ACTION_FIELDS_ADMINTOGGLE_ENABLED : LANG_ACTION_FIELDS_ADMINTOGGLE_DISABLED;
+                \Notification::success(LANG_ACTION_FIELDS_ADMINTOGGLE_SUCCESS . $statusText);
             } else {
-                throw new \Exception('Не удалось обновить поле в базе данных');
+                throw new \Exception(LANG_ACTION_FIELDS_ADMINTOGGLE_UPDATE_FAILED);
             }
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при изменении статуса поля: ' . $e->getMessage());
+            \Notification::error(LANG_ACTION_FIELDS_ADMINTOGGLE_ERROR . $e->getMessage());
         }
         
         if (isset($field['entity_type'])) {

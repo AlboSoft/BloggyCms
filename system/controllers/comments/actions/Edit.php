@@ -17,7 +17,7 @@ class Edit extends CommentAction {
         $id = $this->params['id'] ?? null;
         
         if (!$id) {
-            \Notification::error('ID комментария не указан');
+            \Notification::error(LANG_ACTION_COMMENTS_EDIT_ID_NOT_SPECIFIED);
             $this->redirect($_SERVER['HTTP_REFERER'] ?? BASE_URL);
             return;
         }
@@ -28,7 +28,7 @@ class Edit extends CommentAction {
             $currentUserId = $this->getCurrentUserId();
             
             if (!$currentUserId) {
-                \Notification::error('Необходимо авторизоваться для редактирования комментария');
+                \Notification::error(LANG_ACTION_COMMENTS_EDIT_NOT_AUTH);
                 $_SESSION['return_url'] = $_SERVER['REQUEST_URI'];
                 $this->redirect(BASE_URL . '/auth/login');
                 return;
@@ -37,7 +37,7 @@ class Edit extends CommentAction {
             $comment = $this->commentModel->getCommentById($id);
             
             if (!$comment) {
-                \Notification::error('Комментарий не найден');
+                \Notification::error(LANG_ACTION_COMMENTS_EDIT_NOT_FOUND);
                 $this->redirect(BASE_URL);
                 return;
             }
@@ -45,7 +45,7 @@ class Edit extends CommentAction {
             $post = $this->postModel->getById($comment['post_id']);
             
             if (!$post) {
-                \Notification::error('Пост, к которому относится комментарий, не найден');
+                \Notification::error(LANG_ACTION_COMMENTS_EDIT_POST_NOT_FOUND);
                 $this->redirect(BASE_URL);
                 return;
             }
@@ -53,13 +53,13 @@ class Edit extends CommentAction {
             $userId = $comment['user_id'] ?? null;
             
             if (!\AuthHelper::canEditComment($userId)) {
-                \Notification::error('У вас нет прав для редактирования этого комментария');
+                \Notification::error(LANG_ACTION_COMMENTS_EDIT_NO_PERMISSION);
                 $this->redirect($_SERVER['HTTP_REFERER'] ?? BASE_URL);
                 return;
             }
             
-            $this->addBreadcrumb('Главная', BASE_URL);
-            $this->addBreadcrumb('Все записи', BASE_URL . '/posts');
+            $this->addBreadcrumb(LANG_ACTION_COMMENTS_EDIT_BREADCRUMB_HOME, BASE_URL);
+            $this->addBreadcrumb(LANG_ACTION_COMMENTS_EDIT_BREADCRUMB_POSTS, BASE_URL . '/posts');
             
             if (!empty($post['category_id'])) {
                 $category = $this->categoryModel->getById($post['category_id']);
@@ -72,18 +72,18 @@ class Edit extends CommentAction {
             }
             
             $this->addBreadcrumb($post['title'], BASE_URL . '/post/' . $post['slug']);
-            $this->addBreadcrumb('Комментарий #' . $id, BASE_URL . '/post/' . $post['slug'] . '#tg-comment-' . $id);
-            $this->addBreadcrumb('Редактирование');
+            $this->addBreadcrumb(LANG_ACTION_COMMENTS_EDIT_BREADCRUMB_COMMENT . $id, BASE_URL . '/post/' . $post['slug'] . '#tg-comment-' . $id);
+            $this->addBreadcrumb(LANG_ACTION_COMMENTS_EDIT_BREADCRUMB_EDIT);
             
             $isAdmin = $this->isAdmin();
-            $pageTitle = $isAdmin ? 'Редактирование комментария (админ)' : 'Редактирование комментария';
+            $pageTitle = $isAdmin ? LANG_ACTION_COMMENTS_EDIT_PAGE_TITLE_ADMIN : LANG_ACTION_COMMENTS_EDIT_PAGE_TITLE;
             $this->setPageTitle($pageTitle);
             
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $content = trim($_POST['content'] ?? '');
                 
                 if (empty($content)) {
-                    \Notification::error('Текст комментария не может быть пустым');
+                    \Notification::error(LANG_ACTION_COMMENTS_EDIT_EMPTY_CONTENT);
                     
                     $this->renderForm($comment, $post, $isAdmin);
                     return;
@@ -113,11 +113,11 @@ class Edit extends CommentAction {
                 $this->commentModel->updateComment($id, $data);
                 
                 if ($status === 'approved') {
-                    \Notification::success('Комментарий успешно обновлен и одобрен');
+                    \Notification::success(LANG_ACTION_COMMENTS_EDIT_SUCCESS_APPROVED);
                 } elseif ($status === 'pending') {
-                    \Notification::success('Комментарий успешно обновлен и отправлен на модерацию');
+                    \Notification::success(LANG_ACTION_COMMENTS_EDIT_SUCCESS_PENDING);
                 } else {
-                    \Notification::success('Комментарий успешно обновлен');
+                    \Notification::success(LANG_ACTION_COMMENTS_EDIT_SUCCESS);
                 }
                 
                 $this->redirect(BASE_URL . '/post/' . $post['slug'] . '#comment-' . $id);
@@ -127,7 +127,7 @@ class Edit extends CommentAction {
             $this->renderForm($comment, $post, $isAdmin);
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при редактировании комментария: ' . $e->getMessage());
+            \Notification::error(LANG_ACTION_COMMENTS_EDIT_ERROR . $e->getMessage());
             $this->redirect($_SERVER['HTTP_REFERER'] ?? BASE_URL);
         }
     }
@@ -145,7 +145,7 @@ class Edit extends CommentAction {
             'post' => $post,
             'postModel' => $this->postModel,
             'isAdmin' => $isAdmin,
-            'pageTitle' => $isAdmin ? 'Редактирование комментария (админ)' : 'Редактирование комментария'
+            'pageTitle' => $isAdmin ? LANG_ACTION_COMMENTS_EDIT_PAGE_TITLE_ADMIN : LANG_ACTION_COMMENTS_EDIT_PAGE_TITLE
         ]);
     }
 }

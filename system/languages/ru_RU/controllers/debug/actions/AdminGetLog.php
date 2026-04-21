@@ -1,0 +1,5 @@
+<?php
+
+define('LANG_ACTION_DEBUG_ADMINGETLOG_AJAX_ONLY', 'Только AJAX запросы');
+define('LANG_ACTION_DEBUG_ADMINGETLOG_ID_NOT_SPECIFIED', 'ID не указан');
+define('LANG_ACTION_DEBUG_ADMINGETLOG_NOT_FOUND', 'Лог не найден');

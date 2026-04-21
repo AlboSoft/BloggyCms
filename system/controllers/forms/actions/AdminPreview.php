@@ -10,21 +10,21 @@ class AdminPreview extends FormAction {
     public function execute() {
         $id = $this->params['id'] ?? null;
         if (!$id) {
-            \Notification::error('ID формы не указан');
+            \Notification::error(LANG_ACTION_FORMS_ADMINPREVIEW_ID_NOT_SPECIFIED);
             $this->redirect(ADMIN_URL . '/forms');
             return;
         }
         
         $form = $this->formModel->getById($id);
         if (!$form) {
-            \Notification::error('Форма не найдена');
+            \Notification::error(LANG_ACTION_FORMS_ADMINPREVIEW_FORM_NOT_FOUND);
             $this->redirect(ADMIN_URL . '/forms');
             return;
         }
         
-        $this->addBreadcrumb('Панель управления', ADMIN_URL);
-        $this->addBreadcrumb('Формы', ADMIN_URL . '/forms');
-        $this->addBreadcrumb('Предпросмотр: ' . html($form['name']));
+        $this->addBreadcrumb(LANG_ACTION_FORMS_ADMINPREVIEW_BREADCRUMB_DASHBOARD, ADMIN_URL);
+        $this->addBreadcrumb(LANG_ACTION_FORMS_ADMINPREVIEW_BREADCRUMB_FORMS, ADMIN_URL . '/forms');
+        $this->addBreadcrumb(LANG_ACTION_FORMS_ADMINPREVIEW_BREADCRUMB_PREVIEW . html($form['name']));
         
         $settings = $form['settings'] ?? [];
         
@@ -43,7 +43,7 @@ class AdminPreview extends FormAction {
         $this->render('admin/forms/preview', [
             'form' => $form,
             'formHtml' => $formHtml,
-            'pageTitle' => 'Предпросмотр формы: ' . html($form['name'])
+            'pageTitle' => LANG_ACTION_FORMS_ADMINPREVIEW_PAGE_TITLE . html($form['name'])
         ]);
     }
 

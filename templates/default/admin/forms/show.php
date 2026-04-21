@@ -2,20 +2,20 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h4 class="mb-0">
             <?php echo bloggy_icon('bs', 'envelope', '24', '#000', 'me-2'); ?>
-            Отправки формы: <?php echo html($form['name']); ?>
+            <?php echo sprintf(LANG_TEMPLATE_FORMS_SHOW_TITLE, html($form['name'])); ?>
         </h4>
         <div>
             <a href="<?php echo ADMIN_URL; ?>/forms" class="btn btn-outline-secondary me-2">
                 <?php echo bloggy_icon('bs', 'arrow-left', '16', '#000', 'me-2'); ?>
-                Назад
+                <?php echo LANG_TEMPLATE_FORMS_SHOW_BACK_BTN; ?>
             </a>
             <a href="<?php echo ADMIN_URL; ?>/forms/edit/<?php echo $form['id']; ?>" class="btn btn-outline-primary me-2">
                 <?php echo bloggy_icon('bs', 'pencil', '16', '#000', 'me-2'); ?>
-                Редактировать
+                <?php echo LANG_TEMPLATE_FORMS_SHOW_EDIT_BTN; ?>
             </a>
             <button type="button" class="btn btn-success" onclick="exportToCSV()">
                 <?php echo bloggy_icon('bs', 'download', '16', '#fff', 'me-2'); ?>
-                Экспорт в CSV
+                <?php echo LANG_TEMPLATE_FORMS_SHOW_EXPORT_BTN; ?>
             </button>
         </div>
     </div>
@@ -30,7 +30,7 @@
                         </div>
                         <div>
                             <h3 class="mb-0"><?php echo $submissionsCount; ?></h3>
-                            <small>Всего отправок</small>
+                            <small><?php echo LANG_TEMPLATE_FORMS_SHOW_STAT_TOTAL; ?></small>
                         </div>
                     </div>
                 </div>
@@ -46,7 +46,7 @@
                         </div>
                         <div>
                             <h3 class="mb-0"><?php echo $newCount; ?></h3>
-                            <small>Новых отправок</small>
+                            <small><?php echo LANG_TEMPLATE_FORMS_SHOW_STAT_NEW; ?></small>
                         </div>
                     </div>
                 </div>
@@ -62,7 +62,7 @@
                         </div>
                         <div>
                             <h3 class="mb-0"><?php echo $processedCount; ?></h3>
-                            <small>Обработано</small>
+                            <small><?php echo LANG_TEMPLATE_FORMS_SHOW_STAT_PROCESSED; ?></small>
                         </div>
                     </div>
                 </div>
@@ -78,7 +78,7 @@
                         </div>
                         <div>
                             <h3 class="mb-0"><?php echo $spamCount; ?></h3>
-                            <small>Спам</small>
+                            <small><?php echo LANG_TEMPLATE_FORMS_SHOW_STAT_SPAM; ?></small>
                         </div>
                     </div>
                 </div>
@@ -90,11 +90,11 @@
     <div class="card border-0 shadow-sm">
         <div class="card-body text-center py-5">
             <?php echo bloggy_icon('bs', 'inbox', '48', '#6C6C6C', 'mb-3'); ?>
-            <h5 class="text-muted">Отправок нет</h5>
-            <p class="text-muted mb-4">Еще никто не отправил эту форму</p>
+            <h5 class="text-muted"><?php echo LANG_TEMPLATE_FORMS_SHOW_NO_SUBMISSIONS_TITLE; ?></h5>
+            <p class="text-muted mb-4"><?php echo LANG_TEMPLATE_FORMS_SHOW_NO_SUBMISSIONS_TEXT; ?></p>
             <a href="<?php echo ADMIN_URL; ?>/forms/preview/<?php echo $form['id']; ?>" class="btn btn-primary">
                 <?php echo bloggy_icon('bs', 'eye', '16', '#fff', 'me-2'); ?>
-                Предпросмотр формы
+                <?php echo LANG_TEMPLATE_FORMS_SHOW_PREVIEW_BTN; ?>
             </a>
         </div>
     </div>
@@ -103,12 +103,12 @@
         <div class="card-header bg-white border-0 d-flex justify-content-between align-items-center">
             <h5 class="card-title mb-0">
                 <?php echo bloggy_icon('bs', 'list-ul', '20', '#000', 'me-2'); ?>
-                Список отправок
+                <?php echo LANG_TEMPLATE_FORMS_SHOW_SUBMISSIONS_LIST; ?>
             </h5>
             <div class="btn-group">
                 <button type="button" class="btn btn-outline-danger btn-sm" onclick="deleteAllSubmissions()">
                     <?php echo bloggy_icon('bs', 'trash', '16', '#000', 'me-1'); ?>
-                    Удалить все
+                    <?php echo LANG_TEMPLATE_FORMS_SHOW_DELETE_ALL_BTN; ?>
                 </button>
             </div>
         </div>
@@ -117,12 +117,12 @@
                 <table class="table table-hover mb-0">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Дата</th>
-                            <th>IP адрес</th>
-                            <th>Данные</th>
-                            <th>Статус</th>
-                            <th class="end">Действия</th>
+                            <th><?php echo LANG_TEMPLATE_FORMS_SHOW_TABLE_ID; ?></th>
+                            <th><?php echo LANG_TEMPLATE_FORMS_SHOW_TABLE_DATE; ?></th>
+                            <th><?php echo LANG_TEMPLATE_FORMS_SHOW_TABLE_IP; ?></th>
+                            <th><?php echo LANG_TEMPLATE_FORMS_SHOW_TABLE_DATA; ?></th>
+                            <th><?php echo LANG_TEMPLATE_FORMS_SHOW_TABLE_STATUS; ?></th>
+                            <th class="end"><?php echo LANG_TEMPLATE_FORMS_SHOW_TABLE_ACTIONS; ?></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -162,7 +162,7 @@
                                         }
                                     }
                                 } elseif ($fieldType === 'checkbox') {
-                                    $displayValue = !empty($value) ? '✓ Да' : '✗ Нет';
+                                    $displayValue = !empty($value) ? LANG_TEMPLATE_FORMS_SHOW_CHECKBOX_YES : LANG_TEMPLATE_FORMS_SHOW_CHECKBOX_NO;
                                 }
                                 
                                 if (is_array($displayValue)) {
@@ -202,10 +202,10 @@
                                         data-id="<?php echo $submission['id']; ?>"
                                         data-original-value="<?php echo $submission['status']; ?>"
                                         style="width: 120px;">
-                                    <option value="new" <?php echo $submission['status'] === 'new' ? 'selected' : ''; ?>>Новый</option>
-                                    <option value="read" <?php echo $submission['status'] === 'read' ? 'selected' : ''; ?>>Прочитан</option>
-                                    <option value="processed" <?php echo $submission['status'] === 'processed' ? 'selected' : ''; ?>>Обработан</option>
-                                    <option value="spam" <?php echo $submission['status'] === 'spam' ? 'selected' : ''; ?>>Спам</option>
+                                    <option value="new" <?php echo $submission['status'] === 'new' ? 'selected' : ''; ?>><?php echo LANG_TEMPLATE_FORMS_SHOW_STATUS_NEW; ?></option>
+                                    <option value="read" <?php echo $submission['status'] === 'read' ? 'selected' : ''; ?>><?php echo LANG_TEMPLATE_FORMS_SHOW_STATUS_READ; ?></option>
+                                    <option value="processed" <?php echo $submission['status'] === 'processed' ? 'selected' : ''; ?>><?php echo LANG_TEMPLATE_FORMS_SHOW_STATUS_PROCESSED; ?></option>
+                                    <option value="spam" <?php echo $submission['status'] === 'spam' ? 'selected' : ''; ?>><?php echo LANG_TEMPLATE_FORMS_SHOW_STATUS_SPAM; ?></option>
                                 </select>
                             </td>
                             <td class="end">
@@ -220,7 +220,7 @@
                                     <button type="button"
                                         class="btn btn-outline-danger delete-submission"
                                         data-id="<?php echo $submission['id']; ?>"
-                                        title="Удалить">
+                                        title="<?php echo LANG_TEMPLATE_FORMS_SHOW_DELETE_TITLE; ?>">
                                         <?php echo bloggy_icon('bs', 'trash', '16', '#000'); ?>
                                     </button>
                                 </div>
@@ -234,7 +234,7 @@
         
         <?php if ($totalPages > 1) { ?>
         <div class="card-footer bg-white border-0">
-            <nav aria-label="Навигация по страницам">
+            <nav aria-label="<?php echo LANG_TEMPLATE_FORMS_SHOW_PAGINATION_ARIA; ?>">
                 <ul class="pagination justify-content-center mb-0">
                     <?php for ($i = 1; $i <= $totalPages; $i++) { ?>
                         <li class="page-item <?php echo $i == $currentPage ? 'active' : ''; ?>">
@@ -255,25 +255,25 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="viewSubmissionModalLabel">
                     <?php echo bloggy_icon('bs', 'envelope-open', '20', '#000', 'me-2'); ?>
-                    Просмотр отправки
+                    <?php echo LANG_TEMPLATE_FORMS_SHOW_MODAL_TITLE; ?>
                 </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="<?php echo LANG_TEMPLATE_FORMS_SHOW_MODAL_CLOSE; ?>"></button>
             </div>
             <div class="modal-body" id="submission-details">
                 <div class="text-center py-5">
                     <div class="spinner-border text-primary" role="status">
-                        <span class="visually-hidden">Загрузка...</span>
+                        <span class="visually-hidden"><?php echo LANG_TEMPLATE_FORMS_SHOW_LOADING; ?></span>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                     <?php echo bloggy_icon('bs', 'x-circle', '16', '#000', 'me-1'); ?>
-                    Закрыть
+                    <?php echo LANG_TEMPLATE_FORMS_SHOW_MODAL_CLOSE_BTN; ?>
                 </button>
                 <button type="button" class="btn btn-primary" onclick="printSubmission()">
                     <?php echo bloggy_icon('bs', 'printer', '16', '#fff', 'me-1'); ?>
-                    Печать
+                    <?php echo LANG_TEMPLATE_FORMS_SHOW_PRINT_BTN; ?>
                 </button>
             </div>
         </div>
@@ -308,17 +308,17 @@
                     if (data.success) {
                         updateStatusSelectStyle(this);
                         this.dataset.originalValue = newStatus;
-                        showNotification('Статус обновлен', 'success');
+                        showNotification('<?php echo LANG_TEMPLATE_FORMS_SHOW_STATUS_UPDATED; ?>', 'success');
                     } else {
                         this.value = originalValue;
                         updateStatusSelectStyle(this);
-                        showNotification(data.message || 'Ошибка при обновлении статуса', 'error');
+                        showNotification(data.message || '<?php echo LANG_TEMPLATE_FORMS_SHOW_STATUS_UPDATE_ERROR; ?>', 'error');
                     }
                 })
                 .catch(error => {
                     this.value = originalValue;
                     updateStatusSelectStyle(this);
-                    showNotification('Ошибка сети: ' + error.message, 'error');
+                    showNotification('<?php echo LANG_TEMPLATE_FORMS_SHOW_NETWORK_ERROR; ?>' + error.message, 'error');
                 })
                 .finally(() => {
                     this.style.borderColor = originalColor;
@@ -347,7 +347,7 @@
             modalBody.innerHTML = `
             <div class="text-center py-5">
                 <div class="spinner-border text-primary" role="status">
-                    <span class="visually-hidden">Загрузка...</span>
+                    <span class="visually-hidden"><?php echo LANG_TEMPLATE_FORMS_SHOW_LOADING; ?></span>
                 </div>
             </div>
             `;
@@ -390,16 +390,16 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <strong>ID:</strong> #${submission.id}
+                                <strong><?php echo LANG_TEMPLATE_FORMS_SHOW_DETAIL_ID; ?></strong> #${submission.id}
                             </div>
                             <div class="mb-3">
-                                <strong>Дата отправки:</strong> ${submission.created_at}
+                                <strong><?php echo LANG_TEMPLATE_FORMS_SHOW_DETAIL_DATE; ?></strong> ${submission.created_at}
                             </div>
                             <div class="mb-3">
-                                <strong>IP адрес:</strong> ${submission.ip_address || 'Не указан'}
+                                <strong><?php echo LANG_TEMPLATE_FORMS_SHOW_DETAIL_IP; ?></strong> ${submission.ip_address || '<?php echo LANG_TEMPLATE_FORMS_SHOW_DETAIL_NOT_SPECIFIED; ?>'}
                             </div>
                             <div class="mb-3">
-                                <strong>Статус:</strong>
+                                <strong><?php echo LANG_TEMPLATE_FORMS_SHOW_DETAIL_STATUS; ?></strong>
                                 <span class="badge bg-${getStatusColor(submission.status)}">
                                     ${getStatusText(submission.status)}
                                 </span>
@@ -407,17 +407,17 @@
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <strong>User Agent:</strong>
-                                <div class="small text-muted">${submission.user_agent || 'Не указан'}</div>
+                                <strong><?php echo LANG_TEMPLATE_FORMS_SHOW_DETAIL_USER_AGENT; ?></strong>
+                                <div class="small text-muted">${submission.user_agent || '<?php echo LANG_TEMPLATE_FORMS_SHOW_DETAIL_NOT_SPECIFIED; ?>'}</div>
                             </div>
                             <div class="mb-3">
-                                <strong>Referer:</strong>
-                                <div class="small text-muted">${submission.referer || 'Не указан'}</div>
+                                <strong><?php echo LANG_TEMPLATE_FORMS_SHOW_DETAIL_REFERER; ?></strong>
+                                <div class="small text-muted">${submission.referer || '<?php echo LANG_TEMPLATE_FORMS_SHOW_DETAIL_NOT_SPECIFIED; ?>'}</div>
                             </div>
                         </div>
                     </div>
                     <hr>
-                    <h6 class="mb-3"><?php echo bloggy_icon('bs', 'card-text', '16', '#000', 'me-2'); ?>Данные формы:</h6>
+                    <h6 class="mb-3"><?php echo bloggy_icon('bs', 'card-text', '16', '#000', 'me-2'); ?><?php echo LANG_TEMPLATE_FORMS_SHOW_DETAIL_FORM_DATA; ?></h6>
                     `;
                     
                     if (submission.data && Object.keys(submission.data).length > 0) {
@@ -445,13 +445,13 @@
                         
                         html += '</table></div>';
                     } else {
-                        html += '<div class="alert alert-info">Нет данных</div>';
+                        html += '<div class="alert alert-info"><?php echo LANG_TEMPLATE_FORMS_SHOW_DETAIL_NO_DATA; ?></div>';
                     }
                     
                     if (submission.files && submission.files.length > 0) {
                         html += `
                         <hr>
-                        <h6 class="mb-3"><?php echo bloggy_icon('bs', 'paperclip', '16', '#000', 'me-2'); ?>Прикрепленные файлы:</h6>
+                        <h6 class="mb-3"><?php echo bloggy_icon('bs', 'paperclip', '16', '#000', 'me-2'); ?><?php echo LANG_TEMPLATE_FORMS_SHOW_DETAIL_FILES; ?></h6>
                         <div class="row">
                         `;
                         submission.files.forEach(file => {
@@ -468,7 +468,7 @@
                                                 <div class="small text-muted">${formatFileSize(file.file_size)}</div>
                                                 <div class="small">
                                                     <a href="<?php echo BASE_URL; ?>/${escapeHtml(file.file_path)}" target="_blank" class="text-decoration-none">
-                                                        <?php echo bloggy_icon('bs', 'download', '16', '#000', 'me-1'); ?>Скачать
+                                                        <?php echo bloggy_icon('bs', 'download', '16', '#000', 'me-1'); ?><?php echo LANG_TEMPLATE_FORMS_SHOW_DETAIL_DOWNLOAD; ?>
                                                     </a>
                                                 </div>
                                             </div>
@@ -486,7 +486,7 @@
                     modalBody.innerHTML = `
                     <div class="alert alert-danger">
                         <?php echo bloggy_icon('bs', 'exclamation-triangle', '16', '#000', 'me-2'); ?>
-                        ${data.message || 'Ошибка при загрузке данных'}
+                        ${data.message || '<?php echo LANG_TEMPLATE_FORMS_SHOW_DETAIL_LOAD_ERROR; ?>'}
                     </div>
                     `;
                 }
@@ -496,10 +496,10 @@
                 modalBody.innerHTML = `
                 <div class="alert alert-danger">
                     <?php echo bloggy_icon('bs', 'exclamation-triangle', '16', '#000', 'me-2'); ?>
-                    Ошибка: ${error.message}
+                    <?php echo LANG_TEMPLATE_FORMS_SHOW_DETAIL_ERROR; ?> ${error.message}
                     <div class="mt-2">
                         <button class="btn btn-sm btn-outline-secondary" onclick="location.reload()">
-                            <?php echo bloggy_icon('bs', 'arrow-clockwise', '16', '#000', 'me-1'); ?>Обновить страницу
+                            <?php echo bloggy_icon('bs', 'arrow-clockwise', '16', '#000', 'me-1'); ?><?php echo LANG_TEMPLATE_FORMS_SHOW_RELOAD_BTN; ?>
                         </button>
                     </div>
                 </div>
@@ -514,12 +514,12 @@
         const button = this;
         const row = button.closest('tr');
         
-        if (confirm('Удалить эту отправку?')) {
+        if (confirm('<?php echo LANG_TEMPLATE_FORMS_SHOW_DELETE_CONFIRM; ?>')) {
             const originalIcon = button.innerHTML;
             button.innerHTML = '<?php echo bloggy_icon('bs', 'hourglass-split', '16', '#000'); ?>';
             button.disabled = true;
             
-            console.log('Отправляем запрос на удаление ID:', submissionId);
+            console.log('<?php echo LANG_TEMPLATE_FORMS_SHOW_DELETE_LOG; ?>', submissionId);
             
             fetch('<?php echo ADMIN_URL; ?>/forms/delete-submission/' + submissionId, {
                 method: 'POST',
@@ -529,56 +529,49 @@
                 }
             })
             .then(response => {
-                console.log('Статус ответа:', response.status);
-                console.log('Заголовки ответа:', response.headers);
+                console.log('<?php echo LANG_TEMPLATE_FORMS_SHOW_RESPONSE_STATUS; ?>', response.status);
                 
-                // Проверяем, что ответ вообще пришел
                 if (!response.ok) {
                     throw new Error('HTTP error! status: ' + response.status);
                 }
                 
-                // Пробуем получить текст ответа для отладки
                 return response.text().then(text => {
-                    console.log('Текст ответа от сервера:', text);
+                    console.log('<?php echo LANG_TEMPLATE_FORMS_SHOW_RESPONSE_TEXT; ?>', text);
                     
-                    // Пробуем распарсить JSON
                     try {
                         return JSON.parse(text);
                     } catch (e) {
-                        console.error('Ошибка парсинга JSON:', e);
-                        throw new Error('Сервер вернул невалидный JSON: ' + text.substring(0, 100));
+                        console.error('<?php echo LANG_TEMPLATE_FORMS_SHOW_JSON_PARSE_ERROR; ?>', e);
+                        throw new Error('<?php echo LANG_TEMPLATE_FORMS_SHOW_INVALID_JSON; ?>' + text.substring(0, 100));
                     }
                 });
             })
             .then(data => {
-                console.log('Распарсенные данные:', data);
+                console.log('<?php echo LANG_TEMPLATE_FORMS_SHOW_PARSED_DATA; ?>', data);
                 
                 if (data.success) {
-                    // Визуально показываем, что строка будет удалена
                     row.style.transition = 'opacity 0.3s ease';
                     row.style.opacity = '0.5';
                     
-                    // Показываем сообщение об успешном удалении
-                    showNotification('Отправка удалена, страница будет перезагружена...', 'success');
+                    showNotification('<?php echo LANG_TEMPLATE_FORMS_SHOW_DELETE_SUCCESS_NOTIFY; ?>', 'success');
                     
-                    // Перезагружаем страницу через секунду
                     setTimeout(() => {
                         location.reload();
                     }, 1000);
                 } else {
-                    console.error('Сервер вернул ошибку:', data.message);
+                    console.error('<?php echo LANG_TEMPLATE_FORMS_SHOW_SERVER_ERROR; ?>', data.message);
                     button.innerHTML = originalIcon;
                     button.disabled = false;
-                    showNotification('Ошибка от сервера: ' + (data.message || 'Неизвестная ошибка'), 'error');
+                    showNotification('<?php echo LANG_TEMPLATE_FORMS_SHOW_SERVER_ERROR_MSG; ?>' + (data.message || '<?php echo LANG_TEMPLATE_FORMS_SHOW_UNKNOWN_ERROR; ?>'), 'error');
                 }
             })
             .catch(error => {
-                console.error('Детальная ошибка:', error);
-                console.error('Стек ошибки:', error.stack);
+                console.error('<?php echo LANG_TEMPLATE_FORMS_SHOW_DETAILED_ERROR; ?>', error);
+                console.error('<?php echo LANG_TEMPLATE_FORMS_SHOW_ERROR_STACK; ?>', error.stack);
                 
                 button.innerHTML = originalIcon;
                 button.disabled = false;
-                showNotification('Ошибка: ' + error.message, 'error');
+                showNotification('<?php echo LANG_TEMPLATE_FORMS_SHOW_ERROR_MSG; ?>' + error.message, 'error');
             });
         }
     });
@@ -589,10 +582,10 @@
     }
     
     function deleteAllSubmissions() {
-        if (confirm('Вы уверены, что хотите удалить ВСЕ отправки этой формы?')) {
+        if (confirm('<?php echo LANG_TEMPLATE_FORMS_SHOW_DELETE_ALL_CONFIRM; ?>')) {
             const button = event.target;
             const originalText = button.innerHTML;
-            button.innerHTML = '<?php echo bloggy_icon('bs', 'hourglass-split', '16', '#000', 'me-1'); ?>Удаление...';
+            button.innerHTML = '<?php echo bloggy_icon('bs', 'hourglass-split', '16', '#000', 'me-1'); ?><?php echo LANG_TEMPLATE_FORMS_SHOW_DELETING; ?>';
             button.disabled = true;
             
             fetch('<?php echo ADMIN_URL; ?>/forms/delete-all-submissions/<?php echo $form['id']; ?>', {
@@ -610,21 +603,21 @@
             })
             .then(data => {
                 if (data.success) {
-                    showNotification(`Удалено ${data.count || 0} отправок`, 'success');
+                    showNotification(`<?php echo LANG_TEMPLATE_FORMS_SHOW_DELETED_COUNT; ?> ${data.count || 0} <?php echo LANG_TEMPLATE_FORMS_SHOW_SUBMISSIONS; ?>`, 'success');
                     setTimeout(() => {
                         location.reload();
                     }, 1000);
                 } else {
                     button.innerHTML = originalText;
                     button.disabled = false;
-                    showNotification(data.message || 'Ошибка при удалении', 'error');
+                    showNotification(data.message || '<?php echo LANG_TEMPLATE_FORMS_SHOW_DELETE_ALL_ERROR; ?>', 'error');
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
                 button.innerHTML = originalText;
                 button.disabled = false;
-                showNotification('Ошибка сети: ' + error.message, 'error');
+                showNotification('<?php echo LANG_TEMPLATE_FORMS_SHOW_NETWORK_ERROR; ?>' + error.message, 'error');
             });
         }
     }
@@ -641,10 +634,10 @@
     
     function getStatusText(status) {
         switch(status) {
-            case 'new': return 'Новый';
-            case 'read': return 'Прочитан';
-            case 'processed': return 'Обработан';
-            case 'spam': return 'Спам';
+            case 'new': return '<?php echo LANG_TEMPLATE_FORMS_SHOW_STATUS_NEW; ?>';
+            case 'read': return '<?php echo LANG_TEMPLATE_FORMS_SHOW_STATUS_READ; ?>';
+            case 'processed': return '<?php echo LANG_TEMPLATE_FORMS_SHOW_STATUS_PROCESSED; ?>';
+            case 'spam': return '<?php echo LANG_TEMPLATE_FORMS_SHOW_STATUS_SPAM; ?>';
             default: return status;
         }
     }
@@ -671,12 +664,12 @@
         document.body.innerHTML = `
             <html>
                 <head>
-                    <title>Отправка формы - <?php echo html($form['name']); ?></title>
-                    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css  " rel="stylesheet">
+                    <title><?php echo sprintf(LANG_TEMPLATE_FORMS_SHOW_PRINT_TITLE, html($form['name'])); ?></title>
+                    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
                 </head>
                 <body>
                     <div class="container mt-4">
-                        <h4>Отправка формы: <?php echo html($form['name']); ?></h4>
+                        <h4><?php echo sprintf(LANG_TEMPLATE_FORMS_SHOW_PRINT_HEADER, html($form['name'])); ?></h4>
                         <hr>
                         ${printContent}
                     </div>
@@ -701,7 +694,7 @@
         `;
         notification.innerHTML = `
             ${message}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="<?php echo LANG_TEMPLATE_FORMS_SHOW_CLOSE; ?>"></button>
         `;
         
         document.body.appendChild(notification);

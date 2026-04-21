@@ -17,20 +17,20 @@ class AdminCreate extends FieldAction {
         $entityType = $this->params['entityType'] ?? null;
         
         if (!$entityType) {
-            \Notification::error('Тип сущности не указан');
+            \Notification::error(LANG_ACTION_FIELDS_ADMINCREATE_ENTITY_NOT_SPECIFIED);
             $this->redirect(ADMIN_URL . '/fields');
             return;
         }
         
-        $this->addBreadcrumb('Панель управления', ADMIN_URL);
-        $this->addBreadcrumb('Поля', ADMIN_URL . '/fields');
+        $this->addBreadcrumb(LANG_ACTION_FIELDS_ADMINCREATE_BREADCRUMB_DASHBOARD, ADMIN_URL);
+        $this->addBreadcrumb(LANG_ACTION_FIELDS_ADMINCREATE_BREADCRUMB_FIELDS, ADMIN_URL . '/fields');
         $this->addBreadcrumb($this->getEntityName($entityType, true), ADMIN_URL . '/fields/entity/' . $entityType);
-        $this->addBreadcrumb('Создание поля');
+        $this->addBreadcrumb(LANG_ACTION_FIELDS_ADMINCREATE_BREADCRUMB_CREATE);
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
                 if (empty($_POST['name']) || empty($_POST['system_name']) || empty($_POST['type'])) {
-                    throw new \Exception('Заполните все обязательные поля');
+                    throw new \Exception(LANG_ACTION_FIELDS_ADMINCREATE_REQUIRED_FIELDS);
                 }
                 
                 $config = $_POST['config'] ?? [];
@@ -51,13 +51,13 @@ class AdminCreate extends FieldAction {
                 
                 $this->fieldModel->create($data);
             
-                \Notification::success('Поле успешно создано');
+                \Notification::success(LANG_ACTION_FIELDS_ADMINCREATE_SUCCESS);
                 
                 $this->redirect(ADMIN_URL . "/fields/entity/{$entityType}");
                 
             } catch (\Exception $e) {
 
-                \Notification::error('Ошибка при создании поля: ' . $e->getMessage());
+                \Notification::error(LANG_ACTION_FIELDS_ADMINCREATE_ERROR . $e->getMessage());
                 
                 $fieldTypes = $this->fieldModel->getFieldTypes();
                 
@@ -66,7 +66,7 @@ class AdminCreate extends FieldAction {
                     'entityType' => $entityType,
                     'entityName' => $this->getEntityName($entityType),
                     'data' => $_POST,
-                    'pageTitle' => 'Создание поля'
+                    'pageTitle' => LANG_ACTION_FIELDS_ADMINCREATE_PAGE_TITLE
                 ]);
             }
         } 
@@ -78,7 +78,7 @@ class AdminCreate extends FieldAction {
                 'fieldTypes' => $fieldTypes,
                 'entityType' => $entityType,
                 'entityName' => $this->getEntityName($entityType),
-                'pageTitle' => 'Создание поля'
+                'pageTitle' => LANG_ACTION_FIELDS_ADMINCREATE_PAGE_TITLE
             ]);
         }
     }

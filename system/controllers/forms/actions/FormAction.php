@@ -90,13 +90,13 @@ abstract class FormAction {
             'redirect_url' => '',
             'captcha_enabled' => false,
             'captcha_type' => 'math',
-            'captcha_question' => 'Сколько будет 2 + 2?',
+            'captcha_question' => LANG_ACTION_FORMS_FORMACTION_CAPTCHA_DEFAULT_QUESTION,
             'captcha_secret' => 'bloggy_cms_captcha',
             'csrf_protection' => true,
             'spam_protection' => false,
             'spam_keywords' => '',
-            'success_message' => 'Форма успешно отправлена!',
-            'error_message' => 'Произошла ошибка при отправке формы.'
+            'success_message' => LANG_ACTION_FORMS_FORMACTION_DEFAULT_SUCCESS_MESSAGE,
+            'error_message' => LANG_ACTION_FORMS_FORMACTION_DEFAULT_ERROR_MESSAGE
         ];
     }
     
@@ -106,15 +106,15 @@ abstract class FormAction {
                 'enabled' => true,
                 'type' => 'admin',
                 'to' => 'admin@example.com',
-                'subject' => 'Новая отправка формы',
-                'message' => 'Поступила новая отправка формы. Данные: {form_data}'
+                'subject' => LANG_ACTION_FORMS_FORMACTION_DEFAULT_ADMIN_SUBJECT,
+                'message' => LANG_ACTION_FORMS_FORMACTION_DEFAULT_ADMIN_MESSAGE
             ],
             [
                 'enabled' => false,
                 'type' => 'user',
                 'to' => '{email}',
-                'subject' => 'Ваша форма отправлена',
-                'message' => 'Спасибо за вашу заявку! Мы свяжемся с вами в ближайшее время.'
+                'subject' => LANG_ACTION_FORMS_FORMACTION_DEFAULT_USER_SUBJECT,
+                'message' => LANG_ACTION_FORMS_FORMACTION_DEFAULT_USER_MESSAGE
             ]
         ];
     }
@@ -124,18 +124,18 @@ abstract class FormAction {
             [
                 'enabled' => true,
                 'type' => 'save_to_db',
-                'name' => 'Сохранить в базу данных'
+                'name' => LANG_ACTION_FORMS_FORMACTION_ACTION_SAVE_DB
             ],
             [
                 'enabled' => false,
                 'type' => 'redirect',
-                'name' => 'Редирект после отправки',
+                'name' => LANG_ACTION_FORMS_FORMACTION_ACTION_REDIRECT,
                 'url' => ''
             ],
             [
                 'enabled' => false,
                 'type' => 'webhook',
-                'name' => 'Отправить на вебхук',
+                'name' => LANG_ACTION_FORMS_FORMACTION_ACTION_WEBHOOK,
                 'url' => '',
                 'method' => 'POST',
                 'headers' => []

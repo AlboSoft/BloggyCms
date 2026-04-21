@@ -7,11 +7,11 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h4 class="mb-0">
             <?php echo bloggy_icon('bs', 'plus-circle', '24', '#000', 'me-2'); ?>
-            <?php echo isset($field) ? 'Редактирование поля' : 'Создание поля'; ?>
+            <?php echo isset($field) ? LANG_TEMPLATE_FIELDS_FORM_EDIT_TITLE : LANG_TEMPLATE_FIELDS_FORM_CREATE_TITLE; ?>
         </h4>
         <a href="<?php echo ADMIN_URL; ?>/fields/entity/<?php echo $entityType; ?>" class="btn btn-outline-secondary">
             <?php echo bloggy_icon('bs', 'arrow-left', '16', '#000', 'me-1'); ?>
-            Назад к полям
+            <?php echo LANG_TEMPLATE_FIELDS_FORM_BACK_BTN; ?>
         </a>
     </div>
 
@@ -20,41 +20,41 @@
             <div class="col-lg-8">
                 <div class="card border-0 shadow-sm mb-4">
                     <div class="card-header bg-white border-0">
-                        <h5 class="card-title mb-0">Основные настройки</h5>
+                        <h5 class="card-title mb-0"><?php echo LANG_TEMPLATE_FIELDS_FORM_MAIN_TITLE; ?></h5>
                     </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Название поля *</label>
+                                    <label class="form-label"><?php echo LANG_TEMPLATE_FIELDS_FORM_NAME_LABEL; ?> *</label>
                                     <input type="text" 
                                            class="form-control" 
                                            name="name" 
                                            value="<?php echo isset($field) ? html($field['name']) : (isset($data['name']) ? html($data['name']) : ''); ?>" 
-                                           placeholder="Например: Цена, Телефон, Email"
+                                           placeholder="<?php echo LANG_TEMPLATE_FIELDS_FORM_NAME_PLACEHOLDER; ?>"
                                            required>
-                                    <div class="form-text">Человеко-понятное название поля</div>
+                                    <div class="form-text"><?php echo LANG_TEMPLATE_FIELDS_FORM_NAME_HINT; ?></div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Системное имя *</label>
+                                    <label class="form-label"><?php echo LANG_TEMPLATE_FIELDS_FORM_SYSTEM_NAME_LABEL; ?> *</label>
                                     <input type="text" 
                                            class="form-control" 
                                            name="system_name" 
                                            value="<?php echo isset($field) ? html($field['system_name']) : (isset($data['system_name']) ? html($data['system_name']) : ''); ?>" 
-                                           placeholder="Например: price, phone, email"
+                                           placeholder="<?php echo LANG_TEMPLATE_FIELDS_FORM_SYSTEM_NAME_PLACEHOLDER; ?>"
                                            pattern="[a-z0-9_]+"
                                            required>
-                                    <div class="form-text">Только латинские буквы, цифры и подчеркивания</div>
+                                    <div class="form-text"><?php echo LANG_TEMPLATE_FIELDS_FORM_SYSTEM_NAME_HINT; ?></div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Тип поля *</label>
+                            <label class="form-label"><?php echo LANG_TEMPLATE_FIELDS_FORM_TYPE_LABEL; ?> *</label>
                             <select class="form-select" name="type" id="field-type" required>
-                                <option value="">Выберите тип поля</option>
+                                <option value=""><?php echo LANG_TEMPLATE_FIELDS_FORM_TYPE_SELECT; ?></option>
                                 <?php foreach($fieldTypes as $type => $name) { ?>
                                     <option value="<?php echo $type; ?>" 
                                         <?php echo (isset($field) && $field['type'] == $type) ? 'selected' : ((isset($data['type']) && $data['type'] == $type) ? 'selected' : ''); ?>>
@@ -65,18 +65,18 @@
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Описание</label>
+                            <label class="form-label"><?php echo LANG_TEMPLATE_FIELDS_FORM_DESCRIPTION_LABEL; ?></label>
                             <textarea class="form-control" 
                                       name="description" 
                                       rows="2" 
-                                      placeholder="Необязательное описание поля"><?php echo isset($field) ? html($field['description']) : (isset($data['description']) ? html($data['description']) : ''); ?></textarea>
+                                      placeholder="<?php echo LANG_TEMPLATE_FIELDS_FORM_DESCRIPTION_PLACEHOLDER; ?>"><?php echo isset($field) ? html($field['description']) : (isset($data['description']) ? html($data['description']) : ''); ?></textarea>
                         </div>
                     </div>
                 </div>
 
                 <div class="card border-0 shadow-sm mb-4" id="field-settings">
                     <div class="card-header bg-white border-0">
-                        <h5 class="card-title mb-0">Настройки поля</h5>
+                        <h5 class="card-title mb-0"><?php echo LANG_TEMPLATE_FIELDS_FORM_SETTINGS_TITLE; ?></h5>
                     </div>
                     <div class="card-body" id="field-settings-content">
                         <?php if (isset($field) && !empty($field['type'])) { ?>
@@ -98,17 +98,17 @@
             <div class="col-lg-4">
                 <div class="card border-0 shadow-sm mb-4">
                     <div class="card-header bg-white border-0">
-                        <h5 class="card-title mb-0">Параметры поля</h5>
+                        <h5 class="card-title mb-0"><?php echo LANG_TEMPLATE_FIELDS_FORM_PARAMS_TITLE; ?></h5>
                     </div>
                     <div class="card-body">
                         <div class="mb-3">
-                            <label class="form-label">Порядок сортировки</label>
+                            <label class="form-label"><?php echo LANG_TEMPLATE_FIELDS_FORM_SORT_ORDER_LABEL; ?></label>
                             <input type="number" 
                                 class="form-control" 
                                 name="sort_order" 
                                 value="<?php echo isset($field) ? html($field['sort_order']) : (isset($data['sort_order']) ? html($data['sort_order']) : '0'); ?>" 
                                 min="0">
-                            <div class="form-text">Чем меньше число, тем выше в списке</div>
+                            <div class="form-text"><?php echo LANG_TEMPLATE_FIELDS_FORM_SORT_ORDER_HINT; ?></div>
                         </div>
 
                         <div class="mb-3">
@@ -120,7 +120,7 @@
                                     value="1"
                                     <?php echo (isset($field) && $field['is_required']) ? 'checked' : ((isset($data['is_required']) && $data['is_required']) ? 'checked' : ''); ?>>
                                 <label class="form-check-label" for="is_required">
-                                    Обязательное поле
+                                    <?php echo LANG_TEMPLATE_FIELDS_FORM_REQUIRED_LABEL; ?>
                                 </label>
                             </div>
                         </div>
@@ -134,7 +134,7 @@
                                     value="1"
                                     <?php echo (!isset($field) || $field['is_active']) ? 'checked' : ((isset($data['is_active']) && $data['is_active']) ? 'checked' : ''); ?>>
                                 <label class="form-check-label" for="is_active">
-                                    Активное поле
+                                    <?php echo LANG_TEMPLATE_FIELDS_FORM_ACTIVE_LABEL; ?>
                                 </label>
                             </div>
                         </div>
@@ -148,9 +148,9 @@
                                     value="1"
                                     <?php echo (!isset($field) || ($field['show_in_post'] ?? true)) ? 'checked' : ((isset($data['show_in_post']) && $data['show_in_post']) ? 'checked' : ''); ?>>
                                 <label class="form-check-label" for="show_in_post">
-                                    Показывать в записи
+                                    <?php echo LANG_TEMPLATE_FIELDS_FORM_SHOW_IN_POST_LABEL; ?>
                                 </label>
-                                <div class="form-text">Отображать поле на странице поста</div>
+                                <div class="form-text"><?php echo LANG_TEMPLATE_FIELDS_FORM_SHOW_IN_POST_HINT; ?></div>
                             </div>
                         </div>
 
@@ -163,9 +163,9 @@
                                     value="1"
                                     <?php echo (isset($field) && $field['show_in_list']) ? 'checked' : ((isset($data['show_in_list']) && $data['show_in_list']) ? 'checked' : ''); ?>>
                                 <label class="form-check-label" for="show_in_list">
-                                    Показывать в списке
+                                    <?php echo LANG_TEMPLATE_FIELDS_FORM_SHOW_IN_LIST_LABEL; ?>
                                 </label>
-                                <div class="form-text">Отображать поле в списке постов</div>
+                                <div class="form-text"><?php echo LANG_TEMPLATE_FIELDS_FORM_SHOW_IN_LIST_HINT; ?></div>
                             </div>
                         </div>
                     </div>
@@ -174,7 +174,7 @@
                 <div class="d-grid">
                     <button type="submit" class="btn btn-primary btn-lg">
                         <?php echo bloggy_icon('bs', 'check-lg', '20', '#fff', 'me-2'); ?>
-                        <?php echo isset($field) ? 'Обновить поле' : 'Создать поле'; ?>
+                        <?php echo isset($field) ? LANG_TEMPLATE_FIELDS_FORM_UPDATE_BTN : LANG_TEMPLATE_FIELDS_FORM_CREATE_BTN; ?>
                     </button>
                 </div>
             </div>

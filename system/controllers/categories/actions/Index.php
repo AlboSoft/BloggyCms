@@ -12,9 +12,9 @@ class Index extends CategoryAction {
     */
     public function execute() {
         try {
-            $this->addBreadcrumb('Главная', BASE_URL);
-            $this->addBreadcrumb('Категории');
-            $this->setPageTitle('Все категории');
+            $this->addBreadcrumb(LANG_ACTION_CATEGORIES_INDEX_BREADCRUMB_HOME, BASE_URL);
+            $this->addBreadcrumb(LANG_ACTION_CATEGORIES_INDEX_BREADCRUMB_CATEGORIES);
+            $this->setPageTitle(LANG_ACTION_CATEGORIES_INDEX_PAGE_TITLE);
             
             $layout = \SettingsHelper::get('controller_categories', 'category_layout', 'grid');
             $perPage = \SettingsHelper::get('controller_categories', 'categories_per_page', 12);
@@ -48,7 +48,7 @@ class Index extends CategoryAction {
                 ]
             ]);
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при загрузке категорий');
+            \Notification::error(LANG_ACTION_CATEGORIES_INDEX_ERROR);
             $this->redirect(BASE_URL);
         }
     }

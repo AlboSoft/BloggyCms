@@ -1,0 +1,4 @@
+<?php
+
+define('LANG_ACTION_FORMS_ADMINGETSTRUCTURE_ID_NOT_SPECIFIED', 'ID формы не указан');
+define('LANG_ACTION_FORMS_ADMINGETSTRUCTURE_FORM_NOT_FOUND', 'Форма не найдена');

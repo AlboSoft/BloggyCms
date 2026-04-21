@@ -1,0 +1,29 @@
+<?php
+
+define('LANG_TEMPLATE_DEBUG_INDEX_TITLE', 'Отладка системы');
+define('LANG_TEMPLATE_DEBUG_INDEX_DEBUG_MODE', 'Режим отладки');
+define('LANG_TEMPLATE_DEBUG_INDEX_STAT_ERRORS', 'Ошибок');
+define('LANG_TEMPLATE_DEBUG_INDEX_STAT_WARNINGS', 'Предупреждений');
+define('LANG_TEMPLATE_DEBUG_INDEX_STAT_NOTICES', 'Уведомлений');
+define('LANG_TEMPLATE_DEBUG_INDEX_STAT_EXCEPTIONS', 'Исключений');
+define('LANG_TEMPLATE_DEBUG_INDEX_STAT_UNFIXED', 'Неисправленных');
+define('LANG_TEMPLATE_DEBUG_INDEX_STAT_TOTAL', 'Всего записей');
+define('LANG_TEMPLATE_DEBUG_INDEX_FILTER_TYPE', 'Тип ошибки');
+define('LANG_TEMPLATE_DEBUG_INDEX_FILTER_ALL', 'Все типы');
+define('LANG_TEMPLATE_DEBUG_INDEX_FILTER_ERRORS', 'Ошибки PHP');
+define('LANG_TEMPLATE_DEBUG_INDEX_FILTER_WARNINGS', 'Предупреждения');
+define('LANG_TEMPLATE_DEBUG_INDEX_FILTER_NOTICES', 'Уведомления');
+define('LANG_TEMPLATE_DEBUG_INDEX_FILTER_EXCEPTIONS', 'Исключения');
+define('LANG_TEMPLATE_DEBUG_INDEX_FILTER_ONLY_UNFIXED', 'Только неисправленные');
+define('LANG_TEMPLATE_DEBUG_INDEX_APPLY_FILTER_BTN', 'Применить фильтр');
+define('LANG_TEMPLATE_DEBUG_INDEX_DELETE_ALL_BTN', 'Удалить все логи');
+define('LANG_TEMPLATE_DEBUG_INDEX_LOG_TITLE', 'Журнал ошибок');
+define('LANG_TEMPLATE_DEBUG_INDEX_TABLE_TYPE', 'Тип');
+define('LANG_TEMPLATE_DEBUG_INDEX_TABLE_MESSAGE', 'Сообщение');
+define('LANG_TEMPLATE_DEBUG_INDEX_TABLE_FILE', 'Файл');
+define('LANG_TEMPLATE_DEBUG_INDEX_TABLE_DATE', 'Дата');
+define('LANG_TEMPLATE_DEBUG_INDEX_TABLE_ACTIONS', 'Действия');
+define('LANG_TEMPLATE_DEBUG_INDEX_LOADING', 'Загрузка логов...');
+define('LANG_TEMPLATE_DEBUG_INDEX_MODAL_TITLE', 'Детали ошибки');
+define('LANG_TEMPLATE_DEBUG_INDEX_MODAL_CLOSE', 'Закрыть');
+define('LANG_TEMPLATE_DEBUG_INDEX_MODAL_MARK_FIXED', 'Отметить как исправленную');
