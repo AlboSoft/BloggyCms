@@ -24,6 +24,11 @@
     --accent: var(--accent-color, #2563eb);
 }
 
+.tags-block .highlight {
+    color: var(--accent);
+    font-weight: 800;
+}
+
 .tags-block .container {
     max-width: 1280px;
     margin: 0 auto;
