@@ -14,9 +14,9 @@ class AdminCreate extends PageAction {
     */
     public function execute() {
         
-        $this->addBreadcrumb('Панель управления', ADMIN_URL);
-        $this->addBreadcrumb('Страницы', ADMIN_URL . '/pages');
-        $this->addBreadcrumb('Создание страницы');
+        $this->addBreadcrumb(LANG_ACTION_PAGES_ADMINCREATE_BREADCRUMB_DASHBOARD, ADMIN_URL);
+        $this->addBreadcrumb(LANG_ACTION_PAGES_ADMINCREATE_BREADCRUMB_PAGES, ADMIN_URL . '/pages');
+        $this->addBreadcrumb(LANG_ACTION_PAGES_ADMINCREATE_BREADCRUMB_CREATE);
         
         $this->postBlockManager->loadAllPostBlockAssets();
         
@@ -58,7 +58,7 @@ class AdminCreate extends PageAction {
     */
     private function validateRequiredFields() {
         if (empty($_POST['title'])) {
-            throw new \Exception('Заголовок страницы обязателен для заполнения');
+            throw new \Exception(LANG_ACTION_PAGES_ADMINCREATE_TITLE_REQUIRED);
         }
     }
     
@@ -105,7 +105,7 @@ class AdminCreate extends PageAction {
         $blocksData = json_decode($_POST['post_blocks'], true);
         
         if (json_last_error() !== JSON_ERROR_NONE || !is_array($blocksData)) {
-            throw new \Exception('Неверный формат данных блоков');
+            throw new \Exception(LANG_ACTION_PAGES_ADMINCREATE_INVALID_BLOCKS_DATA);
         }
         
         $this->processPageBlocks($pageId, $blocksData);
@@ -154,7 +154,7 @@ class AdminCreate extends PageAction {
                 );
             }
         } catch (\Exception $e) {
-            \Notification::error("Ошибка обработки поля {$field['name']}: " . $e->getMessage());
+            \Notification::error(sprintf(LANG_ACTION_PAGES_ADMINCREATE_FIELD_ERROR, $field['name'], $e->getMessage()));
         }
     }
     
@@ -163,7 +163,7 @@ class AdminCreate extends PageAction {
     * @return void
     */
     private function handleSuccess() {
-        \Notification::success('Страница успешно создана');
+        \Notification::success(LANG_ACTION_PAGES_ADMINCREATE_SUCCESS);
         $this->redirect(ADMIN_URL . '/pages');
     }
     
@@ -173,7 +173,7 @@ class AdminCreate extends PageAction {
     * @return void
     */
     private function handleError($e) {
-        \Notification::error('Ошибка при создании страницы: ' . $e->getMessage());
+        \Notification::error(LANG_ACTION_PAGES_ADMINCREATE_ERROR . $e->getMessage());
         
         $preparedBlocks = $this->prepareBlocksFromPost();
         
@@ -181,7 +181,7 @@ class AdminCreate extends PageAction {
             'data' => $_POST,
             'preparedBlocks' => $preparedBlocks,
             'postBlockManager' => $this->postBlockManager,
-            'pageTitle' => 'Создание страницы'
+            'pageTitle' => LANG_ACTION_PAGES_ADMINCREATE_PAGE_TITLE
         ]);
     }
     
@@ -218,7 +218,7 @@ class AdminCreate extends PageAction {
     private function renderCreateForm() {
         $this->render('admin/pages/create', [
             'postBlockManager' => $this->postBlockManager,
-            'pageTitle' => 'Создание страницы'
+            'pageTitle' => LANG_ACTION_PAGES_ADMINCREATE_PAGE_TITLE
         ]);
     }
     
@@ -227,7 +227,7 @@ class AdminCreate extends PageAction {
     * @return void
     */
     private function handleAccessDenied() {
-        \Notification::error('У вас нет прав доступа к этому разделу');
+        \Notification::error(LANG_ACTION_PAGES_ADMINCREATE_ACCESS_DENIED);
         $this->redirect(ADMIN_URL . '/login');
     }
 }

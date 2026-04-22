@@ -32,9 +32,9 @@ class AdminEdit extends PageAction {
         try {
             $page = $this->loadPage();
             
-            $this->addBreadcrumb('Панель управления', ADMIN_URL);
-            $this->addBreadcrumb('Страницы', ADMIN_URL . '/pages');
-            $this->addBreadcrumb('Редактирование: ' . html($page['title']));
+            $this->addBreadcrumb(LANG_ACTION_PAGES_ADMINEDIT_BREADCRUMB_DASHBOARD, ADMIN_URL);
+            $this->addBreadcrumb(LANG_ACTION_PAGES_ADMINEDIT_BREADCRUMB_PAGES, ADMIN_URL . '/pages');
+            $this->addBreadcrumb(LANG_ACTION_PAGES_ADMINEDIT_BREADCRUMB_EDIT . html($page['title']));
             
             $this->postBlockManager->loadAllPostBlockAssets();
             
@@ -58,7 +58,7 @@ class AdminEdit extends PageAction {
     */
     private function validatePageId() {
         if (!$this->id) {
-            \Notification::error('ID страницы не указан');
+            \Notification::error(LANG_ACTION_PAGES_ADMINEDIT_ID_NOT_SPECIFIED);
             $this->redirect(ADMIN_URL . '/pages');
             return false;
         }
@@ -74,7 +74,7 @@ class AdminEdit extends PageAction {
         $page = $this->pageModel->getById($this->id);
         
         if (!$page) {
-            throw new \Exception('Страница не найдена');
+            throw new \Exception(LANG_ACTION_PAGES_ADMINEDIT_PAGE_NOT_FOUND);
         }
         
         return $page;
@@ -178,7 +178,7 @@ class AdminEdit extends PageAction {
     */
     private function validateRequiredFields() {
         if (empty($_POST['title'])) {
-            throw new \Exception('Заголовок страницы обязателен для заполнения');
+            throw new \Exception(LANG_ACTION_PAGES_ADMINEDIT_TITLE_REQUIRED);
         }
     }
     
@@ -217,7 +217,7 @@ class AdminEdit extends PageAction {
             $blocksData = json_decode($_POST['post_blocks'], true);
             
             if (json_last_error() !== JSON_ERROR_NONE || !is_array($blocksData)) {
-                throw new \Exception('Неверный формат данных блоков');
+                throw new \Exception(LANG_ACTION_PAGES_ADMINEDIT_INVALID_BLOCKS_DATA);
             }
             
             $this->processPageBlocks($this->id, $blocksData);
@@ -277,7 +277,7 @@ class AdminEdit extends PageAction {
             );
             
         } catch (\Exception $e) {
-            \Notification::error("Ошибка обработки поля {$field['name']}: " . $e->getMessage());
+            \Notification::error(sprintf(LANG_ACTION_PAGES_ADMINEDIT_FIELD_ERROR, $field['name'], $e->getMessage()));
         }
     }
     
@@ -286,13 +286,13 @@ class AdminEdit extends PageAction {
     */
     private function handleUpdateSuccess() {
         if ($this->isAjaxRequest()) {
-            $this->sendJsonResponse(true, 'Страница успешно обновлена', [
+            $this->sendJsonResponse(true, LANG_ACTION_PAGES_ADMINEDIT_SUCCESS_JSON, [
                 'redirect' => ADMIN_URL . '/pages'
             ]);
             exit;
         }
         
-        \Notification::success('Страница успешно обновлена');
+        \Notification::success(LANG_ACTION_PAGES_ADMINEDIT_SUCCESS);
         $this->redirect(ADMIN_URL . '/pages');
     }
     
@@ -306,7 +306,7 @@ class AdminEdit extends PageAction {
             exit;
         }
         
-        \Notification::error('Ошибка при обновлении страницы: ' . $e->getMessage());
+        \Notification::error(LANG_ACTION_PAGES_ADMINEDIT_UPDATE_ERROR . $e->getMessage());
     }
     
     /**
@@ -333,7 +333,7 @@ class AdminEdit extends PageAction {
             'page' => $page,
             'preparedBlocks' => $preparedBlocks,
             'postBlockManager' => $this->postBlockManager,
-            'pageTitle' => 'Редактирование страницы'
+            'pageTitle' => LANG_ACTION_PAGES_ADMINEDIT_PAGE_TITLE
         ]);
     }
     
@@ -342,7 +342,7 @@ class AdminEdit extends PageAction {
     * @param \Exception $e Исключение
     */
     private function handleLoadError($e) {
-        \Notification::error('Ошибка при загрузке страницы: ' . $e->getMessage());
+        \Notification::error(LANG_ACTION_PAGES_ADMINEDIT_LOAD_ERROR . $e->getMessage());
         $this->redirect(ADMIN_URL . '/pages');
     }
     
@@ -350,7 +350,7 @@ class AdminEdit extends PageAction {
     * Обрабатывает ситуацию с отсутствием прав доступа
     */
     private function handleAccessDenied() {
-        \Notification::error('У вас нет прав доступа к этому разделу');
+        \Notification::error(LANG_ACTION_PAGES_ADMINEDIT_ACCESS_DENIED);
         $this->redirect(ADMIN_URL . '/login');
     }
 }

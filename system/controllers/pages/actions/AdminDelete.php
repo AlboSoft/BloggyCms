@@ -40,7 +40,7 @@ class AdminDelete extends PageAction {
     */
     private function validatePageId() {
         if (!$this->id) {
-            \Notification::error('ID страницы не указан');
+            \Notification::error(LANG_ACTION_PAGES_ADMINDELETE_ID_NOT_SPECIFIED);
             $this->redirect(ADMIN_URL . '/pages');
             return false;
         }
@@ -55,13 +55,13 @@ class AdminDelete extends PageAction {
         try {
             $this->pageModel->delete($this->id);
             
-            \Notification::success('Страница успешно удалена');
+            \Notification::success(LANG_ACTION_PAGES_ADMINDELETE_SUCCESS);
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при удалении страницы');
+            \Notification::error(LANG_ACTION_PAGES_ADMINDELETE_ERROR);
             
             if (defined('DEBUG_MODE') && DEBUG_MODE) {
-                \Notification::error('Детали: ' . $e->getMessage());
+                \Notification::error(LANG_ACTION_PAGES_ADMINDELETE_DETAILS . $e->getMessage());
             }
         }
     }
@@ -71,7 +71,7 @@ class AdminDelete extends PageAction {
     * @return void
     */
     private function handleAccessDenied() {
-        \Notification::error('У вас нет прав доступа к этому разделу');
+        \Notification::error(LANG_ACTION_PAGES_ADMINDELETE_ACCESS_DENIED);
         $this->redirect(ADMIN_URL . '/login');
     }
 }

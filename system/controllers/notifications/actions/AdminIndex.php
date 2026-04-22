@@ -14,8 +14,8 @@ class AdminIndex extends NotificationsAction {
     */
     public function execute() {
         try {
-            $this->addBreadcrumb('Панель управления', ADMIN_URL);
-            $this->addBreadcrumb('Уведомления');
+            $this->addBreadcrumb(LANG_ACTION_NOTIFICATIONS_ADMININDEX_BREADCRUMB_DASHBOARD, ADMIN_URL);
+            $this->addBreadcrumb(LANG_ACTION_NOTIFICATIONS_ADMININDEX_BREADCRUMB_NOTIFICATIONS);
             
             $userId = $this->getCurrentUserId();
 
@@ -42,7 +42,7 @@ class AdminIndex extends NotificationsAction {
             'notificationModel' => $this->notificationModel,
             'userModel' => $this->userModel,
             'currentUserId' => $userId,
-            'pageTitle' => 'Уведомления'
+            'pageTitle' => LANG_ACTION_NOTIFICATIONS_ADMININDEX_PAGE_TITLE
         ];
     }
     
@@ -52,7 +52,7 @@ class AdminIndex extends NotificationsAction {
     * @return void
     */
     private function handleError($e) {
-        \Notification::error('Ошибка при загрузке уведомлений: ' . $e->getMessage());
+        \Notification::error(LANG_ACTION_NOTIFICATIONS_ADMININDEX_ERROR . $e->getMessage());
         
         $this->redirect(ADMIN_URL);
     }

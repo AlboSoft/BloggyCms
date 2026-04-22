@@ -1,8 +1,8 @@
 <?php
 return [
-    'name' => 'Страницы',
+    'name' => LANG_CONTROLLER_PAGES_MANIFEST_NAME,
     'author' => 'BloggyCMS',
     'version' => '1.0.0',
     'has_settings' => false,
-    'description' => 'Управление страницами блога'
+    'description' => LANG_CONTROLLER_PAGES_MANIFEST_DESCRIPTION
 ];

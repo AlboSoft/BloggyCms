@@ -17,7 +17,7 @@ class AdminMarkAsRead extends NotificationsAction {
         $isAjax = $this->isAjaxRequest();
         
         if (!$id) {
-            $this->sendError('ID уведомления не указан', $isAjax);
+            $this->sendError(LANG_ACTION_NOTIFICATIONS_ADMINMARKASREAD_ID_NOT_SPECIFIED, $isAjax);
             return;
         }
         
@@ -31,7 +31,7 @@ class AdminMarkAsRead extends NotificationsAction {
             $this->handleSuccessResult($result, $unreadCount, $isAjax);
             
         } catch (\Exception $e) {
-            $this->sendError('Ошибка: ' . $e->getMessage(), $isAjax);
+            $this->sendError(LANG_ACTION_NOTIFICATIONS_ADMINMARKASREAD_ERROR . $e->getMessage(), $isAjax);
         }
     }
     
@@ -46,7 +46,7 @@ class AdminMarkAsRead extends NotificationsAction {
         $result = $this->notificationModel->markAsRead($id, $userId);
         
         if (!$result || $result->rowCount() === 0) {
-            throw new \Exception('Уведомление не найдено');
+            throw new \Exception(LANG_ACTION_NOTIFICATIONS_ADMINMARKASREAD_NOT_FOUND);
         }
         
         return $result;
@@ -61,11 +61,11 @@ class AdminMarkAsRead extends NotificationsAction {
     */
     private function handleSuccessResult($result, $unreadCount, $isAjax) {
         if ($isAjax) {
-            $this->sendJsonResponse(true, 'Уведомление отмечено как прочитанное', [
+            $this->sendJsonResponse(true, LANG_ACTION_NOTIFICATIONS_ADMINMARKASREAD_SUCCESS, [
                 'unread_count' => $unreadCount
             ]);
         } else {
-            \Notification::success('Уведомление отмечено как прочитанное');
+            \Notification::success(LANG_ACTION_NOTIFICATIONS_ADMINMARKASREAD_SUCCESS);
             $this->redirectToPreviousPage();
         }
     }

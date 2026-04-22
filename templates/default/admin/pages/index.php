@@ -2,20 +2,20 @@
     <div class="d-flex btn-group justify-content-between align-items-center mb-4">
         <h4 class="mb-0">
             <?php echo bloggy_icon('bs', 'file-earmark-text', '24', '#000', 'me-2'); ?>
-            Страницы
+            <?php echo LANG_TEMPLATE_PAGES_INDEX_TITLE; ?>
         </h4>
         <div class="d-flex gap-2">
             <a href="<?php echo ADMIN_URL; ?>/post-blocks" class="btn btn-outline-secondary">
                 <?php echo bloggy_icon('bs', 'bricks', '20', '#353434', 'me-2'); ?>
-                Пост-блоки
+                <?php echo LANG_TEMPLATE_PAGES_INDEX_POST_BLOCKS_BTN; ?>
             </a>
             <a href="<?php echo ADMIN_URL; ?>/fields/entity/page" class="btn btn-outline-secondary">
                 <?php echo bloggy_icon('bs', 'input-cursor-text', '20', '#353434', 'me-2'); ?>
-                Дополнительные поля
+                <?php echo LANG_TEMPLATE_PAGES_INDEX_CUSTOM_FIELDS_BTN; ?>
             </a>
             <a href="<?php echo ADMIN_URL; ?>/pages/create" class="btn btn-primary">
                 <?php echo bloggy_icon('bs', 'plus-lg', '16', '#fff', 'me-2'); ?>
-                Создать страницу
+                <?php echo LANG_TEMPLATE_PAGES_INDEX_CREATE_BTN; ?>
             </a>
         </div>
     </div>
@@ -27,11 +27,11 @@
                     <div class="mb-3">
                         <?php echo bloggy_icon('bs', 'file-earmark-text', '48', '#6C6C6C'); ?>
                     </div>
-                    <h5 class="text-muted">Страницы пока не созданы</h5>
-                    <p class="text-muted">Создайте первую страницу для вашего сайта</p>
+                    <h5 class="text-muted"><?php echo LANG_TEMPLATE_PAGES_INDEX_NO_PAGES_TITLE; ?></h5>
+                    <p class="text-muted"><?php echo LANG_TEMPLATE_PAGES_INDEX_NO_PAGES_TEXT; ?></p>
                     <a href="<?php echo ADMIN_URL; ?>/pages/create" class="btn btn-primary">
                         <?php echo bloggy_icon('bs', 'plus-lg', '16', '#fff', 'me-2'); ?>
-                        Создать страницу
+                        <?php echo LANG_TEMPLATE_PAGES_INDEX_CREATE_BTN; ?>
                     </a>
                 </div>
             <?php } else { ?>
@@ -39,11 +39,11 @@
                     <table class="table table-hover align-middle">
                         <thead class="table-light">
                             <tr>
-                                <th>Заголовок</th>
-                                <th>URL</th>
-                                <th>Статус</th>
-                                <th>Дата создания</th>
-                                <th class="text-end">Действия</th>
+                                <th><?php echo LANG_TEMPLATE_PAGES_INDEX_TABLE_TITLE; ?></th>
+                                <th><?php echo LANG_TEMPLATE_PAGES_INDEX_TABLE_URL; ?></th>
+                                <th><?php echo LANG_TEMPLATE_PAGES_INDEX_TABLE_STATUS; ?></th>
+                                <th><?php echo LANG_TEMPLATE_PAGES_INDEX_TABLE_DATE; ?></th>
+                                <th class="text-end"><?php echo LANG_TEMPLATE_PAGES_INDEX_TABLE_ACTIONS; ?></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -57,7 +57,7 @@
                                 </td>
                                 <td>
                                     <span class="badge bg-<?php echo $page['status'] === 'published' ? 'success' : 'warning'; ?>">
-                                        <?php echo $page['status'] === 'published' ? 'Опубликовано' : 'Черновик'; ?>
+                                        <?php echo $page['status'] === 'published' ? LANG_TEMPLATE_PAGES_INDEX_STATUS_PUBLISHED : LANG_TEMPLATE_PAGES_INDEX_STATUS_DRAFT; ?>
                                     </span>
                                 </td>
                                 <td>
@@ -70,18 +70,18 @@
                                         <a href="<?php echo BASE_URL; ?>/page/<?php echo $page['slug']; ?>" 
                                            class="btn btn-sm btn-outline-secondary" 
                                            target="_blank"
-                                           title="Просмотр">
+                                           title="<?php echo LANG_TEMPLATE_PAGES_INDEX_ACTION_VIEW; ?>">
                                            <?php echo bloggy_icon('bs', 'eye', '16', '#000'); ?>
                                         </a>
                                         <a href="<?php echo ADMIN_URL; ?>/pages/edit/<?php echo $page['id']; ?>" 
                                            class="btn btn-sm btn-outline-primary"
-                                           title="Редактировать">
+                                           title="<?php echo LANG_TEMPLATE_PAGES_INDEX_ACTION_EDIT; ?>">
                                            <?php echo bloggy_icon('bs', 'pencil', '16', '#000'); ?>
                                         </a>
                                         <a href="<?php echo ADMIN_URL; ?>/pages/delete/<?php echo $page['id']; ?>" 
                                            class="btn btn-sm btn-outline-danger"
-                                           onclick="return confirm('Вы уверены, что хотите удалить эту страницу?')"
-                                           title="Удалить">
+                                           onclick="return confirm('<?php echo LANG_TEMPLATE_PAGES_INDEX_DELETE_CONFIRM; ?>')"
+                                           title="<?php echo LANG_TEMPLATE_PAGES_INDEX_ACTION_DELETE; ?>">
                                             <?php echo bloggy_icon('bs', 'trash', '16', '#000'); ?>
                                         </a>
                                     </div>

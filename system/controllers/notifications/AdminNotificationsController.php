@@ -10,11 +10,11 @@ class AdminNotificationsController extends Controller {
     private $userModel;
     
     protected $controllerInfo = [
-        'name' => 'Уведомления',
+        'name' => LANG_CONTROLLER_NOTIFICATIONS_MANIFEST_NAME,
         'author' => 'BloggyCMS',
         'version' => '1.0.0',
         'has_settings' => false,
-        'description' => 'Система уведомлений администратора'
+        'description' => LANG_CONTROLLER_NOTIFICATIONS_MANIFEST_DESCRIPTION
     ];
     
     /**
@@ -39,10 +39,10 @@ class AdminNotificationsController extends Controller {
             header('Content-Type: application/json');
             die(json_encode([
                 'success' => false,
-                'message' => 'Доступ запрещен'
+                'message' => LANG_CONTROLLER_NOTIFICATIONS_ACCESS_DENIED
             ]));
         } else {
-            Notification::error('У вас нет прав доступа к этому разделу');
+            Notification::error(LANG_CONTROLLER_NOTIFICATIONS_ACCESS_DENIED);
             $this->redirect(ADMIN_URL . '/login');
             exit;
         }
@@ -69,7 +69,7 @@ class AdminNotificationsController extends Controller {
             $this->jsonSuccess(['count' => (int)$count]);
             
         } catch (\Exception $e) {
-            $this->jsonError('Ошибка при получении уведомлений: ' . $e->getMessage(), 500);
+            $this->jsonError(LANG_CONTROLLER_NOTIFICATIONS_GET_ERROR . $e->getMessage(), 500);
         }
     }
     
@@ -102,7 +102,7 @@ class AdminNotificationsController extends Controller {
             ]);
             
         } catch (\Exception $e) {
-            $this->jsonError('Ошибка при получении уведомлений: ' . $e->getMessage(), 500);
+            $this->jsonError(LANG_CONTROLLER_NOTIFICATIONS_GET_ERROR . $e->getMessage(), 500);
         }
     }
     
@@ -203,7 +203,7 @@ class AdminNotificationsController extends Controller {
         $message = $notification['message'];
         $message .= '<div class="mt-2">';
         $message .= '<a href="' . $errorLink . '" class="btn btn-sm btn-outline-danger">';
-        $message .= '<i class="bi bi-bug me-1"></i>Перейти к ошибке';
+        $message .= '<i class="bi bi-bug me-1"></i>' . LANG_CONTROLLER_NOTIFICATIONS_GO_TO_ERROR;
         $message .= '</a>';
         $message .= '</div>';
         
@@ -221,18 +221,18 @@ class AdminNotificationsController extends Controller {
     * @return array Отформатированное уведомление
     */
     private function formatCommentNotification($notification, $data, $result) {
-        $postTitle = $data['post_title'] ?? 'Неизвестный пост';
-        $authorName = $data['author_name'] ?? 'Аноним';
+        $postTitle = $data['post_title'] ?? LANG_CONTROLLER_NOTIFICATIONS_UNKNOWN_POST;
+        $authorName = $data['author_name'] ?? LANG_CONTROLLER_NOTIFICATIONS_ANONYMOUS;
         $contentPreview = $data['content_preview'] ?? '';
         
-        $message = "<strong>{$authorName}</strong> оставил комментарий к записи <strong>\"{$postTitle}\"</strong>";
+        $message = sprintf(LANG_CONTROLLER_NOTIFICATIONS_COMMENT_MESSAGE, $authorName, $postTitle);
         
         if (!empty($contentPreview)) {
             $message .= "<br><br><em>\"{$contentPreview}\"</em>";
         }
         
         return array_merge($result, [
-            'title' => 'Новый комментарий',
+            'title' => LANG_CONTROLLER_NOTIFICATIONS_COMMENT_TITLE,
             'message' => $message
         ]);
     }
@@ -245,11 +245,11 @@ class AdminNotificationsController extends Controller {
     * @return array Отформатированное уведомление
     */
     private function formatNewUserNotification($notification, $data, $result) {
-        $userName = $data['username'] ?? $notification['created_by_username'] ?? 'Новый пользователь';
+        $userName = $data['username'] ?? $notification['created_by_username'] ?? LANG_CONTROLLER_NOTIFICATIONS_NEW_USER;
         
         return array_merge($result, [
-            'title' => 'Новая регистрация',
-            'message' => "Пользователь <strong>{$userName}</strong> зарегистрировался на сайте"
+            'title' => LANG_CONTROLLER_NOTIFICATIONS_NEW_USER_TITLE,
+            'message' => sprintf(LANG_CONTROLLER_NOTIFICATIONS_NEW_USER_MESSAGE, $userName)
         ]);
     }
     
@@ -262,7 +262,7 @@ class AdminNotificationsController extends Controller {
     */
     private function formatSystemNotification($notification, $data, $result) {
         return array_merge($result, [
-            'title' => $notification['title'] ?? 'Системное уведомление',
+            'title' => $notification['title'] ?? LANG_CONTROLLER_NOTIFICATIONS_SYSTEM_TITLE,
             'message' => $notification['message'] ?? ''
         ]);
     }
@@ -312,16 +312,16 @@ class AdminNotificationsController extends Controller {
         $diff = $now - $time;
         
         if ($diff < 60) {
-            return 'Только что';
+            return LANG_CONTROLLER_NOTIFICATIONS_JUST_NOW;
         } elseif ($diff < 3600) {
             $minutes = floor($diff / 60);
-            return "$minutes " . $this->pluralize($minutes, ['минуту', 'минуты', 'минут']) . ' назад';
+            return $minutes . ' ' . $this->pluralize($minutes, explode('|', LANG_CONTROLLER_NOTIFICATIONS_MINUTES_FORMS)) . ' ' . LANG_CONTROLLER_NOTIFICATIONS_AGO;
         } elseif ($diff < 86400) {
             $hours = floor($diff / 3600);
-            return "$hours " . $this->pluralize($hours, ['час', 'часа', 'часов']) . ' назад';
+            return $hours . ' ' . $this->pluralize($hours, explode('|', LANG_CONTROLLER_NOTIFICATIONS_HOURS_FORMS)) . ' ' . LANG_CONTROLLER_NOTIFICATIONS_AGO;
         } elseif ($diff < 604800) {
             $days = floor($diff / 86400);
-            return "$days " . $this->pluralize($days, ['день', 'дня', 'дней']) . ' назад';
+            return $days . ' ' . $this->pluralize($days, explode('|', LANG_CONTROLLER_NOTIFICATIONS_DAYS_FORMS)) . ' ' . LANG_CONTROLLER_NOTIFICATIONS_AGO;
         } else {
             return date('d.m.Y', $time);
         }

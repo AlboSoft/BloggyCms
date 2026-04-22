@@ -45,10 +45,10 @@ class AdminMarkAllAsRead extends NotificationsAction {
         
         if ($unreadCount == 0) {
             if ($isAjax) {
-                $this->sendJsonResponse(false, 'Нет непрочитанных уведомлений');
+                $this->sendJsonResponse(false, LANG_ACTION_NOTIFICATIONS_ADMINMARKALLASREAD_NO_UNREAD);
                 exit;
             } else {
-                \Notification::warning('Нет непрочитанных уведомлений');
+                \Notification::warning(LANG_ACTION_NOTIFICATIONS_ADMINMARKALLASREAD_NO_UNREAD);
                 $this->redirect(ADMIN_URL . '/notifications');
                 exit;
             }
@@ -65,14 +65,14 @@ class AdminMarkAllAsRead extends NotificationsAction {
     private function handleMarkAllResult($result, $isAjax) {
         if ($result) {
             if ($isAjax) {
-                $this->sendJsonResponse(true, 'Все уведомления отмечены как прочитанные', [
+                $this->sendJsonResponse(true, LANG_ACTION_NOTIFICATIONS_ADMINMARKALLASREAD_SUCCESS, [
                     'unread_count' => 0
                 ]);
             } else {
-                \Notification::success('Все уведомления отмечены как прочитанные');
+                \Notification::success(LANG_ACTION_NOTIFICATIONS_ADMINMARKALLASREAD_SUCCESS);
             }
         } else {
-            throw new \Exception('Не удалось обновить уведомления');
+            throw new \Exception(LANG_ACTION_NOTIFICATIONS_ADMINMARKALLASREAD_FAILED);
         }
     }
     
@@ -83,7 +83,7 @@ class AdminMarkAllAsRead extends NotificationsAction {
     * @return void
     */
     private function handleMarkAllError($e, $isAjax) {
-        $errorMessage = 'Ошибка при обновлении уведомлений: ' . $e->getMessage();
+        $errorMessage = LANG_ACTION_NOTIFICATIONS_ADMINMARKALLASREAD_ERROR . $e->getMessage();
         
         if ($isAjax) {
             $this->sendJsonResponse(false, $errorMessage, [], 500);

@@ -16,7 +16,7 @@ class Show extends PageAction {
         $slug = $this->params['slug'] ?? null;
 
         if (!$slug) {
-            \Notification::error('Slug страницы не указан');
+            \Notification::error(LANG_ACTION_PAGES_SHOW_SLUG_NOT_SPECIFIED);
             $this->redirect(BASE_URL);
             return;
         }
@@ -25,12 +25,12 @@ class Show extends PageAction {
             $page = $this->pageModel->getBySlug($slug);
             
             if (!$page) {
-                \Notification::error('Страница не найдена');
+                \Notification::error(LANG_ACTION_PAGES_SHOW_PAGE_NOT_FOUND);
                 $this->redirect(BASE_URL);
                 return;
             }
             
-            $this->addBreadcrumb('Главная', BASE_URL);
+            $this->addBreadcrumb(LANG_ACTION_PAGES_SHOW_BREADCRUMB_HOME, BASE_URL);
             
             if (!empty($page['parent_id'])) {
                 $this->addParentPageBreadcrumbs($page['parent_id']);
@@ -50,7 +50,7 @@ class Show extends PageAction {
             ]);
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при загрузке страницы');
+            \Notification::error(LANG_ACTION_PAGES_SHOW_LOAD_ERROR);
             $this->redirect(BASE_URL);
         }
     }

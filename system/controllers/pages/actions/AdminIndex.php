@@ -14,8 +14,8 @@ class AdminIndex extends PageAction {
     */
     public function execute() {
         
-        $this->addBreadcrumb('Панель управления', ADMIN_URL);
-        $this->addBreadcrumb('Страницы');
+        $this->addBreadcrumb(LANG_ACTION_PAGES_ADMININDEX_BREADCRUMB_DASHBOARD, ADMIN_URL);
+        $this->addBreadcrumb(LANG_ACTION_PAGES_ADMININDEX_BREADCRUMB_PAGES);
         
         try {
             $pages = $this->loadPages();
@@ -43,7 +43,7 @@ class AdminIndex extends PageAction {
     private function renderPageList($pages) {
         $this->render('admin/pages/index', [
             'pages' => $pages,
-            'pageTitle' => 'Управление страницами'
+            'pageTitle' => LANG_ACTION_PAGES_ADMININDEX_PAGE_TITLE
         ]);
     }
     
@@ -52,7 +52,7 @@ class AdminIndex extends PageAction {
     * @return void
     */
     private function handleAccessDenied() {
-        \Notification::error('У вас нет прав доступа к этому разделу');
+        \Notification::error(LANG_ACTION_PAGES_ADMININDEX_ACCESS_DENIED);
         $this->redirect(ADMIN_URL . '/login');
     }
     
@@ -62,10 +62,10 @@ class AdminIndex extends PageAction {
     * @return void
     */
     private function handleLoadError($e) {
-        \Notification::error('Ошибка при загрузке списка страниц');
+        \Notification::error(LANG_ACTION_PAGES_ADMININDEX_LOAD_ERROR);
         
         if (defined('DEBUG_MODE') && DEBUG_MODE) {
-            \Notification::error('Детали: ' . $e->getMessage());
+            \Notification::error(LANG_ACTION_PAGES_ADMININDEX_DETAILS . $e->getMessage());
         }
         
         $this->redirect(ADMIN_URL);

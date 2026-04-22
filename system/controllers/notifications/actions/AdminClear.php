@@ -46,10 +46,10 @@ class AdminClear extends NotificationsAction {
         
         if ($stats['read_count'] == 0) {
             if ($isAjax) {
-                $this->sendJsonResponse(false, 'Нет прочитанных уведомлений для очистки');
+                $this->sendJsonResponse(false, LANG_ACTION_NOTIFICATIONS_ADMINCLEAR_NO_READ);
                 exit;
             } else {
-                \Notification::warning('Нет прочитанных уведомлений для очистки');
+                \Notification::warning(LANG_ACTION_NOTIFICATIONS_ADMINCLEAR_NO_READ);
                 $this->redirect(ADMIN_URL . '/notifications');
                 exit;
             }
@@ -66,12 +66,12 @@ class AdminClear extends NotificationsAction {
     private function handleClearResult($result, $isAjax) {
         if ($result) {
             if ($isAjax) {
-                $this->sendJsonResponse(true, 'Прочитанные уведомления успешно очищены');
+                $this->sendJsonResponse(true, LANG_ACTION_NOTIFICATIONS_ADMINCLEAR_SUCCESS);
             } else {
-                \Notification::success('Прочитанные уведомления успешно очищены');
+                \Notification::success(LANG_ACTION_NOTIFICATIONS_ADMINCLEAR_SUCCESS);
             }
         } else {
-            throw new \Exception('Не удалось очистить уведомления');
+            throw new \Exception(LANG_ACTION_NOTIFICATIONS_ADMINCLEAR_FAILED);
         }
     }
     
@@ -82,7 +82,7 @@ class AdminClear extends NotificationsAction {
     * @return void
     */
     private function handleClearError($e, $isAjax) {
-        $errorMessage = 'Ошибка при очистке уведомлений: ' . $e->getMessage();
+        $errorMessage = LANG_ACTION_NOTIFICATIONS_ADMINCLEAR_ERROR . $e->getMessage();
         
         if ($isAjax) {
             $this->sendJsonResponse(false, $errorMessage, 500);

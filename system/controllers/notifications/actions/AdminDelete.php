@@ -18,7 +18,7 @@ class AdminDelete extends NotificationsAction {
         $isAjax = $this->isAjaxRequest();
         
         if (!$id) {
-            $this->sendError('ID уведомления не указан', $isAjax);
+            $this->sendError(LANG_ACTION_NOTIFICATIONS_ADMINDELETE_ID_NOT_SPECIFIED, $isAjax);
             return;
         }
         
@@ -32,7 +32,7 @@ class AdminDelete extends NotificationsAction {
             $this->handleDeleteResult($result, $userId, $isAjax);
             
         } catch (\Exception $e) {
-            $this->sendError('Ошибка: ' . $e->getMessage(), $isAjax);
+            $this->sendError(LANG_ACTION_NOTIFICATIONS_ADMINDELETE_ERROR . $e->getMessage(), $isAjax);
             return;
         }
         
@@ -60,7 +60,7 @@ class AdminDelete extends NotificationsAction {
         }
         
         if (!$notificationExists) {
-            throw new \Exception('Уведомление не найдено или доступ запрещен');
+            throw new \Exception(LANG_ACTION_NOTIFICATIONS_ADMINDELETE_NOT_FOUND);
         }
     }
     
@@ -75,7 +75,7 @@ class AdminDelete extends NotificationsAction {
         $result = $this->notificationModel->delete($id, $userId);
         
         if (!$result || $result->rowCount() === 0) {
-            throw new \Exception('Не удалось удалить уведомление');
+            throw new \Exception(LANG_ACTION_NOTIFICATIONS_ADMINDELETE_DELETE_FAILED);
         }
         
         return $result;
@@ -92,11 +92,11 @@ class AdminDelete extends NotificationsAction {
         if ($isAjax) {
             $unreadCount = $this->notificationModel->getUnreadCount($userId);
             
-            $this->sendJsonResponse(true, 'Уведомление успешно удалено', [
+            $this->sendJsonResponse(true, LANG_ACTION_NOTIFICATIONS_ADMINDELETE_SUCCESS, [
                 'unread_count' => $unreadCount
             ]);
         } else {
-            \Notification::success('Уведомление успешно удалено');
+            \Notification::success(LANG_ACTION_NOTIFICATIONS_ADMINDELETE_SUCCESS);
         }
     }
     

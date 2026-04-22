@@ -36,7 +36,7 @@ class AdminUploadImage extends PageAction {
     */
     private function validateUploadedFile() {
         if (!isset($_FILES['upload'])) {
-            throw new \Exception('Файл не был загружен');
+            throw new \Exception(LANG_ACTION_PAGES_ADMINUPLOADIMAGE_NO_FILE);
         }
         
         if ($_FILES['upload']['error'] !== UPLOAD_ERR_OK) {
@@ -54,16 +54,16 @@ class AdminUploadImage extends PageAction {
     */
     private function getUploadErrorMessage($errorCode) {
         $errors = [
-            UPLOAD_ERR_INI_SIZE => 'Размер файла превышает максимально допустимый',
-            UPLOAD_ERR_FORM_SIZE => 'Размер файла превышает максимально допустимый',
-            UPLOAD_ERR_PARTIAL => 'Файл был загружен только частично',
-            UPLOAD_ERR_NO_FILE => 'Файл не был загружен',
-            UPLOAD_ERR_NO_TMP_DIR => 'Отсутствует временная папка',
-            UPLOAD_ERR_CANT_WRITE => 'Не удалось записать файл на диск',
-            UPLOAD_ERR_EXTENSION => 'PHP-расширение остановило загрузку файла'
+            UPLOAD_ERR_INI_SIZE => LANG_ACTION_PAGES_ADMINUPLOADIMAGE_ERROR_INI_SIZE,
+            UPLOAD_ERR_FORM_SIZE => LANG_ACTION_PAGES_ADMINUPLOADIMAGE_ERROR_FORM_SIZE,
+            UPLOAD_ERR_PARTIAL => LANG_ACTION_PAGES_ADMINUPLOADIMAGE_ERROR_PARTIAL,
+            UPLOAD_ERR_NO_FILE => LANG_ACTION_PAGES_ADMINUPLOADIMAGE_ERROR_NO_FILE,
+            UPLOAD_ERR_NO_TMP_DIR => LANG_ACTION_PAGES_ADMINUPLOADIMAGE_ERROR_NO_TMP_DIR,
+            UPLOAD_ERR_CANT_WRITE => LANG_ACTION_PAGES_ADMINUPLOADIMAGE_ERROR_CANT_WRITE,
+            UPLOAD_ERR_EXTENSION => LANG_ACTION_PAGES_ADMINUPLOADIMAGE_ERROR_EXTENSION
         ];
         
-        return $errors[$errorCode] ?? 'Произошла неизвестная ошибка при загрузке файла';
+        return $errors[$errorCode] ?? LANG_ACTION_PAGES_ADMINUPLOADIMAGE_ERROR_UNKNOWN;
     }
     
     /**
@@ -102,7 +102,7 @@ class AdminUploadImage extends PageAction {
     private function ensureUploadDirectoryExists($dir) {
         if (!is_dir($dir)) {
             if (!mkdir($dir, 0777, true)) {
-                throw new \Exception('Не удалось создать директорию для загрузки');
+                throw new \Exception(LANG_ACTION_PAGES_ADMINUPLOADIMAGE_CANT_CREATE_DIR);
             }
         }
     }
@@ -122,7 +122,7 @@ class AdminUploadImage extends PageAction {
         
         if (!isset($allowedTypes[$fileType])) {
             $allowedExtensions = implode(', ', array_values($allowedTypes));
-            throw new \Exception("Недопустимый тип файла. Разрешены: {$allowedExtensions}");
+            throw new \Exception(sprintf(LANG_ACTION_PAGES_ADMINUPLOADIMAGE_INVALID_TYPE, $allowedExtensions));
         }
     }
     
@@ -134,7 +134,7 @@ class AdminUploadImage extends PageAction {
     */
     private function saveUploadedFile($tmpName, $destination) {
         if (!move_uploaded_file($tmpName, $destination)) {
-            throw new \Exception('Не удалось сохранить загруженный файл');
+            throw new \Exception(LANG_ACTION_PAGES_ADMINUPLOADIMAGE_SAVE_ERROR);
         }
     }
     

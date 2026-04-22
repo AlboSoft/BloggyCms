@@ -1,0 +1,19 @@
+<?php
+
+define('LANG_CONTROLLER_NOTIFICATIONS_SETTINGS_FIELDSET_COMMENTS', 'Комментарии');
+define('LANG_CONTROLLER_NOTIFICATIONS_SETTINGS_COMMENTS_VARIABLES', 'Показывать уведомления');
+define('LANG_CONTROLLER_NOTIFICATIONS_SETTINGS_COMMENTS_OPTION_ALL', 'Все без исключения');
+define('LANG_CONTROLLER_NOTIFICATIONS_SETTINGS_COMMENTS_OPTION_PENDING', 'Только требующие модерации');
+define('LANG_CONTROLLER_NOTIFICATIONS_SETTINGS_FIELDSET_ERRORS', 'Уведомления об ошибках');
+define('LANG_CONTROLLER_NOTIFICATIONS_SETTINGS_ERRORS_NOTIFY_ON_NEW', 'Уведомлять о новых ошибках в системе');
+define('LANG_CONTROLLER_NOTIFICATIONS_SETTINGS_ERRORS_NOTIFY_ON_NEW_HINT', 'При появлении новой ошибки в логах (контроллер Debug) будет отправлено уведомление администраторам');
+define('LANG_CONTROLLER_NOTIFICATIONS_SETTINGS_ERRORS_TYPES', 'Типы ошибок для уведомления');
+define('LANG_CONTROLLER_NOTIFICATIONS_SETTINGS_ERRORS_TYPES_HINT', 'Выберите типы ошибок, о которых нужно уведомлять');
+define('LANG_CONTROLLER_NOTIFICATIONS_SETTINGS_ERRORS_TYPE_ERROR', 'Ошибки PHP');
+define('LANG_CONTROLLER_NOTIFICATIONS_SETTINGS_ERRORS_TYPE_WARNING', 'Предупреждения');
+define('LANG_CONTROLLER_NOTIFICATIONS_SETTINGS_ERRORS_TYPE_NOTICE', 'Уведомления');
+define('LANG_CONTROLLER_NOTIFICATIONS_SETTINGS_ERRORS_TYPE_EXCEPTION', 'Исключения');
+define('LANG_CONTROLLER_NOTIFICATIONS_SETTINGS_ERRORS_ONLY_UNFIXED', 'Уведомлять только о неисправленных ошибках');
+define('LANG_CONTROLLER_NOTIFICATIONS_SETTINGS_ERRORS_ONLY_UNFIXED_HINT', 'Повторные уведомления об одной и той же ошибке не будут отправляться, пока она не будет отмечена как исправленная');
+define('LANG_CONTROLLER_NOTIFICATIONS_SETTINGS_ERRORS_THROTTLE', 'Минимальный интервал между уведомлениями (минуты)');
+define('LANG_CONTROLLER_NOTIFICATIONS_SETTINGS_ERRORS_THROTTLE_HINT', 'Чтобы не заспамливать уведомлениями при массовых ошибках');

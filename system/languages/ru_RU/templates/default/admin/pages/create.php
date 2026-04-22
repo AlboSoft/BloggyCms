@@ -1,0 +1,28 @@
+<?php
+
+define('LANG_TEMPLATE_PAGES_CREATE_TITLE', 'Создание страницы');
+define('LANG_TEMPLATE_PAGES_CREATE_BACK_BTN', 'Назад к страницам');
+define('LANG_TEMPLATE_PAGES_CREATE_TITLE_LABEL', 'Заголовок страницы');
+define('LANG_TEMPLATE_PAGES_CREATE_TITLE_PLACEHOLDER', 'Введите заголовок страницы');
+define('LANG_TEMPLATE_PAGES_CREATE_SLUG_LABEL', 'URL-адрес (slug)');
+define('LANG_TEMPLATE_PAGES_CREATE_SLUG_PLACEHOLDER', 'avtomaticheski-iz-zagolovka');
+define('LANG_TEMPLATE_PAGES_CREATE_SLUG_TITLE', 'Только латинские буквы, цифры и дефисы');
+define('LANG_TEMPLATE_PAGES_CREATE_SLUG_GENERATE_BTN_TITLE', 'Сгенерировать из заголовка');
+define('LANG_TEMPLATE_PAGES_CREATE_SLUG_HINT', 'Оставьте пустым для автогенерации из заголовка.');
+define('LANG_TEMPLATE_PAGES_CREATE_AVAILABLE_BLOCKS', 'Доступные блоки');
+define('LANG_TEMPLATE_PAGES_CREATE_FILTER_ALL', 'Все категории');
+define('LANG_TEMPLATE_PAGES_CREATE_FILTER_TEXT', 'Текст');
+define('LANG_TEMPLATE_PAGES_CREATE_FILTER_MEDIA', 'Медиа');
+define('LANG_TEMPLATE_PAGES_CREATE_FILTER_LAYOUT', 'Компоновка');
+define('LANG_TEMPLATE_PAGES_CREATE_FILTER_ADVANCED', 'Расширенные');
+define('LANG_TEMPLATE_PAGES_CREATE_FILTER_BASIC', 'Основные');
+define('LANG_TEMPLATE_PAGES_CREATE_SEARCH_PLACEHOLDER', 'Поиск блоков...');
+define('LANG_TEMPLATE_PAGES_CREATE_NO_BLOCKS_TITLE', 'Нет добавленных блоков');
+define('LANG_TEMPLATE_PAGES_CREATE_NO_BLOCKS_HINT', 'Добавьте блоки из панели выше для создания контента');
+define('LANG_TEMPLATE_PAGES_CREATE_CUSTOM_FIELDS_TITLE', 'Дополнительные поля');
+define('LANG_TEMPLATE_PAGES_CREATE_PUBLISH_TITLE', 'Настройки публикации');
+define('LANG_TEMPLATE_PAGES_CREATE_STATUS_LABEL', 'Статус');
+define('LANG_TEMPLATE_PAGES_CREATE_STATUS_DRAFT', 'Черновик');
+define('LANG_TEMPLATE_PAGES_CREATE_STATUS_PUBLISHED', 'Опубликовано');
+define('LANG_TEMPLATE_PAGES_CREATE_SUBMIT_BTN', 'Создать страницу');
+define('LANG_TEMPLATE_PAGES_CREATE_CANCEL_BTN', 'Отмена');

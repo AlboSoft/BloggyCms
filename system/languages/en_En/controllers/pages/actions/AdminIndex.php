@@ -1,0 +1,8 @@
+<?php
+
+define('LANG_ACTION_PAGES_ADMININDEX_BREADCRUMB_DASHBOARD', 'Dashboard');
+define('LANG_ACTION_PAGES_ADMININDEX_BREADCRUMB_PAGES', 'Pages');
+define('LANG_ACTION_PAGES_ADMININDEX_PAGE_TITLE', 'Manage Pages');
+define('LANG_ACTION_PAGES_ADMININDEX_ACCESS_DENIED', 'You do not have access to this section');
+define('LANG_ACTION_PAGES_ADMININDEX_LOAD_ERROR', 'Error loading pages list');
+define('LANG_ACTION_PAGES_ADMININDEX_DETAILS', 'Details: ');

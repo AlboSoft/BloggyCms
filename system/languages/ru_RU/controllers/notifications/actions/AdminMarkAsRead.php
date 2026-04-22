@@ -1,0 +1,6 @@
+<?php
+
+define('LANG_ACTION_NOTIFICATIONS_ADMINMARKASREAD_ID_NOT_SPECIFIED', 'ID уведомления не указан');
+define('LANG_ACTION_NOTIFICATIONS_ADMINMARKASREAD_ERROR', 'Ошибка: ');
+define('LANG_ACTION_NOTIFICATIONS_ADMINMARKASREAD_NOT_FOUND', 'Уведомление не найдено');
+define('LANG_ACTION_NOTIFICATIONS_ADMINMARKASREAD_SUCCESS', 'Уведомление отмечено как прочитанное');

@@ -1,0 +1,27 @@
+<?php
+
+define('LANG_TEMPLATE_PAGES_EDIT_TITLE', 'Edit Page');
+define('LANG_TEMPLATE_PAGES_EDIT_BACK_BTN', 'Back to Pages');
+define('LANG_TEMPLATE_PAGES_EDIT_TITLE_LABEL', 'Page Title');
+define('LANG_TEMPLATE_PAGES_EDIT_SLUG_LABEL', 'URL (slug)');
+define('LANG_TEMPLATE_PAGES_EDIT_SLUG_PLACEHOLDER', 'automatically-from-title');
+define('LANG_TEMPLATE_PAGES_EDIT_SLUG_TITLE', 'Only Latin letters, numbers and hyphens');
+define('LANG_TEMPLATE_PAGES_EDIT_SLUG_GENERATE_BTN_TITLE', 'Generate from title');
+define('LANG_TEMPLATE_PAGES_EDIT_SLUG_HINT', 'Only Latin letters, numbers and hyphens.');
+define('LANG_TEMPLATE_PAGES_EDIT_AVAILABLE_BLOCKS', 'Available Blocks');
+define('LANG_TEMPLATE_PAGES_EDIT_FILTER_ALL', 'All categories');
+define('LANG_TEMPLATE_PAGES_EDIT_FILTER_TEXT', 'Text');
+define('LANG_TEMPLATE_PAGES_EDIT_FILTER_MEDIA', 'Media');
+define('LANG_TEMPLATE_PAGES_EDIT_FILTER_LAYOUT', 'Layout');
+define('LANG_TEMPLATE_PAGES_EDIT_FILTER_ADVANCED', 'Advanced');
+define('LANG_TEMPLATE_PAGES_EDIT_FILTER_BASIC', 'Basic');
+define('LANG_TEMPLATE_PAGES_EDIT_SEARCH_PLACEHOLDER', 'Search blocks...');
+define('LANG_TEMPLATE_PAGES_EDIT_NO_BLOCKS_TITLE', 'No blocks added');
+define('LANG_TEMPLATE_PAGES_EDIT_NO_BLOCKS_HINT', 'Add blocks from the panel above to create content');
+define('LANG_TEMPLATE_PAGES_EDIT_CUSTOM_FIELDS_TITLE', 'Custom Fields');
+define('LANG_TEMPLATE_PAGES_EDIT_PUBLISH_TITLE', 'Publication Settings');
+define('LANG_TEMPLATE_PAGES_EDIT_STATUS_LABEL', 'Status');
+define('LANG_TEMPLATE_PAGES_EDIT_STATUS_DRAFT', 'Draft');
+define('LANG_TEMPLATE_PAGES_EDIT_STATUS_PUBLISHED', 'Published');
+define('LANG_TEMPLATE_PAGES_EDIT_SUBMIT_BTN', 'Update Page');
+define('LANG_TEMPLATE_PAGES_EDIT_CANCEL_BTN', 'Cancel');
