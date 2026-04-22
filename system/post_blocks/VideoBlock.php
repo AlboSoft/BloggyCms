@@ -11,7 +11,7 @@ class VideoBlock extends BasePostBlock {
     }
 
     public function getDescription(): string {
-        return 'Вставляет видео с поддержкой загрузки MP4, а также вставки с Rutube и VK Video.';
+        return 'Вставляет видео с поддержкой загрузки MP4, а также вставки с Rutube, VK Video и Youtube.';
     }
 
     public function getIcon(): string {
@@ -36,7 +36,7 @@ class VideoBlock extends BasePostBlock {
         return array_merge(parent::getShortcodes(), [
             '{video_embed}' => 'HTML-код вставки видео',
             '{video_url}' => 'URL видео',
-            '{video_type}' => 'Тип видео (upload, rutube, vk)',
+            '{video_type}' => 'Тип видео (upload, rutube, vk, youtube)',
             '{caption}' => 'Подпись под видео',
             '{caption_html}' => 'HTML-код подписи с обрамлением',
             '{poster}' => 'URL постера (превью) для загруженного видео',
@@ -81,6 +81,7 @@ class VideoBlock extends BasePostBlock {
             'upload' => 'Загруженное',
             'rutube' => 'Rutube',
             'vk' => 'VK Video',
+            'youtube' => 'Youtube',
             default => 'Неизвестно'
         };
         
@@ -181,6 +182,7 @@ class VideoBlock extends BasePostBlock {
             'upload' => 'Локальное видео',
             'rutube' => 'Rutube',
             'vk' => 'VK Video',
+            'youtube' => 'Youtube',
             default => 'Видео'
         };
         
@@ -218,6 +220,7 @@ class VideoBlock extends BasePostBlock {
                     <option value="upload" <?= $videoType === 'upload' ? 'selected' : '' ?>>Загрузить файл (MP4)</option>
                     <option value="rutube" <?= $videoType === 'rutube' ? 'selected' : '' ?>>Rutube</option>
                     <option value="vk" <?= $videoType === 'vk' ? 'selected' : '' ?>>VK Video</option>
+                    <option value="youtube" <?= $videoType === 'youtube' ? 'selected' : '' ?>>Youtube</option>
                 </select>
             </div>
 
@@ -283,23 +286,32 @@ class VideoBlock extends BasePostBlock {
                             Ссылка на видео Rutube
                         <?php } elseif ($videoType === 'vk') { ?>
                             Ссылка на видео VK
+                        <?php } elseif ($videoType === 'youtube') { ?>
+                            Ссылка на видео Youtube
                         <?php } else { ?>
                             Ссылка на видео
                         <?php } ?>
                     </label>
-                    <input type="url" 
-                        name="content[video_url]" 
-                        class="form-control" 
-                        data-video-url-input
-                        value="<?= $videoType !== 'upload' ? html($videoUrl) : '' ?>" 
-                        placeholder="<?= $videoType === 'rutube' ? 'https://rutube.ru/video/...' : ($videoType === 'vk' ? 'https://vk.com/video...' : 'https://...') ?>">
-                    <div class="form-text" data-url-hint>
-                        <?php if ($videoType === 'rutube') { ?>
-                            Пример: https://rutube.ru/video/private/xxx/ или https://rutube.ru/video/xxx/
-                        <?php } elseif ($videoType === 'vk') { ?>
-                            Пример: https://vk.com/video-xxx_xxx или https://vk.com/video?z=video-xxx_xxx
-                        <?php } ?>
-                    </div>
+                   <input type="url" 
+       name="content[video_url]" 
+       class="form-control" 
+       data-video-url-input
+       value="<?= $videoType !== 'upload' ? html($videoUrl) : '' ?>" 
+       placeholder="<?= 
+           $videoType === 'youtube' ? 'https://www.youtube.com/watch?v=...' : 
+           ($videoType === 'rutube' ? 'https://rutube.ru/video/...' : 
+           ($videoType === 'vk' ? 'https://vk.com/video...' : 'https://...')) 
+       ?>">
+
+<div class="form-text" data-url-hint>
+    <?php if ($videoType === 'youtube') { ?>
+        Пример: https://www.youtube.com/watch?v=xxxxxx или https://youtu.be/xxxxxx
+    <?php } elseif ($videoType === 'rutube') { ?>
+        Пример: https://rutube.ru/video/private/xxx/ или https://rutube.ru/video/xxx/
+    <?php } elseif ($videoType === 'vk') { ?>
+        Пример: https://vk.com/video-xxx_xxx или https://vk.com/video?z=video-xxx_xxx
+    <?php } ?>
+</div>
                 </div>
                 <input type="hidden" name="content[video_id]" value="<?= $videoId ?>">
             </div>
@@ -515,6 +527,12 @@ class VideoBlock extends BasePostBlock {
         if (empty($url)) return '';
         
         switch ($type) {
+            case 'youtube':
+    // Matches standard URLs and shortened youtu.be URLs
+    if (preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/i', $url, $matches)) {
+        return $matches[1];
+    }
+    break;
             case 'rutube':
                 if (preg_match('/rutube\.ru\/video\/(?:private\/)?([a-zA-Z0-9]+)/', $url, $matches)) {
                     return $matches[1];
@@ -633,6 +651,16 @@ class VideoBlock extends BasePostBlock {
                 $html .= '</div>';
                 return $html;
                 
+            case 'youtube':
+    $embedUrl = 'https://www.youtube.com/embed/' . $videoId;
+    $html = '<div class="video-container" style="' . $style . '">';
+    $html .= '<iframe src="' . $embedUrl . '" ';
+    $html .= 'style="width: 100%; height: 100%; border: none;" ';
+    $html .= 'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" ';
+    $html .= 'allowfullscreen></iframe>';
+    $html .= '</div>';
+    return $html;
+
             case 'rutube':
                 $embedUrl = 'https://rutube.ru/play/embed/' . $videoId;
                 $html = '<div class="video-container" style="' . $style . '">';

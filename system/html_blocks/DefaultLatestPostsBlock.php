@@ -136,13 +136,7 @@ class DefaultLatestPostsBlock extends BaseHtmlBlock {
                     }
                 }
                 
-                if (!empty($post['id']) && API::hasModel('posts')) {
-                    try {
-                        $post['views'] = API::posts()->getViews($post['id']);
-                    } catch (Exception $e) {
-                        $post['views'] = 0;
-                    }
-                }
+                $post['views'] = $post['views'] ?? 0;
             }
             
             return $posts;
