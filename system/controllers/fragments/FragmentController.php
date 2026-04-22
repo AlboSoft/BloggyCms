@@ -30,7 +30,7 @@ class FragmentController extends Controller {
         $fragment = $this->fragmentModel->getBySystemName($systemName);
         
         if (!$fragment || $fragment['status'] !== 'active') {
-            echo '<!-- Фрагмент "' . html($systemName) . '" не найден -->';
+            echo sprintf(LANG_CONTROLLER_FRAGMENT_NOT_FOUND_COMMENT, html($systemName));
             return;
         }
         
@@ -128,7 +128,7 @@ class FragmentController extends Controller {
             
             <?php if (empty($entries)) { ?>
                 <div class="fragment-empty">
-                    <p>Нет записей в этом фрагменте</p>
+                    <p><?php echo LANG_CONTROLLER_FRAGMENT_NO_ENTRIES; ?></p>
                 </div>
             <?php } else { ?>
                 <div class="fragment-entries">

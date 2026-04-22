@@ -3,7 +3,7 @@
 class CategoriesListBlock extends BaseHtmlBlock {
     
     public function getName(): string {
-        return "Categories List";
+        return LANG_HTMLBLOCK_CATEGORIESLIST_NAME;
     }
 
     public function getSystemName(): string {
@@ -11,7 +11,11 @@ class CategoriesListBlock extends BaseHtmlBlock {
     }
 
     public function getDescription(): string {
-        return "Блок со списком категорий в стиле карточек";
+        return LANG_HTMLBLOCK_CATEGORIESLIST_DESCRIPTION;
+    }
+
+    public function getAuthor(): string {
+        return 'BloggyCMS Team';
     }
 
     public function getVersion(): string {
@@ -28,126 +32,128 @@ class CategoriesListBlock extends BaseHtmlBlock {
         
         $settings = array_merge([], $currentSettings);
         
-        $fieldsets[] = new \Fieldset('Заголовочная часть', [
+        $fieldsets = [];
+        
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_CATEGORIESLIST_FIELDSET_HEADER, [
             'icon' => 'bi bi-pencil',
             'columns' => '12',
             'fields' => [
                 \FieldFactory::string('badge', [
-                    'title' => 'Бейдж',
-                    'default' => $settings['badge'] ?? 'Рубрики',
-                    'placeholder' => 'Например: Категории',
+                    'title' => LANG_HTMLBLOCK_CATEGORIESLIST_FIELD_BADGE,
+                    'default' => $settings['badge'] ?? LANG_HTMLBLOCK_CATEGORIESLIST_DEFAULT_BADGE,
+                    'placeholder' => LANG_HTMLBLOCK_CATEGORIESLIST_FIELD_BADGE_PLACEHOLDER,
                 ]),
                 \FieldFactory::string('title', [
-                    'title' => 'Заголовок',
-                    'default' => $settings['title'] ?? 'Исследуйте <span class="highlight">по рубрикам</span>',
-                    'placeholder' => 'Используйте <span class="highlight"> для выделения',
+                    'title' => LANG_HTMLBLOCK_CATEGORIESLIST_FIELD_TITLE,
+                    'default' => $settings['title'] ?? LANG_HTMLBLOCK_CATEGORIESLIST_DEFAULT_TITLE,
+                    'placeholder' => LANG_HTMLBLOCK_CATEGORIESLIST_FIELD_TITLE_PLACEHOLDER,
                 ]),
                 \FieldFactory::textarea('description', [
-                    'title' => 'Описание',
-                    'default' => $settings['description'] ?? 'Выбирайте интересующие вас темы и погружайтесь в мир знаний',
+                    'title' => LANG_HTMLBLOCK_CATEGORIESLIST_FIELD_DESCRIPTION,
+                    'default' => $settings['description'] ?? LANG_HTMLBLOCK_CATEGORIESLIST_DEFAULT_DESCRIPTION,
                     'rows' => 3,
                 ]),
                 \FieldFactory::select('align', [
-                    'title' => 'Выравнивание заголовка',
+                    'title' => LANG_HTMLBLOCK_CATEGORIESLIST_FIELD_ALIGN,
                     'options' => [
-                        'left' => 'Слева',
-                        'center' => 'По центру',
+                        'left' => LANG_HTMLBLOCK_CATEGORIESLIST_ALIGN_LEFT,
+                        'center' => LANG_HTMLBLOCK_CATEGORIESLIST_ALIGN_CENTER,
                     ],
                     'default' => 'center',
                 ]),
             ]
         ]);
 
-        $fieldsets[] = new \Fieldset('Настройки отображения', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_CATEGORIESLIST_FIELDSET_DISPLAY, [
             'icon' => 'bi bi-grid-3x3',
             'columns' => '12',
             'fields' => [
                 \FieldFactory::select('display_style', [
-                    'title' => 'Стиль отображения',
+                    'title' => LANG_HTMLBLOCK_CATEGORIESLIST_FIELD_DISPLAY_STYLE,
                     'options' => [
-                        'cards' => 'Карточки',
-                        'list' => 'Список',
-                        'grid' => 'Сетка',
-                        'compact' => 'Компактный',
+                        'cards' => LANG_HTMLBLOCK_CATEGORIESLIST_STYLE_CARDS,
+                        'list' => LANG_HTMLBLOCK_CATEGORIESLIST_STYLE_LIST,
+                        'grid' => LANG_HTMLBLOCK_CATEGORIESLIST_STYLE_GRID,
+                        'compact' => LANG_HTMLBLOCK_CATEGORIESLIST_STYLE_COMPACT,
                     ],
                     'default' => 'cards',
                 ]),
                 \FieldFactory::select('columns', [
-                    'title' => 'Количество колонок',
+                    'title' => LANG_HTMLBLOCK_CATEGORIESLIST_FIELD_COLUMNS,
                     'options' => [
-                        '2' => '2 колонки',
-                        '3' => '3 колонки',
-                        '4' => '4 колонки',
+                        '2' => LANG_HTMLBLOCK_CATEGORIESLIST_COLUMNS_2,
+                        '3' => LANG_HTMLBLOCK_CATEGORIESLIST_COLUMNS_3,
+                        '4' => LANG_HTMLBLOCK_CATEGORIESLIST_COLUMNS_4,
                     ],
                     'default' => '3',
                     'show' => 'field:display_style in cards,grid',
                 ]),
                 \FieldFactory::number('limit', [
-                    'title' => 'Количество категорий',
+                    'title' => LANG_HTMLBLOCK_CATEGORIESLIST_FIELD_LIMIT,
                     'default' => 6,
                     'min' => 1,
                     'max' => 50,
-                    'hint' => '0 = все категории',
+                    'hint' => LANG_HTMLBLOCK_CATEGORIESLIST_FIELD_LIMIT_HINT,
                 ]),
                 \FieldFactory::checkbox('show_hierarchy', [
-                    'title' => 'Показывать иерархию',
+                    'title' => LANG_HTMLBLOCK_CATEGORIESLIST_FIELD_SHOW_HIERARCHY,
                     'default' => 0,
                     'switch' => true,
-                    'hint' => 'Отображать вложенные категории',
+                    'hint' => LANG_HTMLBLOCK_CATEGORIESLIST_FIELD_SHOW_HIERARCHY_HINT,
                 ]),
                 \FieldFactory::checkbox('show_post_count', [
-                    'title' => 'Показывать количество постов',
+                    'title' => LANG_HTMLBLOCK_CATEGORIESLIST_FIELD_SHOW_POST_COUNT,
                     'default' => 1,
                     'switch' => true,
                 ]),
                 \FieldFactory::checkbox('show_empty', [
-                    'title' => 'Показывать пустые категории',
+                    'title' => LANG_HTMLBLOCK_CATEGORIESLIST_FIELD_SHOW_EMPTY,
                     'default' => 0,
                     'switch' => true,
-                    'hint' => 'Категории без постов',
+                    'hint' => LANG_HTMLBLOCK_CATEGORIESLIST_FIELD_SHOW_EMPTY_HINT,
                 ]),
                 \FieldFactory::checkbox('show_icon', [
-                    'title' => 'Показывать иконки',
+                    'title' => LANG_HTMLBLOCK_CATEGORIESLIST_FIELD_SHOW_ICON,
                     'default' => 1,
                     'switch' => true,
                 ]),
             ]
         ]);
 
-        $fieldsets[] = new \Fieldset('Изображения категорий', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_CATEGORIESLIST_FIELDSET_IMAGES, [
             'icon' => 'bi bi-image',
             'columns' => '12',
             'fields' => [
                 \FieldFactory::select('image_style', [
-                    'title' => 'Стиль отображения изображений',
+                    'title' => LANG_HTMLBLOCK_CATEGORIESLIST_FIELD_IMAGE_STYLE,
                     'options' => [
-                        'none' => 'Не показывать',
-                        'icon' => 'Только иконки',
-                        'thumbnail' => 'Миниатюра (маленькая)',
-                        'cover' => 'Обложка (на всю карточку)',
-                        'background' => 'Фон карточки',
-                        'side' => 'Сбоку (как в карточках постов)',
+                        'none' => LANG_HTMLBLOCK_CATEGORIESLIST_IMAGE_STYLE_NONE,
+                        'icon' => LANG_HTMLBLOCK_CATEGORIESLIST_IMAGE_STYLE_ICON,
+                        'thumbnail' => LANG_HTMLBLOCK_CATEGORIESLIST_IMAGE_STYLE_THUMBNAIL,
+                        'cover' => LANG_HTMLBLOCK_CATEGORIESLIST_IMAGE_STYLE_COVER,
+                        'background' => LANG_HTMLBLOCK_CATEGORIESLIST_IMAGE_STYLE_BACKGROUND,
+                        'side' => LANG_HTMLBLOCK_CATEGORIESLIST_IMAGE_STYLE_SIDE,
                     ],
                     'default' => 'icon',
                 ]),
                 \FieldFactory::select('image_size', [
-                    'title' => 'Размер изображения',
+                    'title' => LANG_HTMLBLOCK_CATEGORIESLIST_FIELD_IMAGE_SIZE,
                     'options' => [
-                        'sm' => 'Маленький',
-                        'md' => 'Средний',
-                        'lg' => 'Большой',
+                        'sm' => LANG_HTMLBLOCK_CATEGORIESLIST_IMAGE_SIZE_SM,
+                        'md' => LANG_HTMLBLOCK_CATEGORIESLIST_IMAGE_SIZE_MD,
+                        'lg' => LANG_HTMLBLOCK_CATEGORIESLIST_IMAGE_SIZE_LG,
                     ],
                     'default' => 'md',
                     'show' => 'field:image_style != none && field:image_style != icon',
                 ]),
                 \FieldFactory::checkbox('image_rounded', [
-                    'title' => 'Скругленные углы',
+                    'title' => LANG_HTMLBLOCK_CATEGORIESLIST_FIELD_IMAGE_ROUNDED,
                     'default' => 1,
                     'switch' => true,
                     'show' => 'field:image_style != none',
                 ]),
                 \FieldFactory::checkbox('image_shadow', [
-                    'title' => 'Тень',
+                    'title' => LANG_HTMLBLOCK_CATEGORIESLIST_FIELD_IMAGE_SHADOW,
                     'default' => 0,
                     'switch' => true,
                     'show' => 'field:image_style != none',
@@ -155,107 +161,107 @@ class CategoriesListBlock extends BaseHtmlBlock {
             ]
         ]);
 
-        $fieldsets[] = new \Fieldset('Сортировка', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_CATEGORIESLIST_FIELDSET_SORTING, [
             'icon' => 'bi bi-arrow-up-short',
             'columns' => '12',
             'fields' => [
                 \FieldFactory::select('order_by', [
-                    'title' => 'Сортировка',
+                    'title' => LANG_HTMLBLOCK_CATEGORIESLIST_FIELD_ORDER_BY,
                     'options' => [
-                        'name ASC' => 'По названию (А-Я)',
-                        'name DESC' => 'По названию (Я-А)',
-                        'posts_count DESC' => 'По популярности (сначала с большим кол-вом постов)',
-                        'posts_count ASC' => 'По популярности (сначала с малым кол-вом постов)',
-                        'id ASC' => 'По ID (сначала старые)',
-                        'id DESC' => 'По ID (сначала новые)',
+                        'name ASC' => LANG_HTMLBLOCK_CATEGORIESLIST_ORDER_NAME_ASC,
+                        'name DESC' => LANG_HTMLBLOCK_CATEGORIESLIST_ORDER_NAME_DESC,
+                        'posts_count DESC' => LANG_HTMLBLOCK_CATEGORIESLIST_ORDER_POSTS_DESC,
+                        'posts_count ASC' => LANG_HTMLBLOCK_CATEGORIESLIST_ORDER_POSTS_ASC,
+                        'id ASC' => LANG_HTMLBLOCK_CATEGORIESLIST_ORDER_ID_ASC,
+                        'id DESC' => LANG_HTMLBLOCK_CATEGORIESLIST_ORDER_ID_DESC,
                     ],
                     'default' => 'name ASC',
                 ]),
             ]
         ]);
 
-        $fieldsets[] = new \Fieldset('Фильтрация', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_CATEGORIESLIST_FIELDSET_FILTER, [
             'icon' => 'bi bi-funnel',
             'columns' => '12',
             'fields' => [
                 \FieldFactory::checkbox('filter_by_parent', [
-                    'title' => 'Только родительские категории',
+                    'title' => LANG_HTMLBLOCK_CATEGORIESLIST_FIELD_FILTER_BY_PARENT,
                     'default' => 0,
                     'switch' => true,
                     'show' => 'field:show_hierarchy = 0',
                 ]),
                 \FieldFactory::checkbox('exclude_current', [
-                    'title' => 'Исключить текущую категорию',
+                    'title' => LANG_HTMLBLOCK_CATEGORIESLIST_FIELD_EXCLUDE_CURRENT,
                     'default' => 0,
                     'switch' => true,
-                    'hint' => 'На странице категории не показывать её же в списке',
+                    'hint' => LANG_HTMLBLOCK_CATEGORIESLIST_FIELD_EXCLUDE_CURRENT_HINT,
                 ]),
                 \FieldFactory::textarea('exclude_ids', [
-                    'title' => 'Исключить категории (ID через запятую)',
+                    'title' => LANG_HTMLBLOCK_CATEGORIESLIST_FIELD_EXCLUDE_IDS,
                     'default' => '',
                     'placeholder' => '5, 12, 8',
                     'rows' => 2,
-                    'hint' => 'ID категорий, которые не нужно показывать',
+                    'hint' => LANG_HTMLBLOCK_CATEGORIESLIST_FIELD_EXCLUDE_IDS_HINT,
                 ]),
             ]
         ]);
 
-        $fieldsets[] = new \Fieldset('Цвета и фон', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_CATEGORIESLIST_FIELDSET_COLORS, [
             'icon' => 'bi bi-palette',
             'columns' => '12',
             'fields' => [
                 \FieldFactory::select('theme', [
-                    'title' => 'Тема',
+                    'title' => LANG_HTMLBLOCK_CATEGORIESLIST_FIELD_THEME,
                     'options' => [
-                        'light' => 'Светлая',
-                        'dark' => 'Темная',
-                        'custom' => 'Своя',
+                        'light' => LANG_HTMLBLOCK_CATEGORIESLIST_THEME_LIGHT,
+                        'dark' => LANG_HTMLBLOCK_CATEGORIESLIST_THEME_DARK,
+                        'custom' => LANG_HTMLBLOCK_CATEGORIESLIST_THEME_CUSTOM,
                     ],
                     'default' => 'light',
                 ]),
                 \FieldFactory::color('background_color', [
-                    'title' => 'Цвет фона',
+                    'title' => LANG_HTMLBLOCK_CATEGORIESLIST_FIELD_BACKGROUND_COLOR,
                     'preset' => 'basic',
                     'show' => 'field:theme = custom',
                 ]),
                 \FieldFactory::color('text_color', [
-                    'title' => 'Цвет текста',
+                    'title' => LANG_HTMLBLOCK_CATEGORIESLIST_FIELD_TEXT_COLOR,
                     'preset' => 'basic',
                     'show' => 'field:theme = custom',
                 ]),
                 \FieldFactory::color('accent_color', [
-                    'title' => 'Акцентный цвет',
+                    'title' => LANG_HTMLBLOCK_CATEGORIESLIST_FIELD_ACCENT_COLOR,
                     'preset' => 'website',
                     'default' => '#2563eb',
                 ]),
                 \FieldFactory::color('card_background', [
-                    'title' => 'Цвет карточек',
+                    'title' => LANG_HTMLBLOCK_CATEGORIESLIST_FIELD_CARD_BACKGROUND,
                     'preset' => 'basic',
                     'default' => $settings['card_background'] ?? '',
-                    'hint' => 'Оставьте пустым для автоматического',
+                    'hint' => LANG_HTMLBLOCK_CATEGORIESLIST_FIELD_CARD_BACKGROUND_HINT,
                 ]),
                 \FieldFactory::checkbox('gradient_cards', [
-                    'title' => 'Градиентные карточки',
+                    'title' => LANG_HTMLBLOCK_CATEGORIESLIST_FIELD_GRADIENT_CARDS,
                     'default' => 0,
                     'switch' => true,
-                    'hint' => 'Каждая карточка с легким градиентом',
+                    'hint' => LANG_HTMLBLOCK_CATEGORIESLIST_FIELD_GRADIENT_CARDS_HINT,
                 ]),
             ]
         ]);
 
-        $fieldsets[] = new \Fieldset('Отступы', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_CATEGORIESLIST_FIELDSET_PADDING, [
             'icon' => 'bi bi-arrows-expand',
             'columns' => '12',
             'fields' => [
                 \FieldFactory::number('padding_top', [
-                    'title' => 'Отступ сверху (px)',
+                    'title' => LANG_HTMLBLOCK_CATEGORIESLIST_FIELD_PADDING_TOP,
                     'default' => 80,
                     'min' => 0,
                     'max' => 200,
                     'step' => 10,
                 ]),
                 \FieldFactory::number('padding_bottom', [
-                    'title' => 'Отступ снизу (px)',
+                    'title' => LANG_HTMLBLOCK_CATEGORIESLIST_FIELD_PADDING_BOTTOM,
                     'default' => 80,
                     'min' => 0,
                     'max' => 200,
@@ -264,16 +270,16 @@ class CategoriesListBlock extends BaseHtmlBlock {
             ]
         ]);
 
-        $fieldsets[] = new \Fieldset('Дополнительно', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_CATEGORIESLIST_FIELDSET_EXTRA, [
             'icon' => 'bi bi-gear',
             'columns' => '12',
             'fields' => [
                 \FieldFactory::string('custom_css_class', [
-                    'title' => 'CSS класс',
+                    'title' => LANG_HTMLBLOCK_CATEGORIESLIST_FIELD_CSS_CLASS,
                     'default' => $settings['custom_css_class'] ?? '',
                 ]),
                 \FieldFactory::string('custom_id', [
-                    'title' => 'HTML ID',
+                    'title' => LANG_HTMLBLOCK_CATEGORIESLIST_FIELD_HTML_ID,
                     'default' => $settings['custom_id'] ?? '',
                 ]),
             ]

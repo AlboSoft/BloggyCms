@@ -11,10 +11,10 @@ class AdminClearCache extends HtmlBlockAction {
             
             regenerate_blocks_css();
             
-            \Notification::success('Кеш CSS блоков успешно очищен и перегенерирован');
+            \Notification::success(LANG_ACTION_HTMLBLOCKS_ADMINCLEARCACHE_SUCCESS);
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при очистке кеша: ' . $e->getMessage());
+            \Notification::error(LANG_ACTION_HTMLBLOCKS_ADMINCLEARCACHE_ERROR . $e->getMessage());
         }
         
         $this->redirect(ADMIN_URL . '/html-blocks');

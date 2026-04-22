@@ -3,7 +3,7 @@
 class DefaultHeroBlock extends BaseHtmlBlock {
     
     public function getName(): string {
-        return "Hero";
+        return LANG_HTMLBLOCK_DEFAULTHERO_NAME;
     }
 
     public function getSystemName(): string {
@@ -11,7 +11,11 @@ class DefaultHeroBlock extends BaseHtmlBlock {
     }
 
     public function getDescription(): string {
-        return "Харизматичный hero-блок с акцентом на личность и типографику";
+        return LANG_HTMLBLOCK_DEFAULTHERO_DESCRIPTION;
+    }
+
+    public function getAuthor(): string {
+        return 'BloggyCMS Team';
     }
 
     public function getVersion(): string {
@@ -26,53 +30,53 @@ class DefaultHeroBlock extends BaseHtmlBlock {
         
         $settings = array_merge([], $currentSettings);
         
-        $fieldsets[] = new \Fieldset('Контент', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_DEFAULTHERO_FIELDSET_CONTENT, [
             'icon' => 'bi bi-pencil',
             'columns' => 'custom',
             'fields' => [
                 \FieldFactory::string('badge', [
-                    'title' => 'Бейдж (маленький текст сверху)',
-                    'default' => $settings['badge'] ?? 'Senior PHP-разработчик',
+                    'title' => LANG_HTMLBLOCK_DEFAULTHERO_FIELD_BADGE,
+                    'default' => $settings['badge'] ?? LANG_HTMLBLOCK_DEFAULTHERO_DEFAULT_BADGE,
                     'column' => '6',
-                    'placeholder' => 'Например: Senior Developer'
+                    'placeholder' => LANG_HTMLBLOCK_DEFAULTHERO_FIELD_BADGE_PLACEHOLDER
                 ]),
                 \FieldFactory::string('title', [
-                    'title' => 'Заголовок',
-                    'default' => $settings['title'] ?? 'Пишу чистый PHP-код и <span class="highlight">учу этому</span> других',
+                    'title' => LANG_HTMLBLOCK_DEFAULTHERO_FIELD_TITLE,
+                    'default' => $settings['title'] ?? LANG_HTMLBLOCK_DEFAULTHERO_DEFAULT_TITLE,
                     'column' => '6',
-                    'placeholder' => 'Используйте <span class="highlight"> для выделения'
+                    'placeholder' => LANG_HTMLBLOCK_DEFAULTHERO_FIELD_TITLE_PLACEHOLDER
                 ]),
                 \FieldFactory::textarea('description', [
-                    'title' => 'Описание',
-                    'default' => $settings['description'] ?? 'Пишу о рефакторинге, архитектуре, PSR-стандартах и о том, как не скатиться в поддержку 10-летнего проекта на CodeIgniter 2. Подписывайся, будет больно, но полезно.',
+                    'title' => LANG_HTMLBLOCK_DEFAULTHERO_FIELD_DESCRIPTION,
+                    'default' => $settings['description'] ?? LANG_HTMLBLOCK_DEFAULTHERO_DEFAULT_DESCRIPTION,
                     'rows' => 4,
                     'column' => '12'
                 ]),
             ]
         ]);
 
-        $fieldsets[] = new \Fieldset('Кнопки', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_DEFAULTHERO_FIELDSET_BUTTONS, [
             'icon' => 'bi bi-ui-radios',
             'columns' => '12',
             'fields' => [
                 \FieldFactory::repeater('buttons', [
-                    'title' => 'Кнопки',
+                    'title' => LANG_HTMLBLOCK_DEFAULTHERO_FIELD_BUTTONS,
                     'column' => '12',
                     'repeater_columns' => 2,
-                    'hint' => 'Первая кнопка будет основной (с фоном), остальные - второстепенные',
+                    'hint' => LANG_HTMLBLOCK_DEFAULTHERO_FIELD_BUTTONS_HINT,
                     'min_items' => 0,
                     'max_items' => 3,
                     'fields' => [
                         [
                             'name' => 'text',
-                            'title' => 'Текст кнопки',
+                            'title' => LANG_HTMLBLOCK_DEFAULTHERO_FIELD_BUTTON_TEXT,
                             'type' => 'string',
-                            'placeholder' => 'Читать блог',
-                            'default' => 'Кнопка'
+                            'placeholder' => LANG_HTMLBLOCK_DEFAULTHERO_FIELD_BUTTON_TEXT_PLACEHOLDER,
+                            'default' => LANG_HTMLBLOCK_DEFAULTHERO_DEFAULT_BUTTON_TEXT
                         ],
                         [
                             'name' => 'url',
-                            'title' => 'Ссылка',
+                            'title' => LANG_HTMLBLOCK_DEFAULTHERO_FIELD_BUTTON_URL,
                             'type' => 'string',
                             'placeholder' => '/posts',
                             'default' => '#'
@@ -82,31 +86,31 @@ class DefaultHeroBlock extends BaseHtmlBlock {
             ]
         ]);
 
-        $fieldsets[] = new \Fieldset('Изображение', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_DEFAULTHERO_FIELDSET_IMAGE, [
             'icon' => 'bi bi-image',
             'columns' => 'custom',
             'fields' => [
                 \FieldFactory::blockImage('image', [
-                    'title' => 'Изображение',
-                    'hint' => 'Рекомендуемый размер: 600x600px. Квадратное или портрет',
+                    'title' => LANG_HTMLBLOCK_DEFAULTHERO_FIELD_IMAGE,
+                    'hint' => LANG_HTMLBLOCK_DEFAULTHERO_FIELD_IMAGE_HINT,
                     'upload_path' => 'uploads/images/html_blocks/hero/',
                     'preview_size' => '100px',
                 ]),
                 \FieldFactory::select('image_style', [
-                    'title' => 'Стиль изображения',
+                    'title' => LANG_HTMLBLOCK_DEFAULTHERO_FIELD_IMAGE_STYLE,
                     'options' => [
-                        'circle' => 'Круг',
-                        'square' => 'Квадрат',
-                        'rounded' => 'Скругленные углы',
+                        'circle' => LANG_HTMLBLOCK_DEFAULTHERO_IMAGE_STYLE_CIRCLE,
+                        'square' => LANG_HTMLBLOCK_DEFAULTHERO_IMAGE_STYLE_SQUARE,
+                        'rounded' => LANG_HTMLBLOCK_DEFAULTHERO_IMAGE_STYLE_ROUNDED,
                     ],
                     'column' => '6',
                     'default' => 'circle',
                 ]),
                 \FieldFactory::select('image_position', [
-                    'title' => 'Позиция изображения',
+                    'title' => LANG_HTMLBLOCK_DEFAULTHERO_FIELD_IMAGE_POSITION,
                     'options' => [
-                        'right' => 'Справа',
-                        'left' => 'Слева',
+                        'right' => LANG_HTMLBLOCK_DEFAULTHERO_IMAGE_POSITION_RIGHT,
+                        'left' => LANG_HTMLBLOCK_DEFAULTHERO_IMAGE_POSITION_LEFT,
                     ],
                     'column' => '6',
                     'default' => 'right'
@@ -114,34 +118,34 @@ class DefaultHeroBlock extends BaseHtmlBlock {
             ]
         ]);
 
-        $fieldsets[] = new \Fieldset('Цвета и фон', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_DEFAULTHERO_FIELDSET_COLORS, [
             'icon' => 'bi bi-palette',
             'columns' => 'custom',
             'fields' => [
                 \FieldFactory::select('theme', [
-                    'title' => 'Тема',
+                    'title' => LANG_HTMLBLOCK_DEFAULTHERO_FIELD_THEME,
                     'options' => [
-                        'light' => 'Светлая',
-                        'dark' => 'Темная',
-                        'custom' => 'Своя',
+                        'light' => LANG_HTMLBLOCK_DEFAULTHERO_THEME_LIGHT,
+                        'dark' => LANG_HTMLBLOCK_DEFAULTHERO_THEME_DARK,
+                        'custom' => LANG_HTMLBLOCK_DEFAULTHERO_THEME_CUSTOM,
                     ],
                     'column' => '12',
                     'default' => 'light'
                 ]),
                 \FieldFactory::color('background_color', [
-                    'title' => 'Цвет фона',
+                    'title' => LANG_HTMLBLOCK_DEFAULTHERO_FIELD_BACKGROUND_COLOR,
                     'preset' => 'basic',
                     'column' => '6',
                     'show' => 'field:theme = custom'
                 ]),
                 \FieldFactory::color('text_color', [
-                    'title' => 'Цвет текста',
+                    'title' => LANG_HTMLBLOCK_DEFAULTHERO_FIELD_TEXT_COLOR,
                     'preset' => 'basic',
                     'column' => '6',
                     'show' => 'field:theme = custom'
                 ]),
                 \FieldFactory::color('accent_color', [
-                    'title' => 'Акцентный цвет',
+                    'title' => LANG_HTMLBLOCK_DEFAULTHERO_FIELD_ACCENT_COLOR,
                     'preset' => 'website',
                     'column' => '12',
                     'default' => '#2563eb'
@@ -149,22 +153,22 @@ class DefaultHeroBlock extends BaseHtmlBlock {
             ]
         ]);
 
-        $fieldsets[] = new \Fieldset('Отступы', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_DEFAULTHERO_FIELDSET_PADDING, [
             'icon' => 'bi bi-arrows-expand',
             'columns' => 'custom',
             'fields' => [
                 \FieldFactory::select('align', [
-                    'title' => 'Выравнивание текста',
+                    'title' => LANG_HTMLBLOCK_DEFAULTHERO_FIELD_ALIGN,
                     'options' => [
-                        'left' => 'Слева',
-                        'center' => 'По центру',
-                        'right' => 'Справа',
+                        'left' => LANG_HTMLBLOCK_DEFAULTHERO_ALIGN_LEFT,
+                        'center' => LANG_HTMLBLOCK_DEFAULTHERO_ALIGN_CENTER,
+                        'right' => LANG_HTMLBLOCK_DEFAULTHERO_ALIGN_RIGHT,
                     ],
                     'column' => '6',
                     'default' => 'left'
                 ]),
                 \FieldFactory::number('padding_top', [
-                    'title' => 'Отступ сверху (px)',
+                    'title' => LANG_HTMLBLOCK_DEFAULTHERO_FIELD_PADDING_TOP,
                     'default' => 80,
                     'min' => 0,
                     'max' => 200,
@@ -172,7 +176,7 @@ class DefaultHeroBlock extends BaseHtmlBlock {
                     'column' => '6'
                 ]),
                 \FieldFactory::number('padding_bottom', [
-                    'title' => 'Отступ снизу (px)',
+                    'title' => LANG_HTMLBLOCK_DEFAULTHERO_FIELD_PADDING_BOTTOM,
                     'default' => 80,
                     'min' => 0,
                     'max' => 200,

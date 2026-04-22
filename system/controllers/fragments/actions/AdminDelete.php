@@ -11,7 +11,7 @@ class AdminDelete extends FragmentAction {
         $id = $this->params['id'] ?? null;
         
         if (!$id) {
-            \Notification::error('ID фрагмента не указан');
+            \Notification::error(LANG_ACTION_FRAGMENTS_ADMINDELETE_ID_NOT_SPECIFIED);
             $this->redirect(ADMIN_URL . '/fragments');
             return;
         }
@@ -20,7 +20,7 @@ class AdminDelete extends FragmentAction {
             $fragment = $this->fragmentModel->getById($id);
             
             if (!$fragment) {
-                \Notification::error('Фрагмент не найден');
+                \Notification::error(LANG_ACTION_FRAGMENTS_ADMINDELETE_NOT_FOUND);
                 $this->redirect(ADMIN_URL . '/fragments');
                 return;
             }
@@ -28,10 +28,10 @@ class AdminDelete extends FragmentAction {
             $this->entryModel->deleteByFragment($id);
             $this->fragmentModel->delete($id);
             
-            \Notification::success('Фрагмент успешно удален');
+            \Notification::success(LANG_ACTION_FRAGMENTS_ADMINDELETE_SUCCESS);
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при удалении фрагмента: ' . $e->getMessage());
+            \Notification::error(LANG_ACTION_FRAGMENTS_ADMINDELETE_ERROR . $e->getMessage());
         }
         
         $this->redirect(ADMIN_URL . '/fragments');

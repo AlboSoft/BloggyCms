@@ -1,8 +1,8 @@
 <?php
 return [
-    'name' => 'Иконки',
+    'name' => LANG_CONTROLLER_ICONS_MANIFEST_NAME,
     'author' => 'BloggyCMS',
     'version' => '1.0.0',
     'has_settings' => false,
-    'description' => 'Управление иконками блога'
+    'description' => LANG_CONTROLLER_ICONS_MANIFEST_DESCRIPTION
 ];

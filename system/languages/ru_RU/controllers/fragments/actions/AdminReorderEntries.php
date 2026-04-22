@@ -1,0 +1,6 @@
+<?php
+
+define('LANG_ACTION_FRAGMENTS_ADMINREORDERENTRIES_INVALID_METHOD', 'Неверный метод запроса');
+define('LANG_ACTION_FRAGMENTS_ADMINREORDERENTRIES_INVALID_DATA', 'Неверные данные');
+define('LANG_ACTION_FRAGMENTS_ADMINREORDERENTRIES_SUCCESS', 'Порядок записей обновлен');
+define('LANG_ACTION_FRAGMENTS_ADMINREORDERENTRIES_UPDATE_ERROR', 'Ошибка при обновлении порядка');

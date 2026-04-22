@@ -2,11 +2,11 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h4 class="mb-0">
             <?php echo bloggy_icon('bs', 'plus-square', '24', '#000', 'me-2'); ?>
-            Выберите тип контент-блока
+            <?php echo LANG_TEMPLATE_HTMLBLOCKS_SELECT_TYPE_TITLE; ?>
         </h4>
         <a href="<?php echo ADMIN_URL; ?>/html-blocks" class="btn btn-outline-secondary btn-sm">
             <?php echo bloggy_icon('bs', 'arrow-left', '16', '#000', 'me-1'); ?>
-            Назад к контент-блокам
+            <?php echo LANG_TEMPLATE_HTMLBLOCKS_SELECT_TYPE_BACK_BTN; ?>
         </a>
     </div>
 
@@ -14,7 +14,7 @@
         <div class="card-body">
             <div class="row align-items-center">
                 <div class="col-md-6">
-                    <label class="form-label">Фильтр по шаблону:</label>
+                    <label class="form-label"><?php echo LANG_TEMPLATE_HTMLBLOCKS_SELECT_TYPE_FILTER_LABEL; ?></label>
                     <select class="form-select" id="template-filter">
                         <?php foreach ($availableTemplates as $templateValue => $templateName) { ?>
                         <option value="<?php echo $templateValue; ?>">
@@ -26,7 +26,7 @@
                 <div class="col-md-6">
                     <div class="text-muted small">
                         <?php echo bloggy_icon('bs', 'info-circle', '16', '#6c757d', 'me-1'); ?>
-                        Отображаются все блоки независимо от шаблона
+                        <?php echo LANG_TEMPLATE_HTMLBLOCKS_SELECT_TYPE_FILTER_HINT; ?>
                     </div>
                 </div>
             </div>
@@ -61,15 +61,15 @@
                         <div class="mb-2">
                             <span class="badge bg-info">
                                 <?php echo bloggy_icon('bs', 'palette', '16', '#35acb2', 'me-1'); ?>
-                                Шаблон: <?php echo html($type['template']); ?>
+                                <?php echo LANG_TEMPLATE_HTMLBLOCKS_SELECT_TYPE_TEMPLATE_LABEL; ?> <?php echo html($type['template']); ?>
                             </span>
                         </div>
                     <?php } ?>
                     
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="text-muted small">
-                            <div>Автор: <?php echo html($type['author'] ?? 'BloggyCMS'); ?></div>
-                            <div>Версия: <?php echo html($type['version'] ?? '1.0.0'); ?></div>
+                            <div><?php echo LANG_TEMPLATE_HTMLBLOCKS_SELECT_TYPE_AUTHOR_LABEL; ?> <?php echo html($type['author'] ?? 'BloggyCMS'); ?></div>
+                            <div><?php echo LANG_TEMPLATE_HTMLBLOCKS_SELECT_TYPE_VERSION_LABEL; ?> <?php echo html($type['version'] ?? '1.0.0'); ?></div>
                             <?php if (!empty($type['author_website'])) { ?>
                             <div>
                                 <a href="<?php echo html($type['author_website']); ?>" target="_blank" class="text-muted">
@@ -81,7 +81,7 @@
                         <a href="<?php echo ADMIN_URL; ?>/html-blocks/create?type=<?php echo $systemName; ?>" 
                            class="btn btn-primary">
                             <?php echo bloggy_icon('bs', 'plus-lg', '16', '#fff', 'me-1'); ?>
-                            Создать
+                            <?php echo LANG_TEMPLATE_HTMLBLOCKS_SELECT_TYPE_CREATE_BTN; ?>
                         </a>
                     </div>
                 </div>

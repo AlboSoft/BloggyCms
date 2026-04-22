@@ -1,0 +1,36 @@
+<?php
+
+define('LANG_HTMLBLOCK_COOKIECONSENT_NAME', 'Согласие с cookies');
+define('LANG_HTMLBLOCK_COOKIECONSENT_DESCRIPTION', 'Отображает уведомление о согласии с использованием cookies. После согласия скрывается и запоминает выбор пользователя.');
+define('LANG_HTMLBLOCK_COOKIECONSENT_SHORT_DESCRIPTION', 'Уведомление о cookies');
+define('LANG_HTMLBLOCK_COOKIECONSENT_FIELDSET_MESSAGE', 'Текст уведомления');
+define('LANG_HTMLBLOCK_COOKIECONSENT_FIELD_MESSAGE', 'Текст сообщения');
+define('LANG_HTMLBLOCK_COOKIECONSENT_DEFAULT_MESSAGE', 'Мы используем cookies для улучшения работы сайта. Продолжая использовать сайт, вы соглашаетесь с нашей политикой обработки данных.');
+define('LANG_HTMLBLOCK_COOKIECONSENT_FIELD_ACCEPT_BUTTON', 'Текст кнопки согласия');
+define('LANG_HTMLBLOCK_COOKIECONSENT_DEFAULT_ACCEPT_BUTTON', 'Принять');
+define('LANG_HTMLBLOCK_COOKIECONSENT_FIELD_DECLINE_BUTTON', 'Текст кнопки отказа');
+define('LANG_HTMLBLOCK_COOKIECONSENT_DEFAULT_DECLINE_BUTTON', 'Отклонить');
+define('LANG_HTMLBLOCK_COOKIECONSENT_FIELD_POLICY_LINK_TEXT', 'Текст ссылки на политику');
+define('LANG_HTMLBLOCK_COOKIECONSENT_DEFAULT_POLICY_LINK_TEXT', 'Политика конфиденциальности');
+define('LANG_HTMLBLOCK_COOKIECONSENT_FIELD_POLICY_URL', 'Ссылка на политику');
+define('LANG_HTMLBLOCK_COOKIECONSENT_FIELD_SHOW_POLICY_LINK', 'Показывать ссылку на политику');
+define('LANG_HTMLBLOCK_COOKIECONSENT_FIELDSET_APPEARANCE', 'Внешний вид');
+define('LANG_HTMLBLOCK_COOKIECONSENT_FIELD_POSITION', 'Позиция уведомления');
+define('LANG_HTMLBLOCK_COOKIECONSENT_POSITION_BOTTOM', 'Внизу экрана');
+define('LANG_HTMLBLOCK_COOKIECONSENT_POSITION_TOP', 'Вверху экрана');
+define('LANG_HTMLBLOCK_COOKIECONSENT_FIELD_THEME', 'Тема');
+define('LANG_HTMLBLOCK_COOKIECONSENT_THEME_LIGHT', 'Светлая');
+define('LANG_HTMLBLOCK_COOKIECONSENT_THEME_DARK', 'Темная');
+define('LANG_HTMLBLOCK_COOKIECONSENT_THEME_CUSTOM', 'Своя');
+define('LANG_HTMLBLOCK_COOKIECONSENT_FIELD_BACKGROUND_COLOR', 'Цвет фона');
+define('LANG_HTMLBLOCK_COOKIECONSENT_FIELD_TEXT_COLOR', 'Цвет текста');
+define('LANG_HTMLBLOCK_COOKIECONSENT_FIELD_ACCENT_COLOR', 'Акцентный цвет (кнопки)');
+define('LANG_HTMLBLOCK_COOKIECONSENT_FIELD_SHOW_SHADOW', 'Показывать тень');
+define('LANG_HTMLBLOCK_COOKIECONSENT_FIELDSET_EXTRA', 'Дополнительно');
+define('LANG_HTMLBLOCK_COOKIECONSENT_FIELD_COOKIE_NAME', 'Название cookie');
+define('LANG_HTMLBLOCK_COOKIECONSENT_FIELD_COOKIE_NAME_HINT', 'Имя файла cookie для сохранения согласия');
+define('LANG_HTMLBLOCK_COOKIECONSENT_FIELD_COOKIE_EXPIRY', 'Срок хранения (дней)');
+define('LANG_HTMLBLOCK_COOKIECONSENT_FIELD_AUTO_SHOW', 'Автоматически показывать');
+define('LANG_HTMLBLOCK_COOKIECONSENT_FIELD_AUTO_SHOW_HINT', 'Если отключено, показывать блок можно через JS событие');
+define('LANG_HTMLBLOCK_COOKIECONSENT_FIELD_CSS_CLASS', 'CSS класс');
+define('LANG_HTMLBLOCK_COOKIECONSENT_FIELD_HTML_ID', 'HTML ID');

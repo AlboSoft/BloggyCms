@@ -1,8 +1,8 @@
 <?php
 return [
-    'name' => 'Конструктор меню',
+    'name' => LANG_CONTROLLER_MENU_MANIFEST_NAME,
     'author' => 'BloggyCMS',
     'version' => '1.0.0',
     'has_settings' => false,
-    'description' => 'Конструктор меню для BloggyCms'
+    'description' => LANG_CONTROLLER_MENU_MANIFEST_DESCRIPTION
 ];

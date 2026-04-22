@@ -1,0 +1,21 @@
+<?php
+
+define('LANG_TEMPLATE_FRAGMENTS_ENTRIES_TITLE', 'Записи фрагмента: %s');
+define('LANG_TEMPLATE_FRAGMENTS_ENTRIES_BACK_BTN', 'Назад к фрагменту');
+define('LANG_TEMPLATE_FRAGMENTS_ENTRIES_ADD_BTN', 'Добавить запись');
+define('LANG_TEMPLATE_FRAGMENTS_ENTRIES_STAT_TOTAL', 'Всего записей');
+define('LANG_TEMPLATE_FRAGMENTS_ENTRIES_STAT_ACTIVE', 'Активных');
+define('LANG_TEMPLATE_FRAGMENTS_ENTRIES_STAT_INACTIVE', 'Неактивных');
+define('LANG_TEMPLATE_FRAGMENTS_ENTRIES_STAT_FIELDS', 'Поля');
+define('LANG_TEMPLATE_FRAGMENTS_ENTRIES_NO_ENTRIES_TITLE', 'Нет записей');
+define('LANG_TEMPLATE_FRAGMENTS_ENTRIES_NO_ENTRIES_TEXT', 'Добавьте первую запись во фрагмент');
+define('LANG_TEMPLATE_FRAGMENTS_ENTRIES_ENTRY_NUMBER', 'Запись #%d');
+define('LANG_TEMPLATE_FRAGMENTS_ENTRIES_STATUS_INACTIVE', 'Неактивна');
+define('LANG_TEMPLATE_FRAGMENTS_ENTRIES_NO_DISPLAY_DATA', 'Нет данных для отображения');
+define('LANG_TEMPLATE_FRAGMENTS_ENTRIES_EDIT_TITLE', 'Редактировать');
+define('LANG_TEMPLATE_FRAGMENTS_ENTRIES_DELETE_TITLE', 'Удалить');
+define('LANG_TEMPLATE_FRAGMENTS_ENTRIES_DELETE_CONFIRM', 'Вы уверены, что хотите удалить эту запись?');
+define('LANG_TEMPLATE_FRAGMENTS_ENTRIES_CREATED_LABEL', 'Создана:');
+define('LANG_TEMPLATE_FRAGMENTS_ENTRIES_UPDATED_LABEL', 'Обновлена:');
+define('LANG_TEMPLATE_FRAGMENTS_ENTRIES_DRAG_HINT', 'Перетаскивайте записи для изменения порядка отображения');
+define('LANG_TEMPLATE_FRAGMENTS_ENTRIES_ORDER_UPDATED', 'Порядок записей обновлен');

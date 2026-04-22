@@ -2,7 +2,7 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h4 class="mb-0">
             <?php echo bloggy_icon('bs', 'emoji-smile', '24 24', null, 'me-2'); ?>
-            Иконки
+            <?php echo LANG_TEMPLATE_ICONS_INDEX_TITLE; ?>
         </h4>
     </div>
 
@@ -15,7 +15,7 @@
                 <input type="text" 
                        id="iconSearch" 
                        class="form-control border-0 bg-light" 
-                       placeholder="Поиск иконок..."
+                       placeholder="<?php echo LANG_TEMPLATE_ICONS_INDEX_SEARCH_PLACEHOLDER; ?>"
                        oninput="filterIcons(this.value)">
             </div>
         </div>
@@ -65,7 +65,7 @@
                                             onclick="copyIconCode('<?php echo addslashes($icon['code']); ?>')"
                                             data-bs-toggle="tooltip" 
                                             data-bs-placement="left" 
-                                            title="Копировать код">
+                                            title="<?php echo LANG_TEMPLATE_ICONS_INDEX_COPY_CODE_TITLE; ?>">
                                         <?php echo bloggy_icon('bs', 'clipboard', '16 16'); ?>
                                     </button>
                                     <div class="card-body text-center p-3">

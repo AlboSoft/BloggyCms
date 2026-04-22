@@ -2,7 +2,7 @@
 class DefaultFooterBlock extends BaseHtmlBlock {
     
     public function getName(): string {
-        return "Footer";
+        return LANG_HTMLBLOCK_DEFAULTFOOTER_NAME;
     }
 
     public function getSystemName(): string {
@@ -10,11 +10,15 @@ class DefaultFooterBlock extends BaseHtmlBlock {
     }
 
     public function getDescription(): string {
-        return "Подвал сайта с меню, виджетами, контактами и навигацией";
+        return LANG_HTMLBLOCK_DEFAULTFOOTER_DESCRIPTION;
+    }
+
+    public function getAuthor(): string {
+        return 'BloggyCMS Team';
     }
 
     public function getVersion(): string {
-        return '2.0.0';
+        return '1.0.0';
     }
 
     public function getTemplate(): string {
@@ -30,87 +34,87 @@ class DefaultFooterBlock extends BaseHtmlBlock {
         $settings = array_merge([], $currentSettings);
         
         $fieldsets = [
-            new \Fieldset('Брендинг и логотип', [
+            new \Fieldset(LANG_HTMLBLOCK_DEFAULTFOOTER_FIELDSET_BRANDING, [
                 'icon' => 'bi bi-brush',
                 'columns' => 'custom',
                 'fields' => [
                     \FieldFactory::blockImage('logo_path', [
-                        'title' => 'Логотип',
-                        'hint' => 'Загрузите логотип для футера',
+                        'title' => LANG_HTMLBLOCK_DEFAULTFOOTER_FIELD_LOGO,
+                        'hint' => LANG_HTMLBLOCK_DEFAULTFOOTER_FIELD_LOGO_HINT,
                         'default' => $settings['logo_path'] ?? '',
                         'upload_path' => 'uploads/images/html_blocks/' . $this->getSystemName() . '/',
                         'preview_size' => '80px',
                         'column' => '12'
                     ]),
                     \FieldFactory::string('logo_alt', [
-                        'title' => 'Alt текст логотипа',
-                        'default' => $settings['logo_alt'] ?? 'Логотип сайта',
+                        'title' => LANG_HTMLBLOCK_DEFAULTFOOTER_FIELD_LOGO_ALT,
+                        'default' => $settings['logo_alt'] ?? LANG_HTMLBLOCK_DEFAULTFOOTER_DEFAULT_LOGO_ALT,
                         'column' => '6'
                     ]),
                     \FieldFactory::string('site_name', [
-                        'title' => 'Название сайта',
+                        'title' => LANG_HTMLBLOCK_DEFAULTFOOTER_FIELD_SITE_NAME,
                         'default' => $settings['site_name'] ?? SettingsHelper::get('general', 'site_name', 'BloggyCMS'),
                         'column' => '6'
                     ]),
                     \FieldFactory::textarea('site_description', [
-                        'title' => 'Описание сайта',
-                        'default' => $settings['site_description'] ?? 'Современная CMS для блогов и публикаций',
+                        'title' => LANG_HTMLBLOCK_DEFAULTFOOTER_FIELD_SITE_DESCRIPTION,
+                        'default' => $settings['site_description'] ?? LANG_HTMLBLOCK_DEFAULTFOOTER_DEFAULT_SITE_DESCRIPTION,
                         'rows' => 2,
-                        'hint' => 'Краткое описание под логотипом',
+                        'hint' => LANG_HTMLBLOCK_DEFAULTFOOTER_FIELD_SITE_DESCRIPTION_HINT,
                         'column' => '12'
                     ]),
                 ]
             ]),
             
-            new \Fieldset('Меню навигации', [
+            new \Fieldset(LANG_HTMLBLOCK_DEFAULTFOOTER_FIELDSET_NAVIGATION, [
                 'icon' => 'bi bi-menu-button-wide',
                 'columns' => 'custom',
                 'fields' => [
                     \FieldFactory::select('footer_menu_1', [
-                        'title' => 'Основное меню',
-                        'options' => ['' => '-- Не показывать --'] + $allMenus,
-                        'hint' => 'Первая колонка меню',
+                        'title' => LANG_HTMLBLOCK_DEFAULTFOOTER_FIELD_MAIN_MENU,
+                        'options' => ['' => LANG_HTMLBLOCK_DEFAULTFOOTER_OPTION_NOT_SHOW] + $allMenus,
+                        'hint' => LANG_HTMLBLOCK_DEFAULTFOOTER_FIELD_MAIN_MENU_HINT,
                         'column' => '6'
                     ]),
                     \FieldFactory::select('footer_menu_2', [
-                        'title' => 'Дополнительное меню',
-                        'options' => ['' => '-- Не показывать --'] + $allMenus,
-                        'hint' => 'Вторая колонка меню',
+                        'title' => LANG_HTMLBLOCK_DEFAULTFOOTER_FIELD_EXTRA_MENU,
+                        'options' => ['' => LANG_HTMLBLOCK_DEFAULTFOOTER_OPTION_NOT_SHOW] + $allMenus,
+                        'hint' => LANG_HTMLBLOCK_DEFAULTFOOTER_FIELD_EXTRA_MENU_HINT,
                         'column' => '6'
                     ]),
                     \FieldFactory::string('menu_1_title', [
-                        'title' => 'Заголовок меню 1',
-                        'default' => $settings['menu_1_title'] ?? 'Навигация',
+                        'title' => LANG_HTMLBLOCK_DEFAULTFOOTER_FIELD_MENU_1_TITLE,
+                        'default' => $settings['menu_1_title'] ?? LANG_HTMLBLOCK_DEFAULTFOOTER_DEFAULT_MENU_1_TITLE,
                         'column' => '6',
-                        'placeholder' => 'Например: Меню'
+                        'placeholder' => LANG_HTMLBLOCK_DEFAULTFOOTER_PLACEHOLDER_MENU
                     ]),
                     \FieldFactory::string('menu_2_title', [
-                        'title' => 'Заголовок меню 2',
-                        'default' => $settings['menu_2_title'] ?? 'Информация',
+                        'title' => LANG_HTMLBLOCK_DEFAULTFOOTER_FIELD_MENU_2_TITLE,
+                        'default' => $settings['menu_2_title'] ?? LANG_HTMLBLOCK_DEFAULTFOOTER_DEFAULT_MENU_2_TITLE,
                         'column' => '6',
-                        'placeholder' => 'Например: О сайте'
+                        'placeholder' => LANG_HTMLBLOCK_DEFAULTFOOTER_PLACEHOLDER_ABOUT
                     ]),
                 ]
             ]),
             
-            new \Fieldset('Виджеты', [
+            new \Fieldset(LANG_HTMLBLOCK_DEFAULTFOOTER_FIELDSET_WIDGETS, [
                 'icon' => 'bi bi-grid-3x3-gap',
                 'columns' => 'custom',
                 'fields' => [
                     \FieldFactory::checkbox('show_recent_posts', [
-                        'title' => 'Последние посты',
+                        'title' => LANG_HTMLBLOCK_DEFAULTFOOTER_FIELD_SHOW_RECENT_POSTS,
                         'default' => $settings['show_recent_posts'] ?? 0,
                         'switch' => true,
                         'column' => '12'
                     ]),
                     \FieldFactory::string('recent_posts_title', [
-                        'title' => 'Заголовок виджета постов',
-                        'default' => $settings['recent_posts_title'] ?? 'Последние посты',
+                        'title' => LANG_HTMLBLOCK_DEFAULTFOOTER_FIELD_RECENT_POSTS_TITLE,
+                        'default' => $settings['recent_posts_title'] ?? LANG_HTMLBLOCK_DEFAULTFOOTER_DEFAULT_RECENT_POSTS_TITLE,
                         'column' => '6',
                         'show' => 'field:show_recent_posts'
                     ]),
                     \FieldFactory::number('recent_posts_count', [
-                        'title' => 'Количество постов',
+                        'title' => LANG_HTMLBLOCK_DEFAULTFOOTER_FIELD_RECENT_POSTS_COUNT,
                         'default' => $settings['recent_posts_count'] ?? 3,
                         'min' => 1,
                         'max' => 10,
@@ -118,19 +122,19 @@ class DefaultFooterBlock extends BaseHtmlBlock {
                         'show' => 'field:show_recent_posts'
                     ]),
                     \FieldFactory::checkbox('show_recent_tags', [
-                        'title' => 'Популярные теги',
+                        'title' => LANG_HTMLBLOCK_DEFAULTFOOTER_FIELD_SHOW_RECENT_TAGS,
                         'default' => $settings['show_recent_tags'] ?? 0,
                         'switch' => true,
                         'column' => '12'
                     ]),
                     \FieldFactory::string('recent_tags_title', [
-                        'title' => 'Заголовок виджета тегов',
-                        'default' => $settings['recent_tags_title'] ?? 'Популярные теги',
+                        'title' => LANG_HTMLBLOCK_DEFAULTFOOTER_FIELD_RECENT_TAGS_TITLE,
+                        'default' => $settings['recent_tags_title'] ?? LANG_HTMLBLOCK_DEFAULTFOOTER_DEFAULT_RECENT_TAGS_TITLE,
                         'column' => '6',
                         'show' => 'field:show_recent_tags'
                     ]),
                     \FieldFactory::number('recent_tags_count', [
-                        'title' => 'Количество тегов',
+                        'title' => LANG_HTMLBLOCK_DEFAULTFOOTER_FIELD_RECENT_TAGS_COUNT,
                         'default' => $settings['recent_tags_count'] ?? 5,
                         'min' => 1,
                         'max' => 20,
@@ -140,24 +144,24 @@ class DefaultFooterBlock extends BaseHtmlBlock {
                 ]
             ]),
             
-            new \Fieldset('Категории', [
+            new \Fieldset(LANG_HTMLBLOCK_DEFAULTFOOTER_FIELDSET_CATEGORIES, [
                 'icon' => 'bi bi-folder',
                 'columns' => 'custom',
                 'fields' => [
                     \FieldFactory::checkbox('show_categories', [
-                        'title' => 'Показывать категории',
+                        'title' => LANG_HTMLBLOCK_DEFAULTFOOTER_FIELD_SHOW_CATEGORIES,
                         'default' => $settings['show_categories'] ?? 0,
                         'switch' => true,
                         'column' => '12'
                     ]),
                     \FieldFactory::string('categories_title', [
-                        'title' => 'Заголовок секции категорий',
-                        'default' => $settings['categories_title'] ?? 'Категории',
+                        'title' => LANG_HTMLBLOCK_DEFAULTFOOTER_FIELD_CATEGORIES_TITLE,
+                        'default' => $settings['categories_title'] ?? LANG_HTMLBLOCK_DEFAULTFOOTER_DEFAULT_CATEGORIES_TITLE,
                         'column' => '6',
                         'show' => 'field:show_categories'
                     ]),
                     \FieldFactory::number('categories_count', [
-                        'title' => 'Количество категорий',
+                        'title' => LANG_HTMLBLOCK_DEFAULTFOOTER_FIELD_CATEGORIES_COUNT,
                         'default' => $settings['categories_count'] ?? 8,
                         'min' => 1,
                         'max' => 20,
@@ -165,18 +169,18 @@ class DefaultFooterBlock extends BaseHtmlBlock {
                         'show' => 'field:show_categories'
                     ]),
                     \FieldFactory::select('categories_style', [
-                        'title' => 'Стиль отображения',
+                        'title' => LANG_HTMLBLOCK_DEFAULTFOOTER_FIELD_CATEGORIES_STYLE,
                         'options' => [
-                            'pills' => 'Таблетки (с фоном)',
-                            'links' => 'Простые ссылки',
-                            'chips' => 'Чипсы (компактные)'
+                            'pills' => LANG_HTMLBLOCK_DEFAULTFOOTER_CATEGORIES_STYLE_PILLS,
+                            'links' => LANG_HTMLBLOCK_DEFAULTFOOTER_CATEGORIES_STYLE_LINKS,
+                            'chips' => LANG_HTMLBLOCK_DEFAULTFOOTER_CATEGORIES_STYLE_CHIPS
                         ],
                         'default' => $settings['categories_style'] ?? 'pills',
                         'column' => '6',
                         'show' => 'field:show_categories'
                     ]),
                     \FieldFactory::checkbox('categories_show_count', [
-                        'title' => 'Показывать количество постов',
+                        'title' => LANG_HTMLBLOCK_DEFAULTFOOTER_FIELD_CATEGORIES_SHOW_COUNT,
                         'default' => $settings['categories_show_count'] ?? 1,
                         'switch' => true,
                         'column' => '6',
@@ -185,59 +189,59 @@ class DefaultFooterBlock extends BaseHtmlBlock {
                 ]
             ]),
             
-            new \Fieldset('Контакты (внизу)', [
+            new \Fieldset(LANG_HTMLBLOCK_DEFAULTFOOTER_FIELDSET_CONTACTS, [
                 'icon' => 'bi bi-telephone',
                 'columns' => 'custom',
                 'fields' => [
                     \FieldFactory::checkbox('show_contacts', [
-                        'title' => 'Показывать блок контактов',
+                        'title' => LANG_HTMLBLOCK_DEFAULTFOOTER_FIELD_SHOW_CONTACTS,
                         'default' => $settings['show_contacts'] ?? 0,
                         'switch' => true,
                         'column' => '12'
                     ]),
                     \FieldFactory::string('contacts_title', [
-                        'title' => 'Заголовок контактов',
-                        'default' => $settings['contacts_title'] ?? 'Свяжитесь с нами',
+                        'title' => LANG_HTMLBLOCK_DEFAULTFOOTER_FIELD_CONTACTS_TITLE,
+                        'default' => $settings['contacts_title'] ?? LANG_HTMLBLOCK_DEFAULTFOOTER_DEFAULT_CONTACTS_TITLE,
                         'column' => '3',
                         'show' => 'field:show_contacts'
                     ]),
                     \FieldFactory::string('contact_email', [
-                        'title' => 'Email',
+                        'title' => LANG_HTMLBLOCK_DEFAULTFOOTER_FIELD_CONTACT_EMAIL,
                         'default' => $settings['contact_email'] ?? '',
                         'column' => '3',
                         'placeholder' => 'info@example.com',
                         'show' => 'field:show_contacts'
                     ]),
                     \FieldFactory::string('contact_phone', [
-                        'title' => 'Телефон',
+                        'title' => LANG_HTMLBLOCK_DEFAULTFOOTER_FIELD_CONTACT_PHONE,
                         'default' => $settings['contact_phone'] ?? '',
                         'column' => '3',
-                        'placeholder' => '+7 (999) 000-00-00',
+                        'placeholder' => LANG_HTMLBLOCK_DEFAULTFOOTER_PHONE_PLACEHOLDER,
                         'show' => 'field:show_contacts'
                     ]),
                     \FieldFactory::string('contact_address', [
-                        'title' => 'Адрес',
+                        'title' => LANG_HTMLBLOCK_DEFAULTFOOTER_FIELD_CONTACT_ADDRESS,
                         'default' => $settings['contact_address'] ?? '',
                         'column' => '3',
-                        'placeholder' => 'г. Москва, ул. Примерная, 1',
+                        'placeholder' => LANG_HTMLBLOCK_DEFAULTFOOTER_ADDRESS_PLACEHOLDER,
                         'show' => 'field:show_contacts'
                     ]),
                 ]
             ]),
             
-            new \Fieldset('Социальные сети', [
+            new \Fieldset(LANG_HTMLBLOCK_DEFAULTFOOTER_FIELDSET_SOCIAL, [
                 'icon' => 'bi bi-share',
                 'columns' => 'custom',
                 'fields' => [
                     \FieldFactory::repeater('social_links', [
-                        'title' => 'Ссылки на соцсети',
-                        'hint' => 'Добавьте ссылки на ваши социальные сети',
+                        'title' => LANG_HTMLBLOCK_DEFAULTFOOTER_FIELD_SOCIAL_LINKS,
+                        'hint' => LANG_HTMLBLOCK_DEFAULTFOOTER_FIELD_SOCIAL_LINKS_HINT,
                         'column' => '12',
                         'repeater_columns' => 4,
                         'fields' => [
                             [
                                 'name' => 'network',
-                                'title' => 'Социальная сеть',
+                                'title' => LANG_HTMLBLOCK_DEFAULTFOOTER_FIELD_NETWORK,
                                 'type' => 'select',
                                 'options' => [
                                     'telegram' => 'Telegram',
@@ -267,27 +271,27 @@ class DefaultFooterBlock extends BaseHtmlBlock {
                 ]
             ]),
             
-            new \Fieldset('Нижняя часть (права и ссылки)', [
+            new \Fieldset(LANG_HTMLBLOCK_DEFAULTFOOTER_FIELDSET_BOTTOM, [
                 'icon' => 'bi bi-file-text',
                 'columns' => 'custom',
                 'fields' => [
                     \FieldFactory::string('copyright_text', [
-                        'title' => 'Текст копирайта',
+                        'title' => LANG_HTMLBLOCK_DEFAULTFOOTER_FIELD_COPYRIGHT,
                         'default' => $settings['copyright_text'] ?? '© ' . date('Y') . ' ' . SettingsHelper::get('general', 'site_name', 'BloggyCMS'),
-                        'hint' => 'Поддерживает HTML',
+                        'hint' => LANG_HTMLBLOCK_DEFAULTFOOTER_FIELD_COPYRIGHT_HINT,
                         'column' => '12'
                     ]),
                     \FieldFactory::repeater('footer_links', [
-                        'title' => 'Дополнительные ссылки',
-                        'hint' => 'Ссылки, которые будут отображаться в нижней части футера',
+                        'title' => LANG_HTMLBLOCK_DEFAULTFOOTER_FIELD_FOOTER_LINKS,
+                        'hint' => LANG_HTMLBLOCK_DEFAULTFOOTER_FIELD_FOOTER_LINKS_HINT,
                         'column' => '12',
                         'repeater_columns' => 2,
                         'fields' => [
                             [
                                 'name' => 'title',
-                                'title' => 'Текст ссылки',
+                                'title' => LANG_HTMLBLOCK_DEFAULTFOOTER_FIELD_LINK_TITLE,
                                 'type' => 'string',
-                                'placeholder' => 'Например: Политика конфиденциальности'
+                                'placeholder' => LANG_HTMLBLOCK_DEFAULTFOOTER_PLACEHOLDER_PRIVACY
                             ],
                             [
                                 'name' => 'url',
@@ -297,52 +301,52 @@ class DefaultFooterBlock extends BaseHtmlBlock {
                             ],
                             [
                                 'name' => 'target',
-                                'title' => 'Открывать в',
+                                'title' => LANG_HTMLBLOCK_DEFAULTFOOTER_FIELD_LINK_TARGET,
                                 'type' => 'select',
                                 'options' => [
-                                    '_self' => 'Текущее окно',
-                                    '_blank' => 'Новое окно',
+                                    '_self' => LANG_HTMLBLOCK_DEFAULTFOOTER_TARGET_SELF,
+                                    '_blank' => LANG_HTMLBLOCK_DEFAULTFOOTER_TARGET_BLANK,
                                 ],
                                 'default' => '_self'
                             ],
                         ],
                         'default' => $settings['footer_links'] ?? [
-                            ['title' => 'Политика конфиденциальности', 'url' => '/privacy', 'target' => '_self']
+                            ['title' => LANG_HTMLBLOCK_DEFAULTFOOTER_DEFAULT_PRIVACY_LINK, 'url' => '/privacy', 'target' => '_self']
                         ],
                     ]),
                 ]
             ]),
             
-            new \Fieldset('Внешний вид', [
+            new \Fieldset(LANG_HTMLBLOCK_DEFAULTFOOTER_FIELDSET_APPEARANCE, [
                 'icon' => 'bi bi-palette',
                 'columns' => 'custom',
                 'fields' => [
                     \FieldFactory::color('background_color', [
-                        'title' => 'Цвет фона',
+                        'title' => LANG_HTMLBLOCK_DEFAULTFOOTER_FIELD_BACKGROUND_COLOR,
                         'preset' => 'basic',
                         'column' => '3',
                         'default' => $settings['background_color'] ?? '#111827'
                     ]),
                     \FieldFactory::color('text_color', [
-                        'title' => 'Цвет текста',
+                        'title' => LANG_HTMLBLOCK_DEFAULTFOOTER_FIELD_TEXT_COLOR,
                         'preset' => 'basic',
                         'column' => '3',
                         'default' => $settings['text_color'] ?? '#9ca3af'
                     ]),
                     \FieldFactory::color('accent_color', [
-                        'title' => 'Акцентный цвет',
+                        'title' => LANG_HTMLBLOCK_DEFAULTFOOTER_FIELD_ACCENT_COLOR,
                         'preset' => 'website',
                         'column' => '3',
                         'default' => $settings['accent_color'] ?? '#2563eb'
                     ]),
                     \FieldFactory::color('heading_color', [
-                        'title' => 'Цвет заголовков',
+                        'title' => LANG_HTMLBLOCK_DEFAULTFOOTER_FIELD_HEADING_COLOR,
                         'preset' => 'basic',
                         'column' => '3',
                         'default' => $settings['heading_color'] ?? '#f9fafb'
                     ]),
                     \FieldFactory::number('padding_top', [
-                        'title' => 'Отступ сверху (px)',
+                        'title' => LANG_HTMLBLOCK_DEFAULTFOOTER_FIELD_PADDING_TOP,
                         'default' => $settings['padding_top'] ?? 80,
                         'min' => 40,
                         'max' => 160,
@@ -350,7 +354,7 @@ class DefaultFooterBlock extends BaseHtmlBlock {
                         'column' => '6'
                     ]),
                     \FieldFactory::number('padding_bottom', [
-                        'title' => 'Отступ снизу (px)',
+                        'title' => LANG_HTMLBLOCK_DEFAULTFOOTER_FIELD_PADDING_BOTTOM,
                         'default' => $settings['padding_bottom'] ?? 40,
                         'min' => 20,
                         'max' => 100,
@@ -374,7 +378,7 @@ class DefaultFooterBlock extends BaseHtmlBlock {
 
     public function validateSettings($settings): array {
         if (!is_array($settings)) {
-            return [false, ['Настройки должны быть массивом']];
+            return [false, [LANG_HTMLBLOCK_DEFAULTFOOTER_VALIDATION_ERROR]];
         }
         return [true, []];
     }
@@ -392,26 +396,26 @@ class DefaultFooterBlock extends BaseHtmlBlock {
         $settings['logo_path'] = BlockImageHelper::handleDelete('logo_path', $settings['logo_path'] ?? '');
         unset($settings['logo_path_file'], $settings['remove_logo_path']);
         
-        $settings['logo_alt'] = trim($settings['logo_alt'] ?? 'Логотип сайта');
+        $settings['logo_alt'] = trim($settings['logo_alt'] ?? LANG_HTMLBLOCK_DEFAULTFOOTER_DEFAULT_LOGO_ALT);
         $settings['site_name'] = trim($settings['site_name'] ?? SettingsHelper::get('general', 'site_name', 'BloggyCMS'));
         $settings['site_description'] = trim($settings['site_description'] ?? '');
         $settings['footer_menu_1'] = $settings['footer_menu_1'] ?? '';
         $settings['footer_menu_2'] = $settings['footer_menu_2'] ?? '';
-        $settings['menu_1_title'] = trim($settings['menu_1_title'] ?? 'Навигация');
-        $settings['menu_2_title'] = trim($settings['menu_2_title'] ?? 'Информация');
+        $settings['menu_1_title'] = trim($settings['menu_1_title'] ?? LANG_HTMLBLOCK_DEFAULTFOOTER_DEFAULT_MENU_1_TITLE);
+        $settings['menu_2_title'] = trim($settings['menu_2_title'] ?? LANG_HTMLBLOCK_DEFAULTFOOTER_DEFAULT_MENU_2_TITLE);
         $settings['show_recent_posts'] = isset($settings['show_recent_posts']) ? (int)$settings['show_recent_posts'] : 0;
-        $settings['recent_posts_title'] = trim($settings['recent_posts_title'] ?? 'Последние посты');
+        $settings['recent_posts_title'] = trim($settings['recent_posts_title'] ?? LANG_HTMLBLOCK_DEFAULTFOOTER_DEFAULT_RECENT_POSTS_TITLE);
         $settings['recent_posts_count'] = (int)($settings['recent_posts_count'] ?? 3);
         $settings['show_recent_tags'] = isset($settings['show_recent_tags']) ? (int)$settings['show_recent_tags'] : 0;
-        $settings['recent_tags_title'] = trim($settings['recent_tags_title'] ?? 'Популярные теги');
+        $settings['recent_tags_title'] = trim($settings['recent_tags_title'] ?? LANG_HTMLBLOCK_DEFAULTFOOTER_DEFAULT_RECENT_TAGS_TITLE);
         $settings['recent_tags_count'] = (int)($settings['recent_tags_count'] ?? 5);
         $settings['show_categories'] = isset($settings['show_categories']) ? (int)$settings['show_categories'] : 0;
-        $settings['categories_title'] = trim($settings['categories_title'] ?? 'Категории');
+        $settings['categories_title'] = trim($settings['categories_title'] ?? LANG_HTMLBLOCK_DEFAULTFOOTER_DEFAULT_CATEGORIES_TITLE);
         $settings['categories_count'] = (int)($settings['categories_count'] ?? 8);
         $settings['categories_show_count'] = isset($settings['categories_show_count']) ? (int)$settings['categories_show_count'] : 1;
         $settings['categories_style'] = $settings['categories_style'] ?? 'pills';
         $settings['show_contacts'] = isset($settings['show_contacts']) ? (int)$settings['show_contacts'] : 0;
-        $settings['contacts_title'] = trim($settings['contacts_title'] ?? 'Свяжитесь с нами');
+        $settings['contacts_title'] = trim($settings['contacts_title'] ?? LANG_HTMLBLOCK_DEFAULTFOOTER_DEFAULT_CONTACTS_TITLE);
         $settings['contact_email'] = trim($settings['contact_email'] ?? '');
         $settings['contact_phone'] = trim($settings['contact_phone'] ?? '');
         $settings['contact_address'] = trim($settings['contact_address'] ?? '');

@@ -23,26 +23,26 @@ class AdminTypeDelete extends HtmlBlockAction {
     */
     public function execute() {
         
-        $this->addBreadcrumb('Панель управления', ADMIN_URL);
-        $this->addBreadcrumb('Контент-блоки', ADMIN_URL . '/html-blocks');
-        $this->addBreadcrumb('Типы блоков', ADMIN_URL . '/html-blocks/types');
-        $this->addBreadcrumb('Удаление типа: ' . $this->systemName);
+        $this->addBreadcrumb(LANG_ACTION_HTMLBLOCKS_ADMINTYPEDELETE_BREADCRUMB_DASHBOARD, ADMIN_URL);
+        $this->addBreadcrumb(LANG_ACTION_HTMLBLOCKS_ADMINTYPEDELETE_BREADCRUMB_BLOCKS, ADMIN_URL . '/html-blocks');
+        $this->addBreadcrumb(LANG_ACTION_HTMLBLOCKS_ADMINTYPEDELETE_BREADCRUMB_TYPES, ADMIN_URL . '/html-blocks/types');
+        $this->addBreadcrumb(LANG_ACTION_HTMLBLOCKS_ADMINTYPEDELETE_BREADCRUMB_DELETE . $this->systemName);
         
         if (!$this->systemName) {
-            \Notification::error('Системное имя типа блока не указано');
+            \Notification::error(LANG_ACTION_HTMLBLOCKS_ADMINTYPEDELETE_SYSTEM_NAME_REQUIRED);
             $this->redirect(ADMIN_URL . '/html-blocks/types');
             return;
         }
         
         if ($this->systemName === 'DefaultBlock') {
-            \Notification::error('Нельзя удалить дефолтный тип блока');
+            \Notification::error(LANG_ACTION_HTMLBLOCKS_ADMINTYPEDELETE_CANNOT_DELETE_DEFAULT);
             $this->redirect(ADMIN_URL . '/html-blocks/types');
             return;
         }
         
         try {
             if ($this->blockTypeManager->hasBlocks($this->systemName)) {
-                \Notification::error('Нельзя удалить тип блока, так как существуют созданные блоки этого типа');
+                \Notification::error(LANG_ACTION_HTMLBLOCKS_ADMINTYPEDELETE_HAS_BLOCKS);
                 $this->redirect(ADMIN_URL . '/html-blocks/types');
                 return;
             }
@@ -51,21 +51,21 @@ class AdminTypeDelete extends HtmlBlockAction {
             
             if (file_exists($blockFile)) {
                 if (!unlink($blockFile)) {
-                    \Notification::error('Не удалось удалить файл блока');
+                    \Notification::error(LANG_ACTION_HTMLBLOCKS_ADMINTYPEDELETE_FILE_DELETE_ERROR);
                     $this->redirect(ADMIN_URL . '/html-blocks/types');
                     return;
                 }
-                \Notification::success('Файл блока успешно удален');
+                \Notification::success(LANG_ACTION_HTMLBLOCKS_ADMINTYPEDELETE_FILE_DELETED);
             } else {
-                \Notification::warning('Файл блока не найден, но запись будет удалена из базы');
+                \Notification::warning(LANG_ACTION_HTMLBLOCKS_ADMINTYPEDELETE_FILE_NOT_FOUND);
             }
             
             $this->blockTypeManager->deleteBlockType($this->systemName);
             
-            \Notification::success('Тип блока успешно удален из системы');
+            \Notification::success(LANG_ACTION_HTMLBLOCKS_ADMINTYPEDELETE_SUCCESS);
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при удалении типа блока: ' . $e->getMessage());
+            \Notification::error(LANG_ACTION_HTMLBLOCKS_ADMINTYPEDELETE_ERROR . $e->getMessage());
         }
         
         $this->redirect(ADMIN_URL . '/html-blocks/types');

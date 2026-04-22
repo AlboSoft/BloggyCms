@@ -16,12 +16,12 @@ class AdminCreate extends HtmlBlockAction {
         
         $blockTypeName = $_GET['type'] ?? 'DefaultBlock';
 
-        $this->addBreadcrumb('Панель управления', ADMIN_URL);
-        $this->addBreadcrumb('Контент-блоки', ADMIN_URL . '/html-blocks');
+        $this->addBreadcrumb(LANG_ACTION_HTMLBLOCKS_ADMINCREATE_BREADCRUMB_DASHBOARD, ADMIN_URL);
+        $this->addBreadcrumb(LANG_ACTION_HTMLBLOCKS_ADMINCREATE_BREADCRUMB_BLOCKS, ADMIN_URL . '/html-blocks');
     
-        $blockTypeLabel = $blockTypeName === 'DefaultBlock' ? 'Дефолтный блок' : $blockTypeName;
-        $this->addBreadcrumb('Выбор типа блока', ADMIN_URL . '/html-blocks/select-type');
-        $this->addBreadcrumb('Создание: ' . $blockTypeLabel);
+        $blockTypeLabel = $blockTypeName === 'DefaultBlock' ? LANG_ACTION_HTMLBLOCKS_ADMINCREATE_DEFAULT_BLOCK : $blockTypeName;
+        $this->addBreadcrumb(LANG_ACTION_HTMLBLOCKS_ADMINCREATE_BREADCRUMB_SELECT_TYPE, ADMIN_URL . '/html-blocks/select-type');
+        $this->addBreadcrumb(LANG_ACTION_HTMLBLOCKS_ADMINCREATE_BREADCRUMB_CREATE . $blockTypeLabel);
         
         if ($blockTypeName !== 'DefaultBlock') {
             $this->blockTypeManager->loadBlockAssets($blockTypeName);
@@ -30,7 +30,7 @@ class AdminCreate extends HtmlBlockAction {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' || !empty($_FILES)) {
             try {
                 if (empty($_POST['name']) || empty($_POST['slug'])) {
-                    \Notification::error('Название и идентификатор блока обязательны для заполнения');
+                    \Notification::error(LANG_ACTION_HTMLBLOCKS_ADMINCREATE_NAME_SLUG_REQUIRED);
                     $this->renderFormWithData($_POST, $blockTypeName);
                     return;
                 }
@@ -47,7 +47,7 @@ class AdminCreate extends HtmlBlockAction {
                         
                         list($isValid, $errors) = $blockInstance->validateSettings($settings);
                         if (!$isValid) {
-                            \Notification::error('Ошибки в настройках: ' . implode(', ', $errors));
+                            \Notification::error(LANG_ACTION_HTMLBLOCKS_ADMINCREATE_SETTINGS_ERROR . implode(', ', $errors));
                             $this->renderFormWithData($_POST, $blockTypeName);
                             return;
                         }
@@ -90,12 +90,12 @@ class AdminCreate extends HtmlBlockAction {
 
                 \Event::trigger('html_block.saved', ['id' => $id, 'action' => 'create']);
 
-                \Notification::success('HTML-блок успешно создан');
+                \Notification::success(LANG_ACTION_HTMLBLOCKS_ADMINCREATE_SUCCESS);
 
                 $this->redirect(ADMIN_URL . '/html-blocks');
                 
             } catch (\Exception $e) {
-                \Notification::error('Ошибка при создании HTML-блока: ' . $e->getMessage());
+                \Notification::error(LANG_ACTION_HTMLBLOCKS_ADMINCREATE_ERROR . $e->getMessage());
                 $this->renderFormWithData($_POST, $blockTypeName);
             }
         } 

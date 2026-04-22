@@ -11,7 +11,7 @@ class AdminEntryCreate extends FragmentAction {
         $fragmentId = $this->params['fragment_id'] ?? null;
         
         if (!$fragmentId) {
-            \Notification::error('ID фрагмента не указан');
+            \Notification::error(LANG_ACTION_FRAGMENTS_ADMINENTRYCREATE_ID_NOT_SPECIFIED);
             $this->redirect(ADMIN_URL . '/fragments');
             return;
         }
@@ -19,17 +19,17 @@ class AdminEntryCreate extends FragmentAction {
         $fragment = $this->fragmentModel->getById($fragmentId);
         
         if (!$fragment) {
-            \Notification::error('Фрагмент не найден');
+            \Notification::error(LANG_ACTION_FRAGMENTS_ADMINENTRYCREATE_FRAGMENT_NOT_FOUND);
             $this->redirect(ADMIN_URL . '/fragments');
             return;
         }
         
-        $this->addBreadcrumb('Панель управления', ADMIN_URL);
-        $this->addBreadcrumb('Фрагменты', ADMIN_URL . '/fragments');
+        $this->addBreadcrumb(LANG_ACTION_FRAGMENTS_ADMINENTRYCREATE_BREADCRUMB_DASHBOARD, ADMIN_URL);
+        $this->addBreadcrumb(LANG_ACTION_FRAGMENTS_ADMINENTRYCREATE_BREADCRUMB_FRAGMENTS, ADMIN_URL . '/fragments');
         $this->addBreadcrumb($fragment['name'], ADMIN_URL . '/fragments/edit/' . $fragmentId);
-        $this->addBreadcrumb('Записи', ADMIN_URL . '/fragments/entries/' . $fragmentId);
-        $this->addBreadcrumb('Создание записи');
-        $this->setPageTitle('Создание записи: ' . $fragment['name']);
+        $this->addBreadcrumb(LANG_ACTION_FRAGMENTS_ADMINENTRYCREATE_BREADCRUMB_ENTRIES, ADMIN_URL . '/fragments/entries/' . $fragmentId);
+        $this->addBreadcrumb(LANG_ACTION_FRAGMENTS_ADMINENTRYCREATE_BREADCRUMB_CREATE);
+        $this->setPageTitle(LANG_ACTION_FRAGMENTS_ADMINENTRYCREATE_PAGE_TITLE . $fragment['name']);
         
         $fields = $this->fragmentModel->getFields($fragmentId);
         
@@ -39,7 +39,7 @@ class AdminEntryCreate extends FragmentAction {
                 
                 $this->entryModel->create($fragmentId, $data);
                 
-                \Notification::success('Запись успешно создана');
+                \Notification::success(LANG_ACTION_FRAGMENTS_ADMINENTRYCREATE_SUCCESS);
                 $this->redirect(ADMIN_URL . '/fragments/entries/' . $fragmentId);
                 
             } catch (\Exception $e) {
@@ -81,7 +81,7 @@ class AdminEntryCreate extends FragmentAction {
             $value = $this->fieldManager->processFieldValue($fieldData, $postData, $filesData);
 
             if ($field['is_required'] && (empty($value) && $value !== '0')) {
-                $errors[] = "Поле '{$field['name']}' обязательно для заполнения";
+                $errors[] = sprintf(LANG_ACTION_FRAGMENTS_ADMINENTRYCREATE_FIELD_REQUIRED, $field['name']);
                 continue;
             }
             

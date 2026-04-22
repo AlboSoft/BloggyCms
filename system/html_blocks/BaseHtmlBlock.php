@@ -171,7 +171,7 @@ abstract class BaseHtmlBlock {
     * @return string HTML-код сообщения об ошибке
     */
     protected function getFallbackContent($settings): string {
-        return '<div class="alert alert-warning">Шаблон для блока "' . $this->getName() . '" не найден.</div>';
+        return sprintf(LANG_CORE_BASEHTMLBLOCK_TEMPLATE_NOT_FOUND, $this->getName());
     }
 
     /**
@@ -326,7 +326,7 @@ abstract class BaseHtmlBlock {
         }
         
         if (empty($templates)) {
-            $templates['default'] = 'Стандартный шаблон';
+            $templates['default'] = LANG_CORE_BASEHTMLBLOCK_DEFAULT_TEMPLATE;
         }
         
         return $templates;

@@ -1,0 +1,6 @@
+<?php
+
+define('LANG_ACTION_FRAGMENTS_ADMINENTRYDELETE_ID_NOT_SPECIFIED', 'Entry ID not specified');
+define('LANG_ACTION_FRAGMENTS_ADMINENTRYDELETE_NOT_FOUND', 'Entry not found');
+define('LANG_ACTION_FRAGMENTS_ADMINENTRYDELETE_SUCCESS', 'Entry successfully deleted');
+define('LANG_ACTION_FRAGMENTS_ADMINENTRYDELETE_ERROR', 'Error deleting entry');

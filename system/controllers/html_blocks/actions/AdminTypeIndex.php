@@ -14,9 +14,9 @@ class AdminTypeIndex extends HtmlBlockAction {
     */
     public function execute() {
         
-        $this->addBreadcrumb('Панель управления', ADMIN_URL);
-        $this->addBreadcrumb('Контент-блоки', ADMIN_URL . '/html-blocks');
-        $this->addBreadcrumb('Типы блоков');
+        $this->addBreadcrumb(LANG_ACTION_HTMLBLOCKS_ADMINTYPEINDEX_BREADCRUMB_DASHBOARD, ADMIN_URL);
+        $this->addBreadcrumb(LANG_ACTION_HTMLBLOCKS_ADMINTYPEINDEX_BREADCRUMB_BLOCKS, ADMIN_URL . '/html-blocks');
+        $this->addBreadcrumb(LANG_ACTION_HTMLBLOCKS_ADMINTYPEINDEX_BREADCRUMB_TYPES);
         
         try {
             $allBlockTypes = $this->blockTypeManager->getAllBlockTypes();
@@ -35,11 +35,11 @@ class AdminTypeIndex extends HtmlBlockAction {
             
             $this->render('admin/html_blocks/types_index', [
                 'blockTypes' => $allBlockTypes,
-                'pageTitle' => 'Управление типами HTML-блоков'
+                'pageTitle' => LANG_ACTION_HTMLBLOCKS_ADMINTYPEINDEX_PAGE_TITLE
             ]);
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при загрузке типов блоков: ' . $e->getMessage());
+            \Notification::error(LANG_ACTION_HTMLBLOCKS_ADMINTYPEINDEX_ERROR . $e->getMessage());
             $this->redirect(ADMIN_URL . '/html-blocks');
         }
     }

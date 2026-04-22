@@ -11,7 +11,7 @@ class AdminFields extends FragmentAction {
         $id = $this->params['id'] ?? null;
         
         if (!$id) {
-            \Notification::error('ID фрагмента не указан');
+            \Notification::error(LANG_ACTION_FRAGMENTS_ADMINFIELDS_ID_NOT_SPECIFIED);
             $this->redirect(ADMIN_URL . '/fragments');
             return;
         }
@@ -19,16 +19,16 @@ class AdminFields extends FragmentAction {
         $fragment = $this->fragmentModel->getById($id);
         
         if (!$fragment) {
-            \Notification::error('Фрагмент не найден');
+            \Notification::error(LANG_ACTION_FRAGMENTS_ADMINFIELDS_FRAGMENT_NOT_FOUND);
             $this->redirect(ADMIN_URL . '/fragments');
             return;
         }
         
-        $this->addBreadcrumb('Панель управления', ADMIN_URL);
-        $this->addBreadcrumb('Фрагменты', ADMIN_URL . '/fragments');
+        $this->addBreadcrumb(LANG_ACTION_FRAGMENTS_ADMINFIELDS_BREADCRUMB_DASHBOARD, ADMIN_URL);
+        $this->addBreadcrumb(LANG_ACTION_FRAGMENTS_ADMINFIELDS_BREADCRUMB_FRAGMENTS, ADMIN_URL . '/fragments');
         $this->addBreadcrumb($fragment['name'], ADMIN_URL . '/fragments/edit/' . $id);
-        $this->addBreadcrumb('Поля');
-        $this->setPageTitle('Поля фрагмента: ' . $fragment['name']);
+        $this->addBreadcrumb(LANG_ACTION_FRAGMENTS_ADMINFIELDS_BREADCRUMB_FIELDS);
+        $this->setPageTitle(LANG_ACTION_FRAGMENTS_ADMINFIELDS_PAGE_TITLE . $fragment['name']);
         
         $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
         $page = max(1, $page);

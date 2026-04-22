@@ -8,23 +8,23 @@ namespace fragments\actions;
 class AdminCreate extends FragmentAction {
     
     public function execute() {
-        $this->addBreadcrumb('Панель управления', ADMIN_URL);
-        $this->addBreadcrumb('Фрагменты', ADMIN_URL . '/fragments');
-        $this->addBreadcrumb('Создание фрагмента');
-        $this->setPageTitle('Создание фрагмента');
+        $this->addBreadcrumb(LANG_ACTION_FRAGMENTS_ADMINCREATE_BREADCRUMB_DASHBOARD, ADMIN_URL);
+        $this->addBreadcrumb(LANG_ACTION_FRAGMENTS_ADMINCREATE_BREADCRUMB_FRAGMENTS, ADMIN_URL . '/fragments');
+        $this->addBreadcrumb(LANG_ACTION_FRAGMENTS_ADMINCREATE_BREADCRUMB_CREATE);
+        $this->setPageTitle(LANG_ACTION_FRAGMENTS_ADMINCREATE_PAGE_TITLE);
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
                 if (empty($_POST['name'])) {
-                    throw new \Exception('Название фрагмента обязательно');
+                    throw new \Exception(LANG_ACTION_FRAGMENTS_ADMINCREATE_NAME_REQUIRED);
                 }
                 
                 if (empty($_POST['system_name'])) {
-                    throw new \Exception('Системное имя обязательно');
+                    throw new \Exception(LANG_ACTION_FRAGMENTS_ADMINCREATE_SYSTEM_NAME_REQUIRED);
                 }
                 
                 if ($this->fragmentModel->isSystemNameExists($_POST['system_name'])) {
-                    throw new \Exception('Фрагмент с таким системным именем уже существует');
+                    throw new \Exception(LANG_ACTION_FRAGMENTS_ADMINCREATE_SYSTEM_NAME_EXISTS);
                 }
                 
                 $data = [
@@ -38,10 +38,10 @@ class AdminCreate extends FragmentAction {
                 $fragmentId = $this->fragmentModel->create($data);
                 
                 if (!$fragmentId || !is_numeric($fragmentId)) {
-                    throw new \Exception('Не удалось создать фрагмент');
+                    throw new \Exception(LANG_ACTION_FRAGMENTS_ADMINCREATE_CREATE_FAILED);
                 }
                 
-                \Notification::success('Фрагмент успешно создан');
+                \Notification::success(LANG_ACTION_FRAGMENTS_ADMINCREATE_SUCCESS);
                 $this->redirect(ADMIN_URL . '/fragments');
                 
             } catch (\Exception $e) {

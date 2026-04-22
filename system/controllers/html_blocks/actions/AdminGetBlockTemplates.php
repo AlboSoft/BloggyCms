@@ -22,7 +22,7 @@ class AdminGetBlockTemplates extends HtmlBlockAction {
             if (empty($blockTypeName) || $blockTypeName === 'DefaultBlock') {
                 echo json_encode([
                     'success' => true,
-                    'templates' => ['default' => 'Стандартный шаблон']
+                    'templates' => ['default' => LANG_ACTION_HTMLBLOCKS_ADMINGETBLOCKTEMPLATES_DEFAULT_TEMPLATE]
                 ]);
                 return;
             }
@@ -39,13 +39,13 @@ class AdminGetBlockTemplates extends HtmlBlockAction {
             } else {
                 echo json_encode([
                     'success' => false,
-                    'message' => 'Тип блока не найден'
+                    'message' => LANG_ACTION_HTMLBLOCKS_ADMINGETBLOCKTEMPLATES_NOT_FOUND
                 ]);
             }
         } catch (\Exception $e) {
             echo json_encode([
                 'success' => false,
-                'message' => 'Ошибка при получении шаблонов: ' . $e->getMessage()
+                'message' => LANG_ACTION_HTMLBLOCKS_ADMINGETBLOCKTEMPLATES_ERROR . $e->getMessage()
             ]);
         }
     }

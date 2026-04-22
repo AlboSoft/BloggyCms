@@ -1,0 +1,31 @@
+<?php
+
+define('LANG_HTMLBLOCK_SCROLLTOTOP_NAME', 'Кнопка вверх');
+define('LANG_HTMLBLOCK_SCROLLTOTOP_DESCRIPTION', 'Добавляет кнопку для плавной прокрутки страницы вверх. Появляется после прокрутки.');
+define('LANG_HTMLBLOCK_SCROLLTOTOP_SHORT_DESCRIPTION', 'Кнопка прокрутки вверх');
+define('LANG_HTMLBLOCK_SCROLLTOTOP_FIELDSET_MAIN', 'Основные настройки');
+define('LANG_HTMLBLOCK_SCROLLTOTOP_FIELD_SCROLL_THRESHOLD', 'Порог появления (px)');
+define('LANG_HTMLBLOCK_SCROLLTOTOP_FIELD_SCROLL_THRESHOLD_HINT', 'Через сколько пикселей прокрутки показывать кнопку');
+define('LANG_HTMLBLOCK_SCROLLTOTOP_FIELD_ANIMATION_DURATION', 'Длительность анимации (мс)');
+define('LANG_HTMLBLOCK_SCROLLTOTOP_FIELD_ANIMATION_DURATION_HINT', 'Скорость прокрутки страницы вверх');
+define('LANG_HTMLBLOCK_SCROLLTOTOP_FIELDSET_APPEARANCE', 'Внешний вид');
+define('LANG_HTMLBLOCK_SCROLLTOTOP_FIELD_POSITION', 'Позиция кнопки');
+define('LANG_HTMLBLOCK_SCROLLTOTOP_POSITION_BOTTOM_RIGHT', 'Снизу справа');
+define('LANG_HTMLBLOCK_SCROLLTOTOP_POSITION_BOTTOM_LEFT', 'Снизу слева');
+define('LANG_HTMLBLOCK_SCROLLTOTOP_FIELD_OFFSET_BOTTOM', 'Отступ снизу (px)');
+define('LANG_HTMLBLOCK_SCROLLTOTOP_FIELD_OFFSET_SIDE', 'Отступ сбоку (px)');
+define('LANG_HTMLBLOCK_SCROLLTOTOP_FIELD_SIZE', 'Размер кнопки');
+define('LANG_HTMLBLOCK_SCROLLTOTOP_SIZE_SM', 'Маленькая (40px)');
+define('LANG_HTMLBLOCK_SCROLLTOTOP_SIZE_MD', 'Средняя (50px)');
+define('LANG_HTMLBLOCK_SCROLLTOTOP_SIZE_LG', 'Большая (60px)');
+define('LANG_HTMLBLOCK_SCROLLTOTOP_FIELD_SHAPE', 'Форма');
+define('LANG_HTMLBLOCK_SCROLLTOTOP_SHAPE_CIRCLE', 'Круглая');
+define('LANG_HTMLBLOCK_SCROLLTOTOP_SHAPE_ROUNDED', 'Скругленная');
+define('LANG_HTMLBLOCK_SCROLLTOTOP_FIELD_BACKGROUND_COLOR', 'Цвет фона');
+define('LANG_HTMLBLOCK_SCROLLTOTOP_FIELD_TEXT_COLOR', 'Цвет иконки');
+define('LANG_HTMLBLOCK_SCROLLTOTOP_FIELD_SHOW_SHADOW', 'Показывать тень');
+define('LANG_HTMLBLOCK_SCROLLTOTOP_FIELD_CUSTOM_ICON', 'Своя иконка');
+define('LANG_HTMLBLOCK_SCROLLTOTOP_FIELD_CUSTOM_ICON_HINT', 'Оставьте пустым для использования стандартной иконки');
+define('LANG_HTMLBLOCK_SCROLLTOTOP_FIELDSET_EXTRA', 'Дополнительно');
+define('LANG_HTMLBLOCK_SCROLLTOTOP_FIELD_CSS_CLASS', 'CSS класс');
+define('LANG_HTMLBLOCK_SCROLLTOTOP_FIELD_HTML_ID', 'HTML ID');

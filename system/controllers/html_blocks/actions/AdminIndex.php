@@ -14,8 +14,8 @@ class AdminIndex extends HtmlBlockAction {
     */
     public function execute() {
         
-        $this->addBreadcrumb('Панель управления', ADMIN_URL);
-        $this->addBreadcrumb('Контент-блоки');
+        $this->addBreadcrumb(LANG_ACTION_HTMLBLOCKS_ADMININDEX_BREADCRUMB_DASHBOARD, ADMIN_URL);
+        $this->addBreadcrumb(LANG_ACTION_HTMLBLOCKS_ADMININDEX_BREADCRUMB_BLOCKS);
         
         try {
             $blocks = $this->htmlBlockModel->getAll();
@@ -30,11 +30,11 @@ class AdminIndex extends HtmlBlockAction {
             $this->render('admin/html_blocks/index', [
                 'blocks' => $blocks,
                 'blockTypes' => $this->blockTypeManager->getBlockTypes(),
-                'pageTitle' => 'Управление HTML-блоками'
+                'pageTitle' => LANG_ACTION_HTMLBLOCKS_ADMININDEX_PAGE_TITLE
             ]);
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при загрузке списка HTML-блоков: ' . $e->getMessage());
+            \Notification::error(LANG_ACTION_HTMLBLOCKS_ADMININDEX_ERROR . $e->getMessage());
             $this->redirect(ADMIN_URL);
         }
     }

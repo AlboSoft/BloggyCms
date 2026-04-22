@@ -9,12 +9,12 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h4 class="mb-0">
             <?php echo bloggy_icon('bs', $isEdit ? 'pencil-square' : 'plus-circle', '24', '#000', 'me-2'); ?>
-            <?php echo $isEdit ? 'Редактирование фрагмента' : 'Создание фрагмента'; ?>
+            <?php echo $isEdit ? LANG_TEMPLATE_FRAGMENTS_FORM_EDIT_TITLE : LANG_TEMPLATE_FRAGMENTS_FORM_CREATE_TITLE; ?>
         </h4>
         <div>
             <a href="<?php echo ADMIN_URL; ?>/fragments" class="btn btn-outline-secondary btn-sm">
                 <?php echo bloggy_icon('bs', 'arrow-left', '16', '#000', 'me-1'); ?>
-                Назад
+                <?php echo LANG_TEMPLATE_FRAGMENTS_FORM_BACK_BTN; ?>
             </a>
         </div>
     </div>
@@ -24,26 +24,26 @@
             <div class="col-lg-8">
                 <div class="card border-0 shadow-sm mb-4">
                     <div class="card-header bg-white border-0">
-                        <h5 class="card-title mb-0">Основная информация</h5>
+                        <h5 class="card-title mb-0"><?php echo LANG_TEMPLATE_FRAGMENTS_FORM_MAIN_INFO_TITLE; ?></h5>
                     </div>
                     <div class="card-body">
                         <div class="mb-4">
                             <label class="form-label">
-                                Название фрагмента
+                                <?php echo LANG_TEMPLATE_FRAGMENTS_FORM_NAME_LABEL; ?>
                                 <span class="text-danger">*</span>
                             </label>
                             <input type="text" 
                                    name="name" 
                                    class="form-control form-control-lg" 
                                    value="<?php echo html($fragment['name'] ?? ''); ?>" 
-                                   placeholder="Например: Слайдер, Галерея, Команда"
+                                   placeholder="<?php echo LANG_TEMPLATE_FRAGMENTS_FORM_NAME_PLACEHOLDER; ?>"
                                    required>
-                            <div class="form-text">Отображаемое название фрагмента</div>
+                            <div class="form-text"><?php echo LANG_TEMPLATE_FRAGMENTS_FORM_NAME_HINT; ?></div>
                         </div>
 
                         <div class="mb-4">
                             <label class="form-label">
-                                Системное имя
+                                <?php echo LANG_TEMPLATE_FRAGMENTS_FORM_SYSTEM_NAME_LABEL; ?>
                                 <span class="text-danger">*</span>
                             </label>
                             <div class="input-group">
@@ -58,17 +58,16 @@
                                 <span class="input-group-text bg-light">}</span>
                             </div>
                             <div class="form-text">
-                                Только латинские буквы, цифры и подчеркивания. 
-                                Используется в шорткодах: <code>{ctype:имя}...{/ctype:имя}</code>
+                                <?php echo LANG_TEMPLATE_FRAGMENTS_FORM_SYSTEM_NAME_HINT; ?>
                             </div>
                         </div>
 
                         <div class="mb-4">
-                            <label class="form-label">Описание</label>
+                            <label class="form-label"><?php echo LANG_TEMPLATE_FRAGMENTS_FORM_DESCRIPTION_LABEL; ?></label>
                             <textarea name="description" 
                                       class="form-control" 
                                       rows="3" 
-                                      placeholder="Краткое описание назначения фрагмента"><?php echo html($fragment['description'] ?? ''); ?></textarea>
+                                      placeholder="<?php echo LANG_TEMPLATE_FRAGMENTS_FORM_DESCRIPTION_PLACEHOLDER; ?>"><?php echo html($fragment['description'] ?? ''); ?></textarea>
                         </div>
                     </div>
                 </div>
@@ -77,18 +76,18 @@
                     <div class="card-header bg-white border-0">
                         <h5 class="card-title mb-0">
                             <?php echo bloggy_icon('bs', 'palette', '20', '#000', 'me-2'); ?>
-                            Стили и скрипты
+                            <?php echo LANG_TEMPLATE_FRAGMENTS_FORM_STYLES_SCRIPTS_TITLE; ?>
                         </h5>
                     </div>
                     <div class="card-body">
                         <div class="mb-4">
                             <label class="form-label fw-semibold d-flex align-items-center">
                                 <?php echo bloggy_icon('bs', 'filetype-css', '16', '#1889d0', 'me-2'); ?>
-                                Внешние CSS файлы
+                                <?php echo LANG_TEMPLATE_FRAGMENTS_FORM_CSS_FILES_LABEL; ?>
                             </label>
                             <div id="css-files-container">
-                                <?php if (!empty($fragment['css_files'])): ?>
-                                    <?php foreach ($fragment['css_files'] as $cssFile): ?>
+                                <?php if (!empty($fragment['css_files'])) { ?>
+                                    <?php foreach ($fragment['css_files'] as $cssFile) { ?>
                                         <div class="input-group mb-2 css-file-row">
                                             <input type="text"
                                                 name="css_files[]"
@@ -99,8 +98,8 @@
                                                 <?php echo bloggy_icon('bs', 'trash', '16', '#000'); ?>
                                             </button>
                                         </div>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
+                                    <?php } ?>
+                                <?php } ?>
                                 <div class="input-group mb-2 css-file-row">
                                     <input type="text"
                                         name="css_files[]"
@@ -114,18 +113,18 @@
                             </div>
                             <button type="button" class="btn btn-outline-primary btn-sm mt-2" id="add-css-file">
                                 <?php echo bloggy_icon('bs', 'plus', '16', '#000', 'me-1'); ?>
-                                Добавить CSS файл
+                                <?php echo LANG_TEMPLATE_FRAGMENTS_FORM_ADD_CSS_BTN; ?>
                             </button>
                         </div>
 
                         <div class="mb-4">
                             <label class="form-label fw-semibold d-flex align-items-center">
                                 <?php echo bloggy_icon('bs', 'filetype-js', '16', '#1889d0', 'me-2'); ?>
-                                Внешние JavaScript файлы
+                                <?php echo LANG_TEMPLATE_FRAGMENTS_FORM_JS_FILES_LABEL; ?>
                             </label>
                             <div id="js-files-container">
-                                <?php if (!empty($fragment['js_files'])): ?>
-                                    <?php foreach ($fragment['js_files'] as $jsFile): ?>
+                                <?php if (!empty($fragment['js_files'])) { ?>
+                                    <?php foreach ($fragment['js_files'] as $jsFile) { ?>
                                         <div class="input-group mb-2 js-file-row">
                                             <input type="text"
                                                 name="js_files[]"
@@ -136,8 +135,8 @@
                                                 <?php echo bloggy_icon('bs', 'trash', '16', '#000'); ?>
                                             </button>
                                         </div>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
+                                    <?php } ?>
+                                <?php } ?>
                                 <div class="input-group mb-2 js-file-row">
                                     <input type="text"
                                         name="js_files[]"
@@ -151,14 +150,14 @@
                             </div>
                             <button type="button" class="btn btn-outline-primary btn-sm mt-2" id="add-js-file">
                                 <?php echo bloggy_icon('bs', 'plus', '16', '#000', 'me-1'); ?>
-                                Добавить JS файл
+                                <?php echo LANG_TEMPLATE_FRAGMENTS_FORM_ADD_JS_BTN; ?>
                             </button>
                         </div>
 
                         <div class="mb-4">
                             <label class="form-label fw-semibold d-flex align-items-center">
                                 <?php echo bloggy_icon('bs', 'code', '16', '#1889d0', 'me-2'); ?>
-                                Инлайн CSS
+                                <?php echo LANG_TEMPLATE_FRAGMENTS_FORM_INLINE_CSS_LABEL; ?>
                             </label>
                             <div id="inline-css-container" class="border rounded">
                                 <div id="inline-css-editor" style="height: 200px;"></div>
@@ -169,7 +168,7 @@
                         <div class="mb-4">
                             <label class="form-label fw-semibold d-flex align-items-center">
                                 <?php echo bloggy_icon('bs', 'code', '16', '#1889d0', 'me-2'); ?>
-                                Инлайн JavaScript
+                                <?php echo LANG_TEMPLATE_FRAGMENTS_FORM_INLINE_JS_LABEL; ?>
                             </label>
                             <div id="inline-js-container" class="border rounded">
                                 <div id="inline-js-editor" style="height: 200px;"></div>
@@ -181,12 +180,12 @@
             </div>
 
             <div class="col-lg-4">
-                <?php if ($isEdit && isset($stats)): ?>
+                <?php if ($isEdit && isset($stats)) { ?>
                     <div class="card border-0 shadow-sm mb-4">
                         <div class="card-header bg-white border-0">
                             <h5 class="card-title mb-0">
                                 <?php echo bloggy_icon('bs', 'graph-up', '20', '#000', 'me-2'); ?>
-                                Статистика
+                                <?php echo LANG_TEMPLATE_FRAGMENTS_FORM_STATS_TITLE; ?>
                             </h5>
                         </div>
                         <div class="card-body">
@@ -194,18 +193,18 @@
                                 <div class="col-4">
                                     <div class="border-end">
                                         <div class="h4 mb-0"><?php echo $stats['total']; ?></div>
-                                        <small class="text-muted">Всего записей</small>
+                                        <small class="text-muted"><?php echo LANG_TEMPLATE_FRAGMENTS_FORM_STATS_TOTAL; ?></small>
                                     </div>
                                 </div>
                                 <div class="col-4">
                                     <div class="border-end">
                                         <div class="h4 mb-0"><?php echo $stats['active']; ?></div>
-                                        <small class="text-muted">Активных</small>
+                                        <small class="text-muted"><?php echo LANG_TEMPLATE_FRAGMENTS_FORM_STATS_ACTIVE; ?></small>
                                     </div>
                                 </div>
                                 <div class="col-4">
                                     <div class="h4 mb-0"><?php echo $stats['inactive']; ?></div>
-                                    <small class="text-muted">Неактивных</small>
+                                    <small class="text-muted"><?php echo LANG_TEMPLATE_FRAGMENTS_FORM_STATS_INACTIVE; ?></small>
                                 </div>
                             </div>
                             
@@ -215,29 +214,29 @@
                                          style="width: <?php echo $stats['total'] > 0 ? ($stats['active'] / $stats['total'] * 100) : 0; ?>%"></div>
                                 </div>
                                 <div class="small text-muted mt-2 text-center">
-                                    <?php echo round($stats['total'] > 0 ? ($stats['active'] / $stats['total'] * 100) : 0); ?>% активных записей
+                                    <?php echo round($stats['total'] > 0 ? ($stats['active'] / $stats['total'] * 100) : 0); ?>% <?php echo LANG_TEMPLATE_FRAGMENTS_FORM_STATS_ACTIVE_PERCENT; ?>
                                 </div>
                             </div>
                         </div>
                     </div>
-                <?php endif; ?>
+                <?php } ?>
 
                 <div class="card border-0 shadow-sm mb-4">
                     <div class="card-header bg-white border-0">
                         <h5 class="card-title mb-0">
                             <?php echo bloggy_icon('bs', 'gear', '20', '#000', 'me-2'); ?>
-                            Настройки
+                            <?php echo LANG_TEMPLATE_FRAGMENTS_FORM_SETTINGS_TITLE; ?>
                         </h5>
                     </div>
                     <div class="card-body">
                         <div class="mb-4">
-                            <label class="form-label">Статус</label>
+                            <label class="form-label"><?php echo LANG_TEMPLATE_FRAGMENTS_FORM_STATUS_LABEL; ?></label>
                             <select name="status" class="form-select">
-                                <option value="active" <?php echo ($fragment['status'] ?? 'active') === 'active' ? 'selected' : ''; ?>>Активен</option>
-                                <option value="inactive" <?php echo ($fragment['status'] ?? '') === 'inactive' ? 'selected' : ''; ?>>Неактивен</option>
+                                <option value="active" <?php echo ($fragment['status'] ?? 'active') === 'active' ? 'selected' : ''; ?>><?php echo LANG_TEMPLATE_FRAGMENTS_FORM_STATUS_ACTIVE; ?></option>
+                                <option value="inactive" <?php echo ($fragment['status'] ?? '') === 'inactive' ? 'selected' : ''; ?>><?php echo LANG_TEMPLATE_FRAGMENTS_FORM_STATUS_INACTIVE; ?></option>
                             </select>
                             <div class="form-text">
-                                Неактивные фрагменты не отображаются на сайте
+                                <?php echo LANG_TEMPLATE_FRAGMENTS_FORM_STATUS_HINT; ?>
                             </div>
                         </div>
                     </div>
@@ -247,18 +246,18 @@
                     <div class="card-header bg-white border-0">
                         <h5 class="card-title mb-0">
                             <?php echo bloggy_icon('bs', 'info-circle', '20', '#000', 'me-2'); ?>
-                            Как использовать
+                            <?php echo LANG_TEMPLATE_FRAGMENTS_FORM_HOWTO_TITLE; ?>
                         </h5>
                     </div>
                     <div class="card-body">
                         <p class="small text-muted mb-3">
-                            Для вывода фрагмента на сайте используйте шорткоды:
+                            <?php echo LANG_TEMPLATE_FRAGMENTS_FORM_HOWTO_TEXT; ?>
                         </p>
                         
                         <div class="bg-light p-2 rounded mb-2">
                             <code class="small">{<?php echo html($fragment['system_name'] ?? 'имя_фрагмента'); ?>}</code>
                             <div class="text-muted small mt-1">
-                                Простой вывод всех записей фрагмента
+                                <?php echo LANG_TEMPLATE_FRAGMENTS_FORM_HOWTO_SIMPLE; ?>
                             </div>
                         </div>
                         
@@ -270,18 +269,18 @@
     &lt;/div&gt;
 {/ctype:<?php echo html($fragment['system_name'] ?? 'имя_фрагмента'); ?>}</code>
                             <div class="text-muted small mt-1">
-                                Кастомный вывод с циклом по записям
+                                <?php echo LANG_TEMPLATE_FRAGMENTS_FORM_HOWTO_CUSTOM; ?>
                             </div>
                         </div>
                         
                         <div class="bg-light p-2 rounded">
                             <code class="small">{field:название_поля}</code>
                             <div class="text-muted small mt-1">
-                                Вывод значения поля внутри цикла
+                                <?php echo LANG_TEMPLATE_FRAGMENTS_FORM_HOWTO_FIELD_VALUE; ?>
                             </div>
                             <code class="small mt-1 d-block">{field_display:название_поля}</code>
                             <div class="text-muted small mt-1">
-                                Вывод отрендеренного значения поля (изображения, ссылки и т.д.)
+                                <?php echo LANG_TEMPLATE_FRAGMENTS_FORM_HOWTO_FIELD_RENDERED; ?>
                             </div>
                         </div>
                     </div>
@@ -290,7 +289,7 @@
                 <div class="d-grid">
                     <button type="submit" class="btn btn-primary">
                         <?php echo bloggy_icon('bs', 'check-lg', '20', '#fff', 'me-2'); ?>
-                        <?php echo $isEdit ? 'Сохранить изменения' : 'Создать фрагмент'; ?>
+                        <?php echo $isEdit ? LANG_TEMPLATE_FRAGMENTS_FORM_SAVE_BTN : LANG_TEMPLATE_FRAGMENTS_FORM_CREATE_BTN; ?>
                     </button>
                 </div>
             </div>
@@ -301,7 +300,6 @@
 <?php ob_start(); ?>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Добавление CSS файлов
     const cssContainer = document.getElementById('css-files-container');
     const addCssBtn = document.getElementById('add-css-file');
     
@@ -318,7 +316,6 @@ document.addEventListener('DOMContentLoaded', function() {
         attachRemoveHandler(newRow.querySelector('.remove-asset'));
     });
     
-    // Добавление JS файлов
     const jsContainer = document.getElementById('js-files-container');
     const addJsBtn = document.getElementById('add-js-file');
     
@@ -343,7 +340,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     document.querySelectorAll('.remove-asset').forEach(attachRemoveHandler);
     
-    // Инициализация Ace Editor для CSS
     if (typeof ace !== 'undefined') {
         const cssEditor = ace.edit("inline-css-editor", {
             theme: "ace/theme/monokai",
@@ -365,7 +361,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
         
-        // Инициализация Ace Editor для JS
         const jsEditor = ace.edit("inline-js-editor", {
             theme: "ace/theme/monokai",
             mode: "ace/mode/javascript",

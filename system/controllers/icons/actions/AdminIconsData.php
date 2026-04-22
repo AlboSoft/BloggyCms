@@ -32,7 +32,7 @@ class AdminIconsData {
             if (empty($icons)) {
                 echo json_encode([
                     'success' => false,
-                    'message' => 'Иконки не найдены',
+                    'message' => LANG_ACTION_ICONS_ADMINICONSDATA_NOT_FOUND,
                     'data' => []
                 ]);
                 exit;
@@ -40,16 +40,16 @@ class AdminIconsData {
             
             echo json_encode([
                 'success' => true,
-                'message' => 'Иконки успешно загружены',
+                'message' => LANG_ACTION_ICONS_ADMINICONSDATA_SUCCESS,
                 'data' => $icons
             ]);
             
         } catch (\Exception $e) {
-            \Logger::error('Ошибка при загрузке иконок: ' . $e->getMessage());
+            \Logger::error(LANG_ACTION_ICONS_ADMINICONSDATA_ERROR . $e->getMessage());
             
             echo json_encode([
                 'success' => false,
-                'message' => 'Ошибка при загрузке иконок: ' . $e->getMessage(),
+                'message' => LANG_ACTION_ICONS_ADMINICONSDATA_ERROR . $e->getMessage(),
                 'data' => []
             ]);
         }
@@ -97,7 +97,7 @@ class AdminIconsData {
         }
         
         if (empty($icons)) {
-            throw new \Exception('В системе не найдено ни одного файла с иконками');
+            throw new \Exception(LANG_ACTION_ICONS_ADMINICONSDATA_NO_FILES);
         }
         
         return $icons;

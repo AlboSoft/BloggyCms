@@ -1,0 +1,6 @@
+<?php
+
+define('LANG_ACTION_HTMLBLOCKS_ADMININDEX_BREADCRUMB_DASHBOARD', 'Панель управления');
+define('LANG_ACTION_HTMLBLOCKS_ADMININDEX_BREADCRUMB_BLOCKS', 'Контент-блоки');
+define('LANG_ACTION_HTMLBLOCKS_ADMININDEX_PAGE_TITLE', 'Управление HTML-блоками');
+define('LANG_ACTION_HTMLBLOCKS_ADMININDEX_ERROR', 'Ошибка при загрузке списка HTML-блоков: ');

@@ -16,7 +16,7 @@ class AdminDelete extends MenuAction {
         $id = $this->params['id'] ?? null;
         
         if (!$id) {
-            \Notification::error('ID меню не указан');
+            \Notification::error(LANG_ACTION_MENU_ADMINDELETE_ID_NOT_SPECIFIED);
             $this->redirect(ADMIN_URL . '/menu');
             return;
         }
@@ -26,15 +26,15 @@ class AdminDelete extends MenuAction {
             $menu = $this->menuModel->getById($id);
             
             if (!$menu) {
-                throw new \Exception('Меню не найдено');
+                throw new \Exception(LANG_ACTION_MENU_ADMINDELETE_NOT_FOUND);
             }
 
             $this->menuModel->delete($id);
             
-            \Notification::success('Меню успешно удалено');
+            \Notification::success(LANG_ACTION_MENU_ADMINDELETE_SUCCESS);
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при удалении меню: ' . $e->getMessage());
+            \Notification::error(LANG_ACTION_MENU_ADMINDELETE_ERROR . $e->getMessage());
         }
         
         $this->redirect(ADMIN_URL . '/menu');

@@ -1,0 +1,6 @@
+<?php
+
+define('LANG_ACTION_FRAGMENTS_ADMINFIELDREORDER_INVALID_METHOD', 'Неверный метод запроса');
+define('LANG_ACTION_FRAGMENTS_ADMINFIELDREORDER_INVALID_DATA', 'Неверные данные');
+define('LANG_ACTION_FRAGMENTS_ADMINFIELDREORDER_SUCCESS', 'Порядок полей обновлен');
+define('LANG_ACTION_FRAGMENTS_ADMINFIELDREORDER_UPDATE_ERROR', 'Ошибка при обновлении порядка');

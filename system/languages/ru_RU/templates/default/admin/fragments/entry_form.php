@@ -1,0 +1,24 @@
+<?php
+
+define('LANG_TEMPLATE_FRAGMENTS_ENTRY_FORM_EDIT_TITLE', 'Редактирование записи');
+define('LANG_TEMPLATE_FRAGMENTS_ENTRY_FORM_CREATE_TITLE', 'Создание записи');
+define('LANG_TEMPLATE_FRAGMENTS_ENTRY_FORM_BACK_BTN', 'Назад к записям');
+define('LANG_TEMPLATE_FRAGMENTS_ENTRY_FORM_FIELDS_TITLE', 'Поля фрагмента');
+define('LANG_TEMPLATE_FRAGMENTS_ENTRY_FORM_NO_FIELDS_TEXT', 'У этого фрагмента нет полей.');
+define('LANG_TEMPLATE_FRAGMENTS_ENTRY_FORM_NO_FIELDS_LINK', 'Добавьте поля');
+define('LANG_TEMPLATE_FRAGMENTS_ENTRY_FORM_NO_FIELDS_SUFFIX', 'для создания записей.');
+define('LANG_TEMPLATE_FRAGMENTS_ENTRY_FORM_INFO_TITLE', 'Информация');
+define('LANG_TEMPLATE_FRAGMENTS_ENTRY_FORM_STATUS_LABEL', 'Статус');
+define('LANG_TEMPLATE_FRAGMENTS_ENTRY_FORM_STATUS_ACTIVE', 'Активна');
+define('LANG_TEMPLATE_FRAGMENTS_ENTRY_FORM_STATUS_INACTIVE', 'Неактивна');
+define('LANG_TEMPLATE_FRAGMENTS_ENTRY_FORM_STATUS_HINT', 'Неактивные записи не отображаются на сайте');
+define('LANG_TEMPLATE_FRAGMENTS_ENTRY_FORM_CREATED_LABEL', 'Создана:');
+define('LANG_TEMPLATE_FRAGMENTS_ENTRY_FORM_UPDATED_LABEL', 'Обновлена:');
+define('LANG_TEMPLATE_FRAGMENTS_ENTRY_FORM_ID_LABEL', 'ID записи:');
+define('LANG_TEMPLATE_FRAGMENTS_ENTRY_FORM_SHORTCODES_TITLE', 'Шорткоды для вывода');
+define('LANG_TEMPLATE_FRAGMENTS_ENTRY_FORM_SHORTCODES_HINT', 'При выводе фрагмента на сайте используйте:');
+define('LANG_TEMPLATE_FRAGMENTS_ENTRY_FORM_SHORTCODE_VALUE', 'Вывод значения поля "%s"');
+define('LANG_TEMPLATE_FRAGMENTS_ENTRY_FORM_SHORTCODE_RENDERED', 'Вывод отрендеренного значения (изображения, ссылки и т.д.)');
+define('LANG_TEMPLATE_FRAGMENTS_ENTRY_FORM_SAVE_BTN', 'Сохранить изменения');
+define('LANG_TEMPLATE_FRAGMENTS_ENTRY_FORM_CREATE_BTN', 'Создать запись');
+define('LANG_TEMPLATE_FRAGMENTS_ENTRY_FORM_CANCEL_BTN', 'Отмена');

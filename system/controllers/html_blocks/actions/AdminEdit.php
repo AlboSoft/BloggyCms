@@ -18,19 +18,19 @@ class AdminEdit extends HtmlBlockAction {
             $block = $this->htmlBlockModel->getById($this->id);
         
             if (!$block) {
-                \Notification::error('HTML-блок не найден');
+                \Notification::error(LANG_ACTION_HTMLBLOCKS_ADMINEDIT_BLOCK_NOT_FOUND);
                 $this->redirect(ADMIN_URL . '/html-blocks');
                 return;
             }
 
             $blockTypeName = $block['block_type'] ?? 'DefaultBlock';
 
-            $this->addBreadcrumb('Панель управления', ADMIN_URL);
-            $this->addBreadcrumb('Контент-блоки', ADMIN_URL . '/html-blocks');
-            $this->addBreadcrumb('Редактирование: ' . html($block['name']));
+            $this->addBreadcrumb(LANG_ACTION_HTMLBLOCKS_ADMINEDIT_BREADCRUMB_DASHBOARD, ADMIN_URL);
+            $this->addBreadcrumb(LANG_ACTION_HTMLBLOCKS_ADMINEDIT_BREADCRUMB_BLOCKS, ADMIN_URL . '/html-blocks');
+            $this->addBreadcrumb(LANG_ACTION_HTMLBLOCKS_ADMINEDIT_BREADCRUMB_EDIT . html($block['name']));
 
             if ($blockTypeName !== 'DefaultBlock' && !$this->blockTypeManager->isBlockTypeActive($blockTypeName)) {
-                \Notification::error('Невозможно редактировать блок: тип блока отключен. Сначала активируйте тип блока.');
+                \Notification::error(LANG_ACTION_HTMLBLOCKS_ADMINEDIT_BLOCK_TYPE_DISABLED);
                 $this->redirect(ADMIN_URL . '/html-blocks');
                 return;
             }
@@ -42,7 +42,7 @@ class AdminEdit extends HtmlBlockAction {
             if ($_SERVER['REQUEST_METHOD'] === 'POST' || !empty($_FILES)) {
                 try {
                     if (empty($_POST['name']) || empty($_POST['slug'])) {
-                        \Notification::error('Название и идентификатор блока обязательны для заполнения');
+                        \Notification::error(LANG_ACTION_HTMLBLOCKS_ADMINEDIT_NAME_SLUG_REQUIRED);
                         $this->renderFormWithData($_POST, $blockTypeName, $block);
                         return;
                     }
@@ -59,7 +59,7 @@ class AdminEdit extends HtmlBlockAction {
                             
                             list($isValid, $errors) = $blockInstance->validateSettings($settings);
                             if (!$isValid) {
-                                \Notification::error('Ошибки в настройках: ' . implode(', ', $errors));
+                                \Notification::error(LANG_ACTION_HTMLBLOCKS_ADMINEDIT_SETTINGS_ERROR . implode(', ', $errors));
                                 $this->renderFormWithData($_POST, $blockTypeName, $block);
                                 return;
                             }
@@ -102,12 +102,12 @@ class AdminEdit extends HtmlBlockAction {
 
                     \Event::trigger('html_block.saved', ['id' => $this->id, 'action' => 'update']);
                     
-                    \Notification::success('HTML-блок успешно обновлен');
+                    \Notification::success(LANG_ACTION_HTMLBLOCKS_ADMINEDIT_SUCCESS);
                     
                     $this->redirect(ADMIN_URL . '/html-blocks');
                     
                 } catch (\Exception $e) {
-                    \Notification::error('Ошибка при обновлении HTML-блока: ' . $e->getMessage());
+                    \Notification::error(LANG_ACTION_HTMLBLOCKS_ADMINEDIT_ERROR . $e->getMessage());
                     $this->renderFormWithData($_POST, $blockTypeName, $block);
                 }
             } 
@@ -116,7 +116,7 @@ class AdminEdit extends HtmlBlockAction {
             }
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при загрузке HTML-блока');
+            \Notification::error(LANG_ACTION_HTMLBLOCKS_ADMINEDIT_LOAD_ERROR);
             $this->redirect(ADMIN_URL . '/html-blocks');
         }
     }

@@ -3,7 +3,7 @@
 class DefaultServicesBlock extends BaseHtmlBlock {
     
     public function getName(): string {
-        return "Services Character";
+        return LANG_HTMLBLOCK_DEFAULTSERVICES_NAME;
     }
 
     public function getSystemName(): string {
@@ -11,11 +11,15 @@ class DefaultServicesBlock extends BaseHtmlBlock {
     }
 
     public function getDescription(): string {
-        return "Блок услуг в харизматичном стиле с картинками и описаниями";
+        return LANG_HTMLBLOCK_DEFAULTSERVICES_DESCRIPTION;
+    }
+
+    public function getAuthor(): string {
+        return 'BloggyCMS Team';
     }
 
     public function getVersion(): string {
-        return '1.1.0';
+        return '1.0.0';
     }
 
     public function getTemplate(): string {
@@ -26,74 +30,74 @@ class DefaultServicesBlock extends BaseHtmlBlock {
         
         $settings = array_merge([], $currentSettings);
         
-        $fieldsets[] = new \Fieldset('Заголовочная часть', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_DEFAULTSERVICES_FIELDSET_HEADER, [
             'icon' => 'bi bi-pencil',
             'columns' => 'custom',
             'fields' => [
                 \FieldFactory::string('badge', [
-                    'title' => 'Бейдж',
+                    'title' => LANG_HTMLBLOCK_DEFAULTSERVICES_FIELD_BADGE,
                     'column' => '12',
-                    'default' => $settings['badge'] ?? 'Что я делаю',
-                    'placeholder' => 'Например: Услуги',
+                    'default' => $settings['badge'] ?? LANG_HTMLBLOCK_DEFAULTSERVICES_DEFAULT_BADGE,
+                    'placeholder' => LANG_HTMLBLOCK_DEFAULTSERVICES_FIELD_BADGE_PLACEHOLDER,
                 ]),
                 \FieldFactory::string('title', [
-                    'title' => 'Заголовок',
+                    'title' => LANG_HTMLBLOCK_DEFAULTSERVICES_FIELD_TITLE,
                     'column' => '6',
-                    'default' => $settings['title'] ?? 'Разрабатываю <span class="highlight">сложные проекты</span>',
-                    'placeholder' => 'Используйте <span class="highlight"> для выделения',
+                    'default' => $settings['title'] ?? LANG_HTMLBLOCK_DEFAULTSERVICES_DEFAULT_TITLE,
+                    'placeholder' => LANG_HTMLBLOCK_DEFAULTSERVICES_FIELD_TITLE_PLACEHOLDER,
                 ]),
                 \FieldFactory::textarea('description', [
-                    'title' => 'Описание',
+                    'title' => LANG_HTMLBLOCK_DEFAULTSERVICES_FIELD_DESCRIPTION,
                     'column' => '6',
-                    'default' => $settings['description'] ?? 'Помогаю бизнесу расти с помощью качественного кода. От рефакторинга легаси до архитектуры высоконагруженных проектов.',
+                    'default' => $settings['description'] ?? LANG_HTMLBLOCK_DEFAULTSERVICES_DEFAULT_DESCRIPTION,
                     'rows' => 3,
                 ]),
             ]
         ]);
 
-        $fieldsets[] = new \Fieldset('Услуги', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_DEFAULTSERVICES_FIELDSET_SERVICES, [
             'icon' => 'bi bi-grid-3x3',
             'columns' => 'custom',
             'fields' => [
                 \FieldFactory::select('columns', [
-                    'title' => 'Количество колонок',
+                    'title' => LANG_HTMLBLOCK_DEFAULTSERVICES_FIELD_COLUMNS,
                     'column' => '12',
                     'options' => [
-                        '3' => '3 колонки',
-                        '2' => '2 колонки',
-                        '4' => '4 колонки',
+                        '3' => LANG_HTMLBLOCK_DEFAULTSERVICES_COLUMNS_3,
+                        '2' => LANG_HTMLBLOCK_DEFAULTSERVICES_COLUMNS_2,
+                        '4' => LANG_HTMLBLOCK_DEFAULTSERVICES_COLUMNS_4,
                     ],
                     'default' => '3',
                 ]),
                 \FieldFactory::repeater('services', [
-                'title' => 'Список услуг',
+                'title' => LANG_HTMLBLOCK_DEFAULTSERVICES_FIELD_SERVICES,
                 'column' => '12',
                 'repeater_columns' => 2,
-                'hint' => 'Картинка загружается отдельно для каждой услуги',
+                'hint' => LANG_HTMLBLOCK_DEFAULTSERVICES_FIELD_SERVICES_HINT,
                 'min_items' => 1,
                 'max_items' => 8,
                 'fields' => [
                     [
                         'name' => 'image',
-                        'title' => 'Изображение',
+                        'title' => LANG_HTMLBLOCK_DEFAULTSERVICES_FIELD_SERVICE_IMAGE,
                         'type' => 'blockimage',
                         'field_column' => '12',
                     ],
                     [
                         'name' => 'title',
-                        'title' => 'Название услуги',
+                        'title' => LANG_HTMLBLOCK_DEFAULTSERVICES_FIELD_SERVICE_TITLE,
                         'type' => 'string',
                         'field_column' => '12',
                     ],
                     [
                         'name' => 'description',
-                        'title' => 'Описание',
+                        'title' => LANG_HTMLBLOCK_DEFAULTSERVICES_FIELD_SERVICE_DESCRIPTION,
                         'type' => 'textarea',
                         'field_column' => '12',
                     ],
                     [
                         'name' => 'price',
-                        'title' => 'Цена (опционально)',
+                        'title' => LANG_HTMLBLOCK_DEFAULTSERVICES_FIELD_SERVICE_PRICE,
                         'type' => 'string',
                         'field_column' => '12',
                     ],
@@ -102,26 +106,26 @@ class DefaultServicesBlock extends BaseHtmlBlock {
             ]
         ]);
 
-        $fieldsets[] = new \Fieldset('Кнопки', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_DEFAULTSERVICES_FIELDSET_BUTTONS, [
             'icon' => 'bi bi-ui-radios',
             'columns' => '12',
             'fields' => [
                 \FieldFactory::repeater('buttons', [
-                    'title' => 'Кнопки под услугами',
-                    'hint' => 'Первая кнопка будет основной, остальные - второстепенные',
+                    'title' => LANG_HTMLBLOCK_DEFAULTSERVICES_FIELD_BUTTONS,
+                    'hint' => LANG_HTMLBLOCK_DEFAULTSERVICES_FIELD_BUTTONS_HINT,
                     'column' => '12',
                     'repeater_columns' => 2,
                     'fields' => [
                         [
                             'name' => 'text',
-                            'title' => 'Текст кнопки',
+                            'title' => LANG_HTMLBLOCK_DEFAULTSERVICES_FIELD_BUTTON_TEXT,
                             'type' => 'string',
-                            'placeholder' => 'Обсудить проект',
+                            'placeholder' => LANG_HTMLBLOCK_DEFAULTSERVICES_BUTTON_TEXT_PLACEHOLDER,
                             'field_column' => '12',
                         ],
                         [
                             'name' => 'url',
-                            'title' => 'Ссылка',
+                            'title' => LANG_HTMLBLOCK_DEFAULTSERVICES_FIELD_BUTTON_URL,
                             'type' => 'string',
                             'placeholder' => '/contact',
                             'default' => '#',
@@ -132,69 +136,69 @@ class DefaultServicesBlock extends BaseHtmlBlock {
             ]
         ]);
 
-        $fieldsets[] = new \Fieldset('Цвета и фон', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_DEFAULTSERVICES_FIELDSET_COLORS, [
             'icon' => 'bi bi-palette',
             'columns' => 'custom',
             'fields' => [
                 \FieldFactory::select('theme', [
-                    'title' => 'Тема',
+                    'title' => LANG_HTMLBLOCK_DEFAULTSERVICES_FIELD_THEME,
                     'options' => [
-                        'light' => 'Светлая',
-                        'dark' => 'Темная',
-                        'custom' => 'Своя',
+                        'light' => LANG_HTMLBLOCK_DEFAULTSERVICES_THEME_LIGHT,
+                        'dark' => LANG_HTMLBLOCK_DEFAULTSERVICES_THEME_DARK,
+                        'custom' => LANG_HTMLBLOCK_DEFAULTSERVICES_THEME_CUSTOM,
                     ],
                     'column' => '12',
                     'default' => 'light',
                 ]),
                 \FieldFactory::color('background_color', [
-                    'title' => 'Цвет фона',
+                    'title' => LANG_HTMLBLOCK_DEFAULTSERVICES_FIELD_BACKGROUND_COLOR,
                     'preset' => 'basic',
                     'column' => '6',
                     'show' => 'field:theme = custom',
                 ]),
                 \FieldFactory::color('text_color', [
-                    'title' => 'Цвет текста',
+                    'title' => LANG_HTMLBLOCK_DEFAULTSERVICES_FIELD_TEXT_COLOR,
                     'preset' => 'basic',
                     'column' => '6',
                     'show' => 'field:theme = custom',
                 ]),
                 \FieldFactory::color('accent_color', [
-                    'title' => 'Акцентный цвет',
+                    'title' => LANG_HTMLBLOCK_DEFAULTSERVICES_FIELD_ACCENT_COLOR,
                     'preset' => 'website',
                     'column' => '6',
                     'default' => '#2563eb',
                 ]),
                 \FieldFactory::color('card_background', [
-                    'title' => 'Цвет карточек',
+                    'title' => LANG_HTMLBLOCK_DEFAULTSERVICES_FIELD_CARD_BACKGROUND,
                     'preset' => 'basic',
                     'column' => '6',
                     'default' => $settings['card_background'] ?? '',
-                    'hint' => 'Оставьте пустым для автоматического',
+                    'hint' => LANG_HTMLBLOCK_DEFAULTSERVICES_FIELD_CARD_BACKGROUND_HINT,
                 ]),
             ]
         ]);
 
-        $fieldsets[] = new \Fieldset('Отступы', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_DEFAULTSERVICES_FIELDSET_PADDING, [
             'icon' => 'bi bi-arrows-expand',
             'columns' => 'custom',
             'fields' => [
                 \FieldFactory::select('align', [
-                    'title' => 'Выравнивание заголовка',
+                    'title' => LANG_HTMLBLOCK_DEFAULTSERVICES_FIELD_ALIGN,
                     'options' => [
-                        'left' => 'Слева',
-                        'center' => 'По центру',
+                        'left' => LANG_HTMLBLOCK_DEFAULTSERVICES_ALIGN_LEFT,
+                        'center' => LANG_HTMLBLOCK_DEFAULTSERVICES_ALIGN_CENTER,
                     ],
                     'column' => '12',
                     'default' => 'center',
                 ]),
                 \FieldFactory::number('padding_top', [
-                    'title' => 'Отступ сверху (px)',
+                    'title' => LANG_HTMLBLOCK_DEFAULTSERVICES_FIELD_PADDING_TOP,
                     'default' => 80,
                     'max' => 200,
                     'column' => '6'
                 ]),
                 \FieldFactory::number('padding_bottom', [
-                    'title' => 'Отступ снизу (px)',
+                    'title' => LANG_HTMLBLOCK_DEFAULTSERVICES_FIELD_PADDING_BOTTOM,
                     'default' => 80,
                     'max' => 200,
                     'column' => '6'

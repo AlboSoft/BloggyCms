@@ -11,18 +11,18 @@ class AdminIndex extends FragmentAction {
     * Действие отображения списка фрагментов
     */
     public function execute() {
-        $this->addBreadcrumb('Панель управления', ADMIN_URL);
-        $this->addBreadcrumb('Фрагменты');
-        $this->setPageTitle('Управление фрагментами');
+        $this->addBreadcrumb(LANG_ACTION_FRAGMENTS_ADMININDEX_BREADCRUMB_DASHBOARD, ADMIN_URL);
+        $this->addBreadcrumb(LANG_ACTION_FRAGMENTS_ADMININDEX_BREADCRUMB_FRAGMENTS);
+        $this->setPageTitle(LANG_ACTION_FRAGMENTS_ADMININDEX_PAGE_TITLE);
         
         $fragments = $this->fragmentModel->getAll();
         
         $hints = [
-            "Фрагменты позволяют создавать повторяемые блоки контента с произвольными полями",
-            "После создания фрагмента вы можете добавить поля и заполнить их данными",
-            "Для вывода фрагмента на сайте используйте шорткод {имя_фрагмента} или {ctype:имя_фрагмента}...{/ctype:имя_фрагмента}",
-            "Вы можете подключить CSS и JS файлы для стилизации фрагмента",
-            "Поля фрагмента создаются точно так же, как и обычные поля в системе"
+            LANG_ACTION_FRAGMENTS_ADMININDEX_HINT_1,
+            LANG_ACTION_FRAGMENTS_ADMININDEX_HINT_2,
+            LANG_ACTION_FRAGMENTS_ADMININDEX_HINT_3,
+            LANG_ACTION_FRAGMENTS_ADMININDEX_HINT_4,
+            LANG_ACTION_FRAGMENTS_ADMININDEX_HINT_5
         ];
         
         $randomHint = $hints[array_rand($hints)];

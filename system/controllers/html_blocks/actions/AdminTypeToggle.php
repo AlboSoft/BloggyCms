@@ -24,13 +24,13 @@ class AdminTypeToggle extends HtmlBlockAction {
     public function execute() {
         
         if (!$this->systemName) {
-            \Notification::error('Системное имя типа блока не указано');
+            \Notification::error(LANG_ACTION_HTMLBLOCKS_ADMINTYPETOGGLE_SYSTEM_NAME_REQUIRED);
             $this->redirect(ADMIN_URL . '/html-blocks/types');
             return;
         }
 
         if ($this->systemName === 'DefaultBlock') {
-            \Notification::error('Нельзя отключить дефолтный тип блока');
+            \Notification::error(LANG_ACTION_HTMLBLOCKS_ADMINTYPETOGGLE_CANNOT_DISABLE_DEFAULT);
             $this->redirect(ADMIN_URL . '/html-blocks/types');
             return;
         }
@@ -42,11 +42,11 @@ class AdminTypeToggle extends HtmlBlockAction {
             
             $this->blockTypeManager->toggleBlockTypeStatus($this->systemName, $newStatus);
             
-            $statusText = $newStatus ? 'включен' : 'отключен';
-            \Notification::success("Тип блока успешно $statusText");
+            $statusText = $newStatus ? LANG_ACTION_HTMLBLOCKS_ADMINTYPETOGGLE_ENABLED : LANG_ACTION_HTMLBLOCKS_ADMINTYPETOGGLE_DISABLED;
+            \Notification::success(sprintf(LANG_ACTION_HTMLBLOCKS_ADMINTYPETOGGLE_SUCCESS, $statusText));
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при изменении статуса типа блока: ' . $e->getMessage());
+            \Notification::error(LANG_ACTION_HTMLBLOCKS_ADMINTYPETOGGLE_ERROR . $e->getMessage());
         }
         
         $this->redirect(ADMIN_URL . '/html-blocks/types');

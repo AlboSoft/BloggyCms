@@ -1,9 +1,9 @@
 <?php
 
 return [
-    'name' => 'Фрагменты',
+    'name' => LANG_CONTROLLER_FRAGMENTS_MANIFEST_NAME,
     'author' => 'BloggyCMS',
     'version' => '1.0.0',
     'has_settings' => false,
-    'description' => 'Управление фрагментами - произвольными типами контента для построения дизайна'
+    'description' => LANG_CONTROLLER_FRAGMENTS_MANIFEST_DESCRIPTION
 ];

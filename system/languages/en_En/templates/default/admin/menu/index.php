@@ -1,0 +1,18 @@
+<?php
+
+define('LANG_TEMPLATE_MENU_INDEX_TITLE', 'Manage Menus');
+define('LANG_TEMPLATE_MENU_INDEX_CREATE_BTN', 'Create Menu');
+define('LANG_TEMPLATE_MENU_INDEX_NO_MENUS_TITLE', 'No menus created');
+define('LANG_TEMPLATE_MENU_INDEX_NO_MENUS_TEXT', 'Create your first menu for the site');
+define('LANG_TEMPLATE_MENU_INDEX_TABLE_ID', 'ID');
+define('LANG_TEMPLATE_MENU_INDEX_TABLE_NAME', 'Name');
+define('LANG_TEMPLATE_MENU_INDEX_TABLE_TEMPLATE', 'Template');
+define('LANG_TEMPLATE_MENU_INDEX_TABLE_STATUS', 'Status');
+define('LANG_TEMPLATE_MENU_INDEX_TABLE_DATE', 'Created Date');
+define('LANG_TEMPLATE_MENU_INDEX_TABLE_ACTIONS', 'Actions');
+define('LANG_TEMPLATE_MENU_INDEX_STATUS_ACTIVE', 'Active');
+define('LANG_TEMPLATE_MENU_INDEX_STATUS_INACTIVE', 'Inactive');
+define('LANG_TEMPLATE_MENU_INDEX_ACTION_PREVIEW', 'Preview');
+define('LANG_TEMPLATE_MENU_INDEX_ACTION_EDIT', 'Edit');
+define('LANG_TEMPLATE_MENU_INDEX_ACTION_DELETE', 'Delete');
+define('LANG_TEMPLATE_MENU_INDEX_DELETE_CONFIRM', 'Are you sure you want to delete menu "');

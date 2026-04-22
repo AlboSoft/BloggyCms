@@ -14,9 +14,9 @@ class AdminSelectType extends HtmlBlockAction {
     */
     public function execute() {
         
-        $this->addBreadcrumb('Панель управления', ADMIN_URL);
-        $this->addBreadcrumb('Контент-блоки', ADMIN_URL . '/html-blocks');
-        $this->addBreadcrumb('Выбор типа блока');
+        $this->addBreadcrumb(LANG_ACTION_HTMLBLOCKS_ADMINSELECTTYPE_BREADCRUMB_DASHBOARD, ADMIN_URL);
+        $this->addBreadcrumb(LANG_ACTION_HTMLBLOCKS_ADMINSELECTTYPE_BREADCRUMB_BLOCKS, ADMIN_URL . '/html-blocks');
+        $this->addBreadcrumb(LANG_ACTION_HTMLBLOCKS_ADMINSELECTTYPE_BREADCRUMB_SELECT);
         
         $blockTypes = $this->blockTypeManager->getBlockTypes();
         
@@ -24,14 +24,14 @@ class AdminSelectType extends HtmlBlockAction {
         
         $defaultBlock = [
             'DefaultBlock' => [
-                'name' => 'Дефолтный блок',
+                'name' => LANG_ACTION_HTMLBLOCKS_ADMINSELECTTYPE_DEFAULT_BLOCK_NAME,
                 'system_name' => 'DefaultBlock',
-                'description' => 'Произвольный HTML-код с поддержкой шорткодов',
+                'description' => LANG_ACTION_HTMLBLOCKS_ADMINSELECTTYPE_DEFAULT_BLOCK_DESC,
                 'icon' => 'bi bi-code-slash',
                 'author' => 'BloggyCMS',
                 'version' => '1.0.0',
                 'author_website' => '',
-                'short_description' => 'Создавайте произвольные HTML-блоки с поддержкой всех системных шорткодов',
+                'short_description' => LANG_ACTION_HTMLBLOCKS_ADMINSELECTTYPE_DEFAULT_BLOCK_SHORT_DESC,
                 'template' => 'all'
             ]
         ];
@@ -44,7 +44,7 @@ class AdminSelectType extends HtmlBlockAction {
             'blockTypes' => $allBlocks,
             'availableTemplates' => $availableTemplates,
             'currentTemplate' => $currentTemplate,
-            'pageTitle' => 'Выбор типа HTML-блока'
+            'pageTitle' => LANG_ACTION_HTMLBLOCKS_ADMINSELECTTYPE_PAGE_TITLE
         ]);
     }
 

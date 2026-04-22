@@ -17,7 +17,7 @@ class AdminPreview extends MenuAction {
         $id = $this->params['id'] ?? null;
         
         if (!$id) {
-            \Notification::error('ID меню не указан');
+            \Notification::error(LANG_ACTION_MENU_ADMINPREVIEW_ID_NOT_SPECIFIED);
             $this->redirect(ADMIN_URL . '/menu');
             return;
         }
@@ -25,15 +25,15 @@ class AdminPreview extends MenuAction {
         $menu = $this->menuModel->getById($id);
 
         if (!$menu) {
-            \Notification::error('Меню не найдено');
+            \Notification::error(LANG_ACTION_MENU_ADMINPREVIEW_NOT_FOUND);
             $this->redirect(ADMIN_URL . '/menu');
             return;
         }
         
-        $this->addBreadcrumb('Панель управления', ADMIN_URL);
-        $this->addBreadcrumb('Меню', ADMIN_URL . '/menu');
-        $this->addBreadcrumb('Редактирование: ' . html($menu['name']), ADMIN_URL . '/menu/edit/' . $id);
-        $this->addBreadcrumb('Предпросмотр');
+        $this->addBreadcrumb(LANG_ACTION_MENU_ADMINPREVIEW_BREADCRUMB_DASHBOARD, ADMIN_URL);
+        $this->addBreadcrumb(LANG_ACTION_MENU_ADMINPREVIEW_BREADCRUMB_MENU, ADMIN_URL . '/menu');
+        $this->addBreadcrumb(LANG_ACTION_MENU_ADMINPREVIEW_BREADCRUMB_EDIT . html($menu['name']), ADMIN_URL . '/menu/edit/' . $id);
+        $this->addBreadcrumb(LANG_ACTION_MENU_ADMINPREVIEW_BREADCRUMB_PREVIEW);
         
         $currentTheme = $this->menuModel->getCurrentTheme();
         
@@ -46,7 +46,7 @@ class AdminPreview extends MenuAction {
             'structure' => $structure,
             'templateFile' => $templateFile,
             'currentTheme' => $currentTheme,
-            'pageTitle' => 'Предпросмотр меню: ' . $menu['name']
+            'pageTitle' => LANG_ACTION_MENU_ADMINPREVIEW_PAGE_TITLE . $menu['name']
         ]);
     }
 

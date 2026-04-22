@@ -15,14 +15,14 @@ class AdminIndex extends MenuAction {
     */
     public function execute() {
 
-        $this->addBreadcrumb('Панель управления', ADMIN_URL);
-        $this->addBreadcrumb('Меню');
+        $this->addBreadcrumb(LANG_ACTION_MENU_ADMININDEX_BREADCRUMB_DASHBOARD, ADMIN_URL);
+        $this->addBreadcrumb(LANG_ACTION_MENU_ADMININDEX_BREADCRUMB_MENU);
         
         $menus = $this->menuModel->getAll();
         
         $this->render('admin/menu/index', [
             'menus' => $menus,
-            'pageTitle' => 'Управление меню'
+            'pageTitle' => LANG_ACTION_MENU_ADMININDEX_PAGE_TITLE
         ]);
     }
     

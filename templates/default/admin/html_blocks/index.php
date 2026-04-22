@@ -2,22 +2,22 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h4 class="mb-0">
             <?php echo bloggy_icon('bs', 'code-square', '24', '#000', 'me-2'); ?>
-            Контент-блоки
+            <?php echo LANG_TEMPLATE_HTMLBLOCKS_INDEX_TITLE; ?>
         </h4>
         <div>
             <a href="<?php echo ADMIN_URL; ?>/html-blocks/clear-cache" 
             class="btn btn-warning me-2"
-            onclick="return confirm('Очистить кеш CSS блоков? CSS будет перегенерирован автоматически.')">
+            onclick="return confirm('<?php echo LANG_TEMPLATE_HTMLBLOCKS_INDEX_CLEAR_CACHE_CONFIRM; ?>')">
                 <?php echo bloggy_icon('bs', 'arrow-repeat', '16', '#000', 'me-2'); ?>
-                Очистить кеш CSS
+                <?php echo LANG_TEMPLATE_HTMLBLOCKS_INDEX_CLEAR_CACHE_BTN; ?>
             </a>
             <a href="<?php echo ADMIN_URL; ?>/html-blocks/types" class="btn btn-outline-secondary me-2">
                 <?php echo bloggy_icon('bs', 'boxes', '16', '#000', 'me-2'); ?>
-                Типы блоков
+                <?php echo LANG_TEMPLATE_HTMLBLOCKS_INDEX_TYPES_BTN; ?>
             </a>
             <a href="<?php echo ADMIN_URL; ?>/html-blocks/select-type" class="btn btn-primary">
                 <?php echo bloggy_icon('bs', 'plus-lg', '16', '#fff', 'me-2'); ?>
-                Создать блок
+                <?php echo LANG_TEMPLATE_HTMLBLOCKS_INDEX_CREATE_BTN; ?>
             </a>
         </div>
     </div>
@@ -29,11 +29,11 @@
                     <div class="mb-3">
                         <?php echo bloggy_icon('bs', 'code-square', '48', '#6C6C6C'); ?>
                     </div>
-                    <h5 class="text-muted">Контент-блоки пока не созданы</h5>
-                    <p class="text-muted">Создайте первый контент-блок для вашего сайта</p>
+                    <h5 class="text-muted"><?php echo LANG_TEMPLATE_HTMLBLOCKS_INDEX_NO_BLOCKS_TITLE; ?></h5>
+                    <p class="text-muted"><?php echo LANG_TEMPLATE_HTMLBLOCKS_INDEX_NO_BLOCKS_TEXT; ?></p>
                     <a href="<?php echo ADMIN_URL; ?>/html-blocks/select-type" class="btn btn-primary">
                         <?php echo bloggy_icon('bs', 'plus-lg', '16', '#fff', 'me-2'); ?>
-                        Создать блок
+                        <?php echo LANG_TEMPLATE_HTMLBLOCKS_INDEX_CREATE_BTN; ?>
                     </a>
                 </div>
             <?php } else { ?>
@@ -41,12 +41,12 @@
                     <table class="table table-hover align-middle">
                         <thead class="table-light">
                             <tr>
-                                <th>Название</th>
-                                <th>Тип</th>
-                                <th>Шаблон</th>
-                                <th>Идентификатор</th>
-                                <th>Статус типа</th>
-                                <th class="text-end">Действия</th>
+                                <th><?php echo LANG_TEMPLATE_HTMLBLOCKS_INDEX_TABLE_NAME; ?></th>
+                                <th><?php echo LANG_TEMPLATE_HTMLBLOCKS_INDEX_TABLE_TYPE; ?></th>
+                                <th><?php echo LANG_TEMPLATE_HTMLBLOCKS_INDEX_TABLE_TEMPLATE; ?></th>
+                                <th><?php echo LANG_TEMPLATE_HTMLBLOCKS_INDEX_TABLE_SLUG; ?></th>
+                                <th><?php echo LANG_TEMPLATE_HTMLBLOCKS_INDEX_TABLE_TYPE_STATUS; ?></th>
+                                <th class="text-end"><?php echo LANG_TEMPLATE_HTMLBLOCKS_INDEX_TABLE_ACTIONS; ?></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -59,12 +59,12 @@
                                     <?php if (!$typeIsActive) { ?>
                                     <div class="text-warning small mt-1">
                                         <?php echo bloggy_icon('bs', 'exclamation-triangle', '16', '#ffc107', 'me-1'); ?>
-                                        Тип блока отключен
+                                        <?php echo LANG_TEMPLATE_HTMLBLOCKS_INDEX_TYPE_DISABLED; ?>
                                     </div>
                                     <?php } ?>
                                 </td>
                                 <td>
-                                    <span class="badge bg-secondary"><?php echo html($block['type_name'] ?? 'Дефолтный'); ?></span>
+                                    <span class="badge bg-secondary"><?php echo html($block['type_name'] ?? LANG_TEMPLATE_HTMLBLOCKS_INDEX_DEFAULT_TYPE); ?></span>
                                 </td>
                                 <td>
                                     <?php if (!empty($block['template']) && $block['template'] !== 'all') { ?>
@@ -78,9 +78,9 @@
                                 </td>
                                 <td>
                                     <?php if ($typeIsActive) { ?>
-                                        <span class="badge bg-success">Активен</span>
+                                        <span class="badge bg-success"><?php echo LANG_TEMPLATE_HTMLBLOCKS_INDEX_STATUS_ACTIVE; ?></span>
                                     <?php } else { ?>
-                                        <span class="badge bg-warning">Тип отключен</span>
+                                        <span class="badge bg-warning"><?php echo LANG_TEMPLATE_HTMLBLOCKS_INDEX_STATUS_TYPE_DISABLED; ?></span>
                                     <?php } ?>
                                 </td>
                                 <td>
@@ -88,21 +88,21 @@
                                         <?php if ($typeIsActive) { ?>
                                             <a href="<?php echo ADMIN_URL; ?>/html-blocks/edit/<?php echo $block['id']; ?>" 
                                                class="btn btn-sm btn-outline-primary"
-                                               title="Редактировать">
+                                               title="<?php echo LANG_TEMPLATE_HTMLBLOCKS_INDEX_ACTION_EDIT; ?>">
                                                 <?php echo bloggy_icon('bs', 'pencil', '16', '#000'); ?>
                                             </a>
                                         <?php } else { ?>
                                             <button class="btn btn-sm btn-outline-secondary" 
                                                     disabled
-                                                    title="Сначала активируйте тип блока">
+                                                    title="<?php echo LANG_TEMPLATE_HTMLBLOCKS_INDEX_ACTION_DISABLED_TITLE; ?>">
                                                 <?php echo bloggy_icon('bs', 'pencil', '16', '#6c757d'); ?>
                                             </button>
                                         <?php } ?>
                                         
                                         <a href="<?php echo ADMIN_URL; ?>/html-blocks/delete/<?php echo $block['id']; ?>" 
                                            class="btn btn-sm btn-outline-danger"
-                                           onclick="return confirm('Вы уверены, что хотите удалить этот блок?')"
-                                           title="Удалить">
+                                           onclick="return confirm('<?php echo LANG_TEMPLATE_HTMLBLOCKS_INDEX_DELETE_CONFIRM; ?>')"
+                                           title="<?php echo LANG_TEMPLATE_HTMLBLOCKS_INDEX_ACTION_DELETE; ?>">
                                             <?php echo bloggy_icon('bs', 'trash', '16', '#000'); ?>
                                         </a>
                                     </div>

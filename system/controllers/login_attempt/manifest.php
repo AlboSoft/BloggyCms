@@ -1,8 +1,8 @@
 <?php
 return [
-    'name' => 'Проверка авторизации',
+    'name' => LANG_CONTROLLER_LOGINATTEMPT_MANIFEST_NAME,
     'author' => 'BloggyCMS',
     'version' => '1.0.0',
     'has_settings' => false,
-    'description' => 'Управляет опциями авторизации / регистрации'
+    'description' => LANG_CONTROLLER_LOGINATTEMPT_MANIFEST_DESCRIPTION
 ];

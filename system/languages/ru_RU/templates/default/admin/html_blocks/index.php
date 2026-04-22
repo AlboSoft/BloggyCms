@@ -1,0 +1,23 @@
+<?php
+
+define('LANG_TEMPLATE_HTMLBLOCKS_INDEX_TITLE', 'Контент-блоки');
+define('LANG_TEMPLATE_HTMLBLOCKS_INDEX_CLEAR_CACHE_CONFIRM', 'Очистить кеш CSS блоков? CSS будет перегенерирован автоматически.');
+define('LANG_TEMPLATE_HTMLBLOCKS_INDEX_CLEAR_CACHE_BTN', 'Очистить кеш CSS');
+define('LANG_TEMPLATE_HTMLBLOCKS_INDEX_TYPES_BTN', 'Типы блоков');
+define('LANG_TEMPLATE_HTMLBLOCKS_INDEX_CREATE_BTN', 'Создать блок');
+define('LANG_TEMPLATE_HTMLBLOCKS_INDEX_NO_BLOCKS_TITLE', 'Контент-блоки пока не созданы');
+define('LANG_TEMPLATE_HTMLBLOCKS_INDEX_NO_BLOCKS_TEXT', 'Создайте первый контент-блок для вашего сайта');
+define('LANG_TEMPLATE_HTMLBLOCKS_INDEX_TABLE_NAME', 'Название');
+define('LANG_TEMPLATE_HTMLBLOCKS_INDEX_TABLE_TYPE', 'Тип');
+define('LANG_TEMPLATE_HTMLBLOCKS_INDEX_TABLE_TEMPLATE', 'Шаблон');
+define('LANG_TEMPLATE_HTMLBLOCKS_INDEX_TABLE_SLUG', 'Идентификатор');
+define('LANG_TEMPLATE_HTMLBLOCKS_INDEX_TABLE_TYPE_STATUS', 'Статус типа');
+define('LANG_TEMPLATE_HTMLBLOCKS_INDEX_TABLE_ACTIONS', 'Действия');
+define('LANG_TEMPLATE_HTMLBLOCKS_INDEX_TYPE_DISABLED', 'Тип блока отключен');
+define('LANG_TEMPLATE_HTMLBLOCKS_INDEX_DEFAULT_TYPE', 'Дефолтный');
+define('LANG_TEMPLATE_HTMLBLOCKS_INDEX_STATUS_ACTIVE', 'Активен');
+define('LANG_TEMPLATE_HTMLBLOCKS_INDEX_STATUS_TYPE_DISABLED', 'Тип отключен');
+define('LANG_TEMPLATE_HTMLBLOCKS_INDEX_ACTION_EDIT', 'Редактировать');
+define('LANG_TEMPLATE_HTMLBLOCKS_INDEX_ACTION_DISABLED_TITLE', 'Сначала активируйте тип блока');
+define('LANG_TEMPLATE_HTMLBLOCKS_INDEX_DELETE_CONFIRM', 'Вы уверены, что хотите удалить этот блок?');
+define('LANG_TEMPLATE_HTMLBLOCKS_INDEX_ACTION_DELETE', 'Удалить');

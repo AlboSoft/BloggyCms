@@ -26,7 +26,7 @@ class HtmlBlockController extends Controller {
     */
     public function showAction($slug = null) {
         if (!$slug) {
-            \Notification::error('Slug блока не указан');
+            \Notification::error(LANG_CONTROLLER_HTMLBLOCK_SLUG_NOT_SPECIFIED);
             $this->redirect(BASE_URL . '/404');
             return;
         }
@@ -35,7 +35,7 @@ class HtmlBlockController extends Controller {
             $block = $this->htmlBlockModel->getBySlug($slug);
         
             if (!$block) {
-                \Notification::error('HTML-блок не найден');
+                \Notification::error(LANG_CONTROLLER_HTMLBLOCK_NOT_FOUND);
                 $this->redirect(BASE_URL . '/404');
                 return;
             }
@@ -69,7 +69,7 @@ class HtmlBlockController extends Controller {
                 }
             
             if (empty($blockContent)) {
-                $blockContent = '<div class="alert alert-info">Блок "' . html($block['name'] ?? '') . '" не имеет содержимого.</div>';
+                $blockContent = sprintf(LANG_CONTROLLER_HTMLBLOCK_NO_CONTENT, html($block['name'] ?? ''));
             }
             
             $this->render('front/html_block', [
@@ -79,7 +79,7 @@ class HtmlBlockController extends Controller {
             ]);
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при загрузке HTML-блока: ' . $e->getMessage());
+            \Notification::error(LANG_CONTROLLER_HTMLBLOCK_LOAD_ERROR . $e->getMessage());
             $this->redirect(BASE_URL);
         }
     }

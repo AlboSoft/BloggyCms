@@ -172,10 +172,10 @@ abstract class MenuAction {
             <div class="col-md-6">
                 <label class="form-label small">
                     <?php echo bloggy_icon('bs', 'eye', '14', '#000', 'me-1'); ?>
-                    Показывать группам
+                    <?php echo LANG_ACTION_MENU_MENUACTION_SHOW_TO_GROUPS; ?>
                 </label>
                 <select class="form-select form-select-sm menu-item-show-to" multiple size="4">
-                    <option value="">Все группы (если не выбрано)</option>
+                    <option value=""><?php echo LANG_ACTION_MENU_MENUACTION_ALL_GROUPS; ?></option>
                     <?php foreach ($groups as $group) { ?>
                         <option value="<?= html($group['id']) ?>" 
                             <?= in_array($group['id'], $currentShowTo) ? 'selected' : '' ?>>
@@ -183,16 +183,16 @@ abstract class MenuAction {
                         </option>
                     <?php } ?>
                 </select>
-                <div class="form-text small">Оставьте пустым чтобы показывать всем</div>
+                <div class="form-text small"><?php echo LANG_ACTION_MENU_MENUACTION_SHOW_TO_GROUPS_HINT; ?></div>
             </div>
             
             <div class="col-md-6">
                 <label class="form-label small">
                     <?php echo bloggy_icon('bs', 'eye-slash', '14', '#000', 'me-1'); ?>
-                    Не показывать группам
+                    <?php echo LANG_ACTION_MENU_MENUACTION_HIDE_FROM_GROUPS; ?>
                 </label>
                 <select class="form-select form-select-sm menu-item-hide-from" multiple size="4">
-                    <option value="">Никому не скрывать</option>
+                    <option value=""><?php echo LANG_ACTION_MENU_MENUACTION_NO_HIDE; ?></option>
                     <?php foreach ($groups as $group) { ?>
                         <option value="<?= html($group['id']) ?>" 
                             <?= in_array($group['id'], $currentHideFrom) ? 'selected' : '' ?>>
@@ -200,13 +200,13 @@ abstract class MenuAction {
                         </option>
                     <?php } ?>
                 </select>
-                <div class="form-text small">Выберите группы которым скрыть этот пункт</div>
+                <div class="form-text small"><?php echo LANG_ACTION_MENU_MENUACTION_HIDE_FROM_GROUPS_HINT; ?></div>
             </div>
         </div>
         
         <div class="alert alert-info mt-2 p-2 small">
             <?php echo bloggy_icon('bs', 'info-circle', '14', '#000', 'me-1'); ?>
-            <strong>Приоритет:</strong> Сначала проверяется "Показывать группам", затем "Не показывать группам"
+            <strong><?php echo LANG_ACTION_MENU_MENUACTION_PRIORITY_TITLE; ?></strong> <?php echo LANG_ACTION_MENU_MENUACTION_PRIORITY_TEXT; ?>
         </div>
         <?php
         return ob_get_clean();
@@ -222,8 +222,8 @@ abstract class MenuAction {
         
         $groups[] = [
             'id' => 'guest',
-            'name' => 'Гость',
-            'description' => 'Неавторизованные пользователи'
+            'name' => LANG_ACTION_MENU_MENUACTION_GROUP_GUEST,
+            'description' => LANG_ACTION_MENU_MENUACTION_GROUP_GUEST_DESC
         ];
         
         return $groups;

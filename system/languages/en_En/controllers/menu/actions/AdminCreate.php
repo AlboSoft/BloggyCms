@@ -1,0 +1,12 @@
+<?php
+
+define('LANG_ACTION_MENU_ADMINCREATE_BREADCRUMB_DASHBOARD', 'Dashboard');
+define('LANG_ACTION_MENU_ADMINCREATE_BREADCRUMB_MENU', 'Menu');
+define('LANG_ACTION_MENU_ADMINCREATE_BREADCRUMB_CREATE', 'Create Menu');
+define('LANG_ACTION_MENU_ADMINCREATE_NAME_REQUIRED', 'Menu name is required');
+define('LANG_ACTION_MENU_ADMINCREATE_TEMPLATE_REQUIRED', 'Menu template is required');
+define('LANG_ACTION_MENU_ADMINCREATE_TEMPLATE_NOT_EXISTS', 'The specified template does not exist in the current theme');
+define('LANG_ACTION_MENU_ADMINCREATE_INVALID_STRUCTURE', 'Invalid menu structure');
+define('LANG_ACTION_MENU_ADMINCREATE_SUCCESS', 'Menu created successfully');
+define('LANG_ACTION_MENU_ADMINCREATE_PAGE_TITLE', 'Create Menu');
+define('LANG_ACTION_MENU_ADMINCREATE_GROUP_GUEST', 'Guest');

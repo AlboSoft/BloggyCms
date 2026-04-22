@@ -1,0 +1,12 @@
+<?php
+
+define('LANG_ACTION_FRAGMENTS_ADMINEDIT_ID_NOT_SPECIFIED', 'Fragment ID not specified');
+define('LANG_ACTION_FRAGMENTS_ADMINEDIT_NOT_FOUND', 'Fragment not found');
+define('LANG_ACTION_FRAGMENTS_ADMINEDIT_BREADCRUMB_DASHBOARD', 'Dashboard');
+define('LANG_ACTION_FRAGMENTS_ADMINEDIT_BREADCRUMB_FRAGMENTS', 'Fragments');
+define('LANG_ACTION_FRAGMENTS_ADMINEDIT_BREADCRUMB_EDIT', 'Edit: ');
+define('LANG_ACTION_FRAGMENTS_ADMINEDIT_PAGE_TITLE', 'Edit Fragment: ');
+define('LANG_ACTION_FRAGMENTS_ADMINEDIT_NAME_REQUIRED', 'Fragment name is required');
+define('LANG_ACTION_FRAGMENTS_ADMINEDIT_SYSTEM_NAME_REQUIRED', 'System name is required');
+define('LANG_ACTION_FRAGMENTS_ADMINEDIT_SYSTEM_NAME_EXISTS', 'A fragment with this system name already exists');
+define('LANG_ACTION_FRAGMENTS_ADMINEDIT_SUCCESS', 'Fragment successfully updated');

@@ -11,7 +11,7 @@ class AdminEntries extends FragmentAction {
         $id = $this->params['id'] ?? null;
         
         if (!$id) {
-            \Notification::error('ID фрагмента не указан');
+            \Notification::error(LANG_ACTION_FRAGMENTS_ADMINENTRIES_ID_NOT_SPECIFIED);
             $this->redirect(ADMIN_URL . '/fragments');
             return;
         }
@@ -19,16 +19,16 @@ class AdminEntries extends FragmentAction {
         $fragment = $this->fragmentModel->getById($id);
         
         if (!$fragment) {
-            \Notification::error('Фрагмент не найден');
+            \Notification::error(LANG_ACTION_FRAGMENTS_ADMINENTRIES_NOT_FOUND);
             $this->redirect(ADMIN_URL . '/fragments');
             return;
         }
         
-        $this->addBreadcrumb('Панель управления', ADMIN_URL);
-        $this->addBreadcrumb('Фрагменты', ADMIN_URL . '/fragments');
+        $this->addBreadcrumb(LANG_ACTION_FRAGMENTS_ADMINENTRIES_BREADCRUMB_DASHBOARD, ADMIN_URL);
+        $this->addBreadcrumb(LANG_ACTION_FRAGMENTS_ADMINENTRIES_BREADCRUMB_FRAGMENTS, ADMIN_URL . '/fragments');
         $this->addBreadcrumb($fragment['name'], ADMIN_URL . '/fragments/edit/' . $id);
-        $this->addBreadcrumb('Записи');
-        $this->setPageTitle('Записи фрагмента: ' . $fragment['name']);
+        $this->addBreadcrumb(LANG_ACTION_FRAGMENTS_ADMINENTRIES_BREADCRUMB_ENTRIES);
+        $this->setPageTitle(LANG_ACTION_FRAGMENTS_ADMINENTRIES_PAGE_TITLE . $fragment['name']);
         
         $entries = $this->entryModel->getByFragment($id);
         $fields = $this->fragmentModel->getFields($id);

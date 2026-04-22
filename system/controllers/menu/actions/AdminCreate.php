@@ -13,9 +13,9 @@ class AdminCreate extends MenuAction {
     * @return void
     */
     public function execute() {
-        $this->addBreadcrumb('Панель управления', ADMIN_URL);
-        $this->addBreadcrumb('Меню', ADMIN_URL . '/menu');
-        $this->addBreadcrumb('Создание меню');
+        $this->addBreadcrumb(LANG_ACTION_MENU_ADMINCREATE_BREADCRUMB_DASHBOARD, ADMIN_URL);
+        $this->addBreadcrumb(LANG_ACTION_MENU_ADMINCREATE_BREADCRUMB_MENU, ADMIN_URL . '/menu');
+        $this->addBreadcrumb(LANG_ACTION_MENU_ADMINCREATE_BREADCRUMB_CREATE);
         
         $availableTemplates = $this->menuModel->getAvailableTemplates();
         $currentTheme = $this->menuModel->getCurrentTheme();
@@ -23,20 +23,20 @@ class AdminCreate extends MenuAction {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
                 if (empty($_POST['name'])) {
-                    throw new \Exception('Название меню обязательно');
+                    throw new \Exception(LANG_ACTION_MENU_ADMINCREATE_NAME_REQUIRED);
                 }
                 
                 if (empty($_POST['template'])) {
-                    throw new \Exception('Шаблон меню обязателен');
+                    throw new \Exception(LANG_ACTION_MENU_ADMINCREATE_TEMPLATE_REQUIRED);
                 }
                 
                 if (!isset($availableTemplates[$_POST['template']])) {
-                    throw new \Exception('Указанный шаблон не существует в текущей теме');
+                    throw new \Exception(LANG_ACTION_MENU_ADMINCREATE_TEMPLATE_NOT_EXISTS);
                 }
                 
                 $menuStructure = json_decode($_POST['menu_structure'] ?? '[]', true);
                 if (!$this->menuModel->validateMenuStructure($menuStructure)) {
-                    throw new \Exception('Некорректная структура меню');
+                    throw new \Exception(LANG_ACTION_MENU_ADMINCREATE_INVALID_STRUCTURE);
                 }
                 
                 $this->validateAndProcessVisibilitySettings($menuStructure);
@@ -50,7 +50,7 @@ class AdminCreate extends MenuAction {
                 
                 $menuId = $this->menuModel->create($menuData);
                 
-                \Notification::success('Меню успешно создано');
+                \Notification::success(LANG_ACTION_MENU_ADMINCREATE_SUCCESS);
                 
                 $this->redirect(ADMIN_URL . '/menu');
                 
@@ -62,7 +62,7 @@ class AdminCreate extends MenuAction {
                     'availableTemplates' => $availableTemplates,
                     'menuStructure' => $menuStructure ?? [],
                     'currentTheme' => $currentTheme,
-                    'pageTitle' => 'Создание меню'
+                    'pageTitle' => LANG_ACTION_MENU_ADMINCREATE_PAGE_TITLE
                 ]);
                 return;
             }
@@ -73,7 +73,7 @@ class AdminCreate extends MenuAction {
             'availableTemplates' => $availableTemplates,
             'menuStructure' => [],
             'currentTheme' => $currentTheme,
-            'pageTitle' => 'Создание меню'
+            'pageTitle' => LANG_ACTION_MENU_ADMINCREATE_PAGE_TITLE
         ]);
     }
     
@@ -151,7 +151,7 @@ class AdminCreate extends MenuAction {
         $userModel = new \UserModel($this->db);
         $groups = $userModel->getAllGroups();
         
-        $groups[] = ['id' => 'guest', 'name' => 'Гость'];
+        $groups[] = ['id' => 'guest', 'name' => LANG_ACTION_MENU_ADMINCREATE_GROUP_GUEST];
         
         $validGroups = ['guest'];
         foreach ($groups as $group) {

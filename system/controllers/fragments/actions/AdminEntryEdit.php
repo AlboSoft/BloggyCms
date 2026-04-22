@@ -11,7 +11,7 @@ class AdminEntryEdit extends FragmentAction {
         $entryId = $this->params['id'] ?? null;
         
         if (!$entryId) {
-            \Notification::error('ID записи не указан');
+            \Notification::error(LANG_ACTION_FRAGMENTS_ADMINENTRYEDIT_ID_NOT_SPECIFIED);
             $this->redirect(ADMIN_URL . '/fragments');
             return;
         }
@@ -19,7 +19,7 @@ class AdminEntryEdit extends FragmentAction {
         $entry = $this->entryModel->getById($entryId);
         
         if (!$entry) {
-            \Notification::error('Запись не найдена');
+            \Notification::error(LANG_ACTION_FRAGMENTS_ADMINENTRYEDIT_NOT_FOUND);
             $this->redirect(ADMIN_URL . '/fragments');
             return;
         }
@@ -27,17 +27,17 @@ class AdminEntryEdit extends FragmentAction {
         $fragment = $this->fragmentModel->getById($entry['fragment_id']);
         
         if (!$fragment) {
-            \Notification::error('Фрагмент не найден');
+            \Notification::error(LANG_ACTION_FRAGMENTS_ADMINENTRYEDIT_FRAGMENT_NOT_FOUND);
             $this->redirect(ADMIN_URL . '/fragments');
             return;
         }
         
-        $this->addBreadcrumb('Панель управления', ADMIN_URL);
-        $this->addBreadcrumb('Фрагменты', ADMIN_URL . '/fragments');
+        $this->addBreadcrumb(LANG_ACTION_FRAGMENTS_ADMINENTRYEDIT_BREADCRUMB_DASHBOARD, ADMIN_URL);
+        $this->addBreadcrumb(LANG_ACTION_FRAGMENTS_ADMINENTRYEDIT_BREADCRUMB_FRAGMENTS, ADMIN_URL . '/fragments');
         $this->addBreadcrumb($fragment['name'], ADMIN_URL . '/fragments/edit/' . $fragment['id']);
-        $this->addBreadcrumb('Записи', ADMIN_URL . '/fragments/entries/' . $fragment['id']);
-        $this->addBreadcrumb('Редактирование записи #' . $entryId);
-        $this->setPageTitle('Редактирование записи: ' . $fragment['name']);
+        $this->addBreadcrumb(LANG_ACTION_FRAGMENTS_ADMINENTRYEDIT_BREADCRUMB_ENTRIES, ADMIN_URL . '/fragments/entries/' . $fragment['id']);
+        $this->addBreadcrumb(LANG_ACTION_FRAGMENTS_ADMINENTRYEDIT_BREADCRUMB_EDIT . $entryId);
+        $this->setPageTitle(LANG_ACTION_FRAGMENTS_ADMINENTRYEDIT_PAGE_TITLE . $fragment['name']);
         
         $fields = $this->fragmentModel->getFields($fragment['id']);
         
@@ -47,7 +47,7 @@ class AdminEntryEdit extends FragmentAction {
                 
                 $this->entryModel->update($entryId, $data);
                 
-                \Notification::success('Запись успешно обновлена');
+                \Notification::success(LANG_ACTION_FRAGMENTS_ADMINENTRYEDIT_SUCCESS);
                 $this->redirect(ADMIN_URL . '/fragments/entries/' . $fragment['id']);
                 
             } catch (\Exception $e) {
@@ -90,7 +90,7 @@ class AdminEntryEdit extends FragmentAction {
             $value = $this->fieldManager->processFieldValue($fieldData, $postData, $filesData, $currentData);
             
             if ($field['is_required'] && (empty($value) && $value !== '0')) {
-                $errors[] = "Поле '{$field['name']}' обязательно для заполнения";
+                $errors[] = sprintf(LANG_ACTION_FRAGMENTS_ADMINENTRYEDIT_FIELD_REQUIRED, $field['name']);
                 continue;
             }
             

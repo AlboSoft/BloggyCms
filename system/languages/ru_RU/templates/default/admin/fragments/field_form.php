@@ -1,0 +1,21 @@
+<?php
+
+define('LANG_TEMPLATE_FRAGMENTS_FIELD_FORM_EDIT_TITLE', 'Редактирование поля');
+define('LANG_TEMPLATE_FRAGMENTS_FIELD_FORM_CREATE_TITLE', 'Создание поля');
+define('LANG_TEMPLATE_FRAGMENTS_FIELD_FORM_BACK_BTN', 'Назад к полям');
+define('LANG_TEMPLATE_FRAGMENTS_FIELD_FORM_NAME_LABEL', 'Название поля');
+define('LANG_TEMPLATE_FRAGMENTS_FIELD_FORM_NAME_HINT', 'Отображаемое название поля в форме');
+define('LANG_TEMPLATE_FRAGMENTS_FIELD_FORM_SYSTEM_NAME_LABEL', 'Системное имя');
+define('LANG_TEMPLATE_FRAGMENTS_FIELD_FORM_SYSTEM_NAME_HINT', 'Только латиница, цифры и подчеркивание. Используется в шорткодах');
+define('LANG_TEMPLATE_FRAGMENTS_FIELD_FORM_TYPE_LABEL', 'Тип поля');
+define('LANG_TEMPLATE_FRAGMENTS_FIELD_FORM_DESCRIPTION_LABEL', 'Описание');
+define('LANG_TEMPLATE_FRAGMENTS_FIELD_FORM_DESCRIPTION_PLACEHOLDER', 'Необязательное описание поля');
+define('LANG_TEMPLATE_FRAGMENTS_FIELD_FORM_DESCRIPTION_HINT', 'Пояснение к полю для пользователя');
+define('LANG_TEMPLATE_FRAGMENTS_FIELD_FORM_REQUIRED_LABEL', 'Обязательное поле');
+define('LANG_TEMPLATE_FRAGMENTS_FIELD_FORM_ACTIVE_LABEL', 'Активно');
+define('LANG_TEMPLATE_FRAGMENTS_FIELD_FORM_SHOW_IN_LIST_LABEL', 'Показывать в списке');
+define('LANG_TEMPLATE_FRAGMENTS_FIELD_FORM_SETTINGS_LABEL', 'Настройки поля');
+define('LANG_TEMPLATE_FRAGMENTS_FIELD_FORM_SETTINGS_HINT', 'Выберите тип поля чтобы увидеть его настройки');
+define('LANG_TEMPLATE_FRAGMENTS_FIELD_FORM_CANCEL_BTN', 'Отмена');
+define('LANG_TEMPLATE_FRAGMENTS_FIELD_FORM_SAVE_BTN', 'Сохранить');
+define('LANG_TEMPLATE_FRAGMENTS_FIELD_FORM_CREATE_BTN', 'Создать');

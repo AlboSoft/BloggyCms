@@ -1,0 +1,10 @@
+<?php
+
+define('LANG_TEMPLATE_HTMLBLOCKS_SELECT_TYPE_TITLE', 'Выберите тип контент-блока');
+define('LANG_TEMPLATE_HTMLBLOCKS_SELECT_TYPE_BACK_BTN', 'Назад к контент-блокам');
+define('LANG_TEMPLATE_HTMLBLOCKS_SELECT_TYPE_FILTER_LABEL', 'Фильтр по шаблону:');
+define('LANG_TEMPLATE_HTMLBLOCKS_SELECT_TYPE_FILTER_HINT', 'Отображаются все блоки независимо от шаблона');
+define('LANG_TEMPLATE_HTMLBLOCKS_SELECT_TYPE_TEMPLATE_LABEL', 'Шаблон:');
+define('LANG_TEMPLATE_HTMLBLOCKS_SELECT_TYPE_AUTHOR_LABEL', 'Автор:');
+define('LANG_TEMPLATE_HTMLBLOCKS_SELECT_TYPE_VERSION_LABEL', 'Версия:');
+define('LANG_TEMPLATE_HTMLBLOCKS_SELECT_TYPE_CREATE_BTN', 'Создать');

@@ -16,7 +16,7 @@ class AdminGetStructure extends MenuAction {
         $id = $this->params['id'] ?? null;
         
         if (!$id) {
-            $this->sendJsonResponse(false, 'ID меню не указан');
+            $this->sendJsonResponse(false, LANG_ACTION_MENU_ADMINGETSTRUCTURE_ID_NOT_SPECIFIED);
             return;
         }
         
@@ -24,7 +24,7 @@ class AdminGetStructure extends MenuAction {
             $menu = $this->menuModel->getById($id);
             
             if (!$menu) {
-                throw new \Exception('Меню не найдено');
+                throw new \Exception(LANG_ACTION_MENU_ADMINGETSTRUCTURE_NOT_FOUND);
             }
             
             $structure = json_decode($menu['structure'], true) ?: [];

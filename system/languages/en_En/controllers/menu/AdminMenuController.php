@@ -1,0 +1,15 @@
+<?php
+
+define('LANG_CONTROLLER_ADMINMENU_AUTH_REQUIRED', 'Please log in to access the admin panel');
+define('LANG_CONTROLLER_ADMINMENU_ACCESS_DENIED', 'You do not have permission to access the admin panel');
+define('LANG_CONTROLLER_ADMINMENU_MENU_ITEM', 'Menu Item');
+define('LANG_CONTROLLER_ADMINMENU_FIELD_TITLE', 'Title');
+define('LANG_CONTROLLER_ADMINMENU_PLACEHOLDER_TITLE', 'Menu item title');
+define('LANG_CONTROLLER_ADMINMENU_FIELD_CSS_CLASS', 'CSS Class');
+define('LANG_CONTROLLER_ADMINMENU_FIELD_OPEN_IN', 'Open in');
+define('LANG_CONTROLLER_ADMINMENU_TARGET_SELF', 'Same window');
+define('LANG_CONTROLLER_ADMINMENU_TARGET_BLANK', 'New window');
+define('LANG_CONTROLLER_ADMINMENU_NESTED_ITEMS', 'Nested items');
+define('LANG_CONTROLLER_ADMINMENU_ADD_NESTED_ITEM', 'Add nested item');
+define('LANG_CONTROLLER_ADMINMENU_GROUP_GUEST', 'Guest');
+define('LANG_CONTROLLER_ADMINMENU_GROUP_GUEST_DESC', 'Unauthorized users');

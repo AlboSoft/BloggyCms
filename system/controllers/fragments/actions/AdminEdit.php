@@ -11,7 +11,7 @@ class AdminEdit extends FragmentAction {
         $id = $this->params['id'] ?? null;
         
         if (!$id) {
-            \Notification::error('ID фрагмента не указан');
+            \Notification::error(LANG_ACTION_FRAGMENTS_ADMINEDIT_ID_NOT_SPECIFIED);
             $this->redirect(ADMIN_URL . '/fragments');
             return;
         }
@@ -19,30 +19,30 @@ class AdminEdit extends FragmentAction {
         $fragment = $this->fragmentModel->getById($id);
         
         if (!$fragment) {
-            \Notification::error('Фрагмент не найден');
+            \Notification::error(LANG_ACTION_FRAGMENTS_ADMINEDIT_NOT_FOUND);
             $this->redirect(ADMIN_URL . '/fragments');
             return;
         }
         
-        $this->addBreadcrumb('Панель управления', ADMIN_URL);
-        $this->addBreadcrumb('Фрагменты', ADMIN_URL . '/fragments');
-        $this->addBreadcrumb('Редактирование: ' . $fragment['name']);
-        $this->setPageTitle('Редактирование фрагмента: ' . $fragment['name']);
+        $this->addBreadcrumb(LANG_ACTION_FRAGMENTS_ADMINEDIT_BREADCRUMB_DASHBOARD, ADMIN_URL);
+        $this->addBreadcrumb(LANG_ACTION_FRAGMENTS_ADMINEDIT_BREADCRUMB_FRAGMENTS, ADMIN_URL . '/fragments');
+        $this->addBreadcrumb(LANG_ACTION_FRAGMENTS_ADMINEDIT_BREADCRUMB_EDIT . $fragment['name']);
+        $this->setPageTitle(LANG_ACTION_FRAGMENTS_ADMINEDIT_PAGE_TITLE . $fragment['name']);
         
         $stats = $this->fragmentModel->getStats($id);
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
                 if (empty($_POST['name'])) {
-                    throw new \Exception('Название фрагмента обязательно');
+                    throw new \Exception(LANG_ACTION_FRAGMENTS_ADMINEDIT_NAME_REQUIRED);
                 }
                 
                 if (empty($_POST['system_name'])) {
-                    throw new \Exception('Системное имя обязательно');
+                    throw new \Exception(LANG_ACTION_FRAGMENTS_ADMINEDIT_SYSTEM_NAME_REQUIRED);
                 }
                 
                 if ($this->fragmentModel->isSystemNameExists($_POST['system_name'], $id)) {
-                    throw new \Exception('Фрагмент с таким системным именем уже существует');
+                    throw new \Exception(LANG_ACTION_FRAGMENTS_ADMINEDIT_SYSTEM_NAME_EXISTS);
                 }
                 
                 $data = [
@@ -55,7 +55,7 @@ class AdminEdit extends FragmentAction {
                 $data = $this->handleFragmentAssets($data);
                 $this->fragmentModel->update($id, $data);
                 
-                \Notification::success('Фрагмент успешно обновлен');
+                \Notification::success(LANG_ACTION_FRAGMENTS_ADMINEDIT_SUCCESS);
                 $this->redirect(ADMIN_URL . '/fragments/edit/' . $id);
                 
             } catch (\Exception $e) {

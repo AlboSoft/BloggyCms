@@ -1,0 +1,6 @@
+<?php
+
+define('LANG_ACTION_FRAGMENTS_ADMINFIELDDELETE_ID_NOT_SPECIFIED', 'Field ID not specified');
+define('LANG_ACTION_FRAGMENTS_ADMINFIELDDELETE_NOT_FOUND', 'Field not found');
+define('LANG_ACTION_FRAGMENTS_ADMINFIELDDELETE_SUCCESS', 'Field successfully deleted');
+define('LANG_ACTION_FRAGMENTS_ADMINFIELDDELETE_ERROR', 'Error deleting field: ');

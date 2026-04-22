@@ -11,7 +11,7 @@ class AdminFieldDelete extends FragmentAction {
         $fieldId = $this->params['id'] ?? null;
         
         if (!$fieldId) {
-            \Notification::error('ID поля не указан');
+            \Notification::error(LANG_ACTION_FRAGMENTS_ADMINFIELDDELETE_ID_NOT_SPECIFIED);
             $this->redirect(ADMIN_URL . '/fragments');
             return;
         }
@@ -19,17 +19,17 @@ class AdminFieldDelete extends FragmentAction {
         $field = $this->fragmentModel->getFieldById($fieldId);
         
         if (!$field) {
-            \Notification::error('Поле не найдено');
+            \Notification::error(LANG_ACTION_FRAGMENTS_ADMINFIELDDELETE_NOT_FOUND);
             $this->redirect(ADMIN_URL . '/fragments');
             return;
         }
         
         try {
             $this->fragmentModel->deleteField($fieldId);
-            \Notification::success('Поле успешно удалено');
+            \Notification::success(LANG_ACTION_FRAGMENTS_ADMINFIELDDELETE_SUCCESS);
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при удалении поля: ' . $e->getMessage());
+            \Notification::error(LANG_ACTION_FRAGMENTS_ADMINFIELDDELETE_ERROR . $e->getMessage());
         }
         
         $this->redirect(ADMIN_URL . '/fragments/fields/' . $field['fragment_id']);

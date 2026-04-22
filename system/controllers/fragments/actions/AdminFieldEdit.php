@@ -11,7 +11,7 @@ class AdminFieldEdit extends FragmentAction {
         $fieldId = $this->params['id'] ?? null;
         
         if (!$fieldId) {
-            \Notification::error('ID поля не указан');
+            \Notification::error(LANG_ACTION_FRAGMENTS_ADMINFIELDEDIT_ID_NOT_SPECIFIED);
             $this->redirect(ADMIN_URL . '/fragments');
             return;
         }
@@ -19,7 +19,7 @@ class AdminFieldEdit extends FragmentAction {
         $field = $this->fragmentModel->getFieldById($fieldId);
         
         if (!$field) {
-            \Notification::error('Поле не найдено');
+            \Notification::error(LANG_ACTION_FRAGMENTS_ADMINFIELDEDIT_NOT_FOUND);
             $this->redirect(ADMIN_URL . '/fragments');
             return;
         }
@@ -27,32 +27,32 @@ class AdminFieldEdit extends FragmentAction {
         $fragment = $this->fragmentModel->getById($field['fragment_id']);
         
         if (!$fragment) {
-            \Notification::error('Фрагмент не найден');
+            \Notification::error(LANG_ACTION_FRAGMENTS_ADMINFIELDEDIT_FRAGMENT_NOT_FOUND);
             $this->redirect(ADMIN_URL . '/fragments');
             return;
         }
         
-        $this->addBreadcrumb('Панель управления', ADMIN_URL);
-        $this->addBreadcrumb('Фрагменты', ADMIN_URL . '/fragments');
+        $this->addBreadcrumb(LANG_ACTION_FRAGMENTS_ADMINFIELDEDIT_BREADCRUMB_DASHBOARD, ADMIN_URL);
+        $this->addBreadcrumb(LANG_ACTION_FRAGMENTS_ADMINFIELDEDIT_BREADCRUMB_FRAGMENTS, ADMIN_URL . '/fragments');
         $this->addBreadcrumb($fragment['name'], ADMIN_URL . '/fragments/edit/' . $fragment['id']);
-        $this->addBreadcrumb('Поля', ADMIN_URL . '/fragments/fields/' . $fragment['id']);
-        $this->addBreadcrumb('Редактирование поля: ' . $field['name']);
-        $this->setPageTitle('Редактирование поля: ' . $field['name']);
+        $this->addBreadcrumb(LANG_ACTION_FRAGMENTS_ADMINFIELDEDIT_BREADCRUMB_FIELDS, ADMIN_URL . '/fragments/fields/' . $fragment['id']);
+        $this->addBreadcrumb(LANG_ACTION_FRAGMENTS_ADMINFIELDEDIT_BREADCRUMB_EDIT . $field['name']);
+        $this->setPageTitle(LANG_ACTION_FRAGMENTS_ADMINFIELDEDIT_PAGE_TITLE . $field['name']);
         
         $fieldTypes = $this->fieldManager->getAvailableFieldTypes();
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
                 if (empty($_POST['name'])) {
-                    throw new \Exception('Название поля обязательно');
+                    throw new \Exception(LANG_ACTION_FRAGMENTS_ADMINFIELDEDIT_NAME_REQUIRED);
                 }
                 
                 if (empty($_POST['system_name'])) {
-                    throw new \Exception('Системное имя обязательно');
+                    throw new \Exception(LANG_ACTION_FRAGMENTS_ADMINFIELDEDIT_SYSTEM_NAME_REQUIRED);
                 }
                 
                 if ($this->fragmentModel->isFieldSystemNameExists($fragment['id'], $_POST['system_name'], $fieldId)) {
-                    throw new \Exception('Поле с таким системным именем уже существует');
+                    throw new \Exception(LANG_ACTION_FRAGMENTS_ADMINFIELDEDIT_SYSTEM_NAME_EXISTS);
                 }
                 
                 $config = $_POST['config'] ?? [];
@@ -73,7 +73,7 @@ class AdminFieldEdit extends FragmentAction {
                 
                 $this->fragmentModel->updateField($fieldId, $data);
                 
-                \Notification::success('Поле успешно обновлено');
+                \Notification::success(LANG_ACTION_FRAGMENTS_ADMINFIELDEDIT_SUCCESS);
                 $this->redirect(ADMIN_URL . '/fragments/fields/' . $fragment['id']);
                 
             } catch (\Exception $e) {

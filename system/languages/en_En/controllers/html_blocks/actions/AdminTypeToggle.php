@@ -1,0 +1,8 @@
+<?php
+
+define('LANG_ACTION_HTMLBLOCKS_ADMINTYPETOGGLE_SYSTEM_NAME_REQUIRED', 'Block type system name not specified');
+define('LANG_ACTION_HTMLBLOCKS_ADMINTYPETOGGLE_CANNOT_DISABLE_DEFAULT', 'Cannot disable default block type');
+define('LANG_ACTION_HTMLBLOCKS_ADMINTYPETOGGLE_ENABLED', 'enabled');
+define('LANG_ACTION_HTMLBLOCKS_ADMINTYPETOGGLE_DISABLED', 'disabled');
+define('LANG_ACTION_HTMLBLOCKS_ADMINTYPETOGGLE_SUCCESS', 'Block type successfully %s');
+define('LANG_ACTION_HTMLBLOCKS_ADMINTYPETOGGLE_ERROR', 'Error changing block type status: ');

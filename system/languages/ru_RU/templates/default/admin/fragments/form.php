@@ -1,0 +1,38 @@
+<?php
+
+define('LANG_TEMPLATE_FRAGMENTS_FORM_EDIT_TITLE', 'Редактирование фрагмента');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_CREATE_TITLE', 'Создание фрагмента');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_BACK_BTN', 'Назад');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_MAIN_INFO_TITLE', 'Основная информация');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_NAME_LABEL', 'Название фрагмента');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_NAME_PLACEHOLDER', 'Например: Слайдер, Галерея, Команда');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_NAME_HINT', 'Отображаемое название фрагмента');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_SYSTEM_NAME_LABEL', 'Системное имя');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_SYSTEM_NAME_HINT', 'Только латинские буквы, цифры и подчеркивания. Используется в шорткодах: <code>{ctype:имя}...{/ctype:имя}</code>');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_DESCRIPTION_LABEL', 'Описание');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_DESCRIPTION_PLACEHOLDER', 'Краткое описание назначения фрагмента');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_STYLES_SCRIPTS_TITLE', 'Стили и скрипты');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_CSS_FILES_LABEL', 'Внешние CSS файлы');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_ADD_CSS_BTN', 'Добавить CSS файл');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_JS_FILES_LABEL', 'Внешние JavaScript файлы');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_ADD_JS_BTN', 'Добавить JS файл');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_INLINE_CSS_LABEL', 'Инлайн CSS');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_INLINE_JS_LABEL', 'Инлайн JavaScript');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_STATS_TITLE', 'Статистика');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_STATS_TOTAL', 'Всего записей');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_STATS_ACTIVE', 'Активных');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_STATS_INACTIVE', 'Неактивных');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_STATS_ACTIVE_PERCENT', 'активных записей');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_SETTINGS_TITLE', 'Настройки');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_STATUS_LABEL', 'Статус');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_STATUS_ACTIVE', 'Активен');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_STATUS_INACTIVE', 'Неактивен');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_STATUS_HINT', 'Неактивные фрагменты не отображаются на сайте');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_HOWTO_TITLE', 'Как использовать');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_HOWTO_TEXT', 'Для вывода фрагмента на сайте используйте шорткоды:');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_HOWTO_SIMPLE', 'Простой вывод всех записей фрагмента');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_HOWTO_CUSTOM', 'Кастомный вывод с циклом по записям');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_HOWTO_FIELD_VALUE', 'Вывод значения поля внутри цикла');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_HOWTO_FIELD_RENDERED', 'Вывод отрендеренного значения поля (изображения, ссылки и т.д.)');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_SAVE_BTN', 'Сохранить изменения');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_CREATE_BTN', 'Создать фрагмент');

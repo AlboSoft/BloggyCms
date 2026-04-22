@@ -1,8 +1,8 @@
 <?php
 return [
-    'name' => 'Контент-блоки',
+    'name' => LANG_CONTROLLER_HTMLBLOCKS_MANIFEST_NAME,
     'author' => 'BloggyCMS',
     'version' => '1.0.0',
     'has_settings' => false,
-    'description' => 'Управление контент-блоками системы'
+    'description' => LANG_CONTROLLER_HTMLBLOCKS_MANIFEST_DESCRIPTION
 ];

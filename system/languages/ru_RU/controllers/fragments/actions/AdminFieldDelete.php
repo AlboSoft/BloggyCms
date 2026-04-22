@@ -1,0 +1,6 @@
+<?php
+
+define('LANG_ACTION_FRAGMENTS_ADMINFIELDDELETE_ID_NOT_SPECIFIED', 'ID поля не указан');
+define('LANG_ACTION_FRAGMENTS_ADMINFIELDDELETE_NOT_FOUND', 'Поле не найдено');
+define('LANG_ACTION_FRAGMENTS_ADMINFIELDDELETE_SUCCESS', 'Поле успешно удалено');
+define('LANG_ACTION_FRAGMENTS_ADMINFIELDDELETE_ERROR', 'Ошибка при удалении поля: ');

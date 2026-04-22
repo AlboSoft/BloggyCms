@@ -11,7 +11,7 @@ class AdminFieldCreate extends FragmentAction {
         $fragmentId = $this->params['fragment_id'] ?? null;
         
         if (!$fragmentId) {
-            \Notification::error('ID фрагмента не указан');
+            \Notification::error(LANG_ACTION_FRAGMENTS_ADMINFIELDCREATE_ID_NOT_SPECIFIED);
             $this->redirect(ADMIN_URL . '/fragments');
             return;
         }
@@ -19,32 +19,32 @@ class AdminFieldCreate extends FragmentAction {
         $fragment = $this->fragmentModel->getById($fragmentId);
         
         if (!$fragment) {
-            \Notification::error('Фрагмент не найден');
+            \Notification::error(LANG_ACTION_FRAGMENTS_ADMINFIELDCREATE_FRAGMENT_NOT_FOUND);
             $this->redirect(ADMIN_URL . '/fragments');
             return;
         }
         
-        $this->addBreadcrumb('Панель управления', ADMIN_URL);
-        $this->addBreadcrumb('Фрагменты', ADMIN_URL . '/fragments');
+        $this->addBreadcrumb(LANG_ACTION_FRAGMENTS_ADMINFIELDCREATE_BREADCRUMB_DASHBOARD, ADMIN_URL);
+        $this->addBreadcrumb(LANG_ACTION_FRAGMENTS_ADMINFIELDCREATE_BREADCRUMB_FRAGMENTS, ADMIN_URL . '/fragments');
         $this->addBreadcrumb($fragment['name'], ADMIN_URL . '/fragments/edit/' . $fragmentId);
-        $this->addBreadcrumb('Поля', ADMIN_URL . '/fragments/fields/' . $fragmentId);
-        $this->addBreadcrumb('Создание поля');
-        $this->setPageTitle('Создание поля для фрагмента: ' . $fragment['name']);
+        $this->addBreadcrumb(LANG_ACTION_FRAGMENTS_ADMINFIELDCREATE_BREADCRUMB_FIELDS, ADMIN_URL . '/fragments/fields/' . $fragmentId);
+        $this->addBreadcrumb(LANG_ACTION_FRAGMENTS_ADMINFIELDCREATE_BREADCRUMB_CREATE);
+        $this->setPageTitle(LANG_ACTION_FRAGMENTS_ADMINFIELDCREATE_PAGE_TITLE . $fragment['name']);
         
         $fieldTypes = $this->fieldManager->getAvailableFieldTypes();
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
                 if (empty($_POST['name'])) {
-                    throw new \Exception('Название поля обязательно');
+                    throw new \Exception(LANG_ACTION_FRAGMENTS_ADMINFIELDCREATE_NAME_REQUIRED);
                 }
                 
                 if (empty($_POST['system_name'])) {
-                    throw new \Exception('Системное имя обязательно');
+                    throw new \Exception(LANG_ACTION_FRAGMENTS_ADMINFIELDCREATE_SYSTEM_NAME_REQUIRED);
                 }
                 
                 if ($this->fragmentModel->isFieldSystemNameExists($fragmentId, $_POST['system_name'])) {
-                    throw new \Exception('Поле с таким системным именем уже существует');
+                    throw new \Exception(LANG_ACTION_FRAGMENTS_ADMINFIELDCREATE_SYSTEM_NAME_EXISTS);
                 }
                 
                 $config = $_POST['config'] ?? [];
@@ -66,7 +66,7 @@ class AdminFieldCreate extends FragmentAction {
                 
                 $this->fragmentModel->createField($fragmentId, $data);
                 
-                \Notification::success('Поле успешно создано');
+                \Notification::success(LANG_ACTION_FRAGMENTS_ADMINFIELDCREATE_SUCCESS);
                 $this->redirect(ADMIN_URL . '/fragments/fields/' . $fragmentId);
                 
             } catch (\Exception $e) {

@@ -3,7 +3,7 @@
 class AuthorBlock extends BaseHtmlBlock {
     
     public function getName(): string {
-        return "Автор блога";
+        return LANG_HTMLBLOCK_AUTHOR_NAME;
     }
 
     public function getSystemName(): string {
@@ -11,15 +11,19 @@ class AuthorBlock extends BaseHtmlBlock {
     }
 
     public function getDescription(): string {
-        return "Карточка автора с фото, именем, описанием и ссылками на социальные сети";
+        return LANG_HTMLBLOCK_AUTHOR_DESCRIPTION;
     }
 
     public function getShortDescription(): string {
-        return "Карточка автора с фото, описанием и ссылками на соцсети";
+        return LANG_HTMLBLOCK_AUTHOR_SHORT_DESCRIPTION;
     }
 
     public function getIcon(): string {
         return 'bi bi-person-circle';
+    }
+
+    public function getAuthor(): string {
+        return 'BloggyCMS Team';
     }
 
     public function getVersion(): string {
@@ -35,46 +39,46 @@ class AuthorBlock extends BaseHtmlBlock {
         
         $fieldsets = [];
         
-        $fieldsets[] = new \Fieldset('Основная информация', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_AUTHOR_FIELDSET_MAIN, [
             'icon' => 'bi bi-person',
             'columns' => 'custom',
             'fields' => [
                 \FieldFactory::blockImage('avatar', [
-                    'title' => 'Фото автора',
-                    'hint' => 'Рекомендуемый размер: 200x200px. Квадратное изображение',
+                    'title' => LANG_HTMLBLOCK_AUTHOR_FIELD_AVATAR,
+                    'hint' => LANG_HTMLBLOCK_AUTHOR_FIELD_AVATAR_HINT,
                     'upload_path' => 'uploads/images/html_blocks/' . $this->getSystemName() . '/',
                     'preview_size' => '100px',
                     'column' => '12',
                 ]),
                 \FieldFactory::string('name', [
-                    'title' => 'Имя автора',
+                    'title' => LANG_HTMLBLOCK_AUTHOR_FIELD_NAME,
                     'default' => $settings['name'] ?? '',
-                    'placeholder' => 'Например: Иван Иванов',
+                    'placeholder' => LANG_HTMLBLOCK_AUTHOR_FIELD_NAME_PLACEHOLDER,
                     'column' => '6',
                 ]),
                 \FieldFactory::string('role', [
-                    'title' => 'Должность / Роль',
+                    'title' => LANG_HTMLBLOCK_AUTHOR_FIELD_ROLE,
                     'default' => $settings['role'] ?? '',
-                    'placeholder' => 'Например: Основатель проекта, Senior PHP-разработчик',
+                    'placeholder' => LANG_HTMLBLOCK_AUTHOR_FIELD_ROLE_PLACEHOLDER,
                     'column' => '6',
                 ]),
                 \FieldFactory::textarea('description', [
-                    'title' => 'Краткое описание',
+                    'title' => LANG_HTMLBLOCK_AUTHOR_FIELD_DESCRIPTION,
                     'default' => $settings['description'] ?? '',
                     'rows' => 4,
-                    'placeholder' => 'Расскажите о себе, своем опыте, увлечениях...',
+                    'placeholder' => LANG_HTMLBLOCK_AUTHOR_FIELD_DESCRIPTION_PLACEHOLDER,
                     'column' => '12',
                 ]),
             ]
         ]);
         
-        $fieldsets[] = new \Fieldset('Социальные сети', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_AUTHOR_FIELDSET_SOCIAL, [
             'icon' => 'bi bi-share',
             'columns' => 'custom',
             'fields' => [
                 \FieldFactory::repeater('social_links', [
-                    'title' => 'Ссылки на соцсети',
-                    'hint' => 'Добавьте ссылки на ваши социальные сети',
+                    'title' => LANG_HTMLBLOCK_AUTHOR_FIELD_SOCIAL_LINKS,
+                    'hint' => LANG_HTMLBLOCK_AUTHOR_FIELD_SOCIAL_LINKS_HINT,
                     'column' => '12',
                     'repeater_columns' => 2,
                     'min_items' => 0,
@@ -82,29 +86,29 @@ class AuthorBlock extends BaseHtmlBlock {
                     'fields' => [
                         [
                             'name' => 'network',
-                            'title' => 'Социальная сеть',
+                            'title' => LANG_HTMLBLOCK_AUTHOR_FIELD_NETWORK,
                             'type' => 'select',
                             'options' => [
-                                'telegram' => 'Telegram',
-                                'vk' => 'ВКонтакте',
-                                'youtube' => 'YouTube',
-                                'github' => 'GitHub',
-                                'twitter' => 'Twitter/X',
-                                'instagram' => 'Instagram',
-                                'facebook' => 'Facebook',
-                                'linkedin' => 'LinkedIn',
-                                'odnoklassniki' => 'Одноклассники',
-                                'behance' => 'Behance',
-                                'reddit' => 'Reddit',
-                                'discord' => 'Discord',
-                                'tiktok' => 'TikTok',
+                                'telegram' => LANG_HTMLBLOCK_AUTHOR_SOCIAL_TELEGRAM,
+                                'vk' => LANG_HTMLBLOCK_AUTHOR_SOCIAL_VK,
+                                'youtube' => LANG_HTMLBLOCK_AUTHOR_SOCIAL_YOUTUBE,
+                                'github' => LANG_HTMLBLOCK_AUTHOR_SOCIAL_GITHUB,
+                                'twitter' => LANG_HTMLBLOCK_AUTHOR_SOCIAL_TWITTER,
+                                'instagram' => LANG_HTMLBLOCK_AUTHOR_SOCIAL_INSTAGRAM,
+                                'facebook' => LANG_HTMLBLOCK_AUTHOR_SOCIAL_FACEBOOK,
+                                'linkedin' => LANG_HTMLBLOCK_AUTHOR_SOCIAL_LINKEDIN,
+                                'odnoklassniki' => LANG_HTMLBLOCK_AUTHOR_SOCIAL_OK,
+                                'behance' => LANG_HTMLBLOCK_AUTHOR_SOCIAL_BEHANCE,
+                                'reddit' => LANG_HTMLBLOCK_AUTHOR_SOCIAL_REDDIT,
+                                'discord' => LANG_HTMLBLOCK_AUTHOR_SOCIAL_DISCORD,
+                                'tiktok' => LANG_HTMLBLOCK_AUTHOR_SOCIAL_TIKTOK,
                             ],
                             'default' => 'telegram',
                             'field_column' => '6',
                         ],
                         [
                             'name' => 'url',
-                            'title' => 'URL',
+                            'title' => LANG_HTMLBLOCK_AUTHOR_FIELD_URL,
                             'type' => 'string',
                             'placeholder' => 'https://...',
                             'field_column' => '6',
@@ -115,24 +119,24 @@ class AuthorBlock extends BaseHtmlBlock {
             ]
         ]);
         
-        $fieldsets[] = new \Fieldset('Дополнительные контакты', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_AUTHOR_FIELDSET_CONTACTS, [
             'icon' => 'bi bi-envelope',
             'columns' => 'custom',
             'fields' => [
                 \FieldFactory::string('email', [
-                    'title' => 'Email',
+                    'title' => LANG_HTMLBLOCK_AUTHOR_FIELD_EMAIL,
                     'default' => $settings['email'] ?? '',
                     'placeholder' => 'ivan@example.com',
                     'column' => '6',
                 ]),
                 \FieldFactory::string('phone', [
-                    'title' => 'Телефон',
+                    'title' => LANG_HTMLBLOCK_AUTHOR_FIELD_PHONE,
                     'default' => $settings['phone'] ?? '',
-                    'placeholder' => '+7 (999) 000-00-00',
+                    'placeholder' => LANG_HTMLBLOCK_AUTHOR_FIELD_PHONE_PLACEHOLDER,
                     'column' => '6',
                 ]),
                 \FieldFactory::string('website', [
-                    'title' => 'Личный сайт',
+                    'title' => LANG_HTMLBLOCK_AUTHOR_FIELD_WEBSITE,
                     'default' => $settings['website'] ?? '',
                     'placeholder' => 'https://example.com',
                     'column' => '12',
@@ -140,35 +144,35 @@ class AuthorBlock extends BaseHtmlBlock {
             ]
         ]);
         
-        $fieldsets[] = new \Fieldset('Кнопка действия', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_AUTHOR_FIELDSET_BUTTON, [
             'icon' => 'bi bi-ui-radios',
             'columns' => 'custom',
             'fields' => [
                 \FieldFactory::checkbox('show_button', [
-                    'title' => 'Показывать кнопку',
+                    'title' => LANG_HTMLBLOCK_AUTHOR_FIELD_SHOW_BUTTON,
                     'default' => $settings['show_button'] ?? 0,
                     'switch' => true,
                     'column' => '12',
                 ]),
                 \FieldFactory::string('button_text', [
-                    'title' => 'Текст кнопки',
-                    'default' => $settings['button_text'] ?? 'Связаться',
-                    'placeholder' => 'Написать сообщение',
+                    'title' => LANG_HTMLBLOCK_AUTHOR_FIELD_BUTTON_TEXT,
+                    'default' => $settings['button_text'] ?? LANG_HTMLBLOCK_AUTHOR_DEFAULT_BUTTON_TEXT,
+                    'placeholder' => LANG_HTMLBLOCK_AUTHOR_FIELD_BUTTON_TEXT_PLACEHOLDER,
                     'column' => '6',
                     'show' => 'field:show_button',
                 ]),
                 \FieldFactory::string('button_url', [
-                    'title' => 'Ссылка кнопки',
+                    'title' => LANG_HTMLBLOCK_AUTHOR_FIELD_BUTTON_URL,
                     'default' => $settings['button_url'] ?? '/contact',
                     'placeholder' => '/contact',
                     'column' => '6',
                     'show' => 'field:show_button',
                 ]),
                 \FieldFactory::select('button_target', [
-                    'title' => 'Открывать в',
+                    'title' => LANG_HTMLBLOCK_AUTHOR_FIELD_BUTTON_TARGET,
                     'options' => [
-                        '_self' => 'Текущее окно',
-                        '_blank' => 'Новое окно',
+                        '_self' => LANG_HTMLBLOCK_AUTHOR_BUTTON_TARGET_SELF,
+                        '_blank' => LANG_HTMLBLOCK_AUTHOR_BUTTON_TARGET_BLANK,
                     ],
                     'default' => $settings['button_target'] ?? '_self',
                     'column' => '12',
@@ -177,65 +181,65 @@ class AuthorBlock extends BaseHtmlBlock {
             ]
         ]);
         
-        $fieldsets[] = new \Fieldset('Внешний вид', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_AUTHOR_FIELDSET_APPEARANCE, [
             'icon' => 'bi bi-palette',
             'columns' => 'custom',
             'fields' => [
                 \FieldFactory::select('avatar_style', [
-                    'title' => 'Стиль аватара',
+                    'title' => LANG_HTMLBLOCK_AUTHOR_FIELD_AVATAR_STYLE,
                     'options' => [
-                        'circle' => 'Круглый',
-                        'square' => 'Квадратный',
-                        'rounded' => 'Скругленные углы',
+                        'circle' => LANG_HTMLBLOCK_AUTHOR_AVATAR_STYLE_CIRCLE,
+                        'square' => LANG_HTMLBLOCK_AUTHOR_AVATAR_STYLE_SQUARE,
+                        'rounded' => LANG_HTMLBLOCK_AUTHOR_AVATAR_STYLE_ROUNDED,
                     ],
                     'default' => $settings['avatar_style'] ?? 'circle',
                     'column' => '6',
                 ]),
                 \FieldFactory::select('align', [
-                    'title' => 'Выравнивание текста',
+                    'title' => LANG_HTMLBLOCK_AUTHOR_FIELD_ALIGN,
                     'options' => [
-                        'left' => 'Слева',
-                        'center' => 'По центру',
+                        'left' => LANG_HTMLBLOCK_AUTHOR_ALIGN_LEFT,
+                        'center' => LANG_HTMLBLOCK_AUTHOR_ALIGN_CENTER,
                     ],
                     'default' => $settings['align'] ?? 'center',
                     'column' => '6',
                 ]),
                 \FieldFactory::select('theme', [
-                    'title' => 'Тема',
+                    'title' => LANG_HTMLBLOCK_AUTHOR_FIELD_THEME,
                     'options' => [
-                        'light' => 'Светлая',
-                        'dark' => 'Темная',
-                        'custom' => 'Своя',
+                        'light' => LANG_HTMLBLOCK_AUTHOR_THEME_LIGHT,
+                        'dark' => LANG_HTMLBLOCK_AUTHOR_THEME_DARK,
+                        'custom' => LANG_HTMLBLOCK_AUTHOR_THEME_CUSTOM,
                     ],
                     'default' => $settings['theme'] ?? 'light',
                     'column' => '12',
                 ]),
                 \FieldFactory::color('background_color', [
-                    'title' => 'Цвет фона карточки',
+                    'title' => LANG_HTMLBLOCK_AUTHOR_FIELD_BACKGROUND_COLOR,
                     'preset' => 'basic',
                     'column' => '6',
                     'show' => 'field:theme = custom',
                 ]),
                 \FieldFactory::color('text_color', [
-                    'title' => 'Цвет текста',
+                    'title' => LANG_HTMLBLOCK_AUTHOR_FIELD_TEXT_COLOR,
                     'preset' => 'basic',
                     'column' => '6',
                     'show' => 'field:theme = custom',
                 ]),
                 \FieldFactory::color('accent_color', [
-                    'title' => 'Акцентный цвет',
+                    'title' => LANG_HTMLBLOCK_AUTHOR_FIELD_ACCENT_COLOR,
                     'preset' => 'website',
                     'default' => '#2563eb',
                     'column' => '12',
                 ]),
                 \FieldFactory::checkbox('show_shadow', [
-                    'title' => 'Показывать тень',
+                    'title' => LANG_HTMLBLOCK_AUTHOR_FIELD_SHOW_SHADOW,
                     'default' => $settings['show_shadow'] ?? 1,
                     'switch' => true,
                     'column' => '12',
                 ]),
                 \FieldFactory::number('padding_top', [
-                    'title' => 'Отступ сверху (px)',
+                    'title' => LANG_HTMLBLOCK_AUTHOR_FIELD_PADDING_TOP,
                     'default' => $settings['padding_top'] ?? 40,
                     'min' => 0,
                     'max' => 100,
@@ -243,7 +247,7 @@ class AuthorBlock extends BaseHtmlBlock {
                     'column' => '6',
                 ]),
                 \FieldFactory::number('padding_bottom', [
-                    'title' => 'Отступ снизу (px)',
+                    'title' => LANG_HTMLBLOCK_AUTHOR_FIELD_PADDING_BOTTOM,
                     'default' => $settings['padding_bottom'] ?? 40,
                     'min' => 0,
                     'max' => 100,
@@ -253,16 +257,16 @@ class AuthorBlock extends BaseHtmlBlock {
             ]
         ]);
         
-        $fieldsets[] = new \Fieldset('Дополнительно', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_AUTHOR_FIELDSET_EXTRA, [
             'icon' => 'bi bi-gear',
             'columns' => '12',
             'fields' => [
                 \FieldFactory::string('custom_css_class', [
-                    'title' => 'CSS класс',
+                    'title' => LANG_HTMLBLOCK_AUTHOR_FIELD_CSS_CLASS,
                     'default' => $settings['custom_css_class'] ?? '',
                 ]),
                 \FieldFactory::string('custom_id', [
-                    'title' => 'HTML ID',
+                    'title' => LANG_HTMLBLOCK_AUTHOR_FIELD_HTML_ID,
                     'default' => $settings['custom_id'] ?? '',
                 ]),
             ]
@@ -290,7 +294,7 @@ class AuthorBlock extends BaseHtmlBlock {
             'phone' => '',
             'website' => '',
             'show_button' => 0,
-            'button_text' => 'Связаться',
+            'button_text' => LANG_HTMLBLOCK_AUTHOR_DEFAULT_BUTTON_TEXT,
             'button_url' => '/contact',
             'button_target' => '_self',
             'avatar_style' => 'circle',

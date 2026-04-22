@@ -3,7 +3,7 @@
 class TagsBlock extends BaseHtmlBlock {
     
     public function getName(): string {
-        return "Tags Cloud";
+        return LANG_HTMLBLOCK_TAGS_NAME;
     }
 
     public function getSystemName(): string {
@@ -11,7 +11,11 @@ class TagsBlock extends BaseHtmlBlock {
     }
 
     public function getDescription(): string {
-        return "Блок с тегами в виде облака, карточек или списка";
+        return LANG_HTMLBLOCK_TAGS_DESCRIPTION;
+    }
+
+    public function getAuthor(): string {
+        return 'BloggyCMS Team';
     }
 
     public function getVersion(): string {
@@ -28,122 +32,122 @@ class TagsBlock extends BaseHtmlBlock {
         
         $settings = array_merge([], $currentSettings);
         
-        $fieldsets[] = new \Fieldset('Заголовочная часть', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_TAGS_FIELDSET_HEADER, [
             'icon' => 'bi bi-pencil',
             'columns' => '12',
             'fields' => [
                 \FieldFactory::string('badge', [
-                    'title' => 'Бейдж',
-                    'default' => $settings['badge'] ?? 'Теги',
-                    'placeholder' => 'Например: Популярные теги',
+                    'title' => LANG_HTMLBLOCK_TAGS_FIELD_BADGE,
+                    'default' => $settings['badge'] ?? LANG_HTMLBLOCK_TAGS_DEFAULT_BADGE,
+                    'placeholder' => LANG_HTMLBLOCK_TAGS_FIELD_BADGE_PLACEHOLDER,
                 ]),
                 \FieldFactory::string('title', [
-                    'title' => 'Заголовок',
-                    'default' => $settings['title'] ?? 'Навигация по <span class="highlight">тегам</span>',
-                    'placeholder' => 'Используйте <span class="highlight"> для выделения',
+                    'title' => LANG_HTMLBLOCK_TAGS_FIELD_TITLE,
+                    'default' => $settings['title'] ?? LANG_HTMLBLOCK_TAGS_DEFAULT_TITLE,
+                    'placeholder' => LANG_HTMLBLOCK_TAGS_FIELD_TITLE_PLACEHOLDER,
                 ]),
                 \FieldFactory::textarea('description', [
-                    'title' => 'Описание',
-                    'default' => $settings['description'] ?? 'Исследуйте статьи по интересующим темам',
+                    'title' => LANG_HTMLBLOCK_TAGS_FIELD_DESCRIPTION,
+                    'default' => $settings['description'] ?? LANG_HTMLBLOCK_TAGS_DEFAULT_DESCRIPTION,
                     'rows' => 3,
                 ]),
                 \FieldFactory::select('align', [
-                    'title' => 'Выравнивание заголовка',
+                    'title' => LANG_HTMLBLOCK_TAGS_FIELD_ALIGN,
                     'options' => [
-                        'left' => 'Слева',
-                        'center' => 'По центру',
+                        'left' => LANG_HTMLBLOCK_TAGS_ALIGN_LEFT,
+                        'center' => LANG_HTMLBLOCK_TAGS_ALIGN_CENTER,
                     ],
                     'default' => 'center',
                 ]),
             ]
         ]);
 
-        $fieldsets[] = new \Fieldset('Настройки отображения', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_TAGS_FIELDSET_DISPLAY, [
             'icon' => 'bi bi-grid-3x3',
             'columns' => '12',
             'fields' => [
                 \FieldFactory::select('display_style', [
-                    'title' => 'Стиль отображения',
+                    'title' => LANG_HTMLBLOCK_TAGS_FIELD_DISPLAY_STYLE,
                     'options' => [
-                        'cloud' => 'Облако тегов (разный размер)',
-                        'cards' => 'Карточки',
-                        'list' => 'Список',
-                        'compact' => 'Компактный',
-                        'grid' => 'Сетка',
+                        'cloud' => LANG_HTMLBLOCK_TAGS_STYLE_CLOUD,
+                        'cards' => LANG_HTMLBLOCK_TAGS_STYLE_CARDS,
+                        'list' => LANG_HTMLBLOCK_TAGS_STYLE_LIST,
+                        'compact' => LANG_HTMLBLOCK_TAGS_STYLE_COMPACT,
+                        'grid' => LANG_HTMLBLOCK_TAGS_STYLE_GRID,
                     ],
                     'default' => 'cloud',
                 ]),
                 \FieldFactory::select('columns', [
-                    'title' => 'Количество колонок',
+                    'title' => LANG_HTMLBLOCK_TAGS_FIELD_COLUMNS,
                     'options' => [
-                        '2' => '2 колонки',
-                        '3' => '3 колонки',
-                        '4' => '4 колонки',
+                        '2' => LANG_HTMLBLOCK_TAGS_COLUMNS_2,
+                        '3' => LANG_HTMLBLOCK_TAGS_COLUMNS_3,
+                        '4' => LANG_HTMLBLOCK_TAGS_COLUMNS_4,
                     ],
                     'default' => '3',
                     'show' => 'field:display_style in cards,grid',
                 ]),
                 \FieldFactory::number('limit', [
-                    'title' => 'Количество тегов',
+                    'title' => LANG_HTMLBLOCK_TAGS_FIELD_LIMIT,
                     'default' => 20,
                     'min' => 1,
                     'max' => 100,
-                    'hint' => '0 = все теги',
+                    'hint' => LANG_HTMLBLOCK_TAGS_FIELD_LIMIT_HINT,
                 ]),
                 \FieldFactory::number('min_posts', [
-                    'title' => 'Минимальное количество постов',
+                    'title' => LANG_HTMLBLOCK_TAGS_FIELD_MIN_POSTS,
                     'default' => 1,
                     'min' => 0,
                     'max' => 100,
-                    'hint' => 'Показывать только теги с указанным минимумом постов',
+                    'hint' => LANG_HTMLBLOCK_TAGS_FIELD_MIN_POSTS_HINT,
                 ]),
                 \FieldFactory::checkbox('show_post_count', [
-                    'title' => 'Показывать количество постов',
+                    'title' => LANG_HTMLBLOCK_TAGS_FIELD_SHOW_POST_COUNT,
                     'default' => 1,
                     'switch' => true,
                 ]),
                 \FieldFactory::checkbox('show_icon', [
-                    'title' => 'Показывать иконки',
+                    'title' => LANG_HTMLBLOCK_TAGS_FIELD_SHOW_ICON,
                     'default' => 1,
                     'switch' => true,
                 ]),
             ]
         ]);
 
-        $fieldsets[] = new \Fieldset('Изображения тегов', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_TAGS_FIELDSET_IMAGES, [
             'icon' => 'bi bi-image',
             'columns' => '12',
             'fields' => [
                 \FieldFactory::select('image_style', [
-                    'title' => 'Стиль отображения изображений',
+                    'title' => LANG_HTMLBLOCK_TAGS_FIELD_IMAGE_STYLE,
                     'options' => [
-                        'none' => 'Не показывать',
-                        'icon' => 'Только иконки',
-                        'thumbnail' => 'Миниатюра (маленькая)',
-                        'cover' => 'Обложка (на всю карточку)',
-                        'background' => 'Фон карточки',
-                        'side' => 'Сбоку (как в карточках постов)',
+                        'none' => LANG_HTMLBLOCK_TAGS_IMAGE_STYLE_NONE,
+                        'icon' => LANG_HTMLBLOCK_TAGS_IMAGE_STYLE_ICON,
+                        'thumbnail' => LANG_HTMLBLOCK_TAGS_IMAGE_STYLE_THUMBNAIL,
+                        'cover' => LANG_HTMLBLOCK_TAGS_IMAGE_STYLE_COVER,
+                        'background' => LANG_HTMLBLOCK_TAGS_IMAGE_STYLE_BACKGROUND,
+                        'side' => LANG_HTMLBLOCK_TAGS_IMAGE_STYLE_SIDE,
                     ],
                     'default' => 'icon',
                 ]),
                 \FieldFactory::select('image_size', [
-                    'title' => 'Размер изображения',
+                    'title' => LANG_HTMLBLOCK_TAGS_FIELD_IMAGE_SIZE,
                     'options' => [
-                        'sm' => 'Маленький',
-                        'md' => 'Средний',
-                        'lg' => 'Большой',
+                        'sm' => LANG_HTMLBLOCK_TAGS_IMAGE_SIZE_SM,
+                        'md' => LANG_HTMLBLOCK_TAGS_IMAGE_SIZE_MD,
+                        'lg' => LANG_HTMLBLOCK_TAGS_IMAGE_SIZE_LG,
                     ],
                     'default' => 'md',
                     'show' => 'field:image_style != none && field:image_style != icon',
                 ]),
                 \FieldFactory::checkbox('image_rounded', [
-                    'title' => 'Скругленные углы',
+                    'title' => LANG_HTMLBLOCK_TAGS_FIELD_IMAGE_ROUNDED,
                     'default' => 1,
                     'switch' => true,
                     'show' => 'field:image_style != none',
                 ]),
                 \FieldFactory::checkbox('image_shadow', [
-                    'title' => 'Тень',
+                    'title' => LANG_HTMLBLOCK_TAGS_FIELD_IMAGE_SHADOW,
                     'default' => 0,
                     'switch' => true,
                     'show' => 'field:image_style != none',
@@ -151,102 +155,102 @@ class TagsBlock extends BaseHtmlBlock {
             ]
         ]);
 
-        $fieldsets[] = new \Fieldset('Сортировка', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_TAGS_FIELDSET_SORTING, [
             'icon' => 'bi bi-arrow-up-short',
             'columns' => '12',
             'fields' => [
                 \FieldFactory::select('order_by', [
-                    'title' => 'Сортировка',
+                    'title' => LANG_HTMLBLOCK_TAGS_FIELD_ORDER_BY,
                     'options' => [
-                        'name ASC' => 'По названию (А-Я)',
-                        'name DESC' => 'По названию (Я-А)',
-                        'posts_count DESC' => 'По популярности (сначала популярные)',
-                        'posts_count ASC' => 'По популярности (сначала редкие)',
-                        'id DESC' => 'По ID (сначала новые)',
-                        'id ASC' => 'По ID (сначала старые)',
+                        'name ASC' => LANG_HTMLBLOCK_TAGS_ORDER_NAME_ASC,
+                        'name DESC' => LANG_HTMLBLOCK_TAGS_ORDER_NAME_DESC,
+                        'posts_count DESC' => LANG_HTMLBLOCK_TAGS_ORDER_POPULAR_DESC,
+                        'posts_count ASC' => LANG_HTMLBLOCK_TAGS_ORDER_POPULAR_ASC,
+                        'id DESC' => LANG_HTMLBLOCK_TAGS_ORDER_ID_DESC,
+                        'id ASC' => LANG_HTMLBLOCK_TAGS_ORDER_ID_ASC,
                     ],
                     'default' => 'posts_count DESC',
                 ]),
             ]
         ]);
 
-        $fieldsets[] = new \Fieldset('Фильтрация', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_TAGS_FIELDSET_FILTER, [
             'icon' => 'bi bi-funnel',
             'columns' => '12',
             'fields' => [
                 \FieldFactory::textarea('exclude_ids', [
-                    'title' => 'Исключить теги (ID через запятую)',
+                    'title' => LANG_HTMLBLOCK_TAGS_FIELD_EXCLUDE_IDS,
                     'default' => '',
                     'placeholder' => '5, 12, 8',
                     'rows' => 2,
-                    'hint' => 'ID тегов, которые не нужно показывать',
+                    'hint' => LANG_HTMLBLOCK_TAGS_FIELD_EXCLUDE_IDS_HINT,
                 ]),
                 \FieldFactory::textarea('include_ids', [
-                    'title' => 'Только указанные теги (ID через запятую)',
+                    'title' => LANG_HTMLBLOCK_TAGS_FIELD_INCLUDE_IDS,
                     'default' => '',
                     'placeholder' => '3, 7, 15',
                     'rows' => 2,
-                    'hint' => 'Показывать только эти теги (переопределяет остальные фильтры)',
+                    'hint' => LANG_HTMLBLOCK_TAGS_FIELD_INCLUDE_IDS_HINT,
                 ]),
             ]
         ]);
 
-        $fieldsets[] = new \Fieldset('Цвета и фон', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_TAGS_FIELDSET_COLORS, [
             'icon' => 'bi bi-palette',
             'columns' => '12',
             'fields' => [
                 \FieldFactory::select('theme', [
-                    'title' => 'Тема',
+                    'title' => LANG_HTMLBLOCK_TAGS_FIELD_THEME,
                     'options' => [
-                        'light' => 'Светлая',
-                        'dark' => 'Темная',
-                        'custom' => 'Своя',
+                        'light' => LANG_HTMLBLOCK_TAGS_THEME_LIGHT,
+                        'dark' => LANG_HTMLBLOCK_TAGS_THEME_DARK,
+                        'custom' => LANG_HTMLBLOCK_TAGS_THEME_CUSTOM,
                     ],
                     'default' => 'light',
                 ]),
                 \FieldFactory::color('background_color', [
-                    'title' => 'Цвет фона',
+                    'title' => LANG_HTMLBLOCK_TAGS_FIELD_BACKGROUND_COLOR,
                     'preset' => 'basic',
                     'show' => 'field:theme = custom',
                 ]),
                 \FieldFactory::color('text_color', [
-                    'title' => 'Цвет текста',
+                    'title' => LANG_HTMLBLOCK_TAGS_FIELD_TEXT_COLOR,
                     'preset' => 'basic',
                     'show' => 'field:theme = custom',
                 ]),
                 \FieldFactory::color('accent_color', [
-                    'title' => 'Акцентный цвет',
+                    'title' => LANG_HTMLBLOCK_TAGS_FIELD_ACCENT_COLOR,
                     'preset' => 'website',
                     'default' => '#2563eb',
                 ]),
                 \FieldFactory::color('card_background', [
-                    'title' => 'Цвет карточек',
+                    'title' => LANG_HTMLBLOCK_TAGS_FIELD_CARD_BACKGROUND,
                     'preset' => 'basic',
                     'default' => $settings['card_background'] ?? '',
-                    'hint' => 'Оставьте пустым для автоматического',
+                    'hint' => LANG_HTMLBLOCK_TAGS_FIELD_CARD_BACKGROUND_HINT,
                 ]),
                 \FieldFactory::checkbox('gradient_cards', [
-                    'title' => 'Градиентные карточки',
+                    'title' => LANG_HTMLBLOCK_TAGS_FIELD_GRADIENT_CARDS,
                     'default' => 0,
                     'switch' => true,
-                    'hint' => 'Каждая карточка с легким градиентом',
+                    'hint' => LANG_HTMLBLOCK_TAGS_FIELD_GRADIENT_CARDS_HINT,
                 ]),
             ]
         ]);
 
-        $fieldsets[] = new \Fieldset('Отступы', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_TAGS_FIELDSET_PADDING, [
             'icon' => 'bi bi-arrows-expand',
             'columns' => '12',
             'fields' => [
                 \FieldFactory::number('padding_top', [
-                    'title' => 'Отступ сверху (px)',
+                    'title' => LANG_HTMLBLOCK_TAGS_FIELD_PADDING_TOP,
                     'default' => 80,
                     'min' => 0,
                     'max' => 200,
                     'step' => 10,
                 ]),
                 \FieldFactory::number('padding_bottom', [
-                    'title' => 'Отступ снизу (px)',
+                    'title' => LANG_HTMLBLOCK_TAGS_FIELD_PADDING_BOTTOM,
                     'default' => 80,
                     'min' => 0,
                     'max' => 200,
@@ -255,16 +259,16 @@ class TagsBlock extends BaseHtmlBlock {
             ]
         ]);
 
-        $fieldsets[] = new \Fieldset('Дополнительно', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_TAGS_FIELDSET_EXTRA, [
             'icon' => 'bi bi-gear',
             'columns' => '12',
             'fields' => [
                 \FieldFactory::string('custom_css_class', [
-                    'title' => 'CSS класс',
+                    'title' => LANG_HTMLBLOCK_TAGS_FIELD_CSS_CLASS,
                     'default' => $settings['custom_css_class'] ?? '',
                 ]),
                 \FieldFactory::string('custom_id', [
-                    'title' => 'HTML ID',
+                    'title' => LANG_HTMLBLOCK_TAGS_FIELD_HTML_ID,
                     'default' => $settings['custom_id'] ?? '',
                 ]),
             ]

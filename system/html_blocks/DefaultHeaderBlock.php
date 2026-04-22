@@ -3,7 +3,7 @@
 class DefaultHeaderBlock extends BaseHtmlBlock {
     
     public function getName(): string {
-        return "Header";
+        return LANG_HTMLBLOCK_DEFAULTHEADER_NAME;
     }
 
     public function getSystemName(): string {
@@ -11,7 +11,7 @@ class DefaultHeaderBlock extends BaseHtmlBlock {
     }
 
     public function getDescription(): string {
-        return "Адаптивная шапка сайта с поддержкой светлой и тёмной темы";
+        return LANG_HTMLBLOCK_DEFAULTHEADER_DESCRIPTION;
     }
 
     public function getAuthor(): string {
@@ -32,14 +32,14 @@ class DefaultHeaderBlock extends BaseHtmlBlock {
         $settings = array_merge([
             'theme' => 'dark',
             'logo_path' => '',
-            'logo_alt' => 'Логотип сайта',
+            'logo_alt' => LANG_HTMLBLOCK_DEFAULTHEADER_DEFAULT_LOGO_ALT,
             'site_name' => SettingsHelper::get('general', 'site_name', 'BloggyCMS'),
             'logo_link' => '/',
             'show_site_name' => 1,
             'main_menu_id' => '',
             'profile_menu_id' => '',
             'show_search' => 1,
-            'search_placeholder' => 'Поиск...',
+            'search_placeholder' => LANG_HTMLBLOCK_DEFAULTHEADER_DEFAULT_SEARCH_PLACEHOLDER,
             'search_page' => '/search',
             'sticky_header' => 1,
             'show_shadow' => 1,
@@ -49,106 +49,106 @@ class DefaultHeaderBlock extends BaseHtmlBlock {
         ], $currentSettings);
         
         $fieldsets = [
-            new \Fieldset('Тема оформления', [
+            new \Fieldset(LANG_HTMLBLOCK_DEFAULTHEADER_FIELDSET_THEME, [
                 'icon' => 'bi bi-palette',
                 'columns' => 'custom',
                 'fields' => [
                     \FieldFactory::select('theme', [
-                        'title' => 'Цветовая схема',
+                        'title' => LANG_HTMLBLOCK_DEFAULTHEADER_FIELD_THEME,
                         'options' => [
-                            'dark' => '🌙 Тёмная тема',
-                            'light' => '☀️ Светлая тема'
+                            'dark' => LANG_HTMLBLOCK_DEFAULTHEADER_THEME_DARK,
+                            'light' => LANG_HTMLBLOCK_DEFAULTHEADER_THEME_LIGHT
                         ],
                         'default' => $settings['theme'],
                         'column' => '12',
-                        'hint' => 'Выберите цветовую схему шапки'
+                        'hint' => LANG_HTMLBLOCK_DEFAULTHEADER_FIELD_THEME_HINT
                     ])
                 ]
             ]),
             
-            new \Fieldset('Логотип и брендинг', [
+            new \Fieldset(LANG_HTMLBLOCK_DEFAULTHEADER_FIELDSET_BRANDING, [
                 'icon' => 'bi bi-brush',
                 'columns' => 'custom',
                 'fields' => [
                     \FieldFactory::blockImage('logo_path', [
-                        'title' => 'Логотип',
-                        'hint' => 'Загрузите логотип сайта (рекомендуется SVG или PNG с прозрачностью)',
+                        'title' => LANG_HTMLBLOCK_DEFAULTHEADER_FIELD_LOGO,
+                        'hint' => LANG_HTMLBLOCK_DEFAULTHEADER_FIELD_LOGO_HINT,
                         'default' => $settings['logo_path'],
                         'upload_path' => 'uploads/images/html_blocks/' . $this->getSystemName() . '/',
                         'preview_size' => '80px'
                     ]),
                     \FieldFactory::string('logo_alt', [
-                        'title' => 'Alt текст логотипа',
+                        'title' => LANG_HTMLBLOCK_DEFAULTHEADER_FIELD_LOGO_ALT,
                         'default' => $settings['logo_alt'],
                         'column' => '6',
-                        'placeholder' => 'Описание логотипа'
+                        'placeholder' => LANG_HTMLBLOCK_DEFAULTHEADER_FIELD_LOGO_ALT_PLACEHOLDER
                     ]),
                     \FieldFactory::string('logo_link', [
-                        'title' => 'Ссылка логотипа',
+                        'title' => LANG_HTMLBLOCK_DEFAULTHEADER_FIELD_LOGO_LINK,
                         'default' => $settings['logo_link'],
                         'placeholder' => '/',
                         'column' => '6',
-                        'hint' => 'Куда ведет клик по логотипу'
+                        'hint' => LANG_HTMLBLOCK_DEFAULTHEADER_FIELD_LOGO_LINK_HINT
                     ]),
                     \FieldFactory::checkbox('show_site_name', [
-                        'title' => 'Показывать название сайта',
+                        'title' => LANG_HTMLBLOCK_DEFAULTHEADER_FIELD_SHOW_SITE_NAME,
                         'default' => $settings['show_site_name'],
                         'switch' => true,
                         'column' => '12',
-                        'hint' => 'Отображать текстовое название рядом с логотипом'
+                        'hint' => LANG_HTMLBLOCK_DEFAULTHEADER_FIELD_SHOW_SITE_NAME_HINT
                     ]),
                     \FieldFactory::string('site_name', [
-                        'title' => 'Название сайта',
+                        'title' => LANG_HTMLBLOCK_DEFAULTHEADER_FIELD_SITE_NAME,
                         'default' => $settings['site_name'],
-                        'placeholder' => 'Введите название сайта',
+                        'placeholder' => LANG_HTMLBLOCK_DEFAULTHEADER_FIELD_SITE_NAME_PLACEHOLDER,
                         'column' => '12',
                         'show' => 'field:show_site_name'
                     ])
                 ]
             ]),
             
-            new \Fieldset('Навигация', [
+            new \Fieldset(LANG_HTMLBLOCK_DEFAULTHEADER_FIELDSET_NAVIGATION, [
                 'icon' => 'bi bi-menu-button-wide',
                 'columns' => '6',
                 'fields' => [
                     \FieldFactory::select('main_menu_id', [
-                        'title' => 'Главное меню',
-                        'options' => ['' => '-- Выберите меню --'] + $allMenus,
+                        'title' => LANG_HTMLBLOCK_DEFAULTHEADER_FIELD_MAIN_MENU,
+                        'options' => ['' => LANG_HTMLBLOCK_DEFAULTHEADER_OPTION_SELECT_MENU] + $allMenus,
                         'default' => $settings['main_menu_id'],
                         'required' => true,
-                        'hint' => 'Основное меню навигации'
+                        'hint' => LANG_HTMLBLOCK_DEFAULTHEADER_FIELD_MAIN_MENU_HINT
                     ]),
                     \FieldFactory::select('profile_menu_id', [
-                        'title' => 'Меню профиля',
-                        'options' => ['' => '-- Не показывать --'] + $allMenus,
+                        'title' => LANG_HTMLBLOCK_DEFAULTHEADER_FIELD_PROFILE_MENU,
+                        'options' => ['' => LANG_HTMLBLOCK_DEFAULTHEADER_OPTION_NOT_SHOW] + $allMenus,
                         'default' => $settings['profile_menu_id'],
-                        'hint' => 'Выпадающее меню для авторизованного пользователя'
+                        'hint' => LANG_HTMLBLOCK_DEFAULTHEADER_FIELD_PROFILE_MENU_HINT
                     ])
                 ]
             ]),
             
-            new \Fieldset('Поиск', [
+            new \Fieldset(LANG_HTMLBLOCK_DEFAULTHEADER_FIELDSET_SEARCH, [
                 'icon' => 'bi bi-search',
                 'columns' => 'custom',
                 'fields' => [
                     \FieldFactory::checkbox('show_search', [
-                        'title' => 'Показывать поиск',
+                        'title' => LANG_HTMLBLOCK_DEFAULTHEADER_FIELD_SHOW_SEARCH,
                         'default' => $settings['show_search'],
                         'switch' => true
                     ]),
                     \FieldFactory::string('search_placeholder', [
-                        'title' => 'Плейсхолдер поиска',
+                        'title' => LANG_HTMLBLOCK_DEFAULTHEADER_FIELD_SEARCH_PLACEHOLDER,
                         'default' => $settings['search_placeholder'],
-                        'placeholder' => 'Например: Найти пост...',
+                        'placeholder' => LANG_HTMLBLOCK_DEFAULTHEADER_FIELD_SEARCH_PLACEHOLDER_PLACEHOLDER,
                         'column' => '6',
                         'show' => 'field:show_search'
                     ]),
                     \FieldFactory::select('search_page', [
-                        'title' => 'Страница поиска',
+                        'title' => LANG_HTMLBLOCK_DEFAULTHEADER_FIELD_SEARCH_PAGE,
                         'options' => [
-                            '/search' => 'Стандартная страница поиска',
-                            '/search/posts' => 'Поиск по постам',
-                            '/search/users' => 'Поиск по пользователям'
+                            '/search' => LANG_HTMLBLOCK_DEFAULTHEADER_SEARCH_PAGE_STANDARD,
+                            '/search/posts' => LANG_HTMLBLOCK_DEFAULTHEADER_SEARCH_PAGE_POSTS,
+                            '/search/users' => LANG_HTMLBLOCK_DEFAULTHEADER_SEARCH_PAGE_USERS
                         ],
                         'default' => $settings['search_page'],
                         'column' => '6',
@@ -157,48 +157,48 @@ class DefaultHeaderBlock extends BaseHtmlBlock {
                 ]
             ]),
             
-            new \Fieldset('Настройки внешнего вида', [
+            new \Fieldset(LANG_HTMLBLOCK_DEFAULTHEADER_FIELDSET_APPEARANCE, [
                 'icon' => 'bi bi-sliders',
                 'columns' => 'custom',
                 'fields' => [
                     \FieldFactory::checkbox('sticky_header', [
-                        'title' => 'Закрепленная шапка',
+                        'title' => LANG_HTMLBLOCK_DEFAULTHEADER_FIELD_STICKY_HEADER,
                         'default' => $settings['sticky_header'],
                         'switch' => true,
                         'column' => '6'
                     ]),
                     \FieldFactory::checkbox('show_shadow', [
-                        'title' => 'Показывать тень',
+                        'title' => LANG_HTMLBLOCK_DEFAULTHEADER_FIELD_SHOW_SHADOW,
                         'default' => $settings['show_shadow'],
                         'switch' => true,
                         'column' => '6'
                     ]),
                     \FieldFactory::select('container_type', [
-                        'title' => 'Тип контейнера',
+                        'title' => LANG_HTMLBLOCK_DEFAULTHEADER_FIELD_CONTAINER_TYPE,
                         'options' => [
-                            'container' => 'Фиксированный',
-                            'container-fluid' => 'На всю ширину'
+                            'container' => LANG_HTMLBLOCK_DEFAULTHEADER_CONTAINER_FIXED,
+                            'container-fluid' => LANG_HTMLBLOCK_DEFAULTHEADER_CONTAINER_FLUID
                         ],
                         'column' => '6',
                         'default' => $settings['container_type']
                     ]),
                     \FieldFactory::select('header_height', [
-                        'title' => 'Высота шапки',
+                        'title' => LANG_HTMLBLOCK_DEFAULTHEADER_FIELD_HEADER_HEIGHT,
                         'options' => [
-                            'sm' => 'Компактная (56px)',
-                            'md' => 'Средняя (64px)',
-                            'lg' => 'Высокая (72px)'
+                            'sm' => LANG_HTMLBLOCK_DEFAULTHEADER_HEIGHT_SM,
+                            'md' => LANG_HTMLBLOCK_DEFAULTHEADER_HEIGHT_MD,
+                            'lg' => LANG_HTMLBLOCK_DEFAULTHEADER_HEIGHT_LG
                         ],
                         'column' => '6',
                         'default' => $settings['header_height']
                     ]),
                     \FieldFactory::number('mobile_breakpoint', [
-                        'title' => 'Точка перехода (px)',
+                        'title' => LANG_HTMLBLOCK_DEFAULTHEADER_FIELD_MOBILE_BREAKPOINT,
                         'default' => $settings['mobile_breakpoint'],
                         'min' => 576,
                         'max' => 1200,
                         'column' => '6',
-                        'hint' => 'Ширина экрана для мобильного меню'
+                        'hint' => LANG_HTMLBLOCK_DEFAULTHEADER_FIELD_MOBILE_BREAKPOINT_HINT
                     ])
                 ]
             ])
@@ -217,12 +217,12 @@ class DefaultHeaderBlock extends BaseHtmlBlock {
 
     public function validateSettings($settings): array {
         if (!is_array($settings)) {
-            return [false, ['Настройки должны быть массивом']];
+            return [false, [LANG_HTMLBLOCK_DEFAULTHEADER_VALIDATION_ERROR]];
         }
         
         $errors = [];
         if (empty($settings['main_menu_id'])) {
-            $errors[] = 'Необходимо выбрать главное меню';
+            $errors[] = LANG_HTMLBLOCK_DEFAULTHEADER_VALIDATION_MAIN_MENU_REQUIRED;
         }
         
         return [empty($errors), $errors];
@@ -241,14 +241,14 @@ class DefaultHeaderBlock extends BaseHtmlBlock {
         unset($settings['logo_path_file'], $settings['remove_logo_path']);
         
         $settings['theme'] = in_array($settings['theme'] ?? '', ['dark', 'light']) ? $settings['theme'] : 'dark';
-        $settings['logo_alt'] = trim($settings['logo_alt'] ?? 'Логотип сайта');
+        $settings['logo_alt'] = trim($settings['logo_alt'] ?? LANG_HTMLBLOCK_DEFAULTHEADER_DEFAULT_LOGO_ALT);
         $settings['site_name'] = trim($settings['site_name'] ?? SettingsHelper::get('general', 'site_name', 'BloggyCMS'));
         $settings['logo_link'] = trim($settings['logo_link'] ?? '/');
         $settings['show_site_name'] = isset($settings['show_site_name']) ? (int)$settings['show_site_name'] : 1;
         $settings['main_menu_id'] = $settings['main_menu_id'] ?? '';
         $settings['profile_menu_id'] = $settings['profile_menu_id'] ?? '';
         $settings['show_search'] = isset($settings['show_search']) ? (int)$settings['show_search'] : 1;
-        $settings['search_placeholder'] = trim($settings['search_placeholder'] ?? 'Поиск...');
+        $settings['search_placeholder'] = trim($settings['search_placeholder'] ?? LANG_HTMLBLOCK_DEFAULTHEADER_DEFAULT_SEARCH_PLACEHOLDER);
         $settings['search_page'] = $settings['search_page'] ?? '/search';
         $settings['sticky_header'] = isset($settings['sticky_header']) ? (int)$settings['sticky_header'] : 1;
         $settings['show_shadow'] = isset($settings['show_shadow']) ? (int)$settings['show_shadow'] : 1;

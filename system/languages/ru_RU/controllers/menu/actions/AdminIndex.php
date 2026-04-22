@@ -1,0 +1,5 @@
+<?php
+
+define('LANG_ACTION_MENU_ADMININDEX_BREADCRUMB_DASHBOARD', 'Панель управления');
+define('LANG_ACTION_MENU_ADMININDEX_BREADCRUMB_MENU', 'Меню');
+define('LANG_ACTION_MENU_ADMININDEX_PAGE_TITLE', 'Управление меню');

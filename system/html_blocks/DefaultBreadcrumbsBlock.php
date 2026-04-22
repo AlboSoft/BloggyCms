@@ -3,7 +3,7 @@
 class DefaultBreadcrumbsBlock extends BaseHtmlBlock {
     
     public function getName(): string {
-        return "Хлебные крошки";
+        return LANG_HTMLBLOCK_DEFAULTBREADCRUMBS_NAME;
     }
 
     public function getSystemName(): string {
@@ -11,7 +11,7 @@ class DefaultBreadcrumbsBlock extends BaseHtmlBlock {
     }
 
     public function getDescription(): string {
-        return "Навигационная цепочка (хлебные крошки)";
+        return LANG_HTMLBLOCK_DEFAULTBREADCRUMBS_DESCRIPTION;
     }
 
     public function getAuthor(): string {
@@ -31,73 +31,73 @@ class DefaultBreadcrumbsBlock extends BaseHtmlBlock {
         
         $fieldsets = [];
         
-        $fieldsets[] = new \Fieldset('Основные настройки', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_DEFAULTBREADCRUMBS_FIELDSET_MAIN, [
             'icon' => 'bi bi-gear',
             'columns' => '12',
             'fields' => [
                 \FieldFactory::checkbox('show_home', [
-                    'title' => 'Показывать главную',
+                    'title' => LANG_HTMLBLOCK_DEFAULTBREADCRUMBS_FIELD_SHOW_HOME,
                     'default' => 1,
                     'switch' => true,
                 ]),
                 \FieldFactory::checkbox('show_current', [
-                    'title' => 'Показывать текущую страницу',
+                    'title' => LANG_HTMLBLOCK_DEFAULTBREADCRUMBS_FIELD_SHOW_CURRENT,
                     'default' => 1,
                     'switch' => true,
                 ]),
                 \FieldFactory::checkbox('hide_on_front', [
-                    'title' => 'Скрывать на главной',
+                    'title' => LANG_HTMLBLOCK_DEFAULTBREADCRUMBS_FIELD_HIDE_ON_FRONT,
                     'default' => 1,
                     'switch' => true,
                 ]),
             ]
         ]);
 
-        $fieldsets[] = new \Fieldset('Внешний вид', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_DEFAULTBREADCRUMBS_FIELDSET_APPEARANCE, [
             'icon' => 'bi bi-palette',
             'columns' => 'custom',
             'fields' => [
                 \FieldFactory::select('separator', [
-                    'title' => 'Разделитель',
+                    'title' => LANG_HTMLBLOCK_DEFAULTBREADCRUMBS_FIELD_SEPARATOR,
                     'options' => [
-                        'chevron' => '›',
-                        'slash' => '/',
-                        'arrow' => '→',
-                        'dot' => '•',
+                        'chevron' => LANG_HTMLBLOCK_DEFAULTBREADCRUMBS_SEPARATOR_CHEVRON,
+                        'slash' => LANG_HTMLBLOCK_DEFAULTBREADCRUMBS_SEPARATOR_SLASH,
+                        'arrow' => LANG_HTMLBLOCK_DEFAULTBREADCRUMBS_SEPARATOR_ARROW,
+                        'dot' => LANG_HTMLBLOCK_DEFAULTBREADCRUMBS_SEPARATOR_DOT,
                     ],
                     'column' => '6',
                     'default' => 'chevron'
                 ]),
                 \FieldFactory::select('alignment', [
-                    'title' => 'Выравнивание',
+                    'title' => LANG_HTMLBLOCK_DEFAULTBREADCRUMBS_FIELD_ALIGNMENT,
                     'options' => [
-                        'left' => 'Слева',
-                        'center' => 'По центру',
-                        'right' => 'Справа',
+                        'left' => LANG_HTMLBLOCK_DEFAULTBREADCRUMBS_ALIGN_LEFT,
+                        'center' => LANG_HTMLBLOCK_DEFAULTBREADCRUMBS_ALIGN_CENTER,
+                        'right' => LANG_HTMLBLOCK_DEFAULTBREADCRUMBS_ALIGN_RIGHT,
                     ],
                     'column' => '6',
                     'default' => 'left'
                 ]),
                 \FieldFactory::icon('home_icon', [
-                    'title' => 'Иконка главной',
-                    'hint' => 'Оставьте пустым чтобы не показывать иконку',
+                    'title' => LANG_HTMLBLOCK_DEFAULTBREADCRUMBS_FIELD_HOME_ICON,
+                    'hint' => LANG_HTMLBLOCK_DEFAULTBREADCRUMBS_FIELD_HOME_ICON_HINT,
                     'default' => '',
                     'column' => '12'
                 ])
             ]
         ]);
 
-        $fieldsets[] = new \Fieldset('Дополнительно', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_DEFAULTBREADCRUMBS_FIELDSET_EXTRA, [
             'icon' => 'bi bi-three-dots',
             'columns' => '12',
             'fields' => [
                 \FieldFactory::checkbox('enable_schema', [
-                    'title' => 'Микроразметка',
+                    'title' => LANG_HTMLBLOCK_DEFAULTBREADCRUMBS_FIELD_ENABLE_SCHEMA,
                     'default' => 1,
                     'switch' => true,
                 ]),
                 \FieldFactory::string('custom_css_class', [
-                    'title' => 'CSS класс',
+                    'title' => LANG_HTMLBLOCK_DEFAULTBREADCRUMBS_FIELD_CSS_CLASS,
                     'default' => '',
                     'placeholder' => 'my-breadcrumbs'
                 ]),

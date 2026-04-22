@@ -1,0 +1,4 @@
+<?php
+
+define('LANG_CONTROLLER_ICONS_MANIFEST_NAME', 'Icons');
+define('LANG_CONTROLLER_ICONS_MANIFEST_DESCRIPTION', 'Manage blog icons');

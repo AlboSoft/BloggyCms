@@ -3,7 +3,7 @@
 class ScrollToTopBlock extends BaseHtmlBlock {
 
     public function getName(): string {
-        return "Кнопка вверх";
+        return LANG_HTMLBLOCK_SCROLLTOTOP_NAME;
     }
 
     public function getSystemName(): string {
@@ -11,15 +11,19 @@ class ScrollToTopBlock extends BaseHtmlBlock {
     }
 
     public function getDescription(): string {
-        return "Добавляет кнопку для плавной прокрутки страницы вверх. Появляется после прокрутки.";
+        return LANG_HTMLBLOCK_SCROLLTOTOP_DESCRIPTION;
     }
 
     public function getShortDescription(): string {
-        return "Кнопка прокрутки вверх";
+        return LANG_HTMLBLOCK_SCROLLTOTOP_SHORT_DESCRIPTION;
     }
 
     public function getIcon(): string {
         return 'bi bi-arrow-up-circle';
+    }
+
+    public function getAuthor(): string {
+        return 'BloggyCMS Team';
     }
 
     public function getVersion(): string {
@@ -35,13 +39,13 @@ class ScrollToTopBlock extends BaseHtmlBlock {
 
         $fieldsets = [];
 
-        $fieldsets[] = new \Fieldset('Основные настройки', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_SCROLLTOTOP_FIELDSET_MAIN, [
             'icon' => 'bi bi-gear',
             'columns' => 'custom',
             'fields' => [
                 \FieldFactory::number('scroll_threshold', [
-                    'title' => 'Порог появления (px)',
-                    'hint' => 'Через сколько пикселей прокрутки показывать кнопку',
+                    'title' => LANG_HTMLBLOCK_SCROLLTOTOP_FIELD_SCROLL_THRESHOLD,
+                    'hint' => LANG_HTMLBLOCK_SCROLLTOTOP_FIELD_SCROLL_THRESHOLD_HINT,
                     'default' => $settings['scroll_threshold'] ?? 300,
                     'min' => 0,
                     'max' => 1000,
@@ -49,8 +53,8 @@ class ScrollToTopBlock extends BaseHtmlBlock {
                     'column' => '6',
                 ]),
                 \FieldFactory::number('animation_duration', [
-                    'title' => 'Длительность анимации (мс)',
-                    'hint' => 'Скорость прокрутки страницы вверх',
+                    'title' => LANG_HTMLBLOCK_SCROLLTOTOP_FIELD_ANIMATION_DURATION,
+                    'hint' => LANG_HTMLBLOCK_SCROLLTOTOP_FIELD_ANIMATION_DURATION_HINT,
                     'default' => $settings['animation_duration'] ?? 500,
                     'min' => 100,
                     'max' => 2000,
@@ -60,21 +64,21 @@ class ScrollToTopBlock extends BaseHtmlBlock {
             ]
         ]);
 
-        $fieldsets[] = new \Fieldset('Внешний вид', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_SCROLLTOTOP_FIELDSET_APPEARANCE, [
             'icon' => 'bi bi-palette',
             'columns' => 'custom',
             'fields' => [
                 \FieldFactory::select('position', [
-                    'title' => 'Позиция кнопки',
+                    'title' => LANG_HTMLBLOCK_SCROLLTOTOP_FIELD_POSITION,
                     'options' => [
-                        'bottom-right' => 'Снизу справа',
-                        'bottom-left' => 'Снизу слева',
+                        'bottom-right' => LANG_HTMLBLOCK_SCROLLTOTOP_POSITION_BOTTOM_RIGHT,
+                        'bottom-left' => LANG_HTMLBLOCK_SCROLLTOTOP_POSITION_BOTTOM_LEFT,
                     ],
                     'default' => $settings['position'] ?? 'bottom-right',
                     'column' => '6',
                 ]),
                 \FieldFactory::number('offset_bottom', [
-                    'title' => 'Отступ снизу (px)',
+                    'title' => LANG_HTMLBLOCK_SCROLLTOTOP_FIELD_OFFSET_BOTTOM,
                     'default' => $settings['offset_bottom'] ?? 20,
                     'min' => 0,
                     'max' => 100,
@@ -82,7 +86,7 @@ class ScrollToTopBlock extends BaseHtmlBlock {
                     'column' => '6',
                 ]),
                 \FieldFactory::number('offset_side', [
-                    'title' => 'Отступ сбоку (px)',
+                    'title' => LANG_HTMLBLOCK_SCROLLTOTOP_FIELD_OFFSET_SIDE,
                     'default' => $settings['offset_side'] ?? 20,
                     'min' => 0,
                     'max' => 100,
@@ -90,61 +94,61 @@ class ScrollToTopBlock extends BaseHtmlBlock {
                     'column' => '6',
                 ]),
                 \FieldFactory::select('size', [
-                    'title' => 'Размер кнопки',
+                    'title' => LANG_HTMLBLOCK_SCROLLTOTOP_FIELD_SIZE,
                     'options' => [
-                        'sm' => 'Маленькая (40px)',
-                        'md' => 'Средняя (50px)',
-                        'lg' => 'Большая (60px)',
+                        'sm' => LANG_HTMLBLOCK_SCROLLTOTOP_SIZE_SM,
+                        'md' => LANG_HTMLBLOCK_SCROLLTOTOP_SIZE_MD,
+                        'lg' => LANG_HTMLBLOCK_SCROLLTOTOP_SIZE_LG,
                     ],
                     'default' => $settings['size'] ?? 'md',
                     'column' => '6',
                 ]),
                 \FieldFactory::select('shape', [
-                    'title' => 'Форма',
+                    'title' => LANG_HTMLBLOCK_SCROLLTOTOP_FIELD_SHAPE,
                     'options' => [
-                        'circle' => 'Круглая',
-                        'rounded' => 'Скругленная',
+                        'circle' => LANG_HTMLBLOCK_SCROLLTOTOP_SHAPE_CIRCLE,
+                        'rounded' => LANG_HTMLBLOCK_SCROLLTOTOP_SHAPE_ROUNDED,
                     ],
                     'default' => $settings['shape'] ?? 'circle',
                     'column' => '6',
                 ]),
                 \FieldFactory::color('background_color', [
-                    'title' => 'Цвет фона',
+                    'title' => LANG_HTMLBLOCK_SCROLLTOTOP_FIELD_BACKGROUND_COLOR,
                     'preset' => 'website',
                     'default' => $settings['background_color'] ?? '#2563eb',
                     'column' => '6',
                 ]),
                 \FieldFactory::color('text_color', [
-                    'title' => 'Цвет иконки',
+                    'title' => LANG_HTMLBLOCK_SCROLLTOTOP_FIELD_TEXT_COLOR,
                     'preset' => 'basic',
                     'default' => $settings['text_color'] ?? '#ffffff',
                     'column' => '6',
                 ]),
                 \FieldFactory::checkbox('show_shadow', [
-                    'title' => 'Показывать тень',
+                    'title' => LANG_HTMLBLOCK_SCROLLTOTOP_FIELD_SHOW_SHADOW,
                     'default' => $settings['show_shadow'] ?? 1,
                     'switch' => true,
                     'column' => '12',
                 ]),
                 \FieldFactory::icon('custom_icon', [
-                    'title' => 'Своя иконка',
-                    'hint' => 'Оставьте пустым для использования стандартной иконки',
+                    'title' => LANG_HTMLBLOCK_SCROLLTOTOP_FIELD_CUSTOM_ICON,
+                    'hint' => LANG_HTMLBLOCK_SCROLLTOTOP_FIELD_CUSTOM_ICON_HINT,
                     'default' => $settings['custom_icon'] ?? '',
                     'column' => '12',
                 ]),
             ]
         ]);
 
-        $fieldsets[] = new \Fieldset('Дополнительно', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_SCROLLTOTOP_FIELDSET_EXTRA, [
             'icon' => 'bi bi-gear',
             'columns' => '12',
             'fields' => [
                 \FieldFactory::string('custom_css_class', [
-                    'title' => 'CSS класс',
+                    'title' => LANG_HTMLBLOCK_SCROLLTOTOP_FIELD_CSS_CLASS,
                     'default' => $settings['custom_css_class'] ?? '',
                 ]),
                 \FieldFactory::string('custom_id', [
-                    'title' => 'HTML ID',
+                    'title' => LANG_HTMLBLOCK_SCROLLTOTOP_FIELD_HTML_ID,
                     'default' => $settings['custom_id'] ?? '',
                 ]),
             ]

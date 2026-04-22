@@ -1,7 +1,7 @@
 <?php
 class DefaultLatestPostsBlock extends BaseHtmlBlock {
     public function getName(): string {
-        return "Посты блога";
+        return LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_NAME;
     }
     
     public function getSystemName(): string {
@@ -9,7 +9,11 @@ class DefaultLatestPostsBlock extends BaseHtmlBlock {
     }
     
     public function getDescription(): string {
-        return "Блок с постами блога с различными фильтрами";
+        return LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_DESCRIPTION;
+    }
+
+    public function getAuthor(): string {
+        return 'BloggyCMS Team';
     }
     
     public function getVersion(): string {
@@ -23,7 +27,7 @@ class DefaultLatestPostsBlock extends BaseHtmlBlock {
     public $posts = [];
     
     private function getCategoriesOptions(): array {
-        $options = ['' => '-- Все категории --'];
+        $options = ['' => LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_CATEGORY_ALL];
         try {
             if (API::hasModel('categories')) {
                 $categories = API::categories()->getAll();
@@ -149,29 +153,30 @@ class DefaultLatestPostsBlock extends BaseHtmlBlock {
         $timestamp = strtotime($dateString);
         $diff = time() - $timestamp;
         
-        if ($diff < 60) return 'только что';
+        if ($diff < 60) return LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_JUST_NOW;
         
         $minutes = round($diff / 60);
-        if ($minutes < 60) return $minutes . ' мин. назад';
+        if ($minutes < 60) return $minutes . ' ' . LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_MINUTES_AGO;
         
         $hours = round($diff / 3600);
-        if ($hours < 24) return $hours . ' ч. назад';
+        if ($hours < 24) return $hours . ' ' . LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_HOURS_AGO;
         
         $days = round($diff / 86400);
-        if ($days < 7) return $days . ' ' . $this->declension($days, ['день', 'дня', 'дней']) . ' назад';
+        if ($days < 7) return $days . ' ' . $this->declension($days, explode('|', LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_DAYS_DECLENSION)) . ' ' . LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_AGO;
         
         $weeks = round($diff / 604800);
-        if ($weeks < 5) return $weeks . ' ' . $this->declension($weeks, ['неделя', 'недели', 'недель']) . ' назад';
+        if ($weeks < 5) return $weeks . ' ' . $this->declension($weeks, explode('|', LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_WEEKS_DECLENSION)) . ' ' . LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_AGO;
         
         $months = round($diff / 2592000);
-        if ($months < 12) return $months . ' ' . $this->declension($months, ['месяц', 'месяца', 'месяцев']) . ' назад';
+        if ($months < 12) return $months . ' ' . $this->declension($months, explode('|', LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_MONTHS_DECLENSION)) . ' ' . LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_AGO;
         
         $years = round($diff / 31536000);
-        return $years . ' ' . $this->declension($years, ['год', 'года', 'лет']) . ' назад';
+        return $years . ' ' . $this->declension($years, explode('|', LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_YEARS_DECLENSION)) . ' ' . LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_AGO;
     }
     
     private function declension($number, $titles) {
         $cases = [2, 0, 1, 1, 1, 2];
+        $titles = is_array($titles) ? $titles : explode('|', $titles);
         return $titles[($number % 100 > 4 && $number % 100 < 20) ? 2 : $cases[min($number % 10, 5)]];
     }
     
@@ -186,7 +191,7 @@ class DefaultLatestPostsBlock extends BaseHtmlBlock {
     
     public function formatReadTime($minutes) {
         $minutes = (int)$minutes;
-        return $minutes . ' ' . $this->declension($minutes, ['мин. на чтение', 'мин. на чтение', 'мин. на чтение']);
+        return $minutes . ' ' . $this->declension($minutes, explode('|', LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_READ_TIME_DECLENSION));
     }
     
     public function getPostImageUrl($post) {
@@ -216,199 +221,199 @@ class DefaultLatestPostsBlock extends BaseHtmlBlock {
     public function getSettingsForm($currentSettings = []): string {
         $settings = array_merge([], $currentSettings);
         
-        $fieldsets[] = new \Fieldset('Заголовочная часть', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_FIELDSET_HEADER, [
             'icon' => 'bi bi-pencil',
             'columns' => '12',
             'fields' => [
                 \FieldFactory::string('badge', [
-                    'title' => 'Бейдж',
-                    'default' => $settings['badge'] ?? 'Блог',
-                    'placeholder' => 'Например: Последние статьи',
+                    'title' => LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_FIELD_BADGE,
+                    'default' => $settings['badge'] ?? LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_DEFAULT_BADGE,
+                    'placeholder' => LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_FIELD_BADGE_PLACEHOLDER,
                 ]),
                 \FieldFactory::string('title', [
-                    'title' => 'Заголовок',
-                    'default' => $settings['title'] ?? 'Читайте <span class="highlight">свежие статьи</span>',
-                    'placeholder' => 'Используйте <span class="highlight"> для выделения',
+                    'title' => LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_FIELD_TITLE,
+                    'default' => $settings['title'] ?? LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_DEFAULT_TITLE,
+                    'placeholder' => LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_FIELD_TITLE_PLACEHOLDER,
                 ]),
                 \FieldFactory::textarea('description', [
-                    'title' => 'Описание',
-                    'default' => $settings['description'] ?? 'Делюсь опытом, мыслями и инсайтами о разработке, архитектуре и не только.',
+                    'title' => LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_FIELD_DESCRIPTION,
+                    'default' => $settings['description'] ?? LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_DEFAULT_DESCRIPTION,
                     'rows' => 3,
                 ]),
                 \FieldFactory::select('align', [
-                    'title' => 'Выравнивание заголовка',
+                    'title' => LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_FIELD_ALIGN,
                     'options' => [
-                        'left' => 'Слева',
-                        'center' => 'По центру',
+                        'left' => LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_ALIGN_LEFT,
+                        'center' => LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_ALIGN_CENTER,
                     ],
                     'default' => 'center',
                 ]),
             ]
         ]);
         
-        $fieldsets[] = new \Fieldset('Настройки постов', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_FIELDSET_POSTS, [
             'icon' => 'bi bi-card-list',
             'columns' => '12',
             'fields' => [
                 \FieldFactory::number('posts_count', [
-                    'title' => 'Количество постов',
+                    'title' => LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_FIELD_POSTS_COUNT,
                     'default' => 3,
                     'min' => 1,
                     'max' => 6,
-                    'hint' => 'Сколько постов отображать',
+                    'hint' => LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_FIELD_POSTS_COUNT_HINT,
                 ]),
                 \FieldFactory::select('columns', [
-                    'title' => 'Количество колонок',
+                    'title' => LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_FIELD_COLUMNS,
                     'options' => [
-                        '2' => '2 колонки',
-                        '3' => '3 колонки',
+                        '2' => LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_COLUMNS_2,
+                        '3' => LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_COLUMNS_3,
                     ],
                     'default' => '3',
-                    'hint' => 'Для десктопа',
+                    'hint' => LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_FIELD_COLUMNS_HINT,
                 ]),
                 \FieldFactory::select('date_format', [
-                    'title' => 'Формат даты',
+                    'title' => LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_FIELD_DATE_FORMAT,
                     'options' => [
-                        'full' => 'Полная дата (6 марта 2026)',
-                        'relative' => 'Относительная (2 дня назад)',
+                        'full' => LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_DATE_FORMAT_FULL,
+                        'relative' => LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_DATE_FORMAT_RELATIVE,
                     ],
                     'default' => 'full',
                 ]),
                 \FieldFactory::checkbox('show_featured_image', [
-                    'title' => 'Показывать изображение',
+                    'title' => LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_FIELD_SHOW_FEATURED_IMAGE,
                     'default' => 1,
                     'switch' => true,
                 ]),
                 \FieldFactory::checkbox('show_excerpt', [
-                    'title' => 'Показывать краткое описание',
+                    'title' => LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_FIELD_SHOW_EXCERPT,
                     'default' => 1,
                     'switch' => true,
                 ]),
                 \FieldFactory::number('excerpt_length', [
-                    'title' => 'Длина описания (символов)',
+                    'title' => LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_FIELD_EXCERPT_LENGTH,
                     'default' => 120,
                     'min' => 50,
                     'max' => 300,
                     'show' => 'field:show_excerpt',
                 ]),
                 \FieldFactory::checkbox('show_read_time', [
-                    'title' => 'Показывать время чтения',
+                    'title' => LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_FIELD_SHOW_READ_TIME,
                     'default' => 1,
                     'switch' => true,
                 ]),
                 \FieldFactory::checkbox('show_date', [
-                    'title' => 'Показывать дату',
+                    'title' => LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_FIELD_SHOW_DATE,
                     'default' => 1,
                     'switch' => true,
                 ]),
                 \FieldFactory::checkbox('show_views', [
-                    'title' => 'Показывать количество просмотров',
+                    'title' => LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_FIELD_SHOW_VIEWS,
                     'default' => 0,
                     'switch' => true,
                 ]),
                 \FieldFactory::checkbox('show_category', [
-                    'title' => 'Показывать категорию',
+                    'title' => LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_FIELD_SHOW_CATEGORY,
                     'default' => 1,
                     'switch' => true,
                 ]),
                 \FieldFactory::checkbox('show_author', [
-                    'title' => 'Показывать автора',
+                    'title' => LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_FIELD_SHOW_AUTHOR,
                     'default' => 0,
                     'switch' => true,
                 ]),
             ]
         ]);
         
-        $fieldsets[] = new \Fieldset('Фильтрация', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_FIELDSET_FILTER, [
             'icon' => 'bi bi-funnel',
             'columns' => '12',
             'fields' => [
                 \FieldFactory::checkbox('filter_by_category', [
-                    'title' => 'Фильтровать по категории',
+                    'title' => LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_FIELD_FILTER_BY_CATEGORY,
                     'default' => 0,
                     'switch' => true,
                 ]),
                 \FieldFactory::select('category_id', [
-                    'title' => 'Категория',
+                    'title' => LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_FIELD_CATEGORY_ID,
                     'options' => $this->getCategoriesOptions(),
                     'show' => 'field:filter_by_category',
                 ]),
                 \FieldFactory::checkbox('exclude_current_post', [
-                    'title' => 'Исключить текущий пост',
+                    'title' => LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_FIELD_EXCLUDE_CURRENT_POST,
                     'default' => 1,
                     'switch' => true,
-                    'hint' => 'На странице поста не показывать его же в списке',
+                    'hint' => LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_FIELD_EXCLUDE_CURRENT_POST_HINT,
                 ]),
             ]
         ]);
         
-        $fieldsets[] = new \Fieldset('Сортировка', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_FIELDSET_SORTING, [
             'icon' => 'bi bi-arrow-up-short',
             'columns' => '12',
             'fields' => [
                 \FieldFactory::select('order_by', [
-                    'title' => 'Сортировка',
+                    'title' => LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_FIELD_ORDER_BY,
                     'options' => [
-                        'created_at DESC' => 'Сначала новые',
-                        'created_at ASC' => 'Сначала старые',
-                        'title ASC' => 'По алфавиту',
-                        'views DESC' => 'По просмотрам',
+                        'created_at DESC' => LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_ORDER_NEWEST,
+                        'created_at ASC' => LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_ORDER_OLDEST,
+                        'title ASC' => LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_ORDER_ALPHABETICAL,
+                        'views DESC' => LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_ORDER_VIEWS,
                     ],
                     'default' => 'created_at DESC',
                 ]),
             ]
         ]);
         
-        $fieldsets[] = new \Fieldset('Цвета и фон', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_FIELDSET_COLORS, [
             'icon' => 'bi bi-palette',
             'columns' => '12',
             'fields' => [
                 \FieldFactory::select('theme', [
-                    'title' => 'Тема',
+                    'title' => LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_FIELD_THEME,
                     'options' => [
-                        'light' => 'Светлая',
-                        'dark' => 'Темная',
-                        'custom' => 'Своя',
+                        'light' => LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_THEME_LIGHT,
+                        'dark' => LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_THEME_DARK,
+                        'custom' => LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_THEME_CUSTOM,
                     ],
                     'default' => 'light',
                 ]),
                 \FieldFactory::color('background_color', [
-                    'title' => 'Цвет фона',
+                    'title' => LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_FIELD_BACKGROUND_COLOR,
                     'preset' => 'basic',
                     'show' => 'field:theme = custom',
                 ]),
                 \FieldFactory::color('text_color', [
-                    'title' => 'Цвет текста',
+                    'title' => LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_FIELD_TEXT_COLOR,
                     'preset' => 'basic',
                     'show' => 'field:theme = custom',
                 ]),
                 \FieldFactory::color('accent_color', [
-                    'title' => 'Акцентный цвет',
+                    'title' => LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_FIELD_ACCENT_COLOR,
                     'preset' => 'website',
                     'default' => '#2563eb',
                 ]),
                 \FieldFactory::color('card_background', [
-                    'title' => 'Цвет карточек',
+                    'title' => LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_FIELD_CARD_BACKGROUND,
                     'preset' => 'basic',
                     'default' => $settings['card_background'] ?? '',
-                    'hint' => 'Оставьте пустым для автоматического',
+                    'hint' => LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_FIELD_CARD_BACKGROUND_HINT,
                 ]),
             ]
         ]);
         
-        $fieldsets[] = new \Fieldset('Отступы', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_FIELDSET_PADDING, [
             'icon' => 'bi bi-arrows-expand',
             'columns' => '12',
             'fields' => [
                 \FieldFactory::number('padding_top', [
-                    'title' => 'Отступ сверху (px)',
+                    'title' => LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_FIELD_PADDING_TOP,
                     'default' => 80,
                     'min' => 0,
                     'max' => 200,
                     'step' => 10,
                 ]),
                 \FieldFactory::number('padding_bottom', [
-                    'title' => 'Отступ снизу (px)',
+                    'title' => LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_FIELD_PADDING_BOTTOM,
                     'default' => 80,
                     'min' => 0,
                     'max' => 200,
@@ -417,16 +422,16 @@ class DefaultLatestPostsBlock extends BaseHtmlBlock {
             ]
         ]);
         
-        $fieldsets[] = new \Fieldset('Дополнительно', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_FIELDSET_EXTRA, [
             'icon' => 'bi bi-gear',
             'columns' => '12',
             'fields' => [
                 \FieldFactory::string('custom_css_class', [
-                    'title' => 'CSS класс',
+                    'title' => LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_FIELD_CSS_CLASS,
                     'default' => $settings['custom_css_class'] ?? '',
                 ]),
                 \FieldFactory::string('custom_id', [
-                    'title' => 'HTML ID',
+                    'title' => LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_FIELD_HTML_ID,
                     'default' => $settings['custom_id'] ?? '',
                 ]),
             ]

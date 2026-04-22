@@ -1,0 +1,38 @@
+<?php
+
+define('LANG_TEMPLATE_FRAGMENTS_FORM_EDIT_TITLE', 'Edit Fragment');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_CREATE_TITLE', 'Create Fragment');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_BACK_BTN', 'Back');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_MAIN_INFO_TITLE', 'Main Information');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_NAME_LABEL', 'Fragment Name');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_NAME_PLACEHOLDER', 'Example: Slider, Gallery, Team');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_NAME_HINT', 'Display name of the fragment');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_SYSTEM_NAME_LABEL', 'System Name');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_SYSTEM_NAME_HINT', 'Only Latin letters, numbers and underscores. Used in shortcodes: <code>{ctype:name}...{/ctype:name}</code>');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_DESCRIPTION_LABEL', 'Description');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_DESCRIPTION_PLACEHOLDER', 'Brief description of the fragment purpose');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_STYLES_SCRIPTS_TITLE', 'Styles and Scripts');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_CSS_FILES_LABEL', 'External CSS files');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_ADD_CSS_BTN', 'Add CSS file');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_JS_FILES_LABEL', 'External JavaScript files');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_ADD_JS_BTN', 'Add JS file');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_INLINE_CSS_LABEL', 'Inline CSS');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_INLINE_JS_LABEL', 'Inline JavaScript');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_STATS_TITLE', 'Statistics');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_STATS_TOTAL', 'Total entries');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_STATS_ACTIVE', 'Active');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_STATS_INACTIVE', 'Inactive');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_STATS_ACTIVE_PERCENT', 'active entries');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_SETTINGS_TITLE', 'Settings');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_STATUS_LABEL', 'Status');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_STATUS_ACTIVE', 'Active');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_STATUS_INACTIVE', 'Inactive');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_STATUS_HINT', 'Inactive fragments are not displayed on the site');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_HOWTO_TITLE', 'How to use');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_HOWTO_TEXT', 'To display the fragment on the site, use shortcodes:');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_HOWTO_SIMPLE', 'Simple output of all fragment entries');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_HOWTO_CUSTOM', 'Custom output with loop through entries');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_HOWTO_FIELD_VALUE', 'Output field value inside loop');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_HOWTO_FIELD_RENDERED', 'Output rendered field value (images, links, etc.)');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_SAVE_BTN', 'Save changes');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_CREATE_BTN', 'Create Fragment');

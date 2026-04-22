@@ -16,7 +16,7 @@ class AdminEdit extends MenuAction {
         $id = $this->params['id'] ?? null;
         
         if (!$id) {
-            \Notification::error('ID меню не указан');
+            \Notification::error(LANG_ACTION_MENU_ADMINEDIT_ID_NOT_SPECIFIED);
             $this->redirect(ADMIN_URL . '/menu');
             return;
         }
@@ -24,14 +24,14 @@ class AdminEdit extends MenuAction {
         $menu = $this->menuModel->getById($id);
         
         if (!$menu) {
-            \Notification::error('Меню не найдено');
+            \Notification::error(LANG_ACTION_MENU_ADMINEDIT_NOT_FOUND);
             $this->redirect(ADMIN_URL . '/menu');
             return;
         }
         
-        $this->addBreadcrumb('Панель управления', ADMIN_URL);
-        $this->addBreadcrumb('Меню', ADMIN_URL . '/menu');
-        $this->addBreadcrumb('Редактирование: ' . html($menu['name']));
+        $this->addBreadcrumb(LANG_ACTION_MENU_ADMINEDIT_BREADCRUMB_DASHBOARD, ADMIN_URL);
+        $this->addBreadcrumb(LANG_ACTION_MENU_ADMINEDIT_BREADCRUMB_MENU, ADMIN_URL . '/menu');
+        $this->addBreadcrumb(LANG_ACTION_MENU_ADMINEDIT_BREADCRUMB_EDIT . html($menu['name']));
         
         $availableTemplates = $this->menuModel->getAvailableTemplates();
         $currentTheme = $this->menuModel->getCurrentTheme();
@@ -53,7 +53,7 @@ class AdminEdit extends MenuAction {
             'availableTemplates' => $availableTemplates,
             'menuStructure' => $menuStructure,
             'currentTheme' => $currentTheme,
-            'pageTitle' => 'Редактирование меню: ' . html($menu['name'])
+            'pageTitle' => LANG_ACTION_MENU_ADMINEDIT_PAGE_TITLE . html($menu['name'])
         ]);
     }
     
@@ -69,20 +69,20 @@ class AdminEdit extends MenuAction {
     private function handlePostRequest($id, &$menu, &$menuStructure, $availableTemplates) {
         
         if (empty($_POST['name'])) {
-            throw new \Exception('Название меню обязательно');
+            throw new \Exception(LANG_ACTION_MENU_ADMINEDIT_NAME_REQUIRED);
         }
         
         if (empty($_POST['template'])) {
-            throw new \Exception('Шаблон меню обязателен');
+            throw new \Exception(LANG_ACTION_MENU_ADMINEDIT_TEMPLATE_REQUIRED);
         }
         
         if (!isset($availableTemplates[$_POST['template']])) {
-            throw new \Exception('Указанный шаблон не существует в текущей теме');
+            throw new \Exception(LANG_ACTION_MENU_ADMINEDIT_TEMPLATE_NOT_EXISTS);
         }
         
         $menuStructure = json_decode($_POST['menu_structure'] ?? '[]', true);
         if (!$this->menuModel->validateMenuStructure($menuStructure)) {
-            throw new \Exception('Некорректная структура меню');
+            throw new \Exception(LANG_ACTION_MENU_ADMINEDIT_INVALID_STRUCTURE);
         }
         
         $this->validateAndProcessVisibilitySettings($menuStructure);
@@ -98,10 +98,10 @@ class AdminEdit extends MenuAction {
         $success = $this->menuModel->update($id, $menuData);
         
         if ($success) {
-            \Notification::success('Меню успешно обновлено');
+            \Notification::success(LANG_ACTION_MENU_ADMINEDIT_SUCCESS);
             $this->redirect(ADMIN_URL . '/menu');
         } else {
-            throw new \Exception('Не удалось обновить меню');
+            throw new \Exception(LANG_ACTION_MENU_ADMINEDIT_UPDATE_FAILED);
         }
     }
     

@@ -20,11 +20,11 @@ class AdminGetBlockAssets extends HtmlBlockAction {
             $assetType = $_GET['asset_type'] ?? 'css';
             
             if (empty($blockType)) {
-                throw new \Exception('Не указан тип блока');
+                throw new \Exception(LANG_ACTION_HTMLBLOCKS_ADMINGETBLOCKASSETS_BLOCK_TYPE_REQUIRED);
             }
             
             if (!in_array($assetType, ['css', 'js'])) {
-                throw new \Exception('Недопустимый тип ассета');
+                throw new \Exception(LANG_ACTION_HTMLBLOCKS_ADMINGETBLOCKASSETS_INVALID_ASSET_TYPE);
             }
             
             $files = $this->scanBlockAssets($blockType, $assetType);

@@ -2,16 +2,16 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h4 class="mb-0">
             <?php echo bloggy_icon('bs', 'ui-sortable', '24', '#000', 'me-2'); ?>
-            Поля фрагмента: <?php echo html($fragment['name']); ?>
+            <?php echo sprintf(LANG_TEMPLATE_FRAGMENTS_FIELDS_LIST_TITLE, html($fragment['name'])); ?>
         </h4>
         <div class="d-flex gap-2">
             <a href="<?php echo ADMIN_URL; ?>/fragments/field/create/<?php echo $fragment['id']; ?>" class="btn btn-primary">
                 <?php echo bloggy_icon('bs', 'plus-circle', '16', '#fff', 'me-2'); ?>
-                Создать поле
+                <?php echo LANG_TEMPLATE_FRAGMENTS_FIELDS_LIST_CREATE_BTN; ?>
             </a>
             <a href="<?php echo ADMIN_URL; ?>/fragments/edit/<?php echo $fragment['id']; ?>" class="btn btn-outline-secondary">
                 <?php echo bloggy_icon('bs', 'arrow-left', '16', '#000', 'me-1'); ?>
-                Назад к фрагменту
+                <?php echo LANG_TEMPLATE_FRAGMENTS_FIELDS_LIST_BACK_BTN; ?>
             </a>
         </div>
     </div>
@@ -22,11 +22,11 @@
                 <div class="mb-3">
                     <?php echo bloggy_icon('bs', 'ui-sortable', '48', '#6C6C6C'); ?>
                 </div>
-                <h5 class="text-muted mb-2">Нет созданных полей</h5>
-                <p class="text-muted mb-3">Создайте первое поле для этого фрагмента</p>
+                <h5 class="text-muted mb-2"><?php echo LANG_TEMPLATE_FRAGMENTS_FIELDS_LIST_NO_FIELDS_TITLE; ?></h5>
+                <p class="text-muted mb-3"><?php echo LANG_TEMPLATE_FRAGMENTS_FIELDS_LIST_NO_FIELDS_TEXT; ?></p>
                 <a href="<?php echo ADMIN_URL; ?>/fragments/field/create/<?php echo $fragment['id']; ?>" class="btn btn-primary">
                     <?php echo bloggy_icon('bs', 'plus-circle', '16', '#fff', 'me-2'); ?>
-                    Создать поле
+                    <?php echo LANG_TEMPLATE_FRAGMENTS_FIELDS_LIST_CREATE_BTN; ?>
                 </a>
             </div>
         </div>
@@ -35,7 +35,7 @@
             <div class="card-body">
                 <div class="alert alert-info mb-4">
                     <?php echo bloggy_icon('bs', 'info-circle', '16', '#5AAFC9', 'me-2'); ?>
-                    <strong>Подсказка:</strong> Перетаскивайте поля за иконку <?php echo bloggy_icon('bs', 'grip-vertical', '16', '#2c2c2c', 'me-2'); ?> для изменения порядка отображения
+                    <strong><?php echo LANG_TEMPLATE_FRAGMENTS_FIELDS_LIST_HINT_TITLE; ?></strong> <?php echo LANG_TEMPLATE_FRAGMENTS_FIELDS_LIST_HINT_TEXT; ?> <?php echo bloggy_icon('bs', 'grip-vertical', '16', '#2c2c2c', 'me-2'); ?> <?php echo LANG_TEMPLATE_FRAGMENTS_FIELDS_LIST_HINT_SUFFIX; ?>
                 </div>
                 
                 <div class="table-responsive">
@@ -43,12 +43,12 @@
                         <thead class="table-light">
                             <tr>
                                 <th style="width: 40px;"></th>
-                                <th>Название</th>
-                                <th>Системное имя</th>
-                                <th>Тип</th>
-                                <th>Статус</th>
-                                <th>В списке</th>
-                                <th class="text-end">Действия</th>
+                                <th><?php echo LANG_TEMPLATE_FRAGMENTS_FIELDS_LIST_TABLE_NAME; ?></th>
+                                <th><?php echo LANG_TEMPLATE_FRAGMENTS_FIELDS_LIST_TABLE_SYSTEM_NAME; ?></th>
+                                <th><?php echo LANG_TEMPLATE_FRAGMENTS_FIELDS_LIST_TABLE_TYPE; ?></th>
+                                <th><?php echo LANG_TEMPLATE_FRAGMENTS_FIELDS_LIST_TABLE_STATUS; ?></th>
+                                <th><?php echo LANG_TEMPLATE_FRAGMENTS_FIELDS_LIST_TABLE_IN_LIST; ?></th>
+                                <th class="text-end"><?php echo LANG_TEMPLATE_FRAGMENTS_FIELDS_LIST_TABLE_ACTIONS; ?></th>
                             </tr>
                         </thead>
                         <tbody id="sortable-fields">
@@ -58,44 +58,44 @@
                                         <span class="field-handle" style="cursor: grab;">
                                             <?php echo bloggy_icon('bs', 'grip-vertical', '18', '#6C6C6C'); ?>
                                         </span>
-                                    </td>
+                                     </td>
                                     <td>
                                         <strong><?php echo html($field['name']); ?></strong>
                                         <?php if (!empty($field['description'])) { ?>
                                             <br><small class="text-muted"><?php echo html(mb_substr($field['description'], 0, 50)); ?></small>
                                         <?php } ?>
-                                    </td>
+                                     </td>
                                     <td>
                                         <code><?php echo html($field['system_name']); ?></code>
-                                    </td>
+                                     </td>
                                     <td>
                                         <span class="badge bg-secondary"><?php echo html($field['type']); ?></span>
-                                    </td>
+                                     </td>
                                     <td>
                                         <?php if ($field['is_active']) { ?>
-                                            <span class="badge bg-success">Активно</span>
+                                            <span class="badge bg-success"><?php echo LANG_TEMPLATE_FRAGMENTS_FIELDS_LIST_STATUS_ACTIVE; ?></span>
                                         <?php } else { ?>
-                                            <span class="badge bg-secondary">Отключено</span>
+                                            <span class="badge bg-secondary"><?php echo LANG_TEMPLATE_FRAGMENTS_FIELDS_LIST_STATUS_INACTIVE; ?></span>
                                         <?php } ?>
-                                    </td>
+                                     </td>
                                     <td>
                                         <?php if ($field['show_in_list']) { ?>
-                                            <span class="badge bg-info">Да</span>
+                                            <span class="badge bg-info"><?php echo LANG_TEMPLATE_FRAGMENTS_FIELDS_LIST_YES; ?></span>
                                         <?php } else { ?>
-                                            <span class="badge bg-light text-dark">Нет</span>
+                                            <span class="badge bg-light text-dark"><?php echo LANG_TEMPLATE_FRAGMENTS_FIELDS_LIST_NO; ?></span>
                                         <?php } ?>
-                                    </td>
+                                     </td>
                                     <td class="text-end">
                                         <div class="btn-group btn-group-sm">
                                             <a href="<?php echo ADMIN_URL; ?>/fragments/field/edit/<?php echo $field['id']; ?>" 
                                             class="btn btn-outline-primary"
-                                            title="Редактировать">
+                                            title="<?php echo LANG_TEMPLATE_FRAGMENTS_FIELDS_LIST_EDIT_TITLE; ?>">
                                                 <?php echo bloggy_icon('bs', 'pencil', '16', '#000'); ?>
                                             </a>
                                             <a href="<?php echo ADMIN_URL; ?>/fragments/field/delete/<?php echo $field['id']; ?>" 
                                             class="btn btn-outline-danger"
-                                            onclick="return confirm('Вы уверены, что хотите удалить поле «<?php echo html($field['name']); ?>»?')"
-                                            title="Удалить">
+                                            onclick="return confirm('<?php echo sprintf(LANG_TEMPLATE_FRAGMENTS_FIELDS_LIST_DELETE_CONFIRM, html($field['name'])); ?>')"
+                                            title="<?php echo LANG_TEMPLATE_FRAGMENTS_FIELDS_LIST_DELETE_TITLE; ?>">
                                                 <?php echo bloggy_icon('bs', 'trash', '16', '#000'); ?>
                                             </a>
                                         </div>
@@ -108,7 +108,7 @@
                 
                 <?php if (!empty($fieldsForDisplay)) { ?>
                     <div class="mt-4">
-                        <h6 class="mb-3">Поля, отображаемые в списке записей:</h6>
+                        <h6 class="mb-3"><?php echo LANG_TEMPLATE_FRAGMENTS_FIELDS_LIST_DISPLAY_FIELDS_TITLE; ?></h6>
                         <div class="d-flex flex-wrap gap-2">
                             <?php foreach ($fieldsForDisplay as $field) { ?>
                                 <span class="badge bg-light text-dark border px-3 py-2">

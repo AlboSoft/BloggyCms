@@ -3,7 +3,7 @@
 class FeedbackBlock extends BaseHtmlBlock {
     
     public function getName(): string {
-        return "Обратная связь";
+        return LANG_HTMLBLOCK_FEEDBACK_NAME;
     }
     
     public function getSystemName(): string {
@@ -11,11 +11,15 @@ class FeedbackBlock extends BaseHtmlBlock {
     }
     
     public function getDescription(): string {
-        return "Блок обратной связи с формой и контактной информацией. Поддерживает выбор формы и шаблона отображения.";
+        return LANG_HTMLBLOCK_FEEDBACK_DESCRIPTION;
     }
     
     public function getIcon(): string {
         return 'bi bi-chat-left-text';
+    }
+
+    public function getAuthor(): string {
+        return 'BloggyCMS Team';
     }
     
     public function getVersion(): string {
@@ -27,7 +31,7 @@ class FeedbackBlock extends BaseHtmlBlock {
     }
     
     private function getAvailableForms(): array {
-        $forms = ['' => '-- Выберите форму --'];
+        $forms = ['' => LANG_HTMLBLOCK_FEEDBACK_SELECT_FORM];
         try {
             $db = Database::getInstance();
             $formModel = new FormModel($db);
@@ -40,7 +44,7 @@ class FeedbackBlock extends BaseHtmlBlock {
     }
     
     private function getAvailableFormTemplates(): array {
-        $templates = ['default' => 'Стандартный шаблон'];
+        $templates = ['default' => LANG_HTMLBLOCK_FEEDBACK_DEFAULT_TEMPLATE];
         $systemName = $this->getSystemName();
         $currentTheme = defined('DEFAULT_TEMPLATE') ? DEFAULT_TEMPLATE : 'default';
         
@@ -94,7 +98,7 @@ class FeedbackBlock extends BaseHtmlBlock {
         $form = $formModel->getBySlug($formSlug);
         
         if (!$form || $form['status'] !== 'active') {
-            return '<div class="alert alert-warning">Форма не найдена или неактивна</div>';
+            return '<div class="alert alert-warning">' . LANG_HTMLBLOCK_FEEDBACK_FORM_NOT_AVAILABLE . '</div>';
         }
         
         $structure = $form['structure'] ?? [];
@@ -156,87 +160,87 @@ class FeedbackBlock extends BaseHtmlBlock {
         
         $fieldsets = [];
         
-        $fieldsets[] = new \Fieldset('Настройки формы', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_FEEDBACK_FIELDSET_FORM, [
             'icon' => 'bi bi-card-list',
             'columns' => 'custom',
             'fields' => [
                 \FieldFactory::select('form_slug', [
-                    'title' => 'Выберите форму',
+                    'title' => LANG_HTMLBLOCK_FEEDBACK_FIELD_SELECT_FORM,
                     'options' => $availableForms,
                     'default' => $settings['form_slug'] ?? '',
                     'required' => true,
-                    'hint' => 'Форма должна быть активной в системе',
+                    'hint' => LANG_HTMLBLOCK_FEEDBACK_FIELD_SELECT_FORM_HINT,
                     'column' => '12',
                 ]),
                 \FieldFactory::select('form_template', [
-                    'title' => 'Шаблон формы',
+                    'title' => LANG_HTMLBLOCK_FEEDBACK_FIELD_FORM_TEMPLATE,
                     'options' => $formTemplates,
                     'default' => $settings['form_template'] ?? 'default',
-                    'hint' => 'Шаблон из папки блока: /forms/',
+                    'hint' => LANG_HTMLBLOCK_FEEDBACK_FIELD_FORM_TEMPLATE_HINT,
                     'column' => '6',
                 ]),
                 \FieldFactory::checkbox('show_form_title', [
-                    'title' => 'Показывать заголовок формы',
+                    'title' => LANG_HTMLBLOCK_FEEDBACK_FIELD_SHOW_FORM_TITLE,
                     'default' => $settings['show_form_title'] ?? 1,
                     'switch' => true,
                     'column' => '6',
                 ]),
                 \FieldFactory::string('form_title', [
-                    'title' => 'Заголовок формы',
-                    'default' => $settings['form_title'] ?? 'Напишите нам',
-                    'placeholder' => 'Например: Оставьте заявку',
+                    'title' => LANG_HTMLBLOCK_FEEDBACK_FIELD_FORM_TITLE,
+                    'default' => $settings['form_title'] ?? LANG_HTMLBLOCK_FEEDBACK_DEFAULT_FORM_TITLE,
+                    'placeholder' => LANG_HTMLBLOCK_FEEDBACK_FIELD_FORM_TITLE_PLACEHOLDER,
                     'column' => '12',
                     'show' => 'field:show_form_title',
                 ]),
             ]
         ]);
         
-        $fieldsets[] = new \Fieldset('Контактная информация', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_FEEDBACK_FIELDSET_CONTACT, [
             'icon' => 'bi bi-info-circle',
             'columns' => 'custom',
             'fields' => [
                 \FieldFactory::checkbox('show_contact_info', [
-                    'title' => 'Показывать контактную информацию',
+                    'title' => LANG_HTMLBLOCK_FEEDBACK_FIELD_SHOW_CONTACT_INFO,
                     'default' => $settings['show_contact_info'] ?? 1,
                     'switch' => true,
                     'column' => '12',
                 ]),
                 \FieldFactory::string('contact_title', [
-                    'title' => 'Заголовок раздела',
-                    'default' => $settings['contact_title'] ?? 'Как мы можем помочь?',
+                    'title' => LANG_HTMLBLOCK_FEEDBACK_FIELD_CONTACT_TITLE,
+                    'default' => $settings['contact_title'] ?? LANG_HTMLBLOCK_FEEDBACK_DEFAULT_CONTACT_TITLE,
                     'column' => '12',
                     'show' => 'field:show_contact_info',
                 ]),
                 \FieldFactory::textarea('contact_description', [
-                    'title' => 'Описание',
+                    'title' => LANG_HTMLBLOCK_FEEDBACK_FIELD_CONTACT_DESCRIPTION,
                     'default' => $settings['contact_description'] ?? '',
                     'rows' => 3,
                     'column' => '12',
                     'show' => 'field:show_contact_info',
                 ]),
                 \FieldFactory::string('contact_phone', [
-                    'title' => 'Телефон',
+                    'title' => LANG_HTMLBLOCK_FEEDBACK_FIELD_CONTACT_PHONE,
                     'default' => $settings['contact_phone'] ?? '',
-                    'placeholder' => '+7 (999) 000-00-00',
+                    'placeholder' => LANG_HTMLBLOCK_FEEDBACK_PHONE_PLACEHOLDER,
                     'column' => '6',
                     'show' => 'field:show_contact_info',
                 ]),
                 \FieldFactory::string('contact_email', [
-                    'title' => 'Email',
+                    'title' => LANG_HTMLBLOCK_FEEDBACK_FIELD_CONTACT_EMAIL,
                     'default' => $settings['contact_email'] ?? '',
                     'placeholder' => 'info@example.com',
                     'column' => '6',
                     'show' => 'field:show_contact_info',
                 ]),
                 \FieldFactory::string('contact_address', [
-                    'title' => 'Адрес',
+                    'title' => LANG_HTMLBLOCK_FEEDBACK_FIELD_CONTACT_ADDRESS,
                     'default' => $settings['contact_address'] ?? '',
-                    'placeholder' => 'г. Москва, ул. Примерная, 1',
+                    'placeholder' => LANG_HTMLBLOCK_FEEDBACK_ADDRESS_PLACEHOLDER,
                     'column' => '12',
                     'show' => 'field:show_contact_info',
                 ]),
                 \FieldFactory::string('contact_map_url', [
-                    'title' => 'Ссылка на карту',
+                    'title' => LANG_HTMLBLOCK_FEEDBACK_FIELD_CONTACT_MAP_URL,
                     'default' => $settings['contact_map_url'] ?? '',
                     'placeholder' => 'https://maps.google.com/...',
                     'column' => '12',
@@ -245,49 +249,49 @@ class FeedbackBlock extends BaseHtmlBlock {
             ]
         ]);
         
-        $fieldsets[] = new \Fieldset('Внешний вид', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_FEEDBACK_FIELDSET_APPEARANCE, [
             'icon' => 'bi bi-palette',
             'columns' => 'custom',
             'fields' => [
                 \FieldFactory::select('layout', [
-                    'title' => 'Расположение колонок',
+                    'title' => LANG_HTMLBLOCK_FEEDBACK_FIELD_LAYOUT,
                     'options' => [
-                        'form-left' => 'Форма слева, контакты справа',
-                        'form-right' => 'Контакты слева, форма справа',
+                        'form-left' => LANG_HTMLBLOCK_FEEDBACK_LAYOUT_FORM_LEFT,
+                        'form-right' => LANG_HTMLBLOCK_FEEDBACK_LAYOUT_FORM_RIGHT,
                     ],
                     'default' => $settings['layout'] ?? 'form-left',
                     'column' => '6',
                 ]),
                 \FieldFactory::select('theme', [
-                    'title' => 'Тема',
+                    'title' => LANG_HTMLBLOCK_FEEDBACK_FIELD_THEME,
                     'options' => [
-                        'light' => 'Светлая',
-                        'dark' => 'Тёмная',
-                        'custom' => 'Своя',
+                        'light' => LANG_HTMLBLOCK_FEEDBACK_THEME_LIGHT,
+                        'dark' => LANG_HTMLBLOCK_FEEDBACK_THEME_DARK,
+                        'custom' => LANG_HTMLBLOCK_FEEDBACK_THEME_CUSTOM,
                     ],
                     'default' => $settings['theme'] ?? 'light',
                     'column' => '6',
                 ]),
                 \FieldFactory::color('background_color', [
-                    'title' => 'Цвет фона',
+                    'title' => LANG_HTMLBLOCK_FEEDBACK_FIELD_BACKGROUND_COLOR,
                     'preset' => 'basic',
                     'column' => '6',
                     'show' => 'field:theme = custom',
                 ]),
                 \FieldFactory::color('text_color', [
-                    'title' => 'Цвет текста',
+                    'title' => LANG_HTMLBLOCK_FEEDBACK_FIELD_TEXT_COLOR,
                     'preset' => 'basic',
                     'column' => '6',
                     'show' => 'field:theme = custom',
                 ]),
                 \FieldFactory::color('accent_color', [
-                    'title' => 'Акцентный цвет',
+                    'title' => LANG_HTMLBLOCK_FEEDBACK_FIELD_ACCENT_COLOR,
                     'preset' => 'website',
                     'default' => '#2563eb',
                     'column' => '12',
                 ]),
                 \FieldFactory::number('padding_top', [
-                    'title' => 'Отступ сверху (px)',
+                    'title' => LANG_HTMLBLOCK_FEEDBACK_FIELD_PADDING_TOP,
                     'default' => 80,
                     'min' => 0,
                     'max' => 200,
@@ -295,7 +299,7 @@ class FeedbackBlock extends BaseHtmlBlock {
                     'column' => '6',
                 ]),
                 \FieldFactory::number('padding_bottom', [
-                    'title' => 'Отступ снизу (px)',
+                    'title' => LANG_HTMLBLOCK_FEEDBACK_FIELD_PADDING_BOTTOM,
                     'default' => 80,
                     'min' => 0,
                     'max' => 200,
@@ -305,16 +309,16 @@ class FeedbackBlock extends BaseHtmlBlock {
             ]
         ]);
         
-        $fieldsets[] = new \Fieldset('Дополнительно', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_FEEDBACK_FIELDSET_EXTRA, [
             'icon' => 'bi bi-gear',
             'columns' => '12',
             'fields' => [
                 \FieldFactory::string('custom_css_class', [
-                    'title' => 'CSS класс',
+                    'title' => LANG_HTMLBLOCK_FEEDBACK_FIELD_CSS_CLASS,
                     'default' => $settings['custom_css_class'] ?? '',
                 ]),
                 \FieldFactory::string('custom_id', [
-                    'title' => 'HTML ID',
+                    'title' => LANG_HTMLBLOCK_FEEDBACK_FIELD_HTML_ID,
                     'default' => $settings['custom_id'] ?? '',
                 ]),
             ]
@@ -336,9 +340,9 @@ class FeedbackBlock extends BaseHtmlBlock {
             'form_slug' => '',
             'form_template' => 'default',
             'show_form_title' => 1,
-            'form_title' => 'Напишите нам',
+            'form_title' => LANG_HTMLBLOCK_FEEDBACK_DEFAULT_FORM_TITLE,
             'show_contact_info' => 1,
-            'contact_title' => 'Как мы можем помочь?',
+            'contact_title' => LANG_HTMLBLOCK_FEEDBACK_DEFAULT_CONTACT_TITLE,
             'contact_description' => '',
             'contact_phone' => '',
             'contact_email' => '',
@@ -355,7 +359,7 @@ class FeedbackBlock extends BaseHtmlBlock {
     public function validateSettings($settings): array {
         $errors = [];
         if (empty($settings['form_slug'])) {
-            $errors[] = 'Необходимо выбрать форму для отображения';
+            $errors[] = LANG_HTMLBLOCK_FEEDBACK_VALIDATION_FORM_REQUIRED;
         }
         return [empty($errors), $errors];
     }

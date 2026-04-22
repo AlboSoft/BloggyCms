@@ -1,0 +1,4 @@
+<?php
+
+define('LANG_ACTION_MENU_ADMINGETSTRUCTURE_ID_NOT_SPECIFIED', 'ID меню не указан');
+define('LANG_ACTION_MENU_ADMINGETSTRUCTURE_NOT_FOUND', 'Меню не найдено');

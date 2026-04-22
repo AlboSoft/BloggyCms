@@ -45,15 +45,15 @@ class AdminIndex {
     * @return void
     */
     public function execute() {
-        $this->addBreadcrumb('Панель управления', ADMIN_URL);
-        $this->addBreadcrumb('Иконки');
-        $this->setPageTitle('Иконки блога');
+        $this->addBreadcrumb(LANG_ACTION_ICONS_ADMININDEX_BREADCRUMB_DASHBOARD, ADMIN_URL);
+        $this->addBreadcrumb(LANG_ACTION_ICONS_ADMININDEX_BREADCRUMB_ICONS);
+        $this->setPageTitle(LANG_ACTION_ICONS_ADMININDEX_PAGE_TITLE);
         
         $icons = $this->getAllIcons();
         
         $this->render('admin/icons/index', [
             'icons' => $icons,
-            'pageTitle' => 'Иконки блога'
+            'pageTitle' => LANG_ACTION_ICONS_ADMININDEX_PAGE_TITLE
         ]);
     }
     

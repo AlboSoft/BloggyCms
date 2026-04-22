@@ -7,11 +7,11 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h4 class="mb-0">
             <?php echo bloggy_icon('bs', isset($menu['id']) ? 'pencil' : 'plus-circle', '24', '#000', 'me-2'); ?>
-            <?php echo isset($menu['id']) ? 'Редактирование меню' : 'Создание меню'; ?>
+            <?php echo isset($menu['id']) ? LANG_TEMPLATE_MENU_FORM_EDIT_TITLE : LANG_TEMPLATE_MENU_FORM_CREATE_TITLE; ?>
         </h4>
         <a href="<?php echo ADMIN_URL; ?>/menu" class="btn btn-outline-secondary">
             <?php echo bloggy_icon('bs', 'arrow-left', '16', '#000', 'me-2'); ?>
-            Назад к списку
+            <?php echo LANG_TEMPLATE_MENU_FORM_BACK_BTN; ?>
         </a>
     </div>
 
@@ -19,8 +19,8 @@
         <div class="d-flex align-items-center">
             <?php echo bloggy_icon('bs', 'info-circle', '16', '#000', 'me-2'); ?>
             <div>
-                <strong>Текущая тема:</strong> <?php echo html($currentTheme); ?>
-                <div class="small">Шаблоны меню загружаются из: <code>templates/<?php echo html($currentTheme); ?>/front/assets/menu/</code></div>
+                <strong><?php echo LANG_TEMPLATE_MENU_FORM_CURRENT_THEME; ?></strong> <?php echo html($currentTheme); ?>
+                <div class="small"><?php echo LANG_TEMPLATE_MENU_FORM_TEMPLATES_PATH; ?> <code>templates/<?php echo html($currentTheme); ?>/front/assets/menu/</code></div>
             </div>
         </div>
     </div>
@@ -30,10 +30,10 @@
         <div class="d-flex align-items-center">
             <?php echo bloggy_icon('bs', 'exclamation-triangle', '16', '#000', 'me-2'); ?>
             <div>
-                <strong>Шаблоны меню не найдены!</strong>
+                <strong><?php echo LANG_TEMPLATE_MENU_FORM_NO_TEMPLATES_TITLE; ?></strong>
                 <div class="small">
-                    Создайте PHP файлы в директории: <code>templates/<?php echo html($currentTheme); ?>/front/assets/menu/</code>
-                    <br>Например: <code>main.php</code>, <code>footer.php</code>
+                    <?php echo LANG_TEMPLATE_MENU_FORM_NO_TEMPLATES_TEXT; ?>
+                    <br><?php echo LANG_TEMPLATE_MENU_FORM_NO_TEMPLATES_EXAMPLE; ?>
                 </div>
             </div>
         </div>
@@ -45,19 +45,19 @@
             <div class="col-lg-8">
                 <div class="card border-0 shadow-sm mb-4">
                     <div class="card-header bg-white border-0 d-flex justify-content-between align-items-center">
-                        <h5 class="card-title mb-0">Структура меню</h5>
+                        <h5 class="card-title mb-0"><?php echo LANG_TEMPLATE_MENU_FORM_STRUCTURE_TITLE; ?></h5>
                         <div class="d-flex gap-2">
                             <button type="button" class="btn btn-outline-primary btn-sm" id="add-menu-item" data-bs-toggle="modal" data-bs-target="#menuItemModal">
                                 <?php echo bloggy_icon('bs', 'plus-circle', '16', '#000', 'me-1'); ?>
-                                Добавить пункт
+                                <?php echo LANG_TEMPLATE_MENU_FORM_ADD_ITEM_BTN; ?>
                             </button>
                             <button type="button" class="btn btn-outline-secondary btn-sm" id="expand-all">
                                 <?php echo bloggy_icon('bs', 'arrows-expand', '16', '#000', 'me-1'); ?>
-                                Развернуть все
+                                <?php echo LANG_TEMPLATE_MENU_FORM_EXPAND_ALL_BTN; ?>
                             </button>
                             <button type="button" class="btn btn-outline-secondary btn-sm" id="collapse-all">
                                 <?php echo bloggy_icon('bs', 'arrows-collapse', '16', '#000', 'me-1'); ?>
-                                Свернуть все
+                                <?php echo LANG_TEMPLATE_MENU_FORM_COLLAPSE_ALL_BTN; ?>
                             </button>
                         </div>
                     </div>
@@ -67,7 +67,7 @@
                                 <div class="alert alert-light border">
                                     <div class="d-flex align-items-center">
                                         <?php echo bloggy_icon('bs', 'lightbulb', '16', '#ffc107', 'me-2'); ?>
-                                        <small>Нажмите на пункт меню для редактирования. Перетаскивайте для изменения порядка.</small>
+                                        <small><?php echo LANG_TEMPLATE_MENU_FORM_DRAG_HINT; ?></small>
                                     </div>
                                 </div>
                             </div>
@@ -111,30 +111,30 @@
                                                                     <?php echo bloggy_icon('bs', 'link-45deg', '16', '#0d6efd', 'me-2'); ?>
                                                                 <?php } ?>
                                                                 <div>
-                                                                    <h6 class="mb-1"><?php echo !empty($title) ? $title : 'Без названия'; ?></h6>
+                                                                    <h6 class="mb-1"><?php echo !empty($title) ? $title : LANG_TEMPLATE_MENU_FORM_NO_TITLE; ?></h6>
                                                                     <small class="text-muted"><?php echo $url; ?></small>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="btn-group btn-group-sm">
-                                                        <button type="button" class="btn btn-outline-secondary menu-item-handle" title="Перетащить">
+                                                        <button type="button" class="btn btn-outline-secondary menu-item-handle" title="<?php echo LANG_TEMPLATE_MENU_FORM_DRAG_TITLE; ?>">
                                                             <?php echo bloggy_icon('bs', 'arrows-move', '16', '#000'); ?>
                                                         </button>
                                                         <button type="button" class="btn btn-outline-primary edit-menu-item" 
-                                                                title="Редактировать"
+                                                                title="<?php echo LANG_TEMPLATE_MENU_FORM_EDIT_TITLE; ?>"
                                                                 data-bs-toggle="modal" 
                                                                 data-bs-target="#menuItemModal">
                                                             <?php echo bloggy_icon('bs', 'pencil', '16', '#000'); ?>
                                                         </button>
                                                         <button type="button" class="btn btn-outline-success add-child-item" 
-                                                                title="Добавить подпункт"
+                                                                title="<?php echo LANG_TEMPLATE_MENU_FORM_ADD_CHILD_TITLE; ?>"
                                                                 data-bs-toggle="modal" 
                                                                 data-bs-target="#menuItemModal"
                                                                 data-parent-index="<?php echo $index; ?>">
                                                             <?php echo bloggy_icon('bs', 'patch-plus', '16', '#000'); ?>
                                                         </button>
-                                                        <button type="button" class="btn btn-outline-danger remove-menu-item" title="Удалить">
+                                                        <button type="button" class="btn btn-outline-danger remove-menu-item" title="<?php echo LANG_TEMPLATE_MENU_FORM_DELETE_TITLE; ?>">
                                                             <?php echo bloggy_icon('bs', 'trash', '16', '#000'); ?>
                                                         </button>
                                                     </div>
@@ -167,11 +167,11 @@
                                 <div class="mb-3">
                                     <?php echo bloggy_icon('bs', 'list-ul', '48', '#6C6C6C'); ?>
                                 </div>
-                                <h5 class="text-muted">Меню пустое</h5>
-                                <p class="text-muted mb-3">Добавьте первый пункт меню чтобы начать работу</p>
+                                <h5 class="text-muted"><?php echo LANG_TEMPLATE_MENU_FORM_EMPTY_TITLE; ?></h5>
+                                <p class="text-muted mb-3"><?php echo LANG_TEMPLATE_MENU_FORM_EMPTY_TEXT; ?></p>
                                 <button type="button" class="btn btn-primary" id="add-first-item" data-bs-toggle="modal" data-bs-target="#menuItemModal">
                                     <?php echo bloggy_icon('bs', 'plus-circle', '16', '#fff', 'me-1'); ?>
-                                    Добавить первый пункт
+                                    <?php echo LANG_TEMPLATE_MENU_FORM_ADD_FIRST_BTN; ?>
                                 </button>
                             </div>
                         </div>
@@ -184,14 +184,14 @@
                     <div class="card-header bg-white border-0">
                         <h5 class="card-title mb-0">
                             <?php echo bloggy_icon('bs', 'gear', '20', '#000', 'me-2'); ?>
-                            Настройки меню
+                            <?php echo LANG_TEMPLATE_MENU_FORM_SETTINGS_TITLE; ?>
                         </h5>
                     </div>
                     <div class="card-body">
                         <div class="mb-3">
                             <label class="form-label">
                                 <?php echo bloggy_icon('bs', 'tag', '16', '#000', 'me-1'); ?>
-                                Название меню
+                                <?php echo LANG_TEMPLATE_MENU_FORM_NAME_LABEL; ?>
                                 <span class="text-danger">*</span>
                             </label>
                             <input type="text" 
@@ -199,17 +199,17 @@
                                    name="name" 
                                    value="<?php echo html($menu['name'] ?? ''); ?>" 
                                    required
-                                   placeholder="Например: Главное меню">
+                                   placeholder="<?php echo LANG_TEMPLATE_MENU_FORM_NAME_PLACEHOLDER; ?>">
                         </div>
                         
                         <div class="mb-3">
                             <label class="form-label">
                                 <?php echo bloggy_icon('bs', 'layout-wtf', '16', '#000', 'me-1'); ?>
-                                Шаблон меню
+                                <?php echo LANG_TEMPLATE_MENU_FORM_TEMPLATE_LABEL; ?>
                                 <span class="text-danger">*</span>
                             </label>
                             <select class="form-select" name="template" required <?php echo empty($availableTemplates) ? 'disabled' : ''; ?>>
-                                <option value="">Выберите шаблон</option>
+                                <option value=""><?php echo LANG_TEMPLATE_MENU_FORM_SELECT_TEMPLATE; ?></option>
                                 <?php foreach ($availableTemplates as $templateKey => $templateName) { ?>
                                     <option value="<?php echo $templateKey; ?>" 
                                         <?php echo ($menu['template'] ?? '') === $templateKey ? 'selected' : ''; ?>>
@@ -219,12 +219,12 @@
                             </select>
                             <div class="form-text">
                                 <?php echo bloggy_icon('bs', 'folder', '16', '#000', 'me-1'); ?>
-                                Путь: <code>templates/<?php echo html($currentTheme); ?>/front/assets/menu/</code>
+                                <?php echo LANG_TEMPLATE_MENU_FORM_TEMPLATE_PATH; ?> <code>templates/<?php echo html($currentTheme); ?>/front/assets/menu/</code>
                             </div>
                             <?php if (empty($availableTemplates)) { ?>
                             <div class="alert alert-warning mt-2 p-2 small">
                                 <?php echo bloggy_icon('bs', 'exclamation-triangle', '16', '#000', 'me-1'); ?>
-                                Нет доступных шаблонов. Создайте файлы в указанной директории.
+                                <?php echo LANG_TEMPLATE_MENU_FORM_NO_TEMPLATES_WARNING; ?>
                             </div>
                             <?php } ?>
                         </div>
@@ -232,11 +232,11 @@
                         <div class="mb-3">
                             <label class="form-label">
                                 <?php echo bloggy_icon('bs', 'power', '16', '#000', 'me-1'); ?>
-                                Статус
+                                <?php echo LANG_TEMPLATE_MENU_FORM_STATUS_LABEL; ?>
                             </label>
                             <select class="form-select" name="status">
-                                <option value="active" <?php echo ($menu['status'] ?? 'active') === 'active' ? 'selected' : ''; ?>>Активно</option>
-                                <option value="inactive" <?php echo ($menu['status'] ?? '') === 'inactive' ? 'selected' : ''; ?>>Неактивно</option>
+                                <option value="active" <?php echo ($menu['status'] ?? 'active') === 'active' ? 'selected' : ''; ?>><?php echo LANG_TEMPLATE_MENU_FORM_STATUS_ACTIVE; ?></option>
+                                <option value="inactive" <?php echo ($menu['status'] ?? '') === 'inactive' ? 'selected' : ''; ?>><?php echo LANG_TEMPLATE_MENU_FORM_STATUS_INACTIVE; ?></option>
                             </select>
                         </div>
                     </div>
@@ -247,14 +247,14 @@
                         <div class="d-grid gap-2">
                             <button type="submit" class="btn btn-primary" <?php echo empty($availableTemplates) ? 'disabled' : ''; ?>>
                                 <?php echo bloggy_icon('bs', 'check-lg', '20', '#fff', 'me-2'); ?>
-                                <?php echo isset($menu['id']) ? 'Обновить меню' : 'Создать меню'; ?>
+                                <?php echo isset($menu['id']) ? LANG_TEMPLATE_MENU_FORM_UPDATE_BTN : LANG_TEMPLATE_MENU_FORM_CREATE_BTN; ?>
                             </button>
                             
                             <?php if (isset($menu['id'])) { ?>
                             <a href="<?php echo ADMIN_URL; ?>/menu/preview/<?php echo $menu['id']; ?>" 
                                class="btn btn-outline-secondary">
                                 <?php echo bloggy_icon('bs', 'eye', '16', '#000', 'me-2'); ?>
-                                Предпросмотр
+                                <?php echo LANG_TEMPLATE_MENU_FORM_PREVIEW_BTN; ?>
                             </a>
                             <?php } ?>
                         </div>
@@ -265,7 +265,7 @@
                     <div class="card-header bg-white border-0">
                         <h6 class="card-title mb-0">
                             <?php echo bloggy_icon('bs', 'graph-up', '16', '#000', 'me-2'); ?>
-                            Статистика
+                            <?php echo LANG_TEMPLATE_MENU_FORM_STATS_TITLE; ?>
                         </h6>
                     </div>
                     <div class="card-body">
@@ -273,12 +273,12 @@
                             <div class="col-6">
                                 <div class="border-end">
                                     <div class="h4 mb-0" id="total-items">0</div>
-                                    <small class="text-muted">Всего пунктов</small>
+                                    <small class="text-muted"><?php echo LANG_TEMPLATE_MENU_FORM_STATS_TOTAL; ?></small>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="h4 mb-0" id="nested-items">0</div>
-                                <small class="text-muted">Вложенных</small>
+                                <small class="text-muted"><?php echo LANG_TEMPLATE_MENU_FORM_STATS_NESTED; ?></small>
                             </div>
                         </div>
                     </div>
@@ -296,9 +296,9 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="menuItemModalLabel">
                     <?php echo bloggy_icon('bs', 'plus-circle', '20', '#000', 'me-2'); ?>
-                    Добавить пункт меню
+                    <?php echo LANG_TEMPLATE_MENU_FORM_MODAL_ADD_TITLE; ?>
                 </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="<?php echo LANG_TEMPLATE_MENU_FORM_MODAL_CLOSE; ?>"></button>
             </div>
             <div class="modal-body">
                 <form id="menu-item-form">
@@ -309,45 +309,45 @@
                         <div class="col-md-12">
                             <label class="form-label">
                                 <?php echo bloggy_icon('bs', 'fonts', '16', '#000', 'me-1'); ?>
-                                Название пункта
+                                <?php echo LANG_TEMPLATE_MENU_FORM_MODAL_TITLE_LABEL; ?>
                                 <span class="text-danger">*</span>
                             </label>
                             <input type="text" 
                                    class="form-control" 
                                    id="item-title" 
-                                   placeholder="Введите название пункта меню" 
+                                   placeholder="<?php echo LANG_TEMPLATE_MENU_FORM_MODAL_TITLE_PLACEHOLDER; ?>" 
                                    maxlength="100"
                                    required>
-                            <div class="form-text">Отображаемое название в меню</div>
+                            <div class="form-text"><?php echo LANG_TEMPLATE_MENU_FORM_MODAL_TITLE_HINT; ?></div>
                         </div>
                         
                         <div class="col-md-12">
                             <label class="form-label">
                                 <?php echo bloggy_icon('bs', 'link', '16', '#000', 'me-1'); ?>
-                                URL адрес
+                                <?php echo LANG_TEMPLATE_MENU_FORM_MODAL_URL_LABEL; ?>
                                 <span class="text-danger">*</span>
                             </label>
                             <div class="input-group">
                                 <input type="text" 
                                        class="form-control" 
                                        id="item-url" 
-                                       placeholder="/page или http://..." 
+                                       placeholder="/page <?php echo LANG_TEMPLATE_MENU_FORM_MODAL_URL_PLACEHOLDER; ?>" 
                                        maxlength="255"
                                        required>
                             </div>
-                            <div class="form-text">Ссылка, на которую ведет пункт меню</div>
+                            <div class="form-text"><?php echo LANG_TEMPLATE_MENU_FORM_MODAL_URL_HINT; ?></div>
                         </div>
 
                         <div class="mb-2">
     <div class="d-flex justify-content-between align-items-center mb-1">
         <label class="form-label mb-0">
             <?php echo bloggy_icon('bs', 'code-slash', '16', '#000', 'me-1'); ?>
-            Доступные шорткоды:
+            <?php echo LANG_TEMPLATE_MENU_FORM_MODAL_SHORTCODES_LABEL; ?>
         </label>
         <button type="button" class="btn btn-link btn-sm p-0 text-decoration-none" 
                 data-bs-toggle="collapse" data-bs-target="#shortcodeHelp">
             <?php echo bloggy_icon('bs', 'info-circle', '16', '#000', 'me-1'); ?>
-            Подробнее
+            <?php echo LANG_TEMPLATE_MENU_FORM_MODAL_SHORTCODES_HELP; ?>
         </button>
     </div>
     
@@ -373,104 +373,74 @@
     <div class="collapse" id="shortcodeHelp">
         <div class="card card-body bg-light p-2 small">
             <table class="table table-sm table-borderless mb-0">
-                <tr>
-                    <td class="p-1"><code>{username}</code></td>
-                    <td class="p-1">Логин текущего пользователя</td>
-                </tr>
-                <tr>
-                    <td class="p-1"><code>{user_id}</code></td>
-                    <td class="p-1">ID текущего пользователя</td>
-                </tr>
-                <tr>
-                    <td class="p-1"><code>{email}</code></td>
-                    <td class="p-1">Email пользователя</td>
-                </tr>
-                <tr>
-                    <td class="p-1"><code>{first_name}</code></td>
-                    <td class="p-1">Имя пользователя</td>
-                </tr>
-                <tr>
-                    <td class="p-1"><code>{last_name}</code></td>
-                    <td class="p-1">Фамилия пользователя</td>
-                </tr>
-                <tr>
-                    <td class="p-1"><code>{display_name}</code></td>
-                    <td class="p-1">Отображаемое имя</td>
-                </tr>
-                <tr>
-                    <td class="p-1"><code>{slug}</code></td>
-                    <td class="p-1">URL-слаг пользователя</td>
-                </tr>
-                <tr>
-                    <td class="p-1"><code>{base_url}</code></td>
-                    <td class="p-1">Базовый URL сайта</td>
-                </tr>
-                <tr>
-                    <td class="p-1"><code>{admin_url}</code></td>
-                    <td class="p-1">URL админ-панели</td>
-                </tr>
-                <tr>
-                    <td class="p-1"><code>{user_field:поле}</code></td>
-                    <td class="p-1">Любое поле из таблицы пользователей</td>
-                </tr>
+                <tr><td class="p-1"><code>{username}</code></td><td class="p-1"><?php echo LANG_TEMPLATE_MENU_FORM_SHORTCODE_USERNAME; ?></td></tr>
+                <tr><td class="p-1"><code>{user_id}</code></td><td class="p-1"><?php echo LANG_TEMPLATE_MENU_FORM_SHORTCODE_USER_ID; ?></td></tr>
+                <tr><td class="p-1"><code>{email}</code></td><td class="p-1"><?php echo LANG_TEMPLATE_MENU_FORM_SHORTCODE_EMAIL; ?></td></tr>
+                <tr><td class="p-1"><code>{first_name}</code></td><td class="p-1"><?php echo LANG_TEMPLATE_MENU_FORM_SHORTCODE_FIRST_NAME; ?></td></tr>
+                <tr><td class="p-1"><code>{last_name}</code></td><td class="p-1"><?php echo LANG_TEMPLATE_MENU_FORM_SHORTCODE_LAST_NAME; ?></td></tr>
+                <tr><td class="p-1"><code>{display_name}</code></td><td class="p-1"><?php echo LANG_TEMPLATE_MENU_FORM_SHORTCODE_DISPLAY_NAME; ?></td></tr>
+                <tr><td class="p-1"><code>{slug}</code></td><td class="p-1"><?php echo LANG_TEMPLATE_MENU_FORM_SHORTCODE_SLUG; ?></td></tr>
+                <tr><td class="p-1"><code>{base_url}</code></td><td class="p-1"><?php echo LANG_TEMPLATE_MENU_FORM_SHORTCODE_BASE_URL; ?></td></tr>
+                <tr><td class="p-1"><code>{admin_url}</code></td><td class="p-1"><?php echo LANG_TEMPLATE_MENU_FORM_SHORTCODE_ADMIN_URL; ?></td></tr>
+                <tr><td class="p-1"><code>{user_field:поле}</code></td><td class="p-1"><?php echo LANG_TEMPLATE_MENU_FORM_SHORTCODE_USER_FIELD; ?></td></tr>
             </table>
         </div>
     </div>
     
     <div class="shortcode-preview small text-muted mt-2" id="shortcode-preview" style="display: none;">
         <?php echo bloggy_icon('bs', 'eye', '16', '#000', 'me-1'); ?>
-        Превью: <span id="preview-text"></span>
+        <?php echo LANG_TEMPLATE_MENU_FORM_SHORTCODE_PREVIEW; ?> <span id="preview-text"></span>
     </div>
 </div>
                         
                         <div class="col-md-6">
                             <label class="form-label">
                                 <?php echo bloggy_icon('bs', 'box-arrow-up-right', '16', '#000', 'me-1'); ?>
-                                Открывать в
+                                <?php echo LANG_TEMPLATE_MENU_FORM_MODAL_TARGET_LABEL; ?>
                             </label>
                             <select class="form-select" id="item-target">
-                                <option value="_self">Текущем окне</option>
-                                <option value="_blank">Новом окне</option>
+                                <option value="_self"><?php echo LANG_TEMPLATE_MENU_FORM_TARGET_SELF; ?></option>
+                                <option value="_blank"><?php echo LANG_TEMPLATE_MENU_FORM_TARGET_BLANK; ?></option>
                             </select>
                         </div>
                         
                         <div class="col-md-6">
                             <label class="form-label">
                                 <?php echo bloggy_icon('bs', 'code-slash', '16', '#000', 'me-1'); ?>
-                                CSS классы
+                                <?php echo LANG_TEMPLATE_MENU_FORM_MODAL_CSS_LABEL; ?>
                             </label>
                             <input type="text" 
                                    class="form-control" 
                                    id="item-class" 
                                    placeholder="my-class another-class" 
                                    maxlength="50">
-                            <div class="form-text">Дополнительные CSS классы</div>
+                            <div class="form-text"><?php echo LANG_TEMPLATE_MENU_FORM_MODAL_CSS_HINT; ?></div>
                         </div>
 
                         <div class="border-top pt-3 mt-3">
                             <h6 class="text-muted mb-3">
                                 <?php echo bloggy_icon('bs', 'image', '16', '#000', 'me-1'); ?>
-                                Настройки иконки
+                                <?php echo LANG_TEMPLATE_MENU_FORM_ICON_SETTINGS_TITLE; ?>
                             </h6>
                             
                             <div class="row">
                                 <div class="col-md-12">
                                     <label class="form-label">
                                         <?php echo bloggy_icon('bs', 'palette', '16', '#000', 'me-1'); ?>
-                                        Иконка
+                                        <?php echo LANG_TEMPLATE_MENU_FORM_ICON_LABEL; ?>
                                     </label>
                                     <div class="input-group mb-2">
                                         <input type="text" 
                                             class="form-control" 
                                             id="item-icon-id" 
-                                            placeholder="Идентификатор иконки"
+                                            placeholder="<?php echo LANG_TEMPLATE_MENU_FORM_ICON_PLACEHOLDER; ?>"
                                             readonly>
                                         <button type="button" 
                                                 class="btn btn-outline-primary" 
                                                 id="select-icon-btn"
                                                 onclick="window.menuIconManager.openIconSelector()">
                                             <?php echo bloggy_icon('bs', 'images', '16', '#000', 'me-1'); ?>
-                                            Выбрать иконку
+                                            <?php echo LANG_TEMPLATE_MENU_FORM_ICON_SELECT_BTN; ?>
                                         </button>
                                         <button type="button" 
                                                 class="btn btn-outline-danger" 
@@ -490,7 +460,7 @@
                                 <div class="col-md-6">
                                     <label class="form-label">
                                         <?php echo bloggy_icon('bs', 'rulers', '16', '#000', 'me-1'); ?>
-                                        Размер (px)
+                                        <?php echo LANG_TEMPLATE_MENU_FORM_ICON_SIZE_LABEL; ?>
                                     </label>
                                     <input type="number" 
                                         class="form-control" 
@@ -503,13 +473,13 @@
                                 <div class="col-md-6">
                                     <label class="form-label">
                                         <?php echo bloggy_icon('bs', 'palette', '16', '#000', 'me-1'); ?>
-                                        Цвет
+                                        <?php echo LANG_TEMPLATE_MENU_FORM_ICON_COLOR_LABEL; ?>
                                     </label>
                                     <input type="color" 
                                         class="form-control form-control-color" 
                                         id="item-icon-color" 
                                         value="#000000"
-                                        title="Выберите цвет иконки">
+                                        title="<?php echo LANG_TEMPLATE_MENU_FORM_ICON_COLOR_TITLE; ?>">
                                 </div>
                             </div>
                             
@@ -521,10 +491,10 @@
                                             id="item-icon-only">
                                         <label class="form-check-label" for="item-icon-only">
                                             <?php echo bloggy_icon('bs', 'fonts', '16', '#000', 'me-1'); ?>
-                                            Отображать только иконку (без текста)
+                                            <?php echo LANG_TEMPLATE_MENU_FORM_ICON_ONLY_LABEL; ?>
                                         </label>
                                         <div class="form-text small">
-                                            Если включено, в меню будет отображаться только иконка
+                                            <?php echo LANG_TEMPLATE_MENU_FORM_ICON_ONLY_HINT; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -534,17 +504,17 @@
                         <div class="border-top pt-3 mt-3">
                         <h6 class="text-muted mb-3">
                             <?php echo bloggy_icon('bs', 'shield-lock', '16', '#000', 'me-1'); ?>
-                            Настройки видимости
+                            <?php echo LANG_TEMPLATE_MENU_FORM_VISIBILITY_TITLE; ?>
                         </h6>
     
                         <div class="row">
                             <div class="col-md-6">
                                 <label class="form-label small">
                                     <?php echo bloggy_icon('bs', 'eye', '16', '#000', 'me-1'); ?>
-                                    Показывать группам
+                                    <?php echo LANG_TEMPLATE_MENU_FORM_SHOW_TO_GROUPS; ?>
                                 </label>
                                 <select class="form-select form-select-sm" id="item-show-to" multiple size="4">
-                                    <option value="">Все группы (если не выбрано)</option>
+                                    <option value=""><?php echo LANG_TEMPLATE_MENU_FORM_ALL_GROUPS; ?></option>
                                     <?php 
                                     $groups = $this->getUserGroups();
                                     foreach ($groups as $group) { 
@@ -554,29 +524,29 @@
                                         </option>
                                     <?php } ?>
                                 </select>
-                                <div class="form-text small">Оставьте пустым чтобы показывать всем</div>
+                                <div class="form-text small"><?php echo LANG_TEMPLATE_MENU_FORM_SHOW_TO_GROUPS_HINT; ?></div>
                             </div>
                             
                             <div class="col-md-6">
                                 <label class="form-label small">
                                     <?php echo bloggy_icon('bs', 'eye-slash', '16', '#000', 'me-1'); ?>
-                                    Не показывать группам
+                                    <?php echo LANG_TEMPLATE_MENU_FORM_HIDE_FROM_GROUPS; ?>
                                 </label>
                                 <select class="form-select form-select-sm" id="item-hide-from" multiple size="4">
-                                    <option value="">Никому не скрывать</option>
+                                    <option value=""><?php echo LANG_TEMPLATE_MENU_FORM_NO_HIDE; ?></option>
                                     <?php foreach ($groups as $group) { ?>
                                         <option value="<?php echo $group['id']; ?>">
                                             <?php echo html($group['name']); ?>
                                         </option>
                                     <?php } ?>
                                 </select>
-                                <div class="form-text small">Выберите группы которым скрыть этот пункт</div>
+                                <div class="form-text small"><?php echo LANG_TEMPLATE_MENU_FORM_HIDE_FROM_GROUPS_HINT; ?></div>
                             </div>
                         </div>
     
                         <div class="alert alert-info mt-2 p-2 small">
                             <?php echo bloggy_icon('bs', 'info-circle', '16', '#000', 'me-1'); ?>
-                            <strong>Приоритет:</strong> Сначала проверяется "Показывать группам", затем "Не показывать группам"
+                            <strong><?php echo LANG_TEMPLATE_MENU_FORM_PRIORITY_TITLE; ?></strong> <?php echo LANG_TEMPLATE_MENU_FORM_PRIORITY_TEXT; ?>
                         </div>
                     </div>
 
@@ -586,11 +556,11 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                     <?php echo bloggy_icon('bs', 'x-circle', '16', '#000', 'me-1'); ?>
-                    Отмена
+                    <?php echo LANG_TEMPLATE_MENU_FORM_MODAL_CANCEL; ?>
                 </button>
                 <button type="button" class="btn btn-primary" id="save-menu-item">
                     <?php echo bloggy_icon('bs', 'check-lg', '16', '#fff', 'me-1'); ?>
-                    Сохранить пункт
+                    <?php echo LANG_TEMPLATE_MENU_FORM_MODAL_SAVE; ?>
                 </button>
             </div>
         </div>
@@ -603,7 +573,7 @@
             <div class="custom-modal-header">
                 <h5 class="custom-modal-title">
                     <?php echo bloggy_icon('bs', 'images', '20', '#000', 'me-2'); ?>
-                    Выбор иконки
+                    <?php echo LANG_TEMPLATE_MENU_FORM_ICON_SELECTOR_TITLE; ?>
                 </h5>
                 <button type="button" class="custom-modal-close" onclick="window.menuIconManager.closeIconSelector()">
                     <span>&times;</span>
@@ -618,7 +588,7 @@
                         <input type="text" 
                             id="iconSearchModal" 
                             class="form-control border-0 bg-light" 
-                            placeholder="Поиск иконок..."
+                            placeholder="<?php echo LANG_TEMPLATE_MENU_FORM_ICON_SEARCH_PLACEHOLDER; ?>"
                             autocomplete="off"
                             autocorrect="off"
                             autocapitalize="none"
@@ -636,11 +606,11 @@
             <div class="custom-modal-footer">
                 <button type="button" class="btn btn-outline-secondary" onclick="window.menuIconManager.closeIconSelector()">
                     <?php echo bloggy_icon('bs', 'x-circle', '16', '#000', 'me-1'); ?>
-                    Отмена
+                    <?php echo LANG_TEMPLATE_MENU_FORM_ICON_SELECTOR_CANCEL; ?>
                 </button>
                 <button type="button" class="btn btn-primary" onclick="window.menuIconManager.confirmIconSelection()">
                     <?php echo bloggy_icon('bs', 'check-lg', '16', '#fff', 'me-1'); ?>
-                    Выбрать
+                    <?php echo LANG_TEMPLATE_MENU_FORM_ICON_SELECTOR_SELECT; ?>
                 </button>
             </div>
         </div>

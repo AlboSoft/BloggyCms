@@ -11,7 +11,7 @@ class AdminEntryDelete extends FragmentAction {
         $entryId = $this->params['id'] ?? null;
         
         if (!$entryId) {
-            \Notification::error('ID записи не указан');
+            \Notification::error(LANG_ACTION_FRAGMENTS_ADMINENTRYDELETE_ID_NOT_SPECIFIED);
             $this->redirect(ADMIN_URL . '/fragments');
             return;
         }
@@ -19,17 +19,17 @@ class AdminEntryDelete extends FragmentAction {
         $entry = $this->entryModel->getById($entryId);
         
         if (!$entry) {
-            \Notification::error('Запись не найдена');
+            \Notification::error(LANG_ACTION_FRAGMENTS_ADMINENTRYDELETE_NOT_FOUND);
             $this->redirect(ADMIN_URL . '/fragments');
             return;
         }
         
         try {
             $this->entryModel->delete($entryId);
-            \Notification::success('Запись успешно удалена');
+            \Notification::success(LANG_ACTION_FRAGMENTS_ADMINENTRYDELETE_SUCCESS);
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при удалении записи');
+            \Notification::error(LANG_ACTION_FRAGMENTS_ADMINENTRYDELETE_ERROR);
         }
         
         $this->redirect(ADMIN_URL . '/fragments/entries/' . $entry['fragment_id']);

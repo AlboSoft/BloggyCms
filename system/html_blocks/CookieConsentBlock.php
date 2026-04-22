@@ -3,7 +3,7 @@
 class CookieConsentBlock extends BaseHtmlBlock {
 
     public function getName(): string {
-        return "Согласие с cookies";
+        return LANG_HTMLBLOCK_COOKIECONSENT_NAME;
     }
 
     public function getSystemName(): string {
@@ -11,15 +11,19 @@ class CookieConsentBlock extends BaseHtmlBlock {
     }
 
     public function getDescription(): string {
-        return "Отображает уведомление о согласии с использованием cookies. После согласия скрывается и запоминает выбор пользователя.";
+        return LANG_HTMLBLOCK_COOKIECONSENT_DESCRIPTION;
     }
 
     public function getShortDescription(): string {
-        return "Уведомление о cookies";
+        return LANG_HTMLBLOCK_COOKIECONSENT_SHORT_DESCRIPTION;
     }
 
     public function getIcon(): string {
         return 'bi bi-cookie';
+    }
+
+    public function getAuthor(): string {
+        return 'BloggyCMS Team';
     }
 
     public function getVersion(): string {
@@ -35,39 +39,39 @@ class CookieConsentBlock extends BaseHtmlBlock {
 
         $fieldsets = [];
 
-        $fieldsets[] = new \Fieldset('Текст уведомления', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_COOKIECONSENT_FIELDSET_MESSAGE, [
             'icon' => 'bi bi-pencil',
             'columns' => 'custom',
             'fields' => [
                 \FieldFactory::textarea('message', [
-                    'title' => 'Текст сообщения',
-                    'default' => $settings['message'] ?? 'Мы используем cookies для улучшения работы сайта. Продолжая использовать сайт, вы соглашаетесь с нашей политикой обработки данных.',
+                    'title' => LANG_HTMLBLOCK_COOKIECONSENT_FIELD_MESSAGE,
+                    'default' => $settings['message'] ?? LANG_HTMLBLOCK_COOKIECONSENT_DEFAULT_MESSAGE,
                     'rows' => 4,
                     'column' => '12',
                 ]),
                 \FieldFactory::string('accept_button_text', [
-                    'title' => 'Текст кнопки согласия',
-                    'default' => $settings['accept_button_text'] ?? 'Принять',
+                    'title' => LANG_HTMLBLOCK_COOKIECONSENT_FIELD_ACCEPT_BUTTON,
+                    'default' => $settings['accept_button_text'] ?? LANG_HTMLBLOCK_COOKIECONSENT_DEFAULT_ACCEPT_BUTTON,
                     'column' => '6',
                 ]),
                 \FieldFactory::string('decline_button_text', [
-                    'title' => 'Текст кнопки отказа',
-                    'default' => $settings['decline_button_text'] ?? 'Отклонить',
+                    'title' => LANG_HTMLBLOCK_COOKIECONSENT_FIELD_DECLINE_BUTTON,
+                    'default' => $settings['decline_button_text'] ?? LANG_HTMLBLOCK_COOKIECONSENT_DEFAULT_DECLINE_BUTTON,
                     'column' => '6',
                 ]),
                 \FieldFactory::string('policy_link_text', [
-                    'title' => 'Текст ссылки на политику',
-                    'default' => $settings['policy_link_text'] ?? 'Политика конфиденциальности',
+                    'title' => LANG_HTMLBLOCK_COOKIECONSENT_FIELD_POLICY_LINK_TEXT,
+                    'default' => $settings['policy_link_text'] ?? LANG_HTMLBLOCK_COOKIECONSENT_DEFAULT_POLICY_LINK_TEXT,
                     'column' => '6',
                 ]),
                 \FieldFactory::string('policy_url', [
-                    'title' => 'Ссылка на политику',
+                    'title' => LANG_HTMLBLOCK_COOKIECONSENT_FIELD_POLICY_URL,
                     'default' => $settings['policy_url'] ?? '/privacy',
                     'placeholder' => '/privacy-policy',
                     'column' => '6',
                 ]),
                 \FieldFactory::checkbox('show_policy_link', [
-                    'title' => 'Показывать ссылку на политику',
+                    'title' => LANG_HTMLBLOCK_COOKIECONSENT_FIELD_SHOW_POLICY_LINK,
                     'default' => $settings['show_policy_link'] ?? 1,
                     'switch' => true,
                     'column' => '12',
@@ -75,49 +79,49 @@ class CookieConsentBlock extends BaseHtmlBlock {
             ]
         ]);
 
-        $fieldsets[] = new \Fieldset('Внешний вид', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_COOKIECONSENT_FIELDSET_APPEARANCE, [
             'icon' => 'bi bi-palette',
             'columns' => 'custom',
             'fields' => [
                 \FieldFactory::select('position', [
-                    'title' => 'Позиция уведомления',
+                    'title' => LANG_HTMLBLOCK_COOKIECONSENT_FIELD_POSITION,
                     'options' => [
-                        'bottom' => 'Внизу экрана',
-                        'top' => 'Вверху экрана',
+                        'bottom' => LANG_HTMLBLOCK_COOKIECONSENT_POSITION_BOTTOM,
+                        'top' => LANG_HTMLBLOCK_COOKIECONSENT_POSITION_TOP,
                     ],
                     'default' => $settings['position'] ?? 'bottom',
                     'column' => '6',
                 ]),
                 \FieldFactory::select('theme', [
-                    'title' => 'Тема',
+                    'title' => LANG_HTMLBLOCK_COOKIECONSENT_FIELD_THEME,
                     'options' => [
-                        'light' => 'Светлая',
-                        'dark' => 'Темная',
-                        'custom' => 'Своя',
+                        'light' => LANG_HTMLBLOCK_COOKIECONSENT_THEME_LIGHT,
+                        'dark' => LANG_HTMLBLOCK_COOKIECONSENT_THEME_DARK,
+                        'custom' => LANG_HTMLBLOCK_COOKIECONSENT_THEME_CUSTOM,
                     ],
                     'default' => $settings['theme'] ?? 'light',
                     'column' => '6',
                 ]),
                 \FieldFactory::color('background_color', [
-                    'title' => 'Цвет фона',
+                    'title' => LANG_HTMLBLOCK_COOKIECONSENT_FIELD_BACKGROUND_COLOR,
                     'preset' => 'basic',
                     'column' => '6',
                     'show' => 'field:theme = custom',
                 ]),
                 \FieldFactory::color('text_color', [
-                    'title' => 'Цвет текста',
+                    'title' => LANG_HTMLBLOCK_COOKIECONSENT_FIELD_TEXT_COLOR,
                     'preset' => 'basic',
                     'column' => '6',
                     'show' => 'field:theme = custom',
                 ]),
                 \FieldFactory::color('accent_color', [
-                    'title' => 'Акцентный цвет (кнопки)',
+                    'title' => LANG_HTMLBLOCK_COOKIECONSENT_FIELD_ACCENT_COLOR,
                     'preset' => 'website',
                     'default' => $settings['accent_color'] ?? '#2563eb',
                     'column' => '12',
                 ]),
                 \FieldFactory::checkbox('show_shadow', [
-                    'title' => 'Показывать тень',
+                    'title' => LANG_HTMLBLOCK_COOKIECONSENT_FIELD_SHOW_SHADOW,
                     'default' => $settings['show_shadow'] ?? 1,
                     'switch' => true,
                     'column' => '12',
@@ -125,18 +129,18 @@ class CookieConsentBlock extends BaseHtmlBlock {
             ]
         ]);
 
-        $fieldsets[] = new \Fieldset('Дополнительно', [
+        $fieldsets[] = new \Fieldset(LANG_HTMLBLOCK_COOKIECONSENT_FIELDSET_EXTRA, [
             'icon' => 'bi bi-gear',
             'columns' => '12',
             'fields' => [
                 \FieldFactory::string('cookie_name', [
-                    'title' => 'Название cookie',
+                    'title' => LANG_HTMLBLOCK_COOKIECONSENT_FIELD_COOKIE_NAME,
                     'default' => $settings['cookie_name'] ?? 'cookie_consent',
-                    'hint' => 'Имя файла cookie для сохранения согласия',
+                    'hint' => LANG_HTMLBLOCK_COOKIECONSENT_FIELD_COOKIE_NAME_HINT,
                     'column' => '6',
                 ]),
                 \FieldFactory::number('cookie_expiry_days', [
-                    'title' => 'Срок хранения (дней)',
+                    'title' => LANG_HTMLBLOCK_COOKIECONSENT_FIELD_COOKIE_EXPIRY,
                     'default' => $settings['cookie_expiry_days'] ?? 365,
                     'min' => 1,
                     'max' => 730,
@@ -144,18 +148,18 @@ class CookieConsentBlock extends BaseHtmlBlock {
                     'column' => '6',
                 ]),
                 \FieldFactory::checkbox('auto_show', [
-                    'title' => 'Автоматически показывать',
+                    'title' => LANG_HTMLBLOCK_COOKIECONSENT_FIELD_AUTO_SHOW,
                     'default' => $settings['auto_show'] ?? 1,
                     'switch' => true,
-                    'hint' => 'Если отключено, показывать блок можно через JS событие',
+                    'hint' => LANG_HTMLBLOCK_COOKIECONSENT_FIELD_AUTO_SHOW_HINT,
                     'column' => '12',
                 ]),
                 \FieldFactory::string('custom_css_class', [
-                    'title' => 'CSS класс',
+                    'title' => LANG_HTMLBLOCK_COOKIECONSENT_FIELD_CSS_CLASS,
                     'default' => $settings['custom_css_class'] ?? '',
                 ]),
                 \FieldFactory::string('custom_id', [
-                    'title' => 'HTML ID',
+                    'title' => LANG_HTMLBLOCK_COOKIECONSENT_FIELD_HTML_ID,
                     'default' => $settings['custom_id'] ?? '',
                 ]),
             ]
@@ -174,10 +178,10 @@ class CookieConsentBlock extends BaseHtmlBlock {
 
     private function getDefaultSettings(): array {
         return [
-            'message' => 'Мы используем cookies для улучшения работы сайта. Продолжая использовать сайт, вы соглашаетесь с нашей политикой обработки данных.',
-            'accept_button_text' => 'Принять',
-            'decline_button_text' => 'Отклонить',
-            'policy_link_text' => 'Политика конфиденциальности',
+            'message' => LANG_HTMLBLOCK_COOKIECONSENT_DEFAULT_MESSAGE,
+            'accept_button_text' => LANG_HTMLBLOCK_COOKIECONSENT_DEFAULT_ACCEPT_BUTTON,
+            'decline_button_text' => LANG_HTMLBLOCK_COOKIECONSENT_DEFAULT_DECLINE_BUTTON,
+            'policy_link_text' => LANG_HTMLBLOCK_COOKIECONSENT_DEFAULT_POLICY_LINK_TEXT,
             'policy_url' => '/privacy',
             'show_policy_link' => 1,
             'position' => 'bottom',

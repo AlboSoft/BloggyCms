@@ -64,7 +64,7 @@ class HomeController extends Controller {
                 'categories' => $categories,
                 'html_blocks' => $htmlBlocks,
                 'home_settings' => $homeSettings,
-                'title' => $homeSettings['title'] ?? 'Главная страница',
+                'title' => $homeSettings['title'] ?? LANG_CONTROLLER_HOME_DEFAULT_TITLE,
                 'meta_description' => $homeSettings['meta_description'] ?? '',
                 'meta_keywords' => $homeSettings['meta_keywords'] ?? ''
             ]);
@@ -76,7 +76,7 @@ class HomeController extends Controller {
                 'categories' => [],
                 'html_blocks' => [],
                 'home_settings' => [],
-                'title' => 'Главная страница',
+                'title' => LANG_CONTROLLER_HOME_DEFAULT_TITLE,
                 'meta_description' => '',
                 'meta_keywords' => ''
             ]);
@@ -174,7 +174,7 @@ class HomeController extends Controller {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
                 $settings = [
-                    'title' => $_POST['title'] ?? 'Главная страница',
+                    'title' => $_POST['title'] ?? LANG_CONTROLLER_HOME_DEFAULT_TITLE,
                     'meta_description' => $_POST['meta_description'] ?? '',
                     'meta_keywords' => $_POST['meta_keywords'] ?? '',
                     'show_recent_posts' => isset($_POST['show_recent_posts']) ? 1 : 0,
@@ -185,10 +185,10 @@ class HomeController extends Controller {
                 ];
                 
                 $this->settingsModel->set('home_page', $settings);
-                \Notification::success('Настройки главной страницы сохранены');
+                \Notification::success(LANG_CONTROLLER_HOME_SETTINGS_SAVED);
                 
             } catch (\Exception $e) {
-                \Notification::error('Ошибка при сохранении настроек: ' . $e->getMessage());
+                \Notification::error(LANG_CONTROLLER_HOME_SETTINGS_ERROR . $e->getMessage());
             }
             
             $this->redirect(ADMIN_URL . '/home/settings');
@@ -198,7 +198,7 @@ class HomeController extends Controller {
         
         $this->render('admin/home/settings', [
             'settings' => $currentSettings,
-            'pageTitle' => 'Настройки главной страницы'
+            'pageTitle' => LANG_CONTROLLER_HOME_SETTINGS_TITLE
         ]);
     }
 }

@@ -1,8 +1,8 @@
 <?php
 return [
-    'name' => 'Главная страница',
+    'name' => LANG_CONTROLLER_HOME_MANIFEST_NAME,
     'author' => 'BloggyCMS',
     'version' => '1.0.0',
     'has_settings' => false,
-    'description' => 'Контроллер главной страницы сайта'
+    'description' => LANG_CONTROLLER_HOME_MANIFEST_DESCRIPTION
 ];

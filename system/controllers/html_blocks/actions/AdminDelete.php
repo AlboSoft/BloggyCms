@@ -19,10 +19,10 @@ class AdminDelete extends HtmlBlockAction {
 
             \Event::trigger('html_block.deleted', $this->id);
             
-            \Notification::success('HTML-блок успешно удален');
+            \Notification::success(LANG_ACTION_HTMLBLOCKS_ADMINDELETE_SUCCESS);
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при удалении HTML-блока');
+            \Notification::error(LANG_ACTION_HTMLBLOCKS_ADMINDELETE_ERROR);
         }
         
         $this->redirect(ADMIN_URL . '/html-blocks');
