@@ -1,0 +1,33 @@
+<?php
+
+define('LANG_POSTBLOCK_CONTENTBLOCK_NAME', 'Контент-блок');
+define('LANG_POSTBLOCK_CONTENTBLOCK_DESCRIPTION', 'Блок для вставки готовых контент-блоков в тело страницы или поста');
+define('LANG_POSTBLOCK_CONTENTBLOCK_FORM_SELECT_LABEL', 'Выберите контент-блок');
+define('LANG_POSTBLOCK_CONTENTBLOCK_NO_BLOCKS', 'Нет доступных контент-блоков.');
+define('LANG_POSTBLOCK_CONTENTBLOCK_CREATE_BLOCK_LINK', 'Создайте HTML-блок сначала');
+define('LANG_POSTBLOCK_CONTENTBLOCK_SELECT_OPTION', '-- Выберите контент-блок --');
+define('LANG_POSTBLOCK_CONTENTBLOCK_SELECT_HINT', 'Выберите готовый контент-блок для вставки');
+define('LANG_POSTBLOCK_CONTENTBLOCK_SELECTED_BLOCK', 'Выбранный блок:');
+define('LANG_POSTBLOCK_CONTENTBLOCK_SETTINGS_INFO', 'Этот блок вставляет готовый контент-блок в тело страницы или поста. Настройки шаблона доступны в разделе "Настройки постблока" в админке.');
+define('LANG_POSTBLOCK_CONTENTBLOCK_EDITOR_NOT_SELECTED', 'Контент-блок не выбран');
+define('LANG_POSTBLOCK_CONTENTBLOCK_EDITOR_LABEL', 'Контент-блок');
+define('LANG_POSTBLOCK_CONTENTBLOCK_EDITOR_HINT', 'Содержимое контент-блока будет отображено на фронтенде');
+define('LANG_POSTBLOCK_CONTENTBLOCK_SHORTCODE_HTML', 'HTML код выбранного контент-блока');
+define('LANG_POSTBLOCK_CONTENTBLOCK_SHORTCODE_ID', 'ID выбранного контент-блока');
+define('LANG_POSTBLOCK_CONTENTBLOCK_SHORTCODE_NAME', 'Название выбранного контент-блока');
+define('LANG_POSTBLOCK_CONTENTBLOCK_BLOCK_NOT_FOUND', 'HTML-блок не найден');
+define('LANG_POSTBLOCK_CONTENTBLOCK_TYPE_DISABLED', 'Тип блока отключен: %s');
+define('LANG_POSTBLOCK_CONTENTBLOCK_EMPTY', 'Пустой HTML-блок');
+define('LANG_POSTBLOCK_CONTENTBLOCK_ERROR', 'Ошибка при получении HTML-блока: %s');
+define('LANG_POSTBLOCK_CONTENTBLOCK_NOT_FOUND_OR_EMPTY', 'Контент-блок не найден или пуст');
+define('LANG_POSTBLOCK_CONTENTBLOCK_PREVIEW_TITLE', 'Контент-блок');
+define('LANG_POSTBLOCK_CONTENTBLOCK_PREVIEW_NOT_SELECTED', 'Не выбран');
+define('LANG_POSTBLOCK_CONTENTBLOCK_PREVIEW_SELECTED_BLOCK', 'Выбранный контент-блок:');
+define('LANG_POSTBLOCK_CONTENTBLOCK_PREVIEW_NAME_LABEL', 'Название:');
+define('LANG_POSTBLOCK_CONTENTBLOCK_PREVIEW_TYPE_LABEL', 'Тип блока:');
+define('LANG_POSTBLOCK_CONTENTBLOCK_PREVIEW_INFO', 'Полное содержимое контент-блока будет отображено на странице');
+define('LANG_POSTBLOCK_CONTENTBLOCK_PREVIEW_MOCKUP_TITLE', 'Контент-блок');
+define('LANG_POSTBLOCK_CONTENTBLOCK_PREVIEW_MOCKUP_HINT', 'Содержимое будет загружено динамически');
+define('LANG_POSTBLOCK_CONTENTBLOCK_PREVIEW_EMPTY_TITLE', 'Контент-блок не выбран');
+define('LANG_POSTBLOCK_CONTENTBLOCK_PREVIEW_SELECT_BTN', 'Выбрать блок');
+define('LANG_POSTBLOCK_CONTENTBLOCK_PREVIEW_EMPTY_HINT', 'Выберите готовый HTML-блок для вставки в этот пост');

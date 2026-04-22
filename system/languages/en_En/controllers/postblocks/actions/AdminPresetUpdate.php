@@ -1,0 +1,7 @@
+<?php
+
+define('LANG_ACTION_POSTBLOCKS_ADMINPRESETUPDATE_PARAMS_REQUIRED', 'Required parameters not specified');
+define('LANG_ACTION_POSTBLOCKS_ADMINPRESETUPDATE_PRESET_NOT_FOUND', 'Preset not found');
+define('LANG_ACTION_POSTBLOCKS_ADMINPRESETUPDATE_PRESET_EXISTS', 'A preset with this name already exists');
+define('LANG_ACTION_POSTBLOCKS_ADMINPRESETUPDATE_SUCCESS', 'Preset successfully updated');
+define('LANG_ACTION_POSTBLOCKS_ADMINPRESETUPDATE_ERROR', 'Error updating preset');

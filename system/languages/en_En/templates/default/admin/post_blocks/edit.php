@@ -1,0 +1,32 @@
+<?php
+
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_TITLE', 'Settings: %s');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_BACK_BTN', 'Back');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_MAIN_SETTINGS_TITLE', 'Main Settings');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_ENABLE_IN_POSTS', 'Enable in posts');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_ENABLE_IN_POSTS_HINT', 'Block will be available when creating and editing posts');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_ENABLE_IN_PAGES', 'Enable in pages');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_ENABLE_IN_PAGES_HINT', 'Block will be available when creating and editing pages');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_BLOCK_TEMPLATE', 'Block Template');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_TEMPLATE_HINT', 'Use shortcodes for dynamic content');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_LOAD_TEMPLATE_BTN', 'Load default template');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_TEMPLATE_DESC', 'Use shortcodes for dynamic content. Leave empty to use the default template.');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_SAVE_BTN', 'Save Settings');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_PRESETS_TITLE', 'Block Presets');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_ADD_PRESET_BTN', 'Add Preset');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_NO_PRESETS', 'No presets added');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_BLOCK_INFO_TITLE', 'Block Information');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_SYSTEM_NAME_LABEL', 'System Name:');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_CATEGORY_LABEL', 'Category:');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_VERSION_LABEL', 'Version:');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_AUTHOR_LABEL', 'Author:');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_SHORTCODES_TITLE', 'Available Shortcodes');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_NO_SHORTCODES', 'There are no special shortcodes for this block.');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_PRESET_MODAL_TITLE', 'Edit Preset');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_PRESET_NAME_LABEL', 'Preset Name');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_PRESET_NAME_HINT', 'Unique name for this preset');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_PRESET_TEMPLATE_LABEL', 'Preset Template');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_PRESET_TEMPLATE_HINT', 'Use shortcodes for dynamic content');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_PRESET_MODAL_CANCEL', 'Cancel');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_PRESET_DELETE_BTN', 'Delete');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_PRESET_SAVE_BTN', 'Save');

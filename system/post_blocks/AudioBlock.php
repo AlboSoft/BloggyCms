@@ -7,7 +7,7 @@
 class AudioBlock extends BasePostBlock {
 
     public function getName(): string {
-        return 'Аудио';
+        return LANG_POSTBLOCK_AUDIO_NAME;
     }
 
 
@@ -16,7 +16,7 @@ class AudioBlock extends BasePostBlock {
     }
 
     public function getDescription(): string {
-        return 'Вставляет аудио-плеер с поддержкой MP3 файлов.';
+        return LANG_POSTBLOCK_AUDIO_DESCRIPTION;
     }
 
     public function getIcon(): string {
@@ -80,10 +80,10 @@ class AudioBlock extends BasePostBlock {
     public function getShortcodes(): array
     {
         return array_merge(parent::getShortcodes(), [
-            '{src_mp3}' => 'Путь к MP3 файлу',
-            '{caption}' => 'Подпись под аудио',
-            '{fallback_text}' => 'Текст для старых браузеров',
-            '{caption_html}' => 'HTML-код подписи с обрамлением figure',
+            '{src_mp3}' => LANG_POSTBLOCK_AUDIO_SHORTCODE_SRC,
+            '{caption}' => LANG_POSTBLOCK_AUDIO_SHORTCODE_CAPTION,
+            '{fallback_text}' => LANG_POSTBLOCK_AUDIO_SHORTCODE_FALLBACK,
+            '{caption_html}' => LANG_POSTBLOCK_AUDIO_SHORTCODE_CAPTION_HTML,
         ]);
     }
 
@@ -130,9 +130,9 @@ class AudioBlock extends BasePostBlock {
                         </div>
                         <div class="preview-info">
                             <div class="preview-title">
-                                <strong>Аудио</strong>
+                                <strong><?php echo LANG_POSTBLOCK_AUDIO_PREVIEW_TITLE; ?></strong>
                                 <?php if ($hasAudio) { ?>
-                                    <span class="badge bg-success badge-sm">Загружено</span>
+                                    <span class="badge bg-success badge-sm"><?php echo LANG_POSTBLOCK_AUDIO_PREVIEW_UPLOADED; ?></span>
                                 <?php } ?>
                             </div>
                             <div class="preview-stats">
@@ -140,12 +140,12 @@ class AudioBlock extends BasePostBlock {
                                     <?php
                                     $fileName = basename($srcMp3);
                                     if (filter_var($srcMp3, FILTER_VALIDATE_URL)) {
-                                        $fileName = 'Внешняя ссылка';
+                                        $fileName = LANG_POSTBLOCK_AUDIO_PREVIEW_EXTERNAL;
                                     }
                                     ?>
                                     <?= html($fileName) ?>
                                 <?php } else { ?>
-                                    Не загружено
+                                    <?php echo LANG_POSTBLOCK_AUDIO_PREVIEW_NOT_UPLOADED; ?>
                                 <?php } ?>
                             </div>
                         </div>
@@ -197,10 +197,10 @@ class AudioBlock extends BasePostBlock {
                     <?php } else { ?>
                         <div class="preview-empty-state">
                             <i class="bi bi-file-music"></i>
-                            <div class="empty-text">Аудио не загружено</div>
+                            <div class="empty-text"><?php echo LANG_POSTBLOCK_AUDIO_PREVIEW_EMPTY_TITLE; ?></div>
                             <button type="button" class="btn btn-sm btn-outline-primary mt-2" 
                                     onclick="postBlocksManager.editBlock('{block_id}')">
-                                <i class="bi bi-plus-circle"></i> Добавить аудио
+                                <i class="bi bi-plus-circle"></i> <?php echo LANG_POSTBLOCK_AUDIO_PREVIEW_ADD_BTN; ?>
                             </button>
                         </div>
                     <?php } ?>
@@ -223,8 +223,8 @@ class AudioBlock extends BasePostBlock {
             return '
             <div class="post-block-audio-preview text-center p-3 bg-light border rounded">
                 <i class="bi bi-file-music fs-1 text-muted"></i>
-                <p class="text-muted mt-2 mb-0">Аудио не загружено</p>
-                <small class="text-secondary">Нажмите "Редактировать", чтобы добавить аудиофайл</small>
+                <p class="text-muted mt-2 mb-0">' . LANG_POSTBLOCK_AUDIO_EDITOR_EMPTY . '</p>
+                <small class="text-secondary">' . LANG_POSTBLOCK_AUDIO_EDITOR_HINT . '</small>
             </div>';
         }
         
@@ -239,7 +239,7 @@ class AudioBlock extends BasePostBlock {
             
             <audio class="audio-player" controls style="max-width: 100%;">
                 <source src="<?= html($mp3Url) ?>" type="audio/mpeg">
-                <p class="text-muted">Ваш браузер не поддерживает HTML5 аудио.</p>
+                <p class="text-muted"><?php echo LANG_POSTBLOCK_AUDIO_EDITOR_FALLBACK; ?></p>
             </audio>
             
             <?php if (!empty($caption)) { ?>
@@ -271,7 +271,7 @@ class AudioBlock extends BasePostBlock {
         ?>
         <div class="audio-block-form">
             <div class="mb-3">
-                <label class="form-label">Аудиофайл (MP3) *</label>
+                <label class="form-label"><?php echo LANG_POSTBLOCK_AUDIO_FORM_FILE_LABEL; ?> *</label>
                 
                 <?php if ($hasFile && !$isExternal) { ?>
                     <div class="current-file mb-2 p-2 bg-light border rounded">
@@ -281,7 +281,7 @@ class AudioBlock extends BasePostBlock {
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="remove_audio" value="1" id="removeAudio">
                                 <label class="form-check-label text-danger" for="removeAudio">
-                                    Удалить
+                                    <?php echo LANG_POSTBLOCK_AUDIO_FORM_DELETE; ?>
                                 </label>
                             </div>
                         </div>
@@ -294,14 +294,14 @@ class AudioBlock extends BasePostBlock {
                        accept=".mp3,audio/mpeg"
                        <?= (!$hasFile || $isExternal) ? 'required' : '' ?>>
                 <div class="form-text">
-                    Поддерживается формат MP3. Максимальный размер: 20MB.
+                    <?php echo LANG_POSTBLOCK_AUDIO_FORM_FILE_HINT; ?>
                 </div>
                 
                 <input type="hidden" name="content[src_mp3]" value="<?= html($srcMp3) ?>">
             </div>
 
             <div class="mb-3">
-                <label class="form-label">ИЛИ внешняя ссылка</label>
+                <label class="form-label"><?php echo LANG_POSTBLOCK_AUDIO_FORM_EXTERNAL_LABEL; ?></label>
                 <input type="url" 
                        name="external_url" 
                        class="form-control" 
@@ -309,17 +309,17 @@ class AudioBlock extends BasePostBlock {
                        placeholder="https://example.ru/audio.mp3"
                        <?= ($hasFile && !$isExternal) ? 'disabled' : '' ?>>
                 <div class="form-text">
-                    Можно указать прямую ссылку на MP3 файл вместо загрузки
+                    <?php echo LANG_POSTBLOCK_AUDIO_FORM_EXTERNAL_HINT; ?>
                 </div>
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Подпись (опционально)</label>
+                <label class="form-label"><?php echo LANG_POSTBLOCK_AUDIO_FORM_CAPTION_LABEL; ?></label>
                 <input type="text" 
                        name="content[caption]" 
                        class="form-control" 
                        value="<?= $caption ?>" 
-                       placeholder="Название трека или описание">
+                       placeholder="<?php echo LANG_POSTBLOCK_AUDIO_FORM_CAPTION_PLACEHOLDER; ?>">
             </div>
         </div>
 
@@ -385,7 +385,7 @@ class AudioBlock extends BasePostBlock {
         ob_start();
         ?>
         <div class="mb-3">
-            <label class="form-label">Дополнительный CSS класс</label>
+            <label class="form-label"><?php echo LANG_POSTBLOCK_AUDIO_SETTINGS_CSS_CLASS; ?></label>
             <input type="text" name="settings[custom_class]" class="form-control" value="<?= $customClass ?>" placeholder="my-audio">
         </div>
         <?php
@@ -432,7 +432,7 @@ class AudioBlock extends BasePostBlock {
                 $file = $_FILES['audio_file'];
                 
                 if ($file['size'] > 20 * 1024 * 1024) {
-                    throw new Exception('Файл слишком большой. Максимум 20MB.');
+                    throw new Exception(LANG_POSTBLOCK_AUDIO_ERROR_FILE_TOO_LARGE);
                 }
 
                 $finfo = finfo_open(FILEINFO_MIME_TYPE);
@@ -441,14 +441,14 @@ class AudioBlock extends BasePostBlock {
 
                 $allowedMime = ['audio/mpeg', 'audio/mp3'];
                 if (!in_array($mime, $allowedMime)) {
-                    throw new Exception('Неверный формат файла. Ожидается MP3.');
+                    throw new Exception(LANG_POSTBLOCK_AUDIO_ERROR_INVALID_FORMAT);
                 }
 
                 $safeName = uniqid() . '_' . preg_replace('/[^a-zA-Z0-9._-]/', '_', basename($file['name']));
                 $destPath = $uploadDir . $safeName;
 
                 if (!move_uploaded_file($file['tmp_name'], $destPath)) {
-                    throw new Exception('Не удалось сохранить файл.');
+                    throw new Exception(LANG_POSTBLOCK_AUDIO_ERROR_SAVE_FAILED);
                 }
 
                 if (!empty($oldSrcMp3) && !filter_var($oldSrcMp3, FILTER_VALIDATE_URL)) {
@@ -461,7 +461,7 @@ class AudioBlock extends BasePostBlock {
                 $content['src_mp3'] = '/uploads/audio/' . $safeName;
                 
             } catch (Exception $e) {
-                \Notification::error('Ошибка загрузки аудио: ' . $e->getMessage());
+                \Notification::error(LANG_POSTBLOCK_AUDIO_ERROR_UPLOAD . $e->getMessage());
                 $content['src_mp3'] = $oldSrcMp3;
             }
         } else {
@@ -499,7 +499,7 @@ class AudioBlock extends BasePostBlock {
         $caption = $content['caption'] ?? '';
 
         if (empty($srcMp3)) {
-            return '<!-- AudioBlock: нет источника -->';
+            return LANG_POSTBLOCK_AUDIO_EMPTY_COMMENT;
         }
 
         $customClass = html($settings['custom_class'] ?? '');
@@ -508,7 +508,7 @@ class AudioBlock extends BasePostBlock {
 
         $mp3Url = filter_var($srcMp3, FILTER_VALIDATE_URL) ? $srcMp3 : BASE_URL . $srcMp3;
 
-        $fallback = '<p class="text-muted">Ваш браузер не поддерживает HTML5 аудио. <a href="' . html($mp3Url) . '">Скачайте файл</a>.</p>';
+        $fallback = '<p class="text-muted">' . sprintf(LANG_POSTBLOCK_AUDIO_FALLBACK, html($mp3Url)) . '</p>';
 
         $captionHtml = '';
         if (!empty($caption)) {
@@ -540,7 +540,7 @@ class AudioBlock extends BasePostBlock {
     public function validateSettings($settings): array {
         $errors = [];
         if (!empty($settings['custom_class']) && !preg_match('/^[a-zA-Z0-9-_ ]+$/', $settings['custom_class'])) {
-            $errors[] = 'CSS класс может содержать только буквы, цифры, дефисы и подчеркивания';
+            $errors[] = LANG_POSTBLOCK_AUDIO_VALIDATION_CSS_CLASS;
         }
         return [empty($errors), $errors];
     }

@@ -1,0 +1,24 @@
+<?php
+
+define('LANG_POSTBLOCK_CUSTOMHTML_NAME', 'Custom HTML');
+define('LANG_POSTBLOCK_CUSTOMHTML_DESCRIPTION', 'Block for inserting custom HTML code with syntax highlighting');
+define('LANG_POSTBLOCK_CUSTOMHTML_DEFAULT_CONTENT', '<!-- Insert your HTML code here -->');
+define('LANG_POSTBLOCK_CUSTOMHTML_FORM_LABEL', 'HTML Code');
+define('LANG_POSTBLOCK_CUSTOMHTML_FORM_HINT', 'Insert any HTML code');
+define('LANG_POSTBLOCK_CUSTOMHTML_SETTINGS_CSS_CLASS', 'Custom CSS Class');
+define('LANG_POSTBLOCK_CUSTOMHTML_EDITOR_TITLE', 'Custom HTML');
+define('LANG_POSTBLOCK_CUSTOMHTML_EDITOR_CHARS', 'chars');
+define('LANG_POSTBLOCK_CUSTOMHTML_EDITOR_HINT', 'HTML block with syntax highlighting');
+define('LANG_POSTBLOCK_CUSTOMHTML_SHORTCODE_HTML', 'HTML code');
+define('LANG_POSTBLOCK_CUSTOMHTML_SHORTCODE_CUSTOM_CLASS', 'Custom CSS class');
+define('LANG_POSTBLOCK_CUSTOMHTML_VALIDATION_CSS_CLASS', 'CSS class can only contain letters, numbers, hyphens and underscores');
+define('LANG_POSTBLOCK_CUSTOMHTML_EMPTY_COMMENT', '<!-- CustomHtmlBlock: empty HTML code -->');
+define('LANG_POSTBLOCK_CUSTOMHTML_PREVIEW_TITLE', 'Custom HTML');
+define('LANG_POSTBLOCK_CUSTOMHTML_PREVIEW_CHARS', 'chars');
+define('LANG_POSTBLOCK_CUSTOMHTML_PREVIEW_TAGS', 'tag|tags|tags');
+define('LANG_POSTBLOCK_CUSTOMHTML_PREVIEW_CODE_TITLE', 'HTML code');
+define('LANG_POSTBLOCK_CUSTOMHTML_PREVIEW_SECURITY_TITLE', 'Security:');
+define('LANG_POSTBLOCK_CUSTOMHTML_PREVIEW_SECURITY_TEXT', 'This block contains custom HTML. Make sure the code is safe.');
+define('LANG_POSTBLOCK_CUSTOMHTML_PREVIEW_EMPTY_TITLE', 'HTML code not added');
+define('LANG_POSTBLOCK_CUSTOMHTML_PREVIEW_ADD_BTN', 'Add HTML');
+define('LANG_POSTBLOCK_CUSTOMHTML_PREVIEW_EMPTY_HINT', 'Use this block to insert custom HTML code');

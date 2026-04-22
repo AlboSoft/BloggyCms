@@ -1,0 +1,33 @@
+<?php
+
+define('LANG_POSTBLOCK_CONTENTBLOCK_NAME', 'Content Block');
+define('LANG_POSTBLOCK_CONTENTBLOCK_DESCRIPTION', 'Block for inserting ready-made content blocks into the body of a page or post');
+define('LANG_POSTBLOCK_CONTENTBLOCK_FORM_SELECT_LABEL', 'Select Content Block');
+define('LANG_POSTBLOCK_CONTENTBLOCK_NO_BLOCKS', 'No content blocks available.');
+define('LANG_POSTBLOCK_CONTENTBLOCK_CREATE_BLOCK_LINK', 'Create an HTML block first');
+define('LANG_POSTBLOCK_CONTENTBLOCK_SELECT_OPTION', '-- Select content block --');
+define('LANG_POSTBLOCK_CONTENTBLOCK_SELECT_HINT', 'Select a ready-made content block to insert');
+define('LANG_POSTBLOCK_CONTENTBLOCK_SELECTED_BLOCK', 'Selected block:');
+define('LANG_POSTBLOCK_CONTENTBLOCK_SETTINGS_INFO', 'This block inserts a ready-made content block into the body of a page or post. Template settings are available in the "Post Block Settings" section in the admin panel.');
+define('LANG_POSTBLOCK_CONTENTBLOCK_EDITOR_NOT_SELECTED', 'Content block not selected');
+define('LANG_POSTBLOCK_CONTENTBLOCK_EDITOR_LABEL', 'Content Block');
+define('LANG_POSTBLOCK_CONTENTBLOCK_EDITOR_HINT', 'Content block content will be displayed on the frontend');
+define('LANG_POSTBLOCK_CONTENTBLOCK_SHORTCODE_HTML', 'HTML code of the selected content block');
+define('LANG_POSTBLOCK_CONTENTBLOCK_SHORTCODE_ID', 'ID of the selected content block');
+define('LANG_POSTBLOCK_CONTENTBLOCK_SHORTCODE_NAME', 'Name of the selected content block');
+define('LANG_POSTBLOCK_CONTENTBLOCK_BLOCK_NOT_FOUND', 'HTML block not found');
+define('LANG_POSTBLOCK_CONTENTBLOCK_TYPE_DISABLED', 'Block type disabled: %s');
+define('LANG_POSTBLOCK_CONTENTBLOCK_EMPTY', 'Empty HTML block');
+define('LANG_POSTBLOCK_CONTENTBLOCK_ERROR', 'Error retrieving HTML block: %s');
+define('LANG_POSTBLOCK_CONTENTBLOCK_NOT_FOUND_OR_EMPTY', 'Content block not found or empty');
+define('LANG_POSTBLOCK_CONTENTBLOCK_PREVIEW_TITLE', 'Content Block');
+define('LANG_POSTBLOCK_CONTENTBLOCK_PREVIEW_NOT_SELECTED', 'Not selected');
+define('LANG_POSTBLOCK_CONTENTBLOCK_PREVIEW_SELECTED_BLOCK', 'Selected content block:');
+define('LANG_POSTBLOCK_CONTENTBLOCK_PREVIEW_NAME_LABEL', 'Name:');
+define('LANG_POSTBLOCK_CONTENTBLOCK_PREVIEW_TYPE_LABEL', 'Block type:');
+define('LANG_POSTBLOCK_CONTENTBLOCK_PREVIEW_INFO', 'The full content of the content block will be displayed on the page');
+define('LANG_POSTBLOCK_CONTENTBLOCK_PREVIEW_MOCKUP_TITLE', 'Content Block');
+define('LANG_POSTBLOCK_CONTENTBLOCK_PREVIEW_MOCKUP_HINT', 'Content will be loaded dynamically');
+define('LANG_POSTBLOCK_CONTENTBLOCK_PREVIEW_EMPTY_TITLE', 'Content block not selected');
+define('LANG_POSTBLOCK_CONTENTBLOCK_PREVIEW_SELECT_BTN', 'Select Block');
+define('LANG_POSTBLOCK_CONTENTBLOCK_PREVIEW_EMPTY_HINT', 'Select a ready-made HTML block to insert into this post');

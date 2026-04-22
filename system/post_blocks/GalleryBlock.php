@@ -2,7 +2,7 @@
 class GalleryBlock extends BasePostBlock {
     
     public function getName(): string {
-        return 'Галерея';
+        return LANG_POSTBLOCK_GALLERY_NAME;
     }
 
     public function getSystemName(): string {
@@ -10,7 +10,7 @@ class GalleryBlock extends BasePostBlock {
     }
 
     public function getDescription(): string {
-        return 'Блок для создания галереи изображений с возможностью добавления нескольких фото';
+        return LANG_POSTBLOCK_GALLERY_DESCRIPTION;
     }
 
     public function getIcon(): string {
@@ -78,8 +78,8 @@ class GalleryBlock extends BasePostBlock {
         ?>
         <div class="gallery-block-wrapper">
             <div class="mb-3">
-                <label class="form-label fw-semibold">Изображения галереи</label>
-                <div class="text-muted small mb-3">Перетащите элементы для изменения порядка</div>
+                <label class="form-label fw-semibold"><?php echo LANG_POSTBLOCK_GALLERY_FORM_IMAGES_LABEL; ?></label>
+                <div class="text-muted small mb-3"><?php echo LANG_POSTBLOCK_GALLERY_FORM_DRAG_HINT; ?></div>
             </div>
             
             <div id="gallery-items-container" class="gallery-items-container">
@@ -96,7 +96,7 @@ class GalleryBlock extends BasePostBlock {
                                     <div class="row g-3">
                                         <div class="col-md-12">
                                             <div class="image-upload-area">
-                                                <label class="form-label small fw-semibold">Изображение *</label>
+                                                <label class="form-label small fw-semibold"><?php echo LANG_POSTBLOCK_GALLERY_FORM_IMAGE_LABEL; ?> *</label>
                                                 <input type="file" 
                                                     name="gallery_image_0" 
                                                     class="form-control form-control-sm gallery-image-input" 
@@ -104,33 +104,33 @@ class GalleryBlock extends BasePostBlock {
                                                     required>
                                                 <div class="form-text small text-muted">
                                                     <i class="bi bi-info-circle me-1"></i>
-                                                    Форматы: JPG, PNG, GIF, WebP. Макс. размер: 5MB
+                                                    <?php echo LANG_POSTBLOCK_GALLERY_FORM_IMAGE_HINT; ?>
                                                 </div>
                                             </div>
                                         </div>
                                         <input type="hidden" name="content[images][0][image_url]" class="gallery-image-url" value="">
                                         <div class="col-md-6">
-                                            <label class="form-label small fw-semibold">Alt текст *</label>
+                                            <label class="form-label small fw-semibold"><?php echo LANG_POSTBLOCK_GALLERY_FORM_ALT_LABEL; ?> *</label>
                                             <input type="text" 
                                                 name="content[images][0][alt_text]" 
                                                 class="form-control form-control-sm" 
                                                 value="" 
-                                                placeholder="Краткое описание изображения"
+                                                placeholder="<?php echo LANG_POSTBLOCK_GALLERY_FORM_ALT_PLACEHOLDER; ?>"
                                                 required>
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="form-label small fw-semibold">Подпись</label>
+                                            <label class="form-label small fw-semibold"><?php echo LANG_POSTBLOCK_GALLERY_FORM_CAPTION_LABEL; ?></label>
                                             <input type="text" 
                                                 name="content[images][0][caption]" 
                                                 class="form-control form-control-sm" 
                                                 value="" 
-                                                placeholder="Необязательная подпись к изображению">
+                                                placeholder="<?php echo LANG_POSTBLOCK_GALLERY_FORM_CAPTION_PLACEHOLDER; ?>">
                                         </div>
                                         <div class="col-12">
                                             <div class="new-image-preview" style="display: none;">
                                                 <div class="preview-card p-2 bg-light rounded">
-                                                    <img src="" alt="Предпросмотр" class="preview-image" style="max-height: 80px; max-width: 100%; border-radius: 0.5rem;">
-                                                    <div class="small text-muted mt-1">Новое изображение</div>
+                                                    <img src="" alt="<?php echo LANG_POSTBLOCK_GALLERY_FORM_PREVIEW_ALT; ?>" class="preview-image" style="max-height: 80px; max-width: 100%; border-radius: 0.5rem;">
+                                                    <div class="small text-muted mt-1"><?php echo LANG_POSTBLOCK_GALLERY_FORM_NEW_IMAGE; ?></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -159,7 +159,7 @@ class GalleryBlock extends BasePostBlock {
                                             <?php if (empty($image['image_url'])) { ?>
                                                 <div class="col-md-12">
                                                     <div class="image-upload-area">
-                                                        <label class="form-label small fw-semibold">Изображение *</label>
+                                                        <label class="form-label small fw-semibold"><?php echo LANG_POSTBLOCK_GALLERY_FORM_IMAGE_LABEL; ?> *</label>
                                                         <input type="file" 
                                                             name="gallery_image_<?= $index ?>" 
                                                             class="form-control form-control-sm gallery-image-input" 
@@ -167,7 +167,7 @@ class GalleryBlock extends BasePostBlock {
                                                             required>
                                                         <div class="form-text small text-muted">
                                                             <i class="bi bi-info-circle me-1"></i>
-                                                            Форматы: JPG, PNG, GIF, WebP. Макс. размер: 5MB
+                                                            <?php echo LANG_POSTBLOCK_GALLERY_FORM_IMAGE_HINT; ?>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -177,11 +177,11 @@ class GalleryBlock extends BasePostBlock {
                                                     <div class="current-image-preview">
                                                         <div class="d-flex align-items-center gap-3 p-2 bg-light rounded">
                                                             <img src="<?= html($image['image_url']) ?>" 
-                                                                alt="Текущее изображение" 
+                                                                alt="<?php echo LANG_POSTBLOCK_GALLERY_FORM_CURRENT_IMAGE_ALT; ?>" 
                                                                 class="rounded"
                                                                 style="width: 60px; height: 60px; object-fit: cover;">
                                                             <div class="flex-grow-1">
-                                                                <div class="small text-muted mb-1">Текущее изображение</div>
+                                                                <div class="small text-muted mb-1"><?php echo LANG_POSTBLOCK_GALLERY_FORM_CURRENT_IMAGE; ?></div>
                                                                 <code class="small"><?= html(basename($image['image_url'])) ?></code>
                                                                 <div class="form-check mt-2">
                                                                     <input class="form-check-input" type="checkbox" 
@@ -189,7 +189,7 @@ class GalleryBlock extends BasePostBlock {
                                                                         value="1" 
                                                                         id="removeImage<?= $index ?>">
                                                                     <label class="form-check-label small text-danger" for="removeImage<?= $index ?>">
-                                                                        <i class="bi bi-trash3 me-1"></i>Удалить
+                                                                        <i class="bi bi-trash3 me-1"></i><?php echo LANG_POSTBLOCK_GALLERY_FORM_DELETE; ?>
                                                                     </label>
                                                                 </div>
                                                             </div>
@@ -200,34 +200,34 @@ class GalleryBlock extends BasePostBlock {
                                             <?php } ?>
                                             
                                             <div class="col-md-6">
-                                                <label class="form-label small fw-semibold">Alt текст *</label>
+                                                <label class="form-label small fw-semibold"><?php echo LANG_POSTBLOCK_GALLERY_FORM_ALT_LABEL; ?> *</label>
                                                 <input type="text" 
                                                     name="content[images][<?= $index ?>][alt_text]" 
                                                     class="form-control form-control-sm" 
                                                     value="<?= html($image['alt_text'] ?? '') ?>" 
-                                                    placeholder="Краткое описание изображения"
+                                                    placeholder="<?php echo LANG_POSTBLOCK_GALLERY_FORM_ALT_PLACEHOLDER; ?>"
                                                     required>
                                             </div>
                                             <div class="col-md-6">
-                                                <label class="form-label small fw-semibold">Подпись</label>
+                                                <label class="form-label small fw-semibold"><?php echo LANG_POSTBLOCK_GALLERY_FORM_CAPTION_LABEL; ?></label>
                                                 <input type="text" 
                                                     name="content[images][<?= $index ?>][caption]" 
                                                     class="form-control form-control-sm" 
                                                     value="<?= html($image['caption'] ?? '') ?>" 
-                                                    placeholder="Необязательная подпись к изображению">
+                                                    placeholder="<?php echo LANG_POSTBLOCK_GALLERY_FORM_CAPTION_PLACEHOLDER; ?>">
                                             </div>
                                             <div class="col-12">
                                                 <div class="new-image-preview" style="display: none;">
                                                     <div class="preview-card p-2 bg-light rounded">
-                                                        <img src="" alt="Предпросмотр" class="preview-image" style="max-height: 80px; max-width: 100%; border-radius: 0.5rem;">
-                                                        <div class="small text-muted mt-1">Новое изображение</div>
+                                                        <img src="" alt="<?php echo LANG_POSTBLOCK_GALLERY_FORM_PREVIEW_ALT; ?>" class="preview-image" style="max-height: 80px; max-width: 100%; border-radius: 0.5rem;">
+                                                        <div class="small text-muted mt-1"><?php echo LANG_POSTBLOCK_GALLERY_FORM_NEW_IMAGE; ?></div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-auto">
-                                        <button type="button" class="btn btn-light btn-sm remove-gallery-item" title="Удалить изображение">
+                                        <button type="button" class="btn btn-light btn-sm remove-gallery-item" title="<?php echo LANG_POSTBLOCK_GALLERY_FORM_DELETE_TITLE; ?>">
                                             <i class="bi bi-trash3"></i>
                                         </button>
                                     </div>
@@ -239,7 +239,7 @@ class GalleryBlock extends BasePostBlock {
             </div>
             
             <button type="button" class="btn btn-outline-primary mt-3" id="add-gallery-item">
-                <i class="bi bi-plus-lg me-2"></i>Добавить изображение
+                <i class="bi bi-plus-lg me-2"></i><?php echo LANG_POSTBLOCK_GALLERY_FORM_ADD_IMAGE_BTN; ?>
             </button>
         </div>
 
@@ -256,7 +256,7 @@ class GalleryBlock extends BasePostBlock {
                             <div class="row g-3">
                                 <div class="col-md-12">
                                     <div class="image-upload-area">
-                                        <label class="form-label small fw-semibold">Изображение *</label>
+                                        <label class="form-label small fw-semibold"><?php echo LANG_POSTBLOCK_GALLERY_FORM_IMAGE_LABEL; ?> *</label>
                                         <input type="file" 
                                             name="gallery_image___INDEX__" 
                                             class="form-control form-control-sm gallery-image-input" 
@@ -264,40 +264,40 @@ class GalleryBlock extends BasePostBlock {
                                             required>
                                         <div class="form-text small text-muted">
                                             <i class="bi bi-info-circle me-1"></i>
-                                            Форматы: JPG, PNG, GIF, WebP. Макс. размер: 5MB
+                                            <?php echo LANG_POSTBLOCK_GALLERY_FORM_IMAGE_HINT; ?>
                                         </div>
                                     </div>
                                 </div>
                                 <input type="hidden" name="content[images][__INDEX__][image_url]" class="gallery-image-url" value="">
                                 <div class="col-md-6">
-                                    <label class="form-label small fw-semibold">Alt текст *</label>
+                                    <label class="form-label small fw-semibold"><?php echo LANG_POSTBLOCK_GALLERY_FORM_ALT_LABEL; ?> *</label>
                                     <input type="text" 
                                         name="content[images][__INDEX__][alt_text]" 
                                         class="form-control form-control-sm" 
                                         value="" 
-                                        placeholder="Краткое описание изображения"
+                                        placeholder="<?php echo LANG_POSTBLOCK_GALLERY_FORM_ALT_PLACEHOLDER; ?>"
                                         required>
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label small fw-semibold">Подпись</label>
+                                    <label class="form-label small fw-semibold"><?php echo LANG_POSTBLOCK_GALLERY_FORM_CAPTION_LABEL; ?></label>
                                     <input type="text" 
                                         name="content[images][__INDEX__][caption]" 
                                         class="form-control form-control-sm" 
                                         value="" 
-                                        placeholder="Необязательная подпись к изображению">
+                                        placeholder="<?php echo LANG_POSTBLOCK_GALLERY_FORM_CAPTION_PLACEHOLDER; ?>">
                                 </div>
                                 <div class="col-12">
                                     <div class="new-image-preview" style="display: none;">
                                         <div class="preview-card p-2 bg-light rounded">
-                                            <img src="" alt="Предпросмотр" class="preview-image" style="max-height: 80px; max-width: 100%; border-radius: 0.5rem;">
-                                            <div class="small text-muted mt-1">Новое изображение</div>
+                                            <img src="" alt="<?php echo LANG_POSTBLOCK_GALLERY_FORM_PREVIEW_ALT; ?>" class="preview-image" style="max-height: 80px; max-width: 100%; border-radius: 0.5rem;">
+                                            <div class="small text-muted mt-1"><?php echo LANG_POSTBLOCK_GALLERY_FORM_NEW_IMAGE; ?></div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-auto">
-                            <button type="button" class="btn btn-light btn-sm remove-gallery-item" title="Удалить изображение">
+                            <button type="button" class="btn btn-light btn-sm remove-gallery-item" title="<?php echo LANG_POSTBLOCK_GALLERY_FORM_DELETE_TITLE; ?>">
                                 <i class="bi bi-trash3"></i>
                             </button>
                         </div>
@@ -316,13 +316,13 @@ class GalleryBlock extends BasePostBlock {
         ob_start();
         ?>
         <div class="mb-4">
-            <label class="form-label">Дополнительный CSS класс</label>
+            <label class="form-label"><?php echo LANG_POSTBLOCK_GALLERY_SETTINGS_CSS_CLASS; ?></label>
             <input type="text" 
                    name="settings[custom_class]" 
                    class="form-control" 
                    value="<?= html($customClass) ?>" 
                    placeholder="my-gallery">
-            <div class="form-text">Добавьте свой CSS класс для стилизации галереи</div>
+            <div class="form-text"><?php echo LANG_POSTBLOCK_GALLERY_SETTINGS_CSS_HINT; ?></div>
         </div>
         <?php
         return ob_get_clean();
@@ -337,7 +337,7 @@ class GalleryBlock extends BasePostBlock {
             return '
             <div class="post-block-gallery-preview text-center p-4 border rounded bg-light">
                 <i class="bi bi-images display-4 text-muted d-block mb-2"></i>
-                <span class="text-muted">Галерея пуста</span>
+                <span class="text-muted">' . LANG_POSTBLOCK_GALLERY_EDITOR_EMPTY . '</span>
             </div>';
         }
 
@@ -345,8 +345,8 @@ class GalleryBlock extends BasePostBlock {
         <div class="post-block-gallery-preview">
             <div class="d-flex align-items-center mb-2">
                 <i class="bi bi-images text-primary me-2"></i>
-                <strong>Галерея</strong>
-                <span class="badge bg-secondary ms-2">' . $imageCount . ' изображений</span>
+                <strong>' . LANG_POSTBLOCK_GALLERY_EDITOR_TITLE . '</strong>
+                <span class="badge bg-secondary ms-2">' . $imageCount . ' ' . LANG_POSTBLOCK_GALLERY_EDITOR_IMAGES_COUNT . '</span>
             </div>
             <div class="gallery-preview-grid">';
         
@@ -438,7 +438,7 @@ class GalleryBlock extends BasePostBlock {
         $customClass = $settings['custom_class'] ?? '';
 
         if (empty($images)) {
-            return '<!-- GalleryBlock: нет изображений -->';
+            return LANG_POSTBLOCK_GALLERY_EMPTY_COMMENT;
         }
 
         $template = $settings['template'] ?? $this->getTemplateWithShortcodes();
@@ -521,18 +521,18 @@ class GalleryBlock extends BasePostBlock {
     private function handleImageUpload($file) {
         try {
             if ($file['error'] !== UPLOAD_ERR_OK) {
-                return ['success' => false, 'error' => 'Ошибка загрузки файла'];
+                return ['success' => false, 'error' => LANG_POSTBLOCK_GALLERY_UPLOAD_ERROR];
             }
 
             $allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
             $fileType = mime_content_type($file['tmp_name']);
             
             if (!in_array($fileType, $allowedTypes)) {
-                return ['success' => false, 'error' => 'Недопустимый тип файла'];
+                return ['success' => false, 'error' => LANG_POSTBLOCK_GALLERY_UPLOAD_INVALID_TYPE];
             }
 
             if ($file['size'] > 5 * 1024 * 1024) {
-                return ['success' => false, 'error' => 'Файл слишком большой'];
+                return ['success' => false, 'error' => LANG_POSTBLOCK_GALLERY_UPLOAD_TOO_LARGE];
             }
 
             $uploadDir = 'uploads/images/gallery/';
@@ -545,7 +545,7 @@ class GalleryBlock extends BasePostBlock {
             $filePath = $uploadDir . $fileName;
 
             if (!move_uploaded_file($file['tmp_name'], $filePath)) {
-                return ['success' => false, 'error' => 'Не удалось сохранить файл'];
+                return ['success' => false, 'error' => LANG_POSTBLOCK_GALLERY_UPLOAD_SAVE_FAILED];
             }
 
             return [
@@ -555,17 +555,17 @@ class GalleryBlock extends BasePostBlock {
             ];
 
         } catch (Exception $e) {
-            return ['success' => false, 'error' => 'Исключение при загрузке: ' . $e->getMessage()];
+            return ['success' => false, 'error' => LANG_POSTBLOCK_GALLERY_UPLOAD_EXCEPTION . $e->getMessage()];
         }
     }
 
     public function getShortcodes(): array {
         return array_merge(parent::getShortcodes(), [
-            '{custom_class}' => 'Дополнительный CSS класс',
-            '{gallery_items}...{/gallery_items}' => 'Цикл по изображениям галереи',
-            '{image_url}' => 'URL изображения',
-            '{alt_text}' => 'Alt текст изображения',
-            '{caption}' => 'Подпись изображения'
+            '{custom_class}' => LANG_POSTBLOCK_GALLERY_SHORTCODE_CUSTOM_CLASS,
+            '{gallery_items}...{/gallery_items}' => LANG_POSTBLOCK_GALLERY_SHORTCODE_GALLERY_ITEMS,
+            '{image_url}' => LANG_POSTBLOCK_GALLERY_SHORTCODE_IMAGE_URL,
+            '{alt_text}' => LANG_POSTBLOCK_GALLERY_SHORTCODE_ALT_TEXT,
+            '{caption}' => LANG_POSTBLOCK_GALLERY_SHORTCODE_CAPTION
         ]);
     }
 
@@ -573,7 +573,7 @@ class GalleryBlock extends BasePostBlock {
         $errors = [];
 
         if (!empty($settings['custom_class']) && !preg_match('/^[a-zA-Z0-9-_ ]+$/', $settings['custom_class'])) {
-            $errors[] = 'CSS класс может содержать только буквы, цифры, дефисы и подчеркивания';
+            $errors[] = LANG_POSTBLOCK_GALLERY_VALIDATION_CSS_CLASS;
         }
 
         return [empty($errors), $errors];
@@ -651,13 +651,13 @@ class GalleryBlock extends BasePostBlock {
                         </div>
                         <div class="preview-info">
                             <div class="preview-title">
-                                <strong>Галерея</strong>
+                                <strong><?php echo LANG_POSTBLOCK_GALLERY_PREVIEW_TITLE; ?></strong>
                                 <?php if (!empty($customClass)) { ?>
                                     <span class="badge bg-secondary badge-sm"><?= html($customClass) ?></span>
                                 <?php } ?>
                             </div>
                             <div class="preview-stats">
-                                <?= $imageCount ?> изображени<?= $imageCount == 1 ? 'е' : ($imageCount > 1 && $imageCount < 5 ? 'я' : 'й') ?>
+                                <?= $imageCount ?> <?php echo plural_form($imageCount, explode('|', LANG_POSTBLOCK_GALLERY_PREVIEW_IMAGES_COUNT)); ?>
                             </div>
                         </div>
                     </div>
@@ -697,14 +697,14 @@ class GalleryBlock extends BasePostBlock {
                     <?php } else { ?>
                         <div class="preview-empty-state">
                             <i class="bi bi-images"></i>
-                            <div class="empty-text">Изображения не добавлены</div>
+                            <div class="empty-text"><?php echo LANG_POSTBLOCK_GALLERY_PREVIEW_EMPTY_TITLE; ?></div>
                             <button type="button" class="btn btn-sm btn-outline-primary mt-2" 
                                     onclick="postBlocksManager.editBlock('{block_id}')">
-                                <i class="bi bi-plus-circle"></i> Добавить изображения
+                                <i class="bi bi-plus-circle"></i> <?php echo LANG_POSTBLOCK_GALLERY_PREVIEW_ADD_BTN; ?>
                             </button>
                             <div class="mt-3 small text-muted">
                                 <i class="bi bi-info-circle"></i>
-                                Добавьте несколько изображений для создания галереи
+                                <?php echo LANG_POSTBLOCK_GALLERY_PREVIEW_EMPTY_HINT; ?>
                             </div>
                         </div>
                     <?php } ?>

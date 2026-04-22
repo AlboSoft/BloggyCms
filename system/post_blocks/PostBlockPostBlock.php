@@ -2,7 +2,7 @@
 class PostBlockPostBlock extends BasePostBlock {
     
     public function getName(): string {
-        return 'Запись блога';
+        return LANG_POSTBLOCK_POSTBLOCK_NAME;
     }
 
     public function getSystemName(): string {
@@ -10,7 +10,7 @@ class PostBlockPostBlock extends BasePostBlock {
     }
 
     public function getDescription(): string {
-        return 'Блок для вставки данных конкретного поста в тело страницы или поста';
+        return LANG_POSTBLOCK_POSTBLOCK_DESCRIPTION;
     }
 
     public function getIcon(): string {
@@ -64,41 +64,41 @@ class PostBlockPostBlock extends BasePostBlock {
         ob_start();
         ?>
         <div class="mb-4">
-            <label class="form-label">Выберите пост</label>
+            <label class="form-label"><?php echo LANG_POSTBLOCK_POSTBLOCK_FORM_POST_LABEL; ?></label>
             
             <?php if (empty($posts)) { ?>
                 <div class="alert alert-warning">
                     <i class="bi bi-exclamation-triangle me-2"></i>
-                    Нет доступных постов. 
+                    <?php echo LANG_POSTBLOCK_POSTBLOCK_NO_POSTS_TEXT; ?>
                     <a href="<?= ADMIN_URL ?>/posts/create" target="_blank" class="alert-link">
-                        Создайте пост сначала
+                        <?php echo LANG_POSTBLOCK_POSTBLOCK_NO_POSTS_LINK; ?>
                     </a>
                 </div>
             <?php } else { ?>
                 <select name="content[post_id]" class="form-select" id="post-select" required>
-                    <option value="">-- Выберите пост --</option>
+                    <option value=""><?php echo LANG_POSTBLOCK_POSTBLOCK_SELECT_POST; ?></option>
                     <?php foreach ($posts as $post) { ?>
                         <option value="<?= $post['id'] ?>" 
                                 data-title="<?= html($post['title']) ?>"
                                 <?= $selectedPostId == $post['id'] ? 'selected' : '' ?>>
                             <?= html($post['title']) ?> 
-                            (ID: <?= $post['id'] ?>, Просмотры: <?= $post['views'] ?? 0 ?>)
+                            (ID: <?= $post['id'] ?>, <?php echo LANG_POSTBLOCK_POSTBLOCK_VIEWS; ?>: <?= $post['views'] ?? 0 ?>)
                         </option>
                     <?php } ?>
                 </select>
                 <div class="form-text">
-                    Выберите пост для вставки его данных
+                    <?php echo LANG_POSTBLOCK_POSTBLOCK_FORM_POST_HINT; ?>
                 </div>
                 <input type="hidden" name="content[post_title]" id="post-title" value="<?= html($selectedPostTitle) ?>">
                 <div id="post-preview" class="mt-3 p-3 border rounded bg-light" style="<?= empty($selectedPostId) ? 'display:none;' : '' ?>">
                     <?php if (!empty($selectedPostId)) { ?>
                         <div class="d-flex justify-content-between align-items-center mb-2">
-                            <strong>Выбранный пост:</strong>
+                            <strong><?php echo LANG_POSTBLOCK_POSTBLOCK_SELECTED_POST; ?></strong>
                             <span class="badge bg-primary" id="preview-post-title"><?= html($selectedPostTitle) ?></span>
                         </div>
                         <div class="text-muted small">
                             ID: <span id="preview-post-id"><?= $selectedPostId ?></span> | 
-                            Просмотры: <span id="preview-post-views"><?= $currentContent['views'] ?? 0 ?></span>
+                            <?php echo LANG_POSTBLOCK_POSTBLOCK_VIEWS; ?>: <span id="preview-post-views"><?= $currentContent['views'] ?? 0 ?></span>
                         </div>
                     <?php } ?>
                 </div>
@@ -116,7 +116,7 @@ class PostBlockPostBlock extends BasePostBlock {
         ob_start();
         ?>
         <div class="mb-4">
-            <label class="form-label">Дополнительный CSS класс</label>
+            <label class="form-label"><?php echo LANG_POSTBLOCK_POSTBLOCK_SETTINGS_CUSTOM_CLASS; ?></label>
             <input type="text" 
                    name="settings[custom_class]" 
                    class="form-control" 
@@ -142,13 +142,13 @@ class PostBlockPostBlock extends BasePostBlock {
         $postId = $content['post_id'] ?? '';
         
         if (empty($postId)) {
-            return '<!-- Пост не выбран -->';
+            return '<!-- ' . LANG_POSTBLOCK_POSTBLOCK_NO_POST_SELECTED . ' -->';
         }
         
         $postData = $this->getPostData($postId);
         
         if (empty($postData)) {
-            return '<!-- Пост не найден -->';
+            return '<!-- ' . LANG_POSTBLOCK_POSTBLOCK_POST_NOT_FOUND . ' -->';
         }
 
         $customClass = $settings['custom_class'] ?? '';
@@ -196,18 +196,18 @@ class PostBlockPostBlock extends BasePostBlock {
 
     public function getShortcodes(): array {
         return array_merge(parent::getShortcodes(), [
-            '{post_id}' => 'ID поста',
-            '{post_title}' => 'Заголовок поста',
-            '{post_url}' => 'URL ссылка на пост',
-            '{featured_image}' => 'URL главного изображения поста',
-            '{default_image}' => 'URL стандартного изображения (если нет своего)',
-            '{views_count}' => 'Количество просмотров поста',
-            '{post_date}' => 'Дата публикации поста',
-            '{author_name}' => 'Имя автора поста',
-            '{category_name}' => 'Название категории',
-            '{category_url}' => 'URL категории',
-            '{if-image}...{/if-image}' => 'Показывать блок только если есть изображение',
-            '{if-not-image}...{/if-not-image}' => 'Показывать блок только если НЕТ изображения'
+            '{post_id}' => LANG_POSTBLOCK_POSTBLOCK_SHORTCODE_POST_ID,
+            '{post_title}' => LANG_POSTBLOCK_POSTBLOCK_SHORTCODE_POST_TITLE,
+            '{post_url}' => LANG_POSTBLOCK_POSTBLOCK_SHORTCODE_POST_URL,
+            '{featured_image}' => LANG_POSTBLOCK_POSTBLOCK_SHORTCODE_FEATURED_IMAGE,
+            '{default_image}' => LANG_POSTBLOCK_POSTBLOCK_SHORTCODE_DEFAULT_IMAGE,
+            '{views_count}' => LANG_POSTBLOCK_POSTBLOCK_SHORTCODE_VIEWS_COUNT,
+            '{post_date}' => LANG_POSTBLOCK_POSTBLOCK_SHORTCODE_POST_DATE,
+            '{author_name}' => LANG_POSTBLOCK_POSTBLOCK_SHORTCODE_AUTHOR_NAME,
+            '{category_name}' => LANG_POSTBLOCK_POSTBLOCK_SHORTCODE_CATEGORY_NAME,
+            '{category_url}' => LANG_POSTBLOCK_POSTBLOCK_SHORTCODE_CATEGORY_URL,
+            '{if-image}...{/if-image}' => LANG_POSTBLOCK_POSTBLOCK_SHORTCODE_IF_IMAGE,
+            '{if-not-image}...{/if-not-image}' => LANG_POSTBLOCK_POSTBLOCK_SHORTCODE_IF_NOT_IMAGE
         ]);
     }
 
@@ -292,7 +292,7 @@ class PostBlockPostBlock extends BasePostBlock {
         $errors = [];
 
         if (!empty($settings['custom_class']) && !preg_match('/^[a-zA-Z0-9-_ ]+$/', $settings['custom_class'])) {
-            $errors[] = 'CSS класс может содержать только буквы, цифры, дефисы и подчеркивания';
+            $errors[] = LANG_POSTBLOCK_POSTBLOCK_VALIDATION_CUSTOM_CLASS;
         }
 
         return [empty($errors), $errors];
@@ -406,7 +406,7 @@ class PostBlockPostBlock extends BasePostBlock {
                         </div>
                         <div class="preview-info">
                             <div class="preview-title">
-                                <strong>Запись блога</strong>
+                                <strong><?php echo LANG_POSTBLOCK_POSTBLOCK_PREVIEW_TITLE; ?></strong>
                                 <?php if ($postData && !empty($postData['category_name'])) { ?>
                                     <span class="badge bg-secondary badge-sm"><?= html($postData['category_name']) ?></span>
                                 <?php } ?>
@@ -414,9 +414,9 @@ class PostBlockPostBlock extends BasePostBlock {
                             <div class="preview-stats">
                                 <?php if ($postData) { ?>
                                     ID: <?= $postId ?>
-                                    · <?= $views ?> просмотров
+                                    · <?php echo LANG_POSTBLOCK_POSTBLOCK_VIEWS; ?> <?= $views ?>
                                 <?php } else { ?>
-                                    Пост не выбран
+                                    <?php echo LANG_POSTBLOCK_POSTBLOCK_PREVIEW_NO_POST; ?>
                                 <?php } ?>
                             </div>
                         </div>
@@ -457,9 +457,9 @@ class PostBlockPostBlock extends BasePostBlock {
                                             
                                             <div class="small text-muted mb-2">
                                                 <i class="bi bi-person me-1"></i>
-                                                <?= html($postData['author_name'] ?? 'Автор') ?>
+                                                <?= html($postData['author_name'] ?? LANG_POSTBLOCK_POSTBLOCK_DEFAULT_AUTHOR) ?>
                                                 <i class="bi bi-calendar ms-3 me-1"></i>
-                                                <?= !empty($postData['created_at']) ? date('d.m.Y', strtotime($postData['created_at'])) : 'Дата' ?>
+                                                <?= !empty($postData['created_at']) ? date('d.m.Y', strtotime($postData['created_at'])) : LANG_POSTBLOCK_POSTBLOCK_DEFAULT_DATE ?>
                                                 <i class="bi bi-eye ms-3 me-1"></i>
                                                 <?= $views ?>
                                             </div>
@@ -468,7 +468,7 @@ class PostBlockPostBlock extends BasePostBlock {
                                                 <?php if (!empty($postData['category_name'])) { ?>
                                                     <span class="badge bg-light text-dark border"><?= html($postData['category_name']) ?></span>
                                                 <?php } else { ?>
-                                                    <span class="text-muted">Без категории</span>
+                                                    <span class="text-muted"><?php echo LANG_POSTBLOCK_POSTBLOCK_NO_CATEGORY; ?></span>
                                                 <?php } ?>
                                             </div>
                                         </div>
@@ -479,14 +479,14 @@ class PostBlockPostBlock extends BasePostBlock {
                             <div class="post-preview-info mt-3 small text-muted">
                                 <div class="row">
                                     <div class="col-6">
-                                        <div><i class="bi bi-hash me-1"></i>ID поста: <strong><?= $postId ?></strong></div>
-                                        <div><i class="bi bi-eye me-1"></i>Просмотры: <strong><?= $views ?></strong></div>
+                                        <div><i class="bi bi-hash me-1"></i><?php echo LANG_POSTBLOCK_POSTBLOCK_PREVIEW_INFO_POST_ID; ?> <strong><?= $postId ?></strong></div>
+                                        <div><i class="bi bi-eye me-1"></i><?php echo LANG_POSTBLOCK_POSTBLOCK_PREVIEW_INFO_VIEWS; ?> <strong><?= $views ?></strong></div>
                                     </div>
                                     <div class="col-6">
                                         <?php if ($customClass) { ?>
-                                            <div><i class="bi bi-tag me-1"></i>CSS класс: <strong><?= html($customClass) ?></strong></div>
+                                            <div><i class="bi bi-tag me-1"></i><?php echo LANG_POSTBLOCK_POSTBLOCK_PREVIEW_INFO_CSS; ?> <strong><?= html($customClass) ?></strong></div>
                                         <?php } ?>
-                                        <div><i class="bi bi-file-earmark-text me-1"></i>Вид: <strong>Карточка</strong></div>
+                                        <div><i class="bi bi-file-earmark-text me-1"></i><?php echo LANG_POSTBLOCK_POSTBLOCK_PREVIEW_INFO_TYPE; ?> <strong><?php echo LANG_POSTBLOCK_POSTBLOCK_PREVIEW_INFO_CARD; ?></strong></div>
                                     </div>
                                 </div>
                             </div>
@@ -494,14 +494,14 @@ class PostBlockPostBlock extends BasePostBlock {
                     <?php } else { ?>
                         <div class="preview-empty-state">
                             <i class="bi bi-file-post"></i>
-                            <div class="empty-text">Пост не выбран</div>
+                            <div class="empty-text"><?php echo LANG_POSTBLOCK_POSTBLOCK_PREVIEW_EMPTY_TEXT; ?></div>
                             <button type="button" class="btn btn-sm btn-outline-primary mt-2" 
                                     onclick="postBlocksManager.editBlock('{block_id}')">
-                                <i class="bi bi-plus-circle"></i> Выбрать пост
+                                <i class="bi bi-plus-circle"></i> <?php echo LANG_POSTBLOCK_POSTBLOCK_PREVIEW_ADD_BTN; ?>
                             </button>
                             <div class="mt-3 small text-muted">
                                 <i class="bi bi-info-circle"></i>
-                                Этот блок вставляет данные выбранного поста в формате карточки
+                                <?php echo LANG_POSTBLOCK_POSTBLOCK_PREVIEW_INFO_TEXT; ?>
                             </div>
                         </div>
                     <?php } ?>

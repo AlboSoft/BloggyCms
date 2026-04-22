@@ -2,7 +2,7 @@
 class QuoteBlock extends BasePostBlock {
     
     public function getName(): string {
-        return 'Цитата';
+        return LANG_POSTBLOCK_QUOTE_NAME;
     }
 
     public function getSystemName(): string {
@@ -10,7 +10,7 @@ class QuoteBlock extends BasePostBlock {
     }
 
     public function getDescription(): string {
-        return 'Блок для оформления цитат с авторством';
+        return LANG_POSTBLOCK_QUOTE_DESCRIPTION;
     }
 
     public function getIcon(): string {
@@ -34,7 +34,7 @@ class QuoteBlock extends BasePostBlock {
 
     public function getDefaultContent(): array {
         return [
-            'text' => 'Текст цитаты...',
+            'text' => LANG_POSTBLOCK_QUOTE_DEFAULT_TEXT,
             'author' => '',
             'source' => ''
         ];
@@ -56,30 +56,30 @@ class QuoteBlock extends BasePostBlock {
         ob_start();
         ?>
         <div class="mb-3">
-            <label class="form-label">Текст цитаты *</label>
+            <label class="form-label"><?php echo LANG_POSTBLOCK_QUOTE_FORM_TEXT_LABEL; ?> *</label>
             <textarea name="content[text]" 
                     class="form-control" 
                     rows="4" 
-                    placeholder="Введите текст цитаты..."
+                    placeholder="<?php echo LANG_POSTBLOCK_QUOTE_FORM_TEXT_PLACEHOLDER; ?>"
                     required><?= html($text) ?></textarea>
         </div>
         
         <div class="row g-3">
             <div class="col-md-6">
-                <label class="form-label">Автор</label>
+                <label class="form-label"><?php echo LANG_POSTBLOCK_QUOTE_FORM_AUTHOR_LABEL; ?></label>
                 <input type="text" 
                     name="content[author]" 
                     class="form-control" 
                     value="<?= html($author) ?>" 
-                    placeholder="Автор цитаты">
+                    placeholder="<?php echo LANG_POSTBLOCK_QUOTE_FORM_AUTHOR_PLACEHOLDER; ?>">
             </div>
             <div class="col-md-6">
-                <label class="form-label">Источник</label>
+                <label class="form-label"><?php echo LANG_POSTBLOCK_QUOTE_FORM_SOURCE_LABEL; ?></label>
                 <input type="text" 
                     name="content[source]" 
                     class="form-control" 
                     value="<?= html($source) ?>" 
-                    placeholder="Книга, статья и т.д.">
+                    placeholder="<?php echo LANG_POSTBLOCK_QUOTE_FORM_SOURCE_PLACEHOLDER; ?>">
             </div>
         </div>
         <?php
@@ -97,17 +97,17 @@ class QuoteBlock extends BasePostBlock {
         <div class="row">
             <div class="col-md-6">
                 <div class="mb-4">
-                    <label class="form-label">Выравнивание</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_QUOTE_SETTINGS_ALIGNMENT; ?></label>
                     <select name="settings[alignment]" class="form-select">
-                        <option value="left" <?= $alignment === 'left' ? 'selected' : '' ?>>По левому краю</option>
-                        <option value="center" <?= $alignment === 'center' ? 'selected' : '' ?>>По центру</option>
-                        <option value="right" <?= $alignment === 'right' ? 'selected' : '' ?>>По правому краю</option>
+                        <option value="left" <?= $alignment === 'left' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_QUOTE_ALIGN_LEFT; ?></option>
+                        <option value="center" <?= $alignment === 'center' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_QUOTE_ALIGN_CENTER; ?></option>
+                        <option value="right" <?= $alignment === 'right' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_QUOTE_ALIGN_RIGHT; ?></option>
                     </select>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="mb-4">
-                    <label class="form-label">Дополнительный CSS класс</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_QUOTE_SETTINGS_CUSTOM_CLASS; ?></label>
                     <input type="text" 
                            name="settings[custom_class]" 
                            class="form-control" 
@@ -140,7 +140,7 @@ class QuoteBlock extends BasePostBlock {
         $presetName = $settings['preset_name'] ?? '';
         
         if (empty($text)) {
-            return '<!-- QuoteBlock: пустой текст -->';
+            return '<!-- ' . LANG_POSTBLOCK_QUOTE_EMPTY_TEXT_COMMENT . ' -->';
         }
 
         $text = preg_replace('/^"(.*)"$/', '$1', $text);
@@ -175,11 +175,11 @@ class QuoteBlock extends BasePostBlock {
 
     public function getShortcodes(): array {
         return array_merge(parent::getShortcodes(), [
-            '{text}' => 'Текст цитаты',
-            '{author}' => 'Автор цитаты',
-            '{source}' => 'Источник цитаты',
-            '{alignment}' => 'Выравнивание (left/center/right)',
-            '{custom_class}' => 'Дополнительный CSS класс'
+            '{text}' => LANG_POSTBLOCK_QUOTE_SHORTCODE_TEXT,
+            '{author}' => LANG_POSTBLOCK_QUOTE_SHORTCODE_AUTHOR,
+            '{source}' => LANG_POSTBLOCK_QUOTE_SHORTCODE_SOURCE,
+            '{alignment}' => LANG_POSTBLOCK_QUOTE_SHORTCODE_ALIGNMENT,
+            '{custom_class}' => LANG_POSTBLOCK_QUOTE_SHORTCODE_CUSTOM_CLASS
         ]);
     }
 
@@ -200,7 +200,7 @@ class QuoteBlock extends BasePostBlock {
             }
         }
         if (!isset($content['text'])) {
-            $content['text'] = 'Текст цитаты...';
+            $content['text'] = LANG_POSTBLOCK_QUOTE_DEFAULT_TEXT;
         }
         
         if (!isset($content['author'])) {
@@ -274,7 +274,7 @@ class QuoteBlock extends BasePostBlock {
         $errors = [];
 
         if (!empty($settings['custom_class']) && !preg_match('/^[a-zA-Z0-9-_ ]+$/', $settings['custom_class'])) {
-            $errors[] = 'CSS класс может содержать только буквы, цифры, дефисы и подчеркивания';
+            $errors[] = LANG_POSTBLOCK_QUOTE_VALIDATION_CUSTOM_CLASS;
         }
 
         return [empty($errors), $errors];
@@ -329,13 +329,13 @@ class QuoteBlock extends BasePostBlock {
                         </div>
                         <div class="preview-info">
                             <div class="preview-title">
-                                <strong>Цитата</strong>
+                                <strong><?php echo LANG_POSTBLOCK_QUOTE_PREVIEW_TITLE; ?></strong>
                                 <?php if ($alignment !== 'left') { ?>
                                     <span class="badge bg-info badge-sm"><?= html($alignment) ?></span>
                                 <?php } ?>
                             </div>
                             <div class="preview-stats">
-                                <?= strlen($text) ?> симв.
+                                <?php echo sprintf(LANG_POSTBLOCK_QUOTE_PREVIEW_CHARS, strlen($text)); ?>
                                 <?php if ($author) { ?>
                                     · <?= html(mb_substr($author, 0, 15)) ?>
                                     <?php if (mb_strlen($author) > 15) { ?>...<?php } ?>
@@ -378,12 +378,12 @@ class QuoteBlock extends BasePostBlock {
                                     <div class="col-6">
                                         <div>
                                             <i class="bi bi-align-<?= html($alignment) ?> me-1"></i>
-                                            Выравнивание: <strong><?= html($alignment) ?></strong>
+                                            <?php echo LANG_POSTBLOCK_QUOTE_PREVIEW_INFO_ALIGN; ?> <strong><?= html($alignment) ?></strong>
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <?php if ($customClass) { ?>
-                                            <div><i class="bi bi-tag me-1"></i>Класс: <strong><?= html($customClass) ?></strong></div>
+                                            <div><i class="bi bi-tag me-1"></i><?php echo LANG_POSTBLOCK_QUOTE_PREVIEW_INFO_CLASS; ?> <strong><?= html($customClass) ?></strong></div>
                                         <?php } ?>
                                     </div>
                                 </div>
@@ -392,14 +392,14 @@ class QuoteBlock extends BasePostBlock {
                     <?php } else { ?>
                         <div class="preview-empty-state">
                             <i class="bi bi-chat-quote"></i>
-                            <div class="empty-text">Текст цитаты не добавлен</div>
+                            <div class="empty-text"><?php echo LANG_POSTBLOCK_QUOTE_PREVIEW_EMPTY_TEXT; ?></div>
                             <button type="button" class="btn btn-sm btn-outline-primary mt-2" 
                                     onclick="postBlocksManager.editBlock('{block_id}')">
-                                <i class="bi bi-plus-circle"></i> Добавить цитату
+                                <i class="bi bi-plus-circle"></i> <?php echo LANG_POSTBLOCK_QUOTE_PREVIEW_ADD_BTN; ?>
                             </button>
                             <div class="mt-3 small text-muted">
                                 <i class="bi bi-info-circle"></i>
-                                Используйте для оформления цитат с авторством
+                                <?php echo LANG_POSTBLOCK_QUOTE_PREVIEW_INFO_TEXT; ?>
                             </div>
                         </div>
                     <?php } ?>

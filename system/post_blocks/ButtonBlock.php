@@ -2,7 +2,7 @@
 class ButtonBlock extends BasePostBlock {
     
     public function getName(): string {
-        return 'Кнопка';
+        return LANG_POSTBLOCK_BUTTON_NAME;
     }
 
     public function getSystemName(): string {
@@ -10,7 +10,7 @@ class ButtonBlock extends BasePostBlock {
     }
 
     public function getDescription(): string {
-        return 'Блок для создания стильной кнопки с ссылкой';
+        return LANG_POSTBLOCK_BUTTON_DESCRIPTION;
     }
 
     public function getIcon(): string {
@@ -31,7 +31,7 @@ class ButtonBlock extends BasePostBlock {
         $content = $this->validateAndNormalizeContent($content);
         $settings = $this->validateAndNormalizeSettings($settings);
         
-        $text = $content['text'] ?? 'Нажми меня';
+        $text = $content['text'] ?? LANG_POSTBLOCK_BUTTON_DEFAULT_TEXT;
         $url = $content['url'] ?? '#';
         $target = $content['target'] ?? '_self';
         $size = $settings['size'] ?? 'medium';
@@ -63,21 +63,21 @@ class ButtonBlock extends BasePostBlock {
                         </div>
                         <div class="preview-info">
                             <div class="preview-title">
-                                <strong>Кнопка</strong>
+                                <strong><?php echo LANG_POSTBLOCK_BUTTON_PREVIEW_TITLE; ?></strong>
                                 <?php if ($size !== 'medium') { ?>
                                     <span class="badge bg-secondary badge-sm"><?= html($size) ?></span>
                                 <?php } ?>
                             </div>
                             <div class="preview-stats">
-                                <?= strlen($text) ?> симв.
+                                <?= strlen($text) ?> <?php echo LANG_POSTBLOCK_BUTTON_PREVIEW_CHARS; ?>
                                 <?php if ($target === '_blank') { ?>
-                                    · новое окно
+                                    · <?php echo LANG_POSTBLOCK_BUTTON_PREVIEW_NEW_WINDOW; ?>
                                 <?php } ?>
                                 <?php if ($download) { ?>
-                                    · скачать
+                                    · <?php echo LANG_POSTBLOCK_BUTTON_PREVIEW_DOWNLOAD; ?>
                                 <?php } ?>
                                 <?php if ($fullWidth) { ?>
-                                    · во всю ширину
+                                    · <?php echo LANG_POSTBLOCK_BUTTON_PREVIEW_FULL_WIDTH; ?>
                                 <?php } ?>
                             </div>
                         </div>
@@ -105,19 +105,19 @@ class ButtonBlock extends BasePostBlock {
                                 <?php } ?>
                             </a>
                             <div class="mt-2 small text-muted">
-                                <span>URL: <?= html($url) ?></span>
+                                <span><?php echo LANG_POSTBLOCK_BUTTON_PREVIEW_URL_LABEL; ?> <?= html($url) ?></span>
                                 <?php if ($target === '_blank') { ?>
-                                    <span class="ms-2"><?= bloggy_icon('bs', 'box-arrow-up-right', '12 12', null, 'me-1') ?>Новое окно</span>
+                                    <span class="ms-2"><?= bloggy_icon('bs', 'box-arrow-up-right', '12 12', null, 'me-1') ?><?php echo LANG_POSTBLOCK_BUTTON_PREVIEW_NEW_WINDOW; ?></span>
                                 <?php } ?>
                             </div>
                         </div>
                     <?php } else { ?>
                         <div class="preview-empty-state">
                             <?= bloggy_icon('bs', 'link-45deg', '32 32', '#6c757d', 'mb-2') ?>
-                            <div class="empty-text">Текст кнопки не указан</div>
+                            <div class="empty-text"><?php echo LANG_POSTBLOCK_BUTTON_PREVIEW_EMPTY_TITLE; ?></div>
                             <button type="button" class="btn btn-sm btn-outline-primary mt-2" 
                                     onclick="postBlocksManager.editBlock('{block_id}')">
-                                <?= bloggy_icon('bs', 'plus-circle', '14 14', null, 'me-1') ?> Настроить кнопку
+                                <?= bloggy_icon('bs', 'plus-circle', '14 14', null, 'me-1') ?> <?php echo LANG_POSTBLOCK_BUTTON_PREVIEW_SETUP_BTN; ?>
                             </button>
                         </div>
                     <?php } ?>
@@ -146,7 +146,7 @@ class ButtonBlock extends BasePostBlock {
 
     public function getDefaultContent(): array {
         return [
-            'text' => 'Нажми меня',
+            'text' => LANG_POSTBLOCK_BUTTON_DEFAULT_TEXT,
             'url' => '#',
             'target' => '_self'
         ];
@@ -180,18 +180,18 @@ class ButtonBlock extends BasePostBlock {
         <div class="row">
             <div class="col-md-6">
                 <div class="mb-4">
-                    <label class="form-label">Текст кнопки <span class="text-danger">*</span></label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_BUTTON_FORM_TEXT_LABEL; ?> <span class="text-danger">*</span></label>
                     <input type="text" 
                            name="content[text]" 
                            class="form-control" 
                            value="<?= html($text) ?>" 
-                           placeholder="Текст на кнопке"
+                           placeholder="<?php echo LANG_POSTBLOCK_BUTTON_FORM_TEXT_PLACEHOLDER; ?>"
                            required>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="mb-4">
-                    <label class="form-label">URL ссылки <span class="text-danger">*</span></label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_BUTTON_FORM_URL_LABEL; ?> <span class="text-danger">*</span></label>
                     <input type="url" 
                            name="content[url]" 
                            class="form-control" 
@@ -205,12 +205,12 @@ class ButtonBlock extends BasePostBlock {
         <div class="row">
             <div class="col-md-6">
                 <div class="mb-4">
-                    <label class="form-label">Открывать ссылку</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_BUTTON_FORM_TARGET_LABEL; ?></label>
                     <select name="content[target]" class="form-select">
-                        <option value="_self" <?= $target === '_self' ? 'selected' : '' ?>>В текущем окне</option>
-                        <option value="_blank" <?= $target === '_blank' ? 'selected' : '' ?>>В новом окне</option>
-                        <option value="_parent" <?= $target === '_parent' ? 'selected' : '' ?>>В родительском фрейме</option>
-                        <option value="_top" <?= $target === '_top' ? 'selected' : '' ?>>Поверх всех фреймов</option>
+                        <option value="_self" <?= $target === '_self' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_BUTTON_TARGET_SELF; ?></option>
+                        <option value="_blank" <?= $target === '_blank' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_BUTTON_TARGET_BLANK; ?></option>
+                        <option value="_parent" <?= $target === '_parent' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_BUTTON_TARGET_PARENT; ?></option>
+                        <option value="_top" <?= $target === '_top' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_BUTTON_TARGET_TOP; ?></option>
                     </select>
                 </div>
             </div>
@@ -235,49 +235,49 @@ class ButtonBlock extends BasePostBlock {
         $rel = $currentSettings['rel'] ?? '';
 
         $icons = [
-            '' => 'Без иконки',
-            'arrow-right' => 'Стрелка вправо',
-            'arrow-left' => 'Стрелка влево',
-            'arrow-up' => 'Стрелка вверх',
-            'arrow-down' => 'Стрелка вниз',
-            'download' => 'Скачать',
-            'box-arrow-up-right' => 'Внешняя ссылка',
-            'heart' => 'Сердце',
-            'heart-fill' => 'Сердце (заполненное)',
-            'star' => 'Звезда',
-            'star-fill' => 'Звезда (заполненная)',
-            'play-fill' => 'Воспроизвести',
-            'pause-fill' => 'Пауза',
-            'info-circle' => 'Информация',
-            'check' => 'Галочка',
-            'check-lg' => 'Галочка (большая)',
-            'plus' => 'Плюс',
-            'plus-lg' => 'Плюс (большой)',
-            'search' => 'Поиск',
-            'share' => 'Поделиться',
-            'envelope' => 'Письмо',
-            'telephone' => 'Телефон',
-            'calendar' => 'Календарь',
-            'cart' => 'Корзина',
-            'chat' => 'Чат',
-            'chat-dots' => 'Чат (точки)',
-            'eye' => 'Глаз',
-            'eye-slash' => 'Глаз (зачеркнутый)',
-            'file-earmark' => 'Файл',
-            'file-earmark-pdf' => 'PDF файл',
-            'image' => 'Изображение',
-            'camera' => 'Камера',
-            'gear' => 'Настройки',
-            'person' => 'Пользователь',
-            'person-plus' => 'Добавить пользователя',
-            'trash' => 'Корзина',
-            'pencil' => 'Карандаш',
-            'bookmark' => 'Закладка',
-            'bookmark-check' => 'Закладка (галочка)',
-            'link' => 'Ссылка',
-            'link-45deg' => 'Ссылка (45°)',
-            'newspaper' => 'Новости',
-            'tag' => 'Тег'
+            '' => LANG_POSTBLOCK_BUTTON_ICON_NONE,
+            'arrow-right' => LANG_POSTBLOCK_BUTTON_ICON_ARROW_RIGHT,
+            'arrow-left' => LANG_POSTBLOCK_BUTTON_ICON_ARROW_LEFT,
+            'arrow-up' => LANG_POSTBLOCK_BUTTON_ICON_ARROW_UP,
+            'arrow-down' => LANG_POSTBLOCK_BUTTON_ICON_ARROW_DOWN,
+            'download' => LANG_POSTBLOCK_BUTTON_ICON_DOWNLOAD,
+            'box-arrow-up-right' => LANG_POSTBLOCK_BUTTON_ICON_EXTERNAL,
+            'heart' => LANG_POSTBLOCK_BUTTON_ICON_HEART,
+            'heart-fill' => LANG_POSTBLOCK_BUTTON_ICON_HEART_FILL,
+            'star' => LANG_POSTBLOCK_BUTTON_ICON_STAR,
+            'star-fill' => LANG_POSTBLOCK_BUTTON_ICON_STAR_FILL,
+            'play-fill' => LANG_POSTBLOCK_BUTTON_ICON_PLAY,
+            'pause-fill' => LANG_POSTBLOCK_BUTTON_ICON_PAUSE,
+            'info-circle' => LANG_POSTBLOCK_BUTTON_ICON_INFO,
+            'check' => LANG_POSTBLOCK_BUTTON_ICON_CHECK,
+            'check-lg' => LANG_POSTBLOCK_BUTTON_ICON_CHECK_LG,
+            'plus' => LANG_POSTBLOCK_BUTTON_ICON_PLUS,
+            'plus-lg' => LANG_POSTBLOCK_BUTTON_ICON_PLUS_LG,
+            'search' => LANG_POSTBLOCK_BUTTON_ICON_SEARCH,
+            'share' => LANG_POSTBLOCK_BUTTON_ICON_SHARE,
+            'envelope' => LANG_POSTBLOCK_BUTTON_ICON_ENVELOPE,
+            'telephone' => LANG_POSTBLOCK_BUTTON_ICON_PHONE,
+            'calendar' => LANG_POSTBLOCK_BUTTON_ICON_CALENDAR,
+            'cart' => LANG_POSTBLOCK_BUTTON_ICON_CART,
+            'chat' => LANG_POSTBLOCK_BUTTON_ICON_CHAT,
+            'chat-dots' => LANG_POSTBLOCK_BUTTON_ICON_CHAT_DOTS,
+            'eye' => LANG_POSTBLOCK_BUTTON_ICON_EYE,
+            'eye-slash' => LANG_POSTBLOCK_BUTTON_ICON_EYE_SLASH,
+            'file-earmark' => LANG_POSTBLOCK_BUTTON_ICON_FILE,
+            'file-earmark-pdf' => LANG_POSTBLOCK_BUTTON_ICON_PDF,
+            'image' => LANG_POSTBLOCK_BUTTON_ICON_IMAGE,
+            'camera' => LANG_POSTBLOCK_BUTTON_ICON_CAMERA,
+            'gear' => LANG_POSTBLOCK_BUTTON_ICON_GEAR,
+            'person' => LANG_POSTBLOCK_BUTTON_ICON_PERSON,
+            'person-plus' => LANG_POSTBLOCK_BUTTON_ICON_PERSON_PLUS,
+            'trash' => LANG_POSTBLOCK_BUTTON_ICON_TRASH,
+            'pencil' => LANG_POSTBLOCK_BUTTON_ICON_PENCIL,
+            'bookmark' => LANG_POSTBLOCK_BUTTON_ICON_BOOKMARK,
+            'bookmark-check' => LANG_POSTBLOCK_BUTTON_ICON_BOOKMARK_CHECK,
+            'link' => LANG_POSTBLOCK_BUTTON_ICON_LINK,
+            'link-45deg' => LANG_POSTBLOCK_BUTTON_ICON_LINK_DEG,
+            'newspaper' => LANG_POSTBLOCK_BUTTON_ICON_NEWSPAPER,
+            'tag' => LANG_POSTBLOCK_BUTTON_ICON_TAG
         ];
 
         ob_start();
@@ -285,21 +285,21 @@ class ButtonBlock extends BasePostBlock {
         <div class="row">
             <div class="col-md-6">
                 <div class="mb-4">
-                    <label class="form-label">Размер кнопки</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_BUTTON_SETTINGS_SIZE; ?></label>
                     <select name="settings[size]" class="form-select">
-                        <option value="small" <?= $size === 'small' ? 'selected' : '' ?>>Маленький</option>
-                        <option value="medium" <?= $size === 'medium' ? 'selected' : '' ?>>Средний</option>
-                        <option value="large" <?= $size === 'large' ? 'selected' : '' ?>>Большой</option>
+                        <option value="small" <?= $size === 'small' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_BUTTON_SIZE_SMALL; ?></option>
+                        <option value="medium" <?= $size === 'medium' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_BUTTON_SIZE_MEDIUM; ?></option>
+                        <option value="large" <?= $size === 'large' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_BUTTON_SIZE_LARGE; ?></option>
                     </select>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="mb-4">
-                    <label class="form-label">Выравнивание</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_BUTTON_SETTINGS_ALIGNMENT; ?></label>
                     <select name="settings[alignment]" class="form-select">
-                        <option value="left" <?= $alignment === 'left' ? 'selected' : '' ?>>Слева</option>
-                        <option value="center" <?= $alignment === 'center' ? 'selected' : '' ?>>По центру</option>
-                        <option value="right" <?= $alignment === 'right' ? 'selected' : '' ?>>Справа</option>
+                        <option value="left" <?= $alignment === 'left' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_BUTTON_ALIGN_LEFT; ?></option>
+                        <option value="center" <?= $alignment === 'center' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_BUTTON_ALIGN_CENTER; ?></option>
+                        <option value="right" <?= $alignment === 'right' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_BUTTON_ALIGN_RIGHT; ?></option>
                     </select>
                 </div>
             </div>
@@ -308,7 +308,7 @@ class ButtonBlock extends BasePostBlock {
         <div class="row">
             <div class="col-md-4">
                 <div class="mb-4">
-                    <label class="form-label">Иконка перед текстом</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_BUTTON_SETTINGS_ICON_BEFORE; ?></label>
                     <select name="settings[icon_before]" class="form-select">
                         <?php foreach($icons as $value => $name) { ?>
                             <option value="<?= $value ?>" <?= $iconBefore === $value ? 'selected' : '' ?>>
@@ -319,14 +319,14 @@ class ButtonBlock extends BasePostBlock {
                     <div class="form-text mt-1">
                         <?php if ($iconBefore) { ?>
                             <?= $this->renderIcon($iconBefore, $iconColor, 'me-1') ?>
-                            <span class="ms-2 text-muted">Предпросмотр</span>
+                            <span class="ms-2 text-muted"><?php echo LANG_POSTBLOCK_BUTTON_PREVIEW_LABEL; ?></span>
                         <?php } ?>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="mb-4">
-                    <label class="form-label">Иконка после текста</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_BUTTON_SETTINGS_ICON_AFTER; ?></label>
                     <select name="settings[icon_after]" class="form-select">
                         <?php foreach($icons as $value => $name) { ?>
                             <option value="<?= $value ?>" <?= $iconAfter === $value ? 'selected' : '' ?>>
@@ -337,19 +337,19 @@ class ButtonBlock extends BasePostBlock {
                     <div class="form-text mt-1">
                         <?php if ($iconAfter) { ?>
                             <?= $this->renderIcon($iconAfter, $iconColor, 'me-1') ?>
-                            <span class="ms-2 text-muted">Предпросмотр</span>
+                            <span class="ms-2 text-muted"><?php echo LANG_POSTBLOCK_BUTTON_PREVIEW_LABEL; ?></span>
                         <?php } ?>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="mb-4">
-                    <label class="form-label">Цвет иконки</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_BUTTON_SETTINGS_ICON_COLOR; ?></label>
                     <input type="color" 
                            name="settings[icon_color]" 
                            class="form-control form-control-color" 
                            value="<?= html($iconColor) ?>">
-                    <div class="form-text">Оставьте пустым для цвета по умолчанию</div>
+                    <div class="form-text"><?php echo LANG_POSTBLOCK_BUTTON_ICON_COLOR_HINT; ?></div>
                 </div>
             </div>
         </div>
@@ -357,17 +357,17 @@ class ButtonBlock extends BasePostBlock {
         <div class="row">
             <div class="col-md-4">
                 <div class="mb-4">
-                    <label class="form-label">Цвет фона</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_BUTTON_SETTINGS_BG_COLOR; ?></label>
                     <input type="color" 
                            name="settings[bg_color]" 
                            class="form-control form-control-color" 
                            value="<?= html($bgColor) ?>">
-                    <div class="form-text">Оставьте пустым для цвета по умолчанию</div>
+                    <div class="form-text"><?php echo LANG_POSTBLOCK_BUTTON_BG_COLOR_HINT; ?></div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="mb-4">
-                    <label class="form-label">Цвет текста</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_BUTTON_SETTINGS_TEXT_COLOR; ?></label>
                     <input type="color" 
                            name="settings[text_color]" 
                            class="form-control form-control-color" 
@@ -376,7 +376,7 @@ class ButtonBlock extends BasePostBlock {
             </div>
             <div class="col-md-4">
                 <div class="mb-4">
-                    <label class="form-label">Цвет рамки</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_BUTTON_SETTINGS_BORDER_COLOR; ?></label>
                     <input type="color" 
                            name="settings[border_color]" 
                            class="form-control form-control-color" 
@@ -388,7 +388,7 @@ class ButtonBlock extends BasePostBlock {
         <div class="row">
             <div class="col-md-6">
                 <div class="mb-4">
-                    <label class="form-label">Дополнительный CSS класс</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_BUTTON_SETTINGS_CUSTOM_CLASS; ?></label>
                     <input type="text" 
                            name="settings[custom_class]" 
                            class="form-control" 
@@ -398,13 +398,13 @@ class ButtonBlock extends BasePostBlock {
             </div>
             <div class="col-md-6">
                 <div class="mb-4">
-                    <label class="form-label">Атрибут rel</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_BUTTON_SETTINGS_REL; ?></label>
                     <input type="text" 
                            name="settings[rel]" 
                            class="form-control" 
                            value="<?= html($rel) ?>" 
                            placeholder="noopener noreferrer">
-                    <div class="form-text">Для SEO и безопасности ссылок</div>
+                    <div class="form-text"><?php echo LANG_POSTBLOCK_BUTTON_REL_HINT; ?></div>
                 </div>
             </div>
         </div>
@@ -419,7 +419,7 @@ class ButtonBlock extends BasePostBlock {
                            value="1" 
                            <?= $fullWidth ? 'checked' : '' ?>>
                     <label class="form-check-label" for="full_width">
-                        Во всю ширину
+                        <?php echo LANG_POSTBLOCK_BUTTON_FULL_WIDTH; ?>
                     </label>
                 </div>
             </div>
@@ -432,14 +432,14 @@ class ButtonBlock extends BasePostBlock {
                            value="1" 
                            <?= $download ? 'checked' : '' ?>>
                     <label class="form-check-label" for="download">
-                        Скачать файл
+                        <?php echo LANG_POSTBLOCK_BUTTON_DOWNLOAD; ?>
                     </label>
                 </div>
             </div>
         </div>
 
         <div class="mt-3 p-3 bg-light rounded">
-            <div class="small text-muted mb-2">Пример кнопки с текущими настройками:</div>
+            <div class="small text-muted mb-2"><?php echo LANG_POSTBLOCK_BUTTON_PREVIEW_EXAMPLE; ?></div>
             <div class="text-<?= $alignment ?>">
                 <a href="#" 
                    class="btn <?= $this->getSizeClass($size) ?> <?= $fullWidth ? 'btn-block w-100' : '' ?>"
@@ -447,7 +447,7 @@ class ButtonBlock extends BasePostBlock {
                     <?php if ($iconBefore) { ?>
                         <?= $this->renderIcon($iconBefore, $iconColor, 'me-1') ?>
                     <?php } ?>
-                    Пример кнопки
+                    <?php echo LANG_POSTBLOCK_BUTTON_PREVIEW_BUTTON_TEXT; ?>
                     <?php if ($iconAfter) { ?>
                         <?= $this->renderIcon($iconAfter, $iconColor, 'ms-1') ?>
                     <?php } ?>
@@ -462,7 +462,7 @@ class ButtonBlock extends BasePostBlock {
         $content = $this->validateAndNormalizeContent($content);
         $settings = $this->validateAndNormalizeSettings($settings);
         
-        $text = $content['text'] ?? 'Нажми меня';
+        $text = $content['text'] ?? LANG_POSTBLOCK_BUTTON_DEFAULT_TEXT;
         $url = $content['url'] ?? '#';
         $size = $settings['size'] ?? 'medium';
         $alignment = $settings['alignment'] ?? 'left';
@@ -488,7 +488,7 @@ class ButtonBlock extends BasePostBlock {
         $content = $this->validateAndNormalizeContent($content);
         $settings = $this->validateAndNormalizeSettings($settings);
         
-        $text = $content['text'] ?? 'Нажми меня';
+        $text = $content['text'] ?? LANG_POSTBLOCK_BUTTON_DEFAULT_TEXT;
         $url = $content['url'] ?? '#';
         $target = $content['target'] ?? '_self';
         $size = $settings['size'] ?? 'medium';
@@ -507,7 +507,7 @@ class ButtonBlock extends BasePostBlock {
         $presetName = $settings['preset_name'] ?? '';
 
         if (empty(trim($text))) {
-            return '<!-- ButtonBlock: пустой текст кнопки -->';
+            return LANG_POSTBLOCK_BUTTON_EMPTY_COMMENT;
         }
 
         $presetClass = '';
@@ -577,20 +577,20 @@ class ButtonBlock extends BasePostBlock {
 
     public function getShortcodes(): array {
         return array_merge(parent::getShortcodes(), [
-            '{text}' => 'Текст кнопки',
-            '{url}' => 'URL ссылки',
-            '{target}' => 'Цель открытия ссылки',
-            '{size}' => 'CSS классы размера кнопки',
-            '{alignment}' => 'CSS класс выравнивания',
-            '{full_width}' => 'CSS класс для кнопки во всю ширину',
-            '{bg_color}' => 'Цвет фона',
-            '{text_color}' => 'Цвет текста',
-            '{border_color}' => 'Цвет рамки',
-            '{icon_before}' => 'Иконка перед текстом',
-            '{icon_after}' => 'Иконка после текста',
-            '{custom_class}' => 'Дополнительный CSS класс',
-            '{rel_attribute}' => 'Атрибут rel',
-            '{download_attribute}' => 'Атрибут download'
+            '{text}' => LANG_POSTBLOCK_BUTTON_SHORTCODE_TEXT,
+            '{url}' => LANG_POSTBLOCK_BUTTON_SHORTCODE_URL,
+            '{target}' => LANG_POSTBLOCK_BUTTON_SHORTCODE_TARGET,
+            '{size}' => LANG_POSTBLOCK_BUTTON_SHORTCODE_SIZE,
+            '{alignment}' => LANG_POSTBLOCK_BUTTON_SHORTCODE_ALIGNMENT,
+            '{full_width}' => LANG_POSTBLOCK_BUTTON_SHORTCODE_FULL_WIDTH,
+            '{bg_color}' => LANG_POSTBLOCK_BUTTON_SHORTCODE_BG_COLOR,
+            '{text_color}' => LANG_POSTBLOCK_BUTTON_SHORTCODE_TEXT_COLOR,
+            '{border_color}' => LANG_POSTBLOCK_BUTTON_SHORTCODE_BORDER_COLOR,
+            '{icon_before}' => LANG_POSTBLOCK_BUTTON_SHORTCODE_ICON_BEFORE,
+            '{icon_after}' => LANG_POSTBLOCK_BUTTON_SHORTCODE_ICON_AFTER,
+            '{custom_class}' => LANG_POSTBLOCK_BUTTON_SHORTCODE_CUSTOM_CLASS,
+            '{rel_attribute}' => LANG_POSTBLOCK_BUTTON_SHORTCODE_REL,
+            '{download_attribute}' => LANG_POSTBLOCK_BUTTON_SHORTCODE_DOWNLOAD
         ]);
     }
 
@@ -598,17 +598,17 @@ class ButtonBlock extends BasePostBlock {
         $errors = [];
 
         if (!empty($settings['custom_class']) && !preg_match('/^[a-zA-Z0-9-_ ]+$/', $settings['custom_class'])) {
-            $errors[] = 'CSS класс может содержать только буквы, цифры, дефисы и подчеркивания';
+            $errors[] = LANG_POSTBLOCK_BUTTON_VALIDATION_CSS_CLASS;
         }
 
         $allowedSizes = ['small', 'medium', 'large'];
         if (!empty($settings['size']) && !in_array($settings['size'], $allowedSizes)) {
-            $errors[] = 'Недопустимый размер кнопки';
+            $errors[] = LANG_POSTBLOCK_BUTTON_VALIDATION_SIZE;
         }
 
         $allowedAlignments = ['left', 'center', 'right'];
         if (!empty($settings['alignment']) && !in_array($settings['alignment'], $allowedAlignments)) {
-            $errors[] = 'Недопустимое выравнивание';
+            $errors[] = LANG_POSTBLOCK_BUTTON_VALIDATION_ALIGNMENT;
         }
 
         return [empty($errors), $errors];
@@ -698,7 +698,7 @@ class ButtonBlock extends BasePostBlock {
         }
         
         if (!isset($content['text'])) {
-            $content['text'] = 'Нажми меня';
+            $content['text'] = LANG_POSTBLOCK_BUTTON_DEFAULT_TEXT;
         }
         if (!isset($content['url'])) {
             $content['url'] = '#';
@@ -770,11 +770,11 @@ class ButtonBlock extends BasePostBlock {
         }
         
         if (!is_array($content)) {
-            return ['text' => 'Нажми меня', 'url' => '#', 'target' => '_self'];
+            return ['text' => LANG_POSTBLOCK_BUTTON_DEFAULT_TEXT, 'url' => '#', 'target' => '_self'];
         }
         
         if (!isset($content['text'])) {
-            $content['text'] = 'Нажми меня';
+            $content['text'] = LANG_POSTBLOCK_BUTTON_DEFAULT_TEXT;
         }
         if (!isset($content['url'])) {
             $content['url'] = '#';

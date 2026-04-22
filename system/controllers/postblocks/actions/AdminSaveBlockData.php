@@ -17,19 +17,19 @@ class AdminSaveBlockData extends PostBlockAction {
         
         try {
             if (!isset($_SESSION['is_admin'])) {
-                throw new \Exception('Доступ запрещен');
+                throw new \Exception(LANG_ACTION_POSTBLOCKS_ADMINSAVEBLOCKDATA_ACCESS_DENIED);
             }
 
             $blockId = $_POST['block_id'] ?? '';
             $blockType = $_POST['block_type'] ?? '';
             
             if (empty($blockId) || empty($blockType)) {
-                throw new \Exception('Не указаны данные блока');
+                throw new \Exception(LANG_ACTION_POSTBLOCKS_ADMINSAVEBLOCKDATA_DATA_NOT_SPECIFIED);
             }
 
             $postBlock = $this->postBlockManager->getPostBlock($blockType);
             if (!$postBlock || !$postBlock['class']) {
-                throw new \Exception('Блок не найден: ' . $blockType);
+                throw new \Exception(LANG_ACTION_POSTBLOCKS_ADMINSAVEBLOCKDATA_BLOCK_NOT_FOUND . $blockType);
             }
 
             $blockInstance = $postBlock['class'];
@@ -56,7 +56,7 @@ class AdminSaveBlockData extends PostBlockAction {
                 'success' => true,
                 'content' => $content,
                 'settings' => $settings,
-                'message' => 'Данные успешно сохранены'
+                'message' => LANG_ACTION_POSTBLOCKS_ADMINSAVEBLOCKDATA_SUCCESS
             ], JSON_UNESCAPED_UNICODE);
 
         } catch (\Exception $e) {

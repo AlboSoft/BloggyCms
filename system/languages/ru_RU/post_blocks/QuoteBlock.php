@@ -1,0 +1,30 @@
+<?php
+
+define('LANG_POSTBLOCK_QUOTE_NAME', 'Цитата');
+define('LANG_POSTBLOCK_QUOTE_DESCRIPTION', 'Блок для оформления цитат с авторством');
+define('LANG_POSTBLOCK_QUOTE_DEFAULT_TEXT', 'Текст цитаты...');
+define('LANG_POSTBLOCK_QUOTE_FORM_TEXT_LABEL', 'Текст цитаты');
+define('LANG_POSTBLOCK_QUOTE_FORM_TEXT_PLACEHOLDER', 'Введите текст цитаты...');
+define('LANG_POSTBLOCK_QUOTE_FORM_AUTHOR_LABEL', 'Автор');
+define('LANG_POSTBLOCK_QUOTE_FORM_AUTHOR_PLACEHOLDER', 'Автор цитаты');
+define('LANG_POSTBLOCK_QUOTE_FORM_SOURCE_LABEL', 'Источник');
+define('LANG_POSTBLOCK_QUOTE_FORM_SOURCE_PLACEHOLDER', 'Книга, статья и т.д.');
+define('LANG_POSTBLOCK_QUOTE_SETTINGS_ALIGNMENT', 'Выравнивание');
+define('LANG_POSTBLOCK_QUOTE_ALIGN_LEFT', 'По левому краю');
+define('LANG_POSTBLOCK_QUOTE_ALIGN_CENTER', 'По центру');
+define('LANG_POSTBLOCK_QUOTE_ALIGN_RIGHT', 'По правому краю');
+define('LANG_POSTBLOCK_QUOTE_SETTINGS_CUSTOM_CLASS', 'Дополнительный CSS класс');
+define('LANG_POSTBLOCK_QUOTE_EMPTY_TEXT_COMMENT', 'QuoteBlock: пустой текст');
+define('LANG_POSTBLOCK_QUOTE_SHORTCODE_TEXT', 'Текст цитаты');
+define('LANG_POSTBLOCK_QUOTE_SHORTCODE_AUTHOR', 'Автор цитаты');
+define('LANG_POSTBLOCK_QUOTE_SHORTCODE_SOURCE', 'Источник цитаты');
+define('LANG_POSTBLOCK_QUOTE_SHORTCODE_ALIGNMENT', 'Выравнивание (left/center/right)');
+define('LANG_POSTBLOCK_QUOTE_SHORTCODE_CUSTOM_CLASS', 'Дополнительный CSS класс');
+define('LANG_POSTBLOCK_QUOTE_VALIDATION_CUSTOM_CLASS', 'CSS класс может содержать только буквы, цифры, дефисы и подчеркивания');
+define('LANG_POSTBLOCK_QUOTE_PREVIEW_TITLE', 'Цитата');
+define('LANG_POSTBLOCK_QUOTE_PREVIEW_CHARS', '%d симв.');
+define('LANG_POSTBLOCK_QUOTE_PREVIEW_INFO_ALIGN', 'Выравнивание:');
+define('LANG_POSTBLOCK_QUOTE_PREVIEW_INFO_CLASS', 'Класс:');
+define('LANG_POSTBLOCK_QUOTE_PREVIEW_EMPTY_TEXT', 'Текст цитаты не добавлен');
+define('LANG_POSTBLOCK_QUOTE_PREVIEW_ADD_BTN', 'Добавить цитату');
+define('LANG_POSTBLOCK_QUOTE_PREVIEW_INFO_TEXT', 'Используйте для оформления цитат с авторством');

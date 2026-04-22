@@ -1,0 +1,32 @@
+<?php
+
+define('LANG_POSTBLOCK_AUDIO_NAME', 'Audio');
+define('LANG_POSTBLOCK_AUDIO_DESCRIPTION', 'Inserts an audio player with MP3 support.');
+define('LANG_POSTBLOCK_AUDIO_SHORTCODE_SRC', 'Path to MP3 file');
+define('LANG_POSTBLOCK_AUDIO_SHORTCODE_CAPTION', 'Audio caption');
+define('LANG_POSTBLOCK_AUDIO_SHORTCODE_FALLBACK', 'Fallback text for old browsers');
+define('LANG_POSTBLOCK_AUDIO_SHORTCODE_CAPTION_HTML', 'Caption HTML code with figure wrapper');
+define('LANG_POSTBLOCK_AUDIO_PREVIEW_TITLE', 'Audio');
+define('LANG_POSTBLOCK_AUDIO_PREVIEW_UPLOADED', 'Uploaded');
+define('LANG_POSTBLOCK_AUDIO_PREVIEW_EXTERNAL', 'External link');
+define('LANG_POSTBLOCK_AUDIO_PREVIEW_NOT_UPLOADED', 'Not uploaded');
+define('LANG_POSTBLOCK_AUDIO_PREVIEW_EMPTY_TITLE', 'Audio not uploaded');
+define('LANG_POSTBLOCK_AUDIO_PREVIEW_ADD_BTN', 'Add Audio');
+define('LANG_POSTBLOCK_AUDIO_EDITOR_EMPTY', 'Audio not uploaded');
+define('LANG_POSTBLOCK_AUDIO_EDITOR_HINT', 'Click "Edit" to add an audio file');
+define('LANG_POSTBLOCK_AUDIO_EDITOR_FALLBACK', 'Your browser does not support HTML5 audio.');
+define('LANG_POSTBLOCK_AUDIO_FORM_FILE_LABEL', 'Audio file (MP3)');
+define('LANG_POSTBLOCK_AUDIO_FORM_DELETE', 'Delete');
+define('LANG_POSTBLOCK_AUDIO_FORM_FILE_HINT', 'MP3 format supported. Maximum size: 20MB.');
+define('LANG_POSTBLOCK_AUDIO_FORM_EXTERNAL_LABEL', 'OR external link');
+define('LANG_POSTBLOCK_AUDIO_FORM_EXTERNAL_HINT', 'You can specify a direct link to an MP3 file instead of uploading');
+define('LANG_POSTBLOCK_AUDIO_FORM_CAPTION_LABEL', 'Caption (optional)');
+define('LANG_POSTBLOCK_AUDIO_FORM_CAPTION_PLACEHOLDER', 'Track name or description');
+define('LANG_POSTBLOCK_AUDIO_SETTINGS_CSS_CLASS', 'Custom CSS class');
+define('LANG_POSTBLOCK_AUDIO_ERROR_FILE_TOO_LARGE', 'File too large. Maximum 20MB.');
+define('LANG_POSTBLOCK_AUDIO_ERROR_INVALID_FORMAT', 'Invalid file format. Expected MP3.');
+define('LANG_POSTBLOCK_AUDIO_ERROR_SAVE_FAILED', 'Failed to save file.');
+define('LANG_POSTBLOCK_AUDIO_ERROR_UPLOAD', 'Audio upload error: ');
+define('LANG_POSTBLOCK_AUDIO_EMPTY_COMMENT', '<!-- AudioBlock: no source -->');
+define('LANG_POSTBLOCK_AUDIO_FALLBACK', 'Your browser does not support HTML5 audio. <a href="%s">Download file</a>.');
+define('LANG_POSTBLOCK_AUDIO_VALIDATION_CSS_CLASS', 'CSS class can only contain letters, numbers, hyphens and underscores');

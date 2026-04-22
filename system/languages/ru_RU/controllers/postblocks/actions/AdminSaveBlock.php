@@ -1,0 +1,6 @@
+<?php
+
+define('LANG_ACTION_POSTBLOCKS_ADMINSAVEBLOCK_INVALID_METHOD', 'Invalid request method');
+define('LANG_ACTION_POSTBLOCKS_ADMINSAVEBLOCK_TYPE_REQUIRED', 'Block type is required');
+define('LANG_ACTION_POSTBLOCKS_ADMINSAVEBLOCK_VALIDATION_ERROR', 'Validation errors: ');
+define('LANG_ACTION_POSTBLOCKS_ADMINSAVEBLOCK_SUCCESS', 'Block saved successfully');

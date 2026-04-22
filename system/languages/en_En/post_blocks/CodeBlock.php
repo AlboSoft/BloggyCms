@@ -1,0 +1,37 @@
+<?php
+
+define('LANG_POSTBLOCK_CODE_NAME', 'Code Example');
+define('LANG_POSTBLOCK_CODE_DESCRIPTION', 'Block for inserting code examples with syntax highlighting and beautiful design');
+define('LANG_POSTBLOCK_CODE_DEFAULT_CODE', '// Your code here...');
+define('LANG_POSTBLOCK_CODE_LANGUAGE_TEXT', 'Text');
+define('LANG_POSTBLOCK_CODE_PREVIEW_TITLE', 'Code Example');
+define('LANG_POSTBLOCK_CODE_COPY_BTN', 'Copy');
+define('LANG_POSTBLOCK_CODE_EDIT_BTN', 'Edit');
+define('LANG_POSTBLOCK_CODE_CHARS', 'chars');
+define('LANG_POSTBLOCK_CODE_LINE_NUMBERS', 'with line numbers');
+define('LANG_POSTBLOCK_CODE_FORM_LANGUAGE_LABEL', 'Programming Language');
+define('LANG_POSTBLOCK_CODE_FORM_FILENAME_LABEL', 'Filename (optional)');
+define('LANG_POSTBLOCK_CODE_FORM_FILENAME_HINT', 'Displayed in the code block header');
+define('LANG_POSTBLOCK_CODE_FORM_CODE_LABEL', 'Code');
+define('LANG_POSTBLOCK_CODE_FORM_CODE_HINT', 'Syntax highlighting supported for various programming languages');
+define('LANG_POSTBLOCK_CODE_SETTINGS_THEME_LABEL', 'Highlighting Theme');
+define('LANG_POSTBLOCK_CODE_SETTINGS_CSS_CLASS_LABEL', 'Custom CSS Class');
+define('LANG_POSTBLOCK_CODE_SETTINGS_LINE_NUMBERS', 'Line Numbers');
+define('LANG_POSTBLOCK_CODE_SETTINGS_COPY_BUTTON', 'Copy Button');
+define('LANG_POSTBLOCK_CODE_SETTINGS_LANGUAGE_BADGE', 'Language Badge');
+define('LANG_POSTBLOCK_CODE_SETTINGS_PRISM_HINT', 'Syntax highlighting requires Prism.js library to be included in the template');
+define('LANG_POSTBLOCK_CODE_THEME_DEFAULT', 'Default (light)');
+define('LANG_POSTBLOCK_CODE_THEME_DARK', 'Dark');
+define('LANG_POSTBLOCK_CODE_EDITOR_PREVIEW_LABEL', 'Code Example');
+define('LANG_POSTBLOCK_CODE_SHORTCODE_CODE', 'Code');
+define('LANG_POSTBLOCK_CODE_SHORTCODE_LANGUAGE', 'Programming language (technical name)');
+define('LANG_POSTBLOCK_CODE_SHORTCODE_LANGUAGE_BADGE', 'Language name badge');
+define('LANG_POSTBLOCK_CODE_SHORTCODE_FILENAME', 'Filename');
+define('LANG_POSTBLOCK_CODE_SHORTCODE_COPY_BUTTON', 'Copy button');
+define('LANG_POSTBLOCK_CODE_SHORTCODE_CUSTOM_CLASS', 'Custom CSS class');
+define('LANG_POSTBLOCK_CODE_SHORTCODE_LINE_NUMBERS', 'Line numbers class');
+define('LANG_POSTBLOCK_CODE_SHORTCODE_THEME', 'Code highlighting theme');
+define('LANG_POSTBLOCK_CODE_VALIDATION_CSS_CLASS', 'CSS class can only contain letters, numbers, hyphens and underscores');
+define('LANG_POSTBLOCK_CODE_VALIDATION_THEME', 'Invalid highlighting theme');
+define('LANG_POSTBLOCK_CODE_COPY_TITLE', 'Copy code');
+define('LANG_POSTBLOCK_CODE_COPIED', 'Copied');

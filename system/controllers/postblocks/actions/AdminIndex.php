@@ -14,8 +14,8 @@ class AdminIndex extends PostBlockAction {
     */
     public function execute() {
         
-        $this->addBreadcrumb('Панель управления', ADMIN_URL);
-        $this->addBreadcrumb('Постблоки');
+        $this->addBreadcrumb(LANG_ACTION_POSTBLOCKS_ADMININDEX_BREADCRUMB_DASHBOARD, ADMIN_URL);
+        $this->addBreadcrumb(LANG_ACTION_POSTBLOCKS_ADMININDEX_BREADCRUMB_POSTBLOCKS);
         
         try {
             $allBlocks = $this->postBlockManager->getAllPostBlocksInfo();
@@ -28,11 +28,11 @@ class AdminIndex extends PostBlockAction {
             
             $this->render('admin/post_blocks/index', [
                 'postBlocksByCategory' => $postBlocksByCategory,
-                'pageTitle' => 'Постблоки'
+                'pageTitle' => LANG_ACTION_POSTBLOCKS_ADMININDEX_PAGE_TITLE
             ]);
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при загрузке постблоков');
+            \Notification::error(LANG_ACTION_POSTBLOCKS_ADMININDEX_ERROR);
             $this->redirect(ADMIN_URL);
         }
     }

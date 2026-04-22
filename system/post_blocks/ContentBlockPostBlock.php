@@ -2,7 +2,7 @@
 class ContentBlockPostBlock extends BasePostBlock {
     
     public function getName(): string {
-        return 'Контент-блок';
+        return LANG_POSTBLOCK_CONTENTBLOCK_NAME;
     }
 
     public function getSystemName(): string {
@@ -10,7 +10,7 @@ class ContentBlockPostBlock extends BasePostBlock {
     }
 
     public function getDescription(): string {
-        return 'Блок для вставки готовых контент-блоков в тело страницы или поста';
+        return LANG_POSTBLOCK_CONTENTBLOCK_DESCRIPTION;
     }
 
     public function getIcon(): string {
@@ -36,19 +36,19 @@ class ContentBlockPostBlock extends BasePostBlock {
         ob_start();
         ?>
         <div class="mb-4">
-            <label class="form-label">Выберите контент-блок</label>
+            <label class="form-label"><?php echo LANG_POSTBLOCK_CONTENTBLOCK_FORM_SELECT_LABEL; ?></label>
             
             <?php if (empty($contentBlocks)) { ?>
                 <div class="alert alert-warning">
                     <i class="bi bi-exclamation-triangle me-2"></i>
-                    Нет доступных контент-блоков. 
+                    <?php echo LANG_POSTBLOCK_CONTENTBLOCK_NO_BLOCKS; ?>
                     <a href="<?= ADMIN_URL ?>/html-blocks" target="_blank" class="alert-link">
-                        Создайте HTML-блок сначала
+                        <?php echo LANG_POSTBLOCK_CONTENTBLOCK_CREATE_BLOCK_LINK; ?>
                     </a>
                 </div>
             <?php } else { ?>
                 <select name="content[content_block_id]" class="form-select" id="content-block-select" required>
-                    <option value="">-- Выберите контент-блок --</option>
+                    <option value=""><?php echo LANG_POSTBLOCK_CONTENTBLOCK_SELECT_OPTION; ?></option>
                     <?php foreach ($contentBlocks as $block) { ?>
                         <option value="<?= $block['id'] ?>" 
                                 data-name="<?= html($block['name']) ?>"
@@ -60,7 +60,7 @@ class ContentBlockPostBlock extends BasePostBlock {
                     <?php } ?>
                 </select>
                 <div class="form-text">
-                    Выберите готовый контент-блок для вставки
+                    <?php echo LANG_POSTBLOCK_CONTENTBLOCK_SELECT_HINT; ?>
                 </div>
                 
                 <input type="hidden" name="content[content_block_name]" id="content-block-name" value="<?= html($selectedBlockName) ?>">
@@ -69,7 +69,7 @@ class ContentBlockPostBlock extends BasePostBlock {
                 <div id="content-block-preview" class="mt-3 p-3 border rounded bg-light" style="<?= empty($selectedBlockId) ? 'display:none;' : '' ?>">
                     <?php if (!empty($selectedBlockId)) { ?>
                         <div class="d-flex justify-content-between align-items-center mb-2">
-                            <strong>Выбранный блок:</strong>
+                            <strong><?php echo LANG_POSTBLOCK_CONTENTBLOCK_SELECTED_BLOCK; ?></strong>
                             <span class="badge bg-primary" id="preview-block-name"><?= html($selectedBlockName) ?></span>
                         </div>
                         <div class="text-muted small">
@@ -121,8 +121,7 @@ class ContentBlockPostBlock extends BasePostBlock {
         return '
         <div class="alert alert-info">
             <i class="bi bi-info-circle me-2"></i>
-            Этот блок вставляет готовый контент-блок в тело страницы или поста.
-            Настройки шаблона доступны в разделе "Настройки постблока" в админке.
+            ' . LANG_POSTBLOCK_CONTENTBLOCK_SETTINGS_INFO . '
         </div>';
     }
 
@@ -133,21 +132,21 @@ class ContentBlockPostBlock extends BasePostBlock {
         $blockName = $content['content_block_name'] ?? '';
         
         if (empty($blockId)) {
-            return '<div class="alert alert-warning p-2 m-0">[Контент-блок не выбран]</div>';
+            return '<div class="alert alert-warning p-2 m-0">[' . LANG_POSTBLOCK_CONTENTBLOCK_EDITOR_NOT_SELECTED . ']</div>';
         }
         
         return '
         <div class="content-block-postblock-preview border rounded p-3 bg-light">
             <div class="d-flex align-items-center mb-2">
                 <i class="bi bi-grid-3x3-gap text-primary me-2"></i>
-                <strong>Контент-блок:</strong>
+                <strong>' . LANG_POSTBLOCK_CONTENTBLOCK_EDITOR_LABEL . ':</strong>
                 <span class="badge bg-primary ms-2">' . html($blockName) . '</span>
             </div>
             <div class="text-muted small">
                 ID: ' . $blockId . '
             </div>
             <div class="mt-2 p-2 bg-white border rounded">
-                <em class="text-muted">Содержимое контент-блока будет отображено на фронтенде</em>
+                <em class="text-muted">' . LANG_POSTBLOCK_CONTENTBLOCK_EDITOR_HINT . '</em>
             </div>
         </div>';
     }
@@ -158,9 +157,9 @@ class ContentBlockPostBlock extends BasePostBlock {
 
     public function getShortcodes(): array {
         return array_merge(parent::getShortcodes(), [
-            '{content_block_html}' => 'HTML код выбранного контент-блока',
-            '{content_block_id}' => 'ID выбранного контент-блока',
-            '{content_block_name}' => 'Название выбранного контент-блока'
+            '{content_block_html}' => LANG_POSTBLOCK_CONTENTBLOCK_SHORTCODE_HTML,
+            '{content_block_id}' => LANG_POSTBLOCK_CONTENTBLOCK_SHORTCODE_ID,
+            '{content_block_name}' => LANG_POSTBLOCK_CONTENTBLOCK_SHORTCODE_NAME
         ]);
     }
 
@@ -202,7 +201,7 @@ class ContentBlockPostBlock extends BasePostBlock {
             $htmlBlock = API::model('html_blocks')->getById($blockId);
             
             if (!$htmlBlock) {
-                return '<!-- HTML-блок не найден -->';
+                return '<!-- ' . LANG_POSTBLOCK_CONTENTBLOCK_BLOCK_NOT_FOUND . ' -->';
             }
             
             $blockType = $htmlBlock['block_type'] ?? $htmlBlock['type_name'] ?? 'DefaultBlock';
@@ -228,16 +227,16 @@ class ContentBlockPostBlock extends BasePostBlock {
             $blockTypeManager = new HtmlBlockTypeManager($db);
             
             if (!$blockTypeManager->isBlockTypeActive($blockType)) {
-                return '<!-- Тип блока отключен: ' . $blockType . ' -->';
+                return '<!-- ' . sprintf(LANG_POSTBLOCK_CONTENTBLOCK_TYPE_DISABLED, $blockType) . ' -->';
             }
             
             $processedContent = $blockTypeManager->processBlockContent($blockType, $settings, $template);
             
-            return $processedContent ?: '<!-- Пустой HTML-блок -->';
+            return $processedContent ?: '<!-- ' . LANG_POSTBLOCK_CONTENTBLOCK_EMPTY . ' -->';
             
         } catch (Exception $e) {
 
-            return '<!-- Ошибка при получении HTML-блока: ' . $e->getMessage() . ' -->';
+            return '<!-- ' . sprintf(LANG_POSTBLOCK_CONTENTBLOCK_ERROR, $e->getMessage()) . ' -->';
         }
     }
 
@@ -299,7 +298,7 @@ class ContentBlockPostBlock extends BasePostBlock {
         $blockHtml = $this->getContentBlockHtml($blockId);
         
         if (empty($blockHtml)) {
-            $blockHtml = '<!-- Контент-блок не найден или пуст -->';
+            $blockHtml = '<!-- ' . LANG_POSTBLOCK_CONTENTBLOCK_NOT_FOUND_OR_EMPTY . ' -->';
         }
 
         $result = $template;
@@ -338,7 +337,7 @@ class ContentBlockPostBlock extends BasePostBlock {
                         </div>
                         <div class="preview-info">
                             <div class="preview-title">
-                                <strong>Контент-блок</strong>
+                                <strong><?php echo LANG_POSTBLOCK_CONTENTBLOCK_PREVIEW_TITLE; ?></strong>
                                 <?php if ($blockType) { ?>
                                     <span class="badge bg-info badge-sm"><?= html($blockType) ?></span>
                                 <?php } ?>
@@ -351,7 +350,7 @@ class ContentBlockPostBlock extends BasePostBlock {
                                         <?php if (mb_strlen($blockName) > 20) { ?>...<?php } ?>
                                     <?php } ?>
                                 <?php } else { ?>
-                                    Не выбран
+                                    <?php echo LANG_POSTBLOCK_CONTENTBLOCK_PREVIEW_NOT_SELECTED; ?>
                                 <?php } ?>
                             </div>
                         </div>
@@ -371,50 +370,50 @@ class ContentBlockPostBlock extends BasePostBlock {
                                 <div class="d-flex align-items-center mb-2">
                                     <i class="bi bi-card-heading text-primary me-2"></i>
                                     <div class="flex-grow-1">
-                                        <strong>Выбранный контент-блок:</strong>
+                                        <strong><?php echo LANG_POSTBLOCK_CONTENTBLOCK_PREVIEW_SELECTED_BLOCK; ?></strong>
                                     </div>
                                     <span class="badge bg-primary">ID: <?= html($blockId) ?></span>
                                 </div>
                                 
                                 <?php if ($blockName) { ?>
                                     <div class="mb-2">
-                                        <span class="fw-semibold">Название:</span>
+                                        <span class="fw-semibold"><?php echo LANG_POSTBLOCK_CONTENTBLOCK_PREVIEW_NAME_LABEL; ?></span>
                                         <?= html($blockName) ?>
                                     </div>
                                 <?php } ?>
                                 
                                 <?php if ($blockType) { ?>
                                     <div class="mb-2">
-                                        <span class="fw-semibold">Тип блока:</span>
+                                        <span class="fw-semibold"><?php echo LANG_POSTBLOCK_CONTENTBLOCK_PREVIEW_TYPE_LABEL; ?></span>
                                         <span class="badge bg-secondary"><?= html($blockType) ?></span>
                                     </div>
                                 <?php } ?>
                                 
                                 <div class="alert alert-info mt-2 p-2 small mb-0">
                                     <i class="bi bi-info-circle me-1"></i>
-                                    Полное содержимое контент-блока будет отображено на странице
+                                    <?php echo LANG_POSTBLOCK_CONTENTBLOCK_PREVIEW_INFO; ?>
                                 </div>
                             </div>
                             
                             <div class="content-block-mockup mt-3 p-3 border rounded" style="background: linear-gradient(45deg, #f8f9fa 25%, #e9ecef 25%, #e9ecef 50%, #f8f9fa 50%, #f8f9fa 75%, #e9ecef 75%, #e9ecef 100%); background-size: 20px 20px;">
                                 <div class="text-center text-muted">
                                     <i class="bi bi-grid-3x3 display-4 d-block mb-2 opacity-50"></i>
-                                    <div class="fw-semibold">Контент-блок</div>
-                                    <small>Содержимое будет загружено динамически</small>
+                                    <div class="fw-semibold"><?php echo LANG_POSTBLOCK_CONTENTBLOCK_PREVIEW_MOCKUP_TITLE; ?></div>
+                                    <small><?php echo LANG_POSTBLOCK_CONTENTBLOCK_PREVIEW_MOCKUP_HINT; ?></small>
                                 </div>
                             </div>
                         </div>
                     <?php } else { ?>
                         <div class="preview-empty-state">
                             <i class="bi bi-grid-3x3-gap"></i>
-                            <div class="empty-text">Контент-блок не выбран</div>
+                            <div class="empty-text"><?php echo LANG_POSTBLOCK_CONTENTBLOCK_PREVIEW_EMPTY_TITLE; ?></div>
                             <button type="button" class="btn btn-sm btn-outline-primary mt-2" 
                                     onclick="postBlocksManager.editBlock('{block_id}')">
-                                <i class="bi bi-plus-circle"></i> Выбрать блок
+                                <i class="bi bi-plus-circle"></i> <?php echo LANG_POSTBLOCK_CONTENTBLOCK_PREVIEW_SELECT_BTN; ?>
                             </button>
                             <div class="mt-3 small text-muted">
                                 <i class="bi bi-info-circle"></i>
-                                Выберите готовый HTML-блок для вставки в этот пост
+                                <?php echo LANG_POSTBLOCK_CONTENTBLOCK_PREVIEW_EMPTY_HINT; ?>
                             </div>
                         </div>
                     <?php } ?>

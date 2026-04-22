@@ -23,17 +23,17 @@ class AdminPresetCreate extends PostBlockAction {
             $presetTemplate = $_POST['preset_template'] ?? '';
 
             if (empty($systemName) || empty($presetName)) {
-                throw new \Exception('Не указано системное имя блока или имя пресета');
+                throw new \Exception(LANG_ACTION_POSTBLOCKS_ADMINPRESETCREATE_SYSTEM_OR_NAME_NOT_SPECIFIED);
             }
 
             $postBlock = $this->postBlockManager->getPostBlock($systemName);
             if (!$postBlock) {
-                throw new \Exception('Блок не найден');
+                throw new \Exception(LANG_ACTION_POSTBLOCKS_ADMINPRESETCREATE_BLOCK_NOT_FOUND);
             }
 
             $existingPreset = $this->postBlockModel->getPresetByName($systemName, $presetName);
             if ($existingPreset) {
-                throw new \Exception('Пресет с таким именем уже существует');
+                throw new \Exception(LANG_ACTION_POSTBLOCKS_ADMINPRESETCREATE_PRESET_EXISTS);
             }
 
             $result = $this->postBlockModel->createPreset($systemName, $presetName, $presetTemplate);
@@ -41,11 +41,11 @@ class AdminPresetCreate extends PostBlockAction {
             if ($result) {
                 echo json_encode([
                     'success' => true,
-                    'message' => 'Пресет успешно создан',
+                    'message' => LANG_ACTION_POSTBLOCKS_ADMINPRESETCREATE_SUCCESS,
                     'preset_id' => $this->db->lastInsertId()
                 ]);
             } else {
-                throw new \Exception('Ошибка при создании пресета');
+                throw new \Exception(LANG_ACTION_POSTBLOCKS_ADMINPRESETCREATE_CREATE_ERROR);
             }
 
         } catch (\Exception $e) {

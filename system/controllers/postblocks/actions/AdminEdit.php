@@ -17,21 +17,21 @@ class AdminEdit extends PostBlockAction {
         $systemName = $_GET['system_name'] ?? '';
         
         if (empty($systemName)) {
-            \Notification::error('Системное имя блока не указано');
+            \Notification::error(LANG_ACTION_POSTBLOCKS_ADMINEDIT_SYSTEM_NAME_NOT_SPECIFIED);
             $this->redirect(ADMIN_URL . '/post-blocks');
             return;
         }
 
         $postBlock = $this->postBlockManager->getPostBlock($systemName);
         if (!$postBlock) {
-            \Notification::error('Блок не найден');
+            \Notification::error(LANG_ACTION_POSTBLOCKS_ADMINEDIT_BLOCK_NOT_FOUND);
             $this->redirect(ADMIN_URL . '/post-blocks');
             return;
         }
         
-        $this->addBreadcrumb('Панель управления', ADMIN_URL);
-        $this->addBreadcrumb('Постблоки', ADMIN_URL . '/post-blocks');
-        $this->addBreadcrumb('Редактирование: ' . $postBlock['name']);
+        $this->addBreadcrumb(LANG_ACTION_POSTBLOCKS_ADMINEDIT_BREADCRUMB_DASHBOARD, ADMIN_URL);
+        $this->addBreadcrumb(LANG_ACTION_POSTBLOCKS_ADMINEDIT_BREADCRUMB_POSTBLOCKS, ADMIN_URL . '/post-blocks');
+        $this->addBreadcrumb(LANG_ACTION_POSTBLOCKS_ADMINEDIT_BREADCRUMB_EDIT . $postBlock['name']);
 
         $settings = $this->postBlockModel->getBlockSettings($systemName);
 
@@ -44,7 +44,7 @@ class AdminEdit extends PostBlockAction {
             'postBlock' => $postBlock,
             'settings' => $settings,
             'shortcodes' => $postBlock['class']->getShortcodes(),
-            'pageTitle' => 'Редактирование блока: ' . $postBlock['name']
+            'pageTitle' => LANG_ACTION_POSTBLOCKS_ADMINEDIT_PAGE_TITLE . $postBlock['name']
         ]);
     }
 
@@ -66,9 +66,9 @@ class AdminEdit extends PostBlockAction {
         ]);
 
         if ($success) {
-            \Notification::success('Настройки блока обновлены');
+            \Notification::success(LANG_ACTION_POSTBLOCKS_ADMINEDIT_SUCCESS);
         } else {
-            \Notification::error('Ошибка при сохранении настроек');
+            \Notification::error(LANG_ACTION_POSTBLOCKS_ADMINEDIT_SAVE_ERROR);
         }
 
         $this->redirect(ADMIN_URL . '/post-blocks/edit?system_name=' . $systemName);

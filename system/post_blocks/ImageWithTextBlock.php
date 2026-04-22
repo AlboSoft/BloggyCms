@@ -2,7 +2,7 @@
 class ImageWithTextBlock extends BasePostBlock {
     
     public function getName(): string {
-        return 'Изображение с текстом';
+        return LANG_POSTBLOCK_IMAGETEXT_NAME;
     }
 
     public function getSystemName(): string {
@@ -10,7 +10,7 @@ class ImageWithTextBlock extends BasePostBlock {
     }
 
     public function getDescription(): string {
-        return 'Блок с изображением, заголовком и текстовым описанием с выбором позиции изображения';
+        return LANG_POSTBLOCK_IMAGETEXT_DESCRIPTION;
     }
 
     public function getIcon(): string {
@@ -46,7 +46,7 @@ class ImageWithTextBlock extends BasePostBlock {
             'image_url' => '',
             'alt_text' => '',
             'title' => '',
-            'text_content' => 'Текст описания...'
+            'text_content' => LANG_POSTBLOCK_IMAGETEXT_DEFAULT_TEXT
         ];
     }
 
@@ -79,14 +79,14 @@ class ImageWithTextBlock extends BasePostBlock {
         <div class="row">
             <div class="col-md-6">
                 <div class="mb-4">
-                    <label class="form-label">Загрузить изображение *</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_IMAGETEXT_FORM_UPLOAD_LABEL; ?> *</label>
                     <input type="file" 
                            name="image_file" 
                            class="form-control image-file-input" 
                            accept="image/*"
                            <?= empty($imageUrl) ? 'required' : '' ?>>
                     <div class="form-text small">
-                        Форматы: JPG, PNG, GIF, WebP. Макс. размер: 5MB
+                        <?php echo LANG_POSTBLOCK_IMAGETEXT_FORM_UPLOAD_HINT; ?>
                     </div>
                 </div>
 
@@ -96,28 +96,28 @@ class ImageWithTextBlock extends BasePostBlock {
                        value="<?= html($imageUrl) ?>">
 
                 <div class="mb-4">
-                    <label class="form-label">Alt текст *</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_IMAGETEXT_FORM_ALT_LABEL; ?> *</label>
                     <input type="text" 
                            name="content[alt_text]" 
                            class="form-control" 
                            value="<?= html($altText) ?>" 
-                           placeholder="Описание изображения для SEO"
+                           placeholder="<?php echo LANG_POSTBLOCK_IMAGETEXT_FORM_ALT_PLACEHOLDER; ?>"
                            required>
                 </div>
 
                 <div class="new-image-preview mb-4" style="display: none;">
-                    <label class="form-label">Предпросмотр нового изображения</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_IMAGETEXT_FORM_PREVIEW_LABEL; ?></label>
                     <div class="border rounded p-3 text-center">
-                        <img src="" alt="Предпросмотр" class="img-thumbnail preview-image" style="max-height: 200px;">
+                        <img src="" alt="<?php echo LANG_POSTBLOCK_IMAGETEXT_FORM_PREVIEW_ALT; ?>" class="img-thumbnail preview-image" style="max-height: 200px;">
                     </div>
                 </div>
 
                 <?php if ($imageUrl) { ?>
                     <div class="mb-4">
-                        <label class="form-label">Текущее изображение</label>
+                        <label class="form-label"><?php echo LANG_POSTBLOCK_IMAGETEXT_FORM_CURRENT_LABEL; ?></label>
                         <div class="current-image-preview border rounded p-3 text-center bg-light">
                             <img src="<?= html($imageUrl) ?>" 
-                                alt="Текущее изображение" 
+                                alt="<?php echo LANG_POSTBLOCK_IMAGETEXT_FORM_CURRENT_ALT; ?>" 
                                 class="img-thumbnail"
                                 style="max-height: 200px;">
                             <div class="mt-2">
@@ -127,7 +127,7 @@ class ImageWithTextBlock extends BasePostBlock {
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="remove_image" value="1" id="removeImage">
                                     <label class="form-check-label" for="removeImage">
-                                        Удалить текущее изображение
+                                        <?php echo LANG_POSTBLOCK_IMAGETEXT_FORM_REMOVE_LABEL; ?>
                                     </label>
                                 </div>
                             </div>
@@ -138,26 +138,26 @@ class ImageWithTextBlock extends BasePostBlock {
 
             <div class="col-md-6">
                 <div class="mb-4">
-                    <label class="form-label">Заголовок</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_IMAGETEXT_FORM_TITLE_LABEL; ?></label>
                     <input type="text" 
                            name="content[title]" 
                            class="form-control" 
                            value="<?= html($title) ?>" 
-                           placeholder="Введите заголовок">
+                           placeholder="<?php echo LANG_POSTBLOCK_IMAGETEXT_FORM_TITLE_PLACEHOLDER; ?>">
                     <div class="form-text small">
-                        Опционально. Отображается над текстовым описанием
+                        <?php echo LANG_POSTBLOCK_IMAGETEXT_FORM_TITLE_HINT; ?>
                     </div>
                 </div>
 
                 <div class="mb-4">
-                    <label class="form-label">Текстовое описание *</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_IMAGETEXT_FORM_TEXT_LABEL; ?> *</label>
                     <textarea name="content[text_content]" 
                               class="form-control" 
                               rows="10"
-                              placeholder="Текст описания рядом с изображением..."
+                              placeholder="<?php echo LANG_POSTBLOCK_IMAGETEXT_FORM_TEXT_PLACEHOLDER; ?>"
                               required><?= html($textContent) ?></textarea>
                     <div class="form-text small">
-                        Поддерживает HTML разметку
+                        <?php echo LANG_POSTBLOCK_IMAGETEXT_FORM_TEXT_HINT; ?>
                     </div>
                 </div>
             </div>
@@ -186,23 +186,23 @@ class ImageWithTextBlock extends BasePostBlock {
         <div class="row">
             <div class="col-md-6">
                 <div class="mb-4">
-                    <label class="form-label">Расположение изображения</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_IMAGETEXT_SETTINGS_LAYOUT; ?></label>
                     <select name="settings[layout]" class="form-select">
-                        <option value="image-left" <?= $layout === 'image-left' ? 'selected' : '' ?>>Изображение слева, текст справа</option>
-                        <option value="image-right" <?= $layout === 'image-right' ? 'selected' : '' ?>>Изображение справа, текст слева</option>
-                        <option value="image-top" <?= $layout === 'image-top' ? 'selected' : '' ?>>Изображение сверху, текст снизу</option>
-                        <option value="image-bottom" <?= $layout === 'image-bottom' ? 'selected' : '' ?>>Изображение снизу, текст сверху</option>
+                        <option value="image-left" <?= $layout === 'image-left' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_IMAGETEXT_LAYOUT_LEFT; ?></option>
+                        <option value="image-right" <?= $layout === 'image-right' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_IMAGETEXT_LAYOUT_RIGHT; ?></option>
+                        <option value="image-top" <?= $layout === 'image-top' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_IMAGETEXT_LAYOUT_TOP; ?></option>
+                        <option value="image-bottom" <?= $layout === 'image-bottom' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_IMAGETEXT_LAYOUT_BOTTOM; ?></option>
                     </select>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="mb-4">
-                    <label class="form-label">Размер изображения</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_IMAGETEXT_SETTINGS_IMAGE_SIZE; ?></label>
                     <select name="settings[image_size]" class="form-select">
-                        <option value="small" <?= $imageSize === 'small' ? 'selected' : '' ?>>Маленький (25%)</option>
-                        <option value="medium" <?= $imageSize === 'medium' ? 'selected' : '' ?>>Средний (40%)</option>
-                        <option value="large" <?= $imageSize === 'large' ? 'selected' : '' ?>>Большой (50%)</option>
-                        <option value="custom" <?= $imageSize === 'custom' ? 'selected' : '' ?>>Произвольный</option>
+                        <option value="small" <?= $imageSize === 'small' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_IMAGETEXT_SIZE_SMALL; ?></option>
+                        <option value="medium" <?= $imageSize === 'medium' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_IMAGETEXT_SIZE_MEDIUM; ?></option>
+                        <option value="large" <?= $imageSize === 'large' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_IMAGETEXT_SIZE_LARGE; ?></option>
+                        <option value="custom" <?= $imageSize === 'custom' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_IMAGETEXT_SIZE_CUSTOM; ?></option>
                     </select>
                 </div>
             </div>
@@ -211,17 +211,17 @@ class ImageWithTextBlock extends BasePostBlock {
         <div class="row">
             <div class="col-md-6">
                 <div class="mb-4">
-                    <label class="form-label">Выравнивание заголовка</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_IMAGETEXT_SETTINGS_TITLE_ALIGN; ?></label>
                     <select name="settings[title_align]" class="form-select">
-                        <option value="left" <?= $titleAlign === 'left' ? 'selected' : '' ?>>По левому краю</option>
-                        <option value="center" <?= $titleAlign === 'center' ? 'selected' : '' ?>>По центру</option>
-                        <option value="right" <?= $titleAlign === 'right' ? 'selected' : '' ?>>По правому краю</option>
+                        <option value="left" <?= $titleAlign === 'left' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_IMAGETEXT_ALIGN_LEFT; ?></option>
+                        <option value="center" <?= $titleAlign === 'center' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_IMAGETEXT_ALIGN_CENTER; ?></option>
+                        <option value="right" <?= $titleAlign === 'right' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_IMAGETEXT_ALIGN_RIGHT; ?></option>
                     </select>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="mb-4">
-                    <label class="form-label">HTML тег заголовка</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_IMAGETEXT_SETTINGS_TITLE_TAG; ?></label>
                     <select name="settings[title_tag]" class="form-select">
                         <option value="h1" <?= $titleTag === 'h1' ? 'selected' : '' ?>>H1</option>
                         <option value="h2" <?= $titleTag === 'h2' ? 'selected' : '' ?>>H2</option>
@@ -238,22 +238,22 @@ class ImageWithTextBlock extends BasePostBlock {
         <div class="row">
             <div class="col-md-6">
                 <div class="mb-4">
-                    <label class="form-label">Выравнивание текста</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_IMAGETEXT_SETTINGS_TEXT_ALIGN; ?></label>
                     <select name="settings[text_align]" class="form-select">
-                        <option value="left" <?= $textAlign === 'left' ? 'selected' : '' ?>>По левому краю</option>
-                        <option value="center" <?= $textAlign === 'center' ? 'selected' : '' ?>>По центру</option>
-                        <option value="right" <?= $textAlign === 'right' ? 'selected' : '' ?>>По правому краю</option>
-                        <option value="justify" <?= $textAlign === 'justify' ? 'selected' : '' ?>>По ширине</option>
+                        <option value="left" <?= $textAlign === 'left' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_IMAGETEXT_ALIGN_LEFT; ?></option>
+                        <option value="center" <?= $textAlign === 'center' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_IMAGETEXT_ALIGN_CENTER; ?></option>
+                        <option value="right" <?= $textAlign === 'right' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_IMAGETEXT_ALIGN_RIGHT; ?></option>
+                        <option value="justify" <?= $textAlign === 'justify' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_IMAGETEXT_ALIGN_JUSTIFY; ?></option>
                     </select>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="mb-4">
-                    <label class="form-label">Вертикальное выравнивание</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_IMAGETEXT_SETTINGS_VERTICAL_ALIGN; ?></label>
                     <select name="settings[vertical_align]" class="form-select">
-                        <option value="top" <?= $verticalAlign === 'top' ? 'selected' : '' ?>>По верху</option>
-                        <option value="middle" <?= $verticalAlign === 'middle' ? 'selected' : '' ?>>По середине</option>
-                        <option value="bottom" <?= $verticalAlign === 'bottom' ? 'selected' : '' ?>>По низу</option>
+                        <option value="top" <?= $verticalAlign === 'top' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_IMAGETEXT_VERTICAL_TOP; ?></option>
+                        <option value="middle" <?= $verticalAlign === 'middle' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_IMAGETEXT_VERTICAL_MIDDLE; ?></option>
+                        <option value="bottom" <?= $verticalAlign === 'bottom' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_IMAGETEXT_VERTICAL_BOTTOM; ?></option>
                     </select>
                 </div>
             </div>
@@ -262,7 +262,7 @@ class ImageWithTextBlock extends BasePostBlock {
         <div class="row">
             <div class="col-md-4">
                 <div class="mb-4">
-                    <label class="form-label">Ширина изображения (для произвольного)</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_IMAGETEXT_SETTINGS_WIDTH; ?></label>
                     <input type="text" 
                            name="settings[width]" 
                            class="form-control" 
@@ -272,7 +272,7 @@ class ImageWithTextBlock extends BasePostBlock {
             </div>
             <div class="col-md-4">
                 <div class="mb-4">
-                    <label class="form-label">Высота изображения (опционально)</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_IMAGETEXT_SETTINGS_HEIGHT; ?></label>
                     <input type="text" 
                            name="settings[height]" 
                            class="form-control" 
@@ -282,7 +282,7 @@ class ImageWithTextBlock extends BasePostBlock {
             </div>
             <div class="col-md-4">
                 <div class="mb-4">
-                    <label class="form-label">Расстояние между изображением и текстом</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_IMAGETEXT_SETTINGS_GAP; ?></label>
                     <input type="text" 
                            name="settings[gap]" 
                            class="form-control" 
@@ -295,7 +295,7 @@ class ImageWithTextBlock extends BasePostBlock {
         <div class="row">
             <div class="col-md-6">
                 <div class="mb-4">
-                    <label class="form-label">CSS класс изображения</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_IMAGETEXT_SETTINGS_IMAGE_CLASS; ?></label>
                     <input type="text" 
                            name="settings[image_class]" 
                            class="form-control" 
@@ -305,7 +305,7 @@ class ImageWithTextBlock extends BasePostBlock {
             </div>
             <div class="col-md-6">
                 <div class="mb-4">
-                    <label class="form-label">Дополнительный CSS класс блока</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_IMAGETEXT_SETTINGS_CUSTOM_CLASS; ?></label>
                     <input type="text" 
                            name="settings[custom_class]" 
                            class="form-control" 
@@ -350,11 +350,11 @@ class ImageWithTextBlock extends BasePostBlock {
         $presetName = $settings['preset_name'] ?? '';
 
         if (empty($imageUrl)) {
-            return '<!-- ImageWithTextBlock: пустой URL изображения -->';
+            return '<!-- ' . LANG_POSTBLOCK_IMAGETEXT_NO_IMAGE_COMMENT . ' -->';
         }
 
         if (empty(trim($textContent))) {
-            $textContent = '<!-- Текст не указан -->';
+            $textContent = '<!-- ' . LANG_POSTBLOCK_IMAGETEXT_NO_TEXT_COMMENT . ' -->';
         }
 
         if ($imageUrl[0] !== '/') {
@@ -444,21 +444,21 @@ class ImageWithTextBlock extends BasePostBlock {
 
     public function getShortcodes(): array {
         return array_merge(parent::getShortcodes(), [
-            '{image_url}' => 'URL изображения',
-            '{alt_text}' => 'Alt текст изображения',
-            '{title}' => 'Заголовок',
-            '{title_html}' => 'HTML заголовка с тегом',
-            '{text_content}' => 'Текстовое содержание',
-            '{layout}' => 'Расположение (image-left, image-right, image-top, image-bottom)',
-            '{image_class}' => 'CSS класс изображения',
-            '{custom_class}' => 'Дополнительный CSS класс',
-            '{width_attr}' => 'Атрибут ширины',
-            '{height_attr}' => 'Атрибут высоты',
-            '{text_align}' => 'Выравнивание текста',
-            '{title_align}' => 'Выравнивание заголовка',
-            '{title_tag}' => 'HTML тег заголовка',
-            '{vertical_align}' => 'Вертикальное выравнивание',
-            '{gap}' => 'Расстояние между изображением и текстом'
+            '{image_url}' => LANG_POSTBLOCK_IMAGETEXT_SHORTCODE_URL,
+            '{alt_text}' => LANG_POSTBLOCK_IMAGETEXT_SHORTCODE_ALT,
+            '{title}' => LANG_POSTBLOCK_IMAGETEXT_SHORTCODE_TITLE,
+            '{title_html}' => LANG_POSTBLOCK_IMAGETEXT_SHORTCODE_TITLE_HTML,
+            '{text_content}' => LANG_POSTBLOCK_IMAGETEXT_SHORTCODE_TEXT,
+            '{layout}' => LANG_POSTBLOCK_IMAGETEXT_SHORTCODE_LAYOUT,
+            '{image_class}' => LANG_POSTBLOCK_IMAGETEXT_SHORTCODE_IMAGE_CLASS,
+            '{custom_class}' => LANG_POSTBLOCK_IMAGETEXT_SHORTCODE_CUSTOM_CLASS,
+            '{width_attr}' => LANG_POSTBLOCK_IMAGETEXT_SHORTCODE_WIDTH_ATTR,
+            '{height_attr}' => LANG_POSTBLOCK_IMAGETEXT_SHORTCODE_HEIGHT_ATTR,
+            '{text_align}' => LANG_POSTBLOCK_IMAGETEXT_SHORTCODE_TEXT_ALIGN,
+            '{title_align}' => LANG_POSTBLOCK_IMAGETEXT_SHORTCODE_TITLE_ALIGN,
+            '{title_tag}' => LANG_POSTBLOCK_IMAGETEXT_SHORTCODE_TITLE_TAG,
+            '{vertical_align}' => LANG_POSTBLOCK_IMAGETEXT_SHORTCODE_VERTICAL_ALIGN,
+            '{gap}' => LANG_POSTBLOCK_IMAGETEXT_SHORTCODE_GAP
         ]);
     }
 
@@ -479,7 +479,7 @@ class ImageWithTextBlock extends BasePostBlock {
                 if ($uploadResult['success']) {
                     $content['image_url'] = $uploadResult['file_path'];
                 } else {
-                    throw new Exception($uploadResult['error'] ?? 'Ошибка загрузки изображения');
+                    throw new Exception($uploadResult['error'] ?? LANG_POSTBLOCK_IMAGETEXT_UPLOAD_ERROR_DEFAULT);
                 }
             } catch (Exception $e) {
                 throw $e;
@@ -516,7 +516,7 @@ class ImageWithTextBlock extends BasePostBlock {
         }
 
         if (empty($content['alt_text'])) {
-            $content['alt_text'] = 'Изображение';
+            $content['alt_text'] = LANG_POSTBLOCK_IMAGETEXT_DEFAULT_ALT;
         }
         
         if (!isset($content['title'])) {
@@ -524,7 +524,7 @@ class ImageWithTextBlock extends BasePostBlock {
         }
         
         if (!isset($content['text_content'])) {
-            $content['text_content'] = 'Текст описания...';
+            $content['text_content'] = LANG_POSTBLOCK_IMAGETEXT_DEFAULT_TEXT;
         }
 
         return $content;
@@ -672,40 +672,40 @@ class ImageWithTextBlock extends BasePostBlock {
     public function handleImageUpload($file) {
         try {
             if ($file['error'] !== UPLOAD_ERR_OK) {
-                return ['success' => false, 'error' => 'Ошибка загрузки файла: ' . $this->getUploadError($file['error'])];
+                return ['success' => false, 'error' => sprintf(LANG_POSTBLOCK_IMAGETEXT_UPLOAD_ERROR, $this->getUploadError($file['error']))];
             }
 
             $allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
             $fileType = mime_content_type($file['tmp_name']);
             
             if (!in_array($fileType, $allowedTypes)) {
-                return ['success' => false, 'error' => 'Недопустимый тип файла. Разрешены: JPG, PNG, GIF, WebP'];
+                return ['success' => false, 'error' => LANG_POSTBLOCK_IMAGETEXT_VALIDATION_TYPE];
             }
 
             if ($file['size'] > 5 * 1024 * 1024) {
-                return ['success' => false, 'error' => 'Файл слишком большой. Максимальный размер: 5MB'];
+                return ['success' => false, 'error' => LANG_POSTBLOCK_IMAGETEXT_VALIDATION_SIZE];
             }
 
             $uploadDir = 'uploads/images/image_with_text/';
             if (!file_exists($uploadDir)) {
                 if (!mkdir($uploadDir, 0755, true)) {
-                    return ['success' => false, 'error' => 'Не удалось создать директорию для загрузки'];
+                    return ['success' => false, 'error' => LANG_POSTBLOCK_IMAGETEXT_UPLOAD_DIR_ERROR];
                 }
             }
 
             if (!is_writable($uploadDir)) {
-                return ['success' => false, 'error' => 'Директория для загрузки недоступна для записи'];
+                return ['success' => false, 'error' => LANG_POSTBLOCK_IMAGETEXT_UPLOAD_WRITABLE_ERROR];
             }
 
             $fileExtension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
             $fileName = 'image_text_' . uniqid() . '_' . time() . '.' . $fileExtension;
             $filePath = $uploadDir . $fileName;
             if (!move_uploaded_file($file['tmp_name'], $filePath)) {
-                return ['success' => false, 'error' => 'Не удалось сохранить файл на сервер'];
+                return ['success' => false, 'error' => LANG_POSTBLOCK_IMAGETEXT_UPLOAD_SAVE_ERROR];
             }
 
             if (!file_exists($filePath)) {
-                return ['success' => false, 'error' => 'Файл не был создан после загрузки'];
+                return ['success' => false, 'error' => LANG_POSTBLOCK_IMAGETEXT_UPLOAD_NOT_CREATED_ERROR];
             }
 
             return [
@@ -717,63 +717,63 @@ class ImageWithTextBlock extends BasePostBlock {
             ];
 
         } catch (Exception $e) {
-            return ['success' => false, 'error' => 'Исключение при загрузке: ' . $e->getMessage()];
+            return ['success' => false, 'error' => sprintf(LANG_POSTBLOCK_IMAGETEXT_UPLOAD_EXCEPTION, $e->getMessage())];
         }
     }
 
     private function getUploadError($errorCode) {
         $errors = [
-            UPLOAD_ERR_INI_SIZE => 'Файл превышает максимальный размер',
-            UPLOAD_ERR_FORM_SIZE => 'Файл превышает максимальный размер формы',
-            UPLOAD_ERR_PARTIAL => 'Файл был загружен только частично',
-            UPLOAD_ERR_NO_FILE => 'Файл не был загружен',
-            UPLOAD_ERR_NO_TMP_DIR => 'Отсутствует временная директория',
-            UPLOAD_ERR_CANT_WRITE => 'Не удалось записать файл на диск',
-            UPLOAD_ERR_EXTENSION => 'Расширение PHP остановило загрузку файла'
+            UPLOAD_ERR_INI_SIZE => LANG_POSTBLOCK_IMAGETEXT_ERROR_INI_SIZE,
+            UPLOAD_ERR_FORM_SIZE => LANG_POSTBLOCK_IMAGETEXT_ERROR_FORM_SIZE,
+            UPLOAD_ERR_PARTIAL => LANG_POSTBLOCK_IMAGETEXT_ERROR_PARTIAL,
+            UPLOAD_ERR_NO_FILE => LANG_POSTBLOCK_IMAGETEXT_ERROR_NO_FILE,
+            UPLOAD_ERR_NO_TMP_DIR => LANG_POSTBLOCK_IMAGETEXT_ERROR_NO_TMP_DIR,
+            UPLOAD_ERR_CANT_WRITE => LANG_POSTBLOCK_IMAGETEXT_ERROR_CANT_WRITE,
+            UPLOAD_ERR_EXTENSION => LANG_POSTBLOCK_IMAGETEXT_ERROR_EXTENSION
         ];
         
-        return $errors[$errorCode] ?? 'Неизвестная ошибка';
+        return $errors[$errorCode] ?? LANG_POSTBLOCK_IMAGETEXT_ERROR_UNKNOWN;
     }
 
     public function validateSettings($settings): array {
         $errors = [];
 
         if (!empty($settings['custom_class']) && !preg_match('/^[a-zA-Z0-9-_ ]+$/', $settings['custom_class'])) {
-            $errors[] = 'CSS класс может содержать только буквы, цифры, дефисы и подчеркивания';
+            $errors[] = LANG_POSTBLOCK_IMAGETEXT_VALIDATION_CUSTOM_CLASS;
         }
 
         if (!empty($settings['image_class']) && !preg_match('/^[a-zA-Z0-9-_ ]+$/', $settings['image_class'])) {
-            $errors[] = 'CSS класс изображения может содержать только буквы, цифры, дефисы и подчеркивания';
+            $errors[] = LANG_POSTBLOCK_IMAGETEXT_VALIDATION_IMAGE_CLASS;
         }
 
         $allowedLayouts = ['image-left', 'image-right', 'image-top', 'image-bottom'];
         if (!empty($settings['layout']) && !in_array($settings['layout'], $allowedLayouts)) {
-            $errors[] = 'Недопустимое расположение элементов';
+            $errors[] = LANG_POSTBLOCK_IMAGETEXT_VALIDATION_LAYOUT;
         }
 
         $allowedAlign = ['left', 'center', 'right', 'justify'];
         if (!empty($settings['text_align']) && !in_array($settings['text_align'], $allowedAlign)) {
-            $errors[] = 'Недопустимое выравнивание текста';
+            $errors[] = LANG_POSTBLOCK_IMAGETEXT_VALIDATION_TEXT_ALIGN;
         }
 
         $allowedTitleAlign = ['left', 'center', 'right'];
         if (!empty($settings['title_align']) && !in_array($settings['title_align'], $allowedTitleAlign)) {
-            $errors[] = 'Недопустимое выравнивание заголовка';
+            $errors[] = LANG_POSTBLOCK_IMAGETEXT_VALIDATION_TITLE_ALIGN;
         }
 
         $allowedTitleTags = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div'];
         if (!empty($settings['title_tag']) && !in_array($settings['title_tag'], $allowedTitleTags)) {
-            $errors[] = 'Недопустимый тег заголовка';
+            $errors[] = LANG_POSTBLOCK_IMAGETEXT_VALIDATION_TITLE_TAG;
         }
 
         $allowedVerticalAlign = ['top', 'middle', 'bottom'];
         if (!empty($settings['vertical_align']) && !in_array($settings['vertical_align'], $allowedVerticalAlign)) {
-            $errors[] = 'Недопустимое вертикальное выравнивание';
+            $errors[] = LANG_POSTBLOCK_IMAGETEXT_VALIDATION_VERTICAL_ALIGN;
         }
 
         $allowedSizes = ['small', 'medium', 'large', 'custom'];
         if (!empty($settings['image_size']) && !in_array($settings['image_size'], $allowedSizes)) {
-            $errors[] = 'Недопустимый размер изображения';
+            $errors[] = LANG_POSTBLOCK_IMAGETEXT_VALIDATION_IMAGE_SIZE;
         }
 
         return [empty($errors), $errors];
@@ -835,19 +835,19 @@ class ImageWithTextBlock extends BasePostBlock {
         };
         
         $layoutText = match($layout) {
-            'image-left' => 'Слева',
-            'image-right' => 'Справа',
-            'image-top' => 'Сверху',
-            'image-bottom' => 'Снизу',
-            default => 'Слева'
+            'image-left' => LANG_POSTBLOCK_IMAGETEXT_PREVIEW_LAYOUT_LEFT,
+            'image-right' => LANG_POSTBLOCK_IMAGETEXT_PREVIEW_LAYOUT_RIGHT,
+            'image-top' => LANG_POSTBLOCK_IMAGETEXT_PREVIEW_LAYOUT_TOP,
+            'image-bottom' => LANG_POSTBLOCK_IMAGETEXT_PREVIEW_LAYOUT_BOTTOM,
+            default => LANG_POSTBLOCK_IMAGETEXT_PREVIEW_LAYOUT_LEFT
         };
         
         $sizeText = match($imageSize) {
-            'small' => 'Маленький',
-            'medium' => 'Средний',
-            'large' => 'Большой',
-            'custom' => 'Произвольный',
-            default => 'Средний'
+            'small' => LANG_POSTBLOCK_IMAGETEXT_PREVIEW_SIZE_SMALL,
+            'medium' => LANG_POSTBLOCK_IMAGETEXT_PREVIEW_SIZE_MEDIUM,
+            'large' => LANG_POSTBLOCK_IMAGETEXT_PREVIEW_SIZE_LARGE,
+            'custom' => LANG_POSTBLOCK_IMAGETEXT_PREVIEW_SIZE_CUSTOM,
+            default => LANG_POSTBLOCK_IMAGETEXT_PREVIEW_SIZE_MEDIUM
         };
         
         ob_start();
@@ -861,17 +861,17 @@ class ImageWithTextBlock extends BasePostBlock {
                         </div>
                         <div class="preview-info">
                             <div class="preview-title">
-                                <strong>Изображение с текстом</strong>
+                                <strong><?php echo LANG_POSTBLOCK_IMAGETEXT_PREVIEW_TITLE; ?></strong>
                                 <span class="badge bg-info badge-sm"><?= html($layoutText) ?></span>
                             </div>
                             <div class="preview-stats">
                                 <?php if ($imageUrl) { ?>
-                                    Изображение загружено
+                                    <?php echo LANG_POSTBLOCK_IMAGETEXT_PREVIEW_STATS_IMAGE_UPLOADED; ?>
                                 <?php } else { ?>
-                                    Без изображения
+                                    <?php echo LANG_POSTBLOCK_IMAGETEXT_PREVIEW_STATS_NO_IMAGE; ?>
                                 <?php } ?>
                                 <?php if (!empty(trim($textContent))) { ?>
-                                    · <?= strlen($textContent) ?> симв.
+                                    · <?= strlen($textContent) ?> <?php echo LANG_POSTBLOCK_IMAGETEXT_PREVIEW_CHARS; ?>
                                 <?php } ?>
                             </div>
                         </div>
@@ -899,7 +899,7 @@ class ImageWithTextBlock extends BasePostBlock {
                                             <?php } ?>
                                             <div class="text-center <?= $imageUrl ? 'd-none' : '' ?>">
                                                 <i class="bi bi-image text-muted display-6"></i>
-                                                <div class="small text-muted mt-1">Изображение</div>
+                                                <div class="small text-muted mt-1"><?php echo LANG_POSTBLOCK_IMAGETEXT_PREVIEW_IMAGE_PLACEHOLDER; ?></div>
                                             </div>
                                         </div>
                                     </div>
@@ -908,7 +908,7 @@ class ImageWithTextBlock extends BasePostBlock {
                                             <?php if (!empty(trim($title))) { ?>
                                                 <div class="title-preview mb-2">
                                                     <div class="h6 mb-1" style="color: #3b82f6;"><?= html(mb_substr($title, 0, 50)) ?></div>
-                                                    <div class="small text-muted">Заголовок (<?= html($titleTag) ?>)</div>
+                                                    <div class="small text-muted"><?php echo LANG_POSTBLOCK_IMAGETEXT_PREVIEW_TITLE_LABEL; ?> (<?= html($titleTag) ?>)</div>
                                                 </div>
                                             <?php } ?>
                                             
@@ -922,7 +922,7 @@ class ImageWithTextBlock extends BasePostBlock {
                                             <?php } else { ?>
                                                 <div class="content-placeholder text-center py-3">
                                                     <i class="bi bi-text-left text-muted"></i>
-                                                    <div class="small text-muted mt-1">Текст не добавлен</div>
+                                                    <div class="small text-muted mt-1"><?php echo LANG_POSTBLOCK_IMAGETEXT_PREVIEW_NO_TEXT; ?></div>
                                                 </div>
                                             <?php } ?>
                                         </div>
@@ -933,12 +933,12 @@ class ImageWithTextBlock extends BasePostBlock {
                             <div class="image-text-preview-info mt-3">
                                 <div class="row small text-muted">
                                     <div class="col-6">
-                                        <div><i class="bi bi-layout-split <?= $layoutIcon ?> me-1"></i>Макет: <strong><?= html($layoutText) ?></strong></div>
-                                        <div><i class="bi bi-arrows-angle-expand me-1"></i>Размер: <strong><?= html($sizeText) ?></strong></div>
+                                        <div><i class="bi bi-layout-split <?= $layoutIcon ?> me-1"></i><?php echo LANG_POSTBLOCK_IMAGETEXT_PREVIEW_INFO_LAYOUT; ?> <strong><?= html($layoutText) ?></strong></div>
+                                        <div><i class="bi bi-arrows-angle-expand me-1"></i><?php echo LANG_POSTBLOCK_IMAGETEXT_PREVIEW_INFO_SIZE; ?> <strong><?= html($sizeText) ?></strong></div>
                                     </div>
                                     <div class="col-6">
-                                        <div><i class="bi bi-text-left me-1"></i>Выравнивание: <strong><?= html($textAlign) ?></strong></div>
-                                        <div><i class="bi bi-arrows-vertical me-1"></i>Вертикально: <strong><?= html($verticalAlign) ?></strong></div>
+                                        <div><i class="bi bi-text-left me-1"></i><?php echo LANG_POSTBLOCK_IMAGETEXT_PREVIEW_INFO_ALIGN; ?> <strong><?= html($textAlign) ?></strong></div>
+                                        <div><i class="bi bi-arrows-vertical me-1"></i><?php echo LANG_POSTBLOCK_IMAGETEXT_PREVIEW_INFO_VERTICAL; ?> <strong><?= html($verticalAlign) ?></strong></div>
                                     </div>
                                 </div>
                             </div>
@@ -946,14 +946,14 @@ class ImageWithTextBlock extends BasePostBlock {
                     <?php } else { ?>
                         <div class="preview-empty-state">
                             <i class="bi bi-file-earmark-richtext"></i>
-                            <div class="empty-text">Контент не добавлен</div>
+                            <div class="empty-text"><?php echo LANG_POSTBLOCK_IMAGETEXT_PREVIEW_EMPTY_TEXT; ?></div>
                             <button type="button" class="btn btn-sm btn-outline-primary mt-2" 
                                     onclick="postBlocksManager.editBlock('{block_id}')">
-                                <i class="bi bi-plus-circle"></i> Добавить контент
+                                <i class="bi bi-plus-circle"></i> <?php echo LANG_POSTBLOCK_IMAGETEXT_PREVIEW_ADD_BTN; ?>
                             </button>
                             <div class="mt-3 small text-muted">
                                 <i class="bi bi-info-circle"></i>
-                                Этот блок объединяет изображение с текстовым описанием
+                                <?php echo LANG_POSTBLOCK_IMAGETEXT_PREVIEW_INFO_TEXT; ?>
                             </div>
                         </div>
                     <?php } ?>

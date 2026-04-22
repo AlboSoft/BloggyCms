@@ -1,0 +1,9 @@
+<?php
+
+define('LANG_TEMPLATE_POSTBLOCKS_INDEX_TITLE', 'Постблоки');
+define('LANG_TEMPLATE_POSTBLOCKS_INDEX_BADGE_POSTS', 'Посты');
+define('LANG_TEMPLATE_POSTBLOCKS_INDEX_BADGE_PAGES', 'Страницы');
+define('LANG_TEMPLATE_POSTBLOCKS_INDEX_SYSTEM_NAME', 'Системное имя:');
+define('LANG_TEMPLATE_POSTBLOCKS_INDEX_VERSION', 'Версия:');
+define('LANG_TEMPLATE_POSTBLOCKS_INDEX_AUTHOR', 'Автор:');
+define('LANG_TEMPLATE_POSTBLOCKS_INDEX_SETTINGS_BTN', 'Настройки');

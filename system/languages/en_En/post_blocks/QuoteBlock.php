@@ -1,0 +1,30 @@
+<?php
+
+define('LANG_POSTBLOCK_QUOTE_NAME', 'Quote');
+define('LANG_POSTBLOCK_QUOTE_DESCRIPTION', 'Block for formatting quotes with attribution');
+define('LANG_POSTBLOCK_QUOTE_DEFAULT_TEXT', 'Quote text...');
+define('LANG_POSTBLOCK_QUOTE_FORM_TEXT_LABEL', 'Quote Text');
+define('LANG_POSTBLOCK_QUOTE_FORM_TEXT_PLACEHOLDER', 'Enter quote text...');
+define('LANG_POSTBLOCK_QUOTE_FORM_AUTHOR_LABEL', 'Author');
+define('LANG_POSTBLOCK_QUOTE_FORM_AUTHOR_PLACEHOLDER', 'Quote author');
+define('LANG_POSTBLOCK_QUOTE_FORM_SOURCE_LABEL', 'Source');
+define('LANG_POSTBLOCK_QUOTE_FORM_SOURCE_PLACEHOLDER', 'Book, article, etc.');
+define('LANG_POSTBLOCK_QUOTE_SETTINGS_ALIGNMENT', 'Alignment');
+define('LANG_POSTBLOCK_QUOTE_ALIGN_LEFT', 'Left');
+define('LANG_POSTBLOCK_QUOTE_ALIGN_CENTER', 'Center');
+define('LANG_POSTBLOCK_QUOTE_ALIGN_RIGHT', 'Right');
+define('LANG_POSTBLOCK_QUOTE_SETTINGS_CUSTOM_CLASS', 'Custom CSS Class');
+define('LANG_POSTBLOCK_QUOTE_EMPTY_TEXT_COMMENT', 'QuoteBlock: empty text');
+define('LANG_POSTBLOCK_QUOTE_SHORTCODE_TEXT', 'Quote text');
+define('LANG_POSTBLOCK_QUOTE_SHORTCODE_AUTHOR', 'Quote author');
+define('LANG_POSTBLOCK_QUOTE_SHORTCODE_SOURCE', 'Quote source');
+define('LANG_POSTBLOCK_QUOTE_SHORTCODE_ALIGNMENT', 'Alignment (left/center/right)');
+define('LANG_POSTBLOCK_QUOTE_SHORTCODE_CUSTOM_CLASS', 'Custom CSS class');
+define('LANG_POSTBLOCK_QUOTE_VALIDATION_CUSTOM_CLASS', 'CSS class can only contain letters, numbers, hyphens and underscores');
+define('LANG_POSTBLOCK_QUOTE_PREVIEW_TITLE', 'Quote');
+define('LANG_POSTBLOCK_QUOTE_PREVIEW_CHARS', '%d chars');
+define('LANG_POSTBLOCK_QUOTE_PREVIEW_INFO_ALIGN', 'Alignment:');
+define('LANG_POSTBLOCK_QUOTE_PREVIEW_INFO_CLASS', 'Class:');
+define('LANG_POSTBLOCK_QUOTE_PREVIEW_EMPTY_TEXT', 'Quote text not added');
+define('LANG_POSTBLOCK_QUOTE_PREVIEW_ADD_BTN', 'Add Quote');
+define('LANG_POSTBLOCK_QUOTE_PREVIEW_INFO_TEXT', 'Use for formatting quotes with attribution');

@@ -21,7 +21,7 @@ class AdminGetPreview extends PostBlockAction {
             $input = json_decode(file_get_contents('php://input'), true);
             
             if (!isset($input['block_type'])) {
-                throw new Exception('Тип блока не указан');
+                throw new Exception(LANG_ACTION_POSTBLOCKS_ADMINGETPREVIEW_BLOCK_TYPE_NOT_SPECIFIED);
             }
             
             $blockType = $input['block_type'];
@@ -31,7 +31,7 @@ class AdminGetPreview extends PostBlockAction {
             $blockInstance = $this->postBlockManager->getBlockInstance($blockType);
             
             if (!$blockInstance) {
-                throw new Exception("Блок {$blockType} не найден");
+                throw new Exception(sprintf(LANG_ACTION_POSTBLOCKS_ADMINGETPREVIEW_BLOCK_NOT_FOUND, $blockType));
             }
             
             $blockInstance->loadPreviewAssets();

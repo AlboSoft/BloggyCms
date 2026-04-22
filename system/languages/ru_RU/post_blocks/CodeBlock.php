@@ -1,0 +1,37 @@
+<?php
+
+define('LANG_POSTBLOCK_CODE_NAME', 'Пример кода');
+define('LANG_POSTBLOCK_CODE_DESCRIPTION', 'Блок для вставки примеров кода с подсветкой синтаксиса и красивым оформлением');
+define('LANG_POSTBLOCK_CODE_DEFAULT_CODE', '// Ваш код здесь...');
+define('LANG_POSTBLOCK_CODE_LANGUAGE_TEXT', 'Текст');
+define('LANG_POSTBLOCK_CODE_PREVIEW_TITLE', 'Пример кода');
+define('LANG_POSTBLOCK_CODE_COPY_BTN', 'Копировать');
+define('LANG_POSTBLOCK_CODE_EDIT_BTN', 'Редактировать');
+define('LANG_POSTBLOCK_CODE_CHARS', 'символов');
+define('LANG_POSTBLOCK_CODE_LINE_NUMBERS', 'с номерами строк');
+define('LANG_POSTBLOCK_CODE_FORM_LANGUAGE_LABEL', 'Язык программирования');
+define('LANG_POSTBLOCK_CODE_FORM_FILENAME_LABEL', 'Имя файла (опционально)');
+define('LANG_POSTBLOCK_CODE_FORM_FILENAME_HINT', 'Отображается в заголовке блока с кодом');
+define('LANG_POSTBLOCK_CODE_FORM_CODE_LABEL', 'Код');
+define('LANG_POSTBLOCK_CODE_FORM_CODE_HINT', 'Поддерживается подсветка синтаксиса для различных языков программирования');
+define('LANG_POSTBLOCK_CODE_SETTINGS_THEME_LABEL', 'Тема подсветки');
+define('LANG_POSTBLOCK_CODE_SETTINGS_CSS_CLASS_LABEL', 'Дополнительный CSS класс');
+define('LANG_POSTBLOCK_CODE_SETTINGS_LINE_NUMBERS', 'Номера строк');
+define('LANG_POSTBLOCK_CODE_SETTINGS_COPY_BUTTON', 'Кнопка копирования');
+define('LANG_POSTBLOCK_CODE_SETTINGS_LANGUAGE_BADGE', 'Бейдж языка');
+define('LANG_POSTBLOCK_CODE_SETTINGS_PRISM_HINT', 'Для работы подсветки синтаксиса необходимо подключить библиотеку Prism.js в шаблоне');
+define('LANG_POSTBLOCK_CODE_THEME_DEFAULT', 'Стандартная (светлая)');
+define('LANG_POSTBLOCK_CODE_THEME_DARK', 'Темная');
+define('LANG_POSTBLOCK_CODE_EDITOR_PREVIEW_LABEL', 'Пример кода');
+define('LANG_POSTBLOCK_CODE_SHORTCODE_CODE', 'Код');
+define('LANG_POSTBLOCK_CODE_SHORTCODE_LANGUAGE', 'Язык программирования (техническое имя)');
+define('LANG_POSTBLOCK_CODE_SHORTCODE_LANGUAGE_BADGE', 'Бейдж с названием языка');
+define('LANG_POSTBLOCK_CODE_SHORTCODE_FILENAME', 'Имя файла');
+define('LANG_POSTBLOCK_CODE_SHORTCODE_COPY_BUTTON', 'Кнопка копирования');
+define('LANG_POSTBLOCK_CODE_SHORTCODE_CUSTOM_CLASS', 'Дополнительный CSS класс');
+define('LANG_POSTBLOCK_CODE_SHORTCODE_LINE_NUMBERS', 'Класс для номеров строк');
+define('LANG_POSTBLOCK_CODE_SHORTCODE_THEME', 'Тема подсветки кода');
+define('LANG_POSTBLOCK_CODE_VALIDATION_CSS_CLASS', 'CSS класс может содержать только буквы, цифры, дефисы и подчеркивания');
+define('LANG_POSTBLOCK_CODE_VALIDATION_THEME', 'Недопустимая тема подсветки');
+define('LANG_POSTBLOCK_CODE_COPY_TITLE', 'Скопировать код');
+define('LANG_POSTBLOCK_CODE_COPIED', 'Скопировано');

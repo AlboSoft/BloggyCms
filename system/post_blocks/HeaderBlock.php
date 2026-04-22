@@ -2,7 +2,7 @@
 class HeaderBlock extends BasePostBlock {
     
     public function getName(): string {
-        return 'Заголовок';
+        return LANG_POSTBLOCK_HEADER_NAME;
     }
 
     public function getSystemName(): string {
@@ -10,7 +10,7 @@ class HeaderBlock extends BasePostBlock {
     }
 
     public function getDescription(): string {
-        return 'Блок заголовка с выбором уровня, выравниванием и дополнительными настройками';
+        return LANG_POSTBLOCK_HEADER_DESCRIPTION;
     }
 
     public function getIcon(): string {
@@ -27,7 +27,7 @@ class HeaderBlock extends BasePostBlock {
 
     public function getDefaultContent(): array {
         return [
-            'text' => 'Новый заголовок'
+            'text' => LANG_POSTBLOCK_HEADER_DEFAULT_TEXT
         ];
     }
 
@@ -44,7 +44,7 @@ class HeaderBlock extends BasePostBlock {
         $content = $this->validateAndNormalizeContent($content);
         $settings = $this->validateAndNormalizeSettings($settings);
         
-        $text = $content['text'] ?? 'Ваш заголовок';
+        $text = $content['text'] ?? LANG_POSTBLOCK_HEADER_DEFAULT_TEXT;
         $level = $settings['level'] ?? 'h2';
         $alignment = $settings['alignment'] ?? 'left';
         
@@ -59,11 +59,11 @@ class HeaderBlock extends BasePostBlock {
                         </div>
                         <div class="preview-info">
                             <div class="preview-title">
-                                <strong>Заголовок</strong>
+                                <strong><?php echo LANG_POSTBLOCK_HEADER_PREVIEW_TITLE; ?></strong>
                                 <span class="badge bg-secondary badge-sm"><?= strtoupper($level) ?></span>
                             </div>
                             <div class="preview-stats">
-                                <?= strlen($text) ?> симв.
+                                <?= strlen($text) ?> <?php echo LANG_POSTBLOCK_HEADER_PREVIEW_CHARS; ?>
                             </div>
                         </div>
                     </div>
@@ -83,10 +83,10 @@ class HeaderBlock extends BasePostBlock {
                     <?php } else { ?>
                         <div class="preview-empty-state">
                             <i class="bi bi-type-h1"></i>
-                            <div class="empty-text">Заголовок не добавлен</div>
+                            <div class="empty-text"><?php echo LANG_POSTBLOCK_HEADER_PREVIEW_EMPTY_TITLE; ?></div>
                             <button type="button" class="btn btn-sm btn-outline-primary mt-2" 
                                     onclick="postBlocksManager.editBlock('{block_id}')">
-                                <i class="bi bi-plus-circle"></i> Добавить заголовок
+                                <i class="bi bi-plus-circle"></i> <?php echo LANG_POSTBLOCK_HEADER_PREVIEW_ADD_BTN; ?>
                             </button>
                         </div>
                     <?php } ?>
@@ -150,11 +150,11 @@ class HeaderBlock extends BasePostBlock {
         $stats = [];
         
         if (!empty($content['url'])) {
-            $stats[] = 'Изображение загружено';
+            $stats[] = LANG_POSTBLOCK_HEADER_STATS_IMAGE_UPLOADED;
         }
         
         if (!empty($content['alt'])) {
-            $stats[] = 'есть описание';
+            $stats[] = LANG_POSTBLOCK_HEADER_STATS_HAS_ALT;
         }
         
         if (!empty($settings['size']) && $settings['size'] !== 'medium') {
@@ -169,7 +169,7 @@ class HeaderBlock extends BasePostBlock {
     }
     
     protected function getEmptyText(): string {
-        return 'Изображение не загружено';
+        return LANG_POSTBLOCK_HEADER_EMPTY_TEXT;
     }
 
     public function getContentForm($currentContent = []): string {
@@ -179,14 +179,14 @@ class HeaderBlock extends BasePostBlock {
         ob_start();
         ?>
         <div class="mb-4">
-            <label class="form-label">Текст заголовка</label>
+            <label class="form-label"><?php echo LANG_POSTBLOCK_HEADER_FORM_TEXT_LABEL; ?></label>
             <input type="text" 
                    name="content[text]" 
                    class="form-control form-control-lg" 
                    value="<?= html($text) ?>" 
-                   placeholder="Введите текст заголовка"
+                   placeholder="<?php echo LANG_POSTBLOCK_HEADER_FORM_TEXT_PLACEHOLDER; ?>"
                    required>
-            <div class="form-text">Введите основной текст заголовка</div>
+            <div class="form-text"><?php echo LANG_POSTBLOCK_HEADER_FORM_TEXT_HINT; ?></div>
         </div>
         <?php
         return ob_get_clean();
@@ -204,27 +204,27 @@ class HeaderBlock extends BasePostBlock {
         <div class="row">
             <div class="col-md-6">
                 <div class="mb-4">
-                    <label class="form-label">Уровень заголовка</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_HEADER_SETTINGS_LEVEL; ?></label>
                     <select name="settings[level]" class="form-select">
-                        <option value="h1" <?= $level === 'h1' ? 'selected' : '' ?>>H1 - Главный заголовок</option>
-                        <option value="h2" <?= $level === 'h2' ? 'selected' : '' ?>>H2 - Основной заголовок</option>
-                        <option value="h3" <?= $level === 'h3' ? 'selected' : '' ?>>H3 - Подзаголовок</option>
-                        <option value="h4" <?= $level === 'h4' ? 'selected' : '' ?>>H4 - Мелкий заголовок</option>
-                        <option value="h5" <?= $level === 'h5' ? 'selected' : '' ?>>H5 - Второстепенный заголовок</option>
-                        <option value="h6" <?= $level === 'h6' ? 'selected' : '' ?>>H6 - Самый мелкий заголовок</option>
+                        <option value="h1" <?= $level === 'h1' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_HEADER_LEVEL_H1; ?></option>
+                        <option value="h2" <?= $level === 'h2' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_HEADER_LEVEL_H2; ?></option>
+                        <option value="h3" <?= $level === 'h3' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_HEADER_LEVEL_H3; ?></option>
+                        <option value="h4" <?= $level === 'h4' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_HEADER_LEVEL_H4; ?></option>
+                        <option value="h5" <?= $level === 'h5' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_HEADER_LEVEL_H5; ?></option>
+                        <option value="h6" <?= $level === 'h6' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_HEADER_LEVEL_H6; ?></option>
                     </select>
-                    <div class="form-text">Выберите семантический уровень заголовка для SEO</div>
+                    <div class="form-text"><?php echo LANG_POSTBLOCK_HEADER_SETTINGS_LEVEL_HINT; ?></div>
                 </div>
             </div>
             
             <div class="col-md-6">
                 <div class="mb-4">
-                    <label class="form-label">Выравнивание текста</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_HEADER_SETTINGS_ALIGNMENT; ?></label>
                     <select name="settings[alignment]" class="form-select">
-                        <option value="left" <?= $alignment === 'left' ? 'selected' : '' ?>>По левому краю</option>
-                        <option value="center" <?= $alignment === 'center' ? 'selected' : '' ?>>По центру</option>
-                        <option value="right" <?= $alignment === 'right' ? 'selected' : '' ?>>По правому краю</option>
-                        <option value="justify" <?= $alignment === 'justify' ? 'selected' : '' ?>>По ширине</option>
+                        <option value="left" <?= $alignment === 'left' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_HEADER_ALIGN_LEFT; ?></option>
+                        <option value="center" <?= $alignment === 'center' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_HEADER_ALIGN_CENTER; ?></option>
+                        <option value="right" <?= $alignment === 'right' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_HEADER_ALIGN_RIGHT; ?></option>
+                        <option value="justify" <?= $alignment === 'justify' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_HEADER_ALIGN_JUSTIFY; ?></option>
                     </select>
                 </div>
             </div>
@@ -233,34 +233,33 @@ class HeaderBlock extends BasePostBlock {
         <div class="row">
             <div class="col-md-6">
                 <div class="mb-4">
-                    <label class="form-label">Цвет текста</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_HEADER_SETTINGS_TEXT_COLOR; ?></label>
                     <input type="color" 
                            name="settings[text_color]" 
                            class="form-control form-control-color" 
                            value="<?= html($textColor) ?>" 
-                           title="Выберите цвет текста">
-                    <div class="form-text">Оставьте пустым для цвета по умолчанию</div>
+                           title="<?php echo LANG_POSTBLOCK_HEADER_COLOR_TITLE; ?>">
+                    <div class="form-text"><?php echo LANG_POSTBLOCK_HEADER_TEXT_COLOR_HINT; ?></div>
                 </div>
             </div>
             
             <div class="col-md-6">
                 <div class="mb-4">
-                    <label class="form-label">Дополнительный CSS класс</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_HEADER_SETTINGS_CSS_CLASS; ?></label>
                     <input type="text" 
                            name="settings[custom_class]" 
                            class="form-control" 
                            value="<?= html($customClass) ?>" 
                            placeholder="my-custom-class"
                            pattern="[a-zA-Z0-9-_ ]+">
-                    <div class="form-text">Только буквы, цифры, дефисы и подчеркивания</div>
+                    <div class="form-text"><?php echo LANG_POSTBLOCK_HEADER_CSS_CLASS_HINT; ?></div>
                 </div>
             </div>
         </div>
 
         <div class="alert alert-info">
             <i class="bi bi-info-circle me-2"></i>
-            <strong>Совет по SEO:</strong> Используйте H1 только для главного заголовка страницы. 
-            Для подзаголовков используйте H2-H6 в иерархическом порядке.
+            <strong><?php echo LANG_POSTBLOCK_HEADER_SEO_TIP_TITLE; ?></strong> <?php echo LANG_POSTBLOCK_HEADER_SEO_TIP_TEXT; ?>
         </div>
         <?php
         return ob_get_clean();
@@ -271,7 +270,7 @@ class HeaderBlock extends BasePostBlock {
         $content = $this->validateAndNormalizeContent($content);
         
         $level = $settings['level'] ?? 'h2';
-        $text = $content['text'] ?? 'Ваш заголовок';
+        $text = $content['text'] ?? LANG_POSTBLOCK_HEADER_DEFAULT_TEXT;
         $alignment = $settings['alignment'] ?? 'left';
         $textColor = $settings['text_color'] ?? '';
         $customClass = $settings['custom_class'] ?? '';
@@ -287,12 +286,12 @@ class HeaderBlock extends BasePostBlock {
 
     public function getShortcodes(): array {
         return array_merge(parent::getShortcodes(), [
-            '{text}' => 'Текст заголовка',
-            '{level}' => 'Уровень заголовка (h1-h6)',
-            '{alignment}' => 'Выравнивание текста',
-            '{custom_class}' => 'Дополнительный CSS класс',
-            '{style}' => 'Инлайн стили (например: style="color: #000")',
-            '{text_color}' => 'Цвет текста в HEX формате'
+            '{text}' => LANG_POSTBLOCK_HEADER_SHORTCODE_TEXT,
+            '{level}' => LANG_POSTBLOCK_HEADER_SHORTCODE_LEVEL,
+            '{alignment}' => LANG_POSTBLOCK_HEADER_SHORTCODE_ALIGNMENT,
+            '{custom_class}' => LANG_POSTBLOCK_HEADER_SHORTCODE_CUSTOM_CLASS,
+            '{style}' => LANG_POSTBLOCK_HEADER_SHORTCODE_STYLE,
+            '{text_color}' => LANG_POSTBLOCK_HEADER_SHORTCODE_TEXT_COLOR
         ]);
     }
 
@@ -301,19 +300,19 @@ class HeaderBlock extends BasePostBlock {
         $settings = $this->validateAndNormalizeSettings($settings);
 
         if (!empty($settings['level']) && !in_array($settings['level'], ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'])) {
-            $errors[] = 'Недопустимый уровень заголовка. Допустимые значения: h1-h6';
+            $errors[] = LANG_POSTBLOCK_HEADER_VALIDATION_LEVEL;
         }
 
         if (!empty($settings['alignment']) && !in_array($settings['alignment'], ['left', 'center', 'right', 'justify'])) {
-            $errors[] = 'Недопустимое значение выравнивания';
+            $errors[] = LANG_POSTBLOCK_HEADER_VALIDATION_ALIGNMENT;
         }
 
         if (!empty($settings['custom_class']) && !preg_match('/^[a-zA-Z0-9-_ ]+$/', $settings['custom_class'])) {
-            $errors[] = 'CSS класс может содержать только буквы, цифры, дефисы, подчеркивания и пробелы';
+            $errors[] = LANG_POSTBLOCK_HEADER_VALIDATION_CSS_CLASS;
         }
 
         if (!empty($settings['text_color']) && !preg_match('/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/', $settings['text_color'])) {
-            $errors[] = 'Недопустимый формат цвета. Используйте HEX формат: #000000';
+            $errors[] = LANG_POSTBLOCK_HEADER_VALIDATION_TEXT_COLOR;
         }
 
         return [empty($errors), $errors];
@@ -361,7 +360,7 @@ class HeaderBlock extends BasePostBlock {
                 $content['text'] = mb_substr($content['text'], 0, 200) . '...';
             }
         } else {
-            $content['text'] = 'Новый заголовок';
+            $content['text'] = LANG_POSTBLOCK_HEADER_DEFAULT_TEXT;
         }
 
         return $content;
@@ -391,11 +390,11 @@ class HeaderBlock extends BasePostBlock {
 
     public function getSeoRecommendations(): array {
         return [
-            'Используйте только один H1 на странице',
-            'Соблюдайте иерархию заголовков (H1 → H2 → H3 и т.д.)',
-            'Заголовки должны точно отражать содержание раздела',
-            'Избегайте слишком длинных заголовков',
-            'Включайте ключевые слова в заголовки'
+            LANG_POSTBLOCK_HEADER_SEO_RECOMMENDATION_1,
+            LANG_POSTBLOCK_HEADER_SEO_RECOMMENDATION_2,
+            LANG_POSTBLOCK_HEADER_SEO_RECOMMENDATION_3,
+            LANG_POSTBLOCK_HEADER_SEO_RECOMMENDATION_4,
+            LANG_POSTBLOCK_HEADER_SEO_RECOMMENDATION_5
         ];
     }
 
@@ -405,14 +404,14 @@ class HeaderBlock extends BasePostBlock {
 
         if ($level === 'h1') {
             if ($textLength < 20) {
-                $warnings[] = 'H1 заголовок слишком короткий (рекомендуется 20-70 символов)';
+                $warnings[] = LANG_POSTBLOCK_HEADER_SEO_H1_SHORT;
             }
             if ($textLength > 70) {
-                $warnings[] = 'H1 заголовок слишком длинный (рекомендуется 20-70 символов)';
+                $warnings[] = LANG_POSTBLOCK_HEADER_SEO_H1_LONG;
             }
         } else {
             if ($textLength > 150) {
-                $warnings[] = "{$level} заголовок слишком длинный (рекомендуется до 150 символов)";
+                $warnings[] = sprintf(LANG_POSTBLOCK_HEADER_SEO_OTHER_LONG, strtoupper($level));
             }
         }
 

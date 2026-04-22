@@ -2,7 +2,7 @@
 class CustomHtmlBlock extends BasePostBlock {
     
     public function getName(): string {
-        return 'Произвольный HTML';
+        return LANG_POSTBLOCK_CUSTOMHTML_NAME;
     }
 
     public function getSystemName(): string {
@@ -10,7 +10,7 @@ class CustomHtmlBlock extends BasePostBlock {
     }
 
     public function getDescription(): string {
-        return 'Блок для вставки произвольного HTML кода с подсветкой синтаксиса';
+        return LANG_POSTBLOCK_CUSTOMHTML_DESCRIPTION;
     }
 
     public function getIcon(): string {
@@ -27,7 +27,7 @@ class CustomHtmlBlock extends BasePostBlock {
 
     public function getDefaultContent(): array {
         return [
-            'html_content' => '<!-- Вставьте ваш HTML код здесь -->'
+            'html_content' => LANG_POSTBLOCK_CUSTOMHTML_DEFAULT_CONTENT
         ];
     }
 
@@ -44,14 +44,14 @@ class CustomHtmlBlock extends BasePostBlock {
         ob_start();
         ?>
         <div class="mb-4">
-            <label class="form-label">HTML код *</label>
+            <label class="form-label"><?php echo LANG_POSTBLOCK_CUSTOMHTML_FORM_LABEL; ?> *</label>
             <div id="html-editor-container" style="height: 400px; border: 1px solid #dee2e6; border-radius: 0.375rem;"></div>
             <textarea name="content[html_content]" 
                      id="html-editor-textarea" 
                      style="display: none;"
                      required><?= html($htmlContent) ?></textarea>
             <div class="form-text">
-                Вставьте любой HTML код
+                <?php echo LANG_POSTBLOCK_CUSTOMHTML_FORM_HINT; ?>
             </div>
         </div>
         <?php
@@ -65,7 +65,7 @@ class CustomHtmlBlock extends BasePostBlock {
         ob_start();
         ?>
         <div class="mb-4">
-            <label class="form-label">Дополнительный CSS класс</label>
+            <label class="form-label"><?php echo LANG_POSTBLOCK_CUSTOMHTML_SETTINGS_CSS_CLASS; ?></label>
             <input type="text" 
                    name="settings[custom_class]" 
                    class="form-control" 
@@ -84,13 +84,13 @@ class CustomHtmlBlock extends BasePostBlock {
         <div class="custom-html-block-preview card">
             <div class="card-header py-2 bg-dark text-white">
                 <div class="d-flex justify-content-between align-items-center">
-                    <span><i class="bi bi-code-slash me-1"></i>Произвольный HTML</span>
-                    <span class="badge bg-secondary">' . mb_strlen($htmlContent) . ' симв.</span>
+                    <span><i class="bi bi-code-slash me-1"></i>' . LANG_POSTBLOCK_CUSTOMHTML_EDITOR_TITLE . '</span>
+                    <span class="badge bg-secondary">' . mb_strlen($htmlContent) . ' ' . LANG_POSTBLOCK_CUSTOMHTML_EDITOR_CHARS . '</span>
                 </div>
             </div>
             <div class="card-body">
                 <div class="text-muted small">
-                    <i class="bi bi-info-circle me-1"></i>HTML блок с подсветкой синтаксиса
+                    <i class="bi bi-info-circle me-1"></i>' . LANG_POSTBLOCK_CUSTOMHTML_EDITOR_HINT . '
                 </div>
             </div>
         </div>';
@@ -102,8 +102,8 @@ class CustomHtmlBlock extends BasePostBlock {
 
     public function getShortcodes(): array {
         return array_merge(parent::getShortcodes(), [
-            '{html_content}' => 'HTML код',
-            '{custom_class}' => 'Дополнительный CSS класс'
+            '{html_content}' => LANG_POSTBLOCK_CUSTOMHTML_SHORTCODE_HTML,
+            '{custom_class}' => LANG_POSTBLOCK_CUSTOMHTML_SHORTCODE_CUSTOM_CLASS
         ]);
     }
 
@@ -120,7 +120,7 @@ class CustomHtmlBlock extends BasePostBlock {
         $errors = [];
         $settings = $this->validateAndNormalizeSettings($settings);
         if (!empty($settings['custom_class']) && !preg_match('/^[a-zA-Z0-9-_ ]+$/', $settings['custom_class'])) {
-            $errors[] = 'CSS класс может содержать только буквы, цифры, дефисы и подчеркивания';
+            $errors[] = LANG_POSTBLOCK_CUSTOMHTML_VALIDATION_CSS_CLASS;
         }
 
         return [empty($errors), $errors];
@@ -164,7 +164,7 @@ class CustomHtmlBlock extends BasePostBlock {
         $presetName = $settings['preset_name'] ?? '';
         
         if (empty($htmlContent)) {
-            return '<!-- CustomHtmlBlock: пустой HTML код -->';
+            return LANG_POSTBLOCK_CUSTOMHTML_EMPTY_COMMENT;
         }
 
         $presetClass = '';
@@ -251,7 +251,7 @@ class CustomHtmlBlock extends BasePostBlock {
         $content = $this->validateAndNormalizeContent($content);
         $settings = $this->validateAndNormalizeSettings($settings);
         
-        $htmlContent = $content['html_content'] ?? '<!-- Вставьте ваш HTML код здесь -->';
+        $htmlContent = $content['html_content'] ?? LANG_POSTBLOCK_CUSTOMHTML_DEFAULT_CONTENT;
         $customClass = $settings['custom_class'] ?? '';
         
         $previewHtml = html($htmlContent);
@@ -275,15 +275,15 @@ class CustomHtmlBlock extends BasePostBlock {
                         </div>
                         <div class="preview-info">
                             <div class="preview-title">
-                                <strong>Произвольный HTML</strong>
+                                <strong><?php echo LANG_POSTBLOCK_CUSTOMHTML_PREVIEW_TITLE; ?></strong>
                                 <?php if ($customClass) { ?>
                                     <span class="badge bg-secondary badge-sm"><?= html($customClass) ?></span>
                                 <?php } ?>
                             </div>
                             <div class="preview-stats">
-                                <?= $htmlLength ?> симв.
+                                <?= $htmlLength ?> <?php echo LANG_POSTBLOCK_CUSTOMHTML_PREVIEW_CHARS; ?>
                                 <?php if ($tagCount > 0) { ?>
-                                    · <?= $tagCount ?> тег<?= $tagCount != 1 ? 'ов' : '' ?>
+                                    · <?= $tagCount ?> <?php echo plural_form($tagCount, explode('|', LANG_POSTBLOCK_CUSTOMHTML_PREVIEW_TAGS)); ?>
                                 <?php } ?>
                             </div>
                         </div>
@@ -297,12 +297,12 @@ class CustomHtmlBlock extends BasePostBlock {
                 </div>
                 
                 <div class="preview-body">
-                    <?php if (!empty(trim($htmlContent)) && trim($htmlContent) !== '<!-- Вставьте ваш HTML код здесь -->') { ?>
+                    <?php if (!empty(trim($htmlContent)) && trim($htmlContent) !== LANG_POSTBLOCK_CUSTOMHTML_DEFAULT_CONTENT) { ?>
                         <div class="custom-html-preview-container">
                             <div class="html-code-preview border rounded bg-dark text-light mb-3">
                                 <div class="html-preview-header d-flex justify-content-between align-items-center p-2 border-bottom">
-                                    <span class="small"><i class="bi bi-code me-1"></i>HTML код</span>
-                                    <span class="badge bg-info"><?= $htmlLength ?> симв.</span>
+                                    <span class="small"><i class="bi bi-code me-1"></i><?php echo LANG_POSTBLOCK_CUSTOMHTML_PREVIEW_CODE_TITLE; ?></span>
+                                    <span class="badge bg-info"><?= $htmlLength ?> <?php echo LANG_POSTBLOCK_CUSTOMHTML_PREVIEW_CHARS; ?></span>
                                 </div>
                                 <div class="html-preview-content p-3">
                                     <pre class="m-0" style="font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.4; white-space: pre-wrap; word-break: break-all; color: #e9ecef;">
@@ -313,20 +313,20 @@ class CustomHtmlBlock extends BasePostBlock {
                             
                             <div class="alert alert-warning p-2 small mb-0">
                                 <i class="bi bi-shield-exclamation me-1"></i>
-                                <strong>Безопасность:</strong> Этот блок содержит произвольный HTML. Убедитесь, что код безопасен.
+                                <strong><?php echo LANG_POSTBLOCK_CUSTOMHTML_PREVIEW_SECURITY_TITLE; ?></strong> <?php echo LANG_POSTBLOCK_CUSTOMHTML_PREVIEW_SECURITY_TEXT; ?>
                             </div>
                         </div>
                     <?php } else { ?>
                         <div class="preview-empty-state">
                             <i class="bi bi-code-square"></i>
-                            <div class="empty-text">HTML код не добавлен</div>
+                            <div class="empty-text"><?php echo LANG_POSTBLOCK_CUSTOMHTML_PREVIEW_EMPTY_TITLE; ?></div>
                             <button type="button" class="btn btn-sm btn-outline-primary mt-2" 
                                     onclick="postBlocksManager.editBlock('{block_id}')">
-                                <i class="bi bi-plus-circle"></i> Добавить HTML
+                                <i class="bi bi-plus-circle"></i> <?php echo LANG_POSTBLOCK_CUSTOMHTML_PREVIEW_ADD_BTN; ?>
                             </button>
                             <div class="mt-3 small text-muted">
                                 <i class="bi bi-info-circle"></i>
-                                Используйте этот блок для вставки произвольного HTML кода
+                                <?php echo LANG_POSTBLOCK_CUSTOMHTML_PREVIEW_EMPTY_HINT; ?>
                             </div>
                         </div>
                     <?php } ?>

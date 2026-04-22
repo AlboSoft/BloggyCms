@@ -1,0 +1,7 @@
+<?php
+
+define('LANG_ACTION_POSTBLOCKS_ADMINPRESETCREATE_SYSTEM_OR_NAME_NOT_SPECIFIED', 'Block system name or preset name not specified');
+define('LANG_ACTION_POSTBLOCKS_ADMINPRESETCREATE_BLOCK_NOT_FOUND', 'Block not found');
+define('LANG_ACTION_POSTBLOCKS_ADMINPRESETCREATE_PRESET_EXISTS', 'A preset with this name already exists');
+define('LANG_ACTION_POSTBLOCKS_ADMINPRESETCREATE_SUCCESS', 'Preset created successfully');
+define('LANG_ACTION_POSTBLOCKS_ADMINPRESETCREATE_CREATE_ERROR', 'Error creating preset');

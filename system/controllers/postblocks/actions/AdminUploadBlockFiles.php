@@ -19,7 +19,7 @@ class AdminUploadBlockFiles extends PostBlockAction {
             $blockType = $_POST['block_type'] ?? '';
             
             if (empty($blockType)) {
-                throw new \Exception('Не указан тип блока');
+                throw new \Exception(LANG_ACTION_POSTBLOCKS_ADMINUPLOADBLOCKFILES_TYPE_NOT_SPECIFIED);
             }
 
             $contentJson = $_POST['content_json'] ?? '{}';
@@ -37,7 +37,7 @@ class AdminUploadBlockFiles extends PostBlockAction {
             $postBlock = $this->postBlockManager->getPostBlock($blockType);
             
             if (!$postBlock || !$postBlock['class']) {
-                throw new \Exception('Блок не найден: ' . $blockType);
+                throw new \Exception(LANG_ACTION_POSTBLOCKS_ADMINUPLOADBLOCKFILES_BLOCK_NOT_FOUND . $blockType);
             }
 
             $blockInstance = $postBlock['class'];
@@ -56,7 +56,7 @@ class AdminUploadBlockFiles extends PostBlockAction {
 
             $this->jsonResponse([
                 'success' => true,
-                'message' => 'Данные блока успешно сохранены',
+                'message' => LANG_ACTION_POSTBLOCKS_ADMINUPLOADBLOCKFILES_SUCCESS,
                 'block_data' => [
                     'content' => $content,
                     'settings' => $settings

@@ -3,7 +3,7 @@
 class VideoBlock extends BasePostBlock {
 
     public function getName(): string {
-        return 'Видео';
+        return LANG_POSTBLOCK_VIDEO_NAME;
     }
 
     public function getSystemName(): string {
@@ -11,7 +11,7 @@ class VideoBlock extends BasePostBlock {
     }
 
     public function getDescription(): string {
-        return 'Вставляет видео с поддержкой загрузки MP4, а также вставки с Rutube, VK Video и Youtube.';
+        return LANG_POSTBLOCK_VIDEO_DESCRIPTION;
     }
 
     public function getIcon(): string {
@@ -34,12 +34,12 @@ class VideoBlock extends BasePostBlock {
 
     public function getShortcodes(): array {
         return array_merge(parent::getShortcodes(), [
-            '{video_embed}' => 'HTML-код вставки видео',
-            '{video_url}' => 'URL видео',
-            '{video_type}' => 'Тип видео (upload, rutube, vk, youtube)',
-            '{caption}' => 'Подпись под видео',
-            '{caption_html}' => 'HTML-код подписи с обрамлением',
-            '{poster}' => 'URL постера (превью) для загруженного видео',
+            '{video_embed}' => LANG_POSTBLOCK_VIDEO_SHORTCODE_EMBED,
+            '{video_url}' => LANG_POSTBLOCK_VIDEO_SHORTCODE_URL,
+            '{video_type}' => LANG_POSTBLOCK_VIDEO_SHORTCODE_TYPE,
+            '{caption}' => LANG_POSTBLOCK_VIDEO_SHORTCODE_CAPTION,
+            '{caption_html}' => LANG_POSTBLOCK_VIDEO_SHORTCODE_CAPTION_HTML,
+            '{poster}' => LANG_POSTBLOCK_VIDEO_SHORTCODE_POSTER,
         ]);
     }
 
@@ -78,11 +78,11 @@ class VideoBlock extends BasePostBlock {
         $hasVideo = !empty($videoUrl) || !empty($content['video_id']);
         
         $typeLabel = match($videoType) {
-            'upload' => 'Загруженное',
+            'upload' => LANG_POSTBLOCK_VIDEO_TYPE_UPLOAD,
             'rutube' => 'Rutube',
             'vk' => 'VK Video',
             'youtube' => 'Youtube',
-            default => 'Неизвестно'
+            default => LANG_POSTBLOCK_VIDEO_TYPE_UNKNOWN
         };
         
         ob_start();
@@ -96,21 +96,21 @@ class VideoBlock extends BasePostBlock {
                         </div>
                         <div class="preview-info">
                             <div class="preview-title">
-                                <strong>Видео</strong>
+                                <strong><?php echo LANG_POSTBLOCK_VIDEO_PREVIEW_TITLE; ?></strong>
                                 <span class="badge bg-info badge-sm"><?= $typeLabel ?></span>
                                 <?php if ($hasVideo) { ?>
-                                    <span class="badge bg-success badge-sm">Загружено</span>
+                                    <span class="badge bg-success badge-sm"><?php echo LANG_POSTBLOCK_VIDEO_PREVIEW_UPLOADED; ?></span>
                                 <?php } ?>
                             </div>
                             <div class="preview-stats">
                                 <?php if ($hasVideo) { ?>
                                     <?php if ($videoType === 'upload') { ?>
-                                        Локальный файл
+                                        <?php echo LANG_POSTBLOCK_VIDEO_PREVIEW_LOCAL; ?>
                                     <?php } else { ?>
-                                        Внешняя ссылка
+                                        <?php echo LANG_POSTBLOCK_VIDEO_PREVIEW_EXTERNAL; ?>
                                     <?php } ?>
                                 <?php } else { ?>
-                                    Не загружено
+                                    <?php echo LANG_POSTBLOCK_VIDEO_PREVIEW_NOT_UPLOADED; ?>
                                 <?php } ?>
                             </div>
                         </div>
@@ -130,7 +130,7 @@ class VideoBlock extends BasePostBlock {
                                  style="aspect-ratio: 16/9; border-radius: 8px;">
                                 <div class="text-center text-white">
                                     <i class="bi bi-play-circle display-1 mb-2"></i>
-                                    <p class="mb-0">Видео: <?= $typeLabel ?></p>
+                                    <p class="mb-0"><?php echo LANG_POSTBLOCK_VIDEO_PREVIEW_VIDEO_LABEL; ?> <?= $typeLabel ?></p>
                                     <small class="text-white-50">
                                         <?= $videoType === 'upload' ? basename($videoUrl) : parse_url($videoUrl, PHP_URL_HOST) ?>
                                     </small>
@@ -150,10 +150,10 @@ class VideoBlock extends BasePostBlock {
                     <?php } else { ?>
                         <div class="preview-empty-state">
                             <i class="bi bi-camera-video"></i>
-                            <div class="empty-text">Видео не загружено</div>
+                            <div class="empty-text"><?php echo LANG_POSTBLOCK_VIDEO_PREVIEW_EMPTY_TEXT; ?></div>
                             <button type="button" class="btn btn-sm btn-outline-primary mt-2" 
                                     onclick="postBlocksManager.editBlock('{block_id}')">
-                                <i class="bi bi-plus-circle"></i> Добавить видео
+                                <i class="bi bi-plus-circle"></i> <?php echo LANG_POSTBLOCK_VIDEO_PREVIEW_ADD_BTN; ?>
                             </button>
                         </div>
                     <?php } ?>
@@ -173,17 +173,17 @@ class VideoBlock extends BasePostBlock {
             return '
             <div class="post-block-video-preview text-center p-3 bg-light border rounded">
                 <i class="bi bi-camera-video fs-1 text-muted"></i>
-                <p class="text-muted mt-2 mb-0">Видео не загружено</p>
-                <small class="text-secondary">Нажмите "Редактировать", чтобы добавить видео</small>
+                <p class="text-muted mt-2 mb-0">' . LANG_POSTBLOCK_VIDEO_EDITOR_EMPTY . '</p>
+                <small class="text-secondary">' . LANG_POSTBLOCK_VIDEO_EDITOR_HINT . '</small>
             </div>';
         }
         
         $typeLabel = match($videoType) {
-            'upload' => 'Локальное видео',
+            'upload' => LANG_POSTBLOCK_VIDEO_TYPE_UPLOAD,
             'rutube' => 'Rutube',
             'vk' => 'VK Video',
             'youtube' => 'Youtube',
-            default => 'Видео'
+            default => LANG_POSTBLOCK_VIDEO_TYPE_UNKNOWN
         };
         
         return '
@@ -215,9 +215,9 @@ class VideoBlock extends BasePostBlock {
         ?>
         <div class="video-block-form" id="<?= $formId ?>" data-video-block>
             <div class="mb-3">
-                <label class="form-label">Источник видео</label>
+                <label class="form-label"><?php echo LANG_POSTBLOCK_VIDEO_FORM_SOURCE_LABEL; ?></label>
                 <select name="content[video_type]" class="form-select" data-video-type-select>
-                    <option value="upload" <?= $videoType === 'upload' ? 'selected' : '' ?>>Загрузить файл (MP4)</option>
+                    <option value="upload" <?= $videoType === 'upload' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_VIDEO_FORM_SOURCE_UPLOAD; ?></option>
                     <option value="rutube" <?= $videoType === 'rutube' ? 'selected' : '' ?>>Rutube</option>
                     <option value="vk" <?= $videoType === 'vk' ? 'selected' : '' ?>>VK Video</option>
                     <option value="youtube" <?= $videoType === 'youtube' ? 'selected' : '' ?>>Youtube</option>
@@ -226,25 +226,25 @@ class VideoBlock extends BasePostBlock {
 
             <div class="upload-section" data-upload-section style="<?= $videoType !== 'upload' ? 'display: none;' : '' ?>">
                 <div class="mb-3">
-                    <label class="form-label">Видеофайл (MP4)</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_VIDEO_FORM_VIDEO_LABEL; ?></label>
                     <input type="file" 
                         name="video_file" 
                         class="form-control" 
                         accept=".mp4,video/mp4"
                         data-video-file>
                     <div class="form-text">
-                        Поддерживается формат MP4. Максимальный размер: 100MB.
+                        <?php echo LANG_POSTBLOCK_VIDEO_FORM_VIDEO_HINT; ?>
                     </div>
                 </div>
                 
                 <div class="mb-3">
-                    <label class="form-label">Постер (превью, опционально)</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_VIDEO_FORM_POSTER_LABEL; ?></label>
                     <input type="file" 
                         name="video_poster" 
                         class="form-control" 
                         accept="image/*">
                     <div class="form-text">
-                        Изображение, которое будет показываться до начала воспроизведения.
+                        <?php echo LANG_POSTBLOCK_VIDEO_FORM_POSTER_HINT; ?>
                     </div>
                 </div>
                 
@@ -256,7 +256,7 @@ class VideoBlock extends BasePostBlock {
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="remove_video" value="1" id="remove_video_<?= $formId ?>">
                                 <label class="form-check-label text-danger" for="remove_video_<?= $formId ?>">
-                                    Удалить
+                                    <?php echo LANG_POSTBLOCK_VIDEO_FORM_REMOVE; ?>
                                 </label>
                             </div>
                         </div>
@@ -271,7 +271,7 @@ class VideoBlock extends BasePostBlock {
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="remove_poster" value="1" id="remove_poster_<?= $formId ?>">
                                 <label class="form-check-label text-danger" for="remove_poster_<?= $formId ?>">
-                                    Удалить
+                                    <?php echo LANG_POSTBLOCK_VIDEO_FORM_REMOVE; ?>
                                 </label>
                             </div>
                         </div>
@@ -283,13 +283,13 @@ class VideoBlock extends BasePostBlock {
                 <div class="mb-3">
                     <label class="form-label" data-url-label>
                         <?php if ($videoType === 'rutube') { ?>
-                            Ссылка на видео Rutube
+                            <?php echo LANG_POSTBLOCK_VIDEO_FORM_RUTUBE_LABEL; ?>
                         <?php } elseif ($videoType === 'vk') { ?>
-                            Ссылка на видео VK
+                            <?php echo LANG_POSTBLOCK_VIDEO_FORM_VK_LABEL; ?>
                         <?php } elseif ($videoType === 'youtube') { ?>
-                            Ссылка на видео Youtube
+                            <?php echo LANG_POSTBLOCK_VIDEO_FORM_YOUTUBE_LABEL; ?>
                         <?php } else { ?>
-                            Ссылка на видео
+                            <?php echo LANG_POSTBLOCK_VIDEO_FORM_URL_LABEL; ?>
                         <?php } ?>
                     </label>
                    <input type="url" 
@@ -298,18 +298,18 @@ class VideoBlock extends BasePostBlock {
        data-video-url-input
        value="<?= $videoType !== 'upload' ? html($videoUrl) : '' ?>" 
        placeholder="<?= 
-           $videoType === 'youtube' ? 'https://www.youtube.com/watch?v=...' : 
-           ($videoType === 'rutube' ? 'https://rutube.ru/video/...' : 
-           ($videoType === 'vk' ? 'https://vk.com/video...' : 'https://...')) 
+           $videoType === 'youtube' ? LANG_POSTBLOCK_VIDEO_PLACEHOLDER_YOUTUBE : 
+           ($videoType === 'rutube' ? LANG_POSTBLOCK_VIDEO_PLACEHOLDER_RUTUBE : 
+           ($videoType === 'vk' ? LANG_POSTBLOCK_VIDEO_PLACEHOLDER_VK : LANG_POSTBLOCK_VIDEO_PLACEHOLDER_DEFAULT)) 
        ?>">
 
 <div class="form-text" data-url-hint>
     <?php if ($videoType === 'youtube') { ?>
-        Пример: https://www.youtube.com/watch?v=xxxxxx или https://youtu.be/xxxxxx
+        <?php echo LANG_POSTBLOCK_VIDEO_HINT_YOUTUBE; ?>
     <?php } elseif ($videoType === 'rutube') { ?>
-        Пример: https://rutube.ru/video/private/xxx/ или https://rutube.ru/video/xxx/
+        <?php echo LANG_POSTBLOCK_VIDEO_HINT_RUTUBE; ?>
     <?php } elseif ($videoType === 'vk') { ?>
-        Пример: https://vk.com/video-xxx_xxx или https://vk.com/video?z=video-xxx_xxx
+        <?php echo LANG_POSTBLOCK_VIDEO_HINT_VK; ?>
     <?php } ?>
 </div>
                 </div>
@@ -317,12 +317,12 @@ class VideoBlock extends BasePostBlock {
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Подпись (опционально)</label>
+                <label class="form-label"><?php echo LANG_POSTBLOCK_VIDEO_FORM_CAPTION_LABEL; ?></label>
                 <input type="text" 
                     name="content[caption]" 
                     class="form-control" 
                     value="<?= $caption ?>" 
-                    placeholder="Описание видео">
+                    placeholder="<?php echo LANG_POSTBLOCK_VIDEO_FORM_CAPTION_PLACEHOLDER; ?>">
             </div>
         </div>
         <?php
@@ -346,18 +346,18 @@ class VideoBlock extends BasePostBlock {
         <div class="row">
             <div class="col-md-6">
                 <div class="mb-3">
-                    <label class="form-label">Соотношение сторон</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_VIDEO_SETTINGS_ASPECT_RATIO; ?></label>
                     <select name="settings[aspect_ratio]" class="form-select">
-                        <option value="16:9" <?= $aspectRatio === '16:9' ? 'selected' : '' ?>>16:9 (Широкоформатное)</option>
-                        <option value="4:3" <?= $aspectRatio === '4:3' ? 'selected' : '' ?>>4:3 (Стандартное)</option>
-                        <option value="1:1" <?= $aspectRatio === '1:1' ? 'selected' : '' ?>>1:1 (Квадратное)</option>
-                        <option value="9:16" <?= $aspectRatio === '9:16' ? 'selected' : '' ?>>9:16 (Вертикальное)</option>
+                        <option value="16:9" <?= $aspectRatio === '16:9' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_VIDEO_RATIO_169; ?></option>
+                        <option value="4:3" <?= $aspectRatio === '4:3' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_VIDEO_RATIO_43; ?></option>
+                        <option value="1:1" <?= $aspectRatio === '1:1' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_VIDEO_RATIO_11; ?></option>
+                        <option value="9:16" <?= $aspectRatio === '9:16' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_VIDEO_RATIO_916; ?></option>
                     </select>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="mb-3">
-                    <label class="form-label">Дополнительный CSS класс</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_VIDEO_SETTINGS_CUSTOM_CLASS; ?></label>
                     <input type="text" name="settings[custom_class]" class="form-control" value="<?= $customClass ?>" placeholder="my-video">
                 </div>
             </div>
@@ -366,13 +366,13 @@ class VideoBlock extends BasePostBlock {
         <div class="row">
             <div class="col-md-6">
                 <div class="mb-3">
-                    <label class="form-label">Ширина</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_VIDEO_SETTINGS_WIDTH; ?></label>
                     <input type="text" name="settings[width]" class="form-control" value="<?= $width ?>" placeholder="100% или 800px">
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="mb-3">
-                    <label class="form-label">Высота</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_VIDEO_SETTINGS_HEIGHT; ?></label>
                     <input type="text" name="settings[height]" class="form-control" value="<?= $height ?>" placeholder="auto или 450px">
                 </div>
             </div>
@@ -382,25 +382,25 @@ class VideoBlock extends BasePostBlock {
             <div class="col-md-3">
                 <div class="form-check form-switch mb-3">
                     <input class="form-check-input" type="checkbox" name="settings[controls]" id="video_controls" value="1" <?= $controls ? 'checked' : '' ?>>
-                    <label class="form-check-label" for="video_controls">Элементы управления</label>
+                    <label class="form-check-label" for="video_controls"><?php echo LANG_POSTBLOCK_VIDEO_SETTINGS_CONTROLS; ?></label>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-check form-switch mb-3">
                     <input class="form-check-input" type="checkbox" name="settings[autoplay]" id="video_autoplay" value="1" <?= $autoplay ? 'checked' : '' ?>>
-                    <label class="form-check-label" for="video_autoplay">Автовоспроизведение</label>
+                    <label class="form-check-label" for="video_autoplay"><?php echo LANG_POSTBLOCK_VIDEO_SETTINGS_AUTOPLAY; ?></label>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-check form-switch mb-3">
                     <input class="form-check-input" type="checkbox" name="settings[loop]" id="video_loop" value="1" <?= $loop ? 'checked' : '' ?>>
-                    <label class="form-check-label" for="video_loop">Зациклить</label>
+                    <label class="form-check-label" for="video_loop"><?php echo LANG_POSTBLOCK_VIDEO_SETTINGS_LOOP; ?></label>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-check form-switch mb-3">
                     <input class="form-check-input" type="checkbox" name="settings[muted]" id="video_muted" value="1" <?= $muted ? 'checked' : '' ?>>
-                    <label class="form-check-label" for="video_muted">Без звука</label>
+                    <label class="form-check-label" for="video_muted"><?php echo LANG_POSTBLOCK_VIDEO_SETTINGS_MUTED; ?></label>
                 </div>
             </div>
         </div>
@@ -436,7 +436,7 @@ class VideoBlock extends BasePostBlock {
                     $newVideoUploaded = true;
                     
                 } catch (Exception $e) {
-                    \Notification::error('Ошибка загрузки видео: ' . $e->getMessage());
+                    \Notification::error(sprintf(LANG_POSTBLOCK_VIDEO_UPLOAD_VIDEO_ERROR, $e->getMessage()));
                 }
             }
             
@@ -471,7 +471,7 @@ class VideoBlock extends BasePostBlock {
                     $newPosterUploaded = true;
                     
                 } catch (Exception $e) {
-                    \Notification::error('Ошибка загрузки постера: ' . $e->getMessage());
+                    \Notification::error(sprintf(LANG_POSTBLOCK_VIDEO_UPLOAD_POSTER_ERROR, $e->getMessage()));
                 }
             }
             
@@ -528,7 +528,6 @@ class VideoBlock extends BasePostBlock {
         
         switch ($type) {
             case 'youtube':
-    // Matches standard URLs and shortened youtu.be URLs
     if (preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/i', $url, $matches)) {
         return $matches[1];
     }
@@ -561,7 +560,7 @@ class VideoBlock extends BasePostBlock {
         $maxSize = $subdir === 'video' ? 100 * 1024 * 1024 : 5 * 1024 * 1024;
         if ($file['size'] > $maxSize) {
             $maxMB = $maxSize / (1024 * 1024);
-            throw new Exception("Файл слишком большой. Максимум {$maxMB}MB.");
+            throw new Exception(sprintf(LANG_POSTBLOCK_VIDEO_UPLOAD_MAX_SIZE, $maxMB));
         }
         
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
@@ -571,12 +570,12 @@ class VideoBlock extends BasePostBlock {
         if ($subdir === 'video') {
             $allowedMime = ['video/mp4'];
             if (!in_array($mime, $allowedMime)) {
-                throw new Exception('Неверный формат файла. Ожидается MP4.');
+                throw new Exception(LANG_POSTBLOCK_VIDEO_UPLOAD_INVALID_VIDEO);
             }
         } else {
             $allowedMime = ['image/jpeg', 'image/png', 'image/webp'];
             if (!in_array($mime, $allowedMime)) {
-                throw new Exception('Неверный формат постера. Ожидается JPEG, PNG или WebP.');
+                throw new Exception(LANG_POSTBLOCK_VIDEO_UPLOAD_INVALID_POSTER);
             }
         }
         
@@ -585,7 +584,7 @@ class VideoBlock extends BasePostBlock {
         $destPath = $uploadDir . $safeName;
         
         if (!move_uploaded_file($file['tmp_name'], $destPath)) {
-            throw new Exception('Не удалось сохранить файл.');
+            throw new Exception(LANG_POSTBLOCK_VIDEO_UPLOAD_SAVE_ERROR);
         }
         
         return $safeName;
@@ -646,7 +645,7 @@ class VideoBlock extends BasePostBlock {
                 $html = '<div class="video-container" style="' . $style . '">';
                 $html .= '<video class="video-player" ' . $controls . ' ' . $autoplay . ' ' . $loop . ' ' . $muted . $posterAttr . ' style="width: 100%; height: 100%; object-fit: contain;">';
                 $html .= '<source src="' . html($videoSrc) . '" type="video/mp4">';
-                $html .= '<p class="text-muted">Ваш браузер не поддерживает HTML5 видео. <a href="' . html($videoSrc) . '">Скачайте файл</a>.</p>';
+                $html .= '<p class="text-muted">' . LANG_POSTBLOCK_VIDEO_NO_SUPPORT . ' <a href="' . html($videoSrc) . '">' . LANG_POSTBLOCK_VIDEO_DOWNLOAD . '</a>.</p>';
                 $html .= '</video>';
                 $html .= '</div>';
                 return $html;
@@ -682,7 +681,7 @@ class VideoBlock extends BasePostBlock {
                 return $html;
                 
             default:
-                return '<!-- Неизвестный тип видео -->';
+                return '<!-- ' . LANG_POSTBLOCK_VIDEO_UNKNOWN_TYPE . ' -->';
         }
     }
 
@@ -696,10 +695,10 @@ class VideoBlock extends BasePostBlock {
         $caption = $content['caption'] ?? '';
         
         if ($videoType === 'upload' && empty($videoUrl)) {
-            return '<!-- VideoBlock: нет видео -->';
+            return '<!-- ' . LANG_POSTBLOCK_VIDEO_NO_VIDEO . ' -->';
         }
         if ($videoType !== 'upload' && empty($videoId) && empty($videoUrl)) {
-            return '<!-- VideoBlock: нет ссылки -->';
+            return '<!-- ' . LANG_POSTBLOCK_VIDEO_NO_LINK . ' -->';
         }
         
         $customClass = html($settings['custom_class'] ?? '');
@@ -740,7 +739,7 @@ class VideoBlock extends BasePostBlock {
     public function validateSettings($settings): array {
         $errors = [];
         if (!empty($settings['custom_class']) && !preg_match('/^[a-zA-Z0-9-_ ]+$/', $settings['custom_class'])) {
-            $errors[] = 'CSS класс может содержать только буквы, цифры, дефисы и подчеркивания';
+            $errors[] = LANG_POSTBLOCK_VIDEO_VALIDATION_CUSTOM_CLASS;
         }
         return [empty($errors), $errors];
     }

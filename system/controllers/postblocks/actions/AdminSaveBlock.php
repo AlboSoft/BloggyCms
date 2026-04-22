@@ -18,7 +18,7 @@ class AdminSaveBlock extends PostBlockAction {
         try {
 
             if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-                throw new \Exception('Invalid request method');
+                throw new \Exception(LANG_ACTION_POSTBLOCKS_ADMINSAVEBLOCK_INVALID_METHOD);
             }
 
             $input = json_decode(file_get_contents('php://input'), true);
@@ -28,14 +28,14 @@ class AdminSaveBlock extends PostBlockAction {
             $settings = $input['settings'] ?? [];
 
             if (empty($blockType)) {
-                throw new \Exception('Block type is required');
+                throw new \Exception(LANG_ACTION_POSTBLOCKS_ADMINSAVEBLOCK_TYPE_REQUIRED);
             }
 
             $postBlock = $this->postBlockManager->getPostBlock($blockType);
             if ($postBlock && $postBlock['class']) {
                 list($isValid, $errors) = $postBlock['class']->validateSettings($settings);
                 if (!$isValid) {
-                    throw new \Exception('Validation errors: ' . implode(', ', $errors));
+                    throw new \Exception(LANG_ACTION_POSTBLOCKS_ADMINSAVEBLOCK_VALIDATION_ERROR . implode(', ', $errors));
                 }
                 
                 $settings = $postBlock['class']->prepareSettings($settings);
@@ -43,7 +43,7 @@ class AdminSaveBlock extends PostBlockAction {
 
             $this->jsonResponse([
                 'success' => true,
-                'message' => 'Block saved successfully',
+                'message' => LANG_ACTION_POSTBLOCKS_ADMINSAVEBLOCK_SUCCESS,
                 'content' => $content,
                 'settings' => $settings
             ]);

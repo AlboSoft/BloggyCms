@@ -2,7 +2,7 @@
 class TextBlock extends BasePostBlock {
     
     public function getName(): string {
-        return 'Текст';
+        return LANG_POSTBLOCK_TEXT_NAME;
     }
 
     public function getSystemName(): string {
@@ -10,7 +10,7 @@ class TextBlock extends BasePostBlock {
     }
 
     public function getDescription(): string {
-        return 'Текстовый блок с поддержкой форматирования (жирный, курсив, ссылки, код и т.д.)';
+        return LANG_POSTBLOCK_TEXT_DESCRIPTION;
     }
 
     public function getIcon(): string {
@@ -27,7 +27,7 @@ class TextBlock extends BasePostBlock {
 
     public function getDefaultContent(): array {
         return [
-            'content' => '<p>Ваш текст здесь...</p>'
+            'content' => '<p>' . LANG_POSTBLOCK_TEXT_DEFAULT_CONTENT . '</p>'
         ];
     }
 
@@ -73,13 +73,13 @@ class TextBlock extends BasePostBlock {
                         </div>
                         <div class="preview-info">
                             <div class="preview-title">
-                                <strong>Текст (Rich)</strong>
+                                <strong><?php echo LANG_POSTBLOCK_TEXT_PREVIEW_TITLE; ?></strong>
                                 <?php if ($alignment !== 'left') { ?>
                                     <span class="badge bg-secondary badge-sm"><?= html($alignment) ?></span>
                                 <?php } ?>
                             </div>
                             <div class="preview-stats">
-                                <?= $charCount ?> симв.
+                                <?= $charCount ?> <?php echo LANG_POSTBLOCK_TEXT_PREVIEW_CHARS; ?>
                             </div>
                         </div>
                     </div>
@@ -99,10 +99,10 @@ class TextBlock extends BasePostBlock {
                     <?php } else { ?>
                         <div class="preview-empty-state">
                             <i class="bi bi-fonts"></i>
-                            <div class="empty-text">Текст не добавлен</div>
+                            <div class="empty-text"><?php echo LANG_POSTBLOCK_TEXT_PREVIEW_EMPTY; ?></div>
                             <button type="button" class="btn btn-sm btn-outline-primary mt-2" 
                                     onclick="postBlocksManager.editBlock('{block_id}')">
-                                <i class="bi bi-plus-circle"></i> Добавить текст
+                                <i class="bi bi-plus-circle"></i> <?php echo LANG_POSTBLOCK_TEXT_PREVIEW_ADD_BTN; ?>
                             </button>
                         </div>
                     <?php } ?>
@@ -118,10 +118,10 @@ class TextBlock extends BasePostBlock {
         $charCount = strlen($text);
         
         $stats = [];
-        $stats[] = $charCount . ' симв.';
+        $stats[] = $charCount . ' ' . LANG_POSTBLOCK_TEXT_PREVIEW_CHARS;
         
         if (!empty($settings['text_align']) && $settings['text_align'] !== 'left') {
-            $stats[] = 'выравнивание: ' . $settings['text_align'];
+            $stats[] = LANG_POSTBLOCK_TEXT_PREVIEW_ALIGN . $settings['text_align'];
         }
         
         return implode(' · ', $stats);
@@ -135,33 +135,33 @@ class TextBlock extends BasePostBlock {
         ob_start();
         ?>
         <div class="mb-4 rich-text-wrapper" id="<?= $editorId ?>">
-            <label class="form-label">Текст</label>
+            <label class="form-label"><?php echo LANG_POSTBLOCK_TEXT_FORM_CONTENT_LABEL; ?></label>
             
             <div class="rich-text-toolbar mb-2 border rounded-top p-2 bg-light">
-                <button type="button" class="btn btn-sm btn-outline-secondary me-1" data-command="bold" title="Жирный (Ctrl+B)">
+                <button type="button" class="btn btn-sm btn-outline-secondary me-1" data-command="bold" title="<?php echo LANG_POSTBLOCK_TEXT_TOOLBAR_BOLD; ?>">
                     <i class="bi bi-type-bold"></i>
                 </button>
-                <button type="button" class="btn btn-sm btn-outline-secondary me-1" data-command="italic" title="Курсив (Ctrl+I)">
+                <button type="button" class="btn btn-sm btn-outline-secondary me-1" data-command="italic" title="<?php echo LANG_POSTBLOCK_TEXT_TOOLBAR_ITALIC; ?>">
                     <i class="bi bi-type-italic"></i>
                 </button>
-                <button type="button" class="btn btn-sm btn-outline-secondary me-1" data-command="underline" title="Подчеркнутый (Ctrl+U)">
+                <button type="button" class="btn btn-sm btn-outline-secondary me-1" data-command="underline" title="<?php echo LANG_POSTBLOCK_TEXT_TOOLBAR_UNDERLINE; ?>">
                     <i class="bi bi-type-underline"></i>
                 </button>
-                <button type="button" class="btn btn-sm btn-outline-secondary me-1" data-command="strikeThrough" title="Зачеркнутый">
+                <button type="button" class="btn btn-sm btn-outline-secondary me-1" data-command="strikeThrough" title="<?php echo LANG_POSTBLOCK_TEXT_TOOLBAR_STRIKE; ?>">
                     <i class="bi bi-type-strikethrough"></i>
                 </button>
                 <div class="vr mx-2"></div>
-                <button type="button" class="btn btn-sm btn-outline-primary" data-command="createLink" title="Вставить ссылку">
-                    <i class="bi bi-link-45deg"></i> Ссылка
+                <button type="button" class="btn btn-sm btn-outline-primary" data-command="createLink" title="<?php echo LANG_POSTBLOCK_TEXT_TOOLBAR_LINK; ?>">
+                    <i class="bi bi-link-45deg"></i> <?php echo LANG_POSTBLOCK_TEXT_TOOLBAR_LINK_BTN; ?>
                 </button>
-                <button type="button" class="btn btn-sm btn-outline-danger ms-1" data-command="unlink" title="Удалить ссылку">
+                <button type="button" class="btn btn-sm btn-outline-danger ms-1" data-command="unlink" title="<?php echo LANG_POSTBLOCK_TEXT_TOOLBAR_UNLINK; ?>">
                     <i class="bi bi-link-45deg"></i>
                 </button>
                 <div class="vr mx-2"></div>
-                <button type="button" class="btn btn-sm btn-outline-dark" data-command="formatCode" title="Выделить как код">
-                    <i class="bi bi-code-slash"></i> Код
+                <button type="button" class="btn btn-sm btn-outline-dark" data-command="formatCode" title="<?php echo LANG_POSTBLOCK_TEXT_TOOLBAR_CODE; ?>">
+                    <i class="bi bi-code-slash"></i> <?php echo LANG_POSTBLOCK_TEXT_TOOLBAR_CODE_BTN; ?>
                 </button>
-                <button type="button" class="btn btn-sm btn-outline-secondary ms-1" data-command="removeFormat" title="Очистить формат">
+                <button type="button" class="btn btn-sm btn-outline-secondary ms-1" data-command="removeFormat" title="<?php echo LANG_POSTBLOCK_TEXT_TOOLBAR_CLEAR; ?>">
                     <i class="bi bi-eraser"></i>
                 </button>
             </div>
@@ -178,7 +178,7 @@ class TextBlock extends BasePostBlock {
                       id="hidden-content-<?= $editorId ?>"
                       required><?= html($contentHtml) ?></textarea>
             
-            <div class="form-text">Поддерживается HTML. Выделите текст и используйте кнопки для форматирования.</div>
+            <div class="form-text"><?php echo LANG_POSTBLOCK_TEXT_FORM_HINT; ?></div>
         </div>
 
         <style>
@@ -215,18 +215,18 @@ class TextBlock extends BasePostBlock {
         <div class="row">
             <div class="col-md-6">
                 <div class="mb-4">
-                    <label class="form-label">Выравнивание текста</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_TEXT_SETTINGS_ALIGN; ?></label>
                     <select name="settings[text_align]" class="form-select">
-                        <option value="left" <?= $textAlign === 'left' ? 'selected' : '' ?>>По левому краю</option>
-                        <option value="center" <?= $textAlign === 'center' ? 'selected' : '' ?>>По центру</option>
-                        <option value="right" <?= $textAlign === 'right' ? 'selected' : '' ?>>По правому краю</option>
-                        <option value="justify" <?= $textAlign === 'justify' ? 'selected' : '' ?>>По ширине</option>
+                        <option value="left" <?= $textAlign === 'left' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_TEXT_ALIGN_LEFT; ?></option>
+                        <option value="center" <?= $textAlign === 'center' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_TEXT_ALIGN_CENTER; ?></option>
+                        <option value="right" <?= $textAlign === 'right' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_TEXT_ALIGN_RIGHT; ?></option>
+                        <option value="justify" <?= $textAlign === 'justify' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_TEXT_ALIGN_JUSTIFY; ?></option>
                     </select>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="mb-4">
-                    <label class="form-label">Дополнительный CSS класс</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_TEXT_SETTINGS_CSS_CLASS; ?></label>
                     <input type="text" 
                            name="settings[custom_class]" 
                            class="form-control" 
@@ -239,22 +239,22 @@ class TextBlock extends BasePostBlock {
         <div class="row">
             <div class="col-md-6">
                 <div class="mb-4">
-                    <label class="form-label">Размер шрифта (опционально)</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_TEXT_SETTINGS_FONT_SIZE; ?></label>
                     <input type="text" 
                            name="settings[font_size]" 
                            class="form-control" 
                            value="<?= html($fontSize) ?>" 
-                           placeholder="16px или 1rem">
+                           placeholder="16px <?php echo LANG_POSTBLOCK_TEXT_PLACEHOLDER_OR; ?> 1rem">
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="mb-4">
-                    <label class="form-label">Межстрочный интервал (опционально)</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_TEXT_SETTINGS_LINE_HEIGHT; ?></label>
                     <input type="text" 
                            name="settings[line_height]" 
                            class="form-control" 
                            value="<?= html($lineHeight) ?>" 
-                           placeholder="1.5 или 24px">
+                           placeholder="1.5 <?php echo LANG_POSTBLOCK_TEXT_PLACEHOLDER_OR; ?> 24px">
                 </div>
             </div>
         </div>
@@ -283,7 +283,7 @@ class TextBlock extends BasePostBlock {
         $presetName = $settings['preset_name'] ?? '';
 
         if (empty(trim(strip_tags($text)))) {
-            return '<!-- TextBlock: пустой текст -->';
+            return LANG_POSTBLOCK_TEXT_EMPTY_COMMENT;
         }
 
         $presetClass = '';
@@ -340,11 +340,11 @@ class TextBlock extends BasePostBlock {
 
     public function getShortcodes(): array {
         return array_merge(parent::getShortcodes(), [
-            '{content}' => 'Текст содержимого (HTML)',
-            '{custom_class}' => 'Дополнительный CSS класс',
-            '{text_align}' => 'Выравнивание текста',
-            '{font_size}' => 'Размер шрифта',
-            '{line_height}' => 'Межстрочный интервал'
+            '{content}' => LANG_POSTBLOCK_TEXT_SHORTCODE_CONTENT,
+            '{custom_class}' => LANG_POSTBLOCK_TEXT_SHORTCODE_CUSTOM_CLASS,
+            '{text_align}' => LANG_POSTBLOCK_TEXT_SHORTCODE_TEXT_ALIGN,
+            '{font_size}' => LANG_POSTBLOCK_TEXT_SHORTCODE_FONT_SIZE,
+            '{line_height}' => LANG_POSTBLOCK_TEXT_SHORTCODE_LINE_HEIGHT
         ]);
     }
 
@@ -360,7 +360,7 @@ class TextBlock extends BasePostBlock {
         }
         
         if (!isset($content['content'])) {
-            $content['content'] = '<p>Ваш текст здесь...</p>';
+            $content['content'] = '<p>' . LANG_POSTBLOCK_TEXT_DEFAULT_CONTENT . '</p>';
         }
 
         return $content;
@@ -403,12 +403,12 @@ class TextBlock extends BasePostBlock {
         $errors = [];
 
         if (!empty($settings['custom_class']) && !preg_match('/^[a-zA-Z0-9-_ ]+$/', $settings['custom_class'])) {
-            $errors[] = 'CSS класс может содержать только буквы, цифры, дефисы и подчеркивания';
+            $errors[] = LANG_POSTBLOCK_TEXT_VALIDATION_CSS_CLASS;
         }
 
         $allowedAlign = ['left', 'center', 'right', 'justify'];
         if (!empty($settings['text_align']) && !in_array($settings['text_align'], $allowedAlign)) {
-            $errors[] = 'Недопустимое значение выравнивания текста';
+            $errors[] = LANG_POSTBLOCK_TEXT_VALIDATION_TEXT_ALIGN;
         }
 
         return [empty($errors), $errors];

@@ -2,7 +2,7 @@
 class CodeBlock extends BasePostBlock {
     
     public function getName(): string {
-        return 'Пример кода';
+        return LANG_POSTBLOCK_CODE_NAME;
     }
 
     public function getSystemName(): string {
@@ -10,7 +10,7 @@ class CodeBlock extends BasePostBlock {
     }
 
     public function getDescription(): string {
-        return 'Блок для вставки примеров кода с подсветкой синтаксиса и красивым оформлением';
+        return LANG_POSTBLOCK_CODE_DESCRIPTION;
     }
 
     public function getIcon(): string {
@@ -25,7 +25,7 @@ class CodeBlock extends BasePostBlock {
         $content = $this->validateAndNormalizeContent($content);
         $settings = $this->validateAndNormalizeSettings($settings);
         
-        $code = $content['code'] ?? '// Ваш код здесь...';
+        $code = $content['code'] ?? LANG_POSTBLOCK_CODE_DEFAULT_CODE;
         $language = $content['language'] ?? 'javascript';
         $filename = $content['filename'] ?? '';
         $showLineNumbers = $settings['show_line_numbers'] ?? true;
@@ -43,7 +43,7 @@ class CodeBlock extends BasePostBlock {
             'json' => 'JSON',
             'xml' => 'XML',
             'bash' => 'Bash',
-            'plaintext' => 'Текст'
+            'plaintext' => LANG_POSTBLOCK_CODE_LANGUAGE_TEXT
         ];
         
         $languageName = $languageNames[$language] ?? ucfirst($language);
@@ -52,7 +52,7 @@ class CodeBlock extends BasePostBlock {
         $html = '<div class="post-block-preview" style="border:1px solid #dee2e6;border-radius:8px;padding:12px;margin:10px 0;background:#fff;">';
         $html .= '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #dee2e6;">';
         $html .= '<div>';
-        $html .= '<strong style="margin-right:8px;">' . bloggy_icon('bs', 'code-slash', '16 16', null, 'me-1') . 'Пример кода</strong>';
+        $html .= '<strong style="margin-right:8px;">' . bloggy_icon('bs', 'code-slash', '16 16', null, 'me-1') . LANG_POSTBLOCK_CODE_PREVIEW_TITLE . '</strong>';
         if ($showLanguageBadge) {
             $html .= '<span style="background:#6c757d;color:#fff;padding:2px 6px;border-radius:4px;font-size:12px;margin-right:6px;">' . htmlspecialchars($languageName) . '</span>';
         }
@@ -63,19 +63,19 @@ class CodeBlock extends BasePostBlock {
         $html .= '<div>';
         
         if ($copyButton) {
-            $html .= '<span style="background:#6c757d;color:#fff;border-radius:4px;padding:4px 8px;font-size:12px;margin-right:6px;display:inline-block;">' . bloggy_icon('bs', 'clipboard', '14 14', null, 'me-1') . 'Копировать</span>';
+            $html .= '<span style="background:#6c757d;color:#fff;border-radius:4px;padding:4px 8px;font-size:12px;margin-right:6px;display:inline-block;">' . bloggy_icon('bs', 'clipboard', '14 14', null, 'me-1') . LANG_POSTBLOCK_CODE_COPY_BTN . '</span>';
         }
         
-        $html .= '<button type="button" class="btn-edit-preview" style="background:#0d6efd;color:#fff;border:none;border-radius:4px;padding:4px 8px;font-size:12px;cursor:pointer;" onclick="postBlocksManager.editBlock(\'{block_id}\')">' . bloggy_icon('bs', 'pencil', '14 14', '#fff', 'me-1') . 'Редактировать</button>';
+        $html .= '<button type="button" class="btn-edit-preview" style="background:#0d6efd;color:#fff;border:none;border-radius:4px;padding:4px 8px;font-size:12px;cursor:pointer;" onclick="postBlocksManager.editBlock(\'{block_id}\')">' . bloggy_icon('bs', 'pencil', '14 14', '#fff', 'me-1') . LANG_POSTBLOCK_CODE_EDIT_BTN . '</button>';
         $html .= '</div>';
         $html .= '</div>';
         $html .= '<div style="border-radius:6px;padding:12px;overflow-x:auto;">';
         $html .= '<pre style="margin:0;font-family:Consolas,Monaco,\'Courier New\',monospace;font-size:13px;color:#000;"><code>' . htmlspecialchars($previewCode) . '</code></pre>';
         $html .= '</div>';
         $html .= '<div style="margin-top:8px;font-size:12px;color:#6c757d;">';
-        $html .= bloggy_icon('bs', 'info-circle', '12 12', null, 'me-1') . strlen($code) . ' символов';
+        $html .= bloggy_icon('bs', 'info-circle', '12 12', null, 'me-1') . strlen($code) . ' ' . LANG_POSTBLOCK_CODE_CHARS;
         if ($showLineNumbers) {
-            $html .= ' · ' . bloggy_icon('bs', 'list-ol', '12 12', null, 'me-1') . 'с номерами строк';
+            $html .= ' · ' . bloggy_icon('bs', 'list-ol', '12 12', null, 'me-1') . LANG_POSTBLOCK_CODE_LINE_NUMBERS;
         }
         $html .= '</div>';
         $html .= '</div>';
@@ -103,7 +103,7 @@ class CodeBlock extends BasePostBlock {
 
     public function getDefaultContent(): array {
         return [
-            'code' => '// Ваш код здесь...',
+            'code' => LANG_POSTBLOCK_CODE_DEFAULT_CODE,
             'language' => 'javascript',
             'filename' => ''
         ];
@@ -144,7 +144,7 @@ class CodeBlock extends BasePostBlock {
             'yaml' => 'YAML',
             'dockerfile' => 'Dockerfile',
             'nginx' => 'Nginx',
-            'plaintext' => 'Текст'
+            'plaintext' => LANG_POSTBLOCK_CODE_LANGUAGE_TEXT
         ];
 
         ob_start();
@@ -152,7 +152,7 @@ class CodeBlock extends BasePostBlock {
         <div class="row">
             <div class="col-md-6">
                 <div class="mb-4">
-                    <label class="form-label">Язык программирования</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_CODE_FORM_LANGUAGE_LABEL; ?></label>
                     <select name="content[language]" class="form-select" id="code-language-select">
                         <?php foreach($languages as $value => $name) { ?>
                             <option value="<?= $value ?>" <?= $language === $value ? 'selected' : '' ?>>
@@ -164,28 +164,28 @@ class CodeBlock extends BasePostBlock {
             </div>
             <div class="col-md-6">
                 <div class="mb-4">
-                    <label class="form-label">Имя файла (опционально)</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_CODE_FORM_FILENAME_LABEL; ?></label>
                     <input type="text" 
                            name="content[filename]" 
                            class="form-control" 
                            value="<?= html($filename) ?>" 
                            placeholder="script.js, style.css, etc.">
                     <div class="form-text">
-                        Отображается в заголовке блока с кодом
+                        <?php echo LANG_POSTBLOCK_CODE_FORM_FILENAME_HINT; ?>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="mb-4">
-            <label class="form-label">Код</label>
+            <label class="form-label"><?php echo LANG_POSTBLOCK_CODE_FORM_CODE_LABEL; ?></label>
             <div id="code-editor-container" style="height: 400px; border: 1px solid #dee2e6; border-radius: 0.375rem;"></div>
             <textarea name="content[code]" 
                      id="code-editor-textarea" 
                      style="display: none;"
                      required><?= html($code) ?></textarea>
             <div class="form-text">
-                Поддерживается подсветка синтаксиса для различных языков программирования
+                <?php echo LANG_POSTBLOCK_CODE_FORM_CODE_HINT; ?>
             </div>
         </div>
 
@@ -220,8 +220,8 @@ class CodeBlock extends BasePostBlock {
         $showLanguageBadge = $currentSettings['show_language_badge'] ?? true;
 
         $themes = [
-            'default' => 'Стандартная (светлая)',
-            'dark' => 'Темная',
+            'default' => LANG_POSTBLOCK_CODE_THEME_DEFAULT,
+            'dark' => LANG_POSTBLOCK_CODE_THEME_DARK,
             'material' => 'Material',
             'github' => 'GitHub',
             'coy' => 'Coy',
@@ -235,7 +235,7 @@ class CodeBlock extends BasePostBlock {
         <div class="row">
             <div class="col-md-6">
                 <div class="mb-4">
-                    <label class="form-label">Тема подсветки</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_CODE_SETTINGS_THEME_LABEL; ?></label>
                     <select name="settings[theme]" class="form-select">
                         <?php foreach($themes as $value => $name) { ?>
                             <option value="<?= $value ?>" <?= $theme === $value ? 'selected' : '' ?>>
@@ -247,7 +247,7 @@ class CodeBlock extends BasePostBlock {
             </div>
             <div class="col-md-6">
                 <div class="mb-4">
-                    <label class="form-label">Дополнительный CSS класс</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_CODE_SETTINGS_CSS_CLASS_LABEL; ?></label>
                     <input type="text" 
                            name="settings[custom_class]" 
                            class="form-control" 
@@ -267,7 +267,7 @@ class CodeBlock extends BasePostBlock {
                            value="1" 
                            <?= $showLineNumbers ? 'checked' : '' ?>>
                     <label class="form-check-label" for="show_line_numbers">
-                        Номера строк
+                        <?php echo LANG_POSTBLOCK_CODE_SETTINGS_LINE_NUMBERS; ?>
                     </label>
                 </div>
             </div>
@@ -280,7 +280,7 @@ class CodeBlock extends BasePostBlock {
                            value="1" 
                            <?= $copyButton ? 'checked' : '' ?>>
                     <label class="form-check-label" for="copy_button">
-                        Кнопка копирования
+                        <?php echo LANG_POSTBLOCK_CODE_SETTINGS_COPY_BUTTON; ?>
                     </label>
                 </div>
             </div>
@@ -293,7 +293,7 @@ class CodeBlock extends BasePostBlock {
                            value="1" 
                            <?= $showLanguageBadge ? 'checked' : '' ?>>
                     <label class="form-check-label" for="show_language_badge">
-                        Бейдж языка
+                        <?php echo LANG_POSTBLOCK_CODE_SETTINGS_LANGUAGE_BADGE; ?>
                     </label>
                 </div>
             </div>
@@ -301,7 +301,7 @@ class CodeBlock extends BasePostBlock {
 
         <div class="alert alert-info">
             <?= bloggy_icon('bs', 'info-circle', '16 16', null, 'me-2') ?>
-            Для работы подсветки синтаксиса необходимо подключить библиотеку Prism.js в шаблоне
+            <?php echo LANG_POSTBLOCK_CODE_SETTINGS_PRISM_HINT; ?>
         </div>
         <?php
         return ob_get_clean();
@@ -310,7 +310,7 @@ class CodeBlock extends BasePostBlock {
     public function getEditorHtml($settings = [], $content = []): string {
         $content = $this->validateAndNormalizeContent($content);
         
-        $code = $content['code'] ?? '// Ваш код здесь...';
+        $code = $content['code'] ?? LANG_POSTBLOCK_CODE_DEFAULT_CODE;
         $language = $content['language'] ?? 'javascript';
         $filename = $content['filename'] ?? '';
         
@@ -334,7 +334,7 @@ class CodeBlock extends BasePostBlock {
             'xml' => 'XML',
             'bash' => 'Bash',
             'markdown' => 'Markdown',
-            'plaintext' => 'Текст'
+            'plaintext' => LANG_POSTBLOCK_CODE_LANGUAGE_TEXT
         ];
 
         $languageName = $languageNames[$language] ?? ucfirst($language);
@@ -344,7 +344,7 @@ class CodeBlock extends BasePostBlock {
             <div class="card-header py-2">
                 <div class="d-flex justify-content-between align-items-center">
                     <span class="badge bg-primary">' . html($languageName) . '</span>
-                    <small class="text-muted">Пример кода</small>
+                    <small class="text-muted">' . LANG_POSTBLOCK_CODE_EDITOR_PREVIEW_LABEL . '</small>
                 </div>
             </div>
             <div class="card-body">
@@ -359,14 +359,14 @@ class CodeBlock extends BasePostBlock {
 
     public function getShortcodes(): array {
         return array_merge(parent::getShortcodes(), [
-            '{code}' => 'Код',
-            '{language}' => 'Язык программирования (техническое имя)',
-            '{language_badge}' => 'Бейдж с названием языка',
-            '{filename}' => 'Имя файла',
-            '{copy_button}' => 'Кнопка копирования',
-            '{custom_class}' => 'Дополнительный CSS класс',
-            '{line_numbers}' => 'Класс для номеров строк',
-            '{theme}' => 'Тема подсветки кода'
+            '{code}' => LANG_POSTBLOCK_CODE_SHORTCODE_CODE,
+            '{language}' => LANG_POSTBLOCK_CODE_SHORTCODE_LANGUAGE,
+            '{language_badge}' => LANG_POSTBLOCK_CODE_SHORTCODE_LANGUAGE_BADGE,
+            '{filename}' => LANG_POSTBLOCK_CODE_SHORTCODE_FILENAME,
+            '{copy_button}' => LANG_POSTBLOCK_CODE_SHORTCODE_COPY_BUTTON,
+            '{custom_class}' => LANG_POSTBLOCK_CODE_SHORTCODE_CUSTOM_CLASS,
+            '{line_numbers}' => LANG_POSTBLOCK_CODE_SHORTCODE_LINE_NUMBERS,
+            '{theme}' => LANG_POSTBLOCK_CODE_SHORTCODE_THEME
         ]);
     }
 
@@ -383,12 +383,12 @@ class CodeBlock extends BasePostBlock {
         $errors = [];
 
         if (!empty($settings['custom_class']) && !preg_match('/^[a-zA-Z0-9-_ ]+$/', $settings['custom_class'])) {
-            $errors[] = 'CSS класс может содержать только буквы, цифры, дефисы и подчеркивания';
+            $errors[] = LANG_POSTBLOCK_CODE_VALIDATION_CSS_CLASS;
         }
 
         $allowedThemes = ['default', 'dark', 'material', 'github', 'coy', 'okaidia', 'tomorrow', 'twilight'];
         if (!empty($settings['theme']) && !in_array($settings['theme'], $allowedThemes)) {
-            $errors[] = 'Недопустимая тема подсветки';
+            $errors[] = LANG_POSTBLOCK_CODE_VALIDATION_THEME;
         }
 
         return [empty($errors), $errors];
@@ -494,7 +494,7 @@ class CodeBlock extends BasePostBlock {
         }
         
         if (!isset($content['code'])) {
-            $content['code'] = '// Ваш код здесь...';
+            $content['code'] = LANG_POSTBLOCK_CODE_DEFAULT_CODE;
         }
         if (!isset($content['language'])) {
             $content['language'] = 'javascript';
@@ -574,7 +574,7 @@ class CodeBlock extends BasePostBlock {
             'yaml' => 'YAML',
             'dockerfile' => 'Docker',
             'nginx' => 'Nginx',
-            'plaintext' => 'Текст'
+            'plaintext' => LANG_POSTBLOCK_CODE_LANGUAGE_TEXT
         ];
 
         $languageName = $languageNames[$language] ?? ucfirst($language);
@@ -583,15 +583,15 @@ class CodeBlock extends BasePostBlock {
         if ($copyButton) {
             $copyButtonHtml = '
             <div class="code-actions">
-                <button class="btn-copy-code" type="button" title="Скопировать код" data-code="' . htmlspecialchars($decodedCode, ENT_QUOTES, 'UTF-8') . '">
+                <button class="btn-copy-code" type="button" title="' . LANG_POSTBLOCK_CODE_COPY_TITLE . '" data-code="' . htmlspecialchars($decodedCode, ENT_QUOTES, 'UTF-8') . '">
                     <div class="btn-copy-content">
                         <span class="btn-copy-text">
                             ' . bloggy_icon('bs', 'clipboard', '12 12', '#fff', 'me-1') . '
-                            Копировать
+                            ' . LANG_POSTBLOCK_CODE_COPY_BTN . '
                         </span>
                         <span class="btn-copy-success">
                             ' . bloggy_icon('bs', 'check-circle-fill', '12 12', '#b4ffc6', 'me-1') . '
-                            Скопировано
+                            ' . LANG_POSTBLOCK_CODE_COPIED . '
                         </span>
                     </div>
                 </button>
@@ -687,7 +687,7 @@ class CodeBlock extends BasePostBlock {
         }
         
         if (!is_array($content)) {
-            return ['code' => '// Ваш код здесь...', 'language' => 'javascript', 'filename' => ''];
+            return ['code' => LANG_POSTBLOCK_CODE_DEFAULT_CODE, 'language' => 'javascript', 'filename' => ''];
         }
         
         if (isset($content['code'])) {

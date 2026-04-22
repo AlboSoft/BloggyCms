@@ -1,0 +1,32 @@
+<?php
+
+define('LANG_POSTBLOCK_AUDIO_NAME', 'Аудио');
+define('LANG_POSTBLOCK_AUDIO_DESCRIPTION', 'Вставляет аудио-плеер с поддержкой MP3 файлов.');
+define('LANG_POSTBLOCK_AUDIO_SHORTCODE_SRC', 'Путь к MP3 файлу');
+define('LANG_POSTBLOCK_AUDIO_SHORTCODE_CAPTION', 'Подпись под аудио');
+define('LANG_POSTBLOCK_AUDIO_SHORTCODE_FALLBACK', 'Текст для старых браузеров');
+define('LANG_POSTBLOCK_AUDIO_SHORTCODE_CAPTION_HTML', 'HTML-код подписи с обрамлением figure');
+define('LANG_POSTBLOCK_AUDIO_PREVIEW_TITLE', 'Аудио');
+define('LANG_POSTBLOCK_AUDIO_PREVIEW_UPLOADED', 'Загружено');
+define('LANG_POSTBLOCK_AUDIO_PREVIEW_EXTERNAL', 'Внешняя ссылка');
+define('LANG_POSTBLOCK_AUDIO_PREVIEW_NOT_UPLOADED', 'Не загружено');
+define('LANG_POSTBLOCK_AUDIO_PREVIEW_EMPTY_TITLE', 'Аудио не загружено');
+define('LANG_POSTBLOCK_AUDIO_PREVIEW_ADD_BTN', 'Добавить аудио');
+define('LANG_POSTBLOCK_AUDIO_EDITOR_EMPTY', 'Аудио не загружено');
+define('LANG_POSTBLOCK_AUDIO_EDITOR_HINT', 'Нажмите "Редактировать", чтобы добавить аудиофайл');
+define('LANG_POSTBLOCK_AUDIO_EDITOR_FALLBACK', 'Ваш браузер не поддерживает HTML5 аудио.');
+define('LANG_POSTBLOCK_AUDIO_FORM_FILE_LABEL', 'Аудиофайл (MP3)');
+define('LANG_POSTBLOCK_AUDIO_FORM_DELETE', 'Удалить');
+define('LANG_POSTBLOCK_AUDIO_FORM_FILE_HINT', 'Поддерживается формат MP3. Максимальный размер: 20MB.');
+define('LANG_POSTBLOCK_AUDIO_FORM_EXTERNAL_LABEL', 'ИЛИ внешняя ссылка');
+define('LANG_POSTBLOCK_AUDIO_FORM_EXTERNAL_HINT', 'Можно указать прямую ссылку на MP3 файл вместо загрузки');
+define('LANG_POSTBLOCK_AUDIO_FORM_CAPTION_LABEL', 'Подпись (опционально)');
+define('LANG_POSTBLOCK_AUDIO_FORM_CAPTION_PLACEHOLDER', 'Название трека или описание');
+define('LANG_POSTBLOCK_AUDIO_SETTINGS_CSS_CLASS', 'Дополнительный CSS класс');
+define('LANG_POSTBLOCK_AUDIO_ERROR_FILE_TOO_LARGE', 'Файл слишком большой. Максимум 20MB.');
+define('LANG_POSTBLOCK_AUDIO_ERROR_INVALID_FORMAT', 'Неверный формат файла. Ожидается MP3.');
+define('LANG_POSTBLOCK_AUDIO_ERROR_SAVE_FAILED', 'Не удалось сохранить файл.');
+define('LANG_POSTBLOCK_AUDIO_ERROR_UPLOAD', 'Ошибка загрузки аудио: ');
+define('LANG_POSTBLOCK_AUDIO_EMPTY_COMMENT', '<!-- AudioBlock: нет источника -->');
+define('LANG_POSTBLOCK_AUDIO_FALLBACK', 'Ваш браузер не поддерживает HTML5 аудио. <a href="%s">Скачайте файл</a>.');
+define('LANG_POSTBLOCK_AUDIO_VALIDATION_CSS_CLASS', 'CSS класс может содержать только буквы, цифры, дефисы и подчеркивания');

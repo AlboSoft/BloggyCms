@@ -1,0 +1,4 @@
+<?php
+
+define('LANG_ACTION_POSTBLOCKS_ADMINGETTEMPLATE_SYSTEM_NAME_NOT_SPECIFIED', 'Системное имя блока не указано');
+define('LANG_ACTION_POSTBLOCKS_ADMINGETTEMPLATE_BLOCK_NOT_FOUND', 'Блок не найден');

@@ -2,7 +2,7 @@
 class ListBlock extends BasePostBlock {
     
     public function getName(): string {
-        return 'Список';
+        return LANG_POSTBLOCK_LIST_NAME;
     }
 
     public function getSystemName(): string {
@@ -10,7 +10,7 @@ class ListBlock extends BasePostBlock {
     }
 
     public function getDescription(): string {
-        return 'Блок для создания упорядоченных и неупорядоченных списков';
+        return LANG_POSTBLOCK_LIST_DESCRIPTION;
     }
 
     public function getIcon(): string {
@@ -43,15 +43,15 @@ class ListBlock extends BasePostBlock {
         ob_start();
         ?>
         <div class="mb-4">
-            <label class="form-label">Тип списка</label>
+            <label class="form-label"><?php echo LANG_POSTBLOCK_LIST_FORM_TYPE_LABEL; ?></label>
             <select name="content[list_type]" class="form-select" id="list-type-select">
-                <option value="ul" <?= $listType === 'ul' ? 'selected' : '' ?>>Маркированный список</option>
-                <option value="ol" <?= $listType === 'ol' ? 'selected' : '' ?>>Нумерованный список</option>
+                <option value="ul" <?= $listType === 'ul' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_LIST_TYPE_UL; ?></option>
+                <option value="ol" <?= $listType === 'ol' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_LIST_TYPE_OL; ?></option>
             </select>
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Элементы списка</label>
+            <label class="form-label"><?php echo LANG_POSTBLOCK_LIST_FORM_ITEMS_LABEL; ?></label>
             <div id="list-items-container">
                 <?php foreach($items as $index => $item) { ?>
                     <div class="list-item card mb-2">
@@ -67,7 +67,7 @@ class ListBlock extends BasePostBlock {
                                         name="content[items][]" 
                                         class="form-control" 
                                         value="<?= html(is_array($item) ? ($item['text'] ?? '') : (string)$item) ?>" 
-                                        placeholder="Введите текст элемента списка">
+                                        placeholder="<?php echo LANG_POSTBLOCK_LIST_FORM_ITEM_PLACEHOLDER; ?>">
                                 </div>
                                 <div class="col-2 text-end">
                                     <button type="button" class="btn btn-danger btn-sm remove-list-item" <?= count($items) === 1 ? 'disabled' : '' ?>>
@@ -81,7 +81,7 @@ class ListBlock extends BasePostBlock {
             </div>
             
             <button type="button" class="btn btn-secondary mt-2" id="add-list-item">
-                <i class="bi bi-plus"></i> Добавить элемент
+                <i class="bi bi-plus"></i> <?php echo LANG_POSTBLOCK_LIST_ADD_ITEM_BTN; ?>
             </button>
         </div>
         <?php
@@ -96,7 +96,7 @@ class ListBlock extends BasePostBlock {
         ob_start();
         ?>
         <div class="mb-4">
-            <label class="form-label">Дополнительный CSS класс</label>
+            <label class="form-label"><?php echo LANG_POSTBLOCK_LIST_SETTINGS_CUSTOM_CLASS; ?></label>
             <input type="text" 
                    name="settings[custom_class]" 
                    class="form-control" 
@@ -200,10 +200,10 @@ class ListBlock extends BasePostBlock {
 
     public function getShortcodes(): array {
         return array_merge(parent::getShortcodes(), [
-            '{list_type}' => 'Тип списка (ul/ol)',
-            '{custom_class}' => 'Дополнительный CSS класс',
-            '{list_items}...{/list_items}' => 'Цикл по элементам списка',
-            '{item_text}' => 'Текст элемента списка'
+            '{list_type}' => LANG_POSTBLOCK_LIST_SHORTCODE_LIST_TYPE,
+            '{custom_class}' => LANG_POSTBLOCK_LIST_SHORTCODE_CUSTOM_CLASS,
+            '{list_items}...{/list_items}' => LANG_POSTBLOCK_LIST_SHORTCODE_LIST_ITEMS,
+            '{item_text}' => LANG_POSTBLOCK_LIST_SHORTCODE_ITEM_TEXT
         ]);
     }
 
@@ -227,7 +227,7 @@ class ListBlock extends BasePostBlock {
         $errors = [];
 
         if (!empty($settings['custom_class']) && !preg_match('/^[a-zA-Z0-9-_ ]+$/', $settings['custom_class'])) {
-            $errors[] = 'CSS класс может содержать только буквы, цифры, дефисы и подчеркивания';
+            $errors[] = LANG_POSTBLOCK_LIST_VALIDATION_CUSTOM_CLASS;
         }
 
         return [empty($errors), $errors];
@@ -262,7 +262,7 @@ class ListBlock extends BasePostBlock {
                                 break;
                             }
                         }
-                        $normalizedItems[] = ['text' => $text ?: 'Элемент ' . ($index + 1)];
+                        $normalizedItems[] = ['text' => $text ?: sprintf(LANG_POSTBLOCK_LIST_DEFAULT_ITEM, $index + 1)];
                     } else {
                         $normalizedItems[] = ['text' => (string)$item];
                     }
@@ -366,15 +366,15 @@ class ListBlock extends BasePostBlock {
                         </div>
                         <div class="preview-info">
                             <div class="preview-title">
-                                <strong>Список</strong>
+                                <strong><?php echo LANG_POSTBLOCK_LIST_PREVIEW_TITLE; ?></strong>
                                 <?php if ($listType === 'ol') { ?>
-                                    <span class="badge bg-primary badge-sm">Нумерованный</span>
+                                    <span class="badge bg-primary badge-sm"><?php echo LANG_POSTBLOCK_LIST_PREVIEW_ORDERED; ?></span>
                                 <?php } else { ?>
-                                    <span class="badge bg-secondary badge-sm">Маркированный</span>
+                                    <span class="badge bg-secondary badge-sm"><?php echo LANG_POSTBLOCK_LIST_PREVIEW_UNORDERED; ?></span>
                                 <?php } ?>
                             </div>
                             <div class="preview-stats">
-                                <?= $itemCount ?> элемент<?= $itemCount == 1 ? '' : ($itemCount > 1 && $itemCount < 5 ? 'а' : 'ов') ?>
+                                <?php echo sprintf(LANG_POSTBLOCK_LIST_PREVIEW_ITEMS_COUNT, $itemCount); ?>
                             </div>
                         </div>
                     </div>
@@ -409,7 +409,7 @@ class ListBlock extends BasePostBlock {
                                     
                                     <?php if ($itemCount > 5) { ?>
                                         <li class="text-muted small">
-                                            ... и еще <?= $itemCount - 5 ?> элемент<?= ($itemCount - 5) == 1 ? '' : (($itemCount - 5) > 1 && ($itemCount - 5) < 5 ? 'а' : 'ов') ?>
+                                            <?php echo sprintf(LANG_POSTBLOCK_LIST_PREVIEW_MORE_ITEMS, $itemCount - 5); ?>
                                         </li>
                                     <?php } ?>
                                 </<?= $listType ?>>
@@ -420,12 +420,12 @@ class ListBlock extends BasePostBlock {
                                     <div class="col-6">
                                         <div>
                                             <i class="bi bi-<?= $listType === 'ol' ? '123' : 'dot' ?> me-1"></i>
-                                            Тип: <strong><?= $listType === 'ol' ? 'Нумерованный' : 'Маркированный' ?></strong>
+                                            <?php echo LANG_POSTBLOCK_LIST_PREVIEW_INFO_TYPE; ?> <strong><?= $listType === 'ol' ? LANG_POSTBLOCK_LIST_PREVIEW_ORDERED : LANG_POSTBLOCK_LIST_PREVIEW_UNORDERED ?></strong>
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <?php if ($customClass) { ?>
-                                            <div><i class="bi bi-tag me-1"></i>Класс: <strong><?= html($customClass) ?></strong></div>
+                                            <div><i class="bi bi-tag me-1"></i><?php echo LANG_POSTBLOCK_LIST_PREVIEW_INFO_CLASS; ?> <strong><?= html($customClass) ?></strong></div>
                                         <?php } ?>
                                     </div>
                                 </div>
@@ -434,14 +434,14 @@ class ListBlock extends BasePostBlock {
                     <?php } else { ?>
                         <div class="preview-empty-state">
                             <i class="bi bi-list-ul"></i>
-                            <div class="empty-text">Список пуст</div>
+                            <div class="empty-text"><?php echo LANG_POSTBLOCK_LIST_PREVIEW_EMPTY_TEXT; ?></div>
                             <button type="button" class="btn btn-sm btn-outline-primary mt-2" 
                                     onclick="postBlocksManager.editBlock('{block_id}')">
-                                <?php echo bloggy_icon('bs', 'plus-circle', '16', '#000', 'me-1'); ?> Добавить элементы
+                                <?php echo bloggy_icon('bs', 'plus-circle', '16', '#000', 'me-1'); ?> <?php echo LANG_POSTBLOCK_LIST_PREVIEW_ADD_BTN; ?>
                             </button>
                             <div class="mt-3 small text-muted">
                                 <i class="bi bi-info-circle"></i>
-                                Добавьте элементы в маркированный или нумерованный список
+                                <?php echo LANG_POSTBLOCK_LIST_PREVIEW_INFO_TEXT; ?>
                             </div>
                         </div>
                     <?php } ?>

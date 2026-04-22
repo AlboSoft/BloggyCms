@@ -20,12 +20,12 @@ class AdminGetDefaultContent extends PostBlockAction {
             $systemName = $_GET['system_name'] ?? '';
             
             if (empty($systemName)) {
-                throw new \Exception('Системное имя блока не указано');
+                throw new \Exception(LANG_ACTION_POSTBLOCKS_ADMINGETDEFAULTCONTENT_SYSTEM_NAME_NOT_SPECIFIED);
             }
 
             $postBlock = $this->postBlockManager->getPostBlock($systemName);
             if (!$postBlock || !$postBlock['class']) {
-                throw new \Exception('Блок не найден');
+                throw new \Exception(LANG_ACTION_POSTBLOCKS_ADMINGETDEFAULTCONTENT_BLOCK_NOT_FOUND);
             }
 
             $defaultContent = $postBlock['class']->getDefaultContent();

@@ -1,0 +1,32 @@
+<?php
+
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_TITLE', 'Настройки: %s');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_BACK_BTN', 'Назад');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_MAIN_SETTINGS_TITLE', 'Основные настройки');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_ENABLE_IN_POSTS', 'Включить в постах');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_ENABLE_IN_POSTS_HINT', 'Блок будет доступен при создании и редактировании постов');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_ENABLE_IN_PAGES', 'Включить в страницах');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_ENABLE_IN_PAGES_HINT', 'Блок будет доступен при создании и редактировании страниц');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_BLOCK_TEMPLATE', 'Шаблон блока');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_TEMPLATE_HINT', 'Используйте шорткоды для динамического контента');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_LOAD_TEMPLATE_BTN', 'Загрузить стандартный шаблон');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_TEMPLATE_DESC', 'Используйте шорткоды для динамического контента. Оставьте пустым для использования стандартного шаблона.');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_SAVE_BTN', 'Сохранить настройки');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_PRESETS_TITLE', 'Пресеты блока');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_ADD_PRESET_BTN', 'Добавить пресет');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_NO_PRESETS', 'Пресеты не добавлены');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_BLOCK_INFO_TITLE', 'Информация о блоке');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_SYSTEM_NAME_LABEL', 'Системное имя:');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_CATEGORY_LABEL', 'Категория:');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_VERSION_LABEL', 'Версия:');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_AUTHOR_LABEL', 'Автор:');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_SHORTCODES_TITLE', 'Доступные шорткоды');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_NO_SHORTCODES', 'Для этого блока нет специальных шорткодов.');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_PRESET_MODAL_TITLE', 'Редактирование пресета');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_PRESET_NAME_LABEL', 'Имя пресета');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_PRESET_NAME_HINT', 'Уникальное имя для этого пресета');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_PRESET_TEMPLATE_LABEL', 'Шаблон пресета');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_PRESET_TEMPLATE_HINT', 'Используйте шорткоды для динамического контента');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_PRESET_MODAL_CANCEL', 'Отмена');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_PRESET_DELETE_BTN', 'Удалить');
+define('LANG_TEMPLATE_POSTBLOCKS_EDIT_PRESET_SAVE_BTN', 'Сохранить');

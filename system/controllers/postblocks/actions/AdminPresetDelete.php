@@ -22,14 +22,14 @@ class AdminPresetDelete extends PostBlockAction {
             $presetId = $_POST['preset_id'] ?? 0;
 
             if (empty($presetId)) {
-                throw new \Exception('Не указан ID пресета');
+                throw new \Exception(LANG_ACTION_POSTBLOCKS_ADMINPRESETDELETE_ID_NOT_SPECIFIED);
             }
 
             $result = $this->postBlockModel->deletePreset($presetId);
 
             echo json_encode([
                 'success' => $result !== false,
-                'message' => $result ? 'Пресет успешно удален' : 'Ошибка при удалении пресета'
+                'message' => $result ? LANG_ACTION_POSTBLOCKS_ADMINPRESETDELETE_SUCCESS : LANG_ACTION_POSTBLOCKS_ADMINPRESETDELETE_ERROR
             ]);
 
         } catch (\Exception $e) {

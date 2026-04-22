@@ -37,12 +37,12 @@ class AdminGetSettingsForm extends PostBlockAction {
                 <ul class="nav nav-tabs mb-4" id="blockTabs" role="tablist">
                     <li class="nav-item" role="presentation">
                         <button class="nav-link active" id="content-tab" data-bs-toggle="tab" data-bs-target="#content-tab-pane" type="button" role="tab">
-                            <i class="bi bi-text-left me-1"></i>Содержимое
+                            <i class="bi bi-text-left me-1"></i>' . LANG_ACTION_POSTBLOCKS_ADMINGETSETTINGSFORM_TAB_CONTENT . '
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings-tab-pane" type="button" role="tab">
-                            <i class="bi bi-gear me-1"></i>Настройки
+                            <i class="bi bi-gear me-1"></i>' . LANG_ACTION_POSTBLOCKS_ADMINGETSETTINGSFORM_TAB_SETTINGS . '
                         </button>
                     </li>
                 </ul>
@@ -59,7 +59,7 @@ class AdminGetSettingsForm extends PostBlockAction {
             
             echo $html;
         } else {
-            echo '<div class="alert alert-warning">Блок не найден</div>';
+            echo '<div class="alert alert-warning">' . LANG_ACTION_POSTBLOCKS_ADMINGETSETTINGSFORM_BLOCK_NOT_FOUND . '</div>';
         }
     }
 }

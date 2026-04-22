@@ -1,0 +1,5 @@
+<?php
+
+define('LANG_ACTION_POSTBLOCKS_ADMINPRESETDELETE_ID_NOT_SPECIFIED', 'Не указан ID пресета');
+define('LANG_ACTION_POSTBLOCKS_ADMINPRESETDELETE_SUCCESS', 'Пресет успешно удален');
+define('LANG_ACTION_POSTBLOCKS_ADMINPRESETDELETE_ERROR', 'Ошибка при удалении пресета');

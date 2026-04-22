@@ -23,24 +23,24 @@ class AdminPresetUpdate extends PostBlockAction {
             $presetTemplate = $_POST['preset_template'] ?? '';
 
             if (empty($presetId) || empty($presetName)) {
-                throw new \Exception('Не указаны обязательные параметры');
+                throw new \Exception(LANG_ACTION_POSTBLOCKS_ADMINPRESETUPDATE_PARAMS_REQUIRED);
             }
 
             $preset = $this->postBlockModel->getPreset($presetId);
             if (!$preset) {
-                throw new \Exception('Пресет не найден');
+                throw new \Exception(LANG_ACTION_POSTBLOCKS_ADMINPRESETUPDATE_PRESET_NOT_FOUND);
             }
 
             $existingPreset = $this->postBlockModel->getPresetByName($preset['block_system_name'], $presetName);
             if ($existingPreset && $existingPreset['id'] != $presetId) {
-                throw new \Exception('Пресет с таким именем уже существует');
+                throw new \Exception(LANG_ACTION_POSTBLOCKS_ADMINPRESETUPDATE_PRESET_EXISTS);
             }
 
             $result = $this->postBlockModel->updatePreset($presetId, $presetName, $presetTemplate);
 
             echo json_encode([
                 'success' => $result !== false,
-                'message' => $result ? 'Пресет успешно обновлен' : 'Ошибка при обновлении пресета'
+                'message' => $result ? LANG_ACTION_POSTBLOCKS_ADMINPRESETUPDATE_SUCCESS : LANG_ACTION_POSTBLOCKS_ADMINPRESETUPDATE_ERROR
             ]);
 
         } catch (\Exception $e) {

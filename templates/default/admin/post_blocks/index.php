@@ -2,7 +2,7 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h4 class="mb-0">
             <?php echo bloggy_icon('bs', 'grid-3x3-gap', '24', '#000', 'me-2'); ?>
-            Постблоки
+            <?php echo LANG_TEMPLATE_POSTBLOCKS_INDEX_TITLE; ?>
         </h4>
     </div>
 
@@ -38,26 +38,26 @@
                                             </p>
                                             <div class="d-flex gap-2 mb-2">
                                                 <span class="badge bg-<?php echo $block['can_use_in_posts'] ? 'success' : 'danger'; ?>">
-                                                    Посты
+                                                    <?php echo LANG_TEMPLATE_POSTBLOCKS_INDEX_BADGE_POSTS; ?>
                                                 </span>
                                                 <span class="badge bg-<?php echo $block['can_use_in_pages'] ? 'success' : 'danger'; ?>">
-                                                    Страницы
+                                                    <?php echo LANG_TEMPLATE_POSTBLOCKS_INDEX_BADGE_PAGES; ?>
                                                 </span>
                                             </div>
                                         </div>
                                     </div>
                                     
                                     <div class="small text-muted mb-3">
-                                        <div>Системное имя: <code><?php echo $block['system_name']; ?></code></div>
-                                        <div>Версия: <?php echo $block['version']; ?></div>
-                                        <div>Автор: <?php echo $block['author']; ?></div>
+                                        <div><?php echo LANG_TEMPLATE_POSTBLOCKS_INDEX_SYSTEM_NAME; ?> <code><?php echo $block['system_name']; ?></code></div>
+                                        <div><?php echo LANG_TEMPLATE_POSTBLOCKS_INDEX_VERSION; ?> <?php echo $block['version']; ?></div>
+                                        <div><?php echo LANG_TEMPLATE_POSTBLOCKS_INDEX_AUTHOR; ?> <?php echo $block['author']; ?></div>
                                     </div>
                                 </div>
                                 <div class="card-footer bg-transparent">
                                     <a href="<?php echo ADMIN_URL; ?>/post-blocks/edit?system_name=<?php echo $block['system_name']; ?>" 
                                        class="btn btn-sm btn-success">
                                         <?php echo bloggy_icon('bs', 'gear', '14', '#fefefe', 'me-1'); ?>
-                                        Настройки
+                                        <?php echo LANG_TEMPLATE_POSTBLOCKS_INDEX_SETTINGS_BTN; ?>
                                     </a>
                                 </div>
                             </div>

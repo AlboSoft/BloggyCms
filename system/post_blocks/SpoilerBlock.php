@@ -2,7 +2,7 @@
 class SpoilerBlock extends BasePostBlock {
     
     public function getName(): string {
-        return 'Спойлер';
+        return LANG_POSTBLOCK_SPOILER_NAME;
     }
 
     public function getSystemName(): string {
@@ -10,7 +10,7 @@ class SpoilerBlock extends BasePostBlock {
     }
 
     public function getDescription(): string {
-        return 'Блок для скрытия контента под спойлером с настраиваемым заголовком';
+        return LANG_POSTBLOCK_SPOILER_DESCRIPTION;
     }
 
     public function getIcon(): string {
@@ -41,8 +41,8 @@ class SpoilerBlock extends BasePostBlock {
 
     public function getDefaultContent(): array {
         return [
-            'title' => 'Нажмите чтобы раскрыть',
-            'content' => 'Скрытый контент...'
+            'title' => LANG_POSTBLOCK_SPOILER_DEFAULT_TITLE,
+            'content' => LANG_POSTBLOCK_SPOILER_DEFAULT_CONTENT
         ];
     }
 
@@ -65,24 +65,24 @@ class SpoilerBlock extends BasePostBlock {
         ob_start();
         ?>
         <div class="mb-4">
-            <label class="form-label">Заголовок спойлера *</label>
+            <label class="form-label"><?php echo LANG_POSTBLOCK_SPOILER_FORM_TITLE_LABEL; ?> *</label>
             <input type="text" 
                    name="content[title]" 
                    class="form-control" 
                    value="<?= html($title) ?>" 
-                   placeholder="Текст заголовка"
+                   placeholder="<?php echo LANG_POSTBLOCK_SPOILER_FORM_TITLE_PLACEHOLDER; ?>"
                    required>
-            <div class="form-text">Текст, который будет виден когда спойлер закрыт</div>
+            <div class="form-text"><?php echo LANG_POSTBLOCK_SPOILER_FORM_TITLE_HINT; ?></div>
         </div>
 
         <div class="mb-4">
-            <label class="form-label">Содержимое спойлера *</label>
+            <label class="form-label"><?php echo LANG_POSTBLOCK_SPOILER_FORM_CONTENT_LABEL; ?> *</label>
             <textarea name="content[content]" 
                      class="form-control" 
                      rows="6" 
-                     placeholder="Скрытый контент..."
+                     placeholder="<?php echo LANG_POSTBLOCK_SPOILER_FORM_CONTENT_PLACEHOLDER; ?>"
                      required><?= html($content) ?></textarea>
-            <div class="form-text">Контент, который будет скрыт под спойлером</div>
+            <div class="form-text"><?php echo LANG_POSTBLOCK_SPOILER_FORM_CONTENT_HINT; ?></div>
         </div>
         <?php
         return ob_get_clean();
@@ -98,24 +98,24 @@ class SpoilerBlock extends BasePostBlock {
         $animation = $currentSettings['animation'] ?? true;
 
         $spoilerIcons = [
-            '' => 'Без иконки',
-            'chevron-down' => 'Стрелка вниз',
-            'chevron-right' => 'Стрелка вправо',
-            'plus' => 'Плюс',
-            'dash' => 'Минус',
-            'caret-down' => 'Уголок вниз',
-            'caret-right' => 'Уголок вправо',
-            'arrow-down' => 'Стрелка вниз (жирная)',
-            'arrow-right' => 'Стрелка вправо (жирная)',
-            'eye' => 'Глаз',
-            'info-circle' => 'Информация',
-            'question-circle' => 'Вопрос',
-            'chevron-double-down' => 'Двойная стрелка вниз',
-            'chevron-double-right' => 'Двойная стрелка вправо',
-            'arrow-down-circle' => 'Стрелка вниз в круге',
-            'arrow-right-circle' => 'Стрелка вправо в круге',
-            'caret-down-fill' => 'Закрашенный уголок вниз',
-            'caret-right-fill' => 'Закрашенный уголок вправо'
+            '' => LANG_POSTBLOCK_SPOILER_ICON_NONE,
+            'chevron-down' => LANG_POSTBLOCK_SPOILER_ICON_CHEVRON_DOWN,
+            'chevron-right' => LANG_POSTBLOCK_SPOILER_ICON_CHEVRON_RIGHT,
+            'plus' => LANG_POSTBLOCK_SPOILER_ICON_PLUS,
+            'dash' => LANG_POSTBLOCK_SPOILER_ICON_DASH,
+            'caret-down' => LANG_POSTBLOCK_SPOILER_ICON_CARET_DOWN,
+            'caret-right' => LANG_POSTBLOCK_SPOILER_ICON_CARET_RIGHT,
+            'arrow-down' => LANG_POSTBLOCK_SPOILER_ICON_ARROW_DOWN,
+            'arrow-right' => LANG_POSTBLOCK_SPOILER_ICON_ARROW_RIGHT,
+            'eye' => LANG_POSTBLOCK_SPOILER_ICON_EYE,
+            'info-circle' => LANG_POSTBLOCK_SPOILER_ICON_INFO,
+            'question-circle' => LANG_POSTBLOCK_SPOILER_ICON_QUESTION,
+            'chevron-double-down' => LANG_POSTBLOCK_SPOILER_ICON_DOUBLE_DOWN,
+            'chevron-double-right' => LANG_POSTBLOCK_SPOILER_ICON_DOUBLE_RIGHT,
+            'arrow-down-circle' => LANG_POSTBLOCK_SPOILER_ICON_ARROW_DOWN_CIRCLE,
+            'arrow-right-circle' => LANG_POSTBLOCK_SPOILER_ICON_ARROW_RIGHT_CIRCLE,
+            'caret-down-fill' => LANG_POSTBLOCK_SPOILER_ICON_CARET_DOWN_FILL,
+            'caret-right-fill' => LANG_POSTBLOCK_SPOILER_ICON_CARET_RIGHT_FILL
         ];
 
         ob_start();
@@ -123,7 +123,7 @@ class SpoilerBlock extends BasePostBlock {
         <div class="row">
             <div class="col-md-6">
                 <div class="mb-4">
-                    <label class="form-label">Иконка перед заголовком</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_SPOILER_SETTINGS_ICON_BEFORE; ?></label>
                     <select name="settings[icon_before]" class="form-select">
                         <?php foreach($spoilerIcons as $value => $name) { ?>
                             <option value="<?= $value ?>" <?= $iconBefore === $value ? 'selected' : '' ?>>
@@ -135,7 +135,7 @@ class SpoilerBlock extends BasePostBlock {
             </div>
             <div class="col-md-6">
                 <div class="mb-4">
-                    <label class="form-label">Иконка после заголовка</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_SPOILER_SETTINGS_ICON_AFTER; ?></label>
                     <select name="settings[icon_after]" class="form-select">
                         <?php foreach($spoilerIcons as $value => $name) { ?>
                             <option value="<?= $value ?>" <?= $iconAfter === $value ? 'selected' : '' ?>>
@@ -150,17 +150,17 @@ class SpoilerBlock extends BasePostBlock {
         <div class="row">
             <div class="col-md-6">
                 <div class="mb-4">
-                    <label class="form-label">Позиция иконки</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_SPOILER_SETTINGS_ICON_POSITION; ?></label>
                     <select name="settings[icon_position]" class="form-select">
-                        <option value="icon-before" <?= $iconPosition === 'icon-before' ? 'selected' : '' ?>>Только перед текстом</option>
-                        <option value="icon-after" <?= $iconPosition === 'icon-after' ? 'selected' : '' ?>>Только после текста</option>
-                        <option value="icon-both" <?= $iconPosition === 'icon-both' ? 'selected' : '' ?>>С обеих сторон</option>
+                        <option value="icon-before" <?= $iconPosition === 'icon-before' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_SPOILER_POSITION_BEFORE; ?></option>
+                        <option value="icon-after" <?= $iconPosition === 'icon-after' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_SPOILER_POSITION_AFTER; ?></option>
+                        <option value="icon-both" <?= $iconPosition === 'icon-both' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_SPOILER_POSITION_BOTH; ?></option>
                     </select>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="mb-4">
-                    <label class="form-label">Дополнительный CSS класс</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_SPOILER_SETTINGS_CUSTOM_CLASS; ?></label>
                     <input type="text" 
                            name="settings[custom_class]" 
                            class="form-control" 
@@ -180,7 +180,7 @@ class SpoilerBlock extends BasePostBlock {
                            value="show" 
                            <?= $showDefault === 'show' ? 'checked' : '' ?>>
                     <label class="form-check-label" for="show_default">
-                        Открыт по умолчанию
+                        <?php echo LANG_POSTBLOCK_SPOILER_SETTINGS_OPEN_BY_DEFAULT; ?>
                     </label>
                 </div>
             </div>
@@ -193,7 +193,7 @@ class SpoilerBlock extends BasePostBlock {
                            value="1" 
                            <?= $animation ? 'checked' : '' ?>>
                     <label class="form-check-label" for="animation">
-                        Анимация раскрытия
+                        <?php echo LANG_POSTBLOCK_SPOILER_SETTINGS_ANIMATION; ?>
                     </label>
                 </div>
             </div>
@@ -201,7 +201,7 @@ class SpoilerBlock extends BasePostBlock {
 
         <div class="alert alert-info">
             <?= bloggy_icon('bs', 'info-circle', '16 16', null, 'me-2') ?>
-            Для работы спойлера необходим Bootstrap 5. Убедитесь, что он подключен в вашем шаблоне.
+            <?php echo LANG_POSTBLOCK_SPOILER_SETTINGS_BOOTSTRAP_NOTE; ?>
         </div>
         <?php
         return ob_get_clean();
@@ -223,7 +223,7 @@ class SpoilerBlock extends BasePostBlock {
         $contentText = $content['content'] ?? '';
 
         if (empty(trim($title))) {
-            return '<!-- SpoilerBlock: пустой заголовок -->';
+            return '<!-- ' . LANG_POSTBLOCK_SPOILER_EMPTY_TITLE_COMMENT . ' -->';
         }
 
         $showDefault = $settings['show_default'] ?? '';
@@ -289,14 +289,14 @@ class SpoilerBlock extends BasePostBlock {
 
     public function getShortcodes(): array {
         return array_merge(parent::getShortcodes(), [
-            '{title}' => 'Заголовок спойлера',
-            '{content}' => 'Содержимое спойлера (может содержать HTML)',
-            '{block_id}' => 'Уникальный ID блока',
-            '{show_default}' => 'Классы для состояния по умолчанию',
-            '{icon_before}' => 'Иконка перед заголовком',
-            '{icon_after}' => 'Иконка после заголовком',
-            '{icon_position}' => 'Позиция иконки',
-            '{custom_class}' => 'Дополнительный CSS класс'
+            '{title}' => LANG_POSTBLOCK_SPOILER_SHORTCODE_TITLE,
+            '{content}' => LANG_POSTBLOCK_SPOILER_SHORTCODE_CONTENT,
+            '{block_id}' => LANG_POSTBLOCK_SPOILER_SHORTCODE_BLOCK_ID,
+            '{show_default}' => LANG_POSTBLOCK_SPOILER_SHORTCODE_SHOW_DEFAULT,
+            '{icon_before}' => LANG_POSTBLOCK_SPOILER_SHORTCODE_ICON_BEFORE,
+            '{icon_after}' => LANG_POSTBLOCK_SPOILER_SHORTCODE_ICON_AFTER,
+            '{icon_position}' => LANG_POSTBLOCK_SPOILER_SHORTCODE_ICON_POSITION,
+            '{custom_class}' => LANG_POSTBLOCK_SPOILER_SHORTCODE_CUSTOM_CLASS
         ]);
     }
 
@@ -310,12 +310,12 @@ class SpoilerBlock extends BasePostBlock {
         $errors = [];
 
         if (!empty($settings['custom_class']) && !preg_match('/^[a-zA-Z0-9-_ ]+$/', $settings['custom_class'])) {
-            $errors[] = 'CSS класс может содержать только буквы, цифры, дефисы и подчеркивания';
+            $errors[] = LANG_POSTBLOCK_SPOILER_VALIDATION_CUSTOM_CLASS;
         }
 
         $allowedIconPositions = ['icon-before', 'icon-after', 'icon-both'];
         if (!empty($settings['icon_position']) && !in_array($settings['icon_position'], $allowedIconPositions)) {
-            $errors[] = 'Недопустимая позиция иконки';
+            $errors[] = LANG_POSTBLOCK_SPOILER_VALIDATION_ICON_POSITION;
         }
 
         return [empty($errors), $errors];
@@ -391,10 +391,10 @@ class SpoilerBlock extends BasePostBlock {
         }
         
         if (!isset($content['title'])) {
-            $content['title'] = 'Нажмите чтобы раскрыть';
+            $content['title'] = LANG_POSTBLOCK_SPOILER_DEFAULT_TITLE;
         }
         if (!isset($content['content'])) {
-            $content['content'] = 'Скрытый контент...';
+            $content['content'] = LANG_POSTBLOCK_SPOILER_DEFAULT_CONTENT;
         }
 
         return $content;
@@ -448,8 +448,8 @@ class SpoilerBlock extends BasePostBlock {
         $content = $this->validateAndNormalizeContent($content);
         $settings = $this->validateAndNormalizeSettings($settings);
         
-        $title = $content['title'] ?? 'Нажмите чтобы раскрыть';
-        $contentText = $content['content'] ?? 'Скрытый контент...';
+        $title = $content['title'] ?? LANG_POSTBLOCK_SPOILER_DEFAULT_TITLE;
+        $contentText = $content['content'] ?? LANG_POSTBLOCK_SPOILER_DEFAULT_CONTENT;
         $showDefault = $settings['show_default'] ?? '';
         $iconBefore = $settings['icon_before'] ?? 'chevron-down';
         $iconAfter = $settings['icon_after'] ?? '';
@@ -468,10 +468,10 @@ class SpoilerBlock extends BasePostBlock {
         }
         
         $iconPositionText = match($iconPosition) {
-            'icon-before' => 'Слева',
-            'icon-after' => 'Справа',
-            'icon-both' => 'С обеих сторон',
-            default => 'Справа'
+            'icon-before' => LANG_POSTBLOCK_SPOILER_POSITION_BEFORE,
+            'icon-after' => LANG_POSTBLOCK_SPOILER_POSITION_AFTER,
+            'icon-both' => LANG_POSTBLOCK_SPOILER_POSITION_BOTH,
+            default => LANG_POSTBLOCK_SPOILER_POSITION_AFTER
         };
         
         ob_start();
@@ -485,16 +485,16 @@ class SpoilerBlock extends BasePostBlock {
                         </div>
                         <div class="preview-info">
                             <div class="preview-title">
-                                <strong>Спойлер</strong>
+                                <strong><?php echo LANG_POSTBLOCK_SPOILER_PREVIEW_TITLE; ?></strong>
                                 <?php if ($isOpen) { ?>
-                                    <span class="badge bg-success badge-sm">Открыт</span>
+                                    <span class="badge bg-success badge-sm"><?php echo LANG_POSTBLOCK_SPOILER_PREVIEW_OPEN; ?></span>
                                 <?php } else { ?>
-                                    <span class="badge bg-warning badge-sm">Закрыт</span>
+                                    <span class="badge bg-warning badge-sm"><?php echo LANG_POSTBLOCK_SPOILER_PREVIEW_CLOSED; ?></span>
                                 <?php } ?>
                             </div>
                             <div class="preview-stats">
-                                <?= strlen($title) ?> симв. в заголовке
-                                · <?= $contentLength ?> симв. в контенте
+                                <?php echo sprintf(LANG_POSTBLOCK_SPOILER_PREVIEW_TITLE_STATS, strlen($title)); ?>
+                                · <?php echo sprintf(LANG_POSTBLOCK_SPOILER_PREVIEW_CONTENT_STATS, $contentLength); ?>
                             </div>
                         </div>
                     </div>
@@ -529,7 +529,7 @@ class SpoilerBlock extends BasePostBlock {
                                     </div>
                                     <div class="ms-3">
                                         <span class="badge <?= $isOpen ? 'bg-success' : 'bg-warning' ?>">
-                                            <?= $isOpen ? 'Открыт' : 'Закрыт' ?>
+                                            <?= $isOpen ? LANG_POSTBLOCK_SPOILER_PREVIEW_OPEN : LANG_POSTBLOCK_SPOILER_PREVIEW_CLOSED ?>
                                         </span>
                                     </div>
                                 </div>
@@ -537,8 +537,8 @@ class SpoilerBlock extends BasePostBlock {
                             
                             <div class="spoiler-content-preview border rounded p-3 bg-white <?= $isOpen ? '' : 'bg-light' ?>">
                                 <div class="small text-muted mb-2 d-flex justify-content-between">
-                                    <span><?= bloggy_icon('bs', 'eye-slash', '12 12', null, 'me-1') ?> Скрытый контент</span>
-                                    <span><?= $contentLength ?> симв.</span>
+                                    <span><?= bloggy_icon('bs', 'eye-slash', '12 12', null, 'me-1') ?> <?php echo LANG_POSTBLOCK_SPOILER_PREVIEW_HIDDEN_CONTENT; ?></span>
+                                    <span><?= $contentLength ?> <?php echo LANG_POSTBLOCK_SPOILER_PREVIEW_CHARS; ?></span>
                                 </div>
                                 
                                 <?php if (!empty(trim($contentText))) { ?>
@@ -549,7 +549,7 @@ class SpoilerBlock extends BasePostBlock {
                                 <?php } else { ?>
                                     <div class="text-center py-2 text-muted">
                                         <?= bloggy_icon('bs', 'eye-slash', '24 24', null, 'mb-1') ?>
-                                        <div class="small mt-1">Контент не добавлен</div>
+                                        <div class="small mt-1"><?php echo LANG_POSTBLOCK_SPOILER_PREVIEW_NO_CONTENT; ?></div>
                                     </div>
                                 <?php } ?>
                             </div>
@@ -557,14 +557,14 @@ class SpoilerBlock extends BasePostBlock {
                             <div class="spoiler-preview-info mt-3 small text-muted">
                                 <div class="row">
                                     <div class="col-6">
-                                        <div><?= bloggy_icon('bs', $isOpen ? 'unlock' : 'lock', '12 12', null, 'me-1') ?>По умолчанию: <strong><?= $isOpen ? 'Открыт' : 'Закрыт' ?></strong></div>
-                                        <div><?= bloggy_icon('bs', 'gear', '12 12', null, 'me-1') ?>Иконки: <strong><?= html($iconPositionText) ?></strong></div>
+                                        <div><?= bloggy_icon('bs', $isOpen ? 'unlock' : 'lock', '12 12', null, 'me-1') ?><?php echo LANG_POSTBLOCK_SPOILER_PREVIEW_INFO_DEFAULT; ?> <strong><?= $isOpen ? LANG_POSTBLOCK_SPOILER_PREVIEW_OPEN : LANG_POSTBLOCK_SPOILER_PREVIEW_CLOSED ?></strong></div>
+                                        <div><?= bloggy_icon('bs', 'gear', '12 12', null, 'me-1') ?><?php echo LANG_POSTBLOCK_SPOILER_PREVIEW_INFO_ICONS; ?> <strong><?= html($iconPositionText) ?></strong></div>
                                     </div>
                                     <div class="col-6">
                                         <?php if ($customClass) { ?>
-                                            <div><?= bloggy_icon('bs', 'tag', '12 12', null, 'me-1') ?>Класс: <strong><?= html($customClass) ?></strong></div>
+                                            <div><?= bloggy_icon('bs', 'tag', '12 12', null, 'me-1') ?><?php echo LANG_POSTBLOCK_SPOILER_PREVIEW_INFO_CLASS; ?> <strong><?= html($customClass) ?></strong></div>
                                         <?php } ?>
-                                        <div><?= bloggy_icon('bs', 'play-circle', '12 12', null, 'me-1') ?>Анимация: <strong><?= $animation ? 'Да' : 'Нет' ?></strong></div>
+                                        <div><?= bloggy_icon('bs', 'play-circle', '12 12', null, 'me-1') ?><?php echo LANG_POSTBLOCK_SPOILER_PREVIEW_INFO_ANIMATION; ?> <strong><?= $animation ? LANG_POSTBLOCK_SPOILER_PREVIEW_YES : LANG_POSTBLOCK_SPOILER_PREVIEW_NO ?></strong></div>
                                     </div>
                                 </div>
                             </div>
@@ -572,15 +572,15 @@ class SpoilerBlock extends BasePostBlock {
                     <?php } else { ?>
                         <div class="preview-empty-state">
                             <?= bloggy_icon('bs', 'eye', '48 48', '#6C6C6C', 'mb-3') ?>
-                            <div class="empty-text">Содержимое не добавлено</div>
+                            <div class="empty-text"><?php echo LANG_POSTBLOCK_SPOILER_PREVIEW_EMPTY_TEXT; ?></div>
                             <button type="button" class="btn btn-sm btn-outline-primary mt-2" 
                                     onclick="postBlocksManager.editBlock('{block_id}')">
                                 <?= bloggy_icon('bs', 'plus-circle', '14 14', null, 'me-1') ?>
-                                Добавить спойлер
+                                <?php echo LANG_POSTBLOCK_SPOILER_PREVIEW_ADD_BTN; ?>
                             </button>
                             <div class="mt-3 small text-muted">
                                 <?= bloggy_icon('bs', 'info-circle', '14 14', null, 'me-1') ?>
-                                Используйте для скрытия контента под заголовком
+                                <?php echo LANG_POSTBLOCK_SPOILER_PREVIEW_INFO_TEXT; ?>
                             </div>
                         </div>
                     <?php } ?>

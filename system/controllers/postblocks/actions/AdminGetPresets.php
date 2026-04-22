@@ -21,7 +21,7 @@ class AdminGetPresets extends PostBlockAction {
             $systemName = $_GET['system_name'] ?? '';
 
             if (empty($systemName)) {
-                throw new \Exception('Не указано системное имя блока');
+                throw new \Exception(LANG_ACTION_POSTBLOCKS_ADMINGETPRESETS_SYSTEM_NAME_NOT_SPECIFIED);
             }
 
             $presets = $this->postBlockModel->getBlockPresets($systemName);

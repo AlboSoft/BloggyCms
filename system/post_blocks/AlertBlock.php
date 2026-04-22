@@ -2,7 +2,7 @@
 class AlertBlock extends BasePostBlock {
     
     public function getName(): string {
-        return 'Блок с предупреждением';
+        return LANG_POSTBLOCK_ALERT_NAME;
     }
 
     public function getSystemName(): string {
@@ -10,7 +10,7 @@ class AlertBlock extends BasePostBlock {
     }
 
     public function getDescription(): string {
-        return 'Блок для отображения различных типов уведомлений: информация, предупреждение, успех, ошибка';
+        return LANG_POSTBLOCK_ALERT_DESCRIPTION;
     }
 
     public function getIcon(): string {
@@ -35,8 +35,8 @@ class AlertBlock extends BasePostBlock {
 
     public function getDefaultContent(): array {
         return [
-            'title' => 'Внимание!',
-            'content' => 'Это важное сообщение, на которое следует обратить внимание.',
+            'title' => LANG_POSTBLOCK_ALERT_DEFAULT_TITLE,
+            'content' => LANG_POSTBLOCK_ALERT_DEFAULT_CONTENT,
         ];
     }
 
@@ -54,8 +54,8 @@ class AlertBlock extends BasePostBlock {
         $content = $this->validateAndNormalizeContent($content);
         $settings = $this->validateAndNormalizeSettings($settings);
         
-        $title = $content['title'] ?? 'Внимание!';
-        $contentText = $content['content'] ?? 'Это важное сообщение, на которое следует обратить внимание.';
+        $title = $content['title'] ?? LANG_POSTBLOCK_ALERT_DEFAULT_TITLE;
+        $contentText = $content['content'] ?? LANG_POSTBLOCK_ALERT_DEFAULT_CONTENT;
         $type = $settings['type'] ?? 'warning';
         $dismissible = $settings['dismissible'] ?? false;
         $customClass = $settings['custom_class'] ?? '';
@@ -71,15 +71,7 @@ class AlertBlock extends BasePostBlock {
             default => 'bi bi-exclamation-triangle'
         };
         
-        $typeText = match($type) {
-            'success' => 'Успех',
-            'danger' => 'Ошибка',
-            'info' => 'Информация',
-            'primary' => 'Основное',
-            'secondary' => 'Дополнительное',
-            'dark' => 'Темное',
-            default => 'Предупреждение'
-        };
+        $typeText = $this->getTypeName($type);
         
         ob_start();
         ?>
@@ -92,14 +84,14 @@ class AlertBlock extends BasePostBlock {
                         </div>
                         <div class="preview-info">
                             <div class="preview-title">
-                                <strong>Блок с предупреждением</strong>
+                                <strong><?php echo LANG_POSTBLOCK_ALERT_PREVIEW_TITLE; ?></strong>
                                 <span class="badge bg-<?= html($type) ?> badge-sm"><?= html($typeText) ?></span>
                             </div>
                             <div class="preview-stats">
-                                <?= strlen($title) ?> симв. в заголовке
-                                · <?= strlen($contentText) ?> симв. в тексте
+                                <?= strlen($title) ?> <?php echo LANG_POSTBLOCK_ALERT_PREVIEW_CHARS_TITLE; ?>
+                                · <?= strlen($contentText) ?> <?php echo LANG_POSTBLOCK_ALERT_PREVIEW_CHARS_TEXT; ?>
                                 <?php if ($dismissible) { ?>
-                                    · закрываемый
+                                    · <?php echo LANG_POSTBLOCK_ALERT_PREVIEW_DISMISSIBLE; ?>
                                 <?php } ?>
                             </div>
                         </div>
@@ -150,20 +142,20 @@ class AlertBlock extends BasePostBlock {
                                     <div class="col-6">
                                         <div>
                                             <i class="bi bi-circle-fill text-<?= html($type) ?> me-1"></i>
-                                            Тип: <strong><?= html($typeText) ?></strong>
+                                            <?php echo LANG_POSTBLOCK_ALERT_PREVIEW_TYPE; ?> <strong><?= html($typeText) ?></strong>
                                         </div>
                                         <div>
                                             <i class="bi bi-<?= $showIcon ? 'eye' : 'eye-slash' ?> me-1"></i>
-                                            Иконка: <strong><?= $showIcon ? 'Да' : 'Нет' ?></strong>
+                                            <?php echo LANG_POSTBLOCK_ALERT_PREVIEW_ICON; ?> <strong><?= $showIcon ? LANG_POSTBLOCK_ALERT_YES : LANG_POSTBLOCK_ALERT_NO ?></strong>
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <?php if ($customClass) { ?>
-                                            <div><i class="bi bi-tag me-1"></i>Класс: <strong><?= html($customClass) ?></strong></div>
+                                            <div><i class="bi bi-tag me-1"></i><?php echo LANG_POSTBLOCK_ALERT_PREVIEW_CLASS; ?> <strong><?= html($customClass) ?></strong></div>
                                         <?php } ?>
                                         <div>
                                             <i class="bi bi-<?= $dismissible ? 'x-circle' : 'circle' ?> me-1"></i>
-                                            Закрываемый: <strong><?= $dismissible ? 'Да' : 'Нет' ?></strong>
+                                            <?php echo LANG_POSTBLOCK_ALERT_PREVIEW_DISMISSIBLE_LABEL; ?> <strong><?= $dismissible ? LANG_POSTBLOCK_ALERT_YES : LANG_POSTBLOCK_ALERT_NO ?></strong>
                                         </div>
                                     </div>
                                 </div>
@@ -172,14 +164,14 @@ class AlertBlock extends BasePostBlock {
                     <?php } else { ?>
                         <div class="preview-empty-state">
                             <i class="bi bi-exclamation-triangle"></i>
-                            <div class="empty-text">Содержимое не добавлено</div>
+                            <div class="empty-text"><?php echo LANG_POSTBLOCK_ALERT_PREVIEW_EMPTY_TITLE; ?></div>
                             <button type="button" class="btn btn-sm btn-outline-primary mt-2" 
                                     onclick="postBlocksManager.editBlock('{block_id}')">
-                                <i class="bi bi-plus-circle"></i> Добавить предупреждение
+                                <i class="bi bi-plus-circle"></i> <?php echo LANG_POSTBLOCK_ALERT_PREVIEW_ADD_BTN; ?>
                             </button>
                             <div class="mt-3 small text-muted">
                                 <i class="bi bi-info-circle"></i>
-                                Используйте для отображения различных типов уведомлений и сообщений
+                                <?php echo LANG_POSTBLOCK_ALERT_PREVIEW_HINT; ?>
                             </div>
                         </div>
                     <?php } ?>
@@ -198,23 +190,23 @@ class AlertBlock extends BasePostBlock {
         ob_start();
         ?>
         <div class="mb-4">
-            <label class="form-label">Заголовок (опционально)</label>
+            <label class="form-label"><?php echo LANG_POSTBLOCK_ALERT_FORM_TITLE_LABEL; ?></label>
             <input type="text" 
                    name="content[title]" 
                    class="form-control" 
                    value="<?= html($title) ?>" 
-                   placeholder="Например: Важно!">
-            <div class="form-text">Заголовок сообщения. Если оставить пустым, будет показан только основной текст.</div>
+                   placeholder="<?php echo LANG_POSTBLOCK_ALERT_FORM_TITLE_PLACEHOLDER; ?>">
+            <div class="form-text"><?php echo LANG_POSTBLOCK_ALERT_FORM_TITLE_HINT; ?></div>
         </div>
 
         <div class="mb-4">
-            <label class="form-label">Текст сообщения *</label>
+            <label class="form-label"><?php echo LANG_POSTBLOCK_ALERT_FORM_CONTENT_LABEL; ?> *</label>
             <textarea name="content[content]" 
                      class="form-control" 
                      rows="4" 
-                     placeholder="Введите текст сообщения..."
+                     placeholder="<?php echo LANG_POSTBLOCK_ALERT_FORM_CONTENT_PLACEHOLDER; ?>"
                      required><?= html($content) ?></textarea>
-            <div class="form-text">Основное содержание блока предупреждения.</div>
+            <div class="form-text"><?php echo LANG_POSTBLOCK_ALERT_FORM_CONTENT_HINT; ?></div>
         </div>
         <?php
         return ob_get_clean();
@@ -233,22 +225,22 @@ class AlertBlock extends BasePostBlock {
         <div class="row">
             <div class="col-md-6">
                 <div class="mb-4">
-                    <label class="form-label">Тип предупреждения</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_ALERT_SETTINGS_TYPE; ?></label>
                     <select name="settings[type]" class="form-select" id="alert-type-select">
-                        <option value="primary" <?= $type === 'primary' ? 'selected' : '' ?> data-icon="bi bi-bell">Основное (primary)</option>
-                        <option value="secondary" <?= $type === 'secondary' ? 'selected' : '' ?> data-icon="bi bi-exclamation-circle">Дополнительное (secondary)</option>
-                        <option value="success" <?= $type === 'success' ? 'selected' : '' ?> data-icon="bi bi-check-circle">Успех (success)</option>
-                        <option value="danger" <?= $type === 'danger' ? 'selected' : '' ?> data-icon="bi bi-x-circle">Ошибка (danger)</option>
-                        <option value="warning" <?= $type === 'warning' ? 'selected' : '' ?> data-icon="bi bi-exclamation-triangle">Предупреждение (warning)</option>
-                        <option value="info" <?= $type === 'info' ? 'selected' : '' ?> data-icon="bi bi-info-circle">Информация (info)</option>
-                        <option value="light" <?= $type === 'light' ? 'selected' : '' ?> data-icon="bi bi-lightbulb">Светлое (light)</option>
-                        <option value="dark" <?= $type === 'dark' ? 'selected' : '' ?> data-icon="bi bi-moon">Темное (dark)</option>
+                        <option value="primary" <?= $type === 'primary' ? 'selected' : '' ?> data-icon="bi bi-bell"><?php echo LANG_POSTBLOCK_ALERT_TYPE_PRIMARY; ?></option>
+                        <option value="secondary" <?= $type === 'secondary' ? 'selected' : '' ?> data-icon="bi bi-exclamation-circle"><?php echo LANG_POSTBLOCK_ALERT_TYPE_SECONDARY; ?></option>
+                        <option value="success" <?= $type === 'success' ? 'selected' : '' ?> data-icon="bi bi-check-circle"><?php echo LANG_POSTBLOCK_ALERT_TYPE_SUCCESS; ?></option>
+                        <option value="danger" <?= $type === 'danger' ? 'selected' : '' ?> data-icon="bi bi-x-circle"><?php echo LANG_POSTBLOCK_ALERT_TYPE_DANGER; ?></option>
+                        <option value="warning" <?= $type === 'warning' ? 'selected' : '' ?> data-icon="bi bi-exclamation-triangle"><?php echo LANG_POSTBLOCK_ALERT_TYPE_WARNING; ?></option>
+                        <option value="info" <?= $type === 'info' ? 'selected' : '' ?> data-icon="bi bi-info-circle"><?php echo LANG_POSTBLOCK_ALERT_TYPE_INFO; ?></option>
+                        <option value="light" <?= $type === 'light' ? 'selected' : '' ?> data-icon="bi bi-lightbulb"><?php echo LANG_POSTBLOCK_ALERT_TYPE_LIGHT; ?></option>
+                        <option value="dark" <?= $type === 'dark' ? 'selected' : '' ?> data-icon="bi bi-moon"><?php echo LANG_POSTBLOCK_ALERT_TYPE_DARK; ?></option>
                     </select>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="mb-4">
-                    <label class="form-label">Дополнительный CSS класс</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_ALERT_SETTINGS_CSS_CLASS; ?></label>
                     <input type="text" 
                            name="settings[custom_class]" 
                            class="form-control" 
@@ -268,9 +260,9 @@ class AlertBlock extends BasePostBlock {
                            value="1" 
                            <?= $dismissible ? 'checked' : '' ?>>
                     <label class="form-check-label" for="dismissible">
-                        Можно закрыть
+                        <?php echo LANG_POSTBLOCK_ALERT_SETTINGS_DISMISSIBLE; ?>
                     </label>
-                    <div class="form-text">Добавляет кнопку закрытия уведомления</div>
+                    <div class="form-text"><?php echo LANG_POSTBLOCK_ALERT_SETTINGS_DISMISSIBLE_HINT; ?></div>
                 </div>
             </div>
             <div class="col-md-6">
@@ -282,7 +274,7 @@ class AlertBlock extends BasePostBlock {
                            value="1" 
                            <?= $showIcon ? 'checked' : '' ?>>
                     <label class="form-check-label" for="show_icon">
-                        Показывать иконку
+                        <?php echo LANG_POSTBLOCK_ALERT_SETTINGS_SHOW_ICON; ?>
                     </label>
                 </div>
             </div>
@@ -291,13 +283,13 @@ class AlertBlock extends BasePostBlock {
         <div class="row">
             <div class="col-md-6">
                 <div class="mb-4">
-                    <label class="form-label">ARIA live region</label>
+                    <label class="form-label"><?php echo LANG_POSTBLOCK_ALERT_SETTINGS_ARIA_LIVE; ?></label>
                     <select name="settings[aria_live]" class="form-select">
-                        <option value="polite" <?= $ariaLive === 'polite' ? 'selected' : '' ?>>Polite (не срочное)</option>
-                        <option value="assertive" <?= $ariaLive === 'assertive' ? 'selected' : '' ?>>Assertive (срочное)</option>
-                        <option value="off" <?= $ariaLive === 'off' ? 'selected' : '' ?>>Off (отключено)</option>
+                        <option value="polite" <?= $ariaLive === 'polite' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_ALERT_ARIA_POLITE; ?></option>
+                        <option value="assertive" <?= $ariaLive === 'assertive' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_ALERT_ARIA_ASSERTIVE; ?></option>
+                        <option value="off" <?= $ariaLive === 'off' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_ALERT_ARIA_OFF; ?></option>
                     </select>
-                    <div class="form-text">Настройка для скринридеров (доступность)</div>
+                    <div class="form-text"><?php echo LANG_POSTBLOCK_ALERT_SETTINGS_ARIA_HINT; ?></div>
                 </div>
             </div>
         </div>
@@ -321,9 +313,9 @@ class AlertBlock extends BasePostBlock {
                     <?php } ?>
                     
                     <div class="flex-grow-1">
-                        <div class="alert-title fw-bold mb-1">Пример заголовка</div>
+                        <div class="alert-title fw-bold mb-1"><?php echo LANG_POSTBLOCK_ALERT_PREVIEW_EXAMPLE_TITLE; ?></div>
                         <div class="alert-body small">
-                            Это пример сообщения типа "<?= $this->getTypeName($type) ?>". Здесь можно разместить важную информацию.
+                            <?php echo sprintf(LANG_POSTBLOCK_ALERT_PREVIEW_EXAMPLE_TEXT, $this->getTypeName($type)); ?>
                         </div>
                     </div>
                     
@@ -367,17 +359,17 @@ class AlertBlock extends BasePostBlock {
                     
                     const exampleText = preview.querySelector('.alert-body');
                     if (exampleText) {
-                        const typeNames = {
-                            'primary': 'Основное',
-                            'secondary': 'Дополнительное', 
-                            'success': 'Успех',
-                            'danger': 'Ошибка',
-                            'warning': 'Предупреждение',
-                            'info': 'Информация',
-                            'light': 'Светлое',
-                            'dark': 'Темное'
-                        };
-                        exampleText.textContent = 'Это пример сообщения типа "' + (typeNames[type] || 'Предупреждение') + '". Здесь можно разместить важную информацию.';
+                        const typeNames = <?php echo json_encode([
+                            'primary' => LANG_POSTBLOCK_ALERT_TYPE_PRIMARY,
+                            'secondary' => LANG_POSTBLOCK_ALERT_TYPE_SECONDARY,
+                            'success' => LANG_POSTBLOCK_ALERT_TYPE_SUCCESS,
+                            'danger' => LANG_POSTBLOCK_ALERT_TYPE_DANGER,
+                            'warning' => LANG_POSTBLOCK_ALERT_TYPE_WARNING,
+                            'info' => LANG_POSTBLOCK_ALERT_TYPE_INFO,
+                            'light' => LANG_POSTBLOCK_ALERT_TYPE_LIGHT,
+                            'dark' => LANG_POSTBLOCK_ALERT_TYPE_DARK
+                        ]); ?>;
+                        exampleText.textContent = '<?php echo LANG_POSTBLOCK_ALERT_PREVIEW_EXAMPLE_TEXT_START; ?>' + (typeNames[type] || '<?php echo LANG_POSTBLOCK_ALERT_TYPE_WARNING; ?>') + '<?php echo LANG_POSTBLOCK_ALERT_PREVIEW_EXAMPLE_TEXT_END; ?>';
                     }
                 }
                 
@@ -415,7 +407,7 @@ class AlertBlock extends BasePostBlock {
         $presetName = $settings['preset_name'] ?? '';
 
         if (empty(trim($contentText))) {
-            return '<!-- AlertBlock: пустой контент -->';
+            return LANG_POSTBLOCK_ALERT_EMPTY_COMMENT;
         }
 
         $presetClass = '';
@@ -442,7 +434,7 @@ class AlertBlock extends BasePostBlock {
 
         $dismissButton = '';
         if ($dismissible) {
-            $dismissButton = '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Закрыть"></button>';
+            $dismissButton = '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="' . LANG_POSTBLOCK_ALERT_CLOSE_ARIA . '"></button>';
         }
 
         $result = $template;
@@ -471,14 +463,14 @@ class AlertBlock extends BasePostBlock {
 
     public function getShortcodes(): array {
         return array_merge(parent::getShortcodes(), [
-            '{type}' => 'Тип предупреждения (primary, secondary, success, danger, warning, info, light, dark)',
-            '{title}' => 'Заголовок сообщения',
-            '{content}' => 'Основной текст сообщения',
-            '{icon}' => 'Иконка типа',
-            '{dismissible_class}' => 'Класс для закрываемого блока',
-            '{dismiss_button}' => 'Кнопка закрытия',
-            '{custom_class}' => 'Дополнительный CSS класс',
-            '{aria_live}' => 'ARIA атрибут для скринридеров'
+            '{type}' => LANG_POSTBLOCK_ALERT_SHORTCODE_TYPE,
+            '{title}' => LANG_POSTBLOCK_ALERT_SHORTCODE_TITLE,
+            '{content}' => LANG_POSTBLOCK_ALERT_SHORTCODE_CONTENT,
+            '{icon}' => LANG_POSTBLOCK_ALERT_SHORTCODE_ICON,
+            '{dismissible_class}' => LANG_POSTBLOCK_ALERT_SHORTCODE_DISMISSIBLE_CLASS,
+            '{dismiss_button}' => LANG_POSTBLOCK_ALERT_SHORTCODE_DISMISS_BUTTON,
+            '{custom_class}' => LANG_POSTBLOCK_ALERT_SHORTCODE_CUSTOM_CLASS,
+            '{aria_live}' => LANG_POSTBLOCK_ALERT_SHORTCODE_ARIA_LIVE
         ]);
     }
 
@@ -486,17 +478,17 @@ class AlertBlock extends BasePostBlock {
         $errors = [];
 
         if (!empty($settings['custom_class']) && !preg_match('/^[a-zA-Z0-9-_ ]+$/', $settings['custom_class'])) {
-            $errors[] = 'CSS класс может содержать только буквы, цифры, дефисы и подчеркивания';
+            $errors[] = LANG_POSTBLOCK_ALERT_VALIDATION_CSS_CLASS;
         }
 
         $allowedTypes = ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'];
         if (!empty($settings['type']) && !in_array($settings['type'], $allowedTypes)) {
-            $errors[] = 'Недопустимый тип предупреждения';
+            $errors[] = LANG_POSTBLOCK_ALERT_VALIDATION_INVALID_TYPE;
         }
 
         $allowedAriaLive = ['polite', 'assertive', 'off'];
         if (!empty($settings['aria_live']) && !in_array($settings['aria_live'], $allowedAriaLive)) {
-            $errors[] = 'Недопустимое значение ARIA live';
+            $errors[] = LANG_POSTBLOCK_ALERT_VALIDATION_INVALID_ARIA;
         }
 
         return [empty($errors), $errors];
@@ -542,14 +534,14 @@ class AlertBlock extends BasePostBlock {
 
     private function getTypeName($type): string {
         return match($type) {
-            'success' => 'Успех',
-            'danger' => 'Ошибка',
-            'info' => 'Информация',
-            'primary' => 'Основное',
-            'secondary' => 'Дополнительное',
-            'dark' => 'Темное',
-            'light' => 'Светлое',
-            default => 'Предупреждение'
+            'success' => LANG_POSTBLOCK_ALERT_TYPE_SUCCESS,
+            'danger' => LANG_POSTBLOCK_ALERT_TYPE_DANGER,
+            'info' => LANG_POSTBLOCK_ALERT_TYPE_INFO,
+            'primary' => LANG_POSTBLOCK_ALERT_TYPE_PRIMARY,
+            'secondary' => LANG_POSTBLOCK_ALERT_TYPE_SECONDARY,
+            'dark' => LANG_POSTBLOCK_ALERT_TYPE_DARK,
+            'light' => LANG_POSTBLOCK_ALERT_TYPE_LIGHT,
+            default => LANG_POSTBLOCK_ALERT_TYPE_WARNING
         };
     }
 
@@ -597,7 +589,7 @@ class AlertBlock extends BasePostBlock {
             $content['title'] = '';
         }
         if (!isset($content['content'])) {
-            $content['content'] = 'Это важное сообщение, на которое следует обратить внимание.';
+            $content['content'] = LANG_POSTBLOCK_ALERT_DEFAULT_CONTENT;
         }
 
         return $content;
