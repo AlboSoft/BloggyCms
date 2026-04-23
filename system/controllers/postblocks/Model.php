@@ -75,12 +75,17 @@ class PostBlockModel {
             }
             
             if (is_string($block['content'])) {
-                $cleaned = stripslashes($block['content']);
-                $decoded = json_decode($cleaned, true);
-                if (json_last_error() === JSON_ERROR_NONE) {
-                    $block['content'] = $decoded;
-                }
-            }
+    $decoded = json_decode($block['content'], true);
+    if (json_last_error() === JSON_ERROR_NONE) {
+        $block['content'] = $decoded;
+    } else {
+        // Fallback only if the first decode fails
+        $decoded = json_decode(stripslashes($block['content']), true);
+        if (json_last_error() === JSON_ERROR_NONE) {
+            $block['content'] = $decoded;
+        }
+    }
+}
         }
         
         return $blocks;
@@ -132,7 +137,6 @@ class PostBlockModel {
         foreach ($content as $key => $value) {
             if (is_string($value)) {
                 $content[$key] = html_entity_decode($value, ENT_QUOTES, 'UTF-8');
-                $content[$key] = stripslashes($content[$key]);
             }
         }
 
