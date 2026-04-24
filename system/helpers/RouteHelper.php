@@ -17,28 +17,28 @@ class RouteHelper {
             'route' => '*',
             'controller' => 'All',
             'action' => 'All',
-            'name' => 'Все страницы'
+            'name' => LANG_HELPER_ROUTE_ALL_PAGES
         ];
         
         $routes[] = [
             'route' => 'home',
             'controller' => 'Home',
             'action' => 'index',
-            'name' => 'Главная страница'
+            'name' => LANG_HELPER_ROUTE_HOMEPAGE
         ];
         
         $routes[] = [
             'route' => '404',
             'controller' => 'Error',
             'action' => 'notFound',
-            'name' => 'Страница 404'
+            'name' => LANG_HELPER_ROUTE_PAGE_404
         ];
         
         $routes[] = [
             'route' => '500',
             'controller' => 'Error',
             'action' => 'serverError',
-            'name' => 'Страница 500'
+            'name' => LANG_HELPER_ROUTE_PAGE_500
         ];
         
         $controllersDir = __DIR__ . '/../controllers/';
@@ -109,44 +109,44 @@ class RouteHelper {
     private static function generateRouteName($controller, $action, $module = '') {
         $nameMap = [
             'Post' => [
-                'index' => 'Список постов',
-                'show' => 'Страница поста',
-                'all' => 'Все посты'
+                'index' => LANG_HELPER_ROUTE_POSTS_LIST,
+                'show' => LANG_HELPER_ROUTE_POST_PAGE,
+                'all' => LANG_HELPER_ROUTE_ALL_POSTS
             ],
             'Category' => [
-                'index' => 'Список категорий',
-                'show' => 'Страница категории'
+                'index' => LANG_HELPER_ROUTE_CATEGORIES_LIST,
+                'show' => LANG_HELPER_ROUTE_CATEGORY_PAGE
             ],
             'Tag' => [
-                'index' => 'Список тегов',
-                'show' => 'Страница тега'
+                'index' => LANG_HELPER_ROUTE_TAGS_LIST,
+                'show' => LANG_HELPER_ROUTE_TAG_PAGE
             ],
             'Page' => [
-                'index' => 'Страницы',
-                'show' => 'Страница'
+                'index' => LANG_HELPER_ROUTE_PAGES,
+                'show' => LANG_HELPER_ROUTE_PAGE
             ],
             'User' => [
-                'index' => 'Список пользователей',
-                'show' => 'Профиль пользователя'
+                'index' => LANG_HELPER_ROUTE_USERS_LIST,
+                'show' => LANG_HELPER_ROUTE_USER_PROFILE
             ],
             'Search' => [
-                'index' => 'Поиск'
+                'index' => LANG_HELPER_ROUTE_SEARCH
             ],
             'Archive' => [
-                'index' => 'Архив'
+                'index' => LANG_HELPER_ROUTE_ARCHIVE
             ],
             'HtmlBlock' => [
-                'show' => 'HTML-блок'
+                'show' => LANG_HELPER_ROUTE_HTML_BLOCK
             ],
             'Profile' => [
-                'index' => 'Профиль',
-                'show' => 'Профиль пользователя',
-                'edit' => 'Редактирование профиля'
+                'index' => LANG_HELPER_ROUTE_PROFILE,
+                'show' => LANG_HELPER_ROUTE_USER_PROFILE,
+                'edit' => LANG_HELPER_ROUTE_EDIT_PROFILE
             ],
             'Auth' => [
-                'login' => 'Вход',
-                'register' => 'Регистрация',
-                'logout' => 'Выход'
+                'login' => LANG_HELPER_ROUTE_LOGIN,
+                'register' => LANG_HELPER_ROUTE_REGISTER,
+                'logout' => LANG_HELPER_ROUTE_LOGOUT
             ]
         ];
         

@@ -1,0 +1,33 @@
+<?php
+
+define('LANG_TEMPLATE_PROFILE_ONLINE_TITLE', 'Online');
+define('LANG_TEMPLATE_PROFILE_ABOUT_TITLE', 'About');
+define('LANG_TEMPLATE_PROFILE_ABOUT_EMPTY', '%s hasn\'t added any information about themselves yet.');
+define('LANG_TEMPLATE_PROFILE_ADDITIONAL_TITLE', 'Additional');
+define('LANG_TEMPLATE_PROFILE_STATS_TITLE', 'Statistics');
+define('LANG_TEMPLATE_PROFILE_STATS_POSTS_1', 'post');
+define('LANG_TEMPLATE_PROFILE_STATS_POSTS_2', 'posts');
+define('LANG_TEMPLATE_PROFILE_STATS_POSTS_3', 'posts');
+define('LANG_TEMPLATE_PROFILE_STATS_COMMENTS', 'comments');
+define('LANG_TEMPLATE_PROFILE_STATS_ACHIEVEMENTS_1', 'achievement');
+define('LANG_TEMPLATE_PROFILE_STATS_ACHIEVEMENTS_2', 'achievements');
+define('LANG_TEMPLATE_PROFILE_STATS_ACHIEVEMENTS_3', 'achievements');
+define('LANG_TEMPLATE_PROFILE_ACHIEVEMENTS_TITLE', 'Achievements');
+define('LANG_TEMPLATE_PROFILE_ACHIEVEMENTS_EARNED', 'earned');
+define('LANG_TEMPLATE_PROFILE_ACHIEVEMENTS_LEFT', 'remaining');
+define('LANG_TEMPLATE_PROFILE_ALL_ACHIEVEMENTS_BTN', 'All system achievements');
+define('LANG_TEMPLATE_PROFILE_POSTS_TITLE', 'Publications');
+define('LANG_TEMPLATE_PROFILE_ALL_POSTS_BTN', 'All publications');
+define('LANG_TEMPLATE_PROFILE_NO_POSTS_TITLE', 'No publications yet');
+define('LANG_TEMPLATE_PROFILE_NO_POSTS_TEXT', 'Publications will appear here after creation');
+define('LANG_TEMPLATE_PROFILE_BOOKMARKS_TITLE', 'Favorites');
+define('LANG_TEMPLATE_PROFILE_BOOKMARKS_SAVED', 'Saved %s');
+define('LANG_TEMPLATE_PROFILE_BOOKMARKS_REMOVE_TITLE', 'Remove from bookmarks');
+define('LANG_TEMPLATE_PROFILE_ALL_BOOKMARKS_BTN', 'All bookmarks');
+define('LANG_TEMPLATE_PROFILE_NO_BOOKMARKS_TITLE', 'No favorite posts yet');
+define('LANG_TEMPLATE_PROFILE_NO_BOOKMARKS_TEXT', 'Add posts to favorites to save them here');
+define('LANG_TEMPLATE_PROFILE_GO_TO_POSTS_BTN', 'Go to posts');
+define('LANG_TEMPLATE_PROFILE_RESTRICTED_TITLE', 'Access restricted');
+define('LANG_TEMPLATE_PROFILE_RESTRICTED_ADMIN_TEXT', 'This user has no bookmarks, only publications.');
+define('LANG_TEMPLATE_PROFILE_RESTRICTED_TEXT', 'You cannot view this user\'s bookmarks');
+define('LANG_TEMPLATE_PROFILE_LOGIN_BTN', 'Log in');

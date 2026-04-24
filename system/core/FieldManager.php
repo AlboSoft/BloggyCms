@@ -156,7 +156,7 @@ class FieldManager {
         $deleteKey = 'field_' . $field['system_name'] . '_delete';
 
         if (!is_array($field) || !isset($field['type']) || !isset($field['system_name'])) {
-            throw new Exception('Некорректные данные поля');
+            throw new Exception(LANG_CORE_FIELDMANAGER_ERROR_INVALID_FIELD_DATA);
         }
         
         $fieldType = $field['type'];
@@ -258,7 +258,7 @@ class FieldManager {
     */
     public function validateFieldValue($field, $value, $postData, $filesData): array {
         if (!is_array($field) || !isset($field['type']) || !isset($field['system_name'])) {
-            return ['is_valid' => false, 'message' => 'Некорректные данные поля'];
+            return ['is_valid' => false, 'message' => LANG_CORE_FIELDMANAGER_ERROR_INVALID_FIELD_DATA];
         }
         
         $fieldType = $field['type'];
@@ -283,7 +283,7 @@ class FieldManager {
                 if (!$isDeleting && (empty($fileData) || empty($fileData['tmp_name'])) && empty($value)) {
                     return [
                         'is_valid' => false,
-                        'message' => "Поле '{$field['name']}' обязательно для заполнения"
+                        'message' => sprintf(LANG_CORE_FIELDMANAGER_ERROR_FIELD_REQUIRED, $field['name'])
                     ];
                 }
             }
@@ -299,13 +299,13 @@ class FieldManager {
             if (isset($config['required']) && $config['required'] && empty($fieldValue)) {
                 return [
                     'is_valid' => false,
-                    'message' => "Поле '{$field['name']}' обязательно для заполнения"
+                    'message' => sprintf(LANG_CORE_FIELDMANAGER_ERROR_FIELD_REQUIRED, $field['name'])
                 ];
             }
             if (!empty($fieldValue) && !$fieldInstance->validate($fieldValue)) {
                 return [
                     'is_valid' => false,
-                    'message' => "Некорректное значение для поля '{$field['name']}'"
+                    'message' => sprintf(LANG_CORE_FIELDMANAGER_ERROR_FIELD_INVALID, $field['name'])
                 ];
             }
         }
@@ -325,7 +325,7 @@ class FieldManager {
                 }
                 
                 public function getName(): string { 
-                    return 'Текстовая строка'; 
+                    return '" . LANG_CORE_FIELDMANAGER_FIELD_STRING_NAME . "'; 
                 }
                 
                 public function renderInput(\$value, \$entityType, \$entityId): string {
@@ -377,13 +377,13 @@ class FieldManager {
                         <div class='row'>
                             <div class='col-md-6'>
                                 <div class='mb-3'>
-                                    <label class='form-label'>Плейсхолдер</label>
+                                    <label class='form-label'>\" . LANG_CORE_FIELDMANAGER_SETTINGS_PLACEHOLDER . \"</label>
                                     <input type='text' class='form-control' name='config[placeholder]' value='{\$placeholder}'>
                                 </div>
                             </div>
                             <div class='col-md-6'>
                                 <div class='mb-3'>
-                                    <label class='form-label'>Максимальная длина</label>
+                                    <label class='form-label'>\" . LANG_CORE_FIELDMANAGER_SETTINGS_MAXLENGTH . \"</label>
                                     <input type='number' class='form-control' name='config[maxlength]' value='{\$maxlength}' min='1'>
                                 </div>
                             </div>
@@ -391,13 +391,13 @@ class FieldManager {
                         <div class='row'>
                             <div class='col-md-6'>
                                 <div class='mb-3'>
-                                    <label class='form-label'>Регулярное выражение</label>
-                                    <input type='text' class='form-control' name='config[pattern]' value='{\$pattern}' placeholder='Например: ^[a-zA-Z0-9]+\\$'>
+                                    <label class='form-label'>\" . LANG_CORE_FIELDMANAGER_SETTINGS_PATTERN . \"</label>
+                                    <input type='text' class='form-control' name='config[pattern]' value='{\$pattern}' placeholder='^[a-zA-Z0-9]+$'>
                                 </div>
                             </div>
                             <div class='col-md-6'>
                                 <div class='mb-3'>
-                                    <label class='form-label'>Значение по умолчанию</label>
+                                    <label class='form-label'>\" . LANG_CORE_FIELDMANAGER_SETTINGS_DEFAULT_VALUE . \"</label>
                                     <input type='text' class='form-control' name='config[default_value]' value='{\$defaultValue}'>
                                 </div>
                             </div>
@@ -413,7 +413,7 @@ class FieldManager {
                 }
                 
                 public function getName(): string { 
-                    return 'Текстовая область'; 
+                    return '" . LANG_CORE_FIELDMANAGER_FIELD_TEXT_NAME . "'; 
                 }
                 
                 public function renderInput(\$value, \$entityType, \$entityId): string {
@@ -446,19 +446,19 @@ class FieldManager {
                         <div class='row'>
                             <div class='col-md-6'>
                                 <div class='mb-3'>
-                                    <label class='form-label'>Плейсхолдер</label>
+                                    <label class='form-label'>\" . LANG_CORE_FIELDMANAGER_SETTINGS_PLACEHOLDER . \"</label>
                                     <input type='text' class='form-control' name='config[placeholder]' value='{\$placeholder}'>
                                 </div>
                             </div>
                             <div class='col-md-6'>
                                 <div class='mb-3'>
-                                    <label class='form-label'>Количество строк</label>
+                                    <label class='form-label'>\" . LANG_CORE_FIELDMANAGER_SETTINGS_ROWS . \"</label>
                                     <input type='number' class='form-control' name='config[rows]' value='{\$rows}' min='1' max='20'>
                                 </div>
                             </div>
                         </div>
                         <div class='mb-3'>
-                            <label class='form-label'>Значение по умолчанию</label>
+                            <label class='form-label'>\" . LANG_CORE_FIELDMANAGER_SETTINGS_DEFAULT_VALUE . \"</label>
                             <textarea class='form-control' name='config[default_value]' rows='3'>{\$defaultValue}</textarea>
                         </div>
                     \";
@@ -472,7 +472,7 @@ class FieldManager {
                 }
                 
                 public function getName(): string { 
-                    return 'Число'; 
+                    return '" . LANG_CORE_FIELDMANAGER_FIELD_NUMBER_NAME . "'; 
                 }
                 
                 public function renderInput(\$value, \$entityType, \$entityId): string {
@@ -512,19 +512,19 @@ class FieldManager {
                         <div class='row'>
                             <div class='col-md-4'>
                                 <div class='mb-3'>
-                                    <label class='form-label'>Минимальное значение</label>
+                                    <label class='form-label'>\" . LANG_CORE_FIELDMANAGER_SETTINGS_MIN . \"</label>
                                     <input type='number' class='form-control' name='config[min]' value='{\$min}'>
                                 </div>
                             </div>
                             <div class='col-md-4'>
                                 <div class='mb-3'>
-                                    <label class='form-label'>Максимальное значение</label>
+                                    <label class='form-label'>\" . LANG_CORE_FIELDMANAGER_SETTINGS_MAX . \"</label>
                                     <input type='number' class='form-control' name='config[max]' value='{\$max}'>
                                 </div>
                             </div>
                             <div class='col-md-4'>
                                 <div class='mb-3'>
-                                    <label class='form-label'>Шаг</label>
+                                    <label class='form-label'>\" . LANG_CORE_FIELDMANAGER_SETTINGS_STEP . \"</label>
                                     <input type='number' class='form-control' name='config[step]' value='{\$step}' step='0.01'>
                                 </div>
                             </div>
@@ -532,13 +532,13 @@ class FieldManager {
                         <div class='row'>
                             <div class='col-md-6'>
                                 <div class='mb-3'>
-                                    <label class='form-label'>Плейсхолдер</label>
+                                    <label class='form-label'>\" . LANG_CORE_FIELDMANAGER_SETTINGS_PLACEHOLDER . \"</label>
                                     <input type='text' class='form-control' name='config[placeholder]' value='{\$placeholder}'>
                                 </div>
                             </div>
                             <div class='col-md-6'>
                                 <div class='mb-3'>
-                                    <label class='form-label'>Значение по умолчанию</label>
+                                    <label class='form-label'>\" . LANG_CORE_FIELDMANAGER_SETTINGS_DEFAULT_VALUE . \"</label>
                                     <input type='number' class='form-control' name='config[default_value]' value='{\$defaultValue}'>
                                 </div>
                             </div>
@@ -767,7 +767,7 @@ class FieldManager {
     public function getFieldSettingsForm(string $type, array $config = []): string {
         $field = $this->getFieldInstance($type, $config);
         if (!$field) {
-            return '<div class="alert alert-warning">Настройки для этого типа поля не найдены</div>';
+            return '<div class="alert alert-warning">' . LANG_CORE_FIELDMANAGER_SETTINGS_NOT_FOUND . '</div>';
         }
         
         return $field->getSettingsForm();
@@ -802,7 +802,7 @@ class FieldManager {
     public function handleFileUpload($fieldType, $fileData, $currentValue = null, $config = []) {
         $field = $this->getFieldInstance($fieldType, $config);
         if (!$field || !method_exists($field, 'handleUpload')) {
-            throw new Exception("Поле типа '{$fieldType}' не поддерживает загрузку файлов");
+            throw new Exception(sprintf(LANG_CORE_FIELDMANAGER_ERROR_UPLOAD_NOT_SUPPORTED, $fieldType));
         }
         
         return $field->handleUpload($fileData, $currentValue);
@@ -819,7 +819,7 @@ class FieldManager {
     public function handleFileDelete($fieldType, $currentValue, $config = []) {
         $field = $this->getFieldInstance($fieldType, $config);
         if (!$field || !method_exists($field, 'handleDelete')) {
-            throw new Exception("Поле типа '{$fieldType}' не поддерживает удаление файлов");
+            throw new Exception(sprintf(LANG_CORE_FIELDMANAGER_ERROR_DELETE_NOT_SUPPORTED, $fieldType));
         }
         
         return $field->handleDelete($currentValue);

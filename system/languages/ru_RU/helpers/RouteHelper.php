@@ -1,0 +1,25 @@
+<?php
+
+define('LANG_HELPER_ROUTE_ALL_PAGES', 'Все страницы');
+define('LANG_HELPER_ROUTE_HOMEPAGE', 'Главная страница');
+define('LANG_HELPER_ROUTE_PAGE_404', 'Страница 404');
+define('LANG_HELPER_ROUTE_PAGE_500', 'Страница 500');
+define('LANG_HELPER_ROUTE_POSTS_LIST', 'Список постов');
+define('LANG_HELPER_ROUTE_POST_PAGE', 'Страница поста');
+define('LANG_HELPER_ROUTE_ALL_POSTS', 'Все посты');
+define('LANG_HELPER_ROUTE_CATEGORIES_LIST', 'Список категорий');
+define('LANG_HELPER_ROUTE_CATEGORY_PAGE', 'Страница категории');
+define('LANG_HELPER_ROUTE_TAGS_LIST', 'Список тегов');
+define('LANG_HELPER_ROUTE_TAG_PAGE', 'Страница тега');
+define('LANG_HELPER_ROUTE_PAGES', 'Страницы');
+define('LANG_HELPER_ROUTE_PAGE', 'Страница');
+define('LANG_HELPER_ROUTE_USERS_LIST', 'Список пользователей');
+define('LANG_HELPER_ROUTE_USER_PROFILE', 'Профиль пользователя');
+define('LANG_HELPER_ROUTE_SEARCH', 'Поиск');
+define('LANG_HELPER_ROUTE_ARCHIVE', 'Архив');
+define('LANG_HELPER_ROUTE_HTML_BLOCK', 'HTML-блок');
+define('LANG_HELPER_ROUTE_PROFILE', 'Профиль');
+define('LANG_HELPER_ROUTE_EDIT_PROFILE', 'Редактирование профиля');
+define('LANG_HELPER_ROUTE_LOGIN', 'Вход');
+define('LANG_HELPER_ROUTE_REGISTER', 'Регистрация');
+define('LANG_HELPER_ROUTE_LOGOUT', 'Выход');

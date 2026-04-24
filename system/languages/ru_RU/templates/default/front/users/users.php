@@ -1,0 +1,26 @@
+<?php
+
+define('LANG_TEMPLATE_USERS_TITLE', 'Участники сообщества');
+define('LANG_TEMPLATE_USERS_ONLINE_1', 'онлайн');
+define('LANG_TEMPLATE_USERS_ONLINE_2', 'онлайн');
+define('LANG_TEMPLATE_USERS_ONLINE_3', 'онлайн');
+define('LANG_TEMPLATE_USERS_OUT_OF', 'из');
+define('LANG_TEMPLATE_USERS_MEMBER_1', 'участник');
+define('LANG_TEMPLATE_USERS_MEMBER_2', 'участника');
+define('LANG_TEMPLATE_USERS_MEMBER_3', 'участников');
+define('LANG_TEMPLATE_USERS_POST_1', 'пост');
+define('LANG_TEMPLATE_USERS_POST_2', 'поста');
+define('LANG_TEMPLATE_USERS_POST_3', 'постов');
+define('LANG_TEMPLATE_USERS_COMMENT_LABEL', 'коммент.');
+define('LANG_TEMPLATE_USERS_ACHIEVEMENT_1', 'ачивка');
+define('LANG_TEMPLATE_USERS_ACHIEVEMENT_2', 'ачивки');
+define('LANG_TEMPLATE_USERS_ACHIEVEMENT_3', 'ачивок');
+define('LANG_TEMPLATE_USERS_ONLINE_TITLE', 'В сети');
+define('LANG_TEMPLATE_USERS_ONLINE_BADGE', 'Онлайн');
+define('LANG_TEMPLATE_USERS_WAS_ONLINE', 'Был(а) %s');
+define('LANG_TEMPLATE_USERS_NO_ACTIVITY', 'Активность не указана');
+define('LANG_TEMPLATE_USERS_DAYS', '%d дн.');
+define('LANG_TEMPLATE_USERS_PROFILE_BTN', 'Профиль');
+define('LANG_TEMPLATE_USERS_EMPTY_TITLE', 'Участники не найдены');
+define('LANG_TEMPLATE_USERS_EMPTY_TEXT', 'На сайте пока нет активных участников. Будьте первым!');
+define('LANG_TEMPLATE_USERS_REGISTER_BTN', 'Зарегистрироваться');

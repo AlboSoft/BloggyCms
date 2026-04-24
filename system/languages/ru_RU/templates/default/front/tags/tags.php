@@ -1,0 +1,22 @@
+<?php
+
+define('LANG_TEMPLATE_TAGS_ALL_TITLE', 'Коллекция тегов');
+define('LANG_TEMPLATE_TAGS_ALL_DESCRIPTION', 'Исследуйте все теги, используемые на сайте, чтобы найти интересующие вас темы');
+define('LANG_TEMPLATE_TAGS_STATS_TITLE', 'Статистика тегов');
+define('LANG_TEMPLATE_TAGS_STATS_TOTAL_LABEL', 'Всего тегов');
+define('LANG_TEMPLATE_TAGS_STATS_POPULAR_LABEL', 'Популярный тег');
+define('LANG_TEMPLATE_TAGS_STATS_POSTS_LABEL', 'Всего постов');
+define('LANG_TEMPLATE_TAGS_STATS_ALL_POSTS_LABEL', 'Все посты');
+define('LANG_TEMPLATE_TAGS_STATS_ALL_POSTS_VALUE', 'Смотреть все');
+define('LANG_TEMPLATE_TAGS_SECTION_TITLE', 'Все теги');
+define('LANG_TEMPLATE_TAGS_POST_1', 'пост');
+define('LANG_TEMPLATE_TAGS_POST_2', 'поста');
+define('LANG_TEMPLATE_TAGS_POST_3', 'постов');
+define('LANG_TEMPLATE_TAGS_VIEW_BTN', 'Смотреть');
+define('LANG_TEMPLATE_TAGS_UPDATED_AT', 'Обновлён %s');
+define('LANG_TEMPLATE_TAGS_SHOW_MORE_BTN', 'Показать еще');
+define('LANG_TEMPLATE_TAGS_VIEWED_ALL', 'Вы просмотрели все теги');
+define('LANG_TEMPLATE_TAGS_EMPTY_TITLE', 'Теги не найдены');
+define('LANG_TEMPLATE_TAGS_EMPTY_TEXT', 'Пока на сайте нет тегов или они не назначены постам.');
+define('LANG_TEMPLATE_TAGS_ALL_POSTS_BTN', 'Все посты');
+define('LANG_TEMPLATE_TAGS_CATEGORIES_BTN', 'Категории');

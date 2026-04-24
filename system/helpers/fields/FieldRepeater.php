@@ -26,7 +26,7 @@ class FieldRepeater extends Field {
                     <div class="<?= $cardColumnClass ?>">
                         <div class="repeater-item card h-100">
                             <div class="card-header d-flex justify-content-between align-items-center py-2">
-                                <span class="text-muted small">Элемент #<?= $index + 1 ?></span>
+                                <span class="text-muted small"><?php echo sprintf(LANG_HELPER_FIELDS_REPEATER_ELEMENT_NUMBER, $index + 1); ?></span>
                                 <button type="button" class="btn btn-sm btn-outline-danger repeater-remove-btn">
                                     <i class="bi bi-trash"></i>
                                 </button>
@@ -63,14 +63,14 @@ class FieldRepeater extends Field {
             </div>
             
             <button type="button" class="btn btn-outline-primary btn-sm repeater-add-btn mt-3">
-                <i class="bi bi-plus"></i> Добавить элемент
+                <i class="bi bi-plus"></i> <?php echo LANG_HELPER_FIELDS_REPEATER_ADD_BTN; ?>
             </button>
             
             <template class="repeater-template">
                 <div class="<?= $cardColumnClass ?>">
                     <div class="repeater-item card h-100">
                         <div class="card-header d-flex justify-content-between align-items-center py-2">
-                            <span class="text-muted small">Новый элемент</span>
+                            <span class="text-muted small"><?php echo LANG_HELPER_FIELDS_REPEATER_NEW_ELEMENT; ?></span>
                             <button type="button" class="btn btn-sm btn-outline-danger repeater-remove-btn">
                                 <i class="bi bi-trash"></i>
                             </button>
@@ -285,7 +285,7 @@ class FieldRepeater extends Field {
                                    id="remove_<?= $index ?>_<?= $config['name'] ?>">
                             <label class="form-check-label text-danger small" 
                                    for="remove_<?= $index ?>_<?= $config['name'] ?>">
-                                Удалить
+                                <?php echo LANG_HELPER_FIELDS_REPEATER_DELETE_LABEL; ?>
                             </label>
                         </div>
                     </div>

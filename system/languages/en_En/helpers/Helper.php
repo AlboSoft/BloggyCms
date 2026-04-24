@@ -1,0 +1,38 @@
+<?php
+
+define('LANG_HELPER_FUNCTIONS_BLOCK_EMPTY', 'Block "%s" has no content.');
+define('LANG_HELPER_FUNCTIONS_BLOCK_UNDEFINED', 'Block "%s" has undefined type.');
+define('LANG_HELPER_FUNCTIONS_BLOCK_NOT_FOUND', 'HTML block with slug "%s" not found');
+define('LANG_HELPER_FUNCTIONS_INLINE_CSS_COMMENT', 'Inline CSS from blocks');
+define('LANG_HELPER_FUNCTIONS_MONTH_JANUARY', 'January');
+define('LANG_HELPER_FUNCTIONS_MONTH_FEBRUARY', 'February');
+define('LANG_HELPER_FUNCTIONS_MONTH_MARCH', 'March');
+define('LANG_HELPER_FUNCTIONS_MONTH_APRIL', 'April');
+define('LANG_HELPER_FUNCTIONS_MONTH_MAY', 'May');
+define('LANG_HELPER_FUNCTIONS_MONTH_JUNE', 'June');
+define('LANG_HELPER_FUNCTIONS_MONTH_JULY', 'July');
+define('LANG_HELPER_FUNCTIONS_MONTH_AUGUST', 'August');
+define('LANG_HELPER_FUNCTIONS_MONTH_SEPTEMBER', 'September');
+define('LANG_HELPER_FUNCTIONS_MONTH_OCTOBER', 'October');
+define('LANG_HELPER_FUNCTIONS_MONTH_NOVEMBER', 'November');
+define('LANG_HELPER_FUNCTIONS_MONTH_DECEMBER', 'December');
+define('LANG_HELPER_FUNCTIONS_YEAR_1', 'year');
+define('LANG_HELPER_FUNCTIONS_YEAR_2', 'years');
+define('LANG_HELPER_FUNCTIONS_YEAR_3', 'years');
+define('LANG_HELPER_FUNCTIONS_MONTH_1', 'month');
+define('LANG_HELPER_FUNCTIONS_MONTH_2', 'months');
+define('LANG_HELPER_FUNCTIONS_MONTH_3', 'months');
+define('LANG_HELPER_FUNCTIONS_WEEK_1', 'week');
+define('LANG_HELPER_FUNCTIONS_WEEK_2', 'weeks');
+define('LANG_HELPER_FUNCTIONS_WEEK_3', 'weeks');
+define('LANG_HELPER_FUNCTIONS_DAY_1', 'day');
+define('LANG_HELPER_FUNCTIONS_DAY_2', 'days');
+define('LANG_HELPER_FUNCTIONS_DAY_3', 'days');
+define('LANG_HELPER_FUNCTIONS_HOUR_1', 'hour');
+define('LANG_HELPER_FUNCTIONS_HOUR_2', 'hours');
+define('LANG_HELPER_FUNCTIONS_HOUR_3', 'hours');
+define('LANG_HELPER_FUNCTIONS_MINUTE_1', 'minute');
+define('LANG_HELPER_FUNCTIONS_MINUTE_2', 'minutes');
+define('LANG_HELPER_FUNCTIONS_MINUTE_3', 'minutes');
+define('LANG_HELPER_FUNCTIONS_AGO', 'ago');
+define('LANG_HELPER_FUNCTIONS_JUST_NOW', 'just now');

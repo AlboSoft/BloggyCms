@@ -1,0 +1,25 @@
+<?php
+
+define('LANG_HELPER_ROUTE_ALL_PAGES', 'All Pages');
+define('LANG_HELPER_ROUTE_HOMEPAGE', 'Homepage');
+define('LANG_HELPER_ROUTE_PAGE_404', '404 Page');
+define('LANG_HELPER_ROUTE_PAGE_500', '500 Page');
+define('LANG_HELPER_ROUTE_POSTS_LIST', 'Posts List');
+define('LANG_HELPER_ROUTE_POST_PAGE', 'Post Page');
+define('LANG_HELPER_ROUTE_ALL_POSTS', 'All Posts');
+define('LANG_HELPER_ROUTE_CATEGORIES_LIST', 'Categories List');
+define('LANG_HELPER_ROUTE_CATEGORY_PAGE', 'Category Page');
+define('LANG_HELPER_ROUTE_TAGS_LIST', 'Tags List');
+define('LANG_HELPER_ROUTE_TAG_PAGE', 'Tag Page');
+define('LANG_HELPER_ROUTE_PAGES', 'Pages');
+define('LANG_HELPER_ROUTE_PAGE', 'Page');
+define('LANG_HELPER_ROUTE_USERS_LIST', 'Users List');
+define('LANG_HELPER_ROUTE_USER_PROFILE', 'User Profile');
+define('LANG_HELPER_ROUTE_SEARCH', 'Search');
+define('LANG_HELPER_ROUTE_ARCHIVE', 'Archive');
+define('LANG_HELPER_ROUTE_HTML_BLOCK', 'HTML Block');
+define('LANG_HELPER_ROUTE_PROFILE', 'Profile');
+define('LANG_HELPER_ROUTE_EDIT_PROFILE', 'Edit Profile');
+define('LANG_HELPER_ROUTE_LOGIN', 'Login');
+define('LANG_HELPER_ROUTE_REGISTER', 'Register');
+define('LANG_HELPER_ROUTE_LOGOUT', 'Logout');

@@ -11,11 +11,11 @@
             <div class="tg-card-header">
                 <h1 class="tg-card-title">
                     <?php echo bloggy_icon('bs', 'pencil-square', '24', 'currentColor', 'tg-mr-2'); ?>
-                    Редактирование профиля
+                    <?php echo LANG_TEMPLATE_PROFILE_EDIT_TITLE; ?>
                 </h1>
                 <a href="<?php echo BASE_URL; ?>/profile/<?php echo html($user['username']); ?>" class="btn btn-outline-secondary btn-sm">
                     <?php echo bloggy_icon('bs', 'arrow-left', '14', 'currentColor', 'me-1'); ?>
-                    Вернуться к профилю
+                    <?php echo LANG_TEMPLATE_PROFILE_EDIT_BACK_BTN; ?>
                 </a>
             </div>
             
@@ -40,25 +40,25 @@
                     <li class="nav-item" role="presentation">
                         <button class="nav-link active" id="profile-info-tab" data-bs-toggle="tab" data-bs-target="#profile-info" type="button" role="tab">
                             <?php echo bloggy_icon('bs', 'person', '16', 'currentColor', 'me-1'); ?>
-                            Основная информация
+                            <?php echo LANG_TEMPLATE_PROFILE_EDIT_INFO_TAB; ?>
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="profile-password-tab" data-bs-toggle="tab" data-bs-target="#profile-password" type="button" role="tab">
                             <?php echo bloggy_icon('bs', 'key', '16', 'currentColor', 'me-1'); ?>
-                            Смена пароля
+                            <?php echo LANG_TEMPLATE_PROFILE_EDIT_PASSWORD_TAB; ?>
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="profile-sessions-tab" data-bs-toggle="tab" data-bs-target="#profile-sessions" type="button" role="tab">
                             <?php echo bloggy_icon('bs', 'laptop', '16', 'currentColor', 'me-1'); ?>
-                            Сессии
+                            <?php echo LANG_TEMPLATE_PROFILE_EDIT_SESSIONS_TAB; ?>
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="profile-additional-tab" data-bs-toggle="tab" data-bs-target="#profile-additional" type="button" role="tab">
                             <?php echo bloggy_icon('bs', 'gear', '16', 'currentColor', 'me-1'); ?>
-                            Дополнительно
+                            <?php echo LANG_TEMPLATE_PROFILE_EDIT_ADDITIONAL_TAB; ?>
                         </button>
                     </li>
                 </ul>
@@ -75,7 +75,7 @@
                                         <div class="tg-profile-avatar-preview">
                                             <?php if (!empty($user['avatar']) && $user['avatar'] !== 'default.jpg') { ?>
                                                 <img src="<?php echo BASE_URL; ?>/uploads/avatars/<?php echo html($user['avatar']); ?>" 
-                                                     alt="Аватар" 
+                                                     alt="<?php echo LANG_TEMPLATE_PROFILE_EDIT_AVATAR_ALT; ?>" 
                                                      id="avatar-preview"
                                                      class="avatar-preview-img">
                                             <?php } else { ?>
@@ -88,7 +88,7 @@
                                         <div class="mt-3">
                                             <label class="btn btn-outline-primary btn-sm">
                                                 <?php echo bloggy_icon('bs', 'cloud-upload', '14', 'currentColor', 'me-1'); ?>
-                                                Загрузить аватар
+                                                <?php echo LANG_TEMPLATE_PROFILE_EDIT_UPLOAD_AVATAR_BTN; ?>
                                                 <input type="file" 
                                                        name="avatar" 
                                                        accept="image/jpeg,image/png,image/gif,image/webp"
@@ -96,8 +96,7 @@
                                                        onchange="previewAvatar(this)">
                                             </label>
                                             <p class="text-muted small mt-2">
-                                                Максимальный размер: 5MB<br>
-                                                Допустимые форматы: JPG, PNG, GIF, WebP
+                                                <?php echo LANG_TEMPLATE_PROFILE_EDIT_AVATAR_HINT; ?>
                                             </p>
                                         </div>
                                     </div>
@@ -105,42 +104,42 @@
                                 
                                 <div class="col-md-8">
                                     <div class="mb-3">
-                                        <label class="form-label">Имя пользователя</label>
+                                        <label class="form-label"><?php echo LANG_TEMPLATE_PROFILE_EDIT_USERNAME_LABEL; ?></label>
                                         <input type="text" 
                                                class="form-control" 
                                                value="<?php echo html($user['username']); ?>" 
                                                disabled>
                                         <div class="form-text text-muted">
-                                            Имя пользователя нельзя изменить
+                                            <?php echo LANG_TEMPLATE_PROFILE_EDIT_USERNAME_HINT; ?>
                                         </div>
                                     </div>
                                     
                                     <div class="mb-3">
-                                        <label class="form-label">Отображаемое имя</label>
+                                        <label class="form-label"><?php echo LANG_TEMPLATE_PROFILE_EDIT_DISPLAY_NAME_LABEL; ?></label>
                                         <input type="text" 
                                                class="form-control" 
                                                name="display_name" 
                                                value="<?php echo html($user['display_name'] ?? ''); ?>"
-                                               placeholder="Как вас называть">
+                                               placeholder="<?php echo LANG_TEMPLATE_PROFILE_EDIT_DISPLAY_NAME_PLACEHOLDER; ?>">
                                         <div class="form-text text-muted">
-                                            Имя, которое будет отображаться на сайте
+                                            <?php echo LANG_TEMPLATE_PROFILE_EDIT_DISPLAY_NAME_HINT; ?>
                                         </div>
                                     </div>
                                     
                                     <div class="mb-3">
-                                        <label class="form-label">Email <span class="text-danger">*</span></label>
+                                        <label class="form-label"><?php echo LANG_TEMPLATE_PROFILE_EDIT_EMAIL_LABEL; ?> <span class="text-danger">*</span></label>
                                         <input type="email" 
                                                class="form-control" 
                                                name="email" 
                                                value="<?php echo html($user['email']); ?>" 
                                                required>
                                         <div class="form-text text-muted">
-                                            Ваш email будет использоваться для входа и уведомлений
+                                            <?php echo LANG_TEMPLATE_PROFILE_EDIT_EMAIL_HINT; ?>
                                         </div>
                                     </div>
                                     
                                     <div class="mb-3">
-                                        <label class="form-label">Веб-сайт</label>
+                                        <label class="form-label"><?php echo LANG_TEMPLATE_PROFILE_EDIT_WEBSITE_LABEL; ?></label>
                                         <input type="url" 
                                                class="form-control" 
                                                name="website" 
@@ -149,19 +148,19 @@
                                     </div>
                                     
                                     <div class="mb-3">
-                                        <label class="form-label">О себе</label>
+                                        <label class="form-label"><?php echo LANG_TEMPLATE_PROFILE_EDIT_BIO_LABEL; ?></label>
                                         <textarea class="form-control" 
                                                   name="bio" 
                                                   rows="4" 
-                                                  placeholder="Расскажите о себе"><?php echo html($user['bio'] ?? ''); ?></textarea>
+                                                  placeholder="<?php echo LANG_TEMPLATE_PROFILE_EDIT_BIO_PLACEHOLDER; ?>"><?php echo html($user['bio'] ?? ''); ?></textarea>
                                         <div class="form-text text-muted">
-                                            Максимум 500 символов
+                                            <?php echo LANG_TEMPLATE_PROFILE_EDIT_BIO_HINT; ?>
                                         </div>
                                     </div>
                                     
                                     <?php if (!empty($customFields)) { ?>
                                         <hr class="my-4">
-                                        <h4 class="mb-3">Дополнительная информация</h4>
+                                        <h4 class="mb-3"><?php echo LANG_TEMPLATE_PROFILE_EDIT_ADDITIONAL_INFO_TITLE; ?></h4>
                                         
                                         <?php foreach ($customFields as $field) { 
                                             $config = json_decode($field['config'] ?? '{}', true);
@@ -195,43 +194,43 @@
                                 <div class="col-12">
                                     <div class="alert alert-info">
                                         <?php echo bloggy_icon('bs', 'info-circle', '16', 'currentColor', 'me-1'); ?>
-                                        Для смены пароля заполните все поля ниже. Если вы не хотите менять пароль, оставьте их пустыми.
+                                        <?php echo LANG_TEMPLATE_PROFILE_EDIT_PASSWORD_INFO; ?>
                                     </div>
                                     
                                     <div class="mb-3">
-                                        <label class="form-label">Текущий пароль</label>
+                                        <label class="form-label"><?php echo LANG_TEMPLATE_PROFILE_EDIT_CURRENT_PASSWORD_LABEL; ?></label>
                                         <input type="password" 
                                                class="form-control" 
                                                name="current_password" 
                                                autocomplete="current-password">
                                         <div class="form-text text-muted">
-                                            Введите текущий пароль для подтверждения
+                                            <?php echo LANG_TEMPLATE_PROFILE_EDIT_CURRENT_PASSWORD_HINT; ?>
                                         </div>
                                     </div>
                                     
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Новый пароль</label>
+                                                <label class="form-label"><?php echo LANG_TEMPLATE_PROFILE_EDIT_NEW_PASSWORD_LABEL; ?></label>
                                                 <input type="password" 
                                                        class="form-control" 
                                                        name="new_password" 
                                                        id="new_password"
                                                        autocomplete="new-password">
                                                 <div class="form-text text-muted">
-                                                    Минимум 6 символов
+                                                    <?php echo LANG_TEMPLATE_PROFILE_EDIT_NEW_PASSWORD_HINT; ?>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label">Подтверждение пароля</label>
+                                                <label class="form-label"><?php echo LANG_TEMPLATE_PROFILE_EDIT_CONFIRM_PASSWORD_LABEL; ?></label>
                                                 <input type="password" 
                                                        class="form-control" 
                                                        id="confirm_password" 
                                                        autocomplete="new-password">
                                                 <div class="invalid-feedback">
-                                                    Пароли не совпадают
+                                                    <?php echo LANG_TEMPLATE_PROFILE_EDIT_PASSWORD_MISMATCH_ERROR; ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -245,22 +244,22 @@
                                 <div class="col-12">
                                     <div class="alert alert-info">
                                         <?php echo bloggy_icon('bs', 'info-circle', '16', 'currentColor', 'me-1'); ?>
-                                        Здесь отображаются все активные сессии вашего аккаунта. Вы можете завершить любую сессию, кроме текущей.
+                                        <?php echo LANG_TEMPLATE_PROFILE_EDIT_SESSIONS_INFO; ?>
                                     </div>
                                     
                                     <div class="sessions-list" id="sessions-list">
                                         <div class="text-center py-4">
                                             <div class="spinner-border text-primary" role="status">
-                                                <span class="visually-hidden">Загрузка...</span>
+                                                <span class="visually-hidden"><?php echo LANG_TEMPLATE_PROFILE_EDIT_LOADING_TEXT; ?></span>
                                             </div>
-                                            <p class="mt-2">Загрузка сессий...</p>
+                                            <p class="mt-2"><?php echo LANG_TEMPLATE_PROFILE_EDIT_LOADING_SESSIONS; ?></p>
                                         </div>
                                     </div>
                                     
                                     <div class="mt-3">
                                         <button type="button" class="btn btn-outline-danger btn-sm" id="terminate-all-sessions">
                                             <?php echo bloggy_icon('bs', 'x-circle', '14', 'currentColor', 'me-1'); ?>
-                                            Завершить все сессии (кроме текущей)
+                                            <?php echo LANG_TEMPLATE_PROFILE_EDIT_TERMINATE_ALL_BTN; ?>
                                         </button>
                                     </div>
                                 </div>
@@ -272,44 +271,46 @@
                                 <div class="col-12">
                                     <div class="alert alert-danger">
                                         <?php echo bloggy_icon('bs', 'exclamation-triangle', '16', 'currentColor', 'me-1'); ?>
-                                        <strong>Внимание!</strong> Удаление профиля — необратимое действие. Все ваши данные будут удалены.
+                                        <strong><?php echo LANG_TEMPLATE_PROFILE_EDIT_DELETE_WARNING_TITLE; ?></strong> 
+                                        <?php echo LANG_TEMPLATE_PROFILE_EDIT_DELETE_WARNING_TEXT; ?>
                                     </div>
                                     
                                     <div class="card border-danger">
                                         <div class="card-header bg-danger text-white">
-                                            <strong>Удаление аккаунта</strong>
+                                            <strong><?php echo LANG_TEMPLATE_PROFILE_EDIT_DELETE_ACCOUNT_TITLE; ?></strong>
                                         </div>
                                         <div class="card-body">
-                                            <p>При удалении аккаунта будут удалены:</p>
+                                            <p><?php echo LANG_TEMPLATE_PROFILE_EDIT_DELETE_DESCRIPTION; ?></p>
                                             <ul>
-                                                <li>Ваш профиль и все личные данные</li>
-                                                <li>Все ваши комментарии</li>
-                                                <li>Все ваши закладки и лайки</li>
-                                                <li>Ваши достижения (ачивки)</li>
+                                                <li><?php echo LANG_TEMPLATE_PROFILE_EDIT_DELETE_ITEM_1; ?></li>
+                                                <li><?php echo LANG_TEMPLATE_PROFILE_EDIT_DELETE_ITEM_2; ?></li>
+                                                <li><?php echo LANG_TEMPLATE_PROFILE_EDIT_DELETE_ITEM_3; ?></li>
+                                                <li><?php echo LANG_TEMPLATE_PROFILE_EDIT_DELETE_ITEM_4; ?></li>
                                             </ul>
                                             <p class="text-muted small">
-                                                <strong>Примечание:</strong> Ваши посты и страницы не будут удалены, но будут привязаны к анонимному пользователю.
+                                                <strong><?php echo LANG_TEMPLATE_PROFILE_EDIT_DELETE_NOTE_TITLE; ?></strong> 
+                                                <?php echo LANG_TEMPLATE_PROFILE_EDIT_DELETE_NOTE_TEXT; ?>
                                             </p>
                                             
                                             <div class="mt-4">
                                                 <div class="form-check mb-3">
                                                     <input class="form-check-input" type="checkbox" id="confirm-delete">
                                                     <label class="form-check-label" for="confirm-delete">
-                                                        Я понимаю, что это действие необратимо, и хочу удалить свой аккаунт
+                                                        <?php echo LANG_TEMPLATE_PROFILE_EDIT_DELETE_CONFIRM_LABEL; ?>
                                                     </label>
                                                 </div>
                                                 
                                                 <div class="mb-3">
-                                                    <label class="form-label">Введите пароль для подтверждения</label>
+                                                    <label class="form-label"><?php echo LANG_TEMPLATE_PROFILE_EDIT_DELETE_PASSWORD_LABEL; ?></label>
                                                     <input type="password" 
                                                            class="form-control" 
                                                            id="delete-password" 
-                                                           placeholder="Ваш пароль">
+                                                           placeholder="<?php echo LANG_TEMPLATE_PROFILE_EDIT_DELETE_PASSWORD_PLACEHOLDER; ?>">
                                                 </div>
                                                 
                                                 <button type="button" class="btn btn-danger" id="delete-account-btn" disabled>
                                                     <?php echo bloggy_icon('bs', 'trash', '16', 'currentColor', 'me-1'); ?>
-                                                    Удалить аккаунт
+                                                    <?php echo LANG_TEMPLATE_PROFILE_EDIT_DELETE_ACCOUNT_BTN; ?>
                                                 </button>
                                             </div>
                                         </div>
@@ -322,10 +323,10 @@
                     <div class="tg-form-actions mt-4">
                         <button type="submit" class="btn btn-primary" id="submit-btn">
                             <?php echo bloggy_icon('bs', 'check-lg', '16', 'currentColor', 'me-1'); ?>
-                            Сохранить изменения
+                            <?php echo LANG_TEMPLATE_PROFILE_EDIT_SAVE_BTN; ?>
                         </button>
                         <a href="<?php echo BASE_URL; ?>/profile/<?php echo html($user['username']); ?>" class="btn btn-outline-secondary">
-                            Отмена
+                            <?php echo LANG_TEMPLATE_PROFILE_EDIT_CANCEL_BTN; ?>
                         </a>
                     </div>
                 </form>
@@ -384,7 +385,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (newPassword.value && newPassword.value !== confirmPassword.value) {
                 e.preventDefault();
                 confirmPassword.classList.add('is-invalid');
-                alert('Пароли не совпадают');
+                alert('<?php echo LANG_TEMPLATE_PROFILE_EDIT_PASSWORD_MISMATCH_ALERT; ?>');
             }
         });
     }
@@ -400,7 +401,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .catch(error => {
                 document.getElementById('sessions-list').innerHTML = `
                     <div class="alert alert-warning">
-                        Не удалось загрузить список сессий
+                        <?php echo LANG_TEMPLATE_PROFILE_EDIT_SESSIONS_LOAD_ERROR; ?>
                     </div>
                 `;
             });
@@ -409,7 +410,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function renderSessions(sessions) {
         const container = document.getElementById('sessions-list');
         if (!sessions || sessions.length === 0) {
-            container.innerHTML = '<div class="text-center py-4 text-muted">Нет активных сессий</div>';
+            container.innerHTML = '<div class="text-center py-4 text-muted"><?php echo LANG_TEMPLATE_PROFILE_EDIT_NO_SESSIONS; ?></div>';
             return;
         }
         
@@ -424,17 +425,17 @@ document.addEventListener('DOMContentLoaded', function() {
                         </div>
                         <div class="session-details">
                             <div class="session-device">
-                                ${session.device || 'Неизвестное устройство'}
-                                ${isCurrent ? '<span class="current-badge ms-2">Текущая</span>' : ''}
+                                ${session.device || '<?php echo LANG_TEMPLATE_PROFILE_EDIT_UNKNOWN_DEVICE; ?>'}
+                                ${isCurrent ? '<span class="current-badge ms-2"><?php echo LANG_TEMPLATE_PROFILE_EDIT_CURRENT_BADGE; ?></span>' : ''}
                             </div>
                             <div class="session-meta">
-                                IP: ${session.ip} • Последняя активность: ${session.last_activity}
+                                IP: ${session.ip} • <?php echo LANG_TEMPLATE_PROFILE_EDIT_LAST_ACTIVITY_LABEL; ?> ${session.last_activity}
                             </div>
                         </div>
                     </div>
                     ${!isCurrent ? `
                         <button type="button" class="btn btn-sm btn-outline-danger terminate-session" data-session-id="${session.id}">
-                            Завершить
+                            <?php echo LANG_TEMPLATE_PROFILE_EDIT_TERMINATE_BTN; ?>
                         </button>
                     ` : ''}
                 </div>
@@ -446,7 +447,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('.terminate-session').forEach(btn => {
             btn.addEventListener('click', function() {
                 const sessionId = this.dataset.sessionId;
-                if (confirm('Завершить эту сессию?')) {
+                if (confirm('<?php echo LANG_TEMPLATE_PROFILE_EDIT_TERMINATE_CONFIRM; ?>')) {
                     terminateSession(sessionId);
                 }
             });
@@ -466,16 +467,16 @@ document.addEventListener('DOMContentLoaded', function() {
             if (data.success) {
                 loadSessions();
             } else {
-                alert(data.message || 'Ошибка при завершении сессии');
+                alert(data.message || '<?php echo LANG_TEMPLATE_PROFILE_EDIT_TERMINATE_ERROR; ?>');
             }
         })
         .catch(error => {
-            alert('Ошибка при завершении сессии');
+            alert('<?php echo LANG_TEMPLATE_PROFILE_EDIT_TERMINATE_ERROR; ?>');
         });
     }
     
     document.getElementById('terminate-all-sessions')?.addEventListener('click', function() {
-        if (confirm('Завершить все сессии кроме текущей? Вам придется войти снова на других устройствах.')) {
+        if (confirm('<?php echo LANG_TEMPLATE_PROFILE_EDIT_TERMINATE_ALL_CONFIRM; ?>')) {
             fetch('<?php echo BASE_URL; ?>/profile/terminate-all-sessions', {
                 method: 'POST',
                 headers: {
@@ -488,11 +489,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (data.success) {
                     loadSessions();
                 } else {
-                    alert(data.message || 'Ошибка при завершении сессий');
+                    alert(data.message || '<?php echo LANG_TEMPLATE_PROFILE_EDIT_TERMINATE_ALL_ERROR; ?>');
                 }
             })
             .catch(error => {
-                alert('Ошибка при завершении сессий');
+                alert('<?php echo LANG_TEMPLATE_PROFILE_EDIT_TERMINATE_ALL_ERROR; ?>');
             });
         }
     });
@@ -510,7 +511,7 @@ document.addEventListener('DOMContentLoaded', function() {
         deletePassword.addEventListener('input', checkDeleteForm);
         
         deleteBtn.addEventListener('click', function() {
-            if (confirm('ВНИМАНИЕ! Это действие необратимо. Вы уверены, что хотите удалить свой аккаунт?')) {
+            if (confirm('<?php echo LANG_TEMPLATE_PROFILE_EDIT_DELETE_FINAL_CONFIRM; ?>')) {
                 fetch('<?php echo BASE_URL; ?>/profile/delete', {
                     method: 'POST',
                     headers: {
@@ -524,14 +525,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        alert('Ваш аккаунт удален. Вы будете перенаправлены на главную страницу.');
+                        alert('<?php echo LANG_TEMPLATE_PROFILE_EDIT_DELETE_SUCCESS; ?>');
                         window.location.href = '<?php echo BASE_URL; ?>';
                     } else {
-                        alert(data.message || 'Ошибка при удалении аккаунта');
+                        alert(data.message || '<?php echo LANG_TEMPLATE_PROFILE_EDIT_DELETE_ERROR; ?>');
                     }
                 })
                 .catch(error => {
-                    alert('Ошибка при удалении аккаунта');
+                    alert('<?php echo LANG_TEMPLATE_PROFILE_EDIT_DELETE_ERROR; ?>');
                 });
             }
         });

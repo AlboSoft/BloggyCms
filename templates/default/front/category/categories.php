@@ -11,15 +11,15 @@
                     <?php echo bloggy_icon('bs', 'folder', '24', 'var(--tg-primary)'); ?>
                 </div>
                 <div class="tg-categories-info">
-                    <h1 class="tg-categories-title">Категории</h1>
+                    <h1 class="tg-categories-title"><?php echo LANG_TEMPLATE_CATEGORIES_ALL_TITLE; ?></h1>
                     <p class="tg-categories-subtitle tg-text-muted">
-                        <?php echo $total_categories; ?> <?php echo plural_form($total_categories, ['раздел', 'раздела', 'разделов']); ?>
+                        <?php echo $total_categories; ?> <?php echo plural_form($total_categories, [LANG_TEMPLATE_CATEGORIES_SECTION_1, LANG_TEMPLATE_CATEGORIES_SECTION_2, LANG_TEMPLATE_CATEGORIES_SECTION_3]); ?>
                     </p>
                 </div>
             </div>
             <a href="<?php echo BASE_URL; ?>/posts" class="tg-btn tg-btn-outline tg-btn-sm">
                 <?php echo bloggy_icon('bs', 'grid-3x3-gap', '14', 'currentColor', 'tg-mr-1'); ?>
-                Все посты
+                <?php echo LANG_TEMPLATE_CATEGORIES_ALL_POSTS_BTN; ?>
             </a>
         </div>
         
@@ -53,7 +53,7 @@
                         <h3 class="tg-category-name">
                             <?php echo html($category['name']); ?>
                             <?php if ($category['password_protected'] == 1) { ?>
-                                <span class="tg-category-protected" title="Защищено паролем">
+                                <span class="tg-category-protected" title="<?php echo LANG_TEMPLATE_CATEGORIES_PASSWORD_PROTECTED_TITLE; ?>">
                                     <?php echo bloggy_icon('bs', 'lock-fill', '12', 'currentColor'); ?>
                                 </span>
                             <?php } ?>
@@ -68,7 +68,7 @@
                             <?php if ($show_post_counts) { ?>
                             <span class="tg-category-posts">
                                 <?php echo bloggy_icon('bs', 'file-text', '12', 'currentColor', 'tg-mr-1'); ?>
-                                <?php echo $postCount; ?> <?php echo plural_form($postCount, ['пост', 'поста', 'постов']); ?>
+                                <?php echo $postCount; ?> <?php echo plural_form($postCount, [LANG_TEMPLATE_CATEGORIES_POST_1, LANG_TEMPLATE_CATEGORIES_POST_2, LANG_TEMPLATE_CATEGORIES_POST_3]); ?>
                             </span>
                             <?php } ?>
                             <?php if (!empty($category['created_at'])) { ?>
@@ -93,7 +93,7 @@
                         <?php echo bloggy_icon('bs', 'folder', '20', 'var(--tg-primary)'); ?>
                     </div>
                     <div class="tg-stat-content">
-                        <span class="tg-stat-label">Всего категорий</span>
+                        <span class="tg-stat-label"><?php echo LANG_TEMPLATE_CATEGORIES_STATS_TOTAL_LABEL; ?></span>
                         <span class="tg-stat-value"><?php echo $total_categories; ?></span>
                     </div>
                 </div>
@@ -108,7 +108,7 @@
                         <?php echo bloggy_icon('bs', 'file-text', '20', 'var(--tg-primary)'); ?>
                     </div>
                     <div class="tg-stat-content">
-                        <span class="tg-stat-label">Всего постов</span>
+                        <span class="tg-stat-label"><?php echo LANG_TEMPLATE_CATEGORIES_STATS_POSTS_LABEL; ?></span>
                         <span class="tg-stat-value"><?php echo $totalPosts; ?></span>
                     </div>
                 </div>
@@ -117,7 +117,7 @@
                         <?php echo bloggy_icon('bs', 'lock', '20', 'var(--tg-primary)'); ?>
                     </div>
                     <div class="tg-stat-content">
-                        <span class="tg-stat-label">Защищенных</span>
+                        <span class="tg-stat-label"><?php echo LANG_TEMPLATE_CATEGORIES_STATS_PROTECTED_LABEL; ?></span>
                         <span class="tg-stat-value"><?php echo $protectedCount; ?></span>
                     </div>
                 </div>
@@ -128,7 +128,7 @@
         <div class="tg-pagination tg-mt-5 tg-text-center">
             <a href="<?php echo $pagination['next_url']; ?>" class="tg-btn tg-btn-outline">
                 <?php echo bloggy_icon('bs', 'arrow-down', '16', 'currentColor', 'tg-mr-1'); ?>
-                Показать еще
+                <?php echo LANG_TEMPLATE_CATEGORIES_SHOW_MORE_BTN; ?>
             </a>
         </div>
         <?php } ?>
@@ -138,13 +138,13 @@
             <div class="tg-empty-state-icon">
                 <?php echo bloggy_icon('bs', 'folders', '48', 'var(--tg-text-secondary)'); ?>
             </div>
-            <h3 class="tg-empty-state-title">Категории не найдены</h3>
+            <h3 class="tg-empty-state-title"><?php echo LANG_TEMPLATE_CATEGORIES_EMPTY_TITLE; ?></h3>
             <p class="tg-empty-state-text tg-text-muted">
-                В блоге пока нет созданных категорий
+                <?php echo LANG_TEMPLATE_CATEGORIES_EMPTY_TEXT; ?>
             </p>
             <a href="<?php echo BASE_URL; ?>/posts" class="tg-btn tg-btn-primary">
                 <?php echo bloggy_icon('bs', 'file-text', '16', 'currentColor', 'tg-mr-1'); ?>
-                Перейти к постам
+                <?php echo LANG_TEMPLATE_CATEGORIES_EMPTY_POSTS_BTN; ?>
             </a>
         </div>
         <?php } ?>

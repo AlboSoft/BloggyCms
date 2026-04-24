@@ -18,7 +18,7 @@ class MenuRenderer {
         
         $menu = $menuModel->getById($menuId);
         if (!$menu || $menu['status'] !== 'active') {
-            return '<!-- Menu not found or inactive -->';
+            return '<!-- ' . LANG_HELPER_MENURENDERER_NOT_FOUND . ' -->';
         }
         
         return self::renderMenu($menu, $currentTheme);
@@ -36,7 +36,7 @@ class MenuRenderer {
         
         $menu = $menuModel->getByName($menuName);
         if (!$menu || $menu['status'] !== 'active') {
-            return '<!-- Menu not found or inactive -->';
+            return '<!-- ' . LANG_HELPER_MENURENDERER_NOT_FOUND . ' -->';
         }
         
         return self::renderMenu($menu, $currentTheme);
@@ -54,7 +54,7 @@ class MenuRenderer {
         
         $menu = $menuModel->getByTemplate($template);
         if (!$menu) {
-            return '<!-- No menu found for template: ' . $template . ' -->';
+            return '<!-- ' . sprintf(LANG_HELPER_MENURENDERER_NO_MENU_FOR_TEMPLATE, $template) . ' -->';
         }
         
         return self::renderMenu($menu, $currentTheme);
@@ -72,7 +72,7 @@ class MenuRenderer {
         
         $menus = $menuModel->getAllByTemplate($template);
         if (empty($menus)) {
-            return '<!-- No menus found for template: ' . $template . ' -->';
+            return '<!-- ' . sprintf(LANG_HELPER_MENURENDERER_NO_MENUS_FOR_TEMPLATE, $template) . ' -->';
         }
         
         $html = '';
@@ -92,7 +92,7 @@ class MenuRenderer {
     private static function renderMenu($menu, $currentTheme = null) {
         $structure = json_decode($menu['structure'], true);
         if (empty($structure)) {
-            return '<!-- Empty menu: ' . $menu['name'] . ' -->';
+            return '<!-- ' . sprintf(LANG_HELPER_MENURENDERER_EMPTY_MENU, $menu['name']) . ' -->';
         }
         
         $userId = $_SESSION['user_id'] ?? null;
@@ -103,7 +103,7 @@ class MenuRenderer {
         $filteredStructure = $menuModel->filterMenuByUserGroups($structure, $userGroups);
         
         if (empty($filteredStructure)) {
-            return '<!-- Menu empty after filtering -->';
+            return '<!-- ' . LANG_HELPER_MENURENDERER_FILTERED_EMPTY . ' -->';
         }
         
         if ($currentTheme === null) {
@@ -370,7 +370,7 @@ class MenuRenderer {
         $result = [];
         
         foreach ($menus as $menu) {
-            $result[$menu['id']] = $menu['name'] . ' (ID: ' . $menu['id'] . ', Шаблон: ' . $menu['template'] . ')';
+            $result[$menu['id']] = $menu['name'] . ' (ID: ' . $menu['id'] . ', ' . sprintf(LANG_HELPER_MENURENDERER_TEMPLATE_LABEL, $menu['template']) . ')';
         }
         
         return $result;
@@ -414,27 +414,27 @@ class MenuRenderer {
     */
     public static function getAvailableShortcodes() {
         return [
-            'Основные' => [
-                '{user_id}' => 'ID текущего пользователя',
-                '{username}' => 'Логин пользователя',
-                '{email}' => 'Email пользователя',
-                '{first_name}' => 'Имя пользователя',
-                '{last_name}' => 'Фамилия пользователя',
-                '{display_name}' => 'Отображаемое имя',
-                '{slug}' => 'URL-слаг пользователя',
+            LANG_HELPER_MENURENDERER_SHORTCODE_BASIC => [
+                '{user_id}' => LANG_HELPER_MENURENDERER_SHORTCODE_USER_ID,
+                '{username}' => LANG_HELPER_MENURENDERER_SHORTCODE_USERNAME,
+                '{email}' => LANG_HELPER_MENURENDERER_SHORTCODE_EMAIL,
+                '{first_name}' => LANG_HELPER_MENURENDERER_SHORTCODE_FIRST_NAME,
+                '{last_name}' => LANG_HELPER_MENURENDERER_SHORTCODE_LAST_NAME,
+                '{display_name}' => LANG_HELPER_MENURENDERER_SHORTCODE_DISPLAY_NAME,
+                '{slug}' => LANG_HELPER_MENURENDERER_SHORTCODE_SLUG,
             ],
-            'Системные' => [
-                '{base_url}' => 'Базовый URL сайта',
-                '{admin_url}' => 'URL админ-панели',
-                '{site_name}' => 'Название сайта',
+            LANG_HELPER_MENURENDERER_SHORTCODE_SYSTEM => [
+                '{base_url}' => LANG_HELPER_MENURENDERER_SHORTCODE_BASE_URL,
+                '{admin_url}' => LANG_HELPER_MENURENDERER_SHORTCODE_ADMIN_URL,
+                '{site_name}' => LANG_HELPER_MENURENDERER_SHORTCODE_SITE_NAME,
             ],
-            'Дата' => [
-                '{year}' => 'Текущий год (4 цифры)',
-                '{month}' => 'Текущий месяц (2 цифры)',
-                '{day}' => 'Текущий день (2 цифры)',
+            LANG_HELPER_MENURENDERER_SHORTCODE_DATE => [
+                '{year}' => LANG_HELPER_MENURENDERER_SHORTCODE_YEAR,
+                '{month}' => LANG_HELPER_MENURENDERER_SHORTCODE_MONTH,
+                '{day}' => LANG_HELPER_MENURENDERER_SHORTCODE_DAY,
             ],
-            'Кастомные поля' => [
-                '{user_field:field_name}' => 'Любое поле из таблицы пользователей',
+            LANG_HELPER_MENURENDERER_SHORTCODE_CUSTOM => [
+                '{user_field:field_name}' => LANG_HELPER_MENURENDERER_SHORTCODE_USER_FIELD,
             ]
         ];
     }

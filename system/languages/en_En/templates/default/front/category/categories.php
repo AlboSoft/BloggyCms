@@ -1,0 +1,18 @@
+<?php
+
+define('LANG_TEMPLATE_CATEGORIES_ALL_TITLE', 'Categories');
+define('LANG_TEMPLATE_CATEGORIES_ALL_POSTS_BTN', 'All posts');
+define('LANG_TEMPLATE_CATEGORIES_SECTION_1', 'section');
+define('LANG_TEMPLATE_CATEGORIES_SECTION_2', 'sections');
+define('LANG_TEMPLATE_CATEGORIES_SECTION_3', 'sections');
+define('LANG_TEMPLATE_CATEGORIES_POST_1', 'post');
+define('LANG_TEMPLATE_CATEGORIES_POST_2', 'posts');
+define('LANG_TEMPLATE_CATEGORIES_POST_3', 'posts');
+define('LANG_TEMPLATE_CATEGORIES_PASSWORD_PROTECTED_TITLE', 'Password protected');
+define('LANG_TEMPLATE_CATEGORIES_STATS_TOTAL_LABEL', 'Total categories');
+define('LANG_TEMPLATE_CATEGORIES_STATS_POSTS_LABEL', 'Total posts');
+define('LANG_TEMPLATE_CATEGORIES_STATS_PROTECTED_LABEL', 'Protected');
+define('LANG_TEMPLATE_CATEGORIES_SHOW_MORE_BTN', 'Show more');
+define('LANG_TEMPLATE_CATEGORIES_EMPTY_TITLE', 'No categories found');
+define('LANG_TEMPLATE_CATEGORIES_EMPTY_TEXT', 'No categories have been created in the blog yet');
+define('LANG_TEMPLATE_CATEGORIES_EMPTY_POSTS_BTN', 'Go to posts');

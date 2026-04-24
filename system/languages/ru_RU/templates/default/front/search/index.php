@@ -1,0 +1,35 @@
+<?php
+
+define('LANG_TEMPLATE_SEARCH_TITLE', 'Поиск по сайту');
+define('LANG_TEMPLATE_SEARCH_DESCRIPTION', 'Найдите интересующие вас публикации по ключевым словам');
+define('LANG_TEMPLATE_SEARCH_PLACEHOLDER', 'Введите поисковый запрос...');
+define('LANG_TEMPLATE_SEARCH_BTN', 'Найти');
+define('LANG_TEMPLATE_SEARCH_ERROR_TITLE', 'Ошибка');
+define('LANG_TEMPLATE_SEARCH_POPULAR_TITLE', 'Популярные запросы');
+define('LANG_TEMPLATE_SEARCH_SUGGESTED_TITLE', 'Что ищут сейчас');
+define('LANG_TEMPLATE_SEARCH_QUICK_LINKS_TITLE', 'Быстрые ссылки');
+define('LANG_TEMPLATE_SEARCH_QUICK_LINK_POSTS', 'Все публикации');
+define('LANG_TEMPLATE_SEARCH_QUICK_LINK_CATEGORIES', 'Категории');
+define('LANG_TEMPLATE_SEARCH_QUICK_LINK_TAGS', 'Теги');
+define('LANG_TEMPLATE_SEARCH_QUICK_LINK_ARCHIVE', 'Архив');
+define('LANG_TEMPLATE_SEARCH_STATS_FOUND', 'По запросу <strong>«%s»</strong> найдено <strong>%d</strong> %s');
+define('LANG_TEMPLATE_SEARCH_MAYBE_YOU_MEANT', 'Возможно вы искали:');
+define('LANG_TEMPLATE_SEARCH_VIEWS_TITLE', 'Просмотры');
+define('LANG_TEMPLATE_SEARCH_COMMENTS_TITLE', 'Комментарии');
+define('LANG_TEMPLATE_SEARCH_TYPE_POST', 'Пост');
+define('LANG_TEMPLATE_SEARCH_TYPE_PAGE', 'Страница');
+define('LANG_TEMPLATE_SEARCH_TYPE_CATEGORY', 'Категория');
+define('LANG_TEMPLATE_SEARCH_TYPE_TAG', 'Тег');
+define('LANG_TEMPLATE_SEARCH_TYPE_USER', 'Пользователь');
+define('LANG_TEMPLATE_SEARCH_POSTS_1', 'пост');
+define('LANG_TEMPLATE_SEARCH_POSTS_2', 'поста');
+define('LANG_TEMPLATE_SEARCH_POSTS_3', 'постов');
+define('LANG_TEMPLATE_SEARCH_REGISTERED', 'Зарегистрирован');
+define('LANG_TEMPLATE_SEARCH_PASSWORD_PROTECTED_TITLE', 'Защищено паролем');
+define('LANG_TEMPLATE_SEARCH_READ_BTN', 'Читать');
+define('LANG_TEMPLATE_SEARCH_GO_BTN', 'Перейти');
+define('LANG_TEMPLATE_SEARCH_PAGINATION_INFO', 'Страница %d из %d');
+define('LANG_TEMPLATE_SEARCH_NO_RESULTS_TITLE', 'Ничего не найдено');
+define('LANG_TEMPLATE_SEARCH_NO_RESULTS_TEXT', 'По запросу <strong>«%s»</strong> ничего не найдено. Попробуйте изменить запрос или выбрать другие ключевые слова.');
+define('LANG_TEMPLATE_SEARCH_ALL_POSTS_BTN', 'Все публикации');
+define('LANG_TEMPLATE_SEARCH_NEW_SEARCH_BTN', 'Новый поиск');

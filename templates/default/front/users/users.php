@@ -22,13 +22,14 @@ if (!empty($users)) {
                     <div>
                         <h1 class="tg-page-title tg-mb-1" style="font-size: 28px; margin-bottom: 4px;">
                             <?php echo bloggy_icon('bs', 'people-fill', '24', 'var(--tg-primary)', 'tg-mr-2'); ?>
-                            Участники сообщества
+                            <?php echo LANG_TEMPLATE_USERS_TITLE; ?>
                         </h1>
                         <p class="tg-text-muted" style="margin-left: 36px;">
                             <span style="font-weight: 600; color: #31b131;"><?php echo $online = (int)($online_count ?? 0); ?></span> 
-                            <?php echo plural($online, ['онлайн', 'онлайн', 'онлайн']); ?>
-                            из <span style="font-weight: 600; color: var(--tg-primary);"><?php echo $total = (int)($total_users ?? 0); ?></span> 
-                            <?php echo plural($total, ['участник', 'участника', 'участников']); ?>
+                            <?php echo plural($online, [LANG_TEMPLATE_USERS_ONLINE_1, LANG_TEMPLATE_USERS_ONLINE_2, LANG_TEMPLATE_USERS_ONLINE_3]); ?>
+                            <?php echo LANG_TEMPLATE_USERS_OUT_OF; ?>
+                            <span style="font-weight: 600; color: var(--tg-primary);"><?php echo $total = (int)($total_users ?? 0); ?></span> 
+                            <?php echo plural($total, [LANG_TEMPLATE_USERS_MEMBER_1, LANG_TEMPLATE_USERS_MEMBER_2, LANG_TEMPLATE_USERS_MEMBER_3]); ?>
                         </p>
                     </div>
                     
@@ -36,7 +37,7 @@ if (!empty($users)) {
                     <div class="tg-stats" style="gap: 12px;">
                         <div class="tg-stat" style="background: var(--tg-bg); padding: 8px 16px; border-radius: var(--tg-radius-md); min-width: 100px;">
                             <span class="tg-stat-value" style="font-size: 20px;"><?php echo $total = (int)($totalPosts ?? 0); ?></span>
-                            <span class="tg-stat-label"><?php echo plural($total, ['пост', 'поста', 'постов']); ?></span>
+                            <span class="tg-stat-label"><?php echo plural($total, [LANG_TEMPLATE_USERS_POST_1, LANG_TEMPLATE_USERS_POST_2, LANG_TEMPLATE_USERS_POST_3]); ?></span>
                         </div>
                     </div>
                     <?php } ?>
@@ -66,7 +67,7 @@ if (!empty($users)) {
                                         
                                         <?php if ($user['is_online'] ?? false) { ?>
                                             <span class="tg-online" style="position: absolute; bottom: 2px; right: 2px; width: 12px; height: 12px; border: 2px solid var(--tg-surface);" 
-                                                  title="В сети"></span>
+                                                  title="<?php echo LANG_TEMPLATE_USERS_ONLINE_TITLE; ?>"></span>
                                         <?php } ?>
                                     </a>
                                 </div>
@@ -104,16 +105,16 @@ if (!empty($users)) {
                                 <?php if ($isAdmin || $isUserAdmin) { ?>
                                 <div class="tg-stat" style="flex: 1; text-align: center;">
                                     <span class="tg-stat-value" style="font-size: 16px;"><?php echo $total = (int)($user['posts_count'] ?? 0); ?></span>
-                                    <span class="tg-stat-label" style="font-size: 10px;"><?php echo plural($total, ['пост', 'поста', 'постов']); ?></span>
+                                    <span class="tg-stat-label" style="font-size: 10px;"><?php echo plural($total, [LANG_TEMPLATE_USERS_POST_1, LANG_TEMPLATE_USERS_POST_2, LANG_TEMPLATE_USERS_POST_3]); ?></span>
                                 </div>
                                 <?php } ?>
                                 <div class="tg-stat" style="flex: 1; text-align: center;">
                                     <span class="tg-stat-value" style="font-size: 16px;"><?php echo $user['comments_count'] ?? 0; ?></span>
-                                    <span class="tg-stat-label" style="font-size: 10px;">коммент.</span>
+                                    <span class="tg-stat-label" style="font-size: 10px;"><?php echo LANG_TEMPLATE_USERS_COMMENT_LABEL; ?></span>
                                 </div>
                                 <div class="tg-stat" style="flex: 1; text-align: center;">
                                     <span class="tg-stat-value" style="font-size: 16px;"><?php echo $total = (int)($user['unlocked_achievements_count'] ?? 0); ?></span>
-                                    <span class="tg-stat-label" style="font-size: 10px;"><?php echo plural($total, ['ачивка', 'ачивки', 'ачивок']); ?></span>
+                                    <span class="tg-stat-label" style="font-size: 10px;"><?php echo plural($total, [LANG_TEMPLATE_USERS_ACHIEVEMENT_1, LANG_TEMPLATE_USERS_ACHIEVEMENT_2, LANG_TEMPLATE_USERS_ACHIEVEMENT_3]); ?></span>
                                 </div>
                             </div>
                             
@@ -130,24 +131,24 @@ if (!empty($users)) {
                                     <?php if ($user['is_online'] ?? false) { ?>
                                         <span style="display: flex; align-items: center; gap: 4px; color: #31b131;">
                                             <?php echo bloggy_icon('bs', 'circle-fill', '8', '#31b131'); ?>
-                                            <span style="font-weight: 500;">Онлайн</span>
+                                            <span style="font-weight: 500;"><?php echo LANG_TEMPLATE_USERS_ONLINE_BADGE; ?></span>
                                         </span>
                                     <?php } elseif (!empty($user['last_activity_human'])) { ?>
                                         <span style="display: flex; align-items: center; gap: 4px; color: var(--tg-text-secondary);">
                                             <?php echo bloggy_icon('bs', 'clock-history', '10', 'currentColor'); ?>
-                                            <span>Был(а) <?php echo $user['last_activity_human']; ?></span>
+                                            <span><?php echo sprintf(LANG_TEMPLATE_USERS_WAS_ONLINE, $user['last_activity_human']); ?></span>
                                         </span>
                                     <?php } else { ?>
                                         <span style="display: flex; align-items: center; gap: 4px; color: var(--tg-text-secondary);">
                                             <?php echo bloggy_icon('bs', 'clock-history', '10', 'currentColor'); ?>
-                                            <span>Активность не указана</span>
+                                            <span><?php echo LANG_TEMPLATE_USERS_NO_ACTIVITY; ?></span>
                                         </span>
                                     <?php } ?>
                                     
                                     <?php if (!empty($user['registration_days'])) { ?>
                                         <span style="display: flex; align-items: center; gap: 4px; color: var(--tg-text-secondary);">
                                             <?php echo bloggy_icon('bs', 'calendar-day', '10', 'currentColor'); ?>
-                                            <span><?php echo $user['registration_days']; ?> дн.</span>
+                                            <span><?php echo sprintf(LANG_TEMPLATE_USERS_DAYS, $user['registration_days']); ?></span>
                                         </span>
                                     <?php } ?>
                                 </div>
@@ -158,7 +159,7 @@ if (!empty($users)) {
                             <a href="<?php echo BASE_URL; ?>/profile/<?php echo html($user['username']); ?>" 
                                class="tg-btn tg-btn-outline" style="width: 100%; justify-content: center;">
                                 <?php echo bloggy_icon('bs', 'person', '14', 'currentColor', 'tg-mr-1'); ?>
-                                Профиль
+                                <?php echo LANG_TEMPLATE_USERS_PROFILE_BTN; ?>
                             </a>
                         </div>
                     </div>
@@ -168,14 +169,14 @@ if (!empty($users)) {
                     <div class="tg-empty-state-icon" style="margin-bottom: 24px;">
                         <?php echo bloggy_icon('bs', 'people', '64', 'var(--tg-text-secondary)'); ?>
                     </div>
-                    <h3 class="tg-empty-state-title">Участники не найдены</h3>
+                    <h3 class="tg-empty-state-title"><?php echo LANG_TEMPLATE_USERS_EMPTY_TITLE; ?></h3>
                     <p class="tg-empty-state-text">
-                        На сайте пока нет активных участников. Будьте первым!
+                        <?php echo LANG_TEMPLATE_USERS_EMPTY_TEXT; ?>
                     </p>
                     <?php if (!isset($_SESSION['user_id'])) { ?>
                     <a href="<?php echo BASE_URL; ?>/auth/register" class="tg-btn tg-btn-primary tg-mt-3">
                         <?php echo bloggy_icon('bs', 'person-plus', '16', 'currentColor', 'tg-mr-1'); ?>
-                        Зарегистрироваться
+                        <?php echo LANG_TEMPLATE_USERS_REGISTER_BTN; ?>
                     </a>
                     <?php } ?>
                 </div>

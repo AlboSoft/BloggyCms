@@ -212,12 +212,12 @@ class AssetManager {
         
         foreach ($this->baseResources[$context]['css'] as $cssFile) {
             $html .= '<link rel="stylesheet" href="' . 
-                    htmlspecialchars($this->makeAbsoluteUrl($cssFile)) . '">' . "\n";
+                    html($this->makeAbsoluteUrl($cssFile)) . '">' . "\n";
         }
         
         foreach ($this->resources[$context]['css'] as $cssFile) {
             $html .= '<link rel="stylesheet" href="' . 
-                    htmlspecialchars($this->makeAbsoluteUrl($cssFile)) . '">' . "\n";
+                    html($this->makeAbsoluteUrl($cssFile)) . '">' . "\n";
         }
         
         if (!empty($this->resources[$context]['inline_css'])) {
@@ -247,12 +247,12 @@ class AssetManager {
         
         foreach ($this->baseResources[$context]['js'] as $jsFile) {
             $html .= '<script src="' . 
-                    htmlspecialchars($this->makeAbsoluteUrl($jsFile)) . '"></script>' . "\n";
+                    html($this->makeAbsoluteUrl($jsFile)) . '"></script>' . "\n";
         }
         
         foreach ($this->resources[$context]['js'] as $jsFile) {
             $html .= '<script src="' . 
-                    htmlspecialchars($this->makeAbsoluteUrl($jsFile)) . '"></script>' . "\n";
+                    html($this->makeAbsoluteUrl($jsFile)) . '"></script>' . "\n";
         }
         
         if (!empty($this->resources[$context]['inline_js'])) {

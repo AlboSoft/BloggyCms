@@ -18,7 +18,7 @@ function renderCommentsTree($comments, $level = 0) {
     $maxDepth = SettingsHelper::get('controller_comments', 'max_depth', 4);
     $showGroups = SettingsHelper::get('controller_comments', 'show_groups', true);
     $showAdminBadge = SettingsHelper::get('controller_comments', 'show_admin_badge', false);
-    $adminBadgeTitle = SettingsHelper::get('controller_comments', 'title_badge', 'Администратор');
+    $adminBadgeTitle = SettingsHelper::get('controller_comments', 'title_badge', LANG_TEMPLATE_COMMENTS_LIST_ADMIN_BADGE_DEFAULT);
     $adminBadgeIcon = SettingsHelper::get('controller_comments', 'icon_badge', 'bs:rocket');
     $adminBadgeBgColor = SettingsHelper::get('controller_comments', 'bg_badge', '#007bff');
     $adminBadgeTextColor = SettingsHelper::get('controller_comments', 'color_badge', '#ffffff');
@@ -43,7 +43,7 @@ function renderCommentsTree($comments, $level = 0) {
         
         $adminBadgeStyle = '';
         if ($showAdminBadge && $isAdmin && $adminBadgeBgColor && $adminBadgeTextColor) {
-            $adminBadgeStyle = 'style="background-color: ' . htmlspecialchars($adminBadgeBgColor) . '; color: ' . htmlspecialchars($adminBadgeTextColor) . ';"';
+            $adminBadgeStyle = 'style="background-color: ' . html($adminBadgeBgColor) . '; color: ' . html($adminBadgeTextColor) . ';"';
         }
 
         $adminIconParts = explode(':', $adminBadgeIcon);
@@ -76,28 +76,28 @@ function renderCommentsTree($comments, $level = 0) {
                             <span class="tg-author-name"><?php echo html($userName); ?></span>
                             
                             <?php if ($level > 0) { ?>
-                                <span class="tg-badge tg-badge-reply" title="Ответ">
+                                <span class="tg-badge tg-badge-reply" title="<?php echo LANG_TEMPLATE_COMMENTS_LIST_REPLY_TITLE; ?>">
                                     <?php echo bloggy_icon('bs', 'reply', '10', 'currentColor'); ?>
                                 </span>
                             <?php } ?>
                             
                             <?php if ($isPending && $isOwnComment) { ?>
-                                <span class="tg-badge tg-badge-moderation" title="На модерации">
+                                <span class="tg-badge tg-badge-moderation" title="<?php echo LANG_TEMPLATE_COMMENTS_LIST_PENDING_TITLE; ?>">
                                     <?php echo bloggy_icon('bs', 'clock', '10', 'currentColor', 'tg-mr-1'); ?>
-                                    <?php echo SettingsHelper::get('controller_comments', 'z4', 'На модерации'); ?>
+                                    <?php echo SettingsHelper::get('controller_comments', 'z4', LANG_TEMPLATE_COMMENTS_LIST_PENDING_BADGE); ?>
                                 </span>
                             <?php } ?>
                             
                             <?php if ($isOwnComment) { ?>
-                                <span class="tg-badge tg-badge-own" title="Ваш комментарий">
+                                <span class="tg-badge tg-badge-own" title="<?php echo LANG_TEMPLATE_COMMENTS_LIST_YOUR_COMMENT_TITLE; ?>">
                                     <?php echo bloggy_icon('bs', 'person-check', '10', 'currentColor', 'tg-mr-1'); ?>
-                                    <?php echo SettingsHelper::get('controller_comments', 'z5', 'Вы'); ?>
+                                    <?php echo SettingsHelper::get('controller_comments', 'z5', LANG_TEMPLATE_COMMENTS_LIST_YOU_BADGE); ?>
                                 </span>
                             <?php } ?>
                             
                             <?php if ($showAdminBadge && $isAdmin) { ?>
                                 <span class="tg-badge tg-badge-admin" title="<?php echo html($adminBadgeTitle); ?>" <?php echo $adminBadgeStyle; ?>>
-                                    <?php echo bloggy_icon($adminIconSet, $adminIconName, '10', htmlspecialchars($adminBadgeTextColor), 'tg-mr-1'); ?>
+                                    <?php echo bloggy_icon($adminIconSet, $adminIconName, '10', html($adminBadgeTextColor), 'tg-mr-1'); ?>
                                     <?php echo html($adminBadgeTitle); ?>
                                 </span>
                             <?php } ?>
@@ -110,9 +110,9 @@ function renderCommentsTree($comments, $level = 0) {
                             </span>
                             
                             <?php if (!empty($comment['was_edited']) && $comment['was_edited']) { ?>
-                                <span class="tg-comment-edited" title="Отредактировано">
+                                <span class="tg-comment-edited" title="<?php echo LANG_TEMPLATE_COMMENTS_LIST_EDITED_TITLE; ?>">
                                     <?php echo bloggy_icon('bs', 'pencil', '10', 'currentColor', 'tg-mr-1'); ?>
-                                    <span>ред.</span>
+                                    <span><?php echo LANG_TEMPLATE_COMMENTS_LIST_EDITED_BADGE; ?></span>
                                 </span>
                             <?php } ?>
                             
@@ -120,7 +120,7 @@ function renderCommentsTree($comments, $level = 0) {
                                 <div class="tg-user-groups">
                                     <?php foreach ($userGroups as $group) { ?>
                                         <span class="tg-badge tg-badge-group" 
-                                              title="Группа: <?php echo html($group['name']); ?>">
+                                              title="<?php echo sprintf(LANG_TEMPLATE_COMMENTS_LIST_GROUP_TITLE, html($group['name'])); ?>">
                                             <?php echo html($group['name']); ?>
                                         </span>
                                     <?php } ?>
@@ -134,7 +134,7 @@ function renderCommentsTree($comments, $level = 0) {
                             <?php if ($comment['status'] === 'pending') { ?>
                                 <button class="tg-admin-btn tg-admin-approve" 
                                         data-comment-id="<?php echo $commentId; ?>"
-                                        title="Одобрить">
+                                        title="<?php echo LANG_TEMPLATE_COMMENTS_LIST_APPROVE_TITLE; ?>">
                                     <?php echo bloggy_icon('bs', 'check-lg', '14', 'currentColor'); ?>
                                 </button>
                             <?php } ?>
@@ -152,7 +152,7 @@ function renderCommentsTree($comments, $level = 0) {
                             data-comment-id="<?php echo $commentId; ?>" 
                             data-comment-author="<?php echo html($userName); ?>">
                         <?php echo bloggy_icon('bs', 'reply', '14', 'currentColor', 'tg-mr-1'); ?>
-                        <?php echo SettingsHelper::get('controller_comments', 'z6', 'Ответить'); ?>
+                        <?php echo SettingsHelper::get('controller_comments', 'z6', LANG_TEMPLATE_COMMENTS_LIST_REPLY_BTN); ?>
                     </button>
                     <?php } ?>
                     
@@ -163,25 +163,26 @@ function renderCommentsTree($comments, $level = 0) {
                         ?>
                         <a href="<?php echo $editUrl; ?>" class="tg-action-btn tg-btn-edit">
                             <?php echo bloggy_icon('bs', 'pencil', '14', 'currentColor', 'tg-mr-1'); ?>
-                            <?php echo SettingsHelper::get('controller_comments', 'z7', 'Редактировать'); ?>
+                            <?php echo SettingsHelper::get('controller_comments', 'z7', LANG_TEMPLATE_COMMENTS_LIST_EDIT_BTN); ?>
                         </a>
                     <?php } ?>
                     
                     <?php if ($canDelete) { ?>
                         <a href="<?php echo BASE_URL; ?>/comment/delete/<?php echo $commentId; ?>" 
                            class="tg-action-btn tg-btn-delete"
-                           data-comment-id="<?php echo $commentId; ?>">
+                           data-comment-id="<?php echo $commentId; ?>"
+                           onclick="return confirm('<?php echo LANG_TEMPLATE_COMMENTS_LIST_DELETE_CONFIRM; ?>')">
                             <?php echo bloggy_icon('bs', 'trash', '14', 'currentColor', 'tg-mr-1'); ?>
-                            <?php echo SettingsHelper::get('controller_comments', 'z8', 'Удалить'); ?>
+                            <?php echo SettingsHelper::get('controller_comments', 'z8', LANG_TEMPLATE_COMMENTS_LIST_DELETE_BTN); ?>
                         </a>
                     <?php } ?>
                     
                     <?php if (Auth::isAdmin()) { ?>
                         <a href="<?php echo ADMIN_URL; ?>/comments/edit/<?php echo $commentId; ?>" 
-                           class="tg-action-btn tg-btn-admin"
-                           title="Редактировать (админ)">
+                                   class="tg-action-btn tg-btn-admin"
+                                   title="<?php echo LANG_TEMPLATE_COMMENTS_LIST_ADMIN_EDIT_TITLE; ?>">
                             <?php echo bloggy_icon('bs', 'gear', '14', 'currentColor', 'tg-mr-1'); ?>
-                            <span>Админ</span>
+                            <span><?php echo LANG_TEMPLATE_COMMENTS_LIST_ADMIN_BTN; ?></span>
                         </a>
                     <?php } ?>
                 </div>
@@ -191,7 +192,7 @@ function renderCommentsTree($comments, $level = 0) {
                         <button type="button" class="tg-toggle-replies" 
                                 data-target="tg-replies-<?php echo $commentId; ?>">
                             <?php echo bloggy_icon('bs', 'chevron-down', '12', 'currentColor', 'tg-mr-1'); ?>
-                            <?php echo SettingsHelper::get('controller_comments', 'z3', 'Показать ветку'); ?> (еще <?php echo $nestedCount; ?>)
+                            <?php echo SettingsHelper::get('controller_comments', 'z3', LANG_TEMPLATE_COMMENTS_LIST_SHOW_THREAD_TEXT); ?> (<?php echo sprintf(LANG_TEMPLATE_COMMENTS_LIST_MORE_COUNT, $nestedCount); ?>)
                         </button>
                         
                         <div class="tg-deep-replies" id="tg-replies-<?php echo $commentId; ?>" style="display: none;">
@@ -218,16 +219,16 @@ $canComment = AuthHelper::canAddComment();
             <div class="tg-empty-icon">
                 <?php echo bloggy_icon('bs', 'chat-text', '48', 'var(--tg-text-secondary)'); ?>
             </div>
-            <h4 class="tg-empty-title"><?php echo SettingsHelper::get('controller_comments', 'z1', 'Комментариев пока нет'); ?></h4>
+            <h4 class="tg-empty-title"><?php echo SettingsHelper::get('controller_comments', 'z1', LANG_TEMPLATE_COMMENTS_LIST_NO_COMMENTS_TITLE); ?></h4>
             <p class="tg-empty-text tg-text-muted">
-                <?php echo SettingsHelper::get('controller_comments', 'z2', 'Будьте первым, кто оставит комментарий!'); ?>
+                <?php echo SettingsHelper::get('controller_comments', 'z2', LANG_TEMPLATE_COMMENTS_LIST_NO_COMMENTS_HINT); ?>
             </p>
             
             <?php if (!$canComment && !Auth::isLoggedIn()) { ?>
                 <div class="tg-empty-action">
                     <a href="<?php echo BASE_URL; ?>/login" class="tg-btn tg-btn-primary">
                         <?php echo bloggy_icon('bs', 'box-arrow-in-right', '16', 'currentColor', 'tg-mr-1'); ?>
-                        Войдите, чтобы комментировать
+                        <?php echo LANG_TEMPLATE_COMMENTS_LIST_LOGIN_TO_COMMENT_BTN; ?>
                     </a>
                 </div>
             <?php } ?>
@@ -246,8 +247,8 @@ $canComment = AuthHelper::canAddComment();
                         <?php echo bloggy_icon('bs', 'info-circle', '18', 'currentColor'); ?>
                     </div>
                     <div class="tg-alert-content">
-                        <strong>Ограничение комментариев</strong>
-                        <p class="tg-mb-0">У вас нет прав на добавление комментариев.</p>
+                        <strong><?php echo LANG_TEMPLATE_COMMENTS_LIST_RESTRICTED_TITLE; ?></strong>
+                        <p class="tg-mb-0"><?php echo LANG_TEMPLATE_COMMENTS_LIST_RESTRICTED_TEXT; ?></p>
                     </div>
                 </div>
             </div>
@@ -267,14 +268,14 @@ $js_config = [
     'current_user_id' => Auth::getUserId() ?? 0,
     'max_depth' => SettingsHelper::get('controller_comments', 'max_depth', 4),
     'can_comment' => $canComment,
-    'moderation_text' => SettingsHelper::get('controller_comments', 'z4', 'На модерации'),
-    'you_text' => SettingsHelper::get('controller_comments', 'z5', 'Вы'),
-    'reply_text' => SettingsHelper::get('controller_comments', 'z6', 'Ответить'),
-    'edit_text' => SettingsHelper::get('controller_comments', 'z7', 'Редактировать'),
-    'delete_text' => SettingsHelper::get('controller_comments', 'z8', 'Удалить'),
+    'moderation_text' => SettingsHelper::get('controller_comments', 'z4', LANG_TEMPLATE_COMMENTS_LIST_PENDING_BADGE),
+    'you_text' => SettingsHelper::get('controller_comments', 'z5', LANG_TEMPLATE_COMMENTS_LIST_YOU_BADGE),
+    'reply_text' => SettingsHelper::get('controller_comments', 'z6', LANG_TEMPLATE_COMMENTS_LIST_REPLY_BTN),
+    'edit_text' => SettingsHelper::get('controller_comments', 'z7', LANG_TEMPLATE_COMMENTS_LIST_EDIT_BTN),
+    'delete_text' => SettingsHelper::get('controller_comments', 'z8', LANG_TEMPLATE_COMMENTS_LIST_DELETE_BTN),
     'show_groups' => SettingsHelper::get('controller_comments', 'show_groups', true),
     'show_admin_badge' => SettingsHelper::get('controller_comments', 'show_admin_badge', false),
-    'admin_badge_title' => SettingsHelper::get('controller_comments', 'title_badge', 'Администратор'),
+    'admin_badge_title' => SettingsHelper::get('controller_comments', 'title_badge', LANG_TEMPLATE_COMMENTS_LIST_ADMIN_BADGE_DEFAULT),
     'admin_badge_icon' => SettingsHelper::get('controller_comments', 'icon_badge', 'bs:rocket'),
     'admin_badge_bg_color' => SettingsHelper::get('controller_comments', 'bg_badge', '#007bff'),
     'admin_badge_text_color' => SettingsHelper::get('controller_comments', 'color_badge', '#ffffff'),

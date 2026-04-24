@@ -40,18 +40,18 @@ class AdminAuthMiddleware {
         
         if (!isset($_SESSION['user_id'])) {
             if ($isAjax) {
-                self::jsonError('Пожалуйста, авторизуйтесь для доступа к панели управления', 401);
+                self::jsonError(LANG_CORE_ADMINAUTHMIDDLEWARE_ERROR_AUTH_REQUIRED, 401);
             } else {
-                self::redirect(ADMIN_URL . '/login', 'Пожалуйста, авторизуйтесь для доступа к панели управления');
+                self::redirect(ADMIN_URL . '/login', LANG_CORE_ADMINAUTHMIDDLEWARE_ERROR_AUTH_REQUIRED);
             }
             return false;
         }
         
         if (!isset($_SESSION['is_admin']) || !$_SESSION['is_admin']) {
             if ($isAjax) {
-                self::jsonError('У вас нет прав доступа к панели управления', 403);
+                self::jsonError(LANG_CORE_ADMINAUTHMIDDLEWARE_ERROR_ACCESS_DENIED, 403);
             } else {
-                self::redirect(BASE_URL, 'У вас нет прав доступа к панели управления');
+                self::redirect(BASE_URL, LANG_CORE_ADMINAUTHMIDDLEWARE_ERROR_ACCESS_DENIED);
             }
             return false;
         }

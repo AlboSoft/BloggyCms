@@ -1,0 +1,34 @@
+<?php
+
+define('LANG_TEMPLATE_COMMENT_EDIT_UNKNOWN_POST', 'Неизвестный пост');
+define('LANG_TEMPLATE_COMMENT_EDIT_NO_PERMISSION', 'У вас нет прав для редактирования этого комментария.');
+define('LANG_TEMPLATE_COMMENT_EDIT_TITLE', 'Редактирование комментария');
+define('LANG_TEMPLATE_COMMENT_EDIT_TITLE_ADMIN', 'Редактирование комментария (админ)');
+define('LANG_TEMPLATE_COMMENT_EDIT_POST_LABEL', 'Комментарий к посту:');
+define('LANG_TEMPLATE_COMMENT_EDIT_BACK_BTN', 'Назад');
+define('LANG_TEMPLATE_COMMENT_EDIT_MODERATION_TITLE', 'Ваш комментарий на модерации');
+define('LANG_TEMPLATE_COMMENT_EDIT_MODERATION_TEXT', 'После редактирования комментарий снова отправится на проверку администратору.');
+define('LANG_TEMPLATE_COMMENT_EDIT_NO_MODERATION_TEXT', 'После редактирования комментарий останется опубликованным.');
+define('LANG_TEMPLATE_COMMENT_EDIT_CONTENT_LABEL', 'Текст комментария');
+define('LANG_TEMPLATE_COMMENT_EDIT_CONTENT_PLACEHOLDER', 'Введите текст комментария...');
+define('LANG_TEMPLATE_COMMENT_EDIT_MIN_LENGTH_HINT', 'Минимальная длина: 10 символов');
+define('LANG_TEMPLATE_COMMENT_EDIT_ADMIN_SETTINGS', 'Настройки администратора');
+define('LANG_TEMPLATE_COMMENT_EDIT_AUTHOR_NAME_LABEL', 'Имя автора');
+define('LANG_TEMPLATE_COMMENT_EDIT_AUTHOR_EMAIL_LABEL', 'Email автора');
+define('LANG_TEMPLATE_COMMENT_EDIT_STATUS_LABEL', 'Статус комментария');
+define('LANG_TEMPLATE_COMMENT_EDIT_STATUS_PENDING', 'На модерации');
+define('LANG_TEMPLATE_COMMENT_EDIT_STATUS_APPROVED', 'Одобрен');
+define('LANG_TEMPLATE_COMMENT_EDIT_STATUS_SPAM', 'Спам');
+define('LANG_TEMPLATE_COMMENT_EDIT_CANCEL_BTN', 'Отмена');
+define('LANG_TEMPLATE_COMMENT_EDIT_DELETE_BTN', 'Удалить');
+define('LANG_TEMPLATE_COMMENT_EDIT_DELETE_CONFIRM', 'Удалить этот комментарий?');
+define('LANG_TEMPLATE_COMMENT_EDIT_SAVE_BTN', 'Сохранить изменения');
+define('LANG_TEMPLATE_COMMENT_EDIT_INFO_TITLE', 'Информация');
+define('LANG_TEMPLATE_COMMENT_EDIT_CREATED_AT', 'Создан:');
+define('LANG_TEMPLATE_COMMENT_EDIT_UPDATED_AT', 'Обновлен:');
+define('LANG_TEMPLATE_COMMENT_EDIT_AUTHOR_LABEL', 'Автор:');
+define('LANG_TEMPLATE_COMMENT_EDIT_UNKNOWN_AUTHOR', 'Неизвестно');
+define('LANG_TEMPLATE_COMMENT_EDIT_TIPS_TITLE', 'Подсказки');
+define('LANG_TEMPLATE_COMMENT_EDIT_TIP_1', 'Сохраняйте вежливый тон');
+define('LANG_TEMPLATE_COMMENT_EDIT_TIP_2', 'Проверьте орфографию перед отправкой');
+define('LANG_TEMPLATE_COMMENT_EDIT_TIP_3', 'Будьте конструктивны в обсуждении');

@@ -10,8 +10,8 @@
             <div class="tg-posts-main">
                 <div class="tg-posts-card">
                     <div class="tg-page-header">
-                        <h1 class="tg-page-title">Блог</h1>
-                        <p class="tg-page-subtitle">Последние публикации и обновления</p>
+                        <h1 class="tg-page-title"><?php echo LANG_TEMPLATE_POSTS_LIST_TITLE; ?></h1>
+                        <p class="tg-page-subtitle"><?php echo LANG_TEMPLATE_POSTS_LIST_SUBTITLE; ?></p>
                     </div>
 
                     <div class="tg-posts-list">
@@ -37,7 +37,7 @@
                                         <?php if ($hasUpdated) { ?>
                                             <span class="tg-post-updated">
                                                 <?php echo bloggy_icon('bs', 'pencil', '12', '#94a3b8'); ?>
-                                                обн. <?php echo date('d.m.Y', strtotime($post['updated_at'])); ?>
+                                                <?php echo sprintf(LANG_TEMPLATE_POSTS_LIST_UPDATED, date('d.m.Y', strtotime($post['updated_at']))); ?>
                                             </span>
                                         <?php } ?>
                                         <?php if ($isPasswordProtected) { ?>
@@ -115,7 +115,7 @@
                         <?php } else { ?>
                             <div class="tg-empty-state">
                                 <?php echo bloggy_icon('bs', 'file-text', '48', '#cbd5e0'); ?>
-                                <p>Пока нет публикаций</p>
+                                <p><?php echo LANG_TEMPLATE_POSTS_LIST_EMPTY_TEXT; ?></p>
                             </div>
                         <?php } ?>
                     </div>
@@ -124,7 +124,7 @@
                         <div class="tg-load-more">
                             <a href="<?php echo $pagination['next_url']; ?>" class="tg-load-more-btn">
                                 <?php echo bloggy_icon('bs', 'arrow-down', '16', 'currentColor'); ?>
-                                Загрузить ещё
+                                <?php echo LANG_TEMPLATE_POSTS_LIST_LOAD_MORE_BTN; ?>
                             </a>
                         </div>
                     <?php } ?>

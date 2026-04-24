@@ -25,7 +25,7 @@ class FilesUpload {
             if ($files['error'][$i] !== UPLOAD_ERR_OK) {
                 $results[] = [
                     'success' => false,
-                    'error' => 'Ошибка загрузки файла: ' . self::getUploadError($files['error'][$i]),
+                    'error' => sprintf(LANG_HELPER_FILESUPLOAD_UPLOAD_ERROR, self::getUploadError($files['error'][$i])),
                     'file_name' => $files['name'][$i]
                 ];
                 continue;
@@ -34,7 +34,7 @@ class FilesUpload {
             if ($files['size'][$i] > $maxSize * 1024) {
                 $results[] = [
                     'success' => false,
-                    'error' => "Файл слишком большой. Максимальный размер: {$maxSize}КБ",
+                    'error' => sprintf(LANG_HELPER_FILESUPLOAD_FILE_TOO_LARGE, $maxSize),
                     'file_name' => $files['name'][$i]
                 ];
                 continue;
@@ -44,7 +44,7 @@ class FilesUpload {
             if (!empty($allowedTypes) && !in_array($fileExtension, $allowedTypes)) {
                 $results[] = [
                     'success' => false,
-                    'error' => "Недопустимый тип файла. Разрешенные: " . implode(', ', $allowedTypes),
+                    'error' => sprintf(LANG_HELPER_FILESUPLOAD_INVALID_TYPE, implode(', ', $allowedTypes)),
                     'file_name' => $files['name'][$i]
                 ];
                 continue;
@@ -60,7 +60,7 @@ class FilesUpload {
             if (!move_uploaded_file($files['tmp_name'][$i], $targetPath)) {
                 $results[] = [
                     'success' => false,
-                    'error' => 'Не удалось сохранить файл',
+                    'error' => LANG_HELPER_FILESUPLOAD_SAVE_ERROR,
                     'file_name' => $files['name'][$i]
                 ];
                 continue;
@@ -149,7 +149,7 @@ class FilesUpload {
             } else {
                 $results[] = [
                     'success' => false,
-                    'error' => 'Файл не существует',
+                    'error' => LANG_HELPER_FILESUPLOAD_FILE_NOT_EXISTS,
                     'file_path' => $filePath
                 ];
             }
@@ -203,16 +203,16 @@ class FilesUpload {
     */
     private static function getUploadError($errorCode) {
         $errors = [
-            UPLOAD_ERR_INI_SIZE => 'Файл превышает максимальный размер',
-            UPLOAD_ERR_FORM_SIZE => 'Файл превышает максимальный размер формы',
-            UPLOAD_ERR_PARTIAL => 'Файл был загружен только частично',
-            UPLOAD_ERR_NO_FILE => 'Файл не был загружен',
-            UPLOAD_ERR_NO_TMP_DIR => 'Отсутствует временная директория',
-            UPLOAD_ERR_CANT_WRITE => 'Не удалось записать файл на диск',
-            UPLOAD_ERR_EXTENSION => 'Расширение PHP остановило загрузку файла'
+            UPLOAD_ERR_INI_SIZE => LANG_HELPER_FILESUPLOAD_ERROR_INI_SIZE,
+            UPLOAD_ERR_FORM_SIZE => LANG_HELPER_FILESUPLOAD_ERROR_FORM_SIZE,
+            UPLOAD_ERR_PARTIAL => LANG_HELPER_FILESUPLOAD_ERROR_PARTIAL,
+            UPLOAD_ERR_NO_FILE => LANG_HELPER_FILESUPLOAD_ERROR_NO_FILE,
+            UPLOAD_ERR_NO_TMP_DIR => LANG_HELPER_FILESUPLOAD_ERROR_NO_TMP_DIR,
+            UPLOAD_ERR_CANT_WRITE => LANG_HELPER_FILESUPLOAD_ERROR_CANT_WRITE,
+            UPLOAD_ERR_EXTENSION => LANG_HELPER_FILESUPLOAD_ERROR_EXTENSION
         ];
         
-        return $errors[$errorCode] ?? 'Неизвестная ошибка';
+        return $errors[$errorCode] ?? LANG_HELPER_FILESUPLOAD_ERROR_UNKNOWN;
     }
     
     /**

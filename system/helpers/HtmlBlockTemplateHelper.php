@@ -88,6 +88,6 @@ class HtmlBlockTemplateHelper {
             return ob_get_clean();
         }
         
-        return '<div class="alert alert-warning">Шаблон "' . htmlspecialchars($templateName) . '" для блока "' . htmlspecialchars($blockSystemName) . '" не найден.</div>';
+        return sprintf(LANG_HELPER_HTMLBLOCKTEMPLATE_TEMPLATE_NOT_FOUND, htmlspecialchars($templateName), htmlspecialchars($blockSystemName));
     }
 }

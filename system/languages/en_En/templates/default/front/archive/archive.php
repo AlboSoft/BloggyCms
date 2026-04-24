@@ -1,0 +1,37 @@
+<?php
+
+define('LANG_TEMPLATE_ARCHIVE_TITLE', 'Publication Archive');
+define('LANG_TEMPLATE_ARCHIVE_SUBTITLE', 'Timeline of all blog posts');
+define('LANG_TEMPLATE_ARCHIVE_MONTH_JANUARY', 'January');
+define('LANG_TEMPLATE_ARCHIVE_MONTH_FEBRUARY', 'February');
+define('LANG_TEMPLATE_ARCHIVE_MONTH_MARCH', 'March');
+define('LANG_TEMPLATE_ARCHIVE_MONTH_APRIL', 'April');
+define('LANG_TEMPLATE_ARCHIVE_MONTH_MAY', 'May');
+define('LANG_TEMPLATE_ARCHIVE_MONTH_JUNE', 'June');
+define('LANG_TEMPLATE_ARCHIVE_MONTH_JULY', 'July');
+define('LANG_TEMPLATE_ARCHIVE_MONTH_AUGUST', 'August');
+define('LANG_TEMPLATE_ARCHIVE_MONTH_SEPTEMBER', 'September');
+define('LANG_TEMPLATE_ARCHIVE_MONTH_OCTOBER', 'October');
+define('LANG_TEMPLATE_ARCHIVE_MONTH_NOVEMBER', 'November');
+define('LANG_TEMPLATE_ARCHIVE_MONTH_DECEMBER', 'December');
+define('LANG_TEMPLATE_ARCHIVE_MONTH_DEFAULT', 'Month');
+define('LANG_TEMPLATE_ARCHIVE_STATS_PERIOD_LABEL', 'Period');
+define('LANG_TEMPLATE_ARCHIVE_STATS_NO_DATA', 'No data');
+define('LANG_TEMPLATE_ARCHIVE_STATS_YEARS_LABEL', 'Total years');
+define('LANG_TEMPLATE_ARCHIVE_STATS_MONTHS_LABEL', 'Total months');
+define('LANG_TEMPLATE_ARCHIVE_STATS_POSTS_LABEL', 'Total posts');
+define('LANG_TEMPLATE_ARCHIVE_YEAR_1', 'year');
+define('LANG_TEMPLATE_ARCHIVE_YEAR_2', 'years');
+define('LANG_TEMPLATE_ARCHIVE_YEAR_3', 'years');
+define('LANG_TEMPLATE_ARCHIVE_MONTH_1', 'month');
+define('LANG_TEMPLATE_ARCHIVE_MONTH_2', 'months');
+define('LANG_TEMPLATE_ARCHIVE_MONTH_3', 'months');
+define('LANG_TEMPLATE_ARCHIVE_POST_1', 'post');
+define('LANG_TEMPLATE_ARCHIVE_POST_2', 'posts');
+define('LANG_TEMPLATE_ARCHIVE_POST_3', 'posts');
+define('LANG_TEMPLATE_ARCHIVE_YEAR_SUFFIX', '');
+define('LANG_TEMPLATE_ARCHIVE_SHOW_ALL', 'Show all %d posts');
+define('LANG_TEMPLATE_ARCHIVE_EMPTY_TITLE', 'Archive is empty');
+define('LANG_TEMPLATE_ARCHIVE_EMPTY_TEXT', 'No published posts available for the archive yet');
+define('LANG_TEMPLATE_ARCHIVE_EMPTY_ALL_POSTS_BTN', 'All posts');
+define('LANG_TEMPLATE_ARCHIVE_EMPTY_CATEGORIES_BTN', 'Categories');

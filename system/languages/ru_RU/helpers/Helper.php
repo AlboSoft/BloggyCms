@@ -1,0 +1,38 @@
+<?php
+
+define('LANG_HELPER_FUNCTIONS_BLOCK_EMPTY', 'Блок "%s" не имеет содержимого.');
+define('LANG_HELPER_FUNCTIONS_BLOCK_UNDEFINED', 'Блок "%s" имеет неопределенный тип.');
+define('LANG_HELPER_FUNCTIONS_BLOCK_NOT_FOUND', 'HTML блок с slug "%s" не найден');
+define('LANG_HELPER_FUNCTIONS_INLINE_CSS_COMMENT', 'Inline CSS from blocks');
+define('LANG_HELPER_FUNCTIONS_MONTH_JANUARY', 'января');
+define('LANG_HELPER_FUNCTIONS_MONTH_FEBRUARY', 'февраля');
+define('LANG_HELPER_FUNCTIONS_MONTH_MARCH', 'марта');
+define('LANG_HELPER_FUNCTIONS_MONTH_APRIL', 'апреля');
+define('LANG_HELPER_FUNCTIONS_MONTH_MAY', 'мая');
+define('LANG_HELPER_FUNCTIONS_MONTH_JUNE', 'июня');
+define('LANG_HELPER_FUNCTIONS_MONTH_JULY', 'июля');
+define('LANG_HELPER_FUNCTIONS_MONTH_AUGUST', 'августа');
+define('LANG_HELPER_FUNCTIONS_MONTH_SEPTEMBER', 'сентября');
+define('LANG_HELPER_FUNCTIONS_MONTH_OCTOBER', 'октября');
+define('LANG_HELPER_FUNCTIONS_MONTH_NOVEMBER', 'ноября');
+define('LANG_HELPER_FUNCTIONS_MONTH_DECEMBER', 'декабря');
+define('LANG_HELPER_FUNCTIONS_YEAR_1', 'год');
+define('LANG_HELPER_FUNCTIONS_YEAR_2', 'года');
+define('LANG_HELPER_FUNCTIONS_YEAR_3', 'лет');
+define('LANG_HELPER_FUNCTIONS_MONTH_1', 'месяц');
+define('LANG_HELPER_FUNCTIONS_MONTH_2', 'месяца');
+define('LANG_HELPER_FUNCTIONS_MONTH_3', 'месяцев');
+define('LANG_HELPER_FUNCTIONS_WEEK_1', 'неделя');
+define('LANG_HELPER_FUNCTIONS_WEEK_2', 'недели');
+define('LANG_HELPER_FUNCTIONS_WEEK_3', 'недель');
+define('LANG_HELPER_FUNCTIONS_DAY_1', 'день');
+define('LANG_HELPER_FUNCTIONS_DAY_2', 'дня');
+define('LANG_HELPER_FUNCTIONS_DAY_3', 'дней');
+define('LANG_HELPER_FUNCTIONS_HOUR_1', 'час');
+define('LANG_HELPER_FUNCTIONS_HOUR_2', 'часа');
+define('LANG_HELPER_FUNCTIONS_HOUR_3', 'часов');
+define('LANG_HELPER_FUNCTIONS_MINUTE_1', 'минута');
+define('LANG_HELPER_FUNCTIONS_MINUTE_2', 'минуты');
+define('LANG_HELPER_FUNCTIONS_MINUTE_3', 'минут');
+define('LANG_HELPER_FUNCTIONS_AGO', 'назад');
+define('LANG_HELPER_FUNCTIONS_JUST_NOW', 'только что');

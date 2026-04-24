@@ -1,0 +1,3 @@
+<?php
+
+define('LANG_HELPER_AUTH_DEFAULT_DISPLAY_NAME', 'User');

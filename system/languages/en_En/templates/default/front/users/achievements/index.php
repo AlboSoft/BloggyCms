@@ -1,0 +1,18 @@
+<?php
+
+define('LANG_TEMPLATE_ACHIEVEMENTS_SYSTEM_TITLE', 'System Achievements');
+define('LANG_TEMPLATE_ACHIEVEMENTS_STATS_TOTAL', 'Total achievements');
+define('LANG_TEMPLATE_ACHIEVEMENTS_USER_1', 'User');
+define('LANG_TEMPLATE_ACHIEVEMENTS_USER_2', 'Users');
+define('LANG_TEMPLATE_ACHIEVEMENTS_USER_3', 'Users');
+define('LANG_TEMPLATE_ACHIEVEMENTS_STATS_UNLOCKED', 'Total unlocked');
+define('LANG_TEMPLATE_ACHIEVEMENTS_UNLOCKED_BADGE', 'Unlocked');
+define('LANG_TEMPLATE_ACHIEVEMENTS_CONDITIONS_TITLE', 'Requirements:');
+define('LANG_TEMPLATE_ACHIEVEMENTS_USERS_TITLE', 'Unlocked by:');
+define('LANG_TEMPLATE_ACHIEVEMENTS_MORE_USERS', '+ %d more users');
+define('LANG_TEMPLATE_ACHIEVEMENTS_NO_USERS', 'No one has unlocked yet');
+define('LANG_TEMPLATE_ACHIEVEMENTS_UNLOCKED_STATS', 'unlocked');
+define('LANG_TEMPLATE_ACHIEVEMENTS_PERCENT_STATS', 'of all users');
+define('LANG_TEMPLATE_ACHIEVEMENTS_DETAILS_BTN', 'Details');
+define('LANG_TEMPLATE_ACHIEVEMENTS_EMPTY_TITLE', 'No achievements yet');
+define('LANG_TEMPLATE_ACHIEVEMENTS_EMPTY_TEXT', 'The achievement system has not been configured yet');

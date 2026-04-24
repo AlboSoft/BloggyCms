@@ -152,10 +152,10 @@ class UserActivityManager {
                 return $this->formatActivityTime($result['last_login']);
             }
             
-            return ['human' => 'никогда', 'days' => 0];
+            return ['human' => LANG_CORE_USERACTIVITY_NEVER, 'days' => 0];
             
         } catch (\Exception $e) {
-            return ['human' => 'неизвестно', 'days' => 0];
+            return ['human' => LANG_CORE_USERACTIVITY_UNKNOWN, 'days' => 0];
         }
     }
     
@@ -166,7 +166,7 @@ class UserActivityManager {
     */
     private function formatActivityTime($timestamp) {
         if (empty($timestamp)) {
-            return ['human' => 'никогда', 'days' => 0];
+            return ['human' => LANG_CORE_USERACTIVITY_NEVER, 'days' => 0];
         }
         
         $lastActivityTimestamp = strtotime($timestamp);
@@ -174,16 +174,16 @@ class UserActivityManager {
         $secondsAgo = $currentTimestamp - $lastActivityTimestamp;
         
         if ($secondsAgo < 60) {
-            $human = 'только что';
+            $human = LANG_CORE_USERACTIVITY_JUST_NOW;
         } elseif ($secondsAgo < 3600) {
             $minutesAgo = floor($secondsAgo / 60);
-            $human = $minutesAgo . ' мин назад';
+            $human = sprintf(LANG_CORE_USERACTIVITY_MINUTES_AGO, $minutesAgo);
         } elseif ($secondsAgo < 86400) {
             $hoursAgo = floor($secondsAgo / 3600);
-            $human = $hoursAgo . ' ч назад';
+            $human = sprintf(LANG_CORE_USERACTIVITY_HOURS_AGO, $hoursAgo);
         } else {
             $daysAgo = floor($secondsAgo / 86400);
-            $human = $daysAgo . ' д назад';
+            $human = sprintf(LANG_CORE_USERACTIVITY_DAYS_AGO, $daysAgo);
         }
         
         return [

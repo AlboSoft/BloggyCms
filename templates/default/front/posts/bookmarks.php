@@ -13,10 +13,10 @@
                     <?php echo bloggy_icon('bs', 'bookmark-star', '24', 'var(--tg-primary)'); ?>
                 </div>
                 <div class="tg-bookmarks-info">
-                    <h1 class="tg-bookmarks-title">Мои закладки</h1>
+                    <h1 class="tg-bookmarks-title"><?php echo LANG_TEMPLATE_BOOKMARKS_TITLE; ?></h1>
                     <p class="tg-bookmarks-subtitle tg-text-muted">
                         <?php echo bloggy_icon('bs', 'bookmark', '14', 'currentColor', 'tg-mr-1'); ?>
-                        <?php echo ($total = (int)($bookmarks_count ?? 0)) . ' ' . plural($total, ['сохранённый пост', 'сохранённых поста', 'сохранённых постов']); ?>
+                        <?php echo ($total = (int)($bookmarks_count ?? 0)) . ' ' . plural($total, [LANG_TEMPLATE_BOOKMARKS_POST_1, LANG_TEMPLATE_BOOKMARKS_POST_2, LANG_TEMPLATE_BOOKMARKS_POST_3]); ?>
                     </p>
                 </div>
             </div>
@@ -24,7 +24,7 @@
             <?php if (!empty($posts)) { ?>
             <a href="<?php echo BASE_URL; ?>/posts" class="tg-btn tg-btn-outline tg-btn-sm">
                 <?php echo bloggy_icon('bs', 'compass', '14', 'currentColor', 'tg-mr-1'); ?>
-                Все публикации
+                <?php echo LANG_TEMPLATE_BOOKMARKS_ALL_POSTS_BTN; ?>
             </a>
             <?php } ?>
         </div>
@@ -34,13 +34,13 @@
                 <div class="tg-empty-state-icon">
                     <?php echo bloggy_icon('bs', 'bookmark', '48', 'var(--tg-text-secondary)'); ?>
                 </div>
-                <h3 class="tg-empty-state-title">Закладок пока нет</h3>
+                <h3 class="tg-empty-state-title"><?php echo LANG_TEMPLATE_BOOKMARKS_EMPTY_TITLE; ?></h3>
                 <p class="tg-empty-state-text tg-text-muted">
-                    Сохраняйте интересные публикации, чтобы вернуться к ним позже
+                    <?php echo LANG_TEMPLATE_BOOKMARKS_EMPTY_TEXT; ?>
                 </p>
                 <a href="<?php echo BASE_URL; ?>/posts" class="tg-btn tg-btn-primary">
                     <?php echo bloggy_icon('bs', 'compass', '16', 'currentColor', 'tg-mr-1'); ?>
-                    Найти публикации
+                    <?php echo LANG_TEMPLATE_BOOKMARKS_FIND_POSTS_BTN; ?>
                 </a>
             </div>
             
@@ -79,13 +79,13 @@
                         <div class="tg-bookmark-meta">
                             <span class="tg-bookmark-date">
                                 <?php echo bloggy_icon('bs', 'bookmark', '12', 'currentColor', 'tg-mr-1'); ?>
-                                Сохранено <?php echo time_ago($post['bookmarked_at']); ?>
+                                <?php echo sprintf(LANG_TEMPLATE_BOOKMARKS_SAVED_AT, time_ago($post['bookmarked_at'])); ?>
                             </span>
                             
                             <?php if ($post['views'] > 0) { ?>
                             <span class="tg-bookmark-views">
                                 <?php echo bloggy_icon('bs', 'eye', '12', 'currentColor', 'tg-mr-1'); ?>
-                                <?php echo $post['views']; ?> просмотров
+                                <?php echo $post['views'] . ' ' . plural($post['views'], [LANG_TEMPLATE_BOOKMARKS_VIEW_1, LANG_TEMPLATE_BOOKMARKS_VIEW_2, LANG_TEMPLATE_BOOKMARKS_VIEW_3]); ?>
                             </span>
                             <?php } ?>
                         </div>
@@ -93,7 +93,7 @@
 
                     <button class="tg-bookmark-remove" 
                             data-post-id="<?php echo $post['id']; ?>"
-                            title="Удалить из закладок">
+                            title="<?php echo LANG_TEMPLATE_BOOKMARKS_REMOVE_TITLE; ?>">
                         <?php echo bloggy_icon('bs', 'x', '16', 'currentColor'); ?>
                     </button>
                 </div>
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const postId = this.dataset.postId;
             const bookmarkItem = this.closest('.tg-bookmark-item');
             
-            if (!confirm('Удалить из закладок?')) {
+            if (!confirm('<?php echo LANG_TEMPLATE_BOOKMARKS_REMOVE_CONFIRM; ?>')) {
                 return;
             }
             
@@ -147,19 +147,19 @@ document.addEventListener('DOMContentLoaded', function() {
                         const countElement = document.querySelector('.tg-bookmarks-subtitle');
                         if (countElement) {
                             const currentCount = parseInt(countElement.textContent) || 0;
-                            countElement.innerHTML = `<?php echo bloggy_icon('bs', 'bookmark', '14', 'currentColor', 'tg-mr-1'); ?> ${currentCount - 1} сохранённых публикаций`;
+                            countElement.innerHTML = `<?php echo bloggy_icon('bs', 'bookmark', '14', 'currentColor', 'tg-mr-1'); ?> ${currentCount - 1} <?php echo LANG_TEMPLATE_BOOKMARKS_POSTS_COUNT_TEXT; ?>`;
                         }
                     }, 300);
                 } else {
                     bookmarkItem.style.opacity = '1';
                     bookmarkItem.style.pointerEvents = 'auto';
-                    alert('Ошибка при удалении из закладок');
+                    alert('<?php echo LANG_TEMPLATE_BOOKMARKS_REMOVE_ERROR; ?>');
                 }
             })
             .catch(() => {
                 bookmarkItem.style.opacity = '1';
                 bookmarkItem.style.pointerEvents = 'auto';
-                alert('Ошибка при удалении из закладок');
+                alert('<?php echo LANG_TEMPLATE_BOOKMARKS_REMOVE_ERROR; ?>');
             });
         });
     });

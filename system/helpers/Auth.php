@@ -98,7 +98,7 @@ class Auth {
     */
     public static function getDisplayName() {
         $user = self::getUser();
-        return $user['display_name'] ?? $user['username'] ?? 'Пользователь';
+        return $user['display_name'] ?? $user['username'] ?? LANG_HELPER_AUTH_DEFAULT_DISPLAY_NAME;
     }
     
     /**

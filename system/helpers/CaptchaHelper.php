@@ -130,7 +130,7 @@ class CaptchaHelper {
                 break;
         }
         
-        $question = "Сколько будет {$a} {$op} {$b}?";
+        $question = sprintf(LANG_HELPER_CAPTCHA_MATH_QUESTION, $a, $op, $b);
         $answer = eval("return {$a} {$op} {$b};");
         
         return [
@@ -144,16 +144,16 @@ class CaptchaHelper {
     */
     private static function generateTextCaptcha($settings) {
         $questions = [
-            ['question' => 'Какое животное лает?', 'answer' => 'собака'],
-            ['question' => 'Какого цвета небо?', 'answer' => 'голубое'],
-            ['question' => 'Сколько ног у человека?', 'answer' => 'две'],
-            ['question' => 'Что используют для письма?', 'answer' => 'ручка'],
-            ['question' => 'Какой месяц идёт после января?', 'answer' => 'февраль'],
-            ['question' => 'Сколько дней в неделе?', 'answer' => 'семь'],
-            ['question' => 'Что пьют утром?', 'answer' => 'кофе'],
-            ['question' => 'Где живут рыбы?', 'answer' => 'вода'],
-            ['question' => 'Что светит ночью?', 'answer' => 'луна'],
-            ['question' => 'Сколько будет 2+2?', 'answer' => 'четыре']
+            ['question' => LANG_HELPER_CAPTCHA_TEXT_QUESTION_DOG, 'answer' => LANG_HELPER_CAPTCHA_TEXT_ANSWER_DOG],
+            ['question' => LANG_HELPER_CAPTCHA_TEXT_QUESTION_SKY, 'answer' => LANG_HELPER_CAPTCHA_TEXT_ANSWER_SKY],
+            ['question' => LANG_HELPER_CAPTCHA_TEXT_QUESTION_LEGS, 'answer' => LANG_HELPER_CAPTCHA_TEXT_ANSWER_LEGS],
+            ['question' => LANG_HELPER_CAPTCHA_TEXT_QUESTION_WRITE, 'answer' => LANG_HELPER_CAPTCHA_TEXT_ANSWER_WRITE],
+            ['question' => LANG_HELPER_CAPTCHA_TEXT_QUESTION_JANUARY, 'answer' => LANG_HELPER_CAPTCHA_TEXT_ANSWER_FEBRUARY],
+            ['question' => LANG_HELPER_CAPTCHA_TEXT_QUESTION_WEEK_DAYS, 'answer' => LANG_HELPER_CAPTCHA_TEXT_ANSWER_WEEK_DAYS],
+            ['question' => LANG_HELPER_CAPTCHA_TEXT_QUESTION_MORNING_DRINK, 'answer' => LANG_HELPER_CAPTCHA_TEXT_ANSWER_MORNING_DRINK],
+            ['question' => LANG_HELPER_CAPTCHA_TEXT_QUESTION_FISH_HABITAT, 'answer' => LANG_HELPER_CAPTCHA_TEXT_ANSWER_FISH_HABITAT],
+            ['question' => LANG_HELPER_CAPTCHA_TEXT_QUESTION_NIGHT_LIGHT, 'answer' => LANG_HELPER_CAPTCHA_TEXT_ANSWER_NIGHT_LIGHT],
+            ['question' => LANG_HELPER_CAPTCHA_TEXT_QUESTION_TWO_PLUS_TWO, 'answer' => LANG_HELPER_CAPTCHA_TEXT_ANSWER_TWO_PLUS_TWO]
         ];
         
         if (!empty($settings['captcha_question'])) {
@@ -219,7 +219,7 @@ class CaptchaHelper {
         imagedestroy($image);
         
         return [
-            'question' => 'Введите символы с изображения',
+            'question' => LANG_HELPER_CAPTCHA_IMAGE_QUESTION,
             'answer' => strtolower($code),
             'image' => 'data:image/png;base64,' . base64_encode($imageData)
         ];
@@ -302,7 +302,7 @@ class CaptchaHelper {
                     <img src="<?= $captchaData['image'] ?>" alt="Captcha" style="max-width: 200px; border: 1px solid #ddd; border-radius: 4px;">
                     <div class="mt-1">
                         <button type="button" class="btn btn-sm btn-outline-secondary" onclick="this.closest('.captcha-container').querySelector('img').src='<?= $captchaData['image'] ?>' + '&refresh=' + Date.now()">
-                            <i class="bi bi-arrow-clockwise"></i> Обновить
+                            <i class="bi bi-arrow-clockwise"></i> <?php echo LANG_HELPER_CAPTCHA_REFRESH_BTN; ?>
                         </button>
                     </div>
                 </div>
@@ -320,14 +320,14 @@ class CaptchaHelper {
                 <input type="text"
                     name="captcha_answer"
                     class="form-control"
-                    placeholder="Введите ответ"
+                    placeholder="<?php echo LANG_HELPER_CAPTCHA_PLACEHOLDER; ?>"
                     autocomplete="off"
                     required>
             <?php endif; ?>
             
             <div class="form-text small text-muted mt-1">
                 <i class="bi bi-info-circle me-1"></i>
-                Защита от автоматических отправок
+                <?php echo LANG_HELPER_CAPTCHA_INFO_TEXT; ?>
             </div>
         </div>
 

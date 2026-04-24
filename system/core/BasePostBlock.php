@@ -177,10 +177,10 @@ abstract class BasePostBlock {
         ob_start();
         ?>
         <div class="mb-4">
-            <label class="form-label">Выберите пресет</label>
+            <label class="form-label"><?php echo LANG_CORE_BASEPOSTBLOCK_PRESET_SELECTOR_LABEL; ?></label>
             <select name="settings[preset_id]" class="form-select preset-selector" 
                     data-block-system-name="<?= html($this->getSystemName()) ?>">
-                <option value="">-- Без пресета (стандартный шаблон) --</option>
+                <option value=""><?php echo LANG_CORE_BASEPOSTBLOCK_PRESET_SELECTOR_NO_PRESET; ?></option>
                 <?php foreach ($presets as $preset) { ?>
                     <option value="<?= $preset['id'] ?>" 
                             <?= $currentPresetId == $preset['id'] ? 'selected' : '' ?>
@@ -190,11 +190,11 @@ abstract class BasePostBlock {
                 <?php } ?>
             </select>
             <div class="form-text">
-                Используйте сохраненные шаблоны для быстрой настройки внешнего вида постблока
+                <?php echo LANG_CORE_BASEPOSTBLOCK_PRESET_SELECTOR_HINT; ?>
             </div>
             
             <div class="preset-preview mt-3 p-3 border rounded bg-light" style="display: none;">
-                <h6 class="mb-2">Предпросмотр пресета:</h6>
+                <h6 class="mb-2"><?php echo LANG_CORE_BASEPOSTBLOCK_PRESET_PREVIEW_TITLE; ?></h6>
                 <div class="preset-preview-content small text-muted">
                 </div>
             </div>
@@ -221,12 +221,12 @@ abstract class BasePostBlock {
     */
     public function getShortcodes(): array {
         return [
-            '{block_id}' => 'Уникальный ID постблока',
-            '{block_type}' => 'Тип постблока (системное имя)',
-            '{block_name}' => 'Название постблока',
-            '{custom_class}' => 'Дополнительный CSS класс',
-            '{preset_id}' => 'ID выбранного пресета',
-            '{preset_name}' => 'Название выбранного пресета'
+            '{block_id}' => LANG_CORE_BASEPOSTBLOCK_SHORTCODE_BLOCK_ID,
+            '{block_type}' => LANG_CORE_BASEPOSTBLOCK_SHORTCODE_BLOCK_TYPE,
+            '{block_name}' => LANG_CORE_BASEPOSTBLOCK_SHORTCODE_BLOCK_NAME,
+            '{custom_class}' => LANG_CORE_BASEPOSTBLOCK_SHORTCODE_CUSTOM_CLASS,
+            '{preset_id}' => LANG_CORE_BASEPOSTBLOCK_SHORTCODE_PRESET_ID,
+            '{preset_name}' => LANG_CORE_BASEPOSTBLOCK_SHORTCODE_PRESET_NAME
         ];
     }
 
@@ -574,7 +574,7 @@ abstract class BasePostBlock {
                             <div class="preview-title">
                                 <strong><?= $this->getName() ?></strong>
                                 <?php if ($this->hasSettings($settings)) { ?>
-                                    <span class="badge bg-info badge-sm">Настроен</span>
+                                    <span class="badge bg-info badge-sm"><?php echo LANG_CORE_BASEPOSTBLOCK_PREVIEW_CONFIGURED; ?></span>
                                 <?php } ?>
                             </div>
                             <div class="preview-stats">
@@ -599,7 +599,7 @@ abstract class BasePostBlock {
                             <div class="empty-text"><?= $this->getEmptyText() ?></div>
                             <button type="button" class="btn btn-sm btn-outline-primary mt-2" 
                                     onclick="postBlocksManager.editBlock('{block_id}')">
-                                <i class="bi bi-plus-circle"></i> Добавить контент
+                                <i class="bi bi-plus-circle"></i> <?php echo LANG_CORE_BASEPOSTBLOCK_PREVIEW_ADD_CONTENT; ?>
                             </button>
                         </div>
                     <?php } ?>
@@ -610,7 +610,7 @@ abstract class BasePostBlock {
                         <div class="preview-footer-content">
                             <?php if ($this->hasSettings($settings)) { ?>
                                 <span class="badge bg-light text-dark">
-                                    <i class="bi bi-gear"></i> Настроено
+                                    <i class="bi bi-gear"></i> <?php echo LANG_CORE_BASEPOSTBLOCK_PREVIEW_CONFIGURED_LABEL; ?>
                                 </span>
                             <?php } ?>
                             <?php if (!empty($settings['preset_name'])) { ?>
@@ -682,15 +682,15 @@ abstract class BasePostBlock {
         $stats = [];
         
         if (isset($content['text']) && is_string($content['text'])) {
-            $stats[] = strlen($content['text']) . ' симв.';
+            $stats[] = sprintf(LANG_CORE_BASEPOSTBLOCK_STATS_CHARS, strlen($content['text']));
         }
         
         if (isset($content['images']) && is_array($content['images'])) {
-            $stats[] = count($content['images']) . ' изображ.';
+            $stats[] = sprintf(LANG_CORE_BASEPOSTBLOCK_STATS_IMAGES, count($content['images']));
         }
         
         if (isset($content['items']) && is_array($content['items'])) {
-            $stats[] = count($content['items']) . ' элементов';
+            $stats[] = sprintf(LANG_CORE_BASEPOSTBLOCK_STATS_ITEMS, count($content['items']));
         }
         
         return implode(' · ', $stats);
@@ -730,7 +730,7 @@ abstract class BasePostBlock {
     * @return string Текст
     */
     protected function getEmptyText(): string {
-        return 'Контент не добавлен';
+        return LANG_CORE_BASEPOSTBLOCK_EMPTY_TEXT;
     }
 
     /**
@@ -823,7 +823,7 @@ abstract class BasePostBlock {
                     <?php endforeach; ?>
                 </div>
             <?php else: ?>
-                <div class="text-muted small">Нет данных</div>
+                <div class="text-muted small"><?php echo LANG_CORE_BASEPOSTBLOCK_SIMPLE_PREVIEW_NO_DATA; ?></div>
             <?php endif; ?>
         </div>
         <?php

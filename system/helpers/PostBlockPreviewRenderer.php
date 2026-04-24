@@ -89,7 +89,7 @@ class PostBlockPreviewRenderer {
                 <?php } else { ?>
                     <div class="text-center text-muted py-2">
                         <i class="bi bi-inbox"></i>
-                        <div class="small">Нет данных</div>
+                        <div class="small"><?php echo LANG_HELPER_POSTBLOCKPREVIEW_NO_DATA; ?></div>
                     </div>
                 <?php } ?>
             </div>
@@ -111,7 +111,7 @@ class PostBlockPreviewRenderer {
             <div class="preview-header bg-danger text-white p-2">
                 <div class="d-flex align-items-center">
                     <i class="bi bi-exclamation-triangle me-2"></i>
-                    <strong>Ошибка в блоке: <?= htmlspecialchars($blockType) ?></strong>
+                    <strong><?php echo sprintf(LANG_HELPER_POSTBLOCKPREVIEW_ERROR_HEADER, htmlspecialchars($blockType)); ?></strong>
                 </div>
             </div>
             <div class="preview-body p-3">

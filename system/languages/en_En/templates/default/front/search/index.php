@@ -1,0 +1,35 @@
+<?php
+
+define('LANG_TEMPLATE_SEARCH_TITLE', 'Site Search');
+define('LANG_TEMPLATE_SEARCH_DESCRIPTION', 'Find publications of interest by keywords');
+define('LANG_TEMPLATE_SEARCH_PLACEHOLDER', 'Enter search query...');
+define('LANG_TEMPLATE_SEARCH_BTN', 'Search');
+define('LANG_TEMPLATE_SEARCH_ERROR_TITLE', 'Error');
+define('LANG_TEMPLATE_SEARCH_POPULAR_TITLE', 'Popular Queries');
+define('LANG_TEMPLATE_SEARCH_SUGGESTED_TITLE', 'Trending Now');
+define('LANG_TEMPLATE_SEARCH_QUICK_LINKS_TITLE', 'Quick Links');
+define('LANG_TEMPLATE_SEARCH_QUICK_LINK_POSTS', 'All Posts');
+define('LANG_TEMPLATE_SEARCH_QUICK_LINK_CATEGORIES', 'Categories');
+define('LANG_TEMPLATE_SEARCH_QUICK_LINK_TAGS', 'Tags');
+define('LANG_TEMPLATE_SEARCH_QUICK_LINK_ARCHIVE', 'Archive');
+define('LANG_TEMPLATE_SEARCH_STATS_FOUND', 'Found <strong>%d</strong> %s for query <strong>«%s»</strong>');
+define('LANG_TEMPLATE_SEARCH_MAYBE_YOU_MEANT', 'Perhaps you meant:');
+define('LANG_TEMPLATE_SEARCH_VIEWS_TITLE', 'Views');
+define('LANG_TEMPLATE_SEARCH_COMMENTS_TITLE', 'Comments');
+define('LANG_TEMPLATE_SEARCH_TYPE_POST', 'Post');
+define('LANG_TEMPLATE_SEARCH_TYPE_PAGE', 'Page');
+define('LANG_TEMPLATE_SEARCH_TYPE_CATEGORY', 'Category');
+define('LANG_TEMPLATE_SEARCH_TYPE_TAG', 'Tag');
+define('LANG_TEMPLATE_SEARCH_TYPE_USER', 'User');
+define('LANG_TEMPLATE_SEARCH_POSTS_1', 'post');
+define('LANG_TEMPLATE_SEARCH_POSTS_2', 'posts');
+define('LANG_TEMPLATE_SEARCH_POSTS_3', 'posts');
+define('LANG_TEMPLATE_SEARCH_REGISTERED', 'Registered');
+define('LANG_TEMPLATE_SEARCH_PASSWORD_PROTECTED_TITLE', 'Password protected');
+define('LANG_TEMPLATE_SEARCH_READ_BTN', 'Read');
+define('LANG_TEMPLATE_SEARCH_GO_BTN', 'Go');
+define('LANG_TEMPLATE_SEARCH_PAGINATION_INFO', 'Page %d of %d');
+define('LANG_TEMPLATE_SEARCH_NO_RESULTS_TITLE', 'No results found');
+define('LANG_TEMPLATE_SEARCH_NO_RESULTS_TEXT', 'No results found for query <strong>«%s»</strong>. Try changing your query or choose different keywords.');
+define('LANG_TEMPLATE_SEARCH_ALL_POSTS_BTN', 'All Posts');
+define('LANG_TEMPLATE_SEARCH_NEW_SEARCH_BTN', 'New Search');

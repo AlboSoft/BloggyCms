@@ -1,0 +1,37 @@
+<?php
+
+define('LANG_TEMPLATE_ARCHIVE_TITLE', 'Архив публикаций');
+define('LANG_TEMPLATE_ARCHIVE_SUBTITLE', 'Хронология всех постов блога');
+define('LANG_TEMPLATE_ARCHIVE_MONTH_JANUARY', 'Январь');
+define('LANG_TEMPLATE_ARCHIVE_MONTH_FEBRUARY', 'Февраль');
+define('LANG_TEMPLATE_ARCHIVE_MONTH_MARCH', 'Март');
+define('LANG_TEMPLATE_ARCHIVE_MONTH_APRIL', 'Апрель');
+define('LANG_TEMPLATE_ARCHIVE_MONTH_MAY', 'Май');
+define('LANG_TEMPLATE_ARCHIVE_MONTH_JUNE', 'Июнь');
+define('LANG_TEMPLATE_ARCHIVE_MONTH_JULY', 'Июль');
+define('LANG_TEMPLATE_ARCHIVE_MONTH_AUGUST', 'Август');
+define('LANG_TEMPLATE_ARCHIVE_MONTH_SEPTEMBER', 'Сентябрь');
+define('LANG_TEMPLATE_ARCHIVE_MONTH_OCTOBER', 'Октябрь');
+define('LANG_TEMPLATE_ARCHIVE_MONTH_NOVEMBER', 'Ноябрь');
+define('LANG_TEMPLATE_ARCHIVE_MONTH_DECEMBER', 'Декабрь');
+define('LANG_TEMPLATE_ARCHIVE_MONTH_DEFAULT', 'Месяц');
+define('LANG_TEMPLATE_ARCHIVE_STATS_PERIOD_LABEL', 'Период');
+define('LANG_TEMPLATE_ARCHIVE_STATS_NO_DATA', 'Нет данных');
+define('LANG_TEMPLATE_ARCHIVE_STATS_YEARS_LABEL', 'Всего лет');
+define('LANG_TEMPLATE_ARCHIVE_STATS_MONTHS_LABEL', 'Всего месяцев');
+define('LANG_TEMPLATE_ARCHIVE_STATS_POSTS_LABEL', 'Всего постов');
+define('LANG_TEMPLATE_ARCHIVE_YEAR_1', 'год');
+define('LANG_TEMPLATE_ARCHIVE_YEAR_2', 'года');
+define('LANG_TEMPLATE_ARCHIVE_YEAR_3', 'лет');
+define('LANG_TEMPLATE_ARCHIVE_MONTH_1', 'месяц');
+define('LANG_TEMPLATE_ARCHIVE_MONTH_2', 'месяца');
+define('LANG_TEMPLATE_ARCHIVE_MONTH_3', 'месяцев');
+define('LANG_TEMPLATE_ARCHIVE_POST_1', 'пост');
+define('LANG_TEMPLATE_ARCHIVE_POST_2', 'поста');
+define('LANG_TEMPLATE_ARCHIVE_POST_3', 'постов');
+define('LANG_TEMPLATE_ARCHIVE_YEAR_SUFFIX', 'год');
+define('LANG_TEMPLATE_ARCHIVE_SHOW_ALL', 'Показать все %d постов');
+define('LANG_TEMPLATE_ARCHIVE_EMPTY_TITLE', 'Архив пуст');
+define('LANG_TEMPLATE_ARCHIVE_EMPTY_TEXT', 'Пока нет опубликованных постов для формирования архива');
+define('LANG_TEMPLATE_ARCHIVE_EMPTY_ALL_POSTS_BTN', 'Все посты');
+define('LANG_TEMPLATE_ARCHIVE_EMPTY_CATEGORIES_BTN', 'Категории');

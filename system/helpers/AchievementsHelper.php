@@ -119,7 +119,7 @@ class AchievementsHelper {
         
         $achievements = self::getUserAchievements($userId);
         if (empty($achievements)) {
-            return '<p class="text-muted">Нет ачивок</p>';
+            return '<p class="text-muted">' . LANG_HELPER_ACHIEVEMENTS_NO_ACHIEVEMENTS . '</p>';
         }
         
         ob_start();

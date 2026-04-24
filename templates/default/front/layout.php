@@ -15,15 +15,15 @@ if ($maintenanceMode && !$isAdmin) {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>На обслуживании - <?= SettingsHelper::get('general', 'site_name', 'BloggyCMS') ?></title>
+        <title><?php echo LANG_TEMPLATE_LAYOUT_MAINTENANCE_TITLE . ' - ' . SettingsHelper::get('general', 'site_name', 'BloggyCMS'); ?></title>
         <link rel="stylesheet" href="templates/default/front/assets/css/maintenance.css">
     </head>
     <body>
         <div class="maintenance-page">
             <div class="maintenance-icon"><?php echo bloggy_icon('bs', 'gear-fill'); ?></div>
-            <h1 class="maintenance-title">Технические работы</h1>
+            <h1 class="maintenance-title"><?php echo LANG_TEMPLATE_LAYOUT_MAINTENANCE_TITLE; ?></h1>
             <div class="maintenance-message">
-                <?= nl2br(html(SettingsHelper::get('general', 'maintenance_message', 'Сайт временно недоступен. Ведутся технические работы.'))) ?>
+                <?= nl2br(html(SettingsHelper::get('general', 'maintenance_message', LANG_TEMPLATE_LAYOUT_MAINTENANCE_MESSAGE))) ?>
             </div>
         </div>
     </body>
@@ -44,7 +44,7 @@ $faviconUrl = !empty($favicon) ? BASE_URL . '/' . $favicon : BASE_URL . '/templa
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= SettingsHelper::get('general', 'site_name', 'BloggyCMS') ?> - <?= $title ?? 'Главная' ?></title>
+    <title><?= SettingsHelper::get('general', 'site_name', 'BloggyCMS') ?> - <?= $title ?? LANG_TEMPLATE_LAYOUT_DEFAULT_TITLE ?></title>
     <link rel="icon" type="image/x-icon" href="<?= $faviconUrl ?>">
     <link rel="shortcut icon" type="image/x-icon" href="<?= $faviconUrl ?>">
     <link rel="apple-touch-icon" href="<?= $faviconUrl ?>">

@@ -7,18 +7,9 @@
 class BlockImageHelper {
     
     /**
-     * Обрабатывает загрузку изображения для контент-блока
-     * Проверяет тип файла, размер, создает директорию и сохраняет файл
-     * 
-     * @param string $fieldName Имя поля
-     * @param string $blockSystemName Системное имя блока
-     * @param string $currentValue Текущее значение (путь к файлу)
-     * @return array Результат операции с ключами:
-     *               - success: bool
-     *               - value: новое значение
-     *               - error: сообщение об ошибке
-     *               - file_path: путь к сохраненному файлу
-     */
+    * Обрабатывает загрузку изображения для контент-блока
+    * Проверяет тип файла, размер, создает директорию и сохраняет файл
+    */
     public static function handleUpload($fieldName, $blockSystemName, $currentValue = '') {
         $result = [
             'success' => false,
@@ -30,40 +21,35 @@ class BlockImageHelper {
         $fileField = $fieldName . '_file';
         
         if (!isset($_FILES[$fileField]) || $_FILES[$fileField]['error'] !== UPLOAD_ERR_OK) {
-            $result['error'] = 'Файл не загружен';
+            $result['error'] = LANG_HELPER_BLOCKIMAGE_UPLOAD_NO_FILE;
             return $result;
         }
         
         $file = $_FILES[$fileField];
         
-        // Валидация типа файла
         $allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'];
         $fileType = mime_content_type($file['tmp_name']);
         
         if (!in_array($fileType, $allowedTypes)) {
-            $result['error'] = 'Недопустимый тип файла. Разрешены: JPG, PNG, GIF, WebP, SVG.';
+            $result['error'] = LANG_HELPER_BLOCKIMAGE_INVALID_TYPE;
             return $result;
         }
         
-        // Валидация размера (макс. 5MB)
         $maxSize = 5 * 1024 * 1024;
         if ($file['size'] > $maxSize) {
-            $result['error'] = 'Файл слишком большой. Максимальный размер: 5MB.';
+            $result['error'] = LANG_HELPER_BLOCKIMAGE_FILE_TOO_LARGE;
             return $result;
         }
         
-        // Создание директории для блока
         $uploadDir = 'uploads/images/html_blocks/' . $blockSystemName . '/';
         if (!file_exists($uploadDir)) {
             mkdir($uploadDir, 0755, true);
         }
         
-        // Удаление старого файла
         if (!empty($currentValue) && file_exists($currentValue)) {
             unlink($currentValue);
         }
         
-        // Сохранение нового файла
         $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
         $fileName = $fieldName . '_' . uniqid() . '.' . $fileExtension;
         $filePath = $uploadDir . $fileName;
@@ -73,19 +59,15 @@ class BlockImageHelper {
             $result['value'] = $filePath;
             $result['file_path'] = $filePath;
         } else {
-            $result['error'] = 'Ошибка при сохранении файла.';
+            $result['error'] = LANG_HELPER_BLOCKIMAGE_SAVE_ERROR;
         }
         
         return $result;
     }
     
     /**
-     * Обрабатывает удаление изображения по чекбоксу
-     * 
-     * @param string $fieldName Имя поля
-     * @param string $currentValue Текущее значение (путь к файлу)
-     * @return string Новое значение (пустое при удалении, иначе текущее)
-     */
+    * Обрабатывает удаление изображения по чекбоксу
+    */
     public static function handleDelete($fieldName, $currentValue) {
         $removeField = 'remove_' . $fieldName;
         
@@ -100,18 +82,11 @@ class BlockImageHelper {
     }
     
     /**
-     * Обрабатывает загрузку изображений для repeater поля
-     * Анализирует сложную структуру $_FILES для множественных загрузок
-     * 
-     * @param string $repeaterName Имя repeater поля
-     * @param string $blockSystemName Системное имя блока
-     * @param array $currentValues Текущие значения repeater
-     * @return array Обновления для применения
-     */
+    * Обрабатывает загрузку изображений для repeater поля
+    */
     public static function handleRepeaterUploads($repeaterName, $blockSystemName, $currentValues = []) {
         $updates = [];
         
-        // Обработка загрузки новых файлов
         foreach ($_FILES as $field => $fileData) {
             if (is_array($fileData['name'])) {
                 if (isset($fileData['name'][0]) && is_array($fileData['name'][0])) {
@@ -145,7 +120,6 @@ class BlockImageHelper {
             }
         }
         
-        // Обработка удаления файлов
         foreach ($_POST as $field => $value) {
             if (strpos($field, $repeaterName . '[') === 0 && strpos($field, 'remove_') !== false) {
                 preg_match('/' . preg_quote($repeaterName, '/') . '\[(\d+)\]\[remove_(.+?)\]/', $field, $matches);
@@ -173,16 +147,9 @@ class BlockImageHelper {
     }
     
     /**
-     * Загружает один файл для repeater
-     * Внутренний вспомогательный метод
-     * 
-     * @param array $fileData Данные файла из $_FILES
-     * @param string $blockSystemName Системное имя блока
-     * @param string $repeaterName Имя repeater поля
-     * @param int $index Индекс элемента
-     * @param string $fieldName Имя поля
-     * @return array Результат загрузки
-     */
+    * Загружает один файл для repeater
+    * Внутренний вспомогательный метод
+    */
     private static function uploadRepeaterFile($fileData, $blockSystemName, $repeaterName, $index, $fieldName) {
         $result = ['success' => false, 'file_path' => '', 'error' => ''];
         
@@ -190,13 +157,13 @@ class BlockImageHelper {
         $fileType = mime_content_type($fileData['tmp_name']);
         
         if (!in_array($fileType, $allowedTypes)) {
-            $result['error'] = 'Недопустимый тип файла. Разрешены: JPG, PNG, GIF, WebP, SVG.';
+            $result['error'] = LANG_HELPER_BLOCKIMAGE_INVALID_TYPE;
             return $result;
         }
         
         $maxSize = 5 * 1024 * 1024;
         if ($fileData['size'] > $maxSize) {
-            $result['error'] = 'Файл слишком большой. Максимальный размер: 5MB.';
+            $result['error'] = LANG_HELPER_BLOCKIMAGE_FILE_TOO_LARGE;
             return $result;
         }
         
@@ -213,20 +180,15 @@ class BlockImageHelper {
             $result['success'] = true;
             $result['file_path'] = $filePath;
         } else {
-            $result['error'] = 'Ошибка при сохранении файла.';
+            $result['error'] = LANG_HELPER_BLOCKIMAGE_SAVE_ERROR;
         }
         
         return $result;
     }
     
     /**
-     * Применяет обновления к данным repeater
-     * Объединяет текущие данные с загруженными/удаленными файлами
-     * 
-     * @param array $repeaterData Текущие данные repeater
-     * @param array $updates Обновления для применения
-     * @return array Обновленные данные repeater
-     */
+    * Применяет обновления к данным repeater
+    */
     public static function applyRepeaterUpdates($repeaterData, $updates) {
         foreach ($updates as $index => $fieldUpdates) {
             if (isset($repeaterData[$index])) {
@@ -242,12 +204,8 @@ class BlockImageHelper {
     }
     
     /**
-     * Получает URL для отображения изображения
-     * Очищает путь от возможного дублирования BASE_URL
-     * 
-     * @param string $imagePath Путь к изображению
-     * @return string Полный URL изображения
-     */
+    * Получает URL для отображения изображения
+    */
     public static function getImageUrl($imagePath) {
         if (empty($imagePath)) {
             return '';

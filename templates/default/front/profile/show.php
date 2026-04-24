@@ -19,14 +19,14 @@ $fieldModel = new FieldModel($this->db);
                     </div>
                 <?php } ?>
                 <?php if ($is_online) { ?>
-                    <span class="tg-online" title="В сети"></span>
+                    <span class="tg-online" title="<?php echo LANG_TEMPLATE_PROFILE_ONLINE_TITLE; ?>"></span>
                 <?php } ?>
             </div>
             <div class="tg-profile-info">
                 <h1 class="tg-profile-name">
                     <?php echo html($user['display_name'] ?? $user['username']); ?>
                     <?php if ($is_online) { ?>
-                        <span class="tg-online" title="В сети"></span>
+                        <span class="tg-online" title="<?php echo LANG_TEMPLATE_PROFILE_ONLINE_TITLE; ?>"></span>
                     <?php } ?>
                 </h1>
                 <div class="tg-profile-meta">
@@ -40,6 +40,11 @@ $fieldModel = new FieldModel($this->db);
                         <?php foreach ($groups as $group) { ?>
                             <span class="tg-group-badge"><?php echo html($group['name']); ?></span>
                         <?php } ?>
+                    </div>
+                <?php } ?>
+                <?php if (!empty($roleDisplay)) { ?>
+                    <div class="tg-profile-role">
+                        <span class="tg-role-badge"><?php echo html($roleDisplay); ?></span>
                     </div>
                 <?php } ?>
             </div>
@@ -57,14 +62,13 @@ $fieldModel = new FieldModel($this->db);
                     <div class="tg-card-body">
                         <h3 class="tg-card-title">
                             <?php echo bloggy_icon('bs', 'person', '18', 'currentColor', 'tg-mr-1'); ?>
-                            О себе
+                            <?php echo LANG_TEMPLATE_PROFILE_ABOUT_TITLE; ?>
                         </h3>
                         <?php if (!empty($user['bio'])) { ?>
                             <div class="tg-bio"><?php echo nl2br(html($user['bio'])); ?></div>
                         <?php } else { ?>
                             <div class="tg-bio tg-bio-empty">
-                                <?php echo html($user['display_name'] ?? $user['username']); ?> 
-                                еще не добавил информацию о себе.
+                                <?php echo sprintf(LANG_TEMPLATE_PROFILE_ABOUT_EMPTY, html($user['display_name'] ?? $user['username'])); ?>
                             </div>
                         <?php } ?>
                     </div>
@@ -78,7 +82,7 @@ $fieldModel = new FieldModel($this->db);
                     <div class="tg-card-body">
                         <h3 class="tg-card-title">
                             <?php echo bloggy_icon('bs', 'info-circle', '18', 'currentColor', 'tg-mr-1'); ?>
-                            Дополнительно
+                            <?php echo LANG_TEMPLATE_PROFILE_ADDITIONAL_TITLE; ?>
                         </h3>
                         <div class="tg-custom-fields-list">
                             <?php foreach ($customFields as $field) { 
@@ -108,22 +112,22 @@ $fieldModel = new FieldModel($this->db);
                     <div class="tg-card-body">
                         <h3 class="tg-card-title mb-3">
                             <?php echo bloggy_icon('bs', 'bar-chart', '18', 'currentColor', 'tg-mr-1'); ?>
-                            Статистика
+                            <?php echo LANG_TEMPLATE_PROFILE_STATS_TITLE; ?>
                         </h3>
                         <div class="tg-stats" style="gap: 8px; margin-bottom: 12px; padding: 8px; background: var(--tg-bg); border-radius: var(--tg-radius-md);">
                             <?php if ($isAdmin || $profileUserIsAdmin) { ?>
                             <div class="tg-stat" style="flex: 1; text-align: center;">
                                 <span class="tg-stat-value" style="font-size: 16px;"><?php echo $total = (int)($postsCount ?? 0); ?></span>
-                                <span class="tg-stat-label" style="font-size: 10px;"><?php echo plural($total, ['пост', 'поста', 'постов']); ?></span>
+                                <span class="tg-stat-label" style="font-size: 10px;"><?php echo plural($total, [LANG_TEMPLATE_PROFILE_STATS_POSTS_1, LANG_TEMPLATE_PROFILE_STATS_POSTS_2, LANG_TEMPLATE_PROFILE_STATS_POSTS_3]); ?></span>
                             </div>
                             <?php } ?>
                             <div class="tg-stat" style="flex: 1; text-align: center;">
                                 <span class="tg-stat-value" style="font-size: 16px;"><?php echo $commentsCount ?? 0; ?></span>
-                                <span class="tg-stat-label" style="font-size: 10px;">коммент.</span>
+                                <span class="tg-stat-label" style="font-size: 10px;"><?php echo LANG_TEMPLATE_PROFILE_STATS_COMMENTS; ?></span>
                             </div>
                             <div class="tg-stat" style="flex: 1; text-align: center;">
                                 <span class="tg-stat-value" style="font-size: 16px;"><?php echo $total = (int)($unlockedCount ?? 0); ?></span>
-                                <span class="tg-stat-label" style="font-size: 10px;"><?php echo plural($total, ['ачивка', 'ачивки', 'ачивок']); ?></span>
+                                <span class="tg-stat-label" style="font-size: 10px;"><?php echo plural($total, [LANG_TEMPLATE_PROFILE_STATS_ACHIEVEMENTS_1, LANG_TEMPLATE_PROFILE_STATS_ACHIEVEMENTS_2, LANG_TEMPLATE_PROFILE_STATS_ACHIEVEMENTS_3]); ?></span>
                             </div>
                         </div>
                     </div>
@@ -133,16 +137,16 @@ $fieldModel = new FieldModel($this->db);
                     <div class="tg-card-body">
                         <h3 class="tg-card-title">
                             <?php echo bloggy_icon('bs', 'trophy', '18', 'currentColor', 'tg-mr-1'); ?>
-                            Достижения
+                            <?php echo LANG_TEMPLATE_PROFILE_ACHIEVEMENTS_TITLE; ?>
                         </h3>
                         <div class="tg-achievements-summary">
                             <div class="tg-stat">
                                 <span class="tg-stat-value"><?php echo $unlockedCount; ?></span>
-                                <span class="tg-stat-label">получено</span>
+                                <span class="tg-stat-label"><?php echo LANG_TEMPLATE_PROFILE_ACHIEVEMENTS_EARNED; ?></span>
                             </div>
                             <div class="tg-stat">
                                 <span class="tg-stat-value"><?php echo $totalAchievementsInSystem - $unlockedCount; ?></span>
-                                <span class="tg-stat-label">осталось</span>
+                                <span class="tg-stat-label"><?php echo LANG_TEMPLATE_PROFILE_ACHIEVEMENTS_LEFT; ?></span>
                             </div>
                         </div>
                         <?php if (!empty($achievements)) { ?>
@@ -172,7 +176,7 @@ $fieldModel = new FieldModel($this->db);
                         <div class="tg-achievements-link tg-mt-3">
                             <a href="<?php echo BASE_URL; ?>/users/achievements" class="btn btn-outline-primary btn-sm w-100">
                                 <?php echo bloggy_icon('bs', 'trophy-fill', '14', 'currentColor', 'me-2'); ?>
-                                Все достижения системы
+                                <?php echo LANG_TEMPLATE_PROFILE_ALL_ACHIEVEMENTS_BTN; ?>
                             </a>
                         </div>
                     </div>
@@ -187,7 +191,7 @@ $fieldModel = new FieldModel($this->db);
                             <div class="tg-card-header">
                                 <h3 class="tg-card-title">
                                     <?php echo bloggy_icon('bs', 'file-text', '18', 'currentColor', 'tg-mr-1'); ?>
-                                    Публикации
+                                    <?php echo LANG_TEMPLATE_PROFILE_POSTS_TITLE; ?>
                                 </h3>
                                 <?php if (!empty($posts)) { ?>
                                     <span class="tg-posts-count"><?php echo count($posts); ?></span>
@@ -237,7 +241,7 @@ $fieldModel = new FieldModel($this->db);
                                 <div class="tg-card-footer">
                                     <a href="<?php echo BASE_URL; ?>/posts" class="btn btn-outline-primary btn-sm w-100">
                                         <?php echo bloggy_icon('bs', 'arrow-right', '14', 'currentColor', 'me-2'); ?>
-                                        Все публикации
+                                        <?php echo LANG_TEMPLATE_PROFILE_ALL_POSTS_BTN; ?>
                                     </a>
                                 </div>
                             <?php } else { ?>
@@ -245,8 +249,8 @@ $fieldModel = new FieldModel($this->db);
                                     <div class="tg-empty-state-icon">
                                         <?php echo bloggy_icon('bs', 'file-text', '32', 'var(--tg-text-secondary)'); ?>
                                     </div>
-                                    <h4 class="tg-empty-state-title">Пока нет публикаций</h4>
-                                    <p class="tg-empty-state-text">Публикации появятся здесь после создания</p>
+                                    <h4 class="tg-empty-state-title"><?php echo LANG_TEMPLATE_PROFILE_NO_POSTS_TITLE; ?></h4>
+                                    <p class="tg-empty-state-text"><?php echo LANG_TEMPLATE_PROFILE_NO_POSTS_TEXT; ?></p>
                                 </div>
                             <?php } ?>
                         </div>
@@ -258,7 +262,7 @@ $fieldModel = new FieldModel($this->db);
                             <div class="tg-card-header">
                                 <h3 class="tg-card-title">
                                     <?php echo bloggy_icon('bs', 'bookmark-star', '18', 'currentColor', 'tg-mr-1'); ?>
-                                    Избранное
+                                    <?php echo LANG_TEMPLATE_PROFILE_BOOKMARKS_TITLE; ?>
                                 </h3>
                                 <?php if (!empty($bookmarks)) { ?>
                                     <span class="tg-bookmarks-count"><?php echo count($bookmarks); ?></span>
@@ -306,7 +310,7 @@ $fieldModel = new FieldModel($this->db);
                                             <div class="bookmark-meta">
                                                 <span class="bookmark-date">
                                                     <?php echo bloggy_icon('bs', 'bookmark', '12', 'currentColor', 'tg-mr-1'); ?>
-                                                    Сохранено <?php echo time_ago($post['bookmarked_at']); ?>
+                                                    <?php echo sprintf(LANG_TEMPLATE_PROFILE_BOOKMARKS_SAVED, time_ago($post['bookmarked_at'])); ?>
                                                 </span>
                                                 
                                                 <?php if ($post['views'] > 0) { ?>
@@ -327,7 +331,7 @@ $fieldModel = new FieldModel($this->db);
                                         
                                         <button class="remove-bookmark" 
                                                 data-post-id="<?php echo $post['id']; ?>"
-                                                title="Удалить из закладок">
+                                                title="<?php echo LANG_TEMPLATE_PROFILE_BOOKMARKS_REMOVE_TITLE; ?>">
                                             ✕
                                         </button>
                                     </div>
@@ -337,7 +341,7 @@ $fieldModel = new FieldModel($this->db);
                                 <div class="tg-card-footer">
                                     <a href="<?php echo BASE_URL; ?>/user/bookmarks" class="btn btn-outline-primary btn-sm w-100">
                                         <?php echo bloggy_icon('bs', 'bookmark', '14', 'currentColor', 'me-2'); ?>
-                                        Все закладки
+                                        <?php echo LANG_TEMPLATE_PROFILE_ALL_BOOKMARKS_BTN; ?>
                                     </a>
                                 </div>
                                 
@@ -346,10 +350,10 @@ $fieldModel = new FieldModel($this->db);
                                     <div class="tg-empty-state-icon">
                                         <?php echo bloggy_icon('bs', 'bookmark', '32', 'var(--tg-text-secondary)'); ?>
                                     </div>
-                                    <h4 class="tg-empty-state-title">Пока нет избранных постов</h4>
-                                    <p class="tg-empty-state-text">Добавляйте посты в избранное, чтобы сохранить их здесь</p>
+                                    <h4 class="tg-empty-state-title"><?php echo LANG_TEMPLATE_PROFILE_NO_BOOKMARKS_TITLE; ?></h4>
+                                    <p class="tg-empty-state-text"><?php echo LANG_TEMPLATE_PROFILE_NO_BOOKMARKS_TEXT; ?></p>
                                     <a href="<?php echo BASE_URL; ?>/posts" class="btn btn-sm btn-outline-primary mt-2">
-                                        Перейти к постам
+                                        <?php echo LANG_TEMPLATE_PROFILE_GO_TO_POSTS_BTN; ?>
                                     </a>
                                 </div>
                             <?php } ?>
@@ -362,7 +366,7 @@ $fieldModel = new FieldModel($this->db);
                             <div class="tg-card-header">
                                 <h3 class="tg-card-title">
                                     <?php echo bloggy_icon('bs', 'bookmark-star', '18', 'currentColor', 'tg-mr-1'); ?>
-                                    Избранное
+                                    <?php echo LANG_TEMPLATE_PROFILE_BOOKMARKS_TITLE; ?>
                                 </h3>
                             </div>
                             <div class="tg-card-body">
@@ -370,17 +374,17 @@ $fieldModel = new FieldModel($this->db);
                                     <div class="tg-empty-state-icon">
                                         <?php echo bloggy_icon('bs', 'lock', '32', 'var(--tg-text-secondary)'); ?>
                                     </div>
-                                    <h4 class="tg-empty-state-title">Доступ ограничен</h4>
+                                    <h4 class="tg-empty-state-title"><?php echo LANG_TEMPLATE_PROFILE_RESTRICTED_TITLE; ?></h4>
                                     <p class="tg-empty-state-text">
                                         <?php if ($profileUserIsAdmin) { ?>
-                                            У этого пользователя нет закладок, только публикации.
+                                            <?php echo LANG_TEMPLATE_PROFILE_RESTRICTED_ADMIN_TEXT; ?>
                                         <?php } else { ?>
-                                            Вы не можете просматривать закладки этого пользователя
+                                            <?php echo LANG_TEMPLATE_PROFILE_RESTRICTED_TEXT; ?>
                                         <?php } ?>
                                     </p>
                                     <?php if (!isset($_SESSION['user_id'])) { ?>
                                         <a href="<?php echo BASE_URL; ?>/auth/login" class="btn btn-sm btn-outline-primary mt-2">
-                                            Войти в систему
+                                            <?php echo LANG_TEMPLATE_PROFILE_LOGIN_BTN; ?>
                                         </a>
                                     <?php } ?>
                                 </div>

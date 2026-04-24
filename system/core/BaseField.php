@@ -340,7 +340,7 @@ abstract class BaseField {
                     <div class='mb-3'>
                         <div class='form-check'>
                             <input class='form-check-input' type='checkbox' name='config[required]' value='1' {$required}>
-                            <label class='form-check-label'>Обязательное поле</label>
+                            <label class='form-check-label'>" . LANG_CORE_BASEFIELD_LABEL_REQUIRED . "</label>
                         </div>
                     </div>
                 </div>
@@ -348,7 +348,7 @@ abstract class BaseField {
                     <div class='mb-3'>
                         <div class='form-check'>
                             <input class='form-check-input' type='checkbox' name='config[show_in_post]' value='1' {$showInPost}>
-                            <label class='form-check-label'>Показывать в записи</label>
+                            <label class='form-check-label'>" . LANG_CORE_BASEFIELD_LABEL_SHOW_IN_POST . "</label>
                         </div>
                     </div>
                 </div>
@@ -358,13 +358,13 @@ abstract class BaseField {
                     <div class='mb-3'>
                         <div class='form-check'>
                             <input class='form-check-input' type='checkbox' name='config[show_in_list]' value='1' {$showInList}>
-                            <label class='form-check-label'>Показывать в списке</label>
+                            <label class='form-check-label'>" . LANG_CORE_BASEFIELD_LABEL_SHOW_IN_LIST . "</label>
                         </div>
                     </div>
                 </div>
                 <div class='col-md-6'>
                     <div class='mb-3'>
-                        <label class='form-label'>Плейсхолдер</label>
+                        <label class='form-label'>" . LANG_CORE_BASEFIELD_LABEL_PLACEHOLDER . "</label>
                         <input type='text' class='form-control' name='config[placeholder]' value='{$placeholder}'>
                     </div>
                 </div>

@@ -1,0 +1,22 @@
+<?php
+
+define('LANG_TEMPLATE_TAGS_ALL_TITLE', 'Tag Collection');
+define('LANG_TEMPLATE_TAGS_ALL_DESCRIPTION', 'Explore all tags used on the site to find topics that interest you');
+define('LANG_TEMPLATE_TAGS_STATS_TITLE', 'Tag Statistics');
+define('LANG_TEMPLATE_TAGS_STATS_TOTAL_LABEL', 'Total tags');
+define('LANG_TEMPLATE_TAGS_STATS_POPULAR_LABEL', 'Popular tag');
+define('LANG_TEMPLATE_TAGS_STATS_POSTS_LABEL', 'Total posts');
+define('LANG_TEMPLATE_TAGS_STATS_ALL_POSTS_LABEL', 'All posts');
+define('LANG_TEMPLATE_TAGS_STATS_ALL_POSTS_VALUE', 'View all');
+define('LANG_TEMPLATE_TAGS_SECTION_TITLE', 'All Tags');
+define('LANG_TEMPLATE_TAGS_POST_1', 'post');
+define('LANG_TEMPLATE_TAGS_POST_2', 'posts');
+define('LANG_TEMPLATE_TAGS_POST_3', 'posts');
+define('LANG_TEMPLATE_TAGS_VIEW_BTN', 'View');
+define('LANG_TEMPLATE_TAGS_UPDATED_AT', 'Updated %s');
+define('LANG_TEMPLATE_TAGS_SHOW_MORE_BTN', 'Show more');
+define('LANG_TEMPLATE_TAGS_VIEWED_ALL', 'You have viewed all tags');
+define('LANG_TEMPLATE_TAGS_EMPTY_TITLE', 'No tags found');
+define('LANG_TEMPLATE_TAGS_EMPTY_TEXT', 'There are no tags on the site yet or they are not assigned to posts.');
+define('LANG_TEMPLATE_TAGS_ALL_POSTS_BTN', 'All posts');
+define('LANG_TEMPLATE_TAGS_CATEGORIES_BTN', 'Categories');

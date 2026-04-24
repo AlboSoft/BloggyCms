@@ -34,10 +34,10 @@ class FieldBlockImage extends Field {
         $previewSize = $this->options['preview_size'] ?? '64px';
         $previewClass = $this->options['preview_class'] ?? 'img-fluid rounded';
         
-        $uploadLabel = $this->options['upload_label'] ?? 'Загрузить изображение';
-        $replaceLabel = $this->options['replace_label'] ?? 'Заменить изображение';
-        $currentLabel = $this->options['current_label'] ?? 'Текущее изображение';
-        $deleteLabel = $this->options['delete_label'] ?? 'Удалить изображение';
+        $uploadLabel = $this->options['upload_label'] ?? LANG_HELPER_FIELDS_BLOCKIMAGE_UPLOAD_LABEL;
+        $replaceLabel = $this->options['replace_label'] ?? LANG_HELPER_FIELDS_BLOCKIMAGE_REPLACE_LABEL;
+        $currentLabel = $this->options['current_label'] ?? LANG_HELPER_FIELDS_BLOCKIMAGE_CURRENT_LABEL;
+        $deleteLabel = $this->options['delete_label'] ?? LANG_HELPER_FIELDS_BLOCKIMAGE_DELETE_LABEL;
         
         ob_start();
         ?>

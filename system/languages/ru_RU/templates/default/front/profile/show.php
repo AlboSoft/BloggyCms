@@ -1,0 +1,33 @@
+<?php
+
+define('LANG_TEMPLATE_PROFILE_ONLINE_TITLE', 'В сети');
+define('LANG_TEMPLATE_PROFILE_ABOUT_TITLE', 'О себе');
+define('LANG_TEMPLATE_PROFILE_ABOUT_EMPTY', '%s ещё не добавил информацию о себе.');
+define('LANG_TEMPLATE_PROFILE_ADDITIONAL_TITLE', 'Дополнительно');
+define('LANG_TEMPLATE_PROFILE_STATS_TITLE', 'Статистика');
+define('LANG_TEMPLATE_PROFILE_STATS_POSTS_1', 'пост');
+define('LANG_TEMPLATE_PROFILE_STATS_POSTS_2', 'поста');
+define('LANG_TEMPLATE_PROFILE_STATS_POSTS_3', 'постов');
+define('LANG_TEMPLATE_PROFILE_STATS_COMMENTS', 'коммент.');
+define('LANG_TEMPLATE_PROFILE_STATS_ACHIEVEMENTS_1', 'ачивка');
+define('LANG_TEMPLATE_PROFILE_STATS_ACHIEVEMENTS_2', 'ачивки');
+define('LANG_TEMPLATE_PROFILE_STATS_ACHIEVEMENTS_3', 'ачивок');
+define('LANG_TEMPLATE_PROFILE_ACHIEVEMENTS_TITLE', 'Достижения');
+define('LANG_TEMPLATE_PROFILE_ACHIEVEMENTS_EARNED', 'получено');
+define('LANG_TEMPLATE_PROFILE_ACHIEVEMENTS_LEFT', 'осталось');
+define('LANG_TEMPLATE_PROFILE_ALL_ACHIEVEMENTS_BTN', 'Все достижения системы');
+define('LANG_TEMPLATE_PROFILE_POSTS_TITLE', 'Публикации');
+define('LANG_TEMPLATE_PROFILE_ALL_POSTS_BTN', 'Все публикации');
+define('LANG_TEMPLATE_PROFILE_NO_POSTS_TITLE', 'Пока нет публикаций');
+define('LANG_TEMPLATE_PROFILE_NO_POSTS_TEXT', 'Публикации появятся здесь после создания');
+define('LANG_TEMPLATE_PROFILE_BOOKMARKS_TITLE', 'Избранное');
+define('LANG_TEMPLATE_PROFILE_BOOKMARKS_SAVED', 'Сохранено %s');
+define('LANG_TEMPLATE_PROFILE_BOOKMARKS_REMOVE_TITLE', 'Удалить из закладок');
+define('LANG_TEMPLATE_PROFILE_ALL_BOOKMARKS_BTN', 'Все закладки');
+define('LANG_TEMPLATE_PROFILE_NO_BOOKMARKS_TITLE', 'Пока нет избранных постов');
+define('LANG_TEMPLATE_PROFILE_NO_BOOKMARKS_TEXT', 'Добавляйте посты в избранное, чтобы сохранить их здесь');
+define('LANG_TEMPLATE_PROFILE_GO_TO_POSTS_BTN', 'Перейти к постам');
+define('LANG_TEMPLATE_PROFILE_RESTRICTED_TITLE', 'Доступ ограничен');
+define('LANG_TEMPLATE_PROFILE_RESTRICTED_ADMIN_TEXT', 'У этого пользователя нет закладок, только публикации.');
+define('LANG_TEMPLATE_PROFILE_RESTRICTED_TEXT', 'Вы не можете просматривать закладки этого пользователя');
+define('LANG_TEMPLATE_PROFILE_LOGIN_BTN', 'Войти в систему');

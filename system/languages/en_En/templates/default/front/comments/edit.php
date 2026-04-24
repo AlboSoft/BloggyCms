@@ -1,0 +1,33 @@
+<?php
+
+define('LANG_TEMPLATE_COMMENT_EDIT_UNKNOWN_POST', 'Unknown post');
+define('LANG_TEMPLATE_COMMENT_EDIT_NO_PERMISSION', 'You do not have permission to edit this comment.');
+define('LANG_TEMPLATE_COMMENT_EDIT_TITLE', 'Edit Comment');
+define('LANG_TEMPLATE_COMMENT_EDIT_TITLE_ADMIN', 'Edit Comment (admin)');
+define('LANG_TEMPLATE_COMMENT_EDIT_POST_LABEL', 'Comment on post:');
+define('LANG_TEMPLATE_COMMENT_EDIT_BACK_BTN', 'Back');
+define('LANG_TEMPLATE_COMMENT_EDIT_MODERATION_TITLE', 'Your comment is pending moderation');
+define('LANG_TEMPLATE_COMMENT_EDIT_MODERATION_TEXT', 'After editing, the comment will be sent back for approval by the administrator.');
+define('LANG_TEMPLATE_COMMENT_EDIT_NO_MODERATION_TEXT', 'After editing, the comment will remain published.');
+define('LANG_TEMPLATE_COMMENT_EDIT_CONTENT_LABEL', 'Comment text');
+define('LANG_TEMPLATE_COMMENT_EDIT_CONTENT_PLACEHOLDER', 'Enter your comment...');
+define('LANG_TEMPLATE_COMMENT_EDIT_MIN_LENGTH_HINT', 'Minimum length: 10 characters');
+define('LANG_TEMPLATE_COMMENT_EDIT_ADMIN_SETTINGS', 'Admin Settings');
+define('LANG_TEMPLATE_COMMENT_EDIT_AUTHOR_NAME_LABEL', 'Author name');
+define('LANG_TEMPLATE_COMMENT_EDIT_AUTHOR_EMAIL_LABEL', 'Author email');
+define('LANG_TEMPLATE_COMMENT_EDIT_STATUS_PENDING', 'Pending moderation');
+define('LANG_TEMPLATE_COMMENT_EDIT_STATUS_APPROVED', 'Approved');
+define('LANG_TEMPLATE_COMMENT_EDIT_STATUS_SPAM', 'Spam');
+define('LANG_TEMPLATE_COMMENT_EDIT_CANCEL_BTN', 'Cancel');
+define('LANG_TEMPLATE_COMMENT_EDIT_DELETE_BTN', 'Delete');
+define('LANG_TEMPLATE_COMMENT_EDIT_DELETE_CONFIRM', 'Delete this comment?');
+define('LANG_TEMPLATE_COMMENT_EDIT_SAVE_BTN', 'Save Changes');
+define('LANG_TEMPLATE_COMMENT_EDIT_INFO_TITLE', 'Information');
+define('LANG_TEMPLATE_COMMENT_EDIT_CREATED_AT', 'Created:');
+define('LANG_TEMPLATE_COMMENT_EDIT_UPDATED_AT', 'Updated:');
+define('LANG_TEMPLATE_COMMENT_EDIT_AUTHOR_LABEL', 'Author:');
+define('LANG_TEMPLATE_COMMENT_EDIT_UNKNOWN_AUTHOR', 'Unknown');
+define('LANG_TEMPLATE_COMMENT_EDIT_TIPS_TITLE', 'Tips');
+define('LANG_TEMPLATE_COMMENT_EDIT_TIP_1', 'Keep a polite tone');
+define('LANG_TEMPLATE_COMMENT_EDIT_TIP_2', 'Check spelling before submitting');
+define('LANG_TEMPLATE_COMMENT_EDIT_TIP_3', 'Be constructive in discussions');

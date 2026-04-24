@@ -1,0 +1,26 @@
+<?php
+
+define('LANG_HELPER_EMAIL_RESET_SUBJECT', 'Восстановление пароля - %s');
+define('LANG_HELPER_EMAIL_RESET_TITLE', 'Восстановление пароля');
+define('LANG_HELPER_EMAIL_RESET_GREETING', 'Здравствуйте, <strong>%s</strong>!');
+define('LANG_HELPER_EMAIL_RESET_MESSAGE', 'Вы получили это письмо, потому что запросили восстановление пароля для вашего аккаунта на сайте <strong>%s</strong>.');
+define('LANG_HELPER_EMAIL_RESET_INSTRUCTION', 'Для установки нового пароля перейдите по ссылке ниже:');
+define('LANG_HELPER_EMAIL_RESET_BUTTON', 'Восстановить пароль');
+define('LANG_HELPER_EMAIL_RESET_VALIDITY', 'Ссылка действительна в течение <strong>1 часа</strong>.');
+define('LANG_HELPER_EMAIL_RESET_IGNORE', 'Если вы не запрашивали восстановление пароля, просто проигнорируйте это письмо.');
+define('LANG_HELPER_EMAIL_FOOTER_AUTO', 'Это письмо отправлено автоматически. Пожалуйста, не отвечайте на него.');
+define('LANG_HELPER_EMAIL_FOOTER_CONTACT', 'Если у вас возникли проблемы, свяжитесь с администрацией сайта.');
+define('LANG_HELPER_EMAIL_CHANGED_SUBJECT', 'Пароль успешно изменен - %s');
+define('LANG_HELPER_EMAIL_CHANGED_TITLE', 'Пароль успешно изменен');
+define('LANG_HELPER_EMAIL_CHANGED_GREETING', 'Здравствуйте, <strong>%s</strong>!');
+define('LANG_HELPER_EMAIL_CHANGED_MESSAGE', 'Это уведомление подтверждает, что пароль для вашего аккаунта на сайте <strong>%s</strong> был успешно изменен.');
+define('LANG_HELPER_EMAIL_CHANGED_WARNING', 'Важно: Если вы не меняли пароль, немедленно свяжитесь с администрацией сайта.');
+define('LANG_HELPER_EMAIL_CHANGED_LOGIN_INSTRUCTION', 'Для входа в систему используйте новый пароль:');
+define('LANG_HELPER_EMAIL_CHANGED_LOGIN_BUTTON', 'Войти в аккаунт');
+define('LANG_HELPER_EMAIL_WELCOME_SUBJECT', 'Добро пожаловать на %s');
+define('LANG_HELPER_EMAIL_WELCOME_TITLE', 'Добро пожаловать');
+define('LANG_HELPER_EMAIL_WELCOME_HEADER', 'Добро пожаловать на %s!');
+define('LANG_HELPER_EMAIL_WELCOME_GREETING', 'Здравствуйте, <strong>%s</strong>!');
+define('LANG_HELPER_EMAIL_WELCOME_MESSAGE', 'Спасибо за регистрацию на нашем сайте. Ваш аккаунт был успешно создан.');
+define('LANG_HELPER_EMAIL_WELCOME_BUTTON', 'Войти в аккаунт');
+define('LANG_HELPER_EMAIL_WELCOME_SUPPORT', 'Если у вас возникли вопросы или проблемы, не стесняйтесь обращаться к нам.');

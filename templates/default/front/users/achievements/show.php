@@ -30,7 +30,7 @@ $currentUserId = $_SESSION['user_id'] ?? null;
                             <div class="tg-achievement-status">
                                 <span class="tg-badge tg-badge-success">
                                     <?php echo bloggy_icon('bs', 'check-circle', '14', '#155724', 'tg-mr-1'); ?>
-                                    Вы получили эту ачивку
+                                    <?php echo LANG_TEMPLATE_ACHIEVEMENT_DETAIL_YOU_HAVE; ?>
                                 </span>
                             </div>
                         <?php } ?>
@@ -38,12 +38,12 @@ $currentUserId = $_SESSION['user_id'] ?? null;
                         <div class="tg-achievement-stats">
                             <div class="tg-stat tg-stat-large">
                                 <span class="tg-stat-value"><?php echo $total = (int)($achievement['unlocked_count'] ?? 0); ?></span>
-                                <span class="tg-stat-label"><?php echo plural($total, ['пользователь получил', 'пользователя получили', 'пользователей получили']); ?></span>
+                                <span class="tg-stat-label"><?php echo plural($total, [LANG_TEMPLATE_ACHIEVEMENT_DETAIL_USERS_1, LANG_TEMPLATE_ACHIEVEMENT_DETAIL_USERS_2, LANG_TEMPLATE_ACHIEVEMENT_DETAIL_USERS_3]); ?></span>
                             </div>
                             
                             <div class="tg-stat tg-stat-large">
                                 <span class="tg-stat-value"><?php echo $achievement['percent']; ?>%</span>
-                                <span class="tg-stat-label">от всех пользователей</span>
+                                <span class="tg-stat-label"><?php echo LANG_TEMPLATE_ACHIEVEMENT_DETAIL_PERCENT_LABEL; ?></span>
                             </div>
                             
                             <div class="tg-progress">
@@ -58,7 +58,7 @@ $currentUserId = $_SESSION['user_id'] ?? null;
                     <div class="tg-card-header">
                         <h3 class="tg-card-title">
                             <?php echo bloggy_icon('bs', 'gear', '16', 'var(--tg-primary)', 'tg-mr-1'); ?>
-                            Условия получения
+                            <?php echo LANG_TEMPLATE_ACHIEVEMENT_DETAIL_CONDITIONS_TITLE; ?>
                         </h3>
                     </div>
                     <div class="tg-card-body">
@@ -90,17 +90,17 @@ $currentUserId = $_SESSION['user_id'] ?? null;
                             <div class="tg-meta-item">
                                 <span class="tg-meta-label">
                                     <?php echo bloggy_icon('bs', 'clock', '10', 'currentColor', 'tg-mr-1'); ?>
-                                    Тип:
+                                    <?php echo LANG_TEMPLATE_ACHIEVEMENT_DETAIL_TYPE_LABEL; ?>
                                 </span>
                                 <span class="tg-meta-value">
-                                    <?php echo $achievement['type'] == 'auto' ? 'Автоматическая' : 'Ручная'; ?>
+                                    <?php echo $achievement['type'] == 'auto' ? LANG_TEMPLATE_ACHIEVEMENT_DETAIL_TYPE_AUTO : LANG_TEMPLATE_ACHIEVEMENT_DETAIL_TYPE_MANUAL; ?>
                                 </span>
                             </div>
                             
                             <div class="tg-meta-item">
                                 <span class="tg-meta-label">
                                     <?php echo bloggy_icon('bs', 'calendar', '10', 'currentColor', 'tg-mr-1'); ?>
-                                    Создана:
+                                    <?php echo LANG_TEMPLATE_ACHIEVEMENT_DETAIL_CREATED_LABEL; ?>
                                 </span>
                                 <span class="tg-meta-value">
                                     <?php echo date('d.m.Y', strtotime($achievement['created_at'])); ?>
@@ -110,7 +110,7 @@ $currentUserId = $_SESSION['user_id'] ?? null;
                             <div class="tg-meta-item">
                                 <span class="tg-meta-label">
                                     <?php echo bloggy_icon('bs', 'star', '10', 'currentColor', 'tg-mr-1'); ?>
-                                    Приоритет:
+                                    <?php echo LANG_TEMPLATE_ACHIEVEMENT_DETAIL_PRIORITY_LABEL; ?>
                                 </span>
                                 <span class="tg-meta-value">
                                     <?php echo $achievement['priority']; ?>
@@ -124,7 +124,7 @@ $currentUserId = $_SESSION['user_id'] ?? null;
                     <div class="tg-card-header tg-card-header-with-count">
                         <h3 class="tg-card-title">
                             <?php echo bloggy_icon('bs', 'people', '16', 'var(--tg-primary)', 'tg-mr-1'); ?>
-                            Пользователи с этой ачивкой
+                            <?php echo LANG_TEMPLATE_ACHIEVEMENT_DETAIL_USERS_TITLE; ?>
                         </h3>
                         <span class="tg-badge tg-badge-count">
                             <?php echo $pagination['total'] ?? 0; ?>
@@ -162,7 +162,7 @@ $currentUserId = $_SESSION['user_id'] ?? null;
                                         
                                         <div class="tg-user-mini-date">
                                             <?php echo bloggy_icon('bs', 'calendar3', '10', 'currentColor', 'tg-mr-1'); ?>
-                                            Получена: <?php echo date('d.m.Y', strtotime($user['unlocked_at'])); ?>
+                                            <?php echo sprintf(LANG_TEMPLATE_ACHIEVEMENT_DETAIL_UNLOCKED_AT, date('d.m.Y', strtotime($user['unlocked_at']))); ?>
                                         </div>
                                     </div>
                                 <?php } ?>
@@ -173,7 +173,7 @@ $currentUserId = $_SESSION['user_id'] ?? null;
                                     <?php if ($pagination['page'] > 1) { ?>
                                         <a href="?page=<?php echo $pagination['page'] - 1; ?>" class="tg-page-link">
                                             <?php echo bloggy_icon('bs', 'chevron-left', '14', 'currentColor'); ?>
-                                            Назад
+                                            <?php echo LANG_TEMPLATE_ACHIEVEMENT_DETAIL_BACK_BTN; ?>
                                         </a>
                                     <?php } ?>
                                     
@@ -191,7 +191,7 @@ $currentUserId = $_SESSION['user_id'] ?? null;
                                     
                                     <?php if ($pagination['page'] < $pagination['total_pages']) { ?>
                                         <a href="?page=<?php echo $pagination['page'] + 1; ?>" class="tg-page-link">
-                                            Вперед
+                                            <?php echo LANG_TEMPLATE_ACHIEVEMENT_DETAIL_NEXT_BTN; ?>
                                             <?php echo bloggy_icon('bs', 'chevron-right', '14', 'currentColor'); ?>
                                         </a>
                                     <?php } ?>
@@ -203,9 +203,9 @@ $currentUserId = $_SESSION['user_id'] ?? null;
                                 <div class="tg-empty-state-icon">
                                     <?php echo bloggy_icon('bs', 'people', '48', 'var(--tg-text-secondary)'); ?>
                                 </div>
-                                <h4 class="tg-empty-state-title">Пока никто не получил</h4>
+                                <h4 class="tg-empty-state-title"><?php echo LANG_TEMPLATE_ACHIEVEMENT_DETAIL_NO_USERS_TITLE; ?></h4>
                                 <p class="tg-empty-state-text">
-                                    Будьте первым, кто получит эту ачивку!
+                                    <?php echo LANG_TEMPLATE_ACHIEVEMENT_DETAIL_NO_USERS_TEXT; ?>
                                 </p>
                             </div>
                         <?php } ?>

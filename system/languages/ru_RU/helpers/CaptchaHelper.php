@@ -1,0 +1,27 @@
+<?php
+
+define('LANG_HELPER_CAPTCHA_MATH_QUESTION', 'Сколько будет %d %s %d?');
+define('LANG_HELPER_CAPTCHA_TEXT_QUESTION_DOG', 'Какое животное лает?');
+define('LANG_HELPER_CAPTCHA_TEXT_ANSWER_DOG', 'собака');
+define('LANG_HELPER_CAPTCHA_TEXT_QUESTION_SKY', 'Какого цвета небо?');
+define('LANG_HELPER_CAPTCHA_TEXT_ANSWER_SKY', 'голубое');
+define('LANG_HELPER_CAPTCHA_TEXT_QUESTION_LEGS', 'Сколько ног у человека?');
+define('LANG_HELPER_CAPTCHA_TEXT_ANSWER_LEGS', 'две');
+define('LANG_HELPER_CAPTCHA_TEXT_QUESTION_WRITE', 'Что используют для письма?');
+define('LANG_HELPER_CAPTCHA_TEXT_ANSWER_WRITE', 'ручка');
+define('LANG_HELPER_CAPTCHA_TEXT_QUESTION_JANUARY', 'Какой месяц идёт после января?');
+define('LANG_HELPER_CAPTCHA_TEXT_ANSWER_FEBRUARY', 'февраль');
+define('LANG_HELPER_CAPTCHA_TEXT_QUESTION_WEEK_DAYS', 'Сколько дней в неделе?');
+define('LANG_HELPER_CAPTCHA_TEXT_ANSWER_WEEK_DAYS', 'семь');
+define('LANG_HELPER_CAPTCHA_TEXT_QUESTION_MORNING_DRINK', 'Что пьют утром?');
+define('LANG_HELPER_CAPTCHA_TEXT_ANSWER_MORNING_DRINK', 'кофе');
+define('LANG_HELPER_CAPTCHA_TEXT_QUESTION_FISH_HABITAT', 'Где живут рыбы?');
+define('LANG_HELPER_CAPTCHA_TEXT_ANSWER_FISH_HABITAT', 'вода');
+define('LANG_HELPER_CAPTCHA_TEXT_QUESTION_NIGHT_LIGHT', 'Что светит ночью?');
+define('LANG_HELPER_CAPTCHA_TEXT_ANSWER_NIGHT_LIGHT', 'луна');
+define('LANG_HELPER_CAPTCHA_TEXT_QUESTION_TWO_PLUS_TWO', 'Сколько будет 2+2?');
+define('LANG_HELPER_CAPTCHA_TEXT_ANSWER_TWO_PLUS_TWO', 'четыре');
+define('LANG_HELPER_CAPTCHA_IMAGE_QUESTION', 'Введите символы с изображения');
+define('LANG_HELPER_CAPTCHA_REFRESH_BTN', 'Обновить');
+define('LANG_HELPER_CAPTCHA_PLACEHOLDER', 'Введите ответ');
+define('LANG_HELPER_CAPTCHA_INFO_TEXT', 'Защита от автоматических отправок');

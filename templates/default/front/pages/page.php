@@ -16,7 +16,7 @@
                             <div class="tg-page-meta">
                                 <span class="tg-meta-item">
                                     <?php echo bloggy_icon('bs', 'calendar', '14', 'currentColor', 'tg-mr-1'); ?>
-                                    Обновлено <?php echo date('d.m.Y', strtotime($page['updated_at'])); ?>
+                                    <?php echo sprintf(LANG_TEMPLATE_PAGE_UPDATED_AT, date('d.m.Y', strtotime($page['updated_at']))); ?>
                                 </span>
                             </div>
                         <?php } ?>

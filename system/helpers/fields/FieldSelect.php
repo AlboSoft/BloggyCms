@@ -55,7 +55,7 @@ class FieldSelect extends Field {
         $fieldHtml = $hiddenField . "<select{$attributes}>{$optionsHtml}</select>";
         
         if ($isMultiple && empty($this->options['hint'])) {
-            $this->options['hint'] = 'Зажмите Ctrl (Cmd на Mac) для выбора нескольких опций';
+            $this->options['hint'] = LANG_HELPER_FIELDS_SELECT_MULTIPLE_HINT;
         }
         
         return $this->renderFieldGroup($fieldHtml);

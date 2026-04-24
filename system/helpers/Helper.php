@@ -85,19 +85,19 @@ function render_html_block(string $slug): void {
             }
             
             if (empty(trim($content))) {
-                $content = '<div class="alert alert-info">Блок "' . htmlspecialchars($block['name'] ?? '') . '" не имеет содержимого.</div>';
+                $content = sprintf(LANG_HELPER_FUNCTIONS_BLOCK_EMPTY, htmlspecialchars($block['name'] ?? ''));
             }
         } elseif (!empty($blockType)) {
             $blockTypeManager = new HtmlBlockTypeManager($db);
             $templateToUse = $block['block_template'] ?? 'default';
             $content = $blockTypeManager->renderBlockFront($blockType, $settings, $templateToUse);
         } else {
-            $content = '<div class="alert alert-warning">Блок "' . htmlspecialchars($block['name'] ?? '') . '" имеет неопределенный тип.</div>';
+            $content = sprintf(LANG_HELPER_FUNCTIONS_BLOCK_UNDEFINED, htmlspecialchars($block['name'] ?? ''));
         }
         
         echo $content;
     } else {
-        echo '<!-- HTML блок с slug "' . htmlspecialchars($slug) . '" не найден -->';
+        echo '<!-- ' . sprintf(LANG_HELPER_FUNCTIONS_BLOCK_NOT_FOUND, htmlspecialchars($slug)) . ' -->';
     }
 }
 
@@ -244,7 +244,7 @@ function regenerate_blocks_css(): string {
     }
     
     if (!empty($allAssets['inline_css'])) {
-        $css .= "/* === Inline CSS from blocks === */\n";
+        $css .= "/* === " . LANG_HELPER_FUNCTIONS_INLINE_CSS_COMMENT . " === */\n";
         foreach ($allAssets['inline_css'] as $inlineCss) {
             $css .= $inlineCss;
             $css .= "\n";
@@ -361,9 +361,18 @@ function format_date($date) {
     if (!$date) return '';
     
     $months = [
-        1 => 'января', 2 => 'февраля', 3 => 'марта', 4 => 'апреля',
-        5 => 'мая', 6 => 'июня', 7 => 'июля', 8 => 'августа',
-        9 => 'сентября', 10 => 'октября', 11 => 'ноября', 12 => 'декабря'
+        1 => LANG_HELPER_FUNCTIONS_MONTH_JANUARY,
+        2 => LANG_HELPER_FUNCTIONS_MONTH_FEBRUARY,
+        3 => LANG_HELPER_FUNCTIONS_MONTH_MARCH,
+        4 => LANG_HELPER_FUNCTIONS_MONTH_APRIL,
+        5 => LANG_HELPER_FUNCTIONS_MONTH_MAY,
+        6 => LANG_HELPER_FUNCTIONS_MONTH_JUNE,
+        7 => LANG_HELPER_FUNCTIONS_MONTH_JULY,
+        8 => LANG_HELPER_FUNCTIONS_MONTH_AUGUST,
+        9 => LANG_HELPER_FUNCTIONS_MONTH_SEPTEMBER,
+        10 => LANG_HELPER_FUNCTIONS_MONTH_OCTOBER,
+        11 => LANG_HELPER_FUNCTIONS_MONTH_NOVEMBER,
+        12 => LANG_HELPER_FUNCTIONS_MONTH_DECEMBER
     ];
     
     $timestamp = strtotime($date);
@@ -396,12 +405,12 @@ function time_ago($date) {
     ];
     
     $forms = [
-        'year'   => ['год', 'года', 'лет'],
-        'month'  => ['месяц', 'месяца', 'месяцев'],
-        'week'   => ['неделя', 'недели', 'недель'],
-        'day'    => ['день', 'дня', 'дней'],
-        'hour'   => ['час', 'часа', 'часов'],
-        'minute' => ['минута', 'минуты', 'минут']
+        'year'   => [LANG_HELPER_FUNCTIONS_YEAR_1, LANG_HELPER_FUNCTIONS_YEAR_2, LANG_HELPER_FUNCTIONS_YEAR_3],
+        'month'  => [LANG_HELPER_FUNCTIONS_MONTH_1, LANG_HELPER_FUNCTIONS_MONTH_2, LANG_HELPER_FUNCTIONS_MONTH_3],
+        'week'   => [LANG_HELPER_FUNCTIONS_WEEK_1, LANG_HELPER_FUNCTIONS_WEEK_2, LANG_HELPER_FUNCTIONS_WEEK_3],
+        'day'    => [LANG_HELPER_FUNCTIONS_DAY_1, LANG_HELPER_FUNCTIONS_DAY_2, LANG_HELPER_FUNCTIONS_DAY_3],
+        'hour'   => [LANG_HELPER_FUNCTIONS_HOUR_1, LANG_HELPER_FUNCTIONS_HOUR_2, LANG_HELPER_FUNCTIONS_HOUR_3],
+        'minute' => [LANG_HELPER_FUNCTIONS_MINUTE_1, LANG_HELPER_FUNCTIONS_MINUTE_2, LANG_HELPER_FUNCTIONS_MINUTE_3]
     ];
     
     foreach ($intervals as $interval => $seconds) {
@@ -411,11 +420,11 @@ function time_ago($date) {
                 return $n%10==1 && $n%100!=11 ? $forms[0] : ($n%10>=2 && $n%10<=4 && ($n%100<10 || $n%100>=20) ? $forms[1] : $forms[2]);
             };
             
-            return $count . ' ' . $form($count, $forms[$interval]) . ' назад';
+            return $count . ' ' . $form($count, $forms[$interval]) . ' ' . LANG_HELPER_FUNCTIONS_AGO;
         }
     }
     
-    return 'только что';
+    return LANG_HELPER_FUNCTIONS_JUST_NOW;
 }
 
 /**

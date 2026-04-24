@@ -17,16 +17,16 @@ class FileUpload {
     */
     public static function upload($file, $uploadDir, $allowedTypes = [], $maxSize = 2048) {
         if ($file['error'] !== UPLOAD_ERR_OK) {
-            throw new Exception('Ошибка загрузки файла: ' . self::getUploadError($file['error']));
+            throw new Exception(sprintf(LANG_HELPER_FILEUPLOAD_UPLOAD_ERROR, self::getUploadError($file['error'])));
         }
         
         if ($file['size'] > $maxSize * 1024) {
-            throw new Exception("Файл слишком большой. Максимальный размер: {$maxSize}КБ");
+            throw new Exception(sprintf(LANG_HELPER_FILEUPLOAD_FILE_TOO_LARGE, $maxSize));
         }
 
         $fileExtension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
         if (!empty($allowedTypes) && !in_array($fileExtension, $allowedTypes)) {
-            throw new Exception("Недопустимый тип файла. Разрешенные: " . implode(', ', $allowedTypes));
+            throw new Exception(sprintf(LANG_HELPER_FILEUPLOAD_INVALID_TYPE, implode(', ', $allowedTypes)));
         }
         
         if (!is_dir($uploadDir)) {
@@ -37,7 +37,7 @@ class FileUpload {
         $targetPath = $uploadDir . '/' . $fileName;
         
         if (!move_uploaded_file($file['tmp_name'], $targetPath)) {
-            throw new Exception('Не удалось сохранить файл');
+            throw new Exception(LANG_HELPER_FILEUPLOAD_SAVE_ERROR);
         }
         
         return $fileName;
@@ -99,16 +99,16 @@ class FileUpload {
     */
     private static function getUploadError($errorCode) {
         $errors = [
-            UPLOAD_ERR_INI_SIZE => 'Файл превышает максимальный размер',
-            UPLOAD_ERR_FORM_SIZE => 'Файл превышает максимальный размер формы',
-            UPLOAD_ERR_PARTIAL => 'Файл был загружен только частично',
-            UPLOAD_ERR_NO_FILE => 'Файл не был загружен',
-            UPLOAD_ERR_NO_TMP_DIR => 'Отсутствует временная директория',
-            UPLOAD_ERR_CANT_WRITE => 'Не удалось записать файл на диск',
-            UPLOAD_ERR_EXTENSION => 'Расширение PHP остановило загрузку файла'
+            UPLOAD_ERR_INI_SIZE => LANG_HELPER_FILEUPLOAD_ERROR_INI_SIZE,
+            UPLOAD_ERR_FORM_SIZE => LANG_HELPER_FILEUPLOAD_ERROR_FORM_SIZE,
+            UPLOAD_ERR_PARTIAL => LANG_HELPER_FILEUPLOAD_ERROR_PARTIAL,
+            UPLOAD_ERR_NO_FILE => LANG_HELPER_FILEUPLOAD_ERROR_NO_FILE,
+            UPLOAD_ERR_NO_TMP_DIR => LANG_HELPER_FILEUPLOAD_ERROR_NO_TMP_DIR,
+            UPLOAD_ERR_CANT_WRITE => LANG_HELPER_FILEUPLOAD_ERROR_CANT_WRITE,
+            UPLOAD_ERR_EXTENSION => LANG_HELPER_FILEUPLOAD_ERROR_EXTENSION
         ];
         
-        return $errors[$errorCode] ?? 'Неизвестная ошибка';
+        return $errors[$errorCode] ?? LANG_HELPER_FILEUPLOAD_ERROR_UNKNOWN;
     }
 
     /**

@@ -29,7 +29,7 @@ class FieldImage extends Field {
         <div class="image-field">
             <?php if ($previewUrl): ?>
             <div class="mb-3">
-                <label class="form-label">Текущее изображение</label>
+                <label class="form-label"><?php echo LANG_HELPER_FIELDS_IMAGE_CURRENT_LABEL; ?></label>
                 <div class="border rounded p-3 text-center">
                     <img src="<?= $previewUrl ?>" 
                         alt="Preview" 
@@ -41,7 +41,7 @@ class FieldImage extends Field {
                                 id="<?= $removeFieldName ?>" 
                                 name="<?= $removeFieldName ?>" value="1">
                             <label class="form-check-label text-danger" for="<?= $removeFieldName ?>">
-                                Удалить изображение
+                                <?php echo LANG_HELPER_FIELDS_IMAGE_DELETE_LABEL; ?>
                             </label>
                         </div>
                     </div>
@@ -50,7 +50,7 @@ class FieldImage extends Field {
             <?php endif; ?>
             <div class="mb-3">
                 <label class="form-label">
-                    <?= $previewUrl ? 'Заменить изображение' : 'Загрузить изображение' ?>
+                    <?= $previewUrl ? LANG_HELPER_FIELDS_IMAGE_REPLACE_LABEL : LANG_HELPER_FIELDS_IMAGE_UPLOAD_LABEL ?>
                 </label>
                 <input type="file" 
                     class="form-control" 
@@ -60,7 +60,7 @@ class FieldImage extends Field {
                     name="<?= $hiddenFieldName ?>" 
                     value="<?= htmlspecialchars($value) ?>">
                 <div class="form-text text-muted">
-                    <?= $this->options['hint'] ?? 'Разрешенные форматы: JPG, PNG, GIF, WebP. Максимальный размер: 5MB' ?>
+                    <?= $this->options['hint'] ?? LANG_HELPER_FIELDS_IMAGE_HINT ?>
                 </div>
             </div>
         </div>

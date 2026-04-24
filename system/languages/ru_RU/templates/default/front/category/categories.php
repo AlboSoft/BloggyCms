@@ -1,0 +1,18 @@
+<?php
+
+define('LANG_TEMPLATE_CATEGORIES_ALL_TITLE', 'Категории');
+define('LANG_TEMPLATE_CATEGORIES_ALL_POSTS_BTN', 'Все посты');
+define('LANG_TEMPLATE_CATEGORIES_SECTION_1', 'раздел');
+define('LANG_TEMPLATE_CATEGORIES_SECTION_2', 'раздела');
+define('LANG_TEMPLATE_CATEGORIES_SECTION_3', 'разделов');
+define('LANG_TEMPLATE_CATEGORIES_POST_1', 'пост');
+define('LANG_TEMPLATE_CATEGORIES_POST_2', 'поста');
+define('LANG_TEMPLATE_CATEGORIES_POST_3', 'постов');
+define('LANG_TEMPLATE_CATEGORIES_PASSWORD_PROTECTED_TITLE', 'Защищено паролем');
+define('LANG_TEMPLATE_CATEGORIES_STATS_TOTAL_LABEL', 'Всего категорий');
+define('LANG_TEMPLATE_CATEGORIES_STATS_POSTS_LABEL', 'Всего постов');
+define('LANG_TEMPLATE_CATEGORIES_STATS_PROTECTED_LABEL', 'Защищенных');
+define('LANG_TEMPLATE_CATEGORIES_SHOW_MORE_BTN', 'Показать еще');
+define('LANG_TEMPLATE_CATEGORIES_EMPTY_TITLE', 'Категории не найдены');
+define('LANG_TEMPLATE_CATEGORIES_EMPTY_TEXT', 'В блоге пока нет созданных категорий');
+define('LANG_TEMPLATE_CATEGORIES_EMPTY_POSTS_BTN', 'Перейти к постам');

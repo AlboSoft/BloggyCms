@@ -10,10 +10,10 @@
         <div class="tg-page-header tg-mb-4">
             <h1 class="tg-page-title">
                 <?php echo bloggy_icon('bs', 'search', '24', 'var(--tg-primary)', 'tg-mr-2'); ?>
-                Поиск по сайту
+                <?php echo LANG_TEMPLATE_SEARCH_TITLE; ?>
             </h1>
             <p class="tg-page-description tg-text-muted">
-                Найдите интересующие вас публикации по ключевым словам
+                <?php echo LANG_TEMPLATE_SEARCH_DESCRIPTION; ?>
             </p>
         </div>
         
@@ -27,7 +27,7 @@
                                 <input type="text" 
                                        name="q" 
                                        class="tg-search-input" 
-                                       placeholder="Введите поисковый запрос..."
+                                       placeholder="<?php echo LANG_TEMPLATE_SEARCH_PLACEHOLDER; ?>"
                                        value="<?php echo html($query ?? ''); ?>"
                                        autocomplete="off"
                                        autofocus>
@@ -38,7 +38,7 @@
                                 <?php } ?>
                             </div>
                             <button type="submit" class="tg-btn tg-btn-primary tg-search-submit">
-                                Найти
+                                <?php echo LANG_TEMPLATE_SEARCH_BTN; ?>
                             </button>
                         </div>
                     </form>
@@ -52,7 +52,7 @@
                 <?php echo bloggy_icon('bs', 'exclamation-triangle', '20', '#dc3545'); ?>
             </div>
             <div class="tg-alert-content">
-                <strong>Ошибка</strong>
+                <strong><?php echo LANG_TEMPLATE_SEARCH_ERROR_TITLE; ?></strong>
                 <p><?php echo html($error); ?></p>
             </div>
         </div>
@@ -67,7 +67,7 @@
                         <div class="tg-card-header">
                             <h3 class="tg-card-title">
                                 <?php echo bloggy_icon('bs', 'graph-up', '18', 'var(--tg-primary)', 'tg-mr-2'); ?>
-                                Популярные запросы
+                                <?php echo LANG_TEMPLATE_SEARCH_POPULAR_TITLE; ?>
                             </h3>
                         </div>
                         <div class="tg-card-body">
@@ -99,7 +99,7 @@
                         <div class="tg-card-header">
                             <h3 class="tg-card-title">
                                 <?php echo bloggy_icon('bs', 'lightbulb', '18', 'var(--tg-primary)', 'tg-mr-2'); ?>
-                                Что ищут сейчас
+                                <?php echo LANG_TEMPLATE_SEARCH_SUGGESTED_TITLE; ?>
                             </h3>
                         </div>
                         <div class="tg-card-body">
@@ -128,7 +128,7 @@
                         <div class="tg-quick-links-header tg-mb-3">
                             <h4 class="tg-quick-links-title">
                                 <?php echo bloggy_icon('bs', 'link', '16', 'var(--tg-primary)', 'tg-mr-2'); ?>
-                                Быстрые ссылки
+                                <?php echo LANG_TEMPLATE_SEARCH_QUICK_LINKS_TITLE; ?>
                             </h4>
                         </div>
                         <div class="tg-quick-links-grid">
@@ -136,25 +136,25 @@
                                 <span class="tg-quick-link-icon">
                                     <?php echo bloggy_icon('bs', 'file-text', '20', 'var(--tg-primary)'); ?>
                                 </span>
-                                <span class="tg-quick-link-text">Все публикации</span>
+                                <span class="tg-quick-link-text"><?php echo LANG_TEMPLATE_SEARCH_QUICK_LINK_POSTS; ?></span>
                             </a>
                             <a href="<?php echo BASE_URL; ?>/categories" class="tg-quick-link-item">
                                 <span class="tg-quick-link-icon">
                                     <?php echo bloggy_icon('bs', 'folder', '20', 'var(--tg-primary)'); ?>
                                 </span>
-                                <span class="tg-quick-link-text">Категории</span>
+                                <span class="tg-quick-link-text"><?php echo LANG_TEMPLATE_SEARCH_QUICK_LINK_CATEGORIES; ?></span>
                             </a>
                             <a href="<?php echo BASE_URL; ?>/tags" class="tg-quick-link-item">
                                 <span class="tg-quick-link-icon">
                                     <?php echo bloggy_icon('bs', 'tags', '20', 'var(--tg-primary)'); ?>
                                 </span>
-                                <span class="tg-quick-link-text">Теги</span>
+                                <span class="tg-quick-link-text"><?php echo LANG_TEMPLATE_SEARCH_QUICK_LINK_TAGS; ?></span>
                             </a>
                             <a href="<?php echo BASE_URL; ?>/archive" class="tg-quick-link-item">
                                 <span class="tg-quick-link-icon">
                                     <?php echo bloggy_icon('bs', 'archive', '20', 'var(--tg-primary)'); ?>
                                 </span>
-                                <span class="tg-quick-link-text">Архив</span>
+                                <span class="tg-quick-link-text"><?php echo LANG_TEMPLATE_SEARCH_QUICK_LINK_ARCHIVE; ?></span>
                             </a>
                         </div>
                     </div>
@@ -171,14 +171,12 @@
                             <div class="tg-search-stats-info">
                                 <?php echo bloggy_icon('bs', 'search', '16', 'var(--tg-primary)', 'tg-mr-2'); ?>
                                 <span>
-                                    По запросу <strong>«<?php echo html($query); ?>»</strong> 
-                                    <?php echo plural($total, ['найден', 'найдено', 'найдено']); ?> <strong><?php echo $total; ?></strong> 
-                                    <?php echo plural($total, ['результат', 'результата', 'результатов']); ?>
+                                    <?php echo sprintf(LANG_TEMPLATE_SEARCH_STATS_FOUND, html($query), $total, $total); ?>
                                 </span>
                             </div>
                             <?php if (!empty($suggestedSearches) && is_array($suggestedSearches)) { ?>
                             <div class="tg-search-suggestions-links">
-                                <span class="tg-text-muted tg-mr-2">Возможно вы искали:</span>
+                                <span class="tg-text-muted tg-mr-2"><?php echo LANG_TEMPLATE_SEARCH_MAYBE_YOU_MEANT; ?></span>
                                 <?php 
                                 $suggestedCount = 0;
                                 foreach ($suggestedSearches as $suggested) { 
@@ -226,7 +224,7 @@
                     switch ($contentType) {
                         case 'post':
                             $url = BASE_URL . '/post/' . ($item['slug'] ?? '');
-                            $typeLabel = 'Пост';
+                            $typeLabel = LANG_TEMPLATE_SEARCH_TYPE_POST;
                             $typeClass = 'primary';
                             $metaInfo = '';
                             
@@ -240,7 +238,7 @@
                                 '</span>';
                             
                             if (!empty($item['views'])) {
-                                $metaInfo .= '<span class="tg-search-result-views" title="Просмотры">' . 
+                                $metaInfo .= '<span class="tg-search-result-views" title="' . LANG_TEMPLATE_SEARCH_VIEWS_TITLE . '">' . 
                                     bloggy_icon('bs', 'eye', '12', 'currentColor', 'tg-mr-1') . 
                                     $item['views'] . 
                                     '</span>';
@@ -248,7 +246,7 @@
                             
                             $stats = '';
                             if (!empty($item['comments_count'])) {
-                                $stats .= '<span title="Комментарии">' . 
+                                $stats .= '<span title="' . LANG_TEMPLATE_SEARCH_COMMENTS_TITLE . '">' . 
                                     bloggy_icon('bs', 'chat-dots', '12', 'currentColor', 'tg-mr-1') . 
                                     $item['comments_count'] . 
                                     '</span>';
@@ -257,7 +255,7 @@
                             
                         case 'page':
                             $url = BASE_URL . '/page/' . ($item['slug'] ?? '');
-                            $typeLabel = 'Страница';
+                            $typeLabel = LANG_TEMPLATE_SEARCH_TYPE_PAGE;
                             $typeClass = 'info';
                             $metaInfo = '<span class="tg-search-result-date">' . 
                                 bloggy_icon('bs', 'calendar', '12', 'currentColor', 'tg-mr-1') . 
@@ -268,38 +266,38 @@
                             
                         case 'category':
                             $url = BASE_URL . '/category/' . ($item['slug'] ?? '');
-                            $typeLabel = 'Категория';
+                            $typeLabel = LANG_TEMPLATE_SEARCH_TYPE_CATEGORY;
                             $typeClass = 'success';
                             $metaInfo = '<span class="tg-search-result-count">' . 
                                 bloggy_icon('bs', 'folder', '12', 'currentColor', 'tg-mr-1') . 
-                                ($item['posts_count'] ?? 0) . ' ' . plural($item['posts_count'] ?? 0, ['пост', 'поста', 'постов']) . 
+                                ($item['posts_count'] ?? 0) . ' ' . plural($item['posts_count'] ?? 0, [LANG_TEMPLATE_SEARCH_POSTS_1, LANG_TEMPLATE_SEARCH_POSTS_2, LANG_TEMPLATE_SEARCH_POSTS_3]) . 
                                 '</span>';
                             $stats = '';
                             break;
                             
                         case 'tag':
                             $url = BASE_URL . '/tag/' . ($item['slug'] ?? '');
-                            $typeLabel = 'Тег';
+                            $typeLabel = LANG_TEMPLATE_SEARCH_TYPE_TAG;
                             $typeClass = 'warning';
                             $metaInfo = '<span class="tg-search-result-count">' . 
                                 bloggy_icon('bs', 'tag', '12', 'currentColor', 'tg-mr-1') . 
-                                ($item['posts_count'] ?? 0) . ' ' . plural($item['posts_count'] ?? 0, ['пост', 'поста', 'постов']) . 
+                                ($item['posts_count'] ?? 0) . ' ' . plural($item['posts_count'] ?? 0, [LANG_TEMPLATE_SEARCH_POSTS_1, LANG_TEMPLATE_SEARCH_POSTS_2, LANG_TEMPLATE_SEARCH_POSTS_3]) . 
                                 '</span>';
                             $stats = '';
                             break;
                             
                         case 'user':
                             $url = BASE_URL . '/profile/' . ($item['slug'] ?? '');
-                            $typeLabel = 'Пользователь';
+                            $typeLabel = LANG_TEMPLATE_SEARCH_TYPE_USER;
                             $typeClass = 'secondary';
                             $metaInfo = '<span class="tg-search-result-date">' . 
                                 bloggy_icon('bs', 'person', '12', 'currentColor', 'tg-mr-1') . 
-                                'Зарегистрирован: ' . date('d.m.Y', strtotime($item['registered_at'] ?? $item['created_at'] ?? '')) . 
+                                LANG_TEMPLATE_SEARCH_REGISTERED . ': ' . date('d.m.Y', strtotime($item['registered_at'] ?? $item['created_at'] ?? '')) . 
                                 '</span>';
                             if (!empty($item['posts_count'])) {
                                 $metaInfo .= '<span class="tg-search-result-count">' . 
                                     bloggy_icon('bs', 'file-text', '12', 'currentColor', 'tg-mr-1') . 
-                                    $item['posts_count'] . ' ' . plural($item['posts_count'], ['пост', 'поста', 'постов']) . 
+                                    $item['posts_count'] . ' ' . plural($item['posts_count'], [LANG_TEMPLATE_SEARCH_POSTS_1, LANG_TEMPLATE_SEARCH_POSTS_2, LANG_TEMPLATE_SEARCH_POSTS_3]) . 
                                     '</span>';
                             }
                             $stats = '';
@@ -307,7 +305,7 @@
                             
                         default:
                             $url = '#';
-                            $typeLabel = 'Пост';
+                            $typeLabel = LANG_TEMPLATE_SEARCH_TYPE_POST;
                             $typeClass = 'primary';
                             $metaInfo = '';
                             $stats = '';
@@ -338,7 +336,7 @@
                                             <?php echo $title; ?>
                                         </a>
                                         <?php if ($contentType == 'post' && $isPasswordProtected) { ?>
-                                            <span class="tg-post-lock" title="Защищено паролем">
+                                            <span class="tg-post-lock" title="<?php echo LANG_TEMPLATE_SEARCH_PASSWORD_PROTECTED_TITLE; ?>">
                                                 <?php echo bloggy_icon('bs', 'lock-fill', '14', 'currentColor'); ?>
                                             </span>
                                         <?php } ?>
@@ -375,7 +373,7 @@
                                         
                                         <a href="<?php echo $url; ?>" 
                                            class="tg-btn tg-btn-sm tg-btn-outline">
-                                            <?php echo $contentType == 'post' ? 'Читать' : 'Перейти'; ?>
+                                            <?php echo $contentType == 'post' ? LANG_TEMPLATE_SEARCH_READ_BTN : LANG_TEMPLATE_SEARCH_GO_BTN; ?>
                                             <?php echo bloggy_icon('bs', 'arrow-right', '12', 'currentColor', 'tg-ml-1'); ?>
                                         </a>
                                     </div>
@@ -390,7 +388,7 @@
             <?php if ($pages > 1) { ?>
             <div class="tg-pagination tg-mt-5">
                 <div class="tg-pagination-info tg-text-center tg-mb-3 tg-text-muted">
-                    Страница <?php echo $current_page; ?> из <?php echo $pages; ?>
+                    <?php echo sprintf(LANG_TEMPLATE_SEARCH_PAGINATION_INFO, $current_page, $pages); ?>
                 </div>
                 
                 <div class="tg-pagination-links">
@@ -432,15 +430,14 @@
                     <div class="tg-empty-state-icon tg-mb-4">
                         <?php echo bloggy_icon('bs', 'search', '48', 'var(--tg-text-secondary)'); ?>
                     </div>
-                    <h3 class="tg-empty-state-title">Ничего не найдено</h3>
+                    <h3 class="tg-empty-state-title"><?php echo LANG_TEMPLATE_SEARCH_NO_RESULTS_TITLE; ?></h3>
                     <p class="tg-empty-state-text tg-text-muted">
-                        По запросу <strong>«<?php echo html($query); ?>»</strong> ничего не найдено.
-                        Попробуйте изменить запрос или выбрать другие ключевые слова.
+                        <?php echo sprintf(LANG_TEMPLATE_SEARCH_NO_RESULTS_TEXT, html($query)); ?>
                     </p>
                     
                     <?php if (!empty($suggestedSearches) && is_array($suggestedSearches)) { ?>
                     <div class="tg-search-alternatives tg-mt-4">
-                        <h4 class="tg-alternatives-title tg-mb-3">Возможно вы искали:</h4>
+                        <h4 class="tg-alternatives-title tg-mb-3"><?php echo LANG_TEMPLATE_SEARCH_MAYBE_YOU_MEANT; ?></h4>
                         <div class="tg-alternatives-list">
                             <?php 
                             $suggestedCount = 0;
@@ -464,11 +461,11 @@
                     <div class="tg-empty-actions tg-mt-4">
                         <a href="<?php echo BASE_URL; ?>/posts" class="tg-btn tg-btn-primary">
                             <?php echo bloggy_icon('bs', 'file-text', '16', 'currentColor', 'tg-mr-1'); ?>
-                            Все публикации
+                            <?php echo LANG_TEMPLATE_SEARCH_ALL_POSTS_BTN; ?>
                         </a>
                         <a href="<?php echo BASE_URL; ?>/search" class="tg-btn tg-btn-outline tg-ml-2">
                             <?php echo bloggy_icon('bs', 'search', '16', 'currentColor', 'tg-mr-1'); ?>
-                            Новый поиск
+                            <?php echo LANG_TEMPLATE_SEARCH_NEW_SEARCH_BTN; ?>
                         </a>
                     </div>
                 </div>

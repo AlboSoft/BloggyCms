@@ -20,14 +20,14 @@ class Email {
         
         $resetLink = $baseUrl . '/reset-password?token=' . $token;
         
-        $subject = 'Восстановление пароля - ' . $siteName;
+        $subject = sprintf(LANG_HELPER_EMAIL_RESET_SUBJECT, $siteName);
         
         $message = "
             <!DOCTYPE html>
             <html>
             <head>
                 <meta charset='UTF-8'>
-                <title>Восстановление пароля</title>
+                <title>" . LANG_HELPER_EMAIL_RESET_TITLE . "</title>
                 <style>
                     body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
                     .container { max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px; }
@@ -37,20 +37,20 @@ class Email {
             </head>
             <body>
                 <div class='container'>
-                    <h2 style='color: #333; text-align: center;'>Восстановление пароля</h2>
-                    <p>Здравствуйте, <strong>{$username}</strong>!</p>
-                    <p>Вы получили это письмо, потому что запросили восстановление пароля для вашего аккаунта на сайте <strong>{$siteName}</strong>.</p>
-                    <p>Для установки нового пароля перейдите по ссылке ниже:</p>
+                    <h2 style='color: #333; text-align: center;'>" . LANG_HELPER_EMAIL_RESET_TITLE . "</h2>
+                    <p>" . sprintf(LANG_HELPER_EMAIL_RESET_GREETING, $username) . "</p>
+                    <p>" . sprintf(LANG_HELPER_EMAIL_RESET_MESSAGE, $siteName) . "</p>
+                    <p>" . LANG_HELPER_EMAIL_RESET_INSTRUCTION . "</p>
                     <div style='text-align: center; margin: 30px 0;'>
                         <a href='{$resetLink}' class='button'>
-                            Восстановить пароль
+                            " . LANG_HELPER_EMAIL_RESET_BUTTON . "
                         </a>
                     </div>
-                    <p>Ссылка действительна в течение <strong>1 часа</strong>.</p>
-                    <p>Если вы не запрашивали восстановление пароля, просто проигнорируйте это письмо.</p>
+                    <p>" . LANG_HELPER_EMAIL_RESET_VALIDITY . "</p>
+                    <p>" . LANG_HELPER_EMAIL_RESET_IGNORE . "</p>
                     <div class='footer'>
-                        <p>Это письмо отправлено автоматически. Пожалуйста, не отвечайте на него.</p>
-                        <p>Если у вас возникли проблемы, свяжитесь с администрацией сайта.</p>
+                        <p>" . LANG_HELPER_EMAIL_FOOTER_AUTO . "</p>
+                        <p>" . LANG_HELPER_EMAIL_FOOTER_CONTACT . "</p>
                     </div>
                 </div>
             </body>
@@ -79,31 +79,31 @@ class Email {
         $siteName = \SettingsHelper::get('general', 'site_name', 'BloggyCMS');
         $siteEmail = \SettingsHelper::get('general', 'contact_email', 'noreply@bloggycms.com');
         
-        $subject = 'Пароль успешно изменен - ' . $siteName;
+        $subject = sprintf(LANG_HELPER_EMAIL_CHANGED_SUBJECT, $siteName);
         
         $message = "
             <!DOCTYPE html>
             <html>
             <head>
                 <meta charset='UTF-8'>
-                <title>Пароль изменен</title>
+                <title>" . LANG_HELPER_EMAIL_CHANGED_TITLE . "</title>
             </head>
             <body style='font-family: Arial, sans-serif; line-height: 1.6;'>
                 <div style='max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px;'>
-                    <h2 style='color: #333; text-align: center;'>Пароль успешно изменен</h2>
-                    <p>Здравствуйте, <strong>{$username}</strong>!</p>
-                    <p>Это уведомление подтверждает, что пароль для вашего аккаунта на сайте <strong>{$siteName}</strong> был успешно изменен.</p>
+                    <h2 style='color: #333; text-align: center;'>" . LANG_HELPER_EMAIL_CHANGED_TITLE . "</h2>
+                    <p>" . sprintf(LANG_HELPER_EMAIL_CHANGED_GREETING, $username) . "</p>
+                    <p>" . sprintf(LANG_HELPER_EMAIL_CHANGED_MESSAGE, $siteName) . "</p>
                     <div style='background-color: #f8f9fa; padding: 15px; border-radius: 5px; margin: 20px 0;'>
-                        <p><strong>Важно:</strong> Если вы не меняли пароль, немедленно свяжитесь с администрацией сайта.</p>
+                        <p><strong>" . LANG_HELPER_EMAIL_CHANGED_WARNING . "</strong></p>
                     </div>
-                    <p>Для входа в систему используйте новый пароль:</p>
+                    <p>" . LANG_HELPER_EMAIL_CHANGED_LOGIN_INSTRUCTION . "</p>
                     <div style='text-align: center; margin: 20px 0;'>
                         <a href='" . BASE_URL . "/login' style='background-color: #28a745; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;'>
-                            Войти в аккаунт
+                            " . LANG_HELPER_EMAIL_CHANGED_LOGIN_BUTTON . "
                         </a>
                     </div>
                     <div style='margin-top: 30px; padding-top: 20px; border-top: 1px solid #e0e0e0; font-size: 12px; color: #666;'>
-                        <p>Это письмо отправлено автоматически.</p>
+                        <p>" . LANG_HELPER_EMAIL_FOOTER_AUTO . "</p>
                     </div>
                 </div>
             </body>
@@ -127,28 +127,28 @@ class Email {
         $siteName = \SettingsHelper::get('general', 'site_name', 'BloggyCMS');
         $siteEmail = \SettingsHelper::get('general', 'contact_email', 'noreply@bloggycms.com');
         
-        $subject = 'Добро пожаловать на ' . $siteName;
+        $subject = sprintf(LANG_HELPER_EMAIL_WELCOME_SUBJECT, $siteName);
         
         $message = "
             <!DOCTYPE html>
             <html>
             <head>
                 <meta charset='UTF-8'>
-                <title>Добро пожаловать</title>
+                <title>" . LANG_HELPER_EMAIL_WELCOME_TITLE . "</title>
             </head>
             <body style='font-family: Arial, sans-serif; line-height: 1.6;'>
                 <div style='max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px;'>
-                    <h2 style='color: #333; text-align: center;'>Добро пожаловать на {$siteName}!</h2>
-                    <p>Здравствуйте, <strong>{$username}</strong>!</p>
-                    <p>Спасибо за регистрацию на нашем сайте. Ваш аккаунт был успешно создан.</p>
+                    <h2 style='color: #333; text-align: center;'>" . sprintf(LANG_HELPER_EMAIL_WELCOME_HEADER, $siteName) . "</h2>
+                    <p>" . sprintf(LANG_HELPER_EMAIL_WELCOME_GREETING, $username) . "</p>
+                    <p>" . LANG_HELPER_EMAIL_WELCOME_MESSAGE . "</p>
                     <div style='text-align: center; margin: 30px 0;'>
                         <a href='" . BASE_URL . "/login' style='background-color: #007bff; color: white; padding: 12px 24px; text-decoration: none; border-radius: 5px; display: inline-block;'>
-                            Войти в аккаунт
+                            " . LANG_HELPER_EMAIL_WELCOME_BUTTON . "
                         </a>
                     </div>
-                    <p>Если у вас возникли вопросы или проблемы, не стесняйтесь обращаться к нам.</p>
+                    <p>" . LANG_HELPER_EMAIL_WELCOME_SUPPORT . "</p>
                     <div style='margin-top: 30px; padding-top: 20px; border-top: 1px solid #e0e0e0; font-size: 12px; color: #666;'>
-                        <p>Это письмо отправлено автоматически.</p>
+                        <p>" . LANG_HELPER_EMAIL_FOOTER_AUTO . "</p>
                     </div>
                 </div>
             </body>

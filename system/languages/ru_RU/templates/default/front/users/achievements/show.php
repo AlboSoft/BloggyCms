@@ -1,0 +1,19 @@
+<?php
+
+define('LANG_TEMPLATE_ACHIEVEMENT_DETAIL_YOU_HAVE', 'Вы получили эту ачивку');
+define('LANG_TEMPLATE_ACHIEVEMENT_DETAIL_USERS_1', 'пользователь получил');
+define('LANG_TEMPLATE_ACHIEVEMENT_DETAIL_USERS_2', 'пользователя получили');
+define('LANG_TEMPLATE_ACHIEVEMENT_DETAIL_USERS_3', 'пользователей получили');
+define('LANG_TEMPLATE_ACHIEVEMENT_DETAIL_PERCENT_LABEL', 'от всех пользователей');
+define('LANG_TEMPLATE_ACHIEVEMENT_DETAIL_CONDITIONS_TITLE', 'Условия получения');
+define('LANG_TEMPLATE_ACHIEVEMENT_DETAIL_TYPE_LABEL', 'Тип:');
+define('LANG_TEMPLATE_ACHIEVEMENT_DETAIL_TYPE_AUTO', 'Автоматическая');
+define('LANG_TEMPLATE_ACHIEVEMENT_DETAIL_TYPE_MANUAL', 'Ручная');
+define('LANG_TEMPLATE_ACHIEVEMENT_DETAIL_CREATED_LABEL', 'Создана:');
+define('LANG_TEMPLATE_ACHIEVEMENT_DETAIL_PRIORITY_LABEL', 'Приоритет:');
+define('LANG_TEMPLATE_ACHIEVEMENT_DETAIL_USERS_TITLE', 'Пользователи с этой ачивкой');
+define('LANG_TEMPLATE_ACHIEVEMENT_DETAIL_UNLOCKED_AT', 'Получена: %s');
+define('LANG_TEMPLATE_ACHIEVEMENT_DETAIL_BACK_BTN', 'Назад');
+define('LANG_TEMPLATE_ACHIEVEMENT_DETAIL_NEXT_BTN', 'Вперед');
+define('LANG_TEMPLATE_ACHIEVEMENT_DETAIL_NO_USERS_TITLE', 'Пока никто не получил');
+define('LANG_TEMPLATE_ACHIEVEMENT_DETAIL_NO_USERS_TEXT', 'Будьте первым, кто получит эту ачивку!');

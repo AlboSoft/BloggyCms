@@ -18,7 +18,7 @@ class Controller {
     /**
     * @var string Заголовок страницы
     */
-    protected $pageTitle = 'Панель управления';
+    protected $pageTitle = LANG_CORE_CONTROLLER_DEFAULT_PAGE_TITLE;
     
     /**
     * @var string Имя контроллера
@@ -29,7 +29,7 @@ class Controller {
     * @var array Метаинформация о контроллере
     */
     protected $controllerInfo = [
-        'name' => 'Базовый контроллер',
+        'name' => LANG_CORE_CONTROLLER_BASE_NAME,
         'author' => 'BloggyCMS',
         'version' => '1.0.0',
         'has_settings' => false,
@@ -264,7 +264,7 @@ class Controller {
             return $model;
         }
         
-        throw new Exception("Свойство {$name} не найдено в контроллере");
+        throw new Exception(sprintf(LANG_CORE_CONTROLLER_PROPERTY_NOT_FOUND, $name));
     }
     
     /**

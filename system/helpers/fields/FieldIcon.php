@@ -52,7 +52,7 @@ class FieldIcon extends Field {
                 <div class="empty-icon-placeholder text-muted text-center py-3">
                     <i class="bi bi-question-circle fs-3"></i>
                     <div class="mt-1">
-                        <small>Иконка не выбрана</small>
+                        <small><?php echo LANG_HELPER_FIELDS_ICON_NOT_SELECTED; ?></small>
                     </div>
                 </div>
                 <?php endif; ?>
@@ -64,14 +64,14 @@ class FieldIcon extends Field {
                         data-bs-toggle="modal" 
                         data-bs-target="#<?= $modalId ?>">
                     <i class="bi bi-images me-1"></i>
-                    Выбрать иконку
+                    <?php echo LANG_HELPER_FIELDS_ICON_SELECT_BTN; ?>
                 </button>
                 
                 <?php if (!empty($value)): ?>
                 <button type="button" 
                         class="btn btn-outline-danger btn-sm icon-clear-btn">
                     <i class="bi bi-x-circle me-1"></i>
-                    Очистить
+                    <?php echo LANG_HELPER_FIELDS_ICON_CLEAR_BTN; ?>
                 </button>
                 <?php endif; ?>
             </div>
@@ -85,7 +85,7 @@ class FieldIcon extends Field {
                         <div class="modal-header">
                             <h5 class="modal-title">
                                 <i class="bi bi-emoji-smile me-2"></i>
-                                Выбор иконки
+                                <?php echo LANG_HELPER_FIELDS_ICON_MODAL_TITLE; ?>
                             </h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
@@ -97,7 +97,7 @@ class FieldIcon extends Field {
                                     </span>
                                     <input type="text" 
                                            class="form-control icon-search-input" 
-                                           placeholder="Поиск иконок..."
+                                           placeholder="<?php echo LANG_HELPER_FIELDS_ICON_SEARCH_PLACEHOLDER; ?>"
                                            data-modal-id="<?= $modalId ?>">
                                 </div>
                             </div>
@@ -107,16 +107,16 @@ class FieldIcon extends Field {
                                  data-modal-id="<?= $modalId ?>">
                                 <div class="text-center py-5">
                                     <div class="spinner-border text-primary" role="status">
-                                        <span class="visually-hidden">Загрузка...</span>
+                                        <span class="visually-hidden"><?php echo LANG_HELPER_FIELDS_ICON_LOADING; ?></span>
                                     </div>
-                                    <p class="mt-2">Загрузка иконок...</p>
+                                    <p class="mt-2"><?php echo LANG_HELPER_FIELDS_ICON_LOADING_TEXT; ?></p>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?php echo LANG_HELPER_FIELDS_ICON_CANCEL_BTN; ?></button>
                             <button type="button" class="btn btn-primary icon-select-confirm-btn" disabled>
-                                Выбрать
+                                <?php echo LANG_HELPER_FIELDS_ICON_SELECT_CONFIRM_BTN; ?>
                             </button>
                         </div>
                     </div>

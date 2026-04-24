@@ -36,7 +36,7 @@ class BlockRenderer {
     */
     public static function render($blockData) {
         if (!is_array($blockData)) {
-            return 'Неверные данные блока';
+            return LANG_HELPER_BLOCKRENDERER_INVALID_DATA;
         }
         
         self::init();
@@ -89,7 +89,7 @@ class BlockRenderer {
             return $result;
             
         } catch (Exception $e) {
-            return 'Ошибка при отображении пост-блока: ' . $e->getMessage();
+            return sprintf(LANG_HELPER_BLOCKRENDERER_POST_BLOCK_ERROR, $e->getMessage());
         }
     }
 
@@ -203,7 +203,7 @@ class BlockRenderer {
             return $content;
             
         } catch (Exception $e) {
-            return 'Ошибка при отображении HTML блока';
+            return LANG_HELPER_BLOCKRENDERER_HTML_BLOCK_ERROR;
         }
     }
     

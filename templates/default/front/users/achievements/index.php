@@ -13,7 +13,7 @@ $currentUserId = $_SESSION['user_id'] ?? null;
             <div class="tg-card-body">
                 <h1 class="tg-page-title tg-mb-3" style="font-size: 28px;">
                     <?php echo bloggy_icon('bs', 'trophy-fill', '28', 'var(--tg-primary)', 'tg-mr-2'); ?>
-                    Достижения системы
+                    <?php echo LANG_TEMPLATE_ACHIEVEMENTS_SYSTEM_TITLE; ?>
                 </h1>
                 
                 <div class="tg-stats-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 20px;">
@@ -27,7 +27,7 @@ $currentUserId = $_SESSION['user_id'] ?? null;
                                     <?php echo $totalAchievements ?? 0; ?>
                                 </div>
                                 <div class="tg-stat-label" style="font-size: 14px; color: var(--tg-text-secondary);">
-                                    Всего ачивок
+                                    <?php echo LANG_TEMPLATE_ACHIEVEMENTS_STATS_TOTAL; ?>
                                 </div>
                             </div>
                         </div>
@@ -43,7 +43,7 @@ $currentUserId = $_SESSION['user_id'] ?? null;
                                     <?php echo $total = (int)($totalUsers ?? 0); ?>
                                 </div>
                                 <div class="tg-stat-label" style="font-size: 14px; color: var(--tg-text-secondary);">
-                                    <?php echo plural($total, ['Пользователь', 'Пользователя', 'Пользователей']); ?>
+                                    <?php echo plural($total, [LANG_TEMPLATE_ACHIEVEMENTS_USER_1, LANG_TEMPLATE_ACHIEVEMENTS_USER_2, LANG_TEMPLATE_ACHIEVEMENTS_USER_3]); ?>
                                 </div>
                             </div>
                         </div>
@@ -59,7 +59,7 @@ $currentUserId = $_SESSION['user_id'] ?? null;
                                     <?php echo $totalUnlockedAchievements ?? 0; ?>
                                 </div>
                                 <div class="tg-stat-label" style="font-size: 14px; color: var(--tg-text-secondary);">
-                                    Всего получено
+                                    <?php echo LANG_TEMPLATE_ACHIEVEMENTS_STATS_UNLOCKED; ?>
                                 </div>
                             </div>
                         </div>
@@ -92,7 +92,7 @@ $currentUserId = $_SESSION['user_id'] ?? null;
                                     <?php if ($isUnlocked) { ?>
                                         <span class="tg-badge" style="background: #d4edda; color: #155724; padding: 4px 12px;">
                                             <?php echo bloggy_icon('bs', 'check-circle', '12', '#155724', 'tg-mr-1'); ?>
-                                            Получено
+                                            <?php echo LANG_TEMPLATE_ACHIEVEMENTS_UNLOCKED_BADGE; ?>
                                         </span>
                                     <?php } ?>
                                 </div>
@@ -113,7 +113,7 @@ $currentUserId = $_SESSION['user_id'] ?? null;
                                     <div class="tg-achievement-conditions" style="margin-bottom: 16px;">
                                         <h6 style="font-size: 12px; font-weight: 600; color: var(--tg-text-secondary); margin: 0 0 8px 0; display: flex; align-items: center;">
                                             <?php echo bloggy_icon('bs', 'gear', '12', 'currentColor', 'tg-mr-1'); ?>
-                                            Условия получения:
+                                            <?php echo LANG_TEMPLATE_ACHIEVEMENTS_CONDITIONS_TITLE; ?>
                                         </h6>
                                         <ul style="list-style: none; padding: 0; margin: 0;">
                                             <?php foreach ($achievement['formatted_conditions'] as $condition) { ?>
@@ -129,7 +129,7 @@ $currentUserId = $_SESSION['user_id'] ?? null;
                                     <div class="tg-achievement-users">
                                         <h6 style="font-size: 12px; font-weight: 600; color: var(--tg-text-secondary); margin: 0 0 8px 0; display: flex; align-items: center;">
                                             <?php echo bloggy_icon('bs', 'people', '12', 'currentColor', 'tg-mr-1'); ?>
-                                            Получили:
+                                            <?php echo LANG_TEMPLATE_ACHIEVEMENTS_USERS_TITLE; ?>
                                         </h6>
                                         <div style="display: flex; align-items: center; gap: 8px;">
                                             <?php if (!empty($achievement['preview_users'])) { ?>
@@ -155,11 +155,11 @@ $currentUserId = $_SESSION['user_id'] ?? null;
                                                 
                                                 <?php if ($achievement['unlocked_count'] > 5) { ?>
                                                     <span class="tg-text-muted" style="font-size: 12px;">
-                                                        + еще <?php echo $achievement['unlocked_count'] - 5; ?> пользователей
+                                                        <?php echo sprintf(LANG_TEMPLATE_ACHIEVEMENTS_MORE_USERS, $achievement['unlocked_count'] - 5); ?>
                                                     </span>
                                                 <?php } ?>
                                             <?php } else { ?>
-                                                <span class="tg-text-muted" style="font-size: 12px;">Пока никто не получил</span>
+                                                <span class="tg-text-muted" style="font-size: 12px;"><?php echo LANG_TEMPLATE_ACHIEVEMENTS_NO_USERS; ?></span>
                                             <?php } ?>
                                         </div>
                                     </div>
@@ -171,7 +171,7 @@ $currentUserId = $_SESSION['user_id'] ?? null;
                                             <?php echo $achievement['unlocked_count']; ?>
                                         </div>
                                         <div style="font-size: 12px; color: var(--tg-text-secondary);">
-                                            получили
+                                            <?php echo LANG_TEMPLATE_ACHIEVEMENTS_UNLOCKED_STATS; ?>
                                         </div>
                                     </div>
                                     
@@ -180,7 +180,7 @@ $currentUserId = $_SESSION['user_id'] ?? null;
                                             <?php echo $achievement['percent']; ?>%
                                         </div>
                                         <div style="font-size: 12px; color: var(--tg-text-secondary);">
-                                            от всех пользователей
+                                            <?php echo LANG_TEMPLATE_ACHIEVEMENTS_PERCENT_STATS; ?>
                                         </div>
                                     </div>
                                     
@@ -191,7 +191,7 @@ $currentUserId = $_SESSION['user_id'] ?? null;
                                     <a href="<?php echo BASE_URL; ?>/achievement/<?php echo $achievement['id']; ?>" 
                                        class="tg-btn tg-btn-outline" style="width: 100%; justify-content: center;">
                                         <?php echo bloggy_icon('bs', 'info-circle', '14', 'currentColor', 'tg-mr-1'); ?>
-                                        Подробнее
+                                        <?php echo LANG_TEMPLATE_ACHIEVEMENTS_DETAILS_BTN; ?>
                                     </a>
                                 </div>
                             </div>
@@ -227,9 +227,9 @@ $currentUserId = $_SESSION['user_id'] ?? null;
                     <div class="tg-empty-state-icon" style="margin-bottom: 24px;">
                         <?php echo bloggy_icon('bs', 'emoji-frown', '64', 'var(--tg-text-secondary)'); ?>
                     </div>
-                    <h3 class="tg-empty-state-title">Ачивок пока нет</h3>
+                    <h3 class="tg-empty-state-title"><?php echo LANG_TEMPLATE_ACHIEVEMENTS_EMPTY_TITLE; ?></h3>
                     <p class="tg-empty-state-text">
-                        Система достижений еще не настроена
+                        <?php echo LANG_TEMPLATE_ACHIEVEMENTS_EMPTY_TEXT; ?>
                     </p>
                 </div>
             <?php } ?>

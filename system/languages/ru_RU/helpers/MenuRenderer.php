@@ -1,0 +1,26 @@
+<?php
+
+define('LANG_HELPER_MENURENDERER_NOT_FOUND', 'Menu not found or inactive');
+define('LANG_HELPER_MENURENDERER_NO_MENU_FOR_TEMPLATE', 'No menu found for template: %s');
+define('LANG_HELPER_MENURENDERER_NO_MENUS_FOR_TEMPLATE', 'No menus found for template: %s');
+define('LANG_HELPER_MENURENDERER_EMPTY_MENU', 'Empty menu: %s');
+define('LANG_HELPER_MENURENDERER_FILTERED_EMPTY', 'Menu empty after filtering');
+define('LANG_HELPER_MENURENDERER_TEMPLATE_LABEL', 'Template: %s');
+define('LANG_HELPER_MENURENDERER_SHORTCODE_BASIC', 'Основные');
+define('LANG_HELPER_MENURENDERER_SHORTCODE_SYSTEM', 'Системные');
+define('LANG_HELPER_MENURENDERER_SHORTCODE_DATE', 'Дата');
+define('LANG_HELPER_MENURENDERER_SHORTCODE_CUSTOM', 'Кастомные поля');
+define('LANG_HELPER_MENURENDERER_SHORTCODE_USER_ID', 'ID текущего пользователя');
+define('LANG_HELPER_MENURENDERER_SHORTCODE_USERNAME', 'Логин пользователя');
+define('LANG_HELPER_MENURENDERER_SHORTCODE_EMAIL', 'Email пользователя');
+define('LANG_HELPER_MENURENDERER_SHORTCODE_FIRST_NAME', 'Имя пользователя');
+define('LANG_HELPER_MENURENDERER_SHORTCODE_LAST_NAME', 'Фамилия пользователя');
+define('LANG_HELPER_MENURENDERER_SHORTCODE_DISPLAY_NAME', 'Отображаемое имя');
+define('LANG_HELPER_MENURENDERER_SHORTCODE_SLUG', 'URL-слаг пользователя');
+define('LANG_HELPER_MENURENDERER_SHORTCODE_BASE_URL', 'Базовый URL сайта');
+define('LANG_HELPER_MENURENDERER_SHORTCODE_ADMIN_URL', 'URL админ-панели');
+define('LANG_HELPER_MENURENDERER_SHORTCODE_SITE_NAME', 'Название сайта');
+define('LANG_HELPER_MENURENDERER_SHORTCODE_YEAR', 'Текущий год (4 цифры)');
+define('LANG_HELPER_MENURENDERER_SHORTCODE_MONTH', 'Текущий месяц (2 цифры)');
+define('LANG_HELPER_MENURENDERER_SHORTCODE_DAY', 'Текущий день (2 цифры)');
+define('LANG_HELPER_MENURENDERER_SHORTCODE_USER_FIELD', 'Любое поле из таблицы пользователей');

@@ -26,9 +26,9 @@ $totalComments = $totalComments ?? ($post['comments_count'] ?? 0);
                 </span>
                 
                 <?php if ($isPasswordProtected) { ?>
-                <span class="tg-post-protected" title="Защищено паролем">
+                <span class="tg-post-protected" title="<?php echo LANG_TEMPLATE_POST_PASSWORD_PROTECTED_TITLE; ?>">
                     <?php echo bloggy_icon('bs', 'lock-fill', '14', 'currentColor'); ?>
-                    <span>Защищено</span>
+                    <span><?php echo LANG_TEMPLATE_POST_PROTECTED_LABEL; ?></span>
                 </span>
                 <?php } ?>
             </div>
@@ -41,7 +41,7 @@ $totalComments = $totalComments ?? ($post['comments_count'] ?? 0);
                 <div class="tg-author-avatar">
                     <?php if (!empty($post['author_avatar']) && $post['author_avatar'] !== 'default.jpg') { ?>
                         <img src="<?php echo BASE_URL; ?>/uploads/avatars/<?php echo html($post['author_avatar']); ?>" 
-                             alt="<?php echo html($post['author_name'] ?? 'Автор'); ?>">
+                             alt="<?php echo html($post['author_name'] ?? LANG_TEMPLATE_POST_AUTHOR_DEFAULT); ?>">
                     <?php } else { ?>
                         <div class="tg-avatar-placeholder-small">
                             <?php echo strtoupper(substr(($post['author_name'] ?? 'A'), 0, 1)); ?>
@@ -49,14 +49,14 @@ $totalComments = $totalComments ?? ($post['comments_count'] ?? 0);
                     <?php } ?>
                 </div>
                 <div class="tg-author-info">
-                    <span class="tg-author-name"><?php echo html($post['author_name'] ?? 'Автор'); ?></span>
+                    <span class="tg-author-name"><?php echo html($post['author_name'] ?? LANG_TEMPLATE_POST_AUTHOR_DEFAULT); ?></span>
                 </div>
             </div>
             
             <div class="tg-post-actions tg-mt-3">
                 <button class="tg-action-btn tg-like-btn <?php echo isset($userLiked) && $userLiked ? 'tg-active' : ''; ?>" 
                         data-post-id="<?php echo $post['id']; ?>"
-                        title="Нравится">
+                        title="<?php echo LANG_TEMPLATE_POST_LIKE_BTN_TITLE; ?>">
                     <?php 
                     $heartIcon = (isset($userLiked) && $userLiked) ? 'heart-fill' : 'heart';
                     echo bloggy_icon('bs', $heartIcon, '18', 'currentColor', 'tg-mr-1');
@@ -66,12 +66,12 @@ $totalComments = $totalComments ?? ($post['comments_count'] ?? 0);
                 
                 <button class="tg-action-btn tg-bookmark-btn <?php echo isset($userBookmarked) && $userBookmarked ? 'tg-active' : ''; ?>" 
                         data-post-id="<?php echo $post['id']; ?>"
-                        title="В закладки">
+                        title="<?php echo LANG_TEMPLATE_POST_BOOKMARK_BTN_TITLE; ?>">
                     <?php 
                     $bookmarkIcon = (isset($userBookmarked) && $userBookmarked) ? 'bookmark-fill' : 'bookmark';
                     echo bloggy_icon('bs', $bookmarkIcon, '18', 'currentColor', 'tg-mr-1');
                     ?>
-                    <span>В закладки</span>
+                    <span><?php echo LANG_TEMPLATE_POST_BOOKMARK_BTN_TEXT; ?></span>
                 </button>
                 
                 <a href="#comments" class="tg-action-btn">
@@ -161,11 +161,11 @@ $totalComments = $totalComments ?? ($post['comments_count'] ?? 0);
                     <?php echo bloggy_icon('bs', 'check-circle', '18', 'currentColor'); ?>
                 </div>
                 <div class="tg-alert-content">
-                    <strong>Комментарий отправлен!</strong>
-                    <p class="tg-mb-0">Он появится после проверки модератором.</p>
+                    <strong><?php echo LANG_TEMPLATE_POST_COMMENT_SENT_TITLE; ?></strong>
+                    <p class="tg-mb-0"><?php echo LANG_TEMPLATE_POST_COMMENT_SENT_TEXT; ?></p>
                     <?php if (isset($_GET['scroll_to_comment'])) { ?>
                     <a href="#comment-<?php echo (int)$_GET['scroll_to_comment']; ?>" class="tg-alert-link">
-                        Перейти к комментарию
+                        <?php echo LANG_TEMPLATE_POST_COMMENT_GO_TO_LINK; ?>
                     </a>
                     <?php } ?>
                 </div>
@@ -175,12 +175,12 @@ $totalComments = $totalComments ?? ($post['comments_count'] ?? 0);
             <div class="tg-comments-header">
                 <h3 class="tg-comments-title">
                     <?php echo bloggy_icon('bs', 'chat-dots', '20', 'currentColor', 'tg-mr-1'); ?>
-                    Комментарии
+                    <?php echo LANG_TEMPLATE_POST_COMMENTS_TITLE; ?>
                 </h3>
                 <span class="tg-comments-count"><?php echo $totalComments; ?></span>
                 <button class="tg-btn tg-btn-sm tg-btn-outline tg-ml-auto" onclick="scrollToCommentForm()">
                     <?php echo bloggy_icon('bs', 'pen', '14', 'currentColor', 'tg-mr-1'); ?>
-                    Написать
+                    <?php echo LANG_TEMPLATE_POST_WRITE_COMMENT_BTN; ?>
                 </button>
             </div>
             
@@ -196,8 +196,8 @@ $totalComments = $totalComments ?? ($post['comments_count'] ?? 0);
                     <?php echo bloggy_icon('bs', 'lock', '18', 'currentColor'); ?>
                 </div>
                 <div class="tg-alert-content">
-                    <strong>Комментирование недоступно</strong>
-                    <p class="tg-mb-0">Эта запись защищена паролем.</p>
+                    <strong><?php echo LANG_TEMPLATE_POST_COMMENTS_DISABLED_PASSWORD_TITLE; ?></strong>
+                    <p class="tg-mb-0"><?php echo LANG_TEMPLATE_POST_COMMENTS_DISABLED_PASSWORD_TEXT; ?></p>
                 </div>
             </div>
         </div>
@@ -208,8 +208,8 @@ $totalComments = $totalComments ?? ($post['comments_count'] ?? 0);
                     <?php echo bloggy_icon('bs', 'chat-left-x', '18', 'currentColor'); ?>
                 </div>
                 <div class="tg-alert-content">
-                    <strong>Комментирование отключено</strong>
-                    <p class="tg-mb-0">Автор отключил возможность комментирования.</p>
+                    <strong><?php echo LANG_TEMPLATE_POST_COMMENTS_DISABLED_AUTHOR_TITLE; ?></strong>
+                    <p class="tg-mb-0"><?php echo LANG_TEMPLATE_POST_COMMENTS_DISABLED_AUTHOR_TEXT; ?></p>
                 </div>
             </div>
         </div>

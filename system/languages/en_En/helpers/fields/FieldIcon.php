@@ -1,0 +1,11 @@
+<?php
+
+define('LANG_HELPER_FIELDS_ICON_NOT_SELECTED', 'No icon selected');
+define('LANG_HELPER_FIELDS_ICON_SELECT_BTN', 'Select icon');
+define('LANG_HELPER_FIELDS_ICON_CLEAR_BTN', 'Clear');
+define('LANG_HELPER_FIELDS_ICON_MODAL_TITLE', 'Select Icon');
+define('LANG_HELPER_FIELDS_ICON_SEARCH_PLACEHOLDER', 'Search icons...');
+define('LANG_HELPER_FIELDS_ICON_LOADING', 'Loading...');
+define('LANG_HELPER_FIELDS_ICON_LOADING_TEXT', 'Loading icons...');
+define('LANG_HELPER_FIELDS_ICON_CANCEL_BTN', 'Cancel');
+define('LANG_HELPER_FIELDS_ICON_SELECT_CONFIRM_BTN', 'Select');

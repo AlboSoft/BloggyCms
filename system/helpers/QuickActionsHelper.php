@@ -67,9 +67,9 @@ class QuickActionsHelper {
                     <div class="modal-header border-0 pb-0">
                         <h5 class="modal-title">
                             <?php echo bloggy_icon('bs', 'lightning-charge-fill', '20', '#0d6efd', 'me-2'); ?>
-                            Быстрые действия
+                            <?php echo LANG_HELPER_QUICKACTIONS_TITLE; ?>
                         </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="<?php echo LANG_HELPER_QUICKACTIONS_CLOSE; ?>"></button>
                     </div>
                     <div class="modal-body">
                         <div class="row g-3">
@@ -81,8 +81,8 @@ class QuickActionsHelper {
                                             <?php echo bloggy_icon('bs', 'file-earmark-plus', '32', '#0d6efd'); ?>
                                         </div>
                                         <div>
-                                            <div class="fw-semibold">Создать пост</div>
-                                            <small class="text-muted">Новая статья</small>
+                                            <div class="fw-semibold"><?php echo LANG_HELPER_QUICKACTIONS_CREATE_POST; ?></div>
+                                            <small class="text-muted"><?php echo LANG_HELPER_QUICKACTIONS_CREATE_POST_DESC; ?></small>
                                         </div>
                                     </div>
                                 </a>
@@ -97,8 +97,8 @@ class QuickActionsHelper {
                                             <?php echo bloggy_icon('bs', 'file-text', '32', '#6c757d'); ?>
                                         </div>
                                         <div>
-                                            <div class="fw-semibold">Создать страницу</div>
-                                            <small class="text-muted">Статичная страница</small>
+                                            <div class="fw-semibold"><?php echo LANG_HELPER_QUICKACTIONS_CREATE_PAGE; ?></div>
+                                            <small class="text-muted"><?php echo LANG_HELPER_QUICKACTIONS_CREATE_PAGE_DESC; ?></small>
                                         </div>
                                     </div>
                                 </a>
@@ -113,8 +113,8 @@ class QuickActionsHelper {
                                             <?php echo bloggy_icon('bs', 'folder-plus', '32', '#198754'); ?>
                                         </div>
                                         <div>
-                                            <div class="fw-semibold">Создать категорию</div>
-                                            <small class="text-muted">Группировка постов</small>
+                                            <div class="fw-semibold"><?php echo LANG_HELPER_QUICKACTIONS_CREATE_CATEGORY; ?></div>
+                                            <small class="text-muted"><?php echo LANG_HELPER_QUICKACTIONS_CREATE_CATEGORY_DESC; ?></small>
                                         </div>
                                     </div>
                                 </a>
@@ -129,8 +129,8 @@ class QuickActionsHelper {
                                             <?php echo bloggy_icon('bs', 'tag', '32', '#0dcaf0'); ?>
                                         </div>
                                         <div>
-                                            <div class="fw-semibold">Создать тег</div>
-                                            <small class="text-muted">Метка для постов</small>
+                                            <div class="fw-semibold"><?php echo LANG_HELPER_QUICKACTIONS_CREATE_TAG; ?></div>
+                                            <small class="text-muted"><?php echo LANG_HELPER_QUICKACTIONS_CREATE_TAG_DESC; ?></small>
                                         </div>
                                     </div>
                                 </a>
@@ -145,8 +145,8 @@ class QuickActionsHelper {
                                             <?php echo bloggy_icon('bs', 'person-plus', '32', '#ffc107'); ?>
                                         </div>
                                         <div>
-                                            <div class="fw-semibold">Создать пользователя</div>
-                                            <small class="text-muted">Новый аккаунт</small>
+                                            <div class="fw-semibold"><?php echo LANG_HELPER_QUICKACTIONS_CREATE_USER; ?></div>
+                                            <small class="text-muted"><?php echo LANG_HELPER_QUICKACTIONS_CREATE_USER_DESC; ?></small>
                                         </div>
                                     </div>
                                 </a>
@@ -161,8 +161,8 @@ class QuickActionsHelper {
                                             <?php echo bloggy_icon('bs', 'box', '32', '#dc3545'); ?>
                                         </div>
                                         <div>
-                                            <div class="fw-semibold">Создать контент-блок</div>
-                                            <small class="text-muted">HTML блок</small>
+                                            <div class="fw-semibold"><?php echo LANG_HELPER_QUICKACTIONS_CREATE_CONTENT_BLOCK; ?></div>
+                                            <small class="text-muted"><?php echo LANG_HELPER_QUICKACTIONS_CREATE_CONTENT_BLOCK_DESC; ?></small>
                                         </div>
                                     </div>
                                 </a>
@@ -177,8 +177,8 @@ class QuickActionsHelper {
                                             <?php echo bloggy_icon('bs', 'mailbox', '32', '#b07a1dff'); ?>
                                         </div>
                                         <div>
-                                            <div class="fw-semibold">Создать форму</div>
-                                            <small class="text-muted">С различными полями</small>
+                                            <div class="fw-semibold"><?php echo LANG_HELPER_QUICKACTIONS_CREATE_FORM; ?></div>
+                                            <small class="text-muted"><?php echo LANG_HELPER_QUICKACTIONS_CREATE_FORM_DESC; ?></small>
                                         </div>
                                     </div>
                                 </a>
@@ -187,14 +187,14 @@ class QuickActionsHelper {
 
                             <?php if(SettingsHelper::get('controller_admin', 'add_field') == true) { ?>
                             <div class="col-6">
-                                <a href="<?= ADMIN_URL ?>/forms/create" class="btn btn-outline-secondary w-100 h-100 p-3 text-start quick-action-btn">
+                                <a href="<?= ADMIN_URL ?>/fields/create" class="btn btn-outline-secondary w-100 h-100 p-3 text-start quick-action-btn">
                                     <div class="d-flex align-items-center">
                                         <div class="p-2 rounded me-3">
                                             <?php echo bloggy_icon('bs', 'input-cursor-text', '32', '#2148d5ff'); ?>
                                         </div>
                                         <div>
-                                            <div class="fw-semibold">Создать поле</div>
-                                            <small class="text-muted">Для любого контроллера</small>
+                                            <div class="fw-semibold"><?php echo LANG_HELPER_QUICKACTIONS_CREATE_FIELD; ?></div>
+                                            <small class="text-muted"><?php echo LANG_HELPER_QUICKACTIONS_CREATE_FIELD_DESC; ?></small>
                                         </div>
                                     </div>
                                 </a>
