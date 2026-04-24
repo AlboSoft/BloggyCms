@@ -28,11 +28,11 @@ class FrontShow extends AdminAchievementAction {
                 return;
             }
             
-            $this->addBreadcrumb('Главная', BASE_URL);
-            $this->addBreadcrumb('Участники', BASE_URL . '/users');
-            $this->addBreadcrumb('Ачивки', BASE_URL . '/users/achievements');
+            $this->addBreadcrumb(LANG_ACTION_USERS_FRONTSHOW_BREADCRUMB_HOME, BASE_URL);
+            $this->addBreadcrumb(LANG_ACTION_USERS_FRONTSHOW_BREADCRUMB_USERS, BASE_URL . '/users');
+            $this->addBreadcrumb(LANG_ACTION_USERS_FRONTSHOW_BREADCRUMB_ACHIEVEMENTS, BASE_URL . '/users/achievements');
             $this->addBreadcrumb($achievement['name']);
-            $this->setPageTitle($achievement['name'] . ' — Ачивка');
+            $this->setPageTitle(sprintf(LANG_ACTION_USERS_FRONTSHOW_PAGE_TITLE, $achievement['name']));
             
             $this->enrichAchievementData($achievement, $id);
             
@@ -42,7 +42,7 @@ class FrontShow extends AdminAchievementAction {
             $this->renderAchievementPage($achievement, $usersData, $userHasAchievement);
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при загрузке информации об ачивке');
+            \Notification::error(LANG_ACTION_USERS_FRONTSHOW_ERROR);
             $this->redirect(BASE_URL . '/achievements');
         }
     }
@@ -111,7 +111,7 @@ class FrontShow extends AdminAchievementAction {
                 'total_pages' => $usersData['total_pages']
             ],
             'userHasAchievement' => $userHasAchievement,
-            'pageTitle' => $achievement['name'] . ' - Ачивки'
+            'pageTitle' => sprintf(LANG_ACTION_USERS_FRONTSHOW_RENDER_TITLE, $achievement['name'])
         ]);
     }
 }

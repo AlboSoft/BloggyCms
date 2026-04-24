@@ -14,9 +14,9 @@ class Index extends TagAction {
     */
     public function execute() {
         try {
-            $this->addBreadcrumb('Главная', BASE_URL);
-            $this->addBreadcrumb('Теги');
-            $this->setPageTitle('Все теги');
+            $this->addBreadcrumb(LANG_ACTION_TAGS_INDEX_BREADCRUMB_HOME, BASE_URL);
+            $this->addBreadcrumb(LANG_ACTION_TAGS_INDEX_BREADCRUMB_TAGS);
+            $this->setPageTitle(LANG_ACTION_TAGS_INDEX_PAGE_TITLE);
             
             $page = (int)($_GET['page'] ?? 1);
             

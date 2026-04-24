@@ -1,0 +1,6 @@
+<?php
+
+define('LANG_ACTION_PROFILE_TERMINATESESSION_UNAUTHORIZED', 'Не авторизован');
+define('LANG_ACTION_PROFILE_TERMINATESESSION_INVALID_CSRF', 'Неверный CSRF токен');
+define('LANG_ACTION_PROFILE_TERMINATESESSION_NO_SESSION_ID', 'ID сессии не указан');
+define('LANG_ACTION_PROFILE_TERMINATESESSION_ERROR', 'Не удалось завершить сессию');

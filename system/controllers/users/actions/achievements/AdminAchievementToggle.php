@@ -17,12 +17,12 @@ class AdminAchievementToggle extends AdminAchievementAction {
 
             $id = $this->params['id'] ?? null;
             if (!$id) {
-                throw new \Exception('ID ачивки не указан');
+                throw new \Exception(LANG_ACTION_USERS_ADMINACHIEVEMENTTOGGLE_NO_ID);
             }
             
             $achievement = $this->userModel->getAchievementById($id);
             if (!$achievement) {
-                throw new \Exception('Ачивка не найдена');
+                throw new \Exception(LANG_ACTION_USERS_ADMINACHIEVEMENTTOGGLE_NOT_FOUND);
             }
             
             $newStatus = $achievement['is_active'] ? 0 : 1;
@@ -32,11 +32,11 @@ class AdminAchievementToggle extends AdminAchievementAction {
                 [$newStatus, $id]
             );
             
-            $statusText = $newStatus ? 'активирована' : 'деактивирована';
-            \Notification::success("Ачивка успешно {$statusText}");
+            $statusText = $newStatus ? LANG_ACTION_USERS_ADMINACHIEVEMENTTOGGLE_ACTIVATED : LANG_ACTION_USERS_ADMINACHIEVEMENTTOGGLE_DEACTIVATED;
+            \Notification::success(sprintf(LANG_ACTION_USERS_ADMINACHIEVEMENTTOGGLE_SUCCESS, $statusText));
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при изменении статуса ачивки: ' . $e->getMessage());
+            \Notification::error(sprintf(LANG_ACTION_USERS_ADMINACHIEVEMENTTOGGLE_ERROR, $e->getMessage()));
         }
         
         $this->redirect(ADMIN_URL . '/user-achievements');

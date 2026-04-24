@@ -1,0 +1,21 @@
+<?php
+
+define('LANG_ACTION_SETTINGS_ADMININDEX_BREADCRUMB_DASHBOARD', 'Dashboard');
+define('LANG_ACTION_SETTINGS_ADMININDEX_BREADCRUMB_SETTINGS', 'Settings');
+define('LANG_ACTION_SETTINGS_ADMININDEX_SAVE_SUCCESS', 'Settings saved successfully');
+define('LANG_ACTION_SETTINGS_ADMININDEX_SAVE_ERROR', 'Error saving settings: %s');
+define('LANG_ACTION_SETTINGS_ADMININDEX_CONTROLLER_SAVE_SUCCESS', 'Controller settings saved');
+define('LANG_ACTION_SETTINGS_ADMININDEX_CONTROLLER_SAVE_ERROR', 'Error saving controller settings: %s');
+define('LANG_ACTION_SETTINGS_ADMININDEX_PAGE_TITLE', 'Blog Settings');
+define('LANG_ACTION_SETTINGS_ADMININDEX_LOAD_ERROR', 'Error loading settings: %s');
+define('LANG_ACTION_SETTINGS_ADMININDEX_IMAGE_UPLOAD_ERROR', 'Image upload error for field %s: %s');
+define('LANG_ACTION_SETTINGS_ADMININDEX_IMAGE_DELETE_ERROR', 'Image deletion error for field %s: %s');
+define('LANG_ACTION_SETTINGS_ADMININDEX_INVALID_IMAGE_TYPE', 'Invalid file type. Allowed: JPG, PNG, GIF, WebP');
+define('LANG_ACTION_SETTINGS_ADMININDEX_IMAGE_TOO_LARGE', 'File size must not exceed 5MB');
+define('LANG_ACTION_SETTINGS_ADMININDEX_IMAGE_UPLOAD_FAILED', 'Error uploading file');
+define('LANG_ACTION_SETTINGS_ADMININDEX_FAVICON_INVALID_TYPE', 'Invalid file format. Allowed: ICO, PNG, SVG, JPG, JPEG, GIF, WebP');
+define('LANG_ACTION_SETTINGS_ADMININDEX_UPLOAD_DIR_ERROR', 'Failed to create upload directory');
+define('LANG_ACTION_SETTINGS_ADMININDEX_FAVICON_SAVE_ERROR', 'Error saving file');
+define('LANG_ACTION_SETTINGS_ADMININDEX_FAVICON_SUCCESS', 'Favicon uploaded successfully');
+define('LANG_ACTION_SETTINGS_ADMININDEX_FAVICON_ERROR', 'Favicon upload error: %s');
+define('LANG_ACTION_SETTINGS_ADMININDEX_FAVICON_REMOVED', 'Favicon removed');

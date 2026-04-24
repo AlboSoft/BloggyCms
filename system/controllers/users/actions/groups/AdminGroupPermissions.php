@@ -17,18 +17,18 @@ class AdminGroupPermissions extends AdminGroupAction {
 
             $id = $this->params['id'] ?? null;
             if (!$id) {
-                throw new \Exception('ID группы не указан');
+                throw new \Exception(LANG_ACTION_USERS_ADMINGROUPPERMISSIONS_NO_ID);
             }
 
             $group = $this->userModel->getGroupById($id);
             if (!$group) {
-                throw new \Exception('Группа не найдена');
+                throw new \Exception(LANG_ACTION_USERS_ADMINGROUPPERMISSIONS_GROUP_NOT_FOUND);
             }
 
-            $this->addBreadcrumb('Панель управления', ADMIN_URL);
-            $this->addBreadcrumb('Группы пользователей', ADMIN_URL . '/user-groups');
-            $this->addBreadcrumb('Редактирование: ' . $group['name'], ADMIN_URL . '/user-groups/edit/' . $id);
-            $this->addBreadcrumb('Права доступа');
+            $this->addBreadcrumb(LANG_ACTION_USERS_ADMINGROUPPERMISSIONS_BREADCRUMB_DASHBOARD, ADMIN_URL);
+            $this->addBreadcrumb(LANG_ACTION_USERS_ADMINGROUPPERMISSIONS_BREADCRUMB_GROUPS, ADMIN_URL . '/user-groups');
+            $this->addBreadcrumb(sprintf(LANG_ACTION_USERS_ADMINGROUPPERMISSIONS_BREADCRUMB_EDIT, $group['name']), ADMIN_URL . '/user-groups/edit/' . $id);
+            $this->addBreadcrumb(LANG_ACTION_USERS_ADMINGROUPPERMISSIONS_BREADCRUMB_PERMISSIONS);
 
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $this->handlePostRequest($id);
@@ -54,7 +54,7 @@ class AdminGroupPermissions extends AdminGroupAction {
         
         $this->userModel->updateGroupPermissions($id, $permissions);
         
-        \Notification::success('Права группы обновлены');
+        \Notification::success(LANG_ACTION_USERS_ADMINGROUPPERMISSIONS_SUCCESS);
         $this->redirect(ADMIN_URL . '/user-groups');
     }
     
@@ -71,7 +71,7 @@ class AdminGroupPermissions extends AdminGroupAction {
             'group' => $group,
             'allPermissions' => $allPermissions,
             'groupPermissions' => $groupPermissions,
-            'pageTitle' => 'Управление правами группы'
+            'pageTitle' => LANG_ACTION_USERS_ADMINGROUPPERMISSIONS_PAGE_TITLE
         ]);
     }
 

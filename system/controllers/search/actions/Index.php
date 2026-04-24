@@ -22,9 +22,9 @@ class Index extends SearchAction {
             
             if (empty($query)) {
 
-                $this->addBreadcrumb('Главная', BASE_URL);
-                $this->addBreadcrumb('Поиск');
-                $this->setPageTitle('Поиск по сайту');
+                $this->addBreadcrumb(LANG_ACTION_SEARCH_INDEX_BREADCRUMB_HOME, BASE_URL);
+                $this->addBreadcrumb(LANG_ACTION_SEARCH_INDEX_BREADCRUMB_SEARCH);
+                $this->setPageTitle(LANG_ACTION_SEARCH_INDEX_PAGE_TITLE_EMPTY);
                 
                 $popularQueries = $this->searchModel->getPopularSearchQueries(10);
                 $suggestedSearches = $this->searchModel->getSuggestedSearches(6);
@@ -42,10 +42,10 @@ class Index extends SearchAction {
                 return;
             }
             
-            $this->addBreadcrumb('Главная', BASE_URL);
-            $this->addBreadcrumb('Поиск', BASE_URL . '/search');
-            $this->addBreadcrumb('Результаты поиска: "' . html($query) . '"');
-            $this->setPageTitle('Поиск: ' . html($query));
+            $this->addBreadcrumb(LANG_ACTION_SEARCH_INDEX_BREADCRUMB_HOME, BASE_URL);
+            $this->addBreadcrumb(LANG_ACTION_SEARCH_INDEX_BREADCRUMB_SEARCH, BASE_URL . '/search');
+            $this->addBreadcrumb(sprintf(LANG_ACTION_SEARCH_INDEX_BREADCRUMB_RESULTS, html($query)));
+            $this->setPageTitle(sprintf(LANG_ACTION_SEARCH_INDEX_PAGE_TITLE_RESULTS, html($query)));
             
             $this->searchModel->saveSearchQuery($query);
             $results = $this->searchModel->searchAll($query, $type, $page);
@@ -65,14 +65,14 @@ class Index extends SearchAction {
             
         } catch (\Exception $e) {
             
-            $this->addBreadcrumb('Главная', BASE_URL);
-            $this->addBreadcrumb('Поиск', BASE_URL . '/search');
-            $this->addBreadcrumb('Ошибка поиска');
+            $this->addBreadcrumb(LANG_ACTION_SEARCH_INDEX_BREADCRUMB_HOME, BASE_URL);
+            $this->addBreadcrumb(LANG_ACTION_SEARCH_INDEX_BREADCRUMB_SEARCH, BASE_URL . '/search');
+            $this->addBreadcrumb(LANG_ACTION_SEARCH_INDEX_BREADCRUMB_ERROR);
             
-            $this->setPageTitle('Ошибка поиска');
+            $this->setPageTitle(LANG_ACTION_SEARCH_INDEX_PAGE_TITLE_ERROR);
             
             $this->render('front/search/index', [
-                'error' => 'Произошла ошибка при выполнении поиска. Пожалуйста, попробуйте позже.',
+                'error' => LANG_ACTION_SEARCH_INDEX_ERROR_MESSAGE,
                 'query' => $_GET['q'] ?? '',
                 'popularQueries' => $this->searchModel->getPopularSearchQueries(10),
                 'suggestedSearches' => $this->searchModel->getSuggestedSearches(6)

@@ -1,0 +1,34 @@
+<?php
+
+define('LANG_TEMPLATE_POSTS_INDEX_TITLE', 'Посты');
+define('LANG_TEMPLATE_POSTS_INDEX_POST_BLOCKS_BTN', 'Пост-блоки');
+define('LANG_TEMPLATE_POSTS_INDEX_CUSTOM_FIELDS_BTN', 'Дополнительные поля');
+define('LANG_TEMPLATE_POSTS_INDEX_CATEGORIES_BTN', 'Категории');
+define('LANG_TEMPLATE_POSTS_INDEX_CREATE_BTN', 'Создать пост');
+define('LANG_TEMPLATE_POSTS_INDEX_FILTER_CATEGORY_LABEL', 'Категория');
+define('LANG_TEMPLATE_POSTS_INDEX_FILTER_ALL_CATEGORIES', 'Все категории');
+define('LANG_TEMPLATE_POSTS_INDEX_FILTER_STATUS_LABEL', 'Статус');
+define('LANG_TEMPLATE_POSTS_INDEX_FILTER_ALL_STATUSES', 'Все статусы');
+define('LANG_TEMPLATE_POSTS_INDEX_FILTER_PUBLISHED', 'Опубликованные');
+define('LANG_TEMPLATE_POSTS_INDEX_FILTER_DRAFT', 'Черновики');
+define('LANG_TEMPLATE_POSTS_INDEX_FILTER_APPLY_BTN', 'Применить фильтр');
+define('LANG_TEMPLATE_POSTS_INDEX_EMPTY_TITLE', 'Посты не найдены');
+define('LANG_TEMPLATE_POSTS_INDEX_EMPTY_HINT', 'Попробуйте изменить параметры фильтра');
+define('LANG_TEMPLATE_POSTS_INDEX_TABLE_TITLE', 'Заголовок');
+define('LANG_TEMPLATE_POSTS_INDEX_TABLE_CATEGORY', 'Категория');
+define('LANG_TEMPLATE_POSTS_INDEX_TABLE_STATUS', 'Статус');
+define('LANG_TEMPLATE_POSTS_INDEX_TABLE_VIEWS', 'Просмотры');
+define('LANG_TEMPLATE_POSTS_INDEX_TABLE_LIKES', 'Лайки');
+define('LANG_TEMPLATE_POSTS_INDEX_TABLE_DATE', 'Дата создания');
+define('LANG_TEMPLATE_POSTS_INDEX_TABLE_ACTIONS', 'Действия');
+define('LANG_TEMPLATE_POSTS_INDEX_PASSWORD_PROTECTED_TITLE', 'Защищено паролем');
+define('LANG_TEMPLATE_POSTS_INDEX_STATUS_PUBLISHED', 'Опубликован');
+define('LANG_TEMPLATE_POSTS_INDEX_STATUS_DRAFT', 'Черновик');
+define('LANG_TEMPLATE_POSTS_INDEX_ACTION_VIEW_TITLE', 'Просмотр');
+define('LANG_TEMPLATE_POSTS_INDEX_ACTION_MOVE_TO_DRAFT_TITLE', 'Переместить в черновики');
+define('LANG_TEMPLATE_POSTS_INDEX_ACTION_PUBLISH_TITLE', 'Опубликовать');
+define('LANG_TEMPLATE_POSTS_INDEX_ACTION_EDIT_TITLE', 'Редактировать');
+define('LANG_TEMPLATE_POSTS_INDEX_ACTION_DELETE_TITLE', 'Удалить');
+define('LANG_TEMPLATE_POSTS_INDEX_CONFIRM_MOVE_TO_DRAFT', 'Переместить пост в черновики?');
+define('LANG_TEMPLATE_POSTS_INDEX_CONFIRM_PUBLISH', 'Опубликовать пост?');
+define('LANG_TEMPLATE_POSTS_INDEX_CONFIRM_DELETE', 'Вы уверены, что хотите удалить этот пост?');

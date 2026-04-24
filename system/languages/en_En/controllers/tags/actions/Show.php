@@ -1,0 +1,8 @@
+<?php
+
+define('LANG_ACTION_TAGS_SHOW_TAG_NOT_FOUND', 'Tag not found');
+define('LANG_ACTION_TAGS_SHOW_BREADCRUMB_HOME', 'Home');
+define('LANG_ACTION_TAGS_SHOW_BREADCRUMB_TAGS', 'Tags');
+define('LANG_ACTION_TAGS_SHOW_BREADCRUMB_TAG', 'Tag: %s');
+define('LANG_ACTION_TAGS_SHOW_PAGE_TITLE', 'Tag: %s');
+define('LANG_ACTION_TAGS_SHOW_ERROR', 'Error loading tag');

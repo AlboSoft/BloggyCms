@@ -17,10 +17,10 @@ class AdminClear extends SearchAction {
 
             $this->searchModel->clearSearchHistory();
             
-            \Notification::success('История поисковых запросов успешно очищена');
+            \Notification::success(LANG_ACTION_SEARCH_ADMINCLEAR_SUCCESS);
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при очистке истории поисковых запросов');
+            \Notification::error(LANG_ACTION_SEARCH_ADMINCLEAR_ERROR);
         }
         
         $this->redirect(ADMIN_URL . '/search-history');

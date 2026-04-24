@@ -1,8 +1,8 @@
 <?php
 return [
-    'name' => 'SEO Модуль',
+    'name' => LANG_CONTROLLER_SEO_MANIFEST_NAME,
     'author' => 'BloggyCMS',
     'version' => '1.0.0',
     'has_settings' => false,
-    'description' => 'Управление robots.txt, sitemap.xml и RSS-лентами'
+    'description' => LANG_CONTROLLER_SEO_MANIFEST_DESCRIPTION
 ];

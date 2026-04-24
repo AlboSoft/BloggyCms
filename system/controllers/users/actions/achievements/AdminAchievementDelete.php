@@ -17,12 +17,12 @@ class AdminAchievementDelete extends AdminAchievementAction {
 
             $id = $this->params['id'] ?? null;
             if (!$id) {
-                throw new \Exception('ID ачивки не указан');
+                throw new \Exception(LANG_ACTION_USERS_ADMINACHIEVEMENTDELETE_NO_ID);
             }
             
             $achievement = $this->userModel->getAchievementById($id);
             if (!$achievement) {
-                throw new \Exception('Ачивка не найдена');
+                throw new \Exception(LANG_ACTION_USERS_ADMINACHIEVEMENTDELETE_NOT_FOUND);
             }
             
             if (!empty($achievement['image'])) {
@@ -35,10 +35,10 @@ class AdminAchievementDelete extends AdminAchievementAction {
             
             $this->userModel->deleteAchievement($id);
             
-            \Notification::success('Ачивка успешно удалена');
+            \Notification::success(LANG_ACTION_USERS_ADMINACHIEVEMENTDELETE_SUCCESS);
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при удалении ачивки: ' . $e->getMessage());
+            \Notification::error(sprintf(LANG_ACTION_USERS_ADMINACHIEVEMENTDELETE_ERROR, $e->getMessage()));
         }
         
         $this->redirect(ADMIN_URL . '/user-achievements');

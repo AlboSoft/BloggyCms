@@ -17,7 +17,7 @@ class AdminCleanupBackups extends SettingsAction {
         
         $deletedCount = \BackupHelper::cleanupAllBackups();
         
-        \Notification::success("Удалено резервных копий: {$deletedCount}");
+        \Notification::success(sprintf(LANG_ACTION_SETTINGS_ADMINCLEANUPBACKUPS_SUCCESS, $deletedCount));
         
         $this->redirect(ADMIN_URL . '/settings?tab=site');
     }

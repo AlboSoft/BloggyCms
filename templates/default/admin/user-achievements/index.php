@@ -2,12 +2,12 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h4 class="mb-0">
             <?php echo bloggy_icon('bs', 'trophy', '24', '#000', 'me-2'); ?>
-            Управление ачивками
+            <?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_INDEX_TITLE; ?>
         </h4>
         <div class="d-flex gap-2">
             <a href="<?php echo ADMIN_URL; ?>/user-achievements/create" class="btn btn-primary">
                 <?php echo bloggy_icon('bs', 'plus-lg', '20', '#fff', 'me-2'); ?>
-                Добавить ачивку
+                <?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_INDEX_ADD_BTN; ?>
             </a>
         </div>
     </div>
@@ -16,22 +16,22 @@
         <div class="card-body">
             <form method="get" class="row g-3 align-items-end">
                 <div class="col-md-4">
-                    <label class="form-label">Тип ачивки</label>
+                    <label class="form-label"><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_INDEX_FILTER_TYPE_LABEL; ?></label>
                     <select name="type" class="form-select">
-                        <option value="">Все типы</option>
-                        <option value="auto" <?php echo ($_GET['type'] ?? '') == 'auto' ? 'selected' : ''; ?>>Автоматические</option>
-                        <option value="manual" <?php echo ($_GET['type'] ?? '') == 'manual' ? 'selected' : ''; ?>>Ручные</option>
+                        <option value=""><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_INDEX_FILTER_ALL_TYPES; ?></option>
+                        <option value="auto" <?php echo ($_GET['type'] ?? '') == 'auto' ? 'selected' : ''; ?>><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_INDEX_FILTER_AUTO; ?></option>
+                        <option value="manual" <?php echo ($_GET['type'] ?? '') == 'manual' ? 'selected' : ''; ?>><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_INDEX_FILTER_MANUAL; ?></option>
                     </select>
                 </div>
                 <div class="col-md-4">
-                    <label class="form-label">Поиск</label>
-                    <input type="text" name="search" class="form-control" placeholder="Название ачивки..." 
+                    <label class="form-label"><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_INDEX_FILTER_SEARCH_LABEL; ?></label>
+                    <input type="text" name="search" class="form-control" placeholder="<?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_INDEX_FILTER_SEARCH_PLACEHOLDER; ?>" 
                         value="<?php echo html($_GET['search'] ?? ''); ?>">
                 </div>
                 <div class="col-md-4">
                     <button type="submit" class="btn btn-primary w-100">
                         <?php echo bloggy_icon('bs', 'funnel', '18', '#fff', 'me-2'); ?>
-                        Применить фильтр
+                        <?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_INDEX_FILTER_APPLY_BTN; ?>
                     </button>
                 </div>
             </form>
@@ -45,11 +45,11 @@
                     <div class="mb-3">
                         <?php echo bloggy_icon('bs', 'trophy', '48', '#838383'); ?>
                     </div>
-                    <h5 class="text-muted">Ачивки не найдены</h5>
-                    <p class="text-muted">Создайте первую ачивку для пользователей</p>
+                    <h5 class="text-muted"><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_INDEX_EMPTY_TITLE; ?></h5>
+                    <p class="text-muted"><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_INDEX_EMPTY_HINT; ?></p>
                     <a href="<?php echo ADMIN_URL; ?>/user-achievements/create" class="btn btn-primary">
                         <?php echo bloggy_icon('bs', 'plus-lg', '20', '#fff', 'me-2'); ?>
-                        Создать ачивку
+                        <?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_INDEX_CREATE_BTN; ?>
                     </a>
                 </div>
             <?php } else { ?>
@@ -58,11 +58,11 @@
                         <thead class="table-light">
                             <tr>
                                 <th width="50"></th>
-                                <th>Ачивка</th>
-                                <th>Условия</th>
-                                <th>Получили</th>
-                                <th>Статус</th>
-                                <th class="text-end">Действия</th>
+                                <th><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_INDEX_TABLE_ACHIEVEMENT; ?></th>
+                                <th><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_INDEX_TABLE_CONDITIONS; ?></th>
+                                <th><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_INDEX_TABLE_UNLOCKED; ?></th>
+                                <th><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_INDEX_TABLE_STATUS; ?></th>
+                                <th class="text-end"><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_INDEX_TABLE_ACTIONS; ?></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -88,7 +88,7 @@
                                         <div>
                                             <strong><?php echo html($achievement['name']); ?></strong>
                                             <?php if ($achievement['type'] == 'manual') { ?>
-                                                <span class="badge bg-warning ms-2">Ручная</span>
+                                                <span class="badge bg-warning ms-2"><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_INDEX_MANUAL_BADGE; ?></span>
                                             <?php } ?>
                                         </div>
                                         <?php if ($achievement['description']) { ?>
@@ -103,16 +103,16 @@
                                                     $conditionText = '';
                                                     switch($condition['condition_type']) {
                                                         case 'registration_days':
-                                                            $conditionText = 'Дней с регистрации';
+                                                            $conditionText = LANG_TEMPLATE_USERS_ACHIEVEMENT_INDEX_CONDITION_REGISTRATION_DAYS;
                                                             break;
                                                         case 'comments_count':
-                                                            $conditionText = 'Комментариев';
+                                                            $conditionText = LANG_TEMPLATE_USERS_ACHIEVEMENT_INDEX_CONDITION_COMMENTS_COUNT;
                                                             break;
                                                         case 'posts_count':
-                                                            $conditionText = 'Постов';
+                                                            $conditionText = LANG_TEMPLATE_USERS_ACHIEVEMENT_INDEX_CONDITION_POSTS_COUNT;
                                                             break;
                                                         case 'login_days':
-                                                            $conditionText = 'Дней входа';
+                                                            $conditionText = LANG_TEMPLATE_USERS_ACHIEVEMENT_INDEX_CONDITION_LOGIN_DAYS;
                                                             break;
                                                     }
                                                     ?>
@@ -124,37 +124,37 @@
                                                 <?php } ?>
                                             </div>
                                         <?php } else { ?>
-                                            <span class="text-muted">Без условий</span>
+                                            <span class="text-muted"><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_INDEX_NO_CONDITIONS; ?></span>
                                         <?php } ?>
                                     </td>
                                     <td>
                                         <span class="badge bg-secondary">
-                                            <?php echo $achievement['unlocked_count'] ?? 0; ?> пользователей
+                                            <?php echo $achievement['unlocked_count'] ?? 0; ?> <?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_INDEX_USERS; ?>
                                         </span>
                                     </td>
                                     <td>
                                         <span class="badge bg-<?php echo $achievement['is_active'] ? 'success' : 'secondary'; ?>">
-                                            <?php echo $achievement['is_active'] ? 'Активна' : 'Неактивна'; ?>
+                                            <?php echo $achievement['is_active'] ? LANG_TEMPLATE_USERS_ACHIEVEMENT_INDEX_ACTIVE : LANG_TEMPLATE_USERS_ACHIEVEMENT_INDEX_INACTIVE; ?>
                                         </span>
                                     </td>
                                     <td>
                                         <div class="d-flex justify-content-end gap-1">
                                             <a href="<?php echo ADMIN_URL; ?>/user-achievements/toggle/<?php echo $achievement['id']; ?>" 
                                                class="btn btn-sm btn-outline-<?php echo $achievement['is_active'] ? 'warning' : 'success'; ?>"
-                                               title="<?php echo $achievement['is_active'] ? 'Деактивировать' : 'Активировать'; ?>">
+                                               title="<?php echo $achievement['is_active'] ? LANG_TEMPLATE_USERS_ACHIEVEMENT_INDEX_DEACTIVATE_TITLE : LANG_TEMPLATE_USERS_ACHIEVEMENT_INDEX_ACTIVATE_TITLE; ?>">
                                                 <?php echo bloggy_icon('bs', $achievement['is_active'] ? 'pause' : 'play', '16', '#000'); ?>
                                             </a>
                                             
                                             <a href="<?php echo ADMIN_URL; ?>/user-achievements/edit/<?php echo $achievement['id']; ?>" 
                                                class="btn btn-sm btn-outline-primary"
-                                               title="Редактировать">
+                                               title="<?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_INDEX_EDIT_TITLE; ?>">
                                                 <?php echo bloggy_icon('bs', 'pencil', '16', '#000'); ?>
                                             </a>
                                             
                                             <a href="<?php echo ADMIN_URL; ?>/user-achievements/delete/<?php echo $achievement['id']; ?>" 
                                                class="btn btn-sm btn-outline-danger"
-                                               onclick="return confirm('Вы уверены, что хотите удалить эту ачивку?')"
-                                               title="Удалить">
+                                               onclick="return confirm('<?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_INDEX_DELETE_CONFIRM; ?>')"
+                                               title="<?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_INDEX_DELETE_TITLE; ?>">
                                                 <?php echo bloggy_icon('bs', 'trash', '16', '#000'); ?>
                                             </a>
                                         </div>

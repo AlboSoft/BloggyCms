@@ -2,24 +2,24 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h4 class="mb-0">
             <?php echo bloggy_icon('bs', 'file-text', '24', '#000', 'me-2'); ?>
-            Посты
+            <?php echo LANG_TEMPLATE_POSTS_INDEX_TITLE; ?>
         </h4>
         <div class="d-flex gap-2">
             <a href="<?php echo ADMIN_URL; ?>/post-blocks" class="btn btn-outline-secondary">
                 <?php echo bloggy_icon('bs', 'bricks', '20', '#2c2c2c', 'me-2'); ?>
-                Пост-блоки
+                <?php echo LANG_TEMPLATE_POSTS_INDEX_POST_BLOCKS_BTN; ?>
             </a>
             <a href="<?php echo ADMIN_URL; ?>/fields/entity/post" class="btn btn-outline-secondary">
                 <?php echo bloggy_icon('bs', 'input-cursor-text', '20', '#2c2c2c', 'me-2'); ?>
-                Дополнительные поля
+                <?php echo LANG_TEMPLATE_POSTS_INDEX_CUSTOM_FIELDS_BTN; ?>
             </a>
             <a href="<?php echo ADMIN_URL; ?>/categories" class="btn btn-outline-secondary">
                 <?php echo bloggy_icon('bs', 'folder', '20', '#2c2c2c', 'me-2'); ?>
-                Категории
+                <?php echo LANG_TEMPLATE_POSTS_INDEX_CATEGORIES_BTN; ?>
             </a>
             <a href="<?php echo ADMIN_URL; ?>/posts/create" class="btn btn-primary">
                 <?php echo bloggy_icon('bs', 'plus-lg', '16', '#fff', 'me-2'); ?>
-                Создать пост
+                <?php echo LANG_TEMPLATE_POSTS_INDEX_CREATE_BTN; ?>
             </a>
         </div>
     </div>
@@ -35,9 +35,9 @@
         <div class="card-body">
             <form method="get" class="row g-3 align-items-end">
                 <div class="col-md-4">
-                    <label class="form-label">Категория</label>
+                    <label class="form-label"><?php echo LANG_TEMPLATE_POSTS_INDEX_FILTER_CATEGORY_LABEL; ?></label>
                     <select name="category" class="form-select">
-                        <option value="">Все категории</option>
+                        <option value=""><?php echo LANG_TEMPLATE_POSTS_INDEX_FILTER_ALL_CATEGORIES; ?></option>
                         <?php 
                         $selectedCategory = $_GET['category'] ?? '';
                         foreach ($allCategories as $cat) { 
@@ -49,17 +49,17 @@
                     </select>
                 </div>
                 <div class="col-md-4">
-                    <label class="form-label">Статус</label>
+                    <label class="form-label"><?php echo LANG_TEMPLATE_POSTS_INDEX_FILTER_STATUS_LABEL; ?></label>
                     <select name="status" class="form-select">
-                        <option value="">Все статусы</option>
-                        <option value="published" <?php echo ($_GET['status'] ?? '') == 'published' ? 'selected' : ''; ?>>Опубликованные</option>
-                        <option value="draft" <?php echo ($_GET['status'] ?? '') == 'draft' ? 'selected' : ''; ?>>Черновики</option>
+                        <option value=""><?php echo LANG_TEMPLATE_POSTS_INDEX_FILTER_ALL_STATUSES; ?></option>
+                        <option value="published" <?php echo ($_GET['status'] ?? '') == 'published' ? 'selected' : ''; ?>><?php echo LANG_TEMPLATE_POSTS_INDEX_FILTER_PUBLISHED; ?></option>
+                        <option value="draft" <?php echo ($_GET['status'] ?? '') == 'draft' ? 'selected' : ''; ?>><?php echo LANG_TEMPLATE_POSTS_INDEX_FILTER_DRAFT; ?></option>
                     </select>
                 </div>
                 <div class="col-md-4">
                     <button type="submit" class="btn btn-primary w-100">
                         <?php echo bloggy_icon('bs', 'funnel', '16', '#fff', 'me-2'); ?>
-                        Применить фильтр
+                        <?php echo LANG_TEMPLATE_POSTS_INDEX_FILTER_APPLY_BTN; ?>
                     </button>
                 </div>
             </form>
@@ -74,11 +74,11 @@
                     <div class="mb-3">
                         <?php echo bloggy_icon('bs', 'file-text', '48', '#6C6C6C'); ?>
                     </div>
-                    <h5 class="text-muted">Посты не найдены</h5>
-                    <p class="text-muted">Попробуйте изменить параметры фильтра</p>
+                    <h5 class="text-muted"><?php echo LANG_TEMPLATE_POSTS_INDEX_EMPTY_TITLE; ?></h5>
+                    <p class="text-muted"><?php echo LANG_TEMPLATE_POSTS_INDEX_EMPTY_HINT; ?></p>
                     <a href="<?php echo ADMIN_URL; ?>/posts/create" class="btn btn-primary">
                         <?php echo bloggy_icon('bs', 'plus-lg', '16', '#fff', 'me-2'); ?>
-                        Создать пост
+                        <?php echo LANG_TEMPLATE_POSTS_INDEX_CREATE_BTN; ?>
                     </a>
                 </div>
             <?php } else { ?>
@@ -86,13 +86,13 @@
                     <table class="table table-hover align-middle">
                         <thead class="table-light">
                             <tr>
-                                <th>Заголовок</th>
-                                <th>Категория</th>
-                                <th>Статус</th>
-                                <th>Просмотры</th>
-                                <th>Лайки</th>
-                                <th>Дата создания</th>
-                                <th class="text-end">Действия</th>
+                                <th><?php echo LANG_TEMPLATE_POSTS_INDEX_TABLE_TITLE; ?></th>
+                                <th><?php echo LANG_TEMPLATE_POSTS_INDEX_TABLE_CATEGORY; ?></th>
+                                <th><?php echo LANG_TEMPLATE_POSTS_INDEX_TABLE_STATUS; ?></th>
+                                <th><?php echo LANG_TEMPLATE_POSTS_INDEX_TABLE_VIEWS; ?></th>
+                                <th><?php echo LANG_TEMPLATE_POSTS_INDEX_TABLE_LIKES; ?></th>
+                                <th><?php echo LANG_TEMPLATE_POSTS_INDEX_TABLE_DATE; ?></th>
+                                <th class="text-end"><?php echo LANG_TEMPLATE_POSTS_INDEX_TABLE_ACTIONS; ?></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -114,7 +114,7 @@
                                         <div>
                                             <strong><?php echo html($post['title']); ?></strong>
                                             <?php if ($post['password_protected']) { ?>
-                                                <span class="badge bg-warning ms-2" title="Защищено паролем">
+                                                <span class="badge bg-warning ms-2" title="<?php echo LANG_TEMPLATE_POSTS_INDEX_PASSWORD_PROTECTED_TITLE; ?>">
                                                     <?php echo bloggy_icon('bs', 'lock', '12', '#000'); ?>
                                                 </span>
                                             <?php } ?>
@@ -132,7 +132,7 @@
                                 </td>
                                 <td>
                                     <span class="badge bg-<?php echo $post['status'] === 'published' ? 'success' : 'warning'; ?>">
-                                        <?php echo $post['status'] === 'published' ? 'Опубликован' : 'Черновик'; ?>
+                                        <?php echo $post['status'] === 'published' ? LANG_TEMPLATE_POSTS_INDEX_STATUS_PUBLISHED : LANG_TEMPLATE_POSTS_INDEX_STATUS_DRAFT; ?>
                                     </span>
                                 </td>
                                 <td>
@@ -162,33 +162,33 @@
                                         <a href="<?php echo BASE_URL; ?>/post/<?php echo $post['slug']; ?>" 
                                            class="btn btn-sm btn-outline-secondary" 
                                            target="_blank"
-                                           title="Просмотр">
+                                           title="<?php echo LANG_TEMPLATE_POSTS_INDEX_ACTION_VIEW_TITLE; ?>">
                                             <?php echo bloggy_icon('bs', 'eye', '14', '#000'); ?>
                                         </a>
                                         <?php if ($post['status'] === 'published') { ?>
                                             <a href="<?php echo ADMIN_URL; ?>/posts/toggle-status/<?php echo $post['id']; ?>" 
                                                class="btn btn-sm btn-outline-warning"
-                                               title="Переместить в черновики"
-                                               onclick="return confirm('Переместить пост в черновики?')">
+                                               title="<?php echo LANG_TEMPLATE_POSTS_INDEX_ACTION_MOVE_TO_DRAFT_TITLE; ?>"
+                                               onclick="return confirm('<?php echo LANG_TEMPLATE_POSTS_INDEX_CONFIRM_MOVE_TO_DRAFT; ?>')">
                                                 <?php echo bloggy_icon('bs', 'archive', '14', '#000'); ?>
                                             </a>
                                         <?php } else { ?>
                                             <a href="<?php echo ADMIN_URL; ?>/posts/toggle-status/<?php echo $post['id']; ?>" 
                                                class="btn btn-sm btn-outline-success"
-                                               title="Опубликовать"
-                                               onclick="return confirm('Опубликовать пост?')">
+                                               title="<?php echo LANG_TEMPLATE_POSTS_INDEX_ACTION_PUBLISH_TITLE; ?>"
+                                               onclick="return confirm('<?php echo LANG_TEMPLATE_POSTS_INDEX_CONFIRM_PUBLISH; ?>')">
                                                 <?php echo bloggy_icon('bs', 'check-lg', '14', '#000'); ?>
                                             </a>
                                         <?php } ?>
                                         <a href="<?php echo ADMIN_URL; ?>/posts/edit/<?php echo $post['id']; ?>" 
                                            class="btn btn-sm btn-outline-primary"
-                                           title="Редактировать">
+                                           title="<?php echo LANG_TEMPLATE_POSTS_INDEX_ACTION_EDIT_TITLE; ?>">
                                             <?php echo bloggy_icon('bs', 'pencil', '14', '#000'); ?>
                                         </a>
                                         <a href="<?php echo ADMIN_URL; ?>/posts/delete/<?php echo $post['id']; ?>" 
                                            class="btn btn-sm btn-outline-danger"
-                                           onclick="return confirm('Вы уверены, что хотите удалить этот пост?')"
-                                           title="Удалить">
+                                           onclick="return confirm('<?php echo LANG_TEMPLATE_POSTS_INDEX_CONFIRM_DELETE; ?>')"
+                                           title="<?php echo LANG_TEMPLATE_POSTS_INDEX_ACTION_DELETE_TITLE; ?>">
                                             <?php echo bloggy_icon('bs', 'trash', '14', '#000'); ?>
                                         </a>
                                     </div>

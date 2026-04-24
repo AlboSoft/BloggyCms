@@ -14,15 +14,15 @@ class AdminIndex extends UserAction {
     */
     public function execute() {
 
-        $this->addBreadcrumb('Панель управления', ADMIN_URL);
-        $this->addBreadcrumb('Пользователи');
+        $this->addBreadcrumb(LANG_ACTION_USERS_ADMININDEX_BREADCRUMB_DASHBOARD, ADMIN_URL);
+        $this->addBreadcrumb(LANG_ACTION_USERS_ADMININDEX_BREADCRUMB_USERS);
         
         try {
 
             $hints = [
-                "Создайте группы пользователей для гибкого разграничения прав",
-                "Добавьте дополнительные поля для профилей - создавайте целые анкеты для сбора важной информации о пользователях",
-                "Вы можете заблокировать (забанить) пользователя прямо в общем списке ниже",
+                LANG_ACTION_USERS_ADMININDEX_HINT_1,
+                LANG_ACTION_USERS_ADMININDEX_HINT_2,
+                LANG_ACTION_USERS_ADMININDEX_HINT_3,
             ];
             
             $randomHint = $hints[array_rand($hints)];
@@ -49,11 +49,11 @@ class AdminIndex extends UserAction {
                 'users' => $users,
                 'allGroups' => $allGroups,
                 'randomHint' => $randomHint,
-                'pageTitle' => 'Управление пользователями'
+                'pageTitle' => LANG_ACTION_USERS_ADMININDEX_PAGE_TITLE
             ]);
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при загрузке списка пользователей');
+            \Notification::error(LANG_ACTION_USERS_ADMININDEX_ERROR);
             $this->redirect(ADMIN_URL);
         }
     }
@@ -89,7 +89,7 @@ class AdminIndex extends UserAction {
     private function isUserAdmin($user) {
         if (!empty($user['groups'])) {
             foreach ($user['groups'] as $group) {
-                if (isset($group['name']) && $group['name'] === 'Администраторы') {
+                if (isset($group['name']) && $group['name'] === LANG_ACTION_USERS_ADMININDEX_ADMIN_GROUP_NAME) {
                     return true;
                 }
 

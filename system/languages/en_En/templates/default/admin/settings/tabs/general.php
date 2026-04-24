@@ -1,0 +1,34 @@
+<?php
+
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_SITE_NAME_LABEL', 'Site Name');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_SITE_NAME_PLACEHOLDER', 'Enter site name');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_SITE_NAME_HINT', 'Displayed in page title');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_SITE_TAGLINE_LABEL', 'Site Tagline');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_SITE_TAGLINE_PLACEHOLDER', 'Brief description of your blog');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_SITE_TAGLINE_HINT', 'A short slogan describing your blog. By default not displayed anywhere, but you can add it to your template manually.');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_FAVICON_TITLE', 'Site Favicon');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_FAVICON_UPLOAD_LABEL', 'Upload icon');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_FAVICON_HINT', 'Allowed formats: ICO, PNG, SVG, JPG, JPEG, GIF, WebP. Recommended size: 32x32 pixels');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_FAVICON_CURRENT_LABEL', 'Current icon:');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_FAVICON_VIEW_BTN', 'View');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_FAVICON_REMOVE_BTN', 'Remove');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_FAVICON_PREVIEW_LABEL', 'Preview:');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_FAVICON_NOT_SELECTED', 'Not selected');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_SITE_DESCRIPTION_LABEL', 'Homepage Site Description');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_SITE_DESCRIPTION_PLACEHOLDER', 'Detailed description of your blog for search engines');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_SITE_DESCRIPTION_HINT', 'This description will be used in the meta description tag for the homepage. Descriptions on all other pages will be generated from controller settings');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_CONTACT_EMAIL_LABEL', 'Contact email');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_CONTACT_EMAIL_HINT', 'Email for feedback');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_LANGUAGE_REGION_TITLE', 'Language and Region');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_DATE_TIME_FORMAT_LABEL', 'Date and Time Format');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_SEO_SETTINGS_TITLE', 'Basic SEO Settings');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_KEYWORDS_LABEL', 'Keywords');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_KEYWORDS_PLACEHOLDER', 'keywords, separated, by, commas');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_KEYWORDS_HINT', 'Keywords for meta keywords tag');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_SITE_AUTHOR_LABEL', 'Site Developer');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_SITE_AUTHOR_PLACEHOLDER', 'Author or company name');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_SYSTEM_SETTINGS_TITLE', 'System Settings');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_MAINTENANCE_MODE_LABEL', 'Maintenance Mode');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_MAINTENANCE_MODE_HINT', 'When enabled, the site will be unavailable to regular visitors');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_MAINTENANCE_MESSAGE_LABEL', 'Maintenance Mode Message');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_MAINTENANCE_MESSAGE_PLACEHOLDER', 'Site temporarily unavailable. Maintenance in progress.');

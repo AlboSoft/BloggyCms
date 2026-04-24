@@ -1,0 +1,5 @@
+<?php
+
+define('LANG_ACTION_PROFILE_INDEX_BREADCRUMB_HOME', 'Главная');
+define('LANG_ACTION_PROFILE_INDEX_BREADCRUMB_PROFILE', 'Профиль');
+define('LANG_ACTION_PROFILE_INDEX_PAGE_TITLE', 'Профиль: %s');

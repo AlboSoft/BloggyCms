@@ -15,7 +15,7 @@ class Delete extends ProfileAction {
         if (!isset($_SESSION['user_id'])) {
             http_response_code(401);
             header('Content-Type: application/json');
-            echo json_encode(['success' => false, 'message' => 'Не авторизован']);
+            echo json_encode(['success' => false, 'message' => LANG_ACTION_PROFILE_DELETE_UNAUTHORIZED]);
             return;
         }
         
@@ -25,7 +25,7 @@ class Delete extends ProfileAction {
         
         if (!$this->validateCsrfToken($csrfToken)) {
             header('Content-Type: application/json');
-            echo json_encode(['success' => false, 'message' => 'Неверный CSRF токен']);
+            echo json_encode(['success' => false, 'message' => LANG_ACTION_PROFILE_DELETE_INVALID_CSRF]);
             return;
         }
         
@@ -34,7 +34,7 @@ class Delete extends ProfileAction {
         $user = $this->userModel->getById($userId);
         if (!$user || !password_verify($password, $user['password'])) {
             header('Content-Type: application/json');
-            echo json_encode(['success' => false, 'message' => 'Неверный пароль']);
+            echo json_encode(['success' => false, 'message' => LANG_ACTION_PROFILE_DELETE_INVALID_PASSWORD]);
             return;
         }
         
@@ -44,7 +44,7 @@ class Delete extends ProfileAction {
             );
             if ($adminsCount <= 1) {
                 header('Content-Type: application/json');
-                echo json_encode(['success' => false, 'message' => 'Нельзя удалить последнего администратора']);
+                echo json_encode(['success' => false, 'message' => LANG_ACTION_PROFILE_DELETE_LAST_ADMIN]);
                 return;
             }
         }
@@ -57,7 +57,7 @@ class Delete extends ProfileAction {
             echo json_encode(['success' => true]);
         } else {
             header('Content-Type: application/json');
-            echo json_encode(['success' => false, 'message' => 'Ошибка при удалении аккаунта']);
+            echo json_encode(['success' => false, 'message' => LANG_ACTION_PROFILE_DELETE_ERROR]);
         }
     }
     

@@ -1,0 +1,17 @@
+<?php
+
+define('LANG_TEMPLATE_USERS_GROUPS_INDEX_TITLE', 'Группы пользователей');
+define('LANG_TEMPLATE_USERS_GROUPS_INDEX_ADD_BTN', 'Добавить группу');
+define('LANG_TEMPLATE_USERS_GROUPS_INDEX_EMPTY_TITLE', 'Группы не найдены');
+define('LANG_TEMPLATE_USERS_GROUPS_INDEX_EMPTY_HINT', 'Создайте первую группу пользователей');
+define('LANG_TEMPLATE_USERS_GROUPS_INDEX_TABLE_NAME', 'Название');
+define('LANG_TEMPLATE_USERS_GROUPS_INDEX_TABLE_DESCRIPTION', 'Описание');
+define('LANG_TEMPLATE_USERS_GROUPS_INDEX_TABLE_USERS', 'Пользователей');
+define('LANG_TEMPLATE_USERS_GROUPS_INDEX_TABLE_DEFAULT', 'По умолчанию');
+define('LANG_TEMPLATE_USERS_GROUPS_INDEX_TABLE_ACTIONS', 'Действия');
+define('LANG_TEMPLATE_USERS_GROUPS_INDEX_YES', 'Да');
+define('LANG_TEMPLATE_USERS_GROUPS_INDEX_NO', 'Нет');
+define('LANG_TEMPLATE_USERS_GROUPS_INDEX_PERMISSIONS_TITLE', 'Права доступа');
+define('LANG_TEMPLATE_USERS_GROUPS_INDEX_EDIT_TITLE', 'Редактировать');
+define('LANG_TEMPLATE_USERS_GROUPS_INDEX_DELETE_TITLE', 'Удалить');
+define('LANG_TEMPLATE_USERS_GROUPS_INDEX_DELETE_CONFIRM', 'Вы уверены, что хотите удалить эту группу?');

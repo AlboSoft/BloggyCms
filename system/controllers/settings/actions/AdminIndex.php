@@ -14,8 +14,8 @@ class AdminIndex extends SettingsAction {
     */
     public function execute() {
 
-        $this->addBreadcrumb('Панель управления', ADMIN_URL);
-        $this->addBreadcrumb('Настройки');
+        $this->addBreadcrumb(LANG_ACTION_SETTINGS_ADMININDEX_BREADCRUMB_DASHBOARD, ADMIN_URL);
+        $this->addBreadcrumb(LANG_ACTION_SETTINGS_ADMININDEX_BREADCRUMB_SETTINGS);
         
         try {
             $controllerManager = new \ControllerManager($this->db);
@@ -67,11 +67,11 @@ class AdminIndex extends SettingsAction {
                             }
                         }
                         
-                        \Notification::success('Настройки успешно сохранены');
+                        \Notification::success(LANG_ACTION_SETTINGS_ADMININDEX_SAVE_SUCCESS);
                         $this->redirect(ADMIN_URL . '/settings?tab=' . $activeTab);
                         return;
                     } catch (\Exception $e) {
-                        \Notification::error('Ошибка при сохранении настроек: ' . $e->getMessage());
+                        \Notification::error(sprintf(LANG_ACTION_SETTINGS_ADMININDEX_SAVE_ERROR, $e->getMessage()));
                     }
                 }
             }
@@ -87,11 +87,11 @@ class AdminIndex extends SettingsAction {
                         
                         $controllerManager->saveControllerSettings($selectedController, $postSettings);
                         
-                        \Notification::success('Настройки контроллера сохранены');
+                        \Notification::success(LANG_ACTION_SETTINGS_ADMININDEX_CONTROLLER_SAVE_SUCCESS);
                         $this->redirect(ADMIN_URL . '/settings?tab=components&controller=' . $selectedController);
                         return;
                     } catch (\Exception $e) {
-                        \Notification::error('Ошибка при сохранении настроек контроллера: ' . $e->getMessage());
+                        \Notification::error(sprintf(LANG_ACTION_SETTINGS_ADMININDEX_CONTROLLER_SAVE_ERROR, $e->getMessage()));
                     }
                 }
                 
@@ -114,11 +114,11 @@ class AdminIndex extends SettingsAction {
                 'activeTab' => $activeTab,
                 'selectedController' => $selectedController,
                 'controllerManager' => $controllerManager,
-                'pageTitle' => 'Настройки блога'
+                'pageTitle' => LANG_ACTION_SETTINGS_ADMININDEX_PAGE_TITLE
             ]);
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при загрузке настроек: ' . $e->getMessage());
+            \Notification::error(sprintf(LANG_ACTION_SETTINGS_ADMININDEX_LOAD_ERROR, $e->getMessage()));
             $this->redirect(ADMIN_URL);
         }
     }
@@ -139,7 +139,7 @@ class AdminIndex extends SettingsAction {
                     $postSettings[$baseFieldName] = $imageName;
                     
                 } catch (\Exception $e) {
-                    \Notification::error('Ошибка загрузки изображения для поля ' . $baseFieldName . ': ' . $e->getMessage());
+                    \Notification::error(sprintf(LANG_ACTION_SETTINGS_ADMININDEX_IMAGE_UPLOAD_ERROR, $baseFieldName, $e->getMessage()));
                 }
             }
         }
@@ -163,7 +163,7 @@ class AdminIndex extends SettingsAction {
                     $postSettings[$fieldName] = '';
                     
                 } catch (\Exception $e) {
-                    \Notification::error('Ошибка удаления изображения для поля ' . $fieldName . ': ' . $e->getMessage());
+                    \Notification::error(sprintf(LANG_ACTION_SETTINGS_ADMININDEX_IMAGE_DELETE_ERROR, $fieldName, $e->getMessage()));
                 }
             }
         }
@@ -185,11 +185,11 @@ class AdminIndex extends SettingsAction {
         $fileType = mime_content_type($file['tmp_name']);
         
         if (!in_array($fileType, $allowedTypes)) {
-            throw new \Exception('Недопустимый тип файла. Разрешены: JPG, PNG, GIF, WebP');
+            throw new \Exception(LANG_ACTION_SETTINGS_ADMININDEX_INVALID_IMAGE_TYPE);
         }
         
         if ($file['size'] > 5 * 1024 * 1024) {
-            throw new \Exception('Размер файла не должен превышать 5MB');
+            throw new \Exception(LANG_ACTION_SETTINGS_ADMININDEX_IMAGE_TOO_LARGE);
         }
         
         $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
@@ -197,7 +197,7 @@ class AdminIndex extends SettingsAction {
         $targetPath = $uploadDir . $fileName;
         
         if (!move_uploaded_file($file['tmp_name'], $targetPath)) {
-            throw new \Exception('Ошибка при загрузке файла');
+            throw new \Exception(LANG_ACTION_SETTINGS_ADMININDEX_IMAGE_UPLOAD_FAILED);
         }
         
         return $fileName;
@@ -260,13 +260,13 @@ class AdminIndex extends SettingsAction {
                 $extension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
                 
                 if (!in_array($extension, $allowedTypes)) {
-                    throw new \Exception('Недопустимый формат файла. Разрешены: ICO, PNG, SVG, JPG, JPEG, GIF, WebP');
+                    throw new \Exception(LANG_ACTION_SETTINGS_ADMININDEX_FAVICON_INVALID_TYPE);
                 }
                 
                 $uploadDir = UPLOADS_PATH . '/favicon/';
                 if (!is_dir($uploadDir)) {
                     if (!mkdir($uploadDir, 0755, true)) {
-                        throw new \Exception('Не удалось создать директорию для загрузки');
+                        throw new \Exception(LANG_ACTION_SETTINGS_ADMININDEX_UPLOAD_DIR_ERROR);
                     }
                 }
                 
@@ -282,15 +282,15 @@ class AdminIndex extends SettingsAction {
                 $targetPath = $uploadDir . $fileName;
                 
                 if (!move_uploaded_file($file['tmp_name'], $targetPath)) {
-                    throw new \Exception('Ошибка при сохранении файла');
+                    throw new \Exception(LANG_ACTION_SETTINGS_ADMININDEX_FAVICON_SAVE_ERROR);
                 }
                 
                 $postSettings['favicon'] = 'uploads/favicon/' . $fileName;
                 
-                \Notification::success('Favicon успешно загружен');
+                \Notification::success(LANG_ACTION_SETTINGS_ADMININDEX_FAVICON_SUCCESS);
                 
             } catch (\Exception $e) {
-                \Notification::error('Ошибка загрузки favicon: ' . $e->getMessage());
+                \Notification::error(sprintf(LANG_ACTION_SETTINGS_ADMININDEX_FAVICON_ERROR, $e->getMessage()));
             }
         }
         
@@ -303,7 +303,7 @@ class AdminIndex extends SettingsAction {
                 }
             }
             $postSettings['favicon'] = '';
-            \Notification::success('Favicon удален');
+            \Notification::success(LANG_ACTION_SETTINGS_ADMININDEX_FAVICON_REMOVED);
         }
         
         return $postSettings;

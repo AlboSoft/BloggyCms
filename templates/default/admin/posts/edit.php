@@ -9,11 +9,11 @@ add_admin_css('templates/default/admin/assets/css/controllers/post-blocks.css');
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h4 class="mb-0">
             <?php echo bloggy_icon('bs', 'pencil-square', '24', '#000', 'me-2'); ?>
-            Редактирование поста
+            <?php echo LANG_TEMPLATE_POSTS_EDIT_TITLE; ?>
         </h4>
         <a href="<?php echo ADMIN_URL; ?>/posts" class="btn btn-outline-secondary btn-sm">
             <?php echo bloggy_icon('bs', 'arrow-left', '16', '#000', 'me-1'); ?>
-            Назад к постам
+            <?php echo LANG_TEMPLATE_POSTS_EDIT_BACK_BTN; ?>
         </a>
     </div>
 
@@ -28,33 +28,33 @@ add_admin_css('templates/default/admin/assets/css/controllers/post-blocks.css');
                 <div class="card border-0 shadow-sm mb-4">
                     <div class="card-body">
                         <div class="mb-4">
-                            <label class="form-label">Заголовок поста</label>
+                            <label class="form-label"><?php echo LANG_TEMPLATE_POSTS_EDIT_TITLE_LABEL; ?></label>
                             <input type="text" class="form-control form-control-lg" name="title" value="<?php echo html($post['title']); ?>" required>
                         </div>
 
                         <div class="mb-4">
-                            <label class="form-label">Краткое описание</label>
+                            <label class="form-label"><?php echo LANG_TEMPLATE_POSTS_EDIT_SHORT_DESC_LABEL; ?></label>
                             <textarea class="form-control" name="short_description" rows="3"
-                                    placeholder="Краткое описание, которое будет отображаться в списках и анонсах"><?php echo html($post['short_description'] ?? ''); ?></textarea>
-                            <div class="form-text">Необязательное поле. Используется в списках постов и SEO-описании.</div>
+                                    placeholder="<?php echo LANG_TEMPLATE_POSTS_EDIT_SHORT_DESC_PLACEHOLDER; ?>"><?php echo html($post['short_description'] ?? ''); ?></textarea>
+                            <div class="form-text"><?php echo LANG_TEMPLATE_POSTS_EDIT_SHORT_DESC_HINT; ?></div>
                         </div>
                         
                         <div class="card mb-4 sticky-top" style="top: 20px; z-index: 1000;">
                             <div class="card-header bg-white py-2">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <h6 class="mb-0 text-muted small">Доступные блоки</h6>
+                                    <h6 class="mb-0 text-muted small"><?php echo LANG_TEMPLATE_POSTS_EDIT_AVAILABLE_BLOCKS; ?></h6>
                                     <div class="d-flex align-items-center">
                                         <select class="form-select form-select-sm me-2" id="block-category-filter" style="width: auto;">
-                                            <option value="all">Все категории</option>
-                                            <option value="text">🖊️ Текст</option>
-                                            <option value="media">🎞️ Медиа</option>
-                                            <option value="layout">🔩 Компоновка</option>
-                                            <option value="advanced">🧲 Расширенные</option>
-                                            <option value="basic">✔️ Основные</option>
+                                            <option value="all"><?php echo LANG_TEMPLATE_POSTS_EDIT_FILTER_ALL; ?></option>
+                                            <option value="text">🖊️ <?php echo LANG_TEMPLATE_POSTS_EDIT_FILTER_TEXT; ?></option>
+                                            <option value="media">🎞️ <?php echo LANG_TEMPLATE_POSTS_EDIT_FILTER_MEDIA; ?></option>
+                                            <option value="layout">🔩 <?php echo LANG_TEMPLATE_POSTS_EDIT_FILTER_LAYOUT; ?></option>
+                                            <option value="advanced">🧲 <?php echo LANG_TEMPLATE_POSTS_EDIT_FILTER_ADVANCED; ?></option>
+                                            <option value="basic">✔️ <?php echo LANG_TEMPLATE_POSTS_EDIT_FILTER_BASIC; ?></option>
                                         </select>
                                         
                                         <div class="input-group input-group-sm" style="width: 200px;">
-                                            <input type="text" class="form-control" id="block-search" placeholder="Поиск блоков...">
+                                            <input type="text" class="form-control" id="block-search" placeholder="<?php echo LANG_TEMPLATE_POSTS_EDIT_SEARCH_PLACEHOLDER; ?>">
                                             <button class="btn btn-outline-secondary" type="button" id="clear-search">
                                                 <?php echo bloggy_icon('bs', 'x', '16', '#000'); ?>
                                             </button>
@@ -73,8 +73,8 @@ add_admin_css('templates/default/admin/assets/css/controllers/post-blocks.css');
                                 <div id="post-blocks-container" class="min-h-100" style="min-height: 400px;">
                                     <div class="text-center text-muted py-5 empty-state">
                                         <?php echo bloggy_icon('bs', 'inbox', '48', '#6C6C6C', 'mb-3'); ?>
-                                        <p class="mb-1">Нет добавленных блоков</p>
-                                        <small class="text-muted">Добавьте блоки из панели выше для создания контента</small>
+                                        <p class="mb-1"><?php echo LANG_TEMPLATE_POSTS_EDIT_NO_BLOCKS_TITLE; ?></p>
+                                        <small class="text-muted"><?php echo LANG_TEMPLATE_POSTS_EDIT_NO_BLOCKS_HINT; ?></small>
                                     </div>
                                 </div>
                             </div>
@@ -84,7 +84,7 @@ add_admin_css('templates/default/admin/assets/css/controllers/post-blocks.css');
                 
                 <div class="card border-0 shadow-sm mb-4">
                     <div class="card-header bg-white border-0">
-                        <h5 class="card-title mb-0">Главное изображение</h5>
+                        <h5 class="card-title mb-0"><?php echo LANG_TEMPLATE_POSTS_EDIT_FEATURED_IMAGE_TITLE; ?></h5>
                     </div>
                     <div class="card-body">
                         <div class="image-upload-area border-2 border-dashed rounded-3 p-5 text-center position-relative"
@@ -95,7 +95,7 @@ add_admin_css('templates/default/admin/assets/css/controllers/post-blocks.css');
                                 <div class="upload-preview" id="uploadPreview">
                                     <div class="position-relative d-inline-block">
                                         <img src="<?php echo BASE_URL; ?>/uploads/images/<?php echo $post['featured_image']; ?>" 
-                                             alt="Текущее изображение" 
+                                             alt="<?php echo LANG_TEMPLATE_POSTS_EDIT_CURRENT_IMAGE_ALT; ?>" 
                                              class="rounded shadow-sm" 
                                              style="max-height: 200px; max-width: 100%;" 
                                              id="imagePreview">
@@ -103,19 +103,19 @@ add_admin_css('templates/default/admin/assets/css/controllers/post-blocks.css');
                                                 class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1" 
                                                 onclick="removeImage()" 
                                                 style="border-radius: 50%; width: 30px; height: 30px;"
-                                                title="Удалить изображение">
+                                                title="<?php echo LANG_TEMPLATE_POSTS_EDIT_REMOVE_IMAGE_TITLE; ?>">
                                             <?php echo bloggy_icon('bs', 'x', '16', '#fff'); ?>
                                         </button>
                                     </div>
                                     <div class="mt-3">
-                                        <small class="text-muted" id="fileName">Текущее изображение</small>
+                                        <small class="text-muted" id="fileName"><?php echo LANG_TEMPLATE_POSTS_EDIT_CURRENT_IMAGE_LABEL; ?></small>
                                     </div>
                                     <div class="mt-2">
                                         <button type="button" 
                                                 class="btn btn-outline-primary btn-sm" 
                                                 onclick="document.getElementById('featured-image-input').click()">
                                             <?php echo bloggy_icon('bs', 'arrow-repeat', '14', '#0d6efd', 'me-1'); ?>
-                                            Заменить изображение
+                                            <?php echo LANG_TEMPLATE_POSTS_EDIT_REPLACE_IMAGE_BTN; ?>
                                         </button>
                                     </div>
                                 </div>
@@ -124,13 +124,13 @@ add_admin_css('templates/default/admin/assets/css/controllers/post-blocks.css');
                                     <div class="mb-3">
                                         <?php echo bloggy_icon('bs', 'cloud-arrow-up', '48', '#6C6C6C'); ?>
                                     </div>
-                                    <h5 class="text-muted mb-2">Перетащите изображение сюда</h5>
-                                    <p class="text-muted small mb-3">или</p>
+                                    <h5 class="text-muted mb-2"><?php echo LANG_TEMPLATE_POSTS_EDIT_DRAG_TEXT; ?></h5>
+                                    <p class="text-muted small mb-3"><?php echo LANG_TEMPLATE_POSTS_EDIT_OR_TEXT; ?></p>
                                     <button type="button" class="btn btn-primary btn-sm" onclick="document.getElementById('featured-image-input').click()">
-                                        Выберите файл
+                                        <?php echo LANG_TEMPLATE_POSTS_EDIT_SELECT_FILE_BTN; ?>
                                     </button>
                                     <div class="mt-2">
-                                        <small class="text-muted">PNG, JPG, GIF до 5MB</small>
+                                        <small class="text-muted"><?php echo LANG_TEMPLATE_POSTS_EDIT_FILE_HINT; ?></small>
                                     </div>
                                 </div>
                             <?php } else { ?>
@@ -138,13 +138,13 @@ add_admin_css('templates/default/admin/assets/css/controllers/post-blocks.css');
                                     <div class="mb-3">
                                         <?php echo bloggy_icon('bs', 'cloud-arrow-up', '48', '#6C6C6C'); ?>
                                     </div>
-                                    <h5 class="text-muted mb-2">Перетащите изображение сюда</h5>
-                                    <p class="text-muted small mb-3">или</p>
+                                    <h5 class="text-muted mb-2"><?php echo LANG_TEMPLATE_POSTS_EDIT_DRAG_TEXT; ?></h5>
+                                    <p class="text-muted small mb-3"><?php echo LANG_TEMPLATE_POSTS_EDIT_OR_TEXT; ?></p>
                                     <button type="button" class="btn btn-primary btn-sm" onclick="document.getElementById('featured-image-input').click()">
-                                        Выберите файл
+                                        <?php echo LANG_TEMPLATE_POSTS_EDIT_SELECT_FILE_BTN; ?>
                                     </button>
                                     <div class="mt-2">
-                                        <small class="text-muted">PNG, JPG, GIF до 5MB</small>
+                                        <small class="text-muted"><?php echo LANG_TEMPLATE_POSTS_EDIT_FILE_HINT; ?></small>
                                     </div>
                                 </div>
 
@@ -168,7 +168,7 @@ add_admin_css('templates/default/admin/assets/css/controllers/post-blocks.css');
                                     <div class="progress-bar progress-bar-striped progress-bar-animated" 
                                         role="progressbar" style="width: 0%" id="progressBar"></div>
                                 </div>
-                                <small class="text-muted mt-1" id="progressText">Загрузка...</small>
+                                <small class="text-muted mt-1" id="progressText"><?php echo LANG_TEMPLATE_POSTS_EDIT_UPLOADING_TEXT; ?></small>
                             </div>
 
                             <input type="file" class="d-none" id="featured-image-input" name="featured_image" accept="image/*">
@@ -186,7 +186,7 @@ add_admin_css('templates/default/admin/assets/css/controllers/post-blocks.css');
                 <?php if (!empty($customFields)) { ?>
                     <div class="card border-0 shadow-sm mb-4">
                         <div class="card-header bg-white border-0">
-                            <h5 class="card-title mb-0">Дополнительные поля</h5>
+                            <h5 class="card-title mb-0"><?php echo LANG_TEMPLATE_POSTS_EDIT_CUSTOM_FIELDS_TITLE; ?></h5>
                         </div>
                         <div class="card-body">
                             <?php foreach ($customFields as $field) { ?>
@@ -220,14 +220,14 @@ add_admin_css('templates/default/admin/assets/css/controllers/post-blocks.css');
 
                 <div class="card border-0 shadow-sm mb-4">
                     <div class="card-header bg-white border-0">
-                        <h5 class="card-title mb-0">Параметры публикации</h5>
+                        <h5 class="card-title mb-0"><?php echo LANG_TEMPLATE_POSTS_EDIT_PUBLISH_TITLE; ?></h5>
                     </div>
                     <div class="card-body">
                         <div class="mb-4">
-                            <label class="form-label">Статус поста</label>
+                            <label class="form-label"><?php echo LANG_TEMPLATE_POSTS_EDIT_STATUS_LABEL; ?></label>
                             <select class="form-select" name="status">
-                                <option value="draft" <?php echo $post['status'] == 'draft' ? 'selected' : ''; ?>>Черновик</option>
-                                <option value="published" <?php echo $post['status'] == 'published' ? 'selected' : ''; ?>>Опубликован</option>
+                                <option value="draft" <?php echo $post['status'] == 'draft' ? 'selected' : ''; ?>><?php echo LANG_TEMPLATE_POSTS_EDIT_STATUS_DRAFT; ?></option>
+                                <option value="published" <?php echo $post['status'] == 'published' ? 'selected' : ''; ?>><?php echo LANG_TEMPLATE_POSTS_EDIT_STATUS_PUBLISHED; ?></option>
                             </select>
                         </div>
                         
@@ -239,13 +239,13 @@ add_admin_css('templates/default/admin/assets/css/controllers/post-blocks.css');
                                        name="password_protected"
                                        <?php echo $post['password_protected'] ? 'checked' : ''; ?>>
                                 <label class="form-check-label" for="password_protected">
-                                    Защитить паролем
+                                    <?php echo LANG_TEMPLATE_POSTS_EDIT_PASSWORD_PROTECT_LABEL; ?>
                                 </label>
                             </div>
                         </div>
                         
                         <div class="mb-4 password-field" style="display: <?php echo $post['password_protected'] ? 'block' : 'none'; ?>;">
-                            <label class="form-label">Пароль для доступа</label>
+                            <label class="form-label"><?php echo LANG_TEMPLATE_POSTS_EDIT_PASSWORD_LABEL; ?></label>
                             <input type="text" 
                                    class="form-control" 
                                    name="password" 
@@ -256,7 +256,7 @@ add_admin_css('templates/default/admin/assets/css/controllers/post-blocks.css');
 
                 <div class="card border-0 shadow-sm mb-4">
                     <div class="card-header bg-white border-0">
-                        <h5 class="card-title mb-0">Дата публикации</h5>
+                        <h5 class="card-title mb-0"><?php echo LANG_TEMPLATE_POSTS_EDIT_PUBLISH_DATE_TITLE; ?></h5>
                     </div>
                     <div class="card-body">
                         <div class="mb-3">
@@ -264,24 +264,24 @@ add_admin_css('templates/default/admin/assets/css/controllers/post-blocks.css');
                                 <input class="form-check-input" type="checkbox" id="change_publish_date" name="change_publish_date" 
                                     <?php echo (isset($post['created_at']) && $post['created_at'] != date('Y-m-d H:i:s')) ? 'checked' : ''; ?>>
                                 <label class="form-check-label" for="change_publish_date">
-                                    Изменить дату публикации
+                                    <?php echo LANG_TEMPLATE_POSTS_EDIT_CHANGE_DATE_LABEL; ?>
                                 </label>
                             </div>
                         </div>
                         
                         <div class="publish-date-field" style="display: <?php echo (isset($post['created_at']) && $post['created_at'] != date('Y-m-d H:i:s')) ? 'block' : 'none'; ?>;">
-                            <label class="form-label">Дата и время публикации</label>
+                            <label class="form-label"><?php echo LANG_TEMPLATE_POSTS_EDIT_DATETIME_LABEL; ?></label>
                             <input type="datetime-local" class="form-control" name="publish_date" 
                                 max="<?php echo date('Y-m-d\TH:i'); ?>" 
                                 value="<?php echo isset($post['created_at']) ? date('Y-m-d\TH:i', strtotime($post['created_at'])) : date('Y-m-d\TH:i'); ?>">
                             <div class="form-text">
-                                Не может быть будущей датой. Текущая дата: <?php echo date('d.m.Y H:i'); ?>
+                                <?php echo sprintf(LANG_TEMPLATE_POSTS_EDIT_DATE_HINT, date('d.m.Y H:i')); ?>
                             </div>
                         </div>
                         
                         <div class="current-publish-date">
                             <small class="text-muted">
-                                Текущая дата публикации: 
+                                <?php echo LANG_TEMPLATE_POSTS_EDIT_CURRENT_DATE_LABEL; ?> 
                                 <strong>
                                     <?php echo isset($post['created_at']) ? date('d.m.Y H:i', strtotime($post['created_at'])) : date('d.m.Y H:i'); ?>
                                 </strong>
@@ -293,11 +293,11 @@ add_admin_css('templates/default/admin/assets/css/controllers/post-blocks.css');
                 <?php if ($hasCategories) { ?>
                     <div class="card border-0 shadow-sm mb-4">
                         <div class="card-header bg-white border-0">
-                            <h5 class="card-title mb-0">Категория</h5>
+                            <h5 class="card-title mb-0"><?php echo LANG_TEMPLATE_POSTS_EDIT_CATEGORY_TITLE; ?></h5>
                         </div>
                         <div class="card-body">
                             <select class="form-select" name="category_id" required>
-                                <option value="">Выберите категорию</option>
+                                <option value=""><?php echo LANG_TEMPLATE_POSTS_EDIT_SELECT_CATEGORY; ?></option>
                                 <?php foreach ($categories as $category) { ?>
                                     <option value="<?php echo $category['id']; ?>" <?php echo $post['category_id'] == $category['id'] ? 'selected' : ''; ?>>
                                         <?php echo html($category['name']); ?>
@@ -310,14 +310,14 @@ add_admin_css('templates/default/admin/assets/css/controllers/post-blocks.css');
                 
                 <div class="card border-0 shadow-sm mb-4">
                     <div class="card-header bg-white border-0">
-                        <h5 class="card-title mb-0">Теги</h5>
+                        <h5 class="card-title mb-0"><?php echo LANG_TEMPLATE_POSTS_EDIT_TAGS_TITLE; ?></h5>
                     </div>
                     <div class="card-body">
                         <div id="tags-container">
                             <?php foreach ($postTags as $tag) { ?>
                                 <span class="badge bg-primary me-2 mb-2 tag-badge" data-tag-id="<?php echo $tag['id']; ?>">
                                     <?php echo html($tag['name']); ?>
-                                    <button type="button" class="btn-close btn-close-white ms-1" style="font-size: 0.7rem;" aria-label="Удалить"></button>
+                                    <button type="button" class="btn-close btn-close-white ms-1" style="font-size: 0.7rem;" aria-label="<?php echo LANG_TEMPLATE_POSTS_EDIT_REMOVE_TAG_ARIA; ?>"></button>
                                 </span>
                             <?php } ?>
                         </div>
@@ -325,11 +325,11 @@ add_admin_css('templates/default/admin/assets/css/controllers/post-blocks.css');
                         <input type="text" 
                             class="form-control" 
                             id="tag-search" 
-                            placeholder="Начните вводить название тега..."
+                            placeholder="<?php echo LANG_TEMPLATE_POSTS_EDIT_TAGS_PLACEHOLDER; ?>"
                             autocomplete="off">
                         
                         <div class="form-text d-flex justify-content-between align-items-center mt-2">
-                            <span>Введите название тега и выберите из списка. Можно добавить несколько тегов.</span>
+                            <span><?php echo LANG_TEMPLATE_POSTS_EDIT_TAGS_HINT; ?></span>
                             <span class="badge bg-light text-dark" id="tags-counter">
                                 <span id="current-tags-count"><?php echo count($postTags); ?></span> / 
                                 <span id="max-tags-count"><?php echo \SettingsHelper::get('controller_tags', 'max_tags_per_post', 10); ?></span>
@@ -348,7 +348,7 @@ add_admin_css('templates/default/admin/assets/css/controllers/post-blocks.css');
                     <div class="card-header bg-white border-0">
                         <h5 class="card-title mb-0">
                             <?php echo bloggy_icon('bs', 'shield-lock', '16', '#000', 'me-1'); ?>
-                            Настройки видимости
+                            <?php echo LANG_TEMPLATE_POSTS_EDIT_VISIBILITY_TITLE; ?>
                         </h5>
                     </div>
                     <div class="card-body">
@@ -357,8 +357,8 @@ add_admin_css('templates/default/admin/assets/css/controllers/post-blocks.css');
                         $groups = $userModel->getAllGroups();
                         $groups[] = array(
                             'id' => 'guest',
-                            'name' => 'Гость',
-                            'description' => 'Неавторизованные пользователи'
+                            'name' => LANG_TEMPLATE_POSTS_EDIT_VISIBILITY_GUEST,
+                            'description' => LANG_TEMPLATE_POSTS_EDIT_VISIBILITY_GUEST_DESC
                         );
                         
                         $showToGroups = $post['show_to_groups'] ? json_decode($post['show_to_groups'], true) : array();
@@ -369,33 +369,33 @@ add_admin_css('templates/default/admin/assets/css/controllers/post-blocks.css');
                             <div class="col-md-12 mb-3">
                                 <label class="form-label small">
                                     <?php echo bloggy_icon('bs', 'eye', '14', '#000', 'me-1'); ?>
-                                    Показывать группам
+                                    <?php echo LANG_TEMPLATE_POSTS_EDIT_VISIBILITY_SHOW_LABEL; ?>
                                 </label>
                                 <select class="form-select form-select-sm" name="show_to_groups[]" multiple size="4">
-                                    <option value="">Все группы (если не выбрано)</option>
+                                    <option value=""><?php echo LANG_TEMPLATE_POSTS_EDIT_VISIBILITY_ALL_GROUPS; ?></option>
                                     <?php foreach ($groups as $group) { ?>
                                         <option value="<?php echo $group['id']; ?>" <?php echo in_array($group['id'], $showToGroups) ? 'selected' : ''; ?>>
                                             <?php echo html($group['name']); ?>
                                         </option>
                                     <?php } ?>
                                 </select>
-                                <div class="form-text small">Оставьте пустым чтобы показывать всем. Если выбрать группы - пост будет виден только им.</div>
+                                <div class="form-text small"><?php echo LANG_TEMPLATE_POSTS_EDIT_VISIBILITY_SHOW_HINT; ?></div>
                             </div>
                             
                             <div class="col-md-12">
                                 <label class="form-label small">
                                     <?php echo bloggy_icon('bs', 'eye-slash', '14', '#000', 'me-1'); ?>
-                                    Не показывать группам
+                                    <?php echo LANG_TEMPLATE_POSTS_EDIT_VISIBILITY_HIDE_LABEL; ?>
                                 </label>
                                 <select class="form-select form-select-sm" name="hide_from_groups[]" multiple size="4">
-                                    <option value="">Никому не скрывать</option>
+                                    <option value=""><?php echo LANG_TEMPLATE_POSTS_EDIT_VISIBILITY_NO_HIDE; ?></option>
                                     <?php foreach ($groups as $group) { ?>
                                         <option value="<?php echo $group['id']; ?>" <?php echo in_array($group['id'], $hideFromGroups) ? 'selected' : ''; ?>>
                                             <?php echo html($group['name']); ?>
                                         </option>
                                     <?php } ?>
                                 </select>
-                                <div class="form-text small">Выберите группы которым скрыть этот пост</div>
+                                <div class="form-text small"><?php echo LANG_TEMPLATE_POSTS_EDIT_VISIBILITY_HIDE_HINT; ?></div>
                             </div>
                         </div>
                     </div>
@@ -406,25 +406,25 @@ add_admin_css('templates/default/admin/assets/css/controllers/post-blocks.css');
                         <input class="form-check-input" type="checkbox" id="allow_comments" name="allow_comments" 
                             value="1" <?php echo isset($post['allow_comments']) && $post['allow_comments'] == 1 ? 'checked' : 'checked'; ?>>
                         <label class="form-check-label" for="allow_comments">
-                            Разрешить комментарии
+                            <?php echo LANG_TEMPLATE_POSTS_EDIT_ALLOW_COMMENTS_LABEL; ?>
                         </label>
                     </div>
                 </div>
 
                 <div class="card border-0 shadow-sm mb-4">
                     <div class="card-header bg-white border-0">
-                        <h5 class="card-title mb-0">SEO настройки</h5>
+                        <h5 class="card-title mb-0"><?php echo LANG_TEMPLATE_POSTS_EDIT_SEO_TITLE; ?></h5>
                     </div>
                     <div class="card-body">
                         <div class="mb-3">
-                            <label class="form-label">SEO Title</label>
+                            <label class="form-label"><?php echo LANG_TEMPLATE_POSTS_EDIT_SEO_TITLE_LABEL; ?></label>
                             <input type="text" class="form-control" name="seo_title" 
                                 value="<?php echo html($post['seo_title'] ?? ''); ?>"
-                                placeholder="SEO заголовок (если отличается от основного)">
-                            <div class="form-text">Если оставить пустым, будет использоваться заголовок поста.</div>
+                                placeholder="<?php echo LANG_TEMPLATE_POSTS_EDIT_SEO_TITLE_PLACEHOLDER; ?>">
+                            <div class="form-text"><?php echo LANG_TEMPLATE_POSTS_EDIT_SEO_TITLE_HINT; ?></div>
                         </div>
                         <div class="mb-0">
-                            <label class="form-label">Meta Description</label>
+                            <label class="form-label"><?php echo LANG_TEMPLATE_POSTS_EDIT_META_DESC_LABEL; ?></label>
                             <textarea class="form-control" name="meta_description" rows="2"><?php echo html($post['meta_description'] ?? ''); ?></textarea>
                         </div>
                     </div>
@@ -433,7 +433,7 @@ add_admin_css('templates/default/admin/assets/css/controllers/post-blocks.css');
                 <div class="d-grid">
                     <button type="submit" class="btn btn-primary">
                         <?php echo bloggy_icon('bs', 'check-lg', '16', '#fff', 'me-1'); ?>
-                        Обновить пост
+                        <?php echo LANG_TEMPLATE_POSTS_EDIT_SUBMIT_BTN; ?>
                     </button>
                 </div>
             </div>

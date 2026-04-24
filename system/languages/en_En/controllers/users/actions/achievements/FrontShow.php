@@ -1,0 +1,8 @@
+<?php
+
+define('LANG_ACTION_USERS_FRONTSHOW_BREADCRUMB_HOME', 'Home');
+define('LANG_ACTION_USERS_FRONTSHOW_BREADCRUMB_USERS', 'Users');
+define('LANG_ACTION_USERS_FRONTSHOW_BREADCRUMB_ACHIEVEMENTS', 'Achievements');
+define('LANG_ACTION_USERS_FRONTSHOW_PAGE_TITLE', '%s — Achievement');
+define('LANG_ACTION_USERS_FRONTSHOW_ERROR', 'Error loading achievement information');
+define('LANG_ACTION_USERS_FRONTSHOW_RENDER_TITLE', '%s - Achievements');

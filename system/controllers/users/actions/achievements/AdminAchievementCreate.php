@@ -15,9 +15,9 @@ class AdminAchievementCreate extends AdminAchievementAction {
     public function execute() {
         try {
 
-            $this->addBreadcrumb('Панель управления', ADMIN_URL);
-            $this->addBreadcrumb('Ачивки', ADMIN_URL . '/user-achievements');
-            $this->addBreadcrumb('Создание ачивки');
+            $this->addBreadcrumb(LANG_ACTION_USERS_ADMINACHIEVEMENTCREATE_BREADCRUMB_DASHBOARD, ADMIN_URL);
+            $this->addBreadcrumb(LANG_ACTION_USERS_ADMINACHIEVEMENTCREATE_BREADCRUMB_ACHIEVEMENTS, ADMIN_URL . '/user-achievements');
+            $this->addBreadcrumb(LANG_ACTION_USERS_ADMINACHIEVEMENTCREATE_BREADCRUMB_CREATE);
 
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $this->handlePostRequest();
@@ -38,7 +38,7 @@ class AdminAchievementCreate extends AdminAchievementAction {
     */
     private function handlePostRequest() {
         if (empty($_POST['name'])) {
-            throw new \Exception('Название ачивки обязательно');
+            throw new \Exception(LANG_ACTION_USERS_ADMINACHIEVEMENTCREATE_ERROR_NAME_REQUIRED);
         }
         
         $conditions = $this->prepareConditions();
@@ -61,7 +61,7 @@ class AdminAchievementCreate extends AdminAchievementAction {
         
         $achievementId = $this->userModel->createAchievement($achievementData);
         
-        \Notification::success('Ачивка успешно создана');
+        \Notification::success(LANG_ACTION_USERS_ADMINACHIEVEMENTCREATE_SUCCESS);
         $this->redirect(ADMIN_URL . '/user-achievements');
     }
     
@@ -117,7 +117,7 @@ class AdminAchievementCreate extends AdminAchievementAction {
     */
     private function renderCreateForm() {
         $this->render('admin/user-achievements/create', [
-            'pageTitle' => 'Создание ачивки'
+            'pageTitle' => LANG_ACTION_USERS_ADMINACHIEVEMENTCREATE_PAGE_TITLE
         ]);
     }
     
@@ -131,7 +131,7 @@ class AdminAchievementCreate extends AdminAchievementAction {
         
         $this->render('admin/user-achievements/create', [
             'achievement' => $_POST,
-            'pageTitle' => 'Создание ачивки'
+            'pageTitle' => LANG_ACTION_USERS_ADMINACHIEVEMENTCREATE_PAGE_TITLE
         ]);
     }
 }

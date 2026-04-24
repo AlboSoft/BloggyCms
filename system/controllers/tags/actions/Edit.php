@@ -18,7 +18,7 @@ class Edit extends TagAction {
         $id = $this->params['id'] ?? null;
         
         if (!$id) {
-            \Notification::error('ID тега не указан');
+            \Notification::error(LANG_ACTION_TAGS_EDIT_NO_ID);
             $this->redirect(ADMIN_URL . '/tags');
             return;
         }
@@ -26,14 +26,14 @@ class Edit extends TagAction {
         try {
             $tag = $this->tagModel->getById($id);
             if (!$tag) {
-                \Notification::error('Тег не найден');
+                \Notification::error(LANG_ACTION_TAGS_EDIT_TAG_NOT_FOUND);
                 $this->redirect(ADMIN_URL . '/tags');
                 return;
             }
             
-            $this->addBreadcrumb('Панель управления', ADMIN_URL);
-            $this->addBreadcrumb('Теги', ADMIN_URL . '/tags');
-            $this->addBreadcrumb('Редактирование: ' . $tag['name']);
+            $this->addBreadcrumb(LANG_ACTION_TAGS_EDIT_BREADCRUMB_DASHBOARD, ADMIN_URL);
+            $this->addBreadcrumb(LANG_ACTION_TAGS_EDIT_BREADCRUMB_TAGS, ADMIN_URL . '/tags');
+            $this->addBreadcrumb(sprintf(LANG_ACTION_TAGS_EDIT_BREADCRUMB_EDIT, $tag['name']));
             
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $this->handlePostRequest($id, $tag);
@@ -59,12 +59,12 @@ class Edit extends TagAction {
         $name = trim($_POST['name'] ?? '');
         
         if (empty($name)) {
-            throw new \Exception('Название тега не может быть пустым');
+            throw new \Exception(LANG_ACTION_TAGS_EDIT_ERROR_EMPTY_NAME);
         }
         
         $existingTags = $this->tagModel->searchByName($name, 1);
         if (!empty($existingTags) && $existingTags[0]['id'] != $id) {
-            throw new \Exception('Тег с таким названием уже существует');
+            throw new \Exception(LANG_ACTION_TAGS_EDIT_ERROR_NAME_EXISTS);
         }
         
         $slug = $this->tagModel->createSlugFromName($name);
@@ -75,7 +75,7 @@ class Edit extends TagAction {
         
         $this->tagModel->update($id, $data);
         
-        \Notification::success('Тег успешно обновлен');
+        \Notification::success(LANG_ACTION_TAGS_EDIT_SUCCESS);
         $this->redirect(ADMIN_URL . '/tags');
     }
     
@@ -116,7 +116,7 @@ class Edit extends TagAction {
     private function renderEditForm($tag) {
         $this->render('admin/tags/form', [
             'tag' => $tag,
-            'pageTitle' => 'Редактирование тега'
+            'pageTitle' => LANG_ACTION_TAGS_EDIT_PAGE_TITLE
         ]);
     }
     
@@ -132,7 +132,7 @@ class Edit extends TagAction {
         $tag = $this->tagModel->getById($id);
         $this->render('admin/tags/form', [
             'tag' => $tag,
-            'pageTitle' => 'Редактирование тега'
+            'pageTitle' => LANG_ACTION_TAGS_EDIT_PAGE_TITLE
         ]);
     }
     
@@ -153,11 +153,11 @@ class Edit extends TagAction {
         $allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
         $fileType = mime_content_type($file['tmp_name']);
         if (!in_array($fileType, $allowedTypes)) {
-            throw new \Exception('Недопустимый тип файла. Разрешены: JPG, PNG, GIF, WebP');
+            throw new \Exception(LANG_ACTION_TAGS_EDIT_ERROR_INVALID_TYPE);
         }
         
         if ($file['size'] > 2 * 1024 * 1024) {
-            throw new \Exception('Размер файла не должен превышать 2MB');
+            throw new \Exception(LANG_ACTION_TAGS_EDIT_ERROR_FILE_TOO_LARGE);
         }
 
         $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
@@ -165,7 +165,7 @@ class Edit extends TagAction {
         $targetPath = $uploadDir . $fileName;
         
         if (!move_uploaded_file($file['tmp_name'], $targetPath)) {
-            throw new \Exception('Ошибка при загрузке файла');
+            throw new \Exception(LANG_ACTION_TAGS_EDIT_ERROR_UPLOAD);
         }
         
         return $fileName;

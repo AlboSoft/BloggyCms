@@ -17,7 +17,7 @@ class CheckPassword extends PostAction {
         $postId = $this->params['id'] ?? null;
         
         if (!$postId) {
-            echo json_encode(['success' => false, 'message' => 'Post ID not provided']);
+            echo json_encode(['success' => false, 'message' => LANG_ACTION_POSTS_CHECKPASSWORD_NO_POST_ID]);
             return;
         }
 

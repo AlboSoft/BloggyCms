@@ -1,8 +1,8 @@
 <?php
 return [
-    'name' => 'Профили пользователей',
+    'name' => LANG_CONTROLLER_PROFILE_MANIFEST_NAME,
     'author' => 'BloggyCMS',
     'version' => '1.0.0',
     'has_settings' => false,
-    'description' => 'Управляет профилями пользователей'
+    'description' => LANG_CONTROLLER_PROFILE_MANIFEST_DESCRIPTION
 ];

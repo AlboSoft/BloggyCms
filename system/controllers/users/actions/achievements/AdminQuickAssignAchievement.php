@@ -20,10 +20,10 @@ class AdminQuickAssignAchievement extends AdminAchievementAction {
                 if ($userId) {
                     $user = $this->userModel->getById($userId);
                     if ($user) {
-                        $this->addBreadcrumb('Панель управления', ADMIN_URL);
-                        $this->addBreadcrumb('Пользователи', ADMIN_URL . '/users');
-                        $this->addBreadcrumb('Редактирование: ' . ($user['display_name'] ?? $user['username']), ADMIN_URL . '/users/edit/' . $userId);
-                        $this->addBreadcrumb('Быстрое назначение ачивки');
+                        $this->addBreadcrumb(LANG_ACTION_USERS_ADMINQUICKASSIGNACHIEVEMENT_BREADCRUMB_DASHBOARD, ADMIN_URL);
+                        $this->addBreadcrumb(LANG_ACTION_USERS_ADMINQUICKASSIGNACHIEVEMENT_BREADCRUMB_USERS, ADMIN_URL . '/users');
+                        $this->addBreadcrumb(sprintf(LANG_ACTION_USERS_ADMINQUICKASSIGNACHIEVEMENT_BREADCRUMB_EDIT, ($user['display_name'] ?? $user['username'])), ADMIN_URL . '/users/edit/' . $userId);
+                        $this->addBreadcrumb(LANG_ACTION_USERS_ADMINQUICKASSIGNACHIEVEMENT_BREADCRUMB_QUICK_ASSIGN);
                     }
                 }
             }
@@ -53,21 +53,21 @@ class AdminQuickAssignAchievement extends AdminAchievementAction {
         $sendNotification = isset($_POST['send_notification']) ? true : false;
         
         if (!$userId || !$achievementId) {
-            throw new \Exception('Не указаны ID пользователя или ачивки');
+            throw new \Exception(LANG_ACTION_USERS_ADMINQUICKASSIGNACHIEVEMENT_MISSING_IDS);
         }
         
         $user = $this->userModel->getById($userId);
         if (!$user) {
-            throw new \Exception('Пользователь не найден');
+            throw new \Exception(LANG_ACTION_USERS_ADMINQUICKASSIGNACHIEVEMENT_USER_NOT_FOUND);
         }
         
         $achievement = $this->userModel->getAchievementById($achievementId);
         if (!$achievement) {
-            throw new \Exception('Ачивка не найдена');
+            throw new \Exception(LANG_ACTION_USERS_ADMINQUICKASSIGNACHIEVEMENT_ACHIEVEMENT_NOT_FOUND);
         }
         
         if ($achievement['type'] !== 'manual') {
-            throw new \Exception('Можно назначать только ручные ачивки');
+            throw new \Exception(LANG_ACTION_USERS_ADMINQUICKASSIGNACHIEVEMENT_MANUAL_ONLY);
         }
         
         $this->saveAchievementAssignmentHistory($userId, $achievementId, $reason);
@@ -78,7 +78,7 @@ class AdminQuickAssignAchievement extends AdminAchievementAction {
             $this->sendAchievementNotification($user, $achievement, $reason);
         }
         
-        \Notification::success('Ачивка успешно назначена пользователю');
+        \Notification::success(LANG_ACTION_USERS_ADMINQUICKASSIGNACHIEVEMENT_SUCCESS);
         $this->redirect(ADMIN_URL . '/users/edit/' . $userId);
     }
     
@@ -90,12 +90,12 @@ class AdminQuickAssignAchievement extends AdminAchievementAction {
     private function handleGetRequest() {
         $userId = $this->params['user_id'] ?? null;
         if (!$userId) {
-            throw new \Exception('ID пользователя не указан');
+            throw new \Exception(LANG_ACTION_USERS_ADMINQUICKASSIGNACHIEVEMENT_NO_USER_ID);
         }
         
         $user = $this->userModel->getById($userId);
         if (!$user) {
-            throw new \Exception('Пользователь не найден');
+            throw new \Exception(LANG_ACTION_USERS_ADMINQUICKASSIGNACHIEVEMENT_USER_NOT_FOUND);
         }
         
         $allAchievements = $this->userModel->getAllAchievements(['active' => true]);
@@ -110,7 +110,7 @@ class AdminQuickAssignAchievement extends AdminAchievementAction {
         $this->render('admin/users/quick-assign-achievement', [
             'user' => $user,
             'availableAchievements' => $availableAchievements,
-            'pageTitle' => 'Назначение ачивки'
+            'pageTitle' => LANG_ACTION_USERS_ADMINQUICKASSIGNACHIEVEMENT_PAGE_TITLE
         ]);
     }
     
@@ -139,16 +139,16 @@ class AdminQuickAssignAchievement extends AdminAchievementAction {
     * @return bool Результат операции
     */
     private function sendAchievementNotification($user, $achievement, $reason) {
-        $message = "Поздравляем! Вам была назначена ачивка \"{$achievement['name']}\"";
+        $message = sprintf(LANG_ACTION_USERS_ADMINQUICKASSIGNACHIEVEMENT_NOTIFICATION_MESSAGE, $achievement['name']);
         
         if (!empty($reason)) {
-            $message .= " за: " . $reason;
+            $message .= " " . LANG_ACTION_USERS_ADMINQUICKASSIGNACHIEVEMENT_NOTIFICATION_REASON . ": " . $reason;
         }
 
         $this->db->query(
             "INSERT INTO notifications (user_id, type, title, message, is_read) 
              VALUES (?, 'achievement', ?, ?, 0)",
-            [$user['id'], 'Новая ачивка!', $message]
+            [$user['id'], LANG_ACTION_USERS_ADMINQUICKASSIGNACHIEVEMENT_NOTIFICATION_TITLE, $message]
         );
         
         return true;

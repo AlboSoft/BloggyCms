@@ -18,7 +18,7 @@ class UploadGalleryImages extends PostAction {
         
         try {
             if (!isset($_FILES['gallery_images']) || empty($_FILES['gallery_images']['name'][0])) {
-                throw new \Exception('Файлы не загружены');
+                throw new \Exception(LANG_ACTION_POSTS_UPLOADGALLERYIMAGES_NO_FILES);
             }
 
             $uploadedFiles = [];
@@ -52,13 +52,13 @@ class UploadGalleryImages extends PostAction {
             }
 
             if (empty($uploadedFiles)) {
-                throw new \Exception('Не удалось загрузить файлы');
+                throw new \Exception(LANG_ACTION_POSTS_UPLOADGALLERYIMAGES_UPLOAD_FAILED);
             }
 
             echo json_encode([
                 'success' => true,
                 'files' => $uploadedFiles,
-                'message' => 'Изображения успешно загружены'
+                'message' => LANG_ACTION_POSTS_UPLOADGALLERYIMAGES_SUCCESS
             ]);
 
         } catch (\Exception $e) {

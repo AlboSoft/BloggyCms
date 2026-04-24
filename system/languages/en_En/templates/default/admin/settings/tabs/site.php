@@ -1,0 +1,22 @@
+<?php
+
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_SITE_TEMPLATE_LABEL', 'Site Template');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_BASE_URL_LABEL', 'Site Base URL');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_BASE_URL_HINT', 'This address is used for correct link operation on the site. Change only if you are moving the site to a different domain. Page reload will be required after change.');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_BASE_URL_CURRENT', 'Current config:');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_TEMPLATE_BACKUPS_TITLE', 'Template Backups');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_TEMPLATE_BACKUPS_ENABLE_LABEL', 'Create backups when editing templates');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_TEMPLATE_BACKUPS_ENABLE_HINT', 'A backup will be created before saving changes to template files');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_TEMPLATE_BACKUPS_MAX_LABEL', 'Maximum backups per file');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_TEMPLATE_BACKUPS_MAX_HINT', 'How many recent file versions to keep');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_TEMPLATE_BACKUPS_CLEANUP_LABEL', 'Automatically delete old copies');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_TEMPLATE_BACKUPS_CLEANUP_AUTO', 'Automatic');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_TEMPLATE_BACKUPS_CLEANUP_MANUAL', 'Manual');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_TEMPLATE_BACKUPS_CLEANUP_NEVER', 'Never delete');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_TEMPLATE_BACKUPS_CLEANUP_HINT', 'Manage old backup cleanup');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_TEMPLATE_BACKUPS_STATS_TITLE', 'Backup Statistics');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_TEMPLATE_BACKUPS_STATS_FILES', 'Files:');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_TEMPLATE_BACKUPS_STATS_SIZE', 'Size:');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_TEMPLATE_BACKUPS_STATS_OLDEST', 'Oldest:');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_TEMPLATE_BACKUPS_CLEANUP_BTN', 'Clear All Backups');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_TEMPLATE_BACKUPS_CLEANUP_CONFIRM', 'Are you sure? This action cannot be undone.');

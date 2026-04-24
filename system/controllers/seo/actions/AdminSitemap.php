@@ -21,9 +21,9 @@ class AdminSitemap extends SeoAction {
                 ];
 
                 $this->seoModel->saveSettings('seo_sitemap', $settings);
-                \Notification::success('Настройки sitemap сохранены');
+                \Notification::success(LANG_ACTION_SEO_ADMINSITEMAP_SUCCESS);
             } catch (\Exception $e) {
-                \Notification::error('Ошибка: ' . $e->getMessage());
+                \Notification::error(sprintf(LANG_ACTION_SEO_ADMINSITEMAP_ERROR, $e->getMessage()));
             }
         }
 

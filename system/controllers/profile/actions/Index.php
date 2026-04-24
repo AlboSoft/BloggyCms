@@ -18,10 +18,10 @@ class Index extends ProfileAction {
         
         $user = $this->userModel->getById($_SESSION['user_id']);
         
-        $this->addBreadcrumb('Главная', BASE_URL);
-        $this->addBreadcrumb('Профиль', BASE_URL . '/profile');
+        $this->addBreadcrumb(LANG_ACTION_PROFILE_INDEX_BREADCRUMB_HOME, BASE_URL);
+        $this->addBreadcrumb(LANG_ACTION_PROFILE_INDEX_BREADCRUMB_PROFILE, BASE_URL . '/profile');
         $this->addBreadcrumb($user['display_name'] ?: $user['username']);
-        $this->setPageTitle('Профиль: ' . ($user['display_name'] ?: $user['username']));
+        $this->setPageTitle(sprintf(LANG_ACTION_PROFILE_INDEX_PAGE_TITLE, $user['display_name'] ?: $user['username']));
         
         $userPosts = $this->postModel->getByUserId($user['id']);
         

@@ -38,10 +38,10 @@ class Show extends ProfileAction {
             return;
         }
         
-        $this->addBreadcrumb('Главная', BASE_URL);
-        $this->addBreadcrumb('Пользователи', BASE_URL . '/users');
+        $this->addBreadcrumb(LANG_ACTION_PROFILE_SHOW_BREADCRUMB_HOME, BASE_URL);
+        $this->addBreadcrumb(LANG_ACTION_PROFILE_SHOW_BREADCRUMB_USERS, BASE_URL . '/users');
         $this->addBreadcrumb($user['display_name'] ?: $user['username']);
-        $this->setPageTitle('Профиль: ' . ($user['display_name'] ?: $user['username']));
+        $this->setPageTitle(sprintf(LANG_ACTION_PROFILE_SHOW_PAGE_TITLE, $user['display_name'] ?: $user['username']));
         
         $activityManager = \UserActivityManager::getInstance($this->db);
         
@@ -59,7 +59,7 @@ class Show extends ProfileAction {
         }
         
         $isOnline = $activityManager ? $activityManager->isOnline($user['id']) : false;
-        $lastActivityInfo = $activityManager ? $activityManager->getLastActivityInfo($user['id']) : ['human' => 'неизвестно', 'days' => 0];
+        $lastActivityInfo = $activityManager ? $activityManager->getLastActivityInfo($user['id']) : ['human' => LANG_ACTION_PROFILE_SHOW_LAST_ACTIVITY_UNKNOWN, 'days' => 0];
         
         $isAdmin = isset($_SESSION['is_admin']) && $_SESSION['is_admin'];
         $currentUserId = $_SESSION['user_id'] ?? null;
@@ -159,12 +159,12 @@ class Show extends ProfileAction {
         }
         
         $roles = [
-            'admin' => 'Администратор', 
-            'author' => 'Автор',
-            'editor' => 'Редактор',
-            'moderator' => 'Модератор'
+            'admin' => LANG_ACTION_PROFILE_SHOW_ROLE_ADMIN,
+            'author' => LANG_ACTION_PROFILE_SHOW_ROLE_AUTHOR,
+            'editor' => LANG_ACTION_PROFILE_SHOW_ROLE_EDITOR,
+            'moderator' => LANG_ACTION_PROFILE_SHOW_ROLE_MODERATOR
         ];
         
-        return $roles[$userRole] ?? 'Участник';
+        return $roles[$userRole] ?? LANG_ACTION_PROFILE_SHOW_ROLE_MEMBER;
     }
 }

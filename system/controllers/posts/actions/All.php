@@ -15,9 +15,9 @@ class All extends PostAction {
     public function execute() {
         try {
 
-            $this->addBreadcrumb('Главная', BASE_URL);
-            $this->addBreadcrumb('Все записи');
-            $this->setPageTitle('Все записи');
+            $this->addBreadcrumb(LANG_ACTION_POSTS_ALL_BREADCRUMB_HOME, BASE_URL);
+            $this->addBreadcrumb(LANG_ACTION_POSTS_ALL_BREADCRUMB_ALL_POSTS);
+            $this->setPageTitle(LANG_ACTION_POSTS_ALL_PAGE_TITLE);
 
             $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
             $page = max(1, $page);
@@ -65,7 +65,7 @@ class All extends PostAction {
             ]);
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при загрузке постов: ' . $e->getMessage());
+            \Notification::error(sprintf(LANG_ACTION_POSTS_ALL_ERROR, $e->getMessage()));
             $this->redirect(BASE_URL);
         }
     }

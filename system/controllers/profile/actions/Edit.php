@@ -10,7 +10,7 @@ class Edit extends ProfileAction {
         $user = $this->userModel->getById($_SESSION['user_id']);
         
         if (!$user) {
-            $this->redirectWithError('Пользователь не найден', '/');
+            $this->redirectWithError(LANG_ACTION_PROFILE_EDIT_USER_NOT_FOUND, '/');
             return;
         }
 
@@ -23,10 +23,10 @@ class Edit extends ProfileAction {
             $fieldsWithValues[] = $field;
         }
         
-        $this->addBreadcrumb('Главная', BASE_URL);
-        $this->addBreadcrumb('Профиль', BASE_URL . '/profile/' . $user['username']);
-        $this->addBreadcrumb('Редактирование профиля');
-        $this->setPageTitle('Редактирование профиля');
+        $this->addBreadcrumb(LANG_ACTION_PROFILE_EDIT_BREADCRUMB_HOME, BASE_URL);
+        $this->addBreadcrumb(LANG_ACTION_PROFILE_EDIT_BREADCRUMB_PROFILE, BASE_URL . '/profile/' . $user['username']);
+        $this->addBreadcrumb(LANG_ACTION_PROFILE_EDIT_BREADCRUMB_EDIT);
+        $this->setPageTitle(LANG_ACTION_PROFILE_EDIT_PAGE_TITLE);
         
         $this->render('front/profile/edit', [
             'user' => $user,

@@ -1,0 +1,10 @@
+<?php
+
+define('LANG_CONTROLLER_PROFILE_PERMISSION_ALL_VIEW_TITLE', 'View Any Profiles');
+define('LANG_CONTROLLER_PROFILE_PERMISSION_ALL_VIEW_DESC', 'Ability to view other users\' profiles');
+define('LANG_CONTROLLER_PROFILE_PERMISSION_EDIT_TITLE', 'Edit Own Profile');
+define('LANG_CONTROLLER_PROFILE_PERMISSION_EDIT_DESC', 'Ability to edit own profile');
+define('LANG_CONTROLLER_PROFILE_PERMISSION_DELETE_TITLE', 'Delete Own Profile');
+define('LANG_CONTROLLER_PROFILE_PERMISSION_DELETE_DESC', 'Ability to delete own profile');
+define('LANG_CONTROLLER_PROFILE_PERMISSION_EMAIL_EDIT_TITLE', 'Change Email');
+define('LANG_CONTROLLER_PROFILE_PERMISSION_EMAIL_EDIT_DESC', 'Ability to edit own email');

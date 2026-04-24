@@ -14,9 +14,9 @@ class AdminCreate extends UserAction {
     */
     public function execute() {
 
-        $this->addBreadcrumb('Панель управления', ADMIN_URL);
-        $this->addBreadcrumb('Пользователи', ADMIN_URL . '/users');
-        $this->addBreadcrumb('Создание пользователя');
+        $this->addBreadcrumb(LANG_ACTION_USERS_ADMINCREATE_BREADCRUMB_DASHBOARD, ADMIN_URL);
+        $this->addBreadcrumb(LANG_ACTION_USERS_ADMINCREATE_BREADCRUMB_USERS, ADMIN_URL . '/users');
+        $this->addBreadcrumb(LANG_ACTION_USERS_ADMINCREATE_BREADCRUMB_CREATE);
         
         try {
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -52,7 +52,7 @@ class AdminCreate extends UserAction {
         
         $this->assignAchievements($userId);
         
-        \Notification::success('Пользователь успешно создан');
+        \Notification::success(LANG_ACTION_USERS_ADMINCREATE_SUCCESS);
         $this->redirect(ADMIN_URL . '/users');
     }
     
@@ -64,19 +64,19 @@ class AdminCreate extends UserAction {
      */
     private function validateRequiredFields() {
         if (empty($_POST['username'])) {
-            throw new \Exception('Имя пользователя обязательно');
+            throw new \Exception(LANG_ACTION_USERS_ADMINCREATE_ERROR_USERNAME_REQUIRED);
         }
 
         if (empty($_POST['email'])) {
-            throw new \Exception('Email обязателен');
+            throw new \Exception(LANG_ACTION_USERS_ADMINCREATE_ERROR_EMAIL_REQUIRED);
         }
 
         if (empty($_POST['password'])) {
-            throw new \Exception('Пароль обязателен');
+            throw new \Exception(LANG_ACTION_USERS_ADMINCREATE_ERROR_PASSWORD_REQUIRED);
         }
 
         if ($_POST['password'] !== $_POST['password_confirm']) {
-            throw new \Exception('Пароли не совпадают');
+            throw new \Exception(LANG_ACTION_USERS_ADMINCREATE_ERROR_PASSWORD_MISMATCH);
         }
     }
     
@@ -87,11 +87,11 @@ class AdminCreate extends UserAction {
     */
     private function checkUniqueness() {
         if ($this->userModel->getByUsername($_POST['username'])) {
-            throw new \Exception('Пользователь с таким именем уже существует');
+            throw new \Exception(LANG_ACTION_USERS_ADMINCREATE_ERROR_USERNAME_EXISTS);
         }
 
         if ($this->userModel->getByEmail($_POST['email'])) {
-            throw new \Exception('Пользователь с таким email уже существует');
+            throw new \Exception(LANG_ACTION_USERS_ADMINCREATE_ERROR_EMAIL_EXISTS);
         }
     }
     
@@ -165,7 +165,7 @@ class AdminCreate extends UserAction {
                     );
                 }
             } catch (\Exception $e) {
-                \Notification::error("Ошибка при сохранении поля {$field['name']}: " . $e->getMessage());
+                \Notification::error(sprintf(LANG_ACTION_USERS_ADMINCREATE_ERROR_FIELD_SAVE, $field['name'], $e->getMessage()));
             }
         }
     }
@@ -211,7 +211,7 @@ class AdminCreate extends UserAction {
         
         $this->render('admin/users/create', [
             'customFields' => $customFields,
-            'pageTitle' => 'Создание пользователя'
+            'pageTitle' => LANG_ACTION_USERS_ADMINCREATE_PAGE_TITLE
         ]);
     }
     
@@ -228,7 +228,7 @@ class AdminCreate extends UserAction {
         $this->render('admin/users/create', [
             'user' => $_POST,
             'customFields' => $customFields,
-            'pageTitle' => 'Создание пользователя'
+            'pageTitle' => LANG_ACTION_USERS_ADMINCREATE_PAGE_TITLE
         ]);
     }
 }

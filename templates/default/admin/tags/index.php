@@ -1,9 +1,9 @@
 <div class="container-fluid p-0">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h4 class="mb-0"><?php echo bloggy_icon('bs', 'tag', '24', '#000', 'me-2 controller-svg'); ?>Управление тегами</h4>
+        <h4 class="mb-0"><?php echo bloggy_icon('bs', 'tag', '24', '#000', 'me-2 controller-svg'); ?><?php echo LANG_TEMPLATE_TAGS_ADMININDEX_TITLE; ?></h4>
         <div class="d-flex gap-2">
-            <a href="<?php echo ADMIN_URL; ?>/settings?tab=components&controller=tags" class="btn btn-outline-secondary"><?php echo bloggy_icon('bs', 'gear-fill', '20', '#000', 'me-2'); ?>Настройки</a>
-            <a href="<?php echo ADMIN_URL; ?>/tags/create" class="btn btn-primary"><?php echo bloggy_icon('bs', 'plus-lg', '20', '#fff', 'me-2'); ?>Добавить тег</a>
+            <a href="<?php echo ADMIN_URL; ?>/settings?tab=components&controller=tags" class="btn btn-outline-secondary"><?php echo bloggy_icon('bs', 'gear-fill', '20', '#000', 'me-2'); ?><?php echo LANG_TEMPLATE_TAGS_ADMININDEX_SETTINGS_BTN; ?></a>
+            <a href="<?php echo ADMIN_URL; ?>/tags/create" class="btn btn-primary"><?php echo bloggy_icon('bs', 'plus-lg', '20', '#fff', 'me-2'); ?><?php echo LANG_TEMPLATE_TAGS_ADMININDEX_ADD_BTN; ?></a>
         </div>
     </div>
 
@@ -19,20 +19,20 @@
             <?php if (empty($tags)) { ?>
                 <div class="text-center py-5">
                     <div class="mb-3"><?php echo bloggy_icon('bs', 'tags', '48', '#6C6C6C'); ?></div>
-                    <h5 class="text-muted">Теги пока не созданы</h5>
-                    <p class="text-muted">Создайте первый тег для ваших постов</p>
-                    <a href="<?php echo ADMIN_URL; ?>/tags/create" class="btn btn-primary"><?php echo bloggy_icon('bs', 'plus-lg', '20', '#fff', 'me-2'); ?>Добавить тег</a>
+                    <h5 class="text-muted"><?php echo LANG_TEMPLATE_TAGS_ADMININDEX_EMPTY_TITLE; ?></h5>
+                    <p class="text-muted"><?php echo LANG_TEMPLATE_TAGS_ADMININDEX_EMPTY_HINT; ?></p>
+                    <a href="<?php echo ADMIN_URL; ?>/tags/create" class="btn btn-primary"><?php echo bloggy_icon('bs', 'plus-lg', '20', '#fff', 'me-2'); ?><?php echo LANG_TEMPLATE_TAGS_ADMININDEX_ADD_BTN; ?></a>
                 </div>
             <?php } else { ?>
                 <div class="table-responsive">
                     <table class="table table-hover align-middle">
                         <thead class="table-light">
                             <tr>
-                                <th>Изображение</th>
-                                <th>Тег</th>
-                                <th>URL</th>
-                                <th>Постов с тегом</th>
-                                <th class="text-end">Действия</th>
+                                <th><?php echo LANG_TEMPLATE_TAGS_ADMININDEX_TABLE_IMAGE; ?></th>
+                                <th><?php echo LANG_TEMPLATE_TAGS_ADMININDEX_TABLE_TAG; ?></th>
+                                <th><?php echo LANG_TEMPLATE_TAGS_ADMININDEX_TABLE_URL; ?></th>
+                                <th><?php echo LANG_TEMPLATE_TAGS_ADMININDEX_TABLE_POSTS; ?></th>
+                                <th class="text-end"><?php echo LANG_TEMPLATE_TAGS_ADMININDEX_TABLE_ACTIONS; ?></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -59,20 +59,20 @@
                                     </td>
                                     <td>
                                         <span class="badge bg-light text-dark">
-                                            <?php echo $tag['posts_count'] ?? 0; ?> <?php echo plural_form($tag['posts_count'] ?? 0, array('пост', 'поста', 'постов')); ?>
+                                            <?php echo $tag['posts_count'] ?? 0; ?> <?php echo LANG_TEMPLATE_TAGS_ADMININDEX_POSTS; ?>
                                         </span>
                                     </td>
                                     <td>
                                         <div class="d-flex justify-content-end gap-2">
-                                            <a href="<?php echo BASE_URL; ?>/tag/<?php echo $tag['slug']; ?>" class="btn btn-sm btn-secondary" target="_blank" title="Просмотр"><?php echo bloggy_icon('bs', 'eye', '16', '#000'); ?></a>
-                                            <a href="<?php echo ADMIN_URL; ?>/tags/edit/<?php echo $tag['id']; ?>" class="btn btn-sm btn-success" title="Редактировать"><?php echo bloggy_icon('bs', 'pencil', '16', '#fff'); ?></a>
-                                            <a href="<?php echo ADMIN_URL; ?>/tags/delete/<?php echo $tag['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Вы уверены, что хотите удалить этот тег?')" title="Удалить"><?php echo bloggy_icon('bs', 'trash', '16', '#fff'); ?></a>
+                                            <a href="<?php echo BASE_URL; ?>/tag/<?php echo $tag['slug']; ?>" class="btn btn-sm btn-secondary" target="_blank" title="<?php echo LANG_TEMPLATE_TAGS_ADMININDEX_VIEW_TITLE; ?>"><?php echo bloggy_icon('bs', 'eye', '16', '#000'); ?></a>
+                                            <a href="<?php echo ADMIN_URL; ?>/tags/edit/<?php echo $tag['id']; ?>" class="btn btn-sm btn-success" title="<?php echo LANG_TEMPLATE_TAGS_ADMININDEX_EDIT_TITLE; ?>"><?php echo bloggy_icon('bs', 'pencil', '16', '#fff'); ?></a>
+                                            <a href="<?php echo ADMIN_URL; ?>/tags/delete/<?php echo $tag['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('<?php echo LANG_TEMPLATE_TAGS_ADMININDEX_DELETE_CONFIRM; ?>')" title="<?php echo LANG_TEMPLATE_TAGS_ADMININDEX_DELETE_TITLE; ?>"><?php echo bloggy_icon('bs', 'trash', '16', '#fff'); ?></a>
                                         </div>
-                                    </td>
+                                     </td>
                                 </tr>
                             <?php } ?>
                         </tbody>
-                    </table>
+                     </table>
                 </div>
             <?php } ?>
         </div>

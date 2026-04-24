@@ -19,14 +19,14 @@ class Delete extends PostAction {
         $id = $this->params['id'] ?? null;
         
         if (!$id) {
-            throw new \Exception('ID поста не указан');
+            throw new \Exception(LANG_ACTION_POSTS_DELETE_NO_ID);
         }
 
         try {
             $post = $this->postModel->getById($id);
             
             if (!$post) {
-                \Notification::error('Запись не найдена');
+                \Notification::error(LANG_ACTION_POSTS_DELETE_POST_NOT_FOUND);
                 $this->redirect(ADMIN_URL . '/posts');
                 return;
             }
@@ -40,10 +40,10 @@ class Delete extends PostAction {
             
             $this->postModel->delete($id);
             
-            \Notification::success('Запись успешно удалена');
+            \Notification::success(LANG_ACTION_POSTS_DELETE_SUCCESS);
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при удалении записи');
+            \Notification::error(LANG_ACTION_POSTS_DELETE_ERROR);
         }
         
         $this->redirect(ADMIN_URL . '/posts');

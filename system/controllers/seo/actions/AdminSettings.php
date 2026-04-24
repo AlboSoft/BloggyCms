@@ -8,7 +8,7 @@ class AdminSettings extends SeoAction {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
                 if (!\CsrfToken::verify($_POST['csrf_token'] ?? '', 'seo_settings')) {
-                    throw new \Exception('Неверный CSRF токен');
+                    throw new \Exception(LANG_ACTION_SEO_ADMINSETTINGS_INVALID_CSRF);
                 }
 
                 $robotsSettings = [
@@ -72,7 +72,7 @@ class AdminSettings extends SeoAction {
                 ];
                 
                 if (!empty($schemaSettings['contact_email']) && !filter_var($schemaSettings['contact_email'], FILTER_VALIDATE_EMAIL)) {
-                    throw new \Exception('Неверный формат email для контактов');
+                    throw new \Exception(LANG_ACTION_SEO_ADMINSETTINGS_INVALID_EMAIL);
                 }
 
                 $this->seoModel->saveSettings('seo_robots', $robotsSettings);
@@ -93,10 +93,10 @@ class AdminSettings extends SeoAction {
                     \SettingsHelper::clearCache('seo_schema');
                 }
                 
-                \Notification::success('Настройки SEO успешно сохранены и файлы обновлены');
+                \Notification::success(LANG_ACTION_SEO_ADMINSETTINGS_SUCCESS);
                 
             } catch (\Exception $e) {
-                \Notification::error('Ошибка: ' . $e->getMessage());
+                \Notification::error(sprintf(LANG_ACTION_SEO_ADMINSETTINGS_ERROR, $e->getMessage()));
             }
         }
 

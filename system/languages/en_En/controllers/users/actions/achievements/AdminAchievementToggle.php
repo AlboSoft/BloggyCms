@@ -1,0 +1,8 @@
+<?php
+
+define('LANG_ACTION_USERS_ADMINACHIEVEMENTTOGGLE_NO_ID', 'Achievement ID not specified');
+define('LANG_ACTION_USERS_ADMINACHIEVEMENTTOGGLE_NOT_FOUND', 'Achievement not found');
+define('LANG_ACTION_USERS_ADMINACHIEVEMENTTOGGLE_ACTIVATED', 'activated');
+define('LANG_ACTION_USERS_ADMINACHIEVEMENTTOGGLE_DEACTIVATED', 'deactivated');
+define('LANG_ACTION_USERS_ADMINACHIEVEMENTTOGGLE_SUCCESS', 'Achievement successfully %s');
+define('LANG_ACTION_USERS_ADMINACHIEVEMENTTOGGLE_ERROR', 'Error changing achievement status: %s');

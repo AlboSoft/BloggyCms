@@ -1,0 +1,8 @@
+<?php
+
+define('LANG_ACTION_USERS_ADMINACHIEVEMENTASSIGN_NO_USER_ID', 'ID пользователя не указан');
+define('LANG_ACTION_USERS_ADMINACHIEVEMENTASSIGN_USER_NOT_FOUND', 'Пользователь не найден');
+define('LANG_ACTION_USERS_ADMINACHIEVEMENTASSIGN_NO_ACHIEVEMENT', 'Ачивка не выбрана');
+define('LANG_ACTION_USERS_ADMINACHIEVEMENTASSIGN_ACHIEVEMENT_NOT_FOUND', 'Ачивка не найдена');
+define('LANG_ACTION_USERS_ADMINACHIEVEMENTASSIGN_SUCCESS', 'Ачивка успешно назначена пользователю');
+define('LANG_ACTION_USERS_ADMINACHIEVEMENTASSIGN_PAGE_TITLE', 'Назначение ачивки пользователю');

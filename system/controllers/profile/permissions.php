@@ -1,19 +1,19 @@
 <?php
 return [
     'profile_all_view' => [
-        'title' => 'Просмотр любых профилей',
-        'description' => 'Возможность просматривать профили других пользователей'
+        'title' => LANG_CONTROLLER_PROFILE_PERMISSION_ALL_VIEW_TITLE,
+        'description' => LANG_CONTROLLER_PROFILE_PERMISSION_ALL_VIEW_DESC
     ],
     'profile_edit' => [
-        'title' => 'Редактирование своего профиля',
-        'description' => 'Возможность редактировать свой профиль'
+        'title' => LANG_CONTROLLER_PROFILE_PERMISSION_EDIT_TITLE,
+        'description' => LANG_CONTROLLER_PROFILE_PERMISSION_EDIT_DESC
     ],
     'profile_delete' => [
-        'title' => 'Удаление своего профиля',
-        'description' => 'Возможность удалять свой профиль'
+        'title' => LANG_CONTROLLER_PROFILE_PERMISSION_DELETE_TITLE,
+        'description' => LANG_CONTROLLER_PROFILE_PERMISSION_DELETE_DESC
     ],
     'email_edit' => [
-        'title' => 'Изменение Email',
-        'description' => 'Возможность редактировать свой Email'
+        'title' => LANG_CONTROLLER_PROFILE_PERMISSION_EMAIL_EDIT_TITLE,
+        'description' => LANG_CONTROLLER_PROFILE_PERMISSION_EMAIL_EDIT_DESC
     ]
 ];

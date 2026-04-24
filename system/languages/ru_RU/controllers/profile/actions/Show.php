@@ -1,0 +1,11 @@
+<?php
+
+define('LANG_ACTION_PROFILE_SHOW_BREADCRUMB_HOME', 'Главная');
+define('LANG_ACTION_PROFILE_SHOW_BREADCRUMB_USERS', 'Пользователи');
+define('LANG_ACTION_PROFILE_SHOW_PAGE_TITLE', 'Профиль: %s');
+define('LANG_ACTION_PROFILE_SHOW_LAST_ACTIVITY_UNKNOWN', 'неизвестно');
+define('LANG_ACTION_PROFILE_SHOW_ROLE_ADMIN', 'Администратор');
+define('LANG_ACTION_PROFILE_SHOW_ROLE_AUTHOR', 'Автор');
+define('LANG_ACTION_PROFILE_SHOW_ROLE_EDITOR', 'Редактор');
+define('LANG_ACTION_PROFILE_SHOW_ROLE_MODERATOR', 'Модератор');
+define('LANG_ACTION_PROFILE_SHOW_ROLE_MEMBER', 'Участник');

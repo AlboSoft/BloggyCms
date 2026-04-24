@@ -1,0 +1,6 @@
+<?php
+
+define('LANG_ACTION_USERS_ADMINACHIEVEMENTUNASSIGN_MISSING_IDS', 'Не указаны ID пользователя или ачивки');
+define('LANG_ACTION_USERS_ADMINACHIEVEMENTUNASSIGN_USER_NOT_FOUND', 'Пользователь не найден');
+define('LANG_ACTION_USERS_ADMINACHIEVEMENTUNASSIGN_ACHIEVEMENT_NOT_FOUND', 'Ачивка не найдена');
+define('LANG_ACTION_USERS_ADMINACHIEVEMENTUNASSIGN_SUCCESS', 'Ачивка успешно отозвана у пользователя');

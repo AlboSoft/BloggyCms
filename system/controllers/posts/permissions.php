@@ -1,19 +1,20 @@
 <?php
+
 return [
     'post_view' => [
-        'title' => 'Просмотр постов',
-        'description' => 'Возможность просматривать опубликованные посты'
+        'title' => LANG_CONTROLLER_POSTS_PERMISSION_VIEW_TITLE,
+        'description' => LANG_CONTROLLER_POSTS_PERMISSION_VIEW_DESC
     ],
     'post_comments' => [
-        'title' => 'Комментирование постов',
-        'description' => 'Возможность комментировать все посты'
+        'title' => LANG_CONTROLLER_POSTS_PERMISSION_COMMENTS_TITLE,
+        'description' => LANG_CONTROLLER_POSTS_PERMISSION_COMMENTS_DESC
     ],
     'post_rating' => [
-        'title' => 'Оценка постов',
-        'description' => 'Возможность ставить "лайки" '
+        'title' => LANG_CONTROLLER_POSTS_PERMISSION_RATING_TITLE,
+        'description' => LANG_CONTROLLER_POSTS_PERMISSION_RATING_DESC
     ],
     'post_favorites' => [
-        'title' => 'Закладки',
-        'description' => 'Возможность добавлять посты в закладки'
+        'title' => LANG_CONTROLLER_POSTS_PERMISSION_FAVORITES_TITLE,
+        'description' => LANG_CONTROLLER_POSTS_PERMISSION_FAVORITES_DESC
     ],
 ];

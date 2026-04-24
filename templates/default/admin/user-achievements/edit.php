@@ -2,16 +2,16 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h4 class="mb-0">
             <?php echo bloggy_icon('bs', 'pencil-square', '24', '#000', 'me-2'); ?>
-            Редактирование ачивки
+            <?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_TITLE; ?>
         </h4>
         <div class="d-flex gap-2">
             <a href="<?php echo ADMIN_URL; ?>/user-achievements" class="btn btn-outline-secondary btn-sm">
-                <?php echo bloggy_icon('bs', 'arrow-left', '18', '#000', 'me-1'); ?> Назад
+                <?php echo bloggy_icon('bs', 'arrow-left', '18', '#000', 'me-1'); ?> <?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_BACK_BTN; ?>
             </a>
             <a href="<?php echo ADMIN_URL; ?>/user-achievements/delete/<?php echo $achievement['id']; ?>" 
                class="btn btn-outline-danger btn-sm"
-               onclick="return confirm('Вы уверены, что хотите удалить эту ачивку?')">
-                <?php echo bloggy_icon('bs', 'trash', '18', '#000', 'me-1'); ?> Удалить
+               onclick="return confirm('<?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_DELETE_CONFIRM; ?>')">
+                <?php echo bloggy_icon('bs', 'trash', '18', '#000', 'me-1'); ?> <?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_DELETE_BTN; ?>
             </a>
         </div>
     </div>
@@ -23,7 +23,7 @@
                     <div class="card-body">
                         <div class="mb-3">
                             <label class="form-label">
-                                Название ачивки
+                                <?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_NAME_LABEL; ?>
                                 <span class="text-danger">*</span>
                             </label>
                             <input type="text" class="form-control" name="name" 
@@ -32,7 +32,7 @@
                         </div>
                         
                         <div class="mb-3">
-                            <label class="form-label">Описание</label>
+                            <label class="form-label"><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_DESCRIPTION_LABEL; ?></label>
                             <textarea class="form-control" name="description" rows="3"
                                 maxlength="500"><?php echo html($achievement['description'] ?? ''); ?></textarea>
                         </div>
@@ -40,7 +40,7 @@
                         <div class="mb-4">
                             <label class="form-label fw-bold mb-3">
                                 <?php echo bloggy_icon('bs', 'gear', '18', '#000', 'me-2'); ?>
-                                Условия получения
+                                <?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITIONS_LABEL; ?>
                             </label>
                             
                             <div id="conditionsContainer">
@@ -52,28 +52,28 @@
                                         <div class="card-body">
                                             <div class="row g-3">
                                                 <div class="col-md-4">
-                                                    <label class="form-label small">Тип условия</label>
+                                                    <label class="form-label small"><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_TYPE_LABEL; ?></label>
                                                     <select class="form-select condition-type" name="conditions[<?php echo $index; ?>][type]">
-                                                        <option value="">Выберите тип</option>
-                                                        <option value="registration_days" <?php echo $condition['condition_type'] == 'registration_days' ? 'selected' : ''; ?>>Дней с регистрации</option>
-                                                        <option value="comments_count" <?php echo $condition['condition_type'] == 'comments_count' ? 'selected' : ''; ?>>Количество комментариев</option>
-                                                        <option value="posts_count" <?php echo $condition['condition_type'] == 'posts_count' ? 'selected' : ''; ?>>Количество постов</option>
-                                                        <option value="login_days" <?php echo $condition['condition_type'] == 'login_days' ? 'selected' : ''; ?>>Дней входа</option>
+                                                        <option value=""><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_TYPE_SELECT; ?></option>
+                                                        <option value="registration_days" <?php echo $condition['condition_type'] == 'registration_days' ? 'selected' : ''; ?>><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_REGISTRATION_DAYS; ?></option>
+                                                        <option value="comments_count" <?php echo $condition['condition_type'] == 'comments_count' ? 'selected' : ''; ?>><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_COMMENTS_COUNT; ?></option>
+                                                        <option value="posts_count" <?php echo $condition['condition_type'] == 'posts_count' ? 'selected' : ''; ?>><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_POSTS_COUNT; ?></option>
+                                                        <option value="login_days" <?php echo $condition['condition_type'] == 'login_days' ? 'selected' : ''; ?>><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_LOGIN_DAYS; ?></option>
                                                     </select>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <label class="form-label small">Оператор</label>
+                                                    <label class="form-label small"><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_OPERATOR_LABEL; ?></label>
                                                     <select class="form-select condition-operator" name="conditions[<?php echo $index; ?>][operator]">
-                                                        <option value=">" <?php echo $condition['operator'] == '>' ? 'selected' : ''; ?>>Больше</option>
-                                                        <option value="<" <?php echo $condition['operator'] == '<' ? 'selected' : ''; ?>>Меньше</option>
-                                                        <option value="=" <?php echo $condition['operator'] == '=' ? 'selected' : ''; ?>>Равно</option>
-                                                        <option value=">=" <?php echo $condition['operator'] == '>=' ? 'selected' : ''; ?>>Больше или равно</option>
-                                                        <option value="<=" <?php echo $condition['operator'] == '<=' ? 'selected' : ''; ?>>Меньше или равно</option>
-                                                        <option value="!=" <?php echo $condition['operator'] == '!=' ? 'selected' : ''; ?>>Не равно</option>
+                                                        <option value=">" <?php echo $condition['operator'] == '>' ? 'selected' : ''; ?>><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_OPERATOR_GREATER; ?></option>
+                                                        <option value="<" <?php echo $condition['operator'] == '<' ? 'selected' : ''; ?>><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_OPERATOR_LESS; ?></option>
+                                                        <option value="=" <?php echo $condition['operator'] == '=' ? 'selected' : ''; ?>><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_OPERATOR_EQUAL; ?></option>
+                                                        <option value=">=" <?php echo $condition['operator'] == '>=' ? 'selected' : ''; ?>><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_OPERATOR_GREATER_EQUAL; ?></option>
+                                                        <option value="<=" <?php echo $condition['operator'] == '<=' ? 'selected' : ''; ?>><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_OPERATOR_LESS_EQUAL; ?></option>
+                                                        <option value="!=" <?php echo $condition['operator'] == '!=' ? 'selected' : ''; ?>><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_OPERATOR_NOT_EQUAL; ?></option>
                                                     </select>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <label class="form-label small">Значение</label>
+                                                    <label class="form-label small"><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_VALUE_LABEL; ?></label>
                                                     <input type="number" class="form-control condition-value" 
                                                         name="conditions[<?php echo $index; ?>][value]" min="0" 
                                                         value="<?php echo html($condition['value']); ?>">
@@ -88,10 +88,10 @@
                                             <div class="condition-description mt-2 small text-muted">
                                                 <?php 
                                                 $descriptions = array(
-                                                    'registration_days' => 'Дней с момента регистрации пользователя',
-                                                    'comments_count' => 'Количество оставленных комментариев',
-                                                    'posts_count' => 'Количество опубликованных постов',
-                                                    'login_days' => 'Количество дней с посещением сайта'
+                                                    'registration_days' => LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_DESC_REGISTRATION_DAYS,
+                                                    'comments_count' => LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_DESC_COMMENTS_COUNT,
+                                                    'posts_count' => LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_DESC_POSTS_COUNT,
+                                                    'login_days' => LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_DESC_LOGIN_DAYS
                                                 );
                                                 echo $descriptions[$condition['condition_type']] ?? '';
                                                 ?>
@@ -106,29 +106,29 @@
                                     <div class="card-body">
                                         <div class="row g-3">
                                             <div class="col-md-4">
-                                                <label class="form-label small">Тип условия</label>
+                                                <label class="form-label small"><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_TYPE_LABEL; ?></label>
                                                 <select class="form-select condition-type" name="conditions[0][type]">
-                                                    <option value="">Выберите тип</option>
-                                                    <option value="registration_days">Дней с регистрации</option>
-                                                    <option value="comments_count">Количество комментариев</option>
-                                                    <option value="likes_count">Количество лайков</option>
-                                                    <option value="bookmarks_count">Количество закладок</option>
-                                                    <option value="login_days">Дней входа</option>
+                                                    <option value=""><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_TYPE_SELECT; ?></option>
+                                                    <option value="registration_days"><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_REGISTRATION_DAYS; ?></option>
+                                                    <option value="comments_count"><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_COMMENTS_COUNT; ?></option>
+                                                    <option value="likes_count"><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_LIKES_COUNT; ?></option>
+                                                    <option value="bookmarks_count"><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_BOOKMARKS_COUNT; ?></option>
+                                                    <option value="login_days"><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_LOGIN_DAYS; ?></option>
                                                 </select>
                                             </div>
                                             <div class="col-md-3">
-                                                <label class="form-label small">Оператор</label>
+                                                <label class="form-label small"><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_OPERATOR_LABEL; ?></label>
                                                 <select class="form-select condition-operator" name="conditions[0][operator]">
-                                                    <option value=">">Больше</option>
-                                                    <option value="<">Меньше</option>
-                                                    <option value="=">Равно</option>
-                                                    <option value=">=">Больше или равно</option>
-                                                    <option value="<=">Меньше или равно</option>
-                                                    <option value="!=">Не равно</option>
+                                                    <option value=">"><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_OPERATOR_GREATER; ?></option>
+                                                    <option value="<"><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_OPERATOR_LESS; ?></option>
+                                                    <option value="="><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_OPERATOR_EQUAL; ?></option>
+                                                    <option value=">="><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_OPERATOR_GREATER_EQUAL; ?></option>
+                                                    <option value="<="><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_OPERATOR_LESS_EQUAL; ?></option>
+                                                    <option value="!="><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_OPERATOR_NOT_EQUAL; ?></option>
                                                 </select>
                                             </div>
                                             <div class="col-md-4">
-                                                <label class="form-label small">Значение</label>
+                                                <label class="form-label small"><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_VALUE_LABEL; ?></label>
                                                 <input type="number" class="form-control condition-value" 
                                                     name="conditions[0][value]" min="0" value="1">
                                             </div>
@@ -147,11 +147,11 @@
                             
                             <button type="button" class="btn btn-sm btn-outline-primary" id="addCondition">
                                 <?php echo bloggy_icon('bs', 'plus', '16', '#0d6efd', 'me-1'); ?>
-                                Добавить условие
+                                <?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_ADD_CONDITION_BTN; ?>
                             </button>
                             
                             <div class="form-text mt-2">
-                                Если не указаны условия, ачивку можно будет присваивать только вручную
+                                <?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITIONS_HINT; ?>
                             </div>
                         </div>
                     </div>
@@ -170,7 +170,7 @@
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="remove_image" value="1" id="removeImage">
                                 <label class="form-check-label small" for="removeImage">
-                                    Удалить изображение
+                                    <?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_REMOVE_IMAGE_LABEL; ?>
                                 </label>
                             </div>
                         </div>
@@ -178,11 +178,11 @@
                         
                         <div class="mb-3">
                             <label class="form-label">
-                                <?php echo !empty($achievement['image']) ? 'Заменить изображение' : 'Загрузить изображение'; ?>
+                                <?php echo !empty($achievement['image']) ? LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_REPLACE_IMAGE_LABEL : LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_UPLOAD_IMAGE_LABEL; ?>
                             </label>
                             <input type="file" class="form-control" name="image" accept="image/*" 
                                 id="imageUpload">
-                            <div class="form-text">Рекомендуемый размер: 128x128 пикселей</div>
+                            <div class="form-text"><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_IMAGE_HINT; ?></div>
                         </div>
                         
                         <div id="imagePreview" class="text-center mt-3" style="display: none;">
@@ -194,47 +194,47 @@
                 <div class="card border-0 shadow-sm mb-4">
                     <div class="card-body">
                         <div class="mb-3">
-                            <label class="form-label">Тип ачивки</label>
+                            <label class="form-label"><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_TYPE_LABEL; ?></label>
                             <select class="form-select" name="type">
                                 <option value="auto" <?php echo ($achievement['type'] ?? 'auto') == 'auto' ? 'selected' : ''; ?>>
-                                    Автоматическая (по условиям)
+                                    <?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_TYPE_AUTO; ?>
                                 </option>
                                 <option value="manual" <?php echo ($achievement['type'] ?? 'auto') == 'manual' ? 'selected' : ''; ?>>
-                                    Ручная (только администратор)
+                                    <?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_TYPE_MANUAL; ?>
                                 </option>
                             </select>
                         </div>
                         
                         <div class="mb-3">
-                            <label class="form-label">Приоритет</label>
+                            <label class="form-label"><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_PRIORITY_LABEL; ?></label>
                             <input type="number" class="form-control" name="priority"
                                 value="<?php echo html($achievement['priority'] ?? 0); ?>" min="0">
-                            <div class="form-text">Чем выше число, тем выше приоритет в списке</div>
+                            <div class="form-text"><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_PRIORITY_HINT; ?></div>
                         </div>
                         
                         <div class="form-check form-switch mb-3">
                             <input class="form-check-input" type="checkbox" name="is_active" 
                                 id="isActive" <?php echo ($achievement['is_active'] ?? 1) ? 'checked' : ''; ?>>
                             <label class="form-check-label" for="isActive">
-                                Ачивка активна
+                                <?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_ACTIVE_LABEL; ?>
                             </label>
                         </div>
                         
                         <div class="text-muted small">
                             <div class="d-flex justify-content-between mb-1">
-                                <span>Создана:</span>
+                                <span><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CREATED_AT; ?></span>
                                 <span><?php echo date('d.m.Y H:i', strtotime($achievement['created_at'])); ?></span>
                             </div>
                             <?php if ($achievement['updated_at'] != $achievement['created_at']) { ?>
                             <div class="d-flex justify-content-between">
-                                <span>Обновлена:</span>
+                                <span><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_UPDATED_AT; ?></span>
                                 <span><?php echo date('d.m.Y H:i', strtotime($achievement['updated_at'])); ?></span>
                             </div>
                             <?php } ?>
                             <?php if (isset($achievement['user_count'])) { ?>
                             <div class="d-flex justify-content-between">
-                                <span>Получили:</span>
-                                <span><?php echo $achievement['user_count']; ?> пользователей</span>
+                                <span><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_USER_COUNT; ?></span>
+                                <span><?php echo $achievement['user_count']; ?> <?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_USERS; ?></span>
                             </div>
                             <?php } ?>
                         </div>
@@ -244,10 +244,10 @@
                 <div class="d-grid gap-2">
                     <button type="submit" class="btn btn-primary">
                         <?php echo bloggy_icon('bs', 'check-lg', '18', '#fff', 'me-1'); ?>
-                        Сохранить изменения
+                        <?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_SUBMIT_BTN; ?>
                     </button>
                     <a href="<?php echo ADMIN_URL; ?>/user-achievements" class="btn btn-outline-secondary">
-                        Отмена
+                        <?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CANCEL_BTN; ?>
                     </a>
                 </div>
             </div>
@@ -260,10 +260,10 @@
 document.addEventListener('DOMContentLoaded', function() {
     let conditionIndex = <?php echo $conditionIndex; ?>;
     const conditionTemplates = {
-        'registration_days': 'Дней с момента регистрации пользователя',
-        'comments_count': 'Количество оставленных комментариев',
-        'posts_count': 'Количество опубликованных постов',
-        'login_days': 'Количество дней с посещением сайта'
+        'registration_days': '<?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_DESC_REGISTRATION_DAYS; ?>',
+        'comments_count': '<?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_DESC_COMMENTS_COUNT; ?>',
+        'posts_count': '<?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_DESC_POSTS_COUNT; ?>',
+        'login_days': '<?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_DESC_LOGIN_DAYS; ?>'
     };
     
     document.getElementById('addCondition').addEventListener('click', function() {
@@ -274,28 +274,28 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="card-body">
                 <div class="row g-3">
                     <div class="col-md-4">
-                        <label class="form-label small">Тип условия</label>
+                        <label class="form-label small"><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_TYPE_LABEL; ?></label>
                         <select class="form-select condition-type" name="conditions[${conditionIndex}][type]">
-                            <option value="">Выберите тип</option>
-                            <option value="registration_days">Дней с регистрации</option>
-                            <option value="comments_count">Количество комментариев</option>
-                            <option value="posts_count">Количество постов</option>
-                            <option value="login_days">Дней входа</option>
+                            <option value=""><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_TYPE_SELECT; ?></option>
+                            <option value="registration_days"><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_REGISTRATION_DAYS; ?></option>
+                            <option value="comments_count"><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_COMMENTS_COUNT; ?></option>
+                            <option value="posts_count"><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_POSTS_COUNT; ?></option>
+                            <option value="login_days"><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_LOGIN_DAYS; ?></option>
                         </select>
                     </div>
                     <div class="col-md-3">
-                        <label class="form-label small">Оператор</label>
+                        <label class="form-label small"><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_OPERATOR_LABEL; ?></label>
                         <select class="form-select condition-operator" name="conditions[${conditionIndex}][operator]">
-                            <option value=">">Больше</option>
-                            <option value="<">Меньше</option>
-                            <option value="=">Равно</option>
-                            <option value=">=">Больше или равно</option>
-                            <option value="<=">Меньше или равно</option>
-                            <option value="!=">Не равно</option>
+                            <option value=">"><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_OPERATOR_GREATER; ?></option>
+                            <option value="<"><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_OPERATOR_LESS; ?></option>
+                            <option value="="><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_OPERATOR_EQUAL; ?></option>
+                            <option value=">="><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_OPERATOR_GREATER_EQUAL; ?></option>
+                            <option value="<="><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_OPERATOR_LESS_EQUAL; ?></option>
+                            <option value="!="><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_OPERATOR_NOT_EQUAL; ?></option>
                         </select>
                     </div>
                     <div class="col-md-4">
-                        <label class="form-label small">Значение</label>
+                        <label class="form-label small"><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_CONDITION_VALUE_LABEL; ?></label>
                         <input type="number" class="form-control condition-value" 
                             name="conditions[${conditionIndex}][value]" min="0" value="1">
                     </div>
@@ -328,7 +328,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (document.querySelectorAll('.condition-item').length > 1) {
                 conditionElement.remove();
             } else {
-                alert('Должно быть хотя бы одно условие');
+                alert('<?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_ONE_CONDITION_ALERT; ?>');
             }
         });
         
@@ -369,7 +369,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const nameInput = this.querySelector('input[name="name"]');
         if (!nameInput.value.trim()) {
             e.preventDefault();
-            alert('Пожалуйста, введите название ачивки');
+            alert('<?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_ALERT_NAME_REQUIRED; ?>');
             nameInput.focus();
             return;
         }

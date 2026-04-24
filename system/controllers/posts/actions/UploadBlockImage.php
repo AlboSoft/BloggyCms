@@ -19,7 +19,7 @@ class UploadBlockImage extends PostAction {
         try {
 
             if (!isset($_FILES['block_image']) || $_FILES['block_image']['error'] !== UPLOAD_ERR_OK) {
-                throw new \Exception('Ошибка при загрузке файла');
+                throw new \Exception(LANG_ACTION_POSTS_UPLOADBLOCKIMAGE_UPLOAD_ERROR);
             }
 
             $file = $_FILES['block_image'];
@@ -27,11 +27,11 @@ class UploadBlockImage extends PostAction {
             $allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
             $fileType = mime_content_type($file['tmp_name']);
             if (!in_array($fileType, $allowedTypes)) {
-                throw new \Exception('Недопустимый тип файла');
+                throw new \Exception(LANG_ACTION_POSTS_UPLOADBLOCKIMAGE_INVALID_TYPE);
             }
             
             if ($file['size'] > 10 * 1024 * 1024) {
-                throw new \Exception('Файл слишком большой. Максимальный размер: 10MB');
+                throw new \Exception(LANG_ACTION_POSTS_UPLOADBLOCKIMAGE_FILE_TOO_LARGE);
             }
 
             $uploadDir = UPLOADS_PATH . '/images/blocks/';
@@ -43,14 +43,14 @@ class UploadBlockImage extends PostAction {
             $targetPath = $uploadDir . $fileName;
 
             if (!move_uploaded_file($file['tmp_name'], $targetPath)) {
-                throw new \Exception('Не удалось сохранить файл');
+                throw new \Exception(LANG_ACTION_POSTS_UPLOADBLOCKIMAGE_SAVE_ERROR);
             }
 
             echo json_encode([
                 'success' => true,
                 'url' => BASE_URL . '/uploads/images/blocks/' . $fileName,
                 'path' => $fileName,
-                'message' => 'Изображение блока успешно загружено'
+                'message' => LANG_ACTION_POSTS_UPLOADBLOCKIMAGE_SUCCESS
             ]);
 
         } catch (\Exception $e) {

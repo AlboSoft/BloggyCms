@@ -14,17 +14,17 @@ class AdminIndex extends TagAction {
     */
     public function execute() {
 
-        $this->addBreadcrumb('Панель управления', ADMIN_URL);
-        $this->addBreadcrumb('Теги');
+        $this->addBreadcrumb(LANG_ACTION_TAGS_ADMININDEX_BREADCRUMB_DASHBOARD, ADMIN_URL);
+        $this->addBreadcrumb(LANG_ACTION_TAGS_ADMININDEX_BREADCRUMB_TAGS);
         
         try {
             $tags = $this->tagModel->getAll();
             $hints = [
-                "К каждому тегу вы можете добавить свое изображение",
-                "Теги имеют дополнительные настройки - для этого перейдите в раздел Настройки и выберите - Компоненты -> теги",
-                "Вы можете добавить теги из этого раздела, или создать их динамически при созаднии поста",
-                "Вы можете ограничить количество добавляемых тегов к посту в настройках",
-                "Вы можете задать дефолтное изображение для тегов, для которых Вы не загрузили собственное - в настройках",
+                LANG_ACTION_TAGS_ADMININDEX_HINT_1,
+                LANG_ACTION_TAGS_ADMININDEX_HINT_2,
+                LANG_ACTION_TAGS_ADMININDEX_HINT_3,
+                LANG_ACTION_TAGS_ADMININDEX_HINT_4,
+                LANG_ACTION_TAGS_ADMININDEX_HINT_5
             ];
             
             $randomHint = $hints[array_rand($hints)];
@@ -38,12 +38,12 @@ class AdminIndex extends TagAction {
             $this->render('admin/tags/index', [
                 'tags' => $tags,
                 'randomHint' => $randomHint,
-                'pageTitle' => 'Управление тегами',
+                'pageTitle' => LANG_ACTION_TAGS_ADMININDEX_PAGE_TITLE,
                 'settings' => $settings
             ]);
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при загрузке списка тегов');
+            \Notification::error(LANG_ACTION_TAGS_ADMININDEX_ERROR);
             $this->redirect(ADMIN_URL);
         }
     }

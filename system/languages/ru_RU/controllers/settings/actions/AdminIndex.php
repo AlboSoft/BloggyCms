@@ -1,0 +1,21 @@
+<?php
+
+define('LANG_ACTION_SETTINGS_ADMININDEX_BREADCRUMB_DASHBOARD', 'Панель управления');
+define('LANG_ACTION_SETTINGS_ADMININDEX_BREADCRUMB_SETTINGS', 'Настройки');
+define('LANG_ACTION_SETTINGS_ADMININDEX_SAVE_SUCCESS', 'Настройки успешно сохранены');
+define('LANG_ACTION_SETTINGS_ADMININDEX_SAVE_ERROR', 'Ошибка при сохранении настроек: %s');
+define('LANG_ACTION_SETTINGS_ADMININDEX_CONTROLLER_SAVE_SUCCESS', 'Настройки контроллера сохранены');
+define('LANG_ACTION_SETTINGS_ADMININDEX_CONTROLLER_SAVE_ERROR', 'Ошибка при сохранении настроек контроллера: %s');
+define('LANG_ACTION_SETTINGS_ADMININDEX_PAGE_TITLE', 'Настройки блога');
+define('LANG_ACTION_SETTINGS_ADMININDEX_LOAD_ERROR', 'Ошибка при загрузке настроек: %s');
+define('LANG_ACTION_SETTINGS_ADMININDEX_IMAGE_UPLOAD_ERROR', 'Ошибка загрузки изображения для поля %s: %s');
+define('LANG_ACTION_SETTINGS_ADMININDEX_IMAGE_DELETE_ERROR', 'Ошибка удаления изображения для поля %s: %s');
+define('LANG_ACTION_SETTINGS_ADMININDEX_INVALID_IMAGE_TYPE', 'Недопустимый тип файла. Разрешены: JPG, PNG, GIF, WebP');
+define('LANG_ACTION_SETTINGS_ADMININDEX_IMAGE_TOO_LARGE', 'Размер файла не должен превышать 5MB');
+define('LANG_ACTION_SETTINGS_ADMININDEX_IMAGE_UPLOAD_FAILED', 'Ошибка при загрузке файла');
+define('LANG_ACTION_SETTINGS_ADMININDEX_FAVICON_INVALID_TYPE', 'Недопустимый формат файла. Разрешены: ICO, PNG, SVG, JPG, JPEG, GIF, WebP');
+define('LANG_ACTION_SETTINGS_ADMININDEX_UPLOAD_DIR_ERROR', 'Не удалось создать директорию для загрузки');
+define('LANG_ACTION_SETTINGS_ADMININDEX_FAVICON_SAVE_ERROR', 'Ошибка при сохранении файла');
+define('LANG_ACTION_SETTINGS_ADMININDEX_FAVICON_SUCCESS', 'Favicon успешно загружен');
+define('LANG_ACTION_SETTINGS_ADMININDEX_FAVICON_ERROR', 'Ошибка загрузки favicon: %s');
+define('LANG_ACTION_SETTINGS_ADMININDEX_FAVICON_REMOVED', 'Favicon удален');

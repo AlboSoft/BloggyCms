@@ -14,7 +14,7 @@ class Bookmarks extends PostAction {
     */
     public function execute() {
         if (!isset($_SESSION['user_id'])) {
-            \Notification::error('Требуется авторизация для просмотра закладок');
+            \Notification::error(LANG_ACTION_POSTS_BOOKMARKS_AUTH_REQUIRED);
             $this->redirect(BASE_URL . '/login');
             return;
         }
@@ -28,14 +28,14 @@ class Bookmarks extends PostAction {
                 $username = $user['username'] ?? '';
             }
             
-            $this->addBreadcrumb('Главная', BASE_URL);
+            $this->addBreadcrumb(LANG_ACTION_POSTS_BOOKMARKS_BREADCRUMB_HOME, BASE_URL);
             
             if (!empty($username)) {
-                $this->addBreadcrumb('Мой профиль', BASE_URL . '/profile/' . $username);
+                $this->addBreadcrumb(LANG_ACTION_POSTS_BOOKMARKS_BREADCRUMB_PROFILE, BASE_URL . '/profile/' . $username);
             }
             
-            $this->addBreadcrumb('Мои закладки');
-            $this->setPageTitle('Мои закладки');
+            $this->addBreadcrumb(LANG_ACTION_POSTS_BOOKMARKS_BREADCRUMB_BOOKMARKS);
+            $this->setPageTitle(LANG_ACTION_POSTS_BOOKMARKS_PAGE_TITLE);
             
             $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
             $page = max(1, $page);
@@ -52,7 +52,7 @@ class Bookmarks extends PostAction {
             ]);
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при загрузке закладок: ' . $e->getMessage());
+            \Notification::error(sprintf(LANG_ACTION_POSTS_BOOKMARKS_ERROR, $e->getMessage()));
             $this->redirect(BASE_URL);
         }
     }

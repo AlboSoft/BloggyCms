@@ -4,23 +4,23 @@ namespace users;
 class UsersSettings {
     public static function getForm($currentSettings) {
         $fieldsets = [
-            new \Fieldset('Общие настройки', [
+            new \Fieldset(LANG_CONTROLLER_USERS_SETTINGS_FIELDSET_GENERAL, [
                 'icon' => 'bi bi-palette',
                 'columns' => '6',
                 'fields' => [
                     \FieldFactory::checkbox('show_filter', [
-                        'title' => 'Отображать фильтр для быстрого поиска пользователей',
+                        'title' => LANG_CONTROLLER_USERS_SETTINGS_SHOW_FILTER,
                         'default' => true,
                         'switch' => true
                     ]),
                     \FieldFactory::checkbox('show_info', [
-                        'title' => 'Отображать блок подсказок над списком категорий',
-                        'hint' => 'В случайном порядке будут показываться полезные советы по работе с пользователями',
+                        'title' => LANG_CONTROLLER_USERS_SETTINGS_SHOW_INFO,
+                        'hint' => LANG_CONTROLLER_USERS_SETTINGS_SHOW_INFO_HINT,
                         'default' => true,
                         'switch' => true
                     ]),
                     \FieldFactory::checkbox('admin_top', [
-                        'title' => 'Отображать администраторов сайта сверху списка',
+                        'title' => LANG_CONTROLLER_USERS_SETTINGS_ADMIN_TOP,
                         'default' => true,
                         'switch' => true
                     ]),

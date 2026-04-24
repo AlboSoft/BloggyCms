@@ -11,7 +11,7 @@ class AdminSchema extends SeoAction {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
                 if (!\CsrfToken::verify($_POST['csrf_token'] ?? '', 'seo_schema')) {
-                    throw new \Exception('Неверный CSRF токен');
+                    throw new \Exception(LANG_ACTION_SEO_ADMINSCHEMA_INVALID_CSRF);
                 }
 
                 $schemaSettings = [
@@ -30,7 +30,7 @@ class AdminSchema extends SeoAction {
                 ];
 
                 if (!empty($schemaSettings['contact_email']) && !filter_var($schemaSettings['contact_email'], FILTER_VALIDATE_EMAIL)) {
-                    throw new \Exception('Неверный формат email для контактов');
+                    throw new \Exception(LANG_ACTION_SEO_ADMINSCHEMA_INVALID_EMAIL);
                 }
 
                 $this->seoModel->saveSchemaSettings($schemaSettings);
@@ -39,10 +39,10 @@ class AdminSchema extends SeoAction {
                     \SettingsHelper::clearCache('seo_schema');
                 }
                 
-                \Notification::success('Настройки Schema.org успешно сохранены');
+                \Notification::success(LANG_ACTION_SEO_ADMINSCHEMA_SUCCESS);
                 
             } catch (\Exception $e) {
-                \Notification::error('Ошибка: ' . $e->getMessage());
+                \Notification::error(sprintf(LANG_ACTION_SEO_ADMINSCHEMA_ERROR, $e->getMessage()));
             }
         }
 

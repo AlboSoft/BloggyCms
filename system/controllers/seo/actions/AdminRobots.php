@@ -18,9 +18,9 @@ class AdminRobots extends SeoAction {
                 ];
 
                 $this->seoModel->saveSettings('seo_robots', $settings);
-                \Notification::success('Настройки robots.txt сохранены');
+                \Notification::success(LANG_ACTION_SEO_ADMINROBOTS_SUCCESS);
             } catch (\Exception $e) {
-                \Notification::error('Ошибка: ' . $e->getMessage());
+                \Notification::error(sprintf(LANG_ACTION_SEO_ADMINROBOTS_ERROR, $e->getMessage()));
             }
         }
 

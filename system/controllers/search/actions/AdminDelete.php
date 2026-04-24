@@ -16,7 +16,7 @@ class AdminDelete extends SearchAction {
         $id = $this->params['id'] ?? null;
         
         if (!$id) {
-            \Notification::error('ID запроса не указан');
+            \Notification::error(LANG_ACTION_SEARCH_ADMINDELETE_NO_ID);
             $this->redirect(ADMIN_URL . '/search-history');
             return;
         }
@@ -24,10 +24,10 @@ class AdminDelete extends SearchAction {
         try {
             $this->searchModel->deleteSearchQuery($id);
             
-            \Notification::success('Поисковый запрос успешно удален');
+            \Notification::success(LANG_ACTION_SEARCH_ADMINDELETE_SUCCESS);
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при удалении поискового запроса');
+            \Notification::error(LANG_ACTION_SEARCH_ADMINDELETE_ERROR);
         }
         
         $this->redirect(ADMIN_URL . '/search-history');

@@ -59,12 +59,12 @@ class Index extends PostAction {
                 'total_pages' => $result['pages'],
                 'current_page' => $result['current_page'],
                 'pagination' => $pagination,
-                'title' => 'Главная страница',
+                'title' => LANG_ACTION_POSTS_INDEX_PAGE_TITLE,
                 'categories' => $categories
             ]);
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при загрузке постов: ' . $e->getMessage());
+            \Notification::error(sprintf(LANG_ACTION_POSTS_INDEX_ERROR, $e->getMessage()));
             $this->redirect(BASE_URL);
         }
     }
@@ -99,7 +99,7 @@ class Index extends PostAction {
                 }
                 
             } catch (\Exception $e) {
-                DebugLogger::warning('Failed to get user groups in posts index', [
+                DebugLogger::warning(LANG_ACTION_POSTS_INDEX_DEBUG_WARNING, [
                     'file' => __FILE__,
                     'line' => __LINE__,
                     'error' => $e->getMessage()

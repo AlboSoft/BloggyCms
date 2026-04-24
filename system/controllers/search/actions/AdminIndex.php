@@ -15,13 +15,13 @@ class AdminIndex extends SearchAction {
     public function execute() {
         
         if (!$this->checkAuth()) {
-            \Notification::error('Пожалуйста, авторизуйтесь для доступа к истории поиска');
+            \Notification::error(LANG_ACTION_SEARCH_ADMININDEX_AUTH_REQUIRED);
             $this->redirect(ADMIN_URL . '/login');
             return;
         }
         
-        $this->addBreadcrumb('Панель управления', ADMIN_URL);
-        $this->addBreadcrumb('История поиска');
+        $this->addBreadcrumb(LANG_ACTION_SEARCH_ADMININDEX_BREADCRUMB_DASHBOARD, ADMIN_URL);
+        $this->addBreadcrumb(LANG_ACTION_SEARCH_ADMININDEX_BREADCRUMB_SEARCH);
         
         try {
             
@@ -35,11 +35,11 @@ class AdminIndex extends SearchAction {
                 'total' => $result['total'],
                 'pages' => $result['pages'],
                 'current_page' => $result['current_page'],
-                'pageTitle' => 'История поисковых запросов'
+                'pageTitle' => LANG_ACTION_SEARCH_ADMININDEX_PAGE_TITLE
             ]);
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при загрузке истории поисковых запросов');
+            \Notification::error(LANG_ACTION_SEARCH_ADMININDEX_ERROR);
             $this->redirect(ADMIN_URL);
         }
     }

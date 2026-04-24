@@ -14,9 +14,9 @@ class Create extends PostAction {
     */
     public function execute() {
 
-        $this->addBreadcrumb('Панель управления', ADMIN_URL);
-        $this->addBreadcrumb('Посты', ADMIN_URL . '/posts');
-        $this->addBreadcrumb('Создание поста');
+        $this->addBreadcrumb(LANG_ACTION_POSTS_CREATE_BREADCRUMB_DASHBOARD, ADMIN_URL);
+        $this->addBreadcrumb(LANG_ACTION_POSTS_CREATE_BREADCRUMB_POSTS, ADMIN_URL . '/posts');
+        $this->addBreadcrumb(LANG_ACTION_POSTS_CREATE_BREADCRUMB_CREATE);
         
         try {
             $categories = $this->categoryModel->getAll();
@@ -54,7 +54,7 @@ class Create extends PostAction {
         $this->processPostTags($postId);
         $this->processCustomFields($postId);
         
-        \Notification::success('Пост успешно создан');
+        \Notification::success(LANG_ACTION_POSTS_CREATE_SUCCESS);
         $this->redirect(ADMIN_URL . '/posts');
     }
 
@@ -67,18 +67,18 @@ class Create extends PostAction {
     */
     private function validateRequiredFields($maxTags, $hasCategories) {
         if (empty($_POST['title'])) {
-            throw new \Exception('Заголовок обязателен');
+            throw new \Exception(LANG_ACTION_POSTS_CREATE_ERROR_TITLE_REQUIRED);
         }
         
         if ($hasCategories && empty($_POST['category_id'])) {
-            throw new \Exception('Категория обязательна');
+            throw new \Exception(LANG_ACTION_POSTS_CREATE_ERROR_CATEGORY_REQUIRED);
         }
 
         if (!empty($_POST['tags_json'])) {
             $tags = json_decode($_POST['tags_json'], true);
             if (is_array($tags)) {
                 if (count($tags) > $maxTags) {
-                    throw new \Exception("Максимальное количество тегов: {$maxTags}. Вы выбрали: " . count($tags));
+                    throw new \Exception(sprintf(LANG_ACTION_POSTS_CREATE_ERROR_MAX_TAGS, $maxTags, count($tags)));
                 }
             }
         }
@@ -89,7 +89,7 @@ class Create extends PostAction {
             $currentDate = new \DateTime();
             
             if ($selectedDate > $currentDate) {
-                throw new \Exception('Дата публикации не может быть в будущем');
+                throw new \Exception(LANG_ACTION_POSTS_CREATE_ERROR_FUTURE_DATE);
             }
         }
     }
@@ -148,7 +148,7 @@ class Create extends PostAction {
             $targetPath = $uploadDir . $fileName;
 
             if (!move_uploaded_file($_FILES['featured_image']['tmp_name'], $targetPath)) {
-                throw new \Exception('Ошибка загрузки изображения');
+                throw new \Exception(LANG_ACTION_POSTS_CREATE_ERROR_IMAGE_UPLOAD);
             }
             return $fileName;
         }
@@ -261,7 +261,7 @@ class Create extends PostAction {
                 );
             }
         } catch (\Exception $e) {
-            \Notification::error("Ошибка обработки поля {$field['name']}: " . $e->getMessage());
+            \Notification::error(sprintf(LANG_ACTION_POSTS_CREATE_ERROR_FIELD_PROCESS, $field['name'], $e->getMessage()));
         }
     }
 
@@ -280,7 +280,7 @@ class Create extends PostAction {
             'postBlockManager' => $this->postBlockManager,
             'maxTags' => $maxTags,
             'hasCategories' => $hasCategories,
-            'pageTitle' => 'Создание поста'
+            'pageTitle' => LANG_ACTION_POSTS_CREATE_PAGE_TITLE
         ]);
     }
 

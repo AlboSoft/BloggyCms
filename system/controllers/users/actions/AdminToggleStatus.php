@@ -17,32 +17,32 @@ class AdminToggleStatus extends UserAction {
         $id = $this->params['id'] ?? null;
         
         if (!$id) {
-            \Notification::error('ID пользователя не указан');
+            \Notification::error(LANG_ACTION_USERS_ADMINTOGGLESTATUS_NO_ID);
             $this->redirect(ADMIN_URL . '/users');
             return;
         }
         
         try {
             if ($id == $this->getCurrentUserId()) {
-                \Notification::error('Нельзя изменить статус собственного аккаунта');
+                \Notification::error(LANG_ACTION_USERS_ADMINTOGGLESTATUS_CANNOT_TOGGLE_SELF);
                 $this->redirect(ADMIN_URL . '/users');
                 return;
             }
 
             $user = $this->userModel->getById($id);
             if (!$user) {
-                throw new \Exception('Пользователь не найден');
+                throw new \Exception(LANG_ACTION_USERS_ADMINTOGGLESTATUS_USER_NOT_FOUND);
             }
             
             $newStatus = $user['status'] === 'active' ? 'banned' : 'active';
             
             $this->userModel->update($id, ['status' => $newStatus]);
             
-            $statusText = $newStatus === 'active' ? 'активирован' : 'заблокирован';
-            \Notification::success("Пользователь {$statusText}");
+            $statusText = $newStatus === 'active' ? LANG_ACTION_USERS_ADMINTOGGLESTATUS_ACTIVATED : LANG_ACTION_USERS_ADMINTOGGLESTATUS_BANNED;
+            \Notification::success(sprintf(LANG_ACTION_USERS_ADMINTOGGLESTATUS_SUCCESS, $statusText));
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при изменении статуса пользователя: ' . $e->getMessage());
+            \Notification::error(sprintf(LANG_ACTION_USERS_ADMINTOGGLESTATUS_ERROR, $e->getMessage()));
         }
         
         $this->redirect(ADMIN_URL . '/users');

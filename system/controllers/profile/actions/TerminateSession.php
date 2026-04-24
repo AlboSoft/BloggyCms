@@ -15,7 +15,7 @@ class TerminateSession extends ProfileAction {
         if (!isset($_SESSION['user_id'])) {
             http_response_code(401);
             header('Content-Type: application/json');
-            echo json_encode(['success' => false, 'message' => 'Не авторизован']);
+            echo json_encode(['success' => false, 'message' => LANG_ACTION_PROFILE_TERMINATESESSION_UNAUTHORIZED]);
             return;
         }
         
@@ -25,13 +25,13 @@ class TerminateSession extends ProfileAction {
         
         if (!$this->validateCsrfToken($csrfToken)) {
             header('Content-Type: application/json');
-            echo json_encode(['success' => false, 'message' => 'Неверный CSRF токен']);
+            echo json_encode(['success' => false, 'message' => LANG_ACTION_PROFILE_TERMINATESESSION_INVALID_CSRF]);
             return;
         }
         
         if (!$sessionId) {
             header('Content-Type: application/json');
-            echo json_encode(['success' => false, 'message' => 'ID сессии не указан']);
+            echo json_encode(['success' => false, 'message' => LANG_ACTION_PROFILE_TERMINATESESSION_NO_SESSION_ID]);
             return;
         }
         
@@ -42,7 +42,7 @@ class TerminateSession extends ProfileAction {
             echo json_encode(['success' => true]);
         } else {
             header('Content-Type: application/json');
-            echo json_encode(['success' => false, 'message' => 'Не удалось завершить сессию']);
+            echo json_encode(['success' => false, 'message' => LANG_ACTION_PROFILE_TERMINATESESSION_ERROR]);
         }
     }
     

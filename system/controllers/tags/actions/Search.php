@@ -33,7 +33,7 @@ class Search extends TagAction {
             
         } catch (\Exception $e) {
             http_response_code(500);
-            echo json_encode(['error' => 'Внутренняя ошибка сервера']);
+            echo json_encode(['error' => LANG_ACTION_TAGS_SEARCH_ERROR]);
             exit;
         }
     }

@@ -23,10 +23,10 @@ class AdminReset extends SettingsAction {
             
             $this->settingsModel->save($activeTab, $defaultSettings);
             
-            \Notification::success('Настройки успешно сброшены к значениям по умолчанию');
+            \Notification::success(LANG_ACTION_SETTINGS_ADMINRESET_SUCCESS);
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при сбросе настроек');
+            \Notification::error(LANG_ACTION_SETTINGS_ADMINRESET_ERROR);
         }
         
         $this->redirect(ADMIN_URL . '/settings?tab=' . $activeTab);

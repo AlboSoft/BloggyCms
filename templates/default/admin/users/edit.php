@@ -7,10 +7,10 @@ $customFields = $fieldModel->getActiveByEntityType('user');
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h4 class="mb-0">
             <?php echo bloggy_icon('bs', 'person-gear', '24', '#000', 'me-2'); ?>
-            Редактирование пользователя
+            <?php echo LANG_TEMPLATE_USERS_EDIT_TITLE; ?>
         </h4>
         <a href="<?php echo ADMIN_URL; ?>/users" class="btn btn-outline-secondary btn-sm">
-            <?php echo bloggy_icon('bs', 'arrow-left', '16', '#000', 'me-1'); ?> Назад к пользователям
+            <?php echo bloggy_icon('bs', 'arrow-left', '16', '#000', 'me-1'); ?> <?php echo LANG_TEMPLATE_USERS_EDIT_BACK_BTN; ?>
         </a>
     </div>
 
@@ -19,14 +19,14 @@ $customFields = $fieldModel->getActiveByEntityType('user');
             <div class="col-lg-8">
                 <div class="card border-0 shadow-sm mb-4">
                     <div class="card-header bg-white border-0">
-                        <h5 class="card-title mb-0">Основная информация</h5>
+                        <h5 class="card-title mb-0"><?php echo LANG_TEMPLATE_USERS_EDIT_MAIN_INFO_TITLE; ?></h5>
                     </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">
-                                        Имя пользователя
+                                        <?php echo LANG_TEMPLATE_USERS_EDIT_USERNAME_LABEL; ?>
                                         <span class="text-danger">*</span>
                                     </label>
                                     <input type="text" class="form-control" name="username" 
@@ -37,7 +37,7 @@ $customFields = $fieldModel->getActiveByEntityType('user');
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">
-                                        Email
+                                        <?php echo LANG_TEMPLATE_USERS_EDIT_EMAIL_LABEL; ?>
                                         <span class="text-danger">*</span>
                                     </label>
                                     <input type="email" class="form-control" name="email" 
@@ -51,7 +51,7 @@ $customFields = $fieldModel->getActiveByEntityType('user');
                             <div class="form-check form-switch">
                                 <input class="form-check-input" type="checkbox" id="change_password" name="change_password">
                                 <label class="form-check-label" for="change_password">
-                                    Изменить пароль
+                                    <?php echo LANG_TEMPLATE_USERS_EDIT_CHANGE_PASSWORD_LABEL; ?>
                                 </label>
                             </div>
                         </div>
@@ -59,35 +59,35 @@ $customFields = $fieldModel->getActiveByEntityType('user');
                         <div class="row password-fields" style="display: none;">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Новый пароль</label>
+                                    <label class="form-label"><?php echo LANG_TEMPLATE_USERS_EDIT_NEW_PASSWORD_LABEL; ?></label>
                                     <input type="password" class="form-control" name="password">
-                                    <div class="form-text">Минимум 6 символов</div>
+                                    <div class="form-text"><?php echo LANG_TEMPLATE_USERS_EDIT_PASSWORD_HINT; ?></div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Подтверждение пароля</label>
+                                    <label class="form-label"><?php echo LANG_TEMPLATE_USERS_EDIT_CONFIRM_PASSWORD_LABEL; ?></label>
                                     <input type="password" class="form-control" name="password_confirm">
                                 </div>
                             </div>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Отображаемое имя</label>
+                            <label class="form-label"><?php echo LANG_TEMPLATE_USERS_EDIT_DISPLAY_NAME_LABEL; ?></label>
                             <input type="text" class="form-control" name="display_name" 
                                    value="<?php echo html($user['display_name'] ?? ''); ?>" 
                                    maxlength="100">
-                            <div class="form-text">Если не указано, будет использоваться имя пользователя</div>
+                            <div class="form-text"><?php echo LANG_TEMPLATE_USERS_EDIT_DISPLAY_NAME_HINT; ?></div>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">О себе</label>
+                            <label class="form-label"><?php echo LANG_TEMPLATE_USERS_EDIT_BIO_LABEL; ?></label>
                             <textarea class="form-control" name="bio" rows="3" 
                                       maxlength="500"><?php echo html($user['bio'] ?? ''); ?></textarea>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Веб-сайт</label>
+                            <label class="form-label"><?php echo LANG_TEMPLATE_USERS_EDIT_WEBSITE_LABEL; ?></label>
                             <input type="url" class="form-control" name="website" 
                                    value="<?php echo html($user['website'] ?? ''); ?>" 
                                    maxlength="255">
@@ -97,20 +97,20 @@ $customFields = $fieldModel->getActiveByEntityType('user');
 
                 <div class="card border-0 shadow-sm mb-4">
                     <div class="card-header bg-white border-0">
-                        <h5 class="card-title mb-0">Аватар</h5>
+                        <h5 class="card-title mb-0"><?php echo LANG_TEMPLATE_USERS_EDIT_AVATAR_TITLE; ?></h5>
                     </div>
                     <div class="card-body">
                         <div class="mb-3">
-                            <label class="form-label">Загрузить новый аватар</label>
+                            <label class="form-label"><?php echo LANG_TEMPLATE_USERS_EDIT_UPLOAD_AVATAR_LABEL; ?></label>
                             <input type="file" class="form-control" name="avatar" accept="image/*">
                             <div class="form-text">
-                                Разрешены: JPG, PNG, GIF, WebP. Максимальный размер: 2MB
+                                <?php echo LANG_TEMPLATE_USERS_EDIT_AVATAR_HINT; ?>
                             </div>
                         </div>
                         
                         <?php if (!empty($user['avatar']) && $user['avatar'] !== 'default.jpg') { ?>
                         <div class="mt-3">
-                            <label class="form-label">Текущий аватар</label>
+                            <label class="form-label"><?php echo LANG_TEMPLATE_USERS_EDIT_CURRENT_AVATAR_LABEL; ?></label>
                             <div>
                                 <img src="<?php echo BASE_URL; ?>/uploads/avatars/<?php echo $user['avatar']; ?>" 
                                      class="rounded" style="max-width: 150px; max-height: 150px;">
@@ -118,7 +118,7 @@ $customFields = $fieldModel->getActiveByEntityType('user');
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" id="remove_avatar" name="remove_avatar">
                                         <label class="form-check-label" for="remove_avatar">
-                                            Удалить аватар
+                                            <?php echo LANG_TEMPLATE_USERS_EDIT_REMOVE_AVATAR_LABEL; ?>
                                         </label>
                                     </div>
                                 </div>
@@ -133,7 +133,7 @@ $customFields = $fieldModel->getActiveByEntityType('user');
                 <?php if (!empty($customFields)) { ?>
                     <div class="card border-0 shadow-sm mb-4">
                         <div class="card-header bg-white border-0">
-                            <h5 class="card-title mb-0">Дополнительные поля</h5>
+                            <h5 class="card-title mb-0"><?php echo LANG_TEMPLATE_USERS_EDIT_CUSTOM_FIELDS_TITLE; ?></h5>
                         </div>
                         <div class="card-body">
                             <?php foreach ($customFields as $field) { ?>
@@ -162,15 +162,15 @@ $customFields = $fieldModel->getActiveByEntityType('user');
                     <div class="card border-0 shadow-sm mb-4">
                         <div class="card-body text-center text-muted">
                             <?php echo bloggy_icon('bs', 'input-cursor-text', '32', '#6C6C6C', 'mb-2'); ?>
-                            <p class="mt-2 mb-0">Нет дополнительных полей</p>
-                            <small>Вы можете добавить их в разделе "Поля"</small>
+                            <p class="mt-2 mb-0"><?php echo LANG_TEMPLATE_USERS_EDIT_NO_CUSTOM_FIELDS_TITLE; ?></p>
+                            <small><?php echo LANG_TEMPLATE_USERS_EDIT_NO_CUSTOM_FIELDS_HINT; ?></small>
                         </div>
                     </div>
                 <?php } ?>
 
                 <div class="card border-0 shadow-sm mb-4">
                     <div class="card-header bg-white border-0">
-                        <h5 class="card-title mb-0">Группы пользователя</h5>
+                        <h5 class="card-title mb-0"><?php echo LANG_TEMPLATE_USERS_EDIT_GROUPS_TITLE; ?></h5>
                     </div>
                     <div class="card-body">
                         <?php
@@ -180,7 +180,7 @@ $customFields = $fieldModel->getActiveByEntityType('user');
                         ?>
                         <?php if (!empty($allGroups)) { ?>
                             <div class="mb-3">
-                                <label class="form-label">Выберите группы</label>
+                                <label class="form-label"><?php echo LANG_TEMPLATE_USERS_EDIT_GROUPS_SELECT_LABEL; ?></label>
                                 <div class="border rounded p-3" style="max-height: 200px; overflow-y: auto;">
                                     <?php foreach ($allGroups as $group) { ?>
                                     <div class="form-check mb-2">
@@ -191,7 +191,7 @@ $customFields = $fieldModel->getActiveByEntityType('user');
                                         <label class="form-check-label" for="group_<?php echo $group['id']; ?>">
                                             <strong><?php echo html($group['name']); ?></strong>
                                             <?php if ($group['is_default']) { ?>
-                                                <span class="badge bg-success ms-1">по умолчанию</span>
+                                                <span class="badge bg-success ms-1"><?php echo LANG_TEMPLATE_USERS_EDIT_GROUPS_DEFAULT_BADGE; ?></span>
                                             <?php } ?>
                                             <?php if ($group['description']) { ?>
                                                 <br>
@@ -202,15 +202,15 @@ $customFields = $fieldModel->getActiveByEntityType('user');
                                     <?php } ?>
                                 </div>
                                 <div class="form-text">
-                                    Измените группы пользователя
+                                    <?php echo LANG_TEMPLATE_USERS_EDIT_GROUPS_HINT; ?>
                                 </div>
                             </div>
                         <?php } else { ?>
                             <div class="text-center text-muted py-3">
                                 <?php echo bloggy_icon('bs', 'diagram-3', '32', '#6C6C6C', 'mb-2'); ?>
-                                <p class="mt-2 mb-0">Группы не созданы</p>
+                                <p class="mt-2 mb-0"><?php echo LANG_TEMPLATE_USERS_EDIT_GROUPS_EMPTY_TITLE; ?></p>
                                 <a href="<?php echo ADMIN_URL; ?>/user-groups/create" class="btn btn-sm btn-outline-primary mt-2">
-                                    <?php echo bloggy_icon('bs', 'plus', '14', '#0d6efd', 'me-1'); ?>Создать группу
+                                    <?php echo bloggy_icon('bs', 'plus', '14', '#0d6efd', 'me-1'); ?><?php echo LANG_TEMPLATE_USERS_EDIT_GROUPS_CREATE_BTN; ?>
                                 </a>
                             </div>
                         <?php } ?>
@@ -221,7 +221,7 @@ $customFields = $fieldModel->getActiveByEntityType('user');
                     <div class="card-header bg-white border-0">
                         <h5 class="card-title mb-0">
                             <?php echo bloggy_icon('bs', 'trophy', '20', '#000', 'me-2'); ?>
-                            Ачивки пользователя
+                            <?php echo LANG_TEMPLATE_USERS_EDIT_ACHIEVEMENTS_TITLE; ?>
                         </h5>
                     </div>
                     <div class="card-body">
@@ -267,9 +267,9 @@ $customFields = $fieldModel->getActiveByEntityType('user');
                                             <span class="achievement-name"><?php echo html($achievement['name']); ?></span>
                                             
                                             <?php if (!$isManual) { ?>
-                                                <span class="badge bg-info">авто</span>
+                                                <span class="badge bg-info"><?php echo LANG_TEMPLATE_USERS_EDIT_ACHIEVEMENTS_AUTO_BADGE; ?></span>
                                             <?php } else { ?>
-                                                <span class="badge bg-warning">ручная</span>
+                                                <span class="badge bg-warning"><?php echo LANG_TEMPLATE_USERS_EDIT_ACHIEVEMENTS_MANUAL_BADGE; ?></span>
                                             <?php } ?>
                                         </label>
                                         
@@ -279,7 +279,7 @@ $customFields = $fieldModel->getActiveByEntityType('user');
                                                 data-user-id="<?php echo $user['id']; ?>"
                                                 data-achievement-id="<?php echo $achievement['id']; ?>"
                                                 data-achievement-name="<?php echo htmlspecialchars($achievement['name']); ?>"
-                                                title="Отозвать ачивку">
+                                                title="<?php echo LANG_TEMPLATE_USERS_EDIT_ACHIEVEMENTS_UNASSIGN_TITLE; ?>">
                                                 <?php echo bloggy_icon('bs', 'trash', '14', '#dc3545'); ?>
                                             </button>
                                         <?php } ?>
@@ -287,14 +287,14 @@ $customFields = $fieldModel->getActiveByEntityType('user');
                                 <?php } ?>
                             </div>
                             <div class="form-text mt-3">
-                                Только ручные ачивки можно назначать вручную. Автоматические ачивки присваиваются при выполнении условий.
+                                <?php echo LANG_TEMPLATE_USERS_EDIT_ACHIEVEMENTS_HINT; ?>
                             </div>
                         <?php } else { ?>
                             <div class="text-center text-muted py-3">
                                 <?php echo bloggy_icon('bs', 'trophy', '32', '#6C6C6C', 'mb-2'); ?>
-                                <p class="mt-2 mb-0">Ачивки не созданы</p>
+                                <p class="mt-2 mb-0"><?php echo LANG_TEMPLATE_USERS_EDIT_ACHIEVEMENTS_EMPTY_TITLE; ?></p>
                                 <a href="<?php echo ADMIN_URL; ?>/user-achievements/create" class="btn btn-sm btn-outline-primary mt-2">
-                                    <?php echo bloggy_icon('bs', 'plus', '14', '#0d6efd', 'me-1'); ?>Создать ачивку
+                                    <?php echo bloggy_icon('bs', 'plus', '14', '#0d6efd', 'me-1'); ?><?php echo LANG_TEMPLATE_USERS_EDIT_ACHIEVEMENTS_CREATE_BTN; ?>
                                 </a>
                             </div>
                         <?php } ?>
@@ -303,38 +303,38 @@ $customFields = $fieldModel->getActiveByEntityType('user');
 
                 <div class="card border-0 shadow-sm mb-4">
                     <div class="card-header bg-white border-0">
-                        <h5 class="card-title mb-0">Настройки пользователя</h5>
+                        <h5 class="card-title mb-0"><?php echo LANG_TEMPLATE_USERS_EDIT_USER_SETTINGS_TITLE; ?></h5>
                     </div>
                     <div class="card-body">
                         <div class="mb-4">
-                            <label class="form-label">Роль</label>
+                            <label class="form-label"><?php echo LANG_TEMPLATE_USERS_EDIT_ROLE_LABEL; ?></label>
                             <select class="form-select" name="role" required>
-                                <option value="user" <?php echo ($user['role'] ?? 'user') === 'user' ? 'selected' : ''; ?>>Пользователь</option>
-                                <option value="admin" <?php echo ($user['role'] ?? 'user') === 'admin' ? 'selected' : ''; ?>>Администратор</option>
+                                <option value="user" <?php echo ($user['role'] ?? 'user') === 'user' ? 'selected' : ''; ?>><?php echo LANG_TEMPLATE_USERS_EDIT_ROLE_USER; ?></option>
+                                <option value="admin" <?php echo ($user['role'] ?? 'user') === 'admin' ? 'selected' : ''; ?>><?php echo LANG_TEMPLATE_USERS_EDIT_ROLE_ADMIN; ?></option>
                             </select>
                         </div>
                         
                         <div class="mb-4">
-                            <label class="form-label">Статус</label>
+                            <label class="form-label"><?php echo LANG_TEMPLATE_USERS_EDIT_STATUS_LABEL; ?></label>
                             <select class="form-select" name="status" required>
-                                <option value="active" <?php echo ($user['status'] ?? 'active') === 'active' ? 'selected' : ''; ?>>Активен</option>
-                                <option value="banned" <?php echo ($user['status'] ?? 'active') === 'banned' ? 'selected' : ''; ?>>Заблокирован</option>
+                                <option value="active" <?php echo ($user['status'] ?? 'active') === 'active' ? 'selected' : ''; ?>><?php echo LANG_TEMPLATE_USERS_EDIT_STATUS_ACTIVE; ?></option>
+                                <option value="banned" <?php echo ($user['status'] ?? 'active') === 'banned' ? 'selected' : ''; ?>><?php echo LANG_TEMPLATE_USERS_EDIT_STATUS_BANNED; ?></option>
                             </select>
                         </div>
 
                         <div class="text-muted small">
                             <div><strong>ID:</strong> <?php echo $user['id']; ?></div>
-                            <div><strong>Зарегистрирован:</strong> <?php echo date('d.m.Y H:i', strtotime($user['created_at'])); ?></div>
+                            <div><strong><?php echo LANG_TEMPLATE_USERS_EDIT_REGISTERED_LABEL; ?></strong> <?php echo date('d.m.Y H:i', strtotime($user['created_at'])); ?></div>
                         </div>
                     </div>
                 </div>
                 
                 <div class="d-grid gap-2">
                     <button type="submit" class="btn btn-primary">
-                        <?php echo bloggy_icon('bs', 'check-lg', '18', '#fff', 'me-1'); ?> Сохранить изменения
+                        <?php echo bloggy_icon('bs', 'check-lg', '18', '#fff', 'me-1'); ?> <?php echo LANG_TEMPLATE_USERS_EDIT_SAVE_BTN; ?>
                     </button>
                     <a href="<?php echo ADMIN_URL; ?>/users" class="btn btn-outline-secondary">
-                        Отмена
+                        <?php echo LANG_TEMPLATE_USERS_EDIT_CANCEL_BTN; ?>
                     </a>
                 </div>
             </div>

@@ -2,10 +2,10 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h4 class="mb-0">
             <?php echo bloggy_icon('bs', 'shield-lock', '24', '#000', 'me-2'); ?>
-            Права доступа: <?php echo html($group['name']); ?>
+            <?php echo sprintf(LANG_TEMPLATE_USERS_GROUPS_PERMISSIONS_TITLE, html($group['name'])); ?>
         </h4>
         <a href="<?php echo ADMIN_URL; ?>/user-groups" class="btn btn-outline-secondary btn-sm">
-            <?php echo bloggy_icon('bs', 'arrow-left', '16', '#000', 'me-1'); ?> Назад к группам
+            <?php echo bloggy_icon('bs', 'arrow-left', '16', '#000', 'me-1'); ?> <?php echo LANG_TEMPLATE_USERS_GROUPS_PERMISSIONS_BACK_BTN; ?>
         </a>
     </div>
 
@@ -17,8 +17,8 @@
                         <?php if (empty($allPermissions)) { ?>
                             <div class="text-center py-4">
                                 <?php echo bloggy_icon('bs', 'shield-slash', '48', '#6C6C6C', 'mb-3'); ?>
-                                <h5 class="text-muted mt-3">Нет доступных прав</h5>
-                                <p class="text-muted">Создайте файлы permissions.php в контроллерах</p>
+                                <h5 class="text-muted mt-3"><?php echo LANG_TEMPLATE_USERS_GROUPS_PERMISSIONS_NO_PERMISSIONS_TITLE; ?></h5>
+                                <p class="text-muted"><?php echo LANG_TEMPLATE_USERS_GROUPS_PERMISSIONS_NO_PERMISSIONS_HINT; ?></p>
                             </div>
                         <?php } else { ?>
                             <?php foreach ($allPermissions as $controller => $permissions) { ?>
@@ -59,10 +59,10 @@
                         <div class="d-flex gap-2 mt-4">
                             <button type="submit" class="btn btn-primary">
                                 <?php echo bloggy_icon('bs', 'check-lg', '18', '#fff', 'me-1'); ?>
-                                Сохранить права
+                                <?php echo LANG_TEMPLATE_USERS_GROUPS_PERMISSIONS_SAVE_BTN; ?>
                             </button>
                             <a href="<?php echo ADMIN_URL; ?>/user-groups" class="btn btn-outline-secondary">
-                                Отмена
+                                <?php echo LANG_TEMPLATE_USERS_GROUPS_PERMISSIONS_CANCEL_BTN; ?>
                             </a>
                         </div>
                     </div>
@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const submitBtn = form.querySelector('[type="submit"]');
         const originalBtnHtml = submitBtn.innerHTML;
         submitBtn.disabled = true;
-        submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Сохранение...';
+        submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> <?php echo LANG_TEMPLATE_USERS_GROUPS_PERMISSIONS_SAVING_TEXT; ?>';
         
         setTimeout(() => {
             submitBtn.disabled = false;

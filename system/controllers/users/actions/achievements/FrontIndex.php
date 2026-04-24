@@ -14,10 +14,10 @@ class FrontIndex extends AdminAchievementAction {
     */
     public function execute() {
         try {
-            $this->addBreadcrumb('Главная', BASE_URL);
-            $this->addBreadcrumb('Участники', BASE_URL . '/users');
-            $this->addBreadcrumb('Ачивки');
-            $this->setPageTitle('Все ачивки блога');
+            $this->addBreadcrumb(LANG_ACTION_USERS_FRONTINDEX_BREADCRUMB_HOME, BASE_URL);
+            $this->addBreadcrumb(LANG_ACTION_USERS_FRONTINDEX_BREADCRUMB_USERS, BASE_URL . '/users');
+            $this->addBreadcrumb(LANG_ACTION_USERS_FRONTINDEX_BREADCRUMB_ACHIEVEMENTS);
+            $this->setPageTitle(LANG_ACTION_USERS_FRONTINDEX_PAGE_TITLE);
             
             $achievements = $this->userModel->getAllAchievements(['active' => true]);
             
@@ -40,11 +40,11 @@ class FrontIndex extends AdminAchievementAction {
                 'totalAchievements' => $totalAchievements,
                 'totalUsers' => $totalUsers,
                 'totalUnlockedAchievements' => $totalUnlockedAchievements,
-                'pageTitle' => 'Все достижения системы'
+                'pageTitle' => LANG_ACTION_USERS_FRONTINDEX_RENDER_TITLE
             ]);
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при загрузке списка достижений');
+            \Notification::error(LANG_ACTION_USERS_FRONTINDEX_ERROR);
             $this->redirect(BASE_URL . '/users');
         }
     }

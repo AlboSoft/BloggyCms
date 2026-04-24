@@ -18,7 +18,7 @@ class Delete extends TagAction {
         $id = $this->params['id'] ?? null;
         
         if (!$id) {
-            \Notification::error('ID тега не указан');
+            \Notification::error(LANG_ACTION_TAGS_DELETE_NO_ID);
             $this->redirect(ADMIN_URL . '/tags');
             return;
         }
@@ -26,10 +26,10 @@ class Delete extends TagAction {
         try {
             $this->tagModel->delete($id);
 
-            \Notification::success('Тег успешно удален');
+            \Notification::success(LANG_ACTION_TAGS_DELETE_SUCCESS);
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при удалении тега');
+            \Notification::error(LANG_ACTION_TAGS_DELETE_ERROR);
         }
         
         $this->redirect(ADMIN_URL . '/tags');

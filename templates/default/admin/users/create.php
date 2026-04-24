@@ -2,10 +2,10 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h4 class="mb-0">
             <?php echo bloggy_icon('bs', 'person-plus', '24', '#000', 'me-2'); ?>
-            Создание пользователя
+            <?php echo LANG_TEMPLATE_USERS_CREATE_TITLE; ?>
         </h4>
         <a href="<?php echo ADMIN_URL; ?>/users" class="btn btn-outline-secondary btn-sm">
-            <?php echo bloggy_icon('bs', 'arrow-left', '16', '#000', 'me-1'); ?> Назад к пользователям
+            <?php echo bloggy_icon('bs', 'arrow-left', '16', '#000', 'me-1'); ?> <?php echo LANG_TEMPLATE_USERS_CREATE_BACK_BTN; ?>
         </a>
     </div>
 
@@ -18,7 +18,7 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">
-                                        Имя пользователя
+                                        <?php echo LANG_TEMPLATE_USERS_CREATE_USERNAME_LABEL; ?>
                                         <span class="text-danger">*</span>
                                     </label>
                                     <input type="text" class="form-control" name="username" 
@@ -29,7 +29,7 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">
-                                        Email
+                                        <?php echo LANG_TEMPLATE_USERS_CREATE_EMAIL_LABEL; ?>
                                         <span class="text-danger">*</span>
                                     </label>
                                     <input type="email" class="form-control" name="email" 
@@ -43,17 +43,17 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">
-                                        Пароль
+                                        <?php echo LANG_TEMPLATE_USERS_CREATE_PASSWORD_LABEL; ?>
                                         <span class="text-danger">*</span>
                                     </label>
                                     <input type="password" class="form-control" name="password" required>
-                                    <div class="form-text">Минимум 6 символов</div>
+                                    <div class="form-text"><?php echo LANG_TEMPLATE_USERS_CREATE_PASSWORD_HINT; ?></div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">
-                                        Подтверждение пароля
+                                        <?php echo LANG_TEMPLATE_USERS_CREATE_PASSWORD_CONFIRM_LABEL; ?>
                                         <span class="text-danger">*</span>
                                     </label>
                                     <input type="password" class="form-control" name="password_confirm" required>
@@ -62,21 +62,21 @@
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Отображаемое имя</label>
+                            <label class="form-label"><?php echo LANG_TEMPLATE_USERS_CREATE_DISPLAY_NAME_LABEL; ?></label>
                             <input type="text" class="form-control" name="display_name" 
                                 value="<?php echo html($user['display_name'] ?? ''); ?>" 
                                 maxlength="100">
-                            <div class="form-text">Если не указано, будет использоваться имя пользователя</div>
+                            <div class="form-text"><?php echo LANG_TEMPLATE_USERS_CREATE_DISPLAY_NAME_HINT; ?></div>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">О себе</label>
+                            <label class="form-label"><?php echo LANG_TEMPLATE_USERS_CREATE_BIO_LABEL; ?></label>
                             <textarea class="form-control" name="bio" rows="3" 
                                     maxlength="500"><?php echo html($user['bio'] ?? ''); ?></textarea>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Веб-сайт</label>
+                            <label class="form-label"><?php echo LANG_TEMPLATE_USERS_CREATE_WEBSITE_LABEL; ?></label>
                             <input type="url" class="form-control" name="website" 
                                 value="<?php echo html($user['website'] ?? ''); ?>" 
                                 maxlength="255">
@@ -87,7 +87,7 @@
                 <div class="card border-0 shadow-sm mb-4">
                     <div class="card-body">
                         <div class="mb-3">
-                            <label class="form-label">Загрузить аватар</label>
+                            <label class="form-label"><?php echo LANG_TEMPLATE_USERS_CREATE_AVATAR_LABEL; ?></label>
                             <input type="file" class="form-control" name="avatar" accept="image/*">
                         </div>
                     </div>
@@ -103,7 +103,7 @@
                 <?php if (!empty($customFields)) { ?>
                     <div class="card border-0 shadow-sm mb-4">
                         <div class="card-header bg-white border-0">
-                            <h5 class="card-title mb-0">Дополнительные поля</h5>
+                            <h5 class="card-title mb-0"><?php echo LANG_TEMPLATE_USERS_CREATE_CUSTOM_FIELDS_TITLE; ?></h5>
                         </div>
                         <div class="card-body">
                             <?php foreach ($customFields as $field) { ?>
@@ -133,7 +133,7 @@
 
                 <div class="card border-0 shadow-sm mb-4">
                     <div class="card-header bg-white border-0">
-                        <h5 class="card-title mb-0">Группы пользователя</h5>
+                        <h5 class="card-title mb-0"><?php echo LANG_TEMPLATE_USERS_CREATE_GROUPS_TITLE; ?></h5>
                     </div>
                     <div class="card-body">
                         <?php
@@ -142,7 +142,7 @@
                         ?>
                         <?php if (!empty($allGroups)) { ?>
                             <div class="mb-3">
-                                <label class="form-label">Выберите группы</label>
+                                <label class="form-label"><?php echo LANG_TEMPLATE_USERS_CREATE_GROUPS_SELECT_LABEL; ?></label>
                                 <div class="border rounded p-3" style="max-height: 200px; overflow-y: auto;">
                                     <?php foreach ($allGroups as $group) { ?>
                                     <div class="form-check mb-2">
@@ -153,7 +153,7 @@
                                         <label class="form-check-label" for="group_<?php echo $group['id']; ?>">
                                             <strong><?php echo html($group['name']); ?></strong>
                                             <?php if ($group['is_default']) { ?>
-                                                <span class="badge bg-success ms-1">по умолчанию</span>
+                                                <span class="badge bg-success ms-1"><?php echo LANG_TEMPLATE_USERS_CREATE_GROUPS_DEFAULT_BADGE; ?></span>
                                             <?php } ?>
                                             <?php if ($group['description']) { ?>
                                                 <br>
@@ -164,15 +164,15 @@
                                     <?php } ?>
                                 </div>
                                 <div class="form-text">
-                                    Пользователь будет добавлен в выбранные группы
+                                    <?php echo LANG_TEMPLATE_USERS_CREATE_GROUPS_HINT; ?>
                                 </div>
                             </div>
                         <?php } else { ?>
                             <div class="text-center text-muted py-3">
                                 <?php echo bloggy_icon('bs', 'diagram-3', '32', '#6C6C6C', 'mb-2'); ?>
-                                <p class="mt-2 mb-0">Группы не созданы</p>
+                                <p class="mt-2 mb-0"><?php echo LANG_TEMPLATE_USERS_CREATE_GROUPS_EMPTY_TITLE; ?></p>
                                 <a href="<?php echo ADMIN_URL; ?>/user-groups/create" class="btn btn-sm btn-outline-primary mt-2">
-                                    <?php echo bloggy_icon('bs', 'plus', '14', '#0d6efd', 'me-1'); ?>Создать группу
+                                    <?php echo bloggy_icon('bs', 'plus', '14', '#0d6efd', 'me-1'); ?><?php echo LANG_TEMPLATE_USERS_CREATE_GROUPS_CREATE_BTN; ?>
                                 </a>
                             </div>
                         <?php } ?>
@@ -183,7 +183,7 @@
                     <div class="card-header bg-white border-0">
                         <h5 class="card-title mb-0">
                             <?php echo bloggy_icon('bs', 'trophy', '20', '#000', 'me-2'); ?>
-                            Ачивки пользователя
+                            <?php echo LANG_TEMPLATE_USERS_CREATE_ACHIEVEMENTS_TITLE; ?>
                         </h5>
                     </div>
                     <div class="card-body">
@@ -199,7 +199,7 @@
                         
                         <?php if (!empty($allAchievements)) { ?>
                             <div class="mb-3">
-                                <label class="form-label">Выберите ачивки для пользователя</label>
+                                <label class="form-label"><?php echo LANG_TEMPLATE_USERS_CREATE_ACHIEVEMENTS_SELECT_LABEL; ?></label>
                                 <div class="border rounded p-3" style="max-height: 300px; overflow-y: auto;">
                                     <?php foreach ($allAchievements as $achievement) { ?>
                                         <div class="form-check mb-2">
@@ -207,7 +207,7 @@
                                                 name="achievements[]" value="<?php echo $achievement['id']; ?>"
                                                 id="achievement_<?php echo $achievement['id']; ?>"
                                                 <?php echo in_array($achievement['id'], $userAchievements) ? 'checked' : ''; ?>
-                                                <?php echo $achievement['type'] == 'auto' ? 'disabled title="Автоматическая ачивка"' : ''; ?>>
+                                                <?php echo $achievement['type'] == 'auto' ? 'disabled title="' . LANG_TEMPLATE_USERS_CREATE_ACHIEVEMENTS_AUTO_DISABLED_TITLE . '"' : ''; ?>>
                                             <label class="form-check-label d-flex align-items-center" for="achievement_<?php echo $achievement['id']; ?>">
                                                 <?php if ($achievement['image']) { ?>
                                                     <img src="<?php echo BASE_URL; ?>/uploads/achievements/<?php echo $achievement['image']; ?>" 
@@ -227,9 +227,9 @@
                                                 <div>
                                                     <strong><?php echo html($achievement['name']); ?></strong>
                                                     <?php if ($achievement['type'] == 'auto') { ?>
-                                                        <span class="badge bg-info ms-1 small">авто</span>
+                                                        <span class="badge bg-info ms-1 small"><?php echo LANG_TEMPLATE_USERS_CREATE_ACHIEVEMENTS_AUTO_BADGE; ?></span>
                                                     <?php } else { ?>
-                                                        <span class="badge bg-warning ms-1 small">ручная</span>
+                                                        <span class="badge bg-warning ms-1 small"><?php echo LANG_TEMPLATE_USERS_CREATE_ACHIEVEMENTS_MANUAL_BADGE; ?></span>
                                                     <?php } ?>
                                                     <?php if ($achievement['description']) { ?>
                                                         <br>
@@ -241,15 +241,15 @@
                                     <?php } ?>
                                 </div>
                                 <div class="form-text">
-                                    Только ручные ачивки можно назначать вручную. Автоматические ачивки присваиваются при выполнении условий.
+                                    <?php echo LANG_TEMPLATE_USERS_CREATE_ACHIEVEMENTS_HINT; ?>
                                 </div>
                             </div>
                         <?php } else { ?>
                             <div class="text-center text-muted py-3">
                                 <?php echo bloggy_icon('bs', 'trophy', '32', '#6C6C6C', 'mb-2'); ?>
-                                <p class="mt-2 mb-0">Ачивки не созданы</p>
+                                <p class="mt-2 mb-0"><?php echo LANG_TEMPLATE_USERS_CREATE_ACHIEVEMENTS_EMPTY_TITLE; ?></p>
                                 <a href="<?php echo ADMIN_URL; ?>/user-achievements/create" class="btn btn-sm btn-outline-primary mt-2">
-                                    <?php echo bloggy_icon('bs', 'plus', '14', '#0d6efd', 'me-1'); ?>Создать ачивку
+                                    <?php echo bloggy_icon('bs', 'plus', '14', '#0d6efd', 'me-1'); ?><?php echo LANG_TEMPLATE_USERS_CREATE_ACHIEVEMENTS_CREATE_BTN; ?>
                                 </a>
                             </div>
                         <?php } ?>
@@ -259,18 +259,18 @@
                 <div class="card border-0 shadow-sm mb-4">
                     <div class="card-body">
                         <div class="mb-4">
-                            <label class="form-label">Роль</label>
+                            <label class="form-label"><?php echo LANG_TEMPLATE_USERS_CREATE_ROLE_LABEL; ?></label>
                             <select class="form-select" name="role" required>
-                                <option value="user">Пользователь</option>
-                                <option value="admin">Администратор</option>
+                                <option value="user"><?php echo LANG_TEMPLATE_USERS_CREATE_ROLE_USER; ?></option>
+                                <option value="admin"><?php echo LANG_TEMPLATE_USERS_CREATE_ROLE_ADMIN; ?></option>
                             </select>
                         </div>
                         
                         <div class="mb-4">
-                            <label class="form-label">Статус</label>
+                            <label class="form-label"><?php echo LANG_TEMPLATE_USERS_CREATE_STATUS_LABEL; ?></label>
                             <select class="form-select" name="status" required>
-                                <option value="active">Активен</option>
-                                <option value="banned">Заблокирован</option>
+                                <option value="active"><?php echo LANG_TEMPLATE_USERS_CREATE_STATUS_ACTIVE; ?></option>
+                                <option value="banned"><?php echo LANG_TEMPLATE_USERS_CREATE_STATUS_BANNED; ?></option>
                             </select>
                         </div>
                     </div>
@@ -278,7 +278,7 @@
                 
                 <div class="d-grid">
                     <button type="submit" class="btn btn-primary">
-                        <?php echo bloggy_icon('bs', 'check-lg', '18', '#fff', 'me-1'); ?> Создать пользователя
+                        <?php echo bloggy_icon('bs', 'check-lg', '18', '#fff', 'me-1'); ?> <?php echo LANG_TEMPLATE_USERS_CREATE_SUBMIT_BTN; ?>
                     </button>
                 </div>
             </div>
@@ -295,7 +295,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function validatePasswords() {
         if (passwordInput.value !== confirmInput.value) {
-            confirmInput.setCustomValidity('Пароли не совпадают');
+            confirmInput.setCustomValidity('<?php echo LANG_TEMPLATE_USERS_CREATE_VALIDATION_PASSWORDS_MISMATCH; ?>');
         } else {
             confirmInput.setCustomValidity('');
         }
@@ -305,7 +305,7 @@ document.addEventListener('DOMContentLoaded', function() {
     confirmInput.addEventListener('input', validatePasswords);
     passwordInput.addEventListener('input', function() {
         if (this.value.length > 0 && this.value.length < 6) {
-            this.setCustomValidity('Пароль должен содержать минимум 6 символов');
+            this.setCustomValidity('<?php echo LANG_TEMPLATE_USERS_CREATE_VALIDATION_PASSWORD_MIN_LENGTH; ?>');
         } else {
             this.setCustomValidity('');
         }
@@ -315,7 +315,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const submitBtn = form.querySelector('[type="submit"]');
         const originalBtnHtml = submitBtn.innerHTML;
         submitBtn.disabled = true;
-        submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Создание...';
+        submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> <?php echo LANG_TEMPLATE_USERS_CREATE_SUBMIT_CREATING_TEXT; ?>';
         
         setTimeout(() => {
             submitBtn.disabled = false;

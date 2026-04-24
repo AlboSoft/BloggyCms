@@ -15,7 +15,7 @@ class Sessions extends ProfileAction {
         if (!isset($_SESSION['user_id'])) {
             http_response_code(401);
             header('Content-Type: application/json');
-            echo json_encode(['success' => false, 'message' => 'Не авторизован']);
+            echo json_encode(['success' => false, 'message' => LANG_ACTION_PROFILE_SESSIONS_UNAUTHORIZED]);
             return;
         }
         
@@ -83,23 +83,23 @@ class Sessions extends ProfileAction {
     */
     private function parseUserAgent($userAgent) {
         if (empty($userAgent)) {
-            return 'Неизвестное устройство';
+            return LANG_ACTION_PROFILE_SESSIONS_DEVICE_UNKNOWN;
         }
         
         if (strpos($userAgent, 'Windows') !== false) {
-            return 'Windows PC';
+            return LANG_ACTION_PROFILE_SESSIONS_DEVICE_WINDOWS;
         } elseif (strpos($userAgent, 'Macintosh') !== false) {
-            return 'Mac';
+            return LANG_ACTION_PROFILE_SESSIONS_DEVICE_MAC;
         } elseif (strpos($userAgent, 'iPhone') !== false) {
-            return 'iPhone';
+            return LANG_ACTION_PROFILE_SESSIONS_DEVICE_IPHONE;
         } elseif (strpos($userAgent, 'iPad') !== false) {
-            return 'iPad';
+            return LANG_ACTION_PROFILE_SESSIONS_DEVICE_IPAD;
         } elseif (strpos($userAgent, 'Android') !== false) {
-            return 'Android устройство';
+            return LANG_ACTION_PROFILE_SESSIONS_DEVICE_ANDROID;
         } elseif (strpos($userAgent, 'Linux') !== false) {
-            return 'Linux';
+            return LANG_ACTION_PROFILE_SESSIONS_DEVICE_LINUX;
         } else {
-            return 'Другое устройство';
+            return LANG_ACTION_PROFILE_SESSIONS_DEVICE_OTHER;
         }
     }
 }

@@ -13,10 +13,10 @@ class AdminIndex extends PostAction {
     * @return void
     */
     public function execute() {
-        $this->pageTitle = 'Управление постами';
+        $this->pageTitle = LANG_ACTION_POSTS_ADMININDEX_PAGE_TITLE;
         
-        $this->addBreadcrumb('Панель управления', ADMIN_URL);
-        $this->addBreadcrumb('Посты');
+        $this->addBreadcrumb(LANG_ACTION_POSTS_ADMININDEX_BREADCRUMB_DASHBOARD, ADMIN_URL);
+        $this->addBreadcrumb(LANG_ACTION_POSTS_ADMININDEX_BREADCRUMB_POSTS);
         
         try {
             $categoryId = $_GET['category'] ?? null;
@@ -29,11 +29,11 @@ class AdminIndex extends PostAction {
             $this->render('admin/posts/index', [
                 'posts' => $posts,
                 'categories' => $categories,
-                'pageTitle' => 'Управление постами блога'
+                'pageTitle' => LANG_ACTION_POSTS_ADMININDEX_RENDER_TITLE
             ]);
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при загрузке списка записей');
+            \Notification::error(LANG_ACTION_POSTS_ADMININDEX_ERROR);
             $this->redirect(ADMIN_URL);
         }
     }

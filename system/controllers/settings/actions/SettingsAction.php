@@ -82,7 +82,7 @@ abstract class SettingsAction {
             }
             $this->controller->render($template, $data);
         } else {
-            throw new \Exception('Controller not set for Action');
+            throw new \Exception(LANG_ACTION_SETTINGS_BASE_CONTROLLER_NOT_SET);
         }
     }
     
@@ -116,7 +116,7 @@ abstract class SettingsAction {
     protected function getDefaultSettings($group) {
         $defaults = [
             'general' => [
-                'site_name' => 'Мой блог',
+                'site_name' => LANG_ACTION_SETTINGS_BASE_DEFAULT_SITE_NAME,
                 'site_tagline' => '',
                 'site_description' => '',
                 'favicon' => '',
@@ -136,7 +136,7 @@ abstract class SettingsAction {
                 'privacy_page' => '',
                 'debug_mode' => false,
                 'maintenance_mode' => false,
-                'maintenance_message' => 'Сайт временно недоступен. Ведутся технические работы.',
+                'maintenance_message' => LANG_ACTION_SETTINGS_BASE_DEFAULT_MAINTENANCE_MESSAGE,
                 'error_logging' => 'errors_only',
                 'log_level' => 'error'
             ],
@@ -200,8 +200,8 @@ abstract class SettingsAction {
                 'enabled_blocks' => []
             ],
             'search' => [
-                'search_h1' => 'Поиск по сайту',
-                'search_title' => 'Поиск по запросу: ',
+                'search_h1' => LANG_ACTION_SETTINGS_BASE_DEFAULT_SEARCH_H1,
+                'search_title' => LANG_ACTION_SETTINGS_BASE_DEFAULT_SEARCH_TITLE,
                 'search_per_page' => 10,
                 'save_search_result' => true,
                 'default_sort' => 'date'
@@ -269,7 +269,7 @@ abstract class SettingsAction {
         $configFile = BASE_PATH . '/system/config/config.php';
         
         if (!file_exists($configFile) || !is_writable($configFile)) {
-            throw new \Exception('Конфигурационный файл недоступен для записи');
+            throw new \Exception(LANG_ACTION_SETTINGS_BASE_CONFIG_NOT_WRITABLE);
         }
         
         $content = file_get_contents($configFile);
@@ -294,7 +294,7 @@ abstract class SettingsAction {
         $configFile = BASE_PATH . '/system/config/config.php';
         
         if (!file_exists($configFile) || !is_writable($configFile)) {
-            throw new \Exception('Конфигурационный файл недоступен для записи');
+            throw new \Exception(LANG_ACTION_SETTINGS_BASE_CONFIG_NOT_WRITABLE);
         }
         
         $content = file_get_contents($configFile);

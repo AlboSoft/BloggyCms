@@ -1,0 +1,8 @@
+<?php
+
+define('LANG_ACTION_POSTS_BOOKMARKS_AUTH_REQUIRED', 'Authorization required to view bookmarks');
+define('LANG_ACTION_POSTS_BOOKMARKS_BREADCRUMB_HOME', 'Home');
+define('LANG_ACTION_POSTS_BOOKMARKS_BREADCRUMB_PROFILE', 'My Profile');
+define('LANG_ACTION_POSTS_BOOKMARKS_BREADCRUMB_BOOKMARKS', 'My Bookmarks');
+define('LANG_ACTION_POSTS_BOOKMARKS_PAGE_TITLE', 'My Bookmarks');
+define('LANG_ACTION_POSTS_BOOKMARKS_ERROR', 'Error loading bookmarks: %s');

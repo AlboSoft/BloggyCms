@@ -14,9 +14,9 @@ class FrontIndex extends UserAction {
     */
     public function execute() {
         try {
-            $this->addBreadcrumb('Главная', BASE_URL);
-            $this->addBreadcrumb('Все участники');
-            $this->setPageTitle('Все участники');
+            $this->addBreadcrumb(LANG_ACTION_USERS_FRONTINDEX_BREADCRUMB_HOME, BASE_URL);
+            $this->addBreadcrumb(LANG_ACTION_USERS_FRONTINDEX_BREADCRUMB_USERS);
+            $this->setPageTitle(LANG_ACTION_USERS_FRONTINDEX_PAGE_TITLE);
             
             $users = $this->userModel->getActiveUsers();
             
@@ -35,7 +35,7 @@ class FrontIndex extends UserAction {
             ]);
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при загрузке списка пользователей: ' . $e->getMessage());
+            \Notification::error(sprintf(LANG_ACTION_USERS_FRONTINDEX_ERROR, $e->getMessage()));
             $this->redirect(BASE_URL);
         }
     }
@@ -59,7 +59,7 @@ class FrontIndex extends UserAction {
             if (!empty($user['last_login'])) {
                 $user['last_activity_human'] = $this->formatActivityTime($user['last_login']);
             } else {
-                $user['last_activity_human'] = 'никогда';
+                $user['last_activity_human'] = LANG_ACTION_USERS_FRONTINDEX_NEVER;
             }
         }
     }
@@ -90,7 +90,7 @@ class FrontIndex extends UserAction {
     */
     private function formatActivityTime($timestamp) {
         if (empty($timestamp)) {
-            return 'никогда';
+            return LANG_ACTION_USERS_FRONTINDEX_NEVER;
         }
         
         $lastActivityTimestamp = strtotime($timestamp);
@@ -98,16 +98,16 @@ class FrontIndex extends UserAction {
         $secondsAgo = $currentTimestamp - $lastActivityTimestamp;
         
         if ($secondsAgo < 60) {
-            return 'только что';
+            return LANG_ACTION_USERS_FRONTINDEX_JUST_NOW;
         } elseif ($secondsAgo < 3600) {
             $minutesAgo = floor($secondsAgo / 60);
-            return $minutesAgo . ' мин назад';
+            return sprintf(LANG_ACTION_USERS_FRONTINDEX_MINUTES_AGO, $minutesAgo);
         } elseif ($secondsAgo < 86400) {
             $hoursAgo = floor($secondsAgo / 3600);
-            return $hoursAgo . ' ч назад';
+            return sprintf(LANG_ACTION_USERS_FRONTINDEX_HOURS_AGO, $hoursAgo);
         } else {
             $daysAgo = floor($secondsAgo / 86400);
-            return $daysAgo . ' д назад';
+            return sprintf(LANG_ACTION_USERS_FRONTINDEX_DAYS_AGO, $daysAgo);
         }
     }
     

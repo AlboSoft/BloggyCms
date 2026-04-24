@@ -17,14 +17,14 @@ class AdminDelete extends UserAction {
         $id = $this->params['id'] ?? null;
         
         if (!$id) {
-            \Notification::error('ID пользователя не указан');
+            \Notification::error(LANG_ACTION_USERS_ADMINDELETE_NO_ID);
             $this->redirect(ADMIN_URL . '/users');
             return;
         }
         
         try {
             if ($id == $this->getCurrentUserId()) {
-                \Notification::error('Нельзя удалить собственный аккаунт');
+                \Notification::error(LANG_ACTION_USERS_ADMINDELETE_CANNOT_DELETE_SELF);
                 $this->redirect(ADMIN_URL . '/users');
                 return;
             }
@@ -32,7 +32,7 @@ class AdminDelete extends UserAction {
             $user = $this->userModel->getById($id);
             
             if (!$user) {
-                \Notification::error('Пользователь не найден');
+                \Notification::error(LANG_ACTION_USERS_ADMINDELETE_USER_NOT_FOUND);
                 $this->redirect(ADMIN_URL . '/users');
                 return;
             }
@@ -40,7 +40,7 @@ class AdminDelete extends UserAction {
             if ($user['role'] === 'admin') {
                 $adminsCount = $this->userModel->db->fetch("SELECT COUNT(*) as count FROM users WHERE role = 'admin'");
                 if ($adminsCount['count'] <= 1) {
-                    \Notification::error('Нельзя удалить последнего администратора');
+                    \Notification::error(LANG_ACTION_USERS_ADMINDELETE_LAST_ADMIN);
                     $this->redirect(ADMIN_URL . '/users');
                     return;
                 }
@@ -50,10 +50,10 @@ class AdminDelete extends UserAction {
             
             $this->userModel->delete($id);
             
-            \Notification::success('Пользователь успешно удален');
+            \Notification::success(LANG_ACTION_USERS_ADMINDELETE_SUCCESS);
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при удалении пользователя: ' . $e->getMessage());
+            \Notification::error(sprintf(LANG_ACTION_USERS_ADMINDELETE_ERROR, $e->getMessage()));
         }
         
         $this->redirect(ADMIN_URL . '/users');

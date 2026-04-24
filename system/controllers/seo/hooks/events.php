@@ -1,14 +1,10 @@
 <?php
-/**
- * Хуки для автоматического обновления SEO-файлов при изменениях контента
- */
 
 /**
- * Функция для обновления sitemap.xml и rss.xml
- * 
- * @param array $data Данные о событии (пост, категория, тег, страница)
- * @return void
- */
+* Функция для обновления sitemap.xml и rss.xml
+* @param array $data Данные о событии (пост, категория, тег, страница)
+* @return void
+*/
 function regenerate_seo_files($data = []) {
     try {
         $db = Database::getInstance();

@@ -18,9 +18,9 @@ class AdminRss extends SeoAction {
                 ];
 
                 $this->seoModel->saveSettings('seo_rss', $settings);
-                \Notification::success('Настройки RSS сохранены');
+                \Notification::success(LANG_ACTION_SEO_ADMINRSS_SUCCESS);
             } catch (\Exception $e) {
-                \Notification::error('Ошибка: ' . $e->getMessage());
+                \Notification::error(sprintf(LANG_ACTION_SEO_ADMINRSS_ERROR, $e->getMessage()));
             }
         }
 

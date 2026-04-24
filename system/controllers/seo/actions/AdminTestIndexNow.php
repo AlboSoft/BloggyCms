@@ -13,10 +13,10 @@ class AdminTestIndexNow extends SeoAction {
             $host = $this->seoModel->getHost();
             
             if ($this->seoModel->isLocalhost($host)) {
-                \Notification::warning(
-                    'IndexNow не работает с локальными доменами (' . $host . '). ' .
-                    'Для полноценной работы требуется публичный доступ к сайту.'
-                );
+                \Notification::warning(sprintf(
+                    LANG_ACTION_SEO_ADMINTESTINDEXNOW_LOCALHOST_WARNING,
+                    $host
+                ));
                 $this->redirect(ADMIN_URL . '/seo?tab=indexnow');
                 return;
             }
@@ -24,10 +24,10 @@ class AdminTestIndexNow extends SeoAction {
             $testUrl = rtrim(BASE_URL, '/') . '/';
             
             if (!preg_match('#^https?://#', $testUrl)) {
-                \Notification::error(
-                    'Неверный формат BASE_URL в конфиге. Должен начинаться с http:// или https://. ' .
-                    'Текущее значение: ' . BASE_URL
-                );
+                \Notification::error(sprintf(
+                    LANG_ACTION_SEO_ADMINTESTINDEXNOW_INVALID_BASE_URL,
+                    BASE_URL
+                ));
                 $this->redirect(ADMIN_URL . '/seo?tab=indexnow');
                 return;
             }
@@ -45,7 +45,7 @@ class AdminTestIndexNow extends SeoAction {
             }
             
             if (empty($results)) {
-                \Notification::error('Ключи IndexNow не настроены. Включите и сохраните настройки.');
+                \Notification::error(LANG_ACTION_SEO_ADMINTESTINDEXNOW_NO_KEYS);
             } else {
                 $successCount = 0;
                 $messages = [];
@@ -53,25 +53,25 @@ class AdminTestIndexNow extends SeoAction {
                 foreach ($results as $engine => $result) {
                     if ($result['success']) {
                         $successCount++;
-                        $messages[] = ucfirst($engine) . ": HTTP " . $result['code'] . " ✓";
+                        $messages[] = sprintf(LANG_ACTION_SEO_ADMINTESTINDEXNOW_RESULT_SUCCESS, ucfirst($engine), $result['code']);
                     } else {
-                        $errorMsg = $result['error'] ?? 'Неизвестная ошибка';
+                        $errorMsg = $result['error'] ?? LANG_ACTION_SEO_ADMINTESTINDEXNOW_UNKNOWN_ERROR;
                         if (strlen($errorMsg) > 150) {
                             $errorMsg = substr($errorMsg, 0, 150) . '...';
                         }
-                        $messages[] = ucfirst($engine) . ": HTTP " . $result['code'] . " ✗ " . $errorMsg;
+                        $messages[] = sprintf(LANG_ACTION_SEO_ADMINTESTINDEXNOW_RESULT_ERROR, ucfirst($engine), $result['code'], $errorMsg);
                     }
                 }
                 
                 if ($successCount > 0) {
-                    \Notification::success("IndexNow тест: " . implode(", ", $messages));
+                    \Notification::success(LANG_ACTION_SEO_ADMINTESTINDEXNOW_SUCCESS . implode(", ", $messages));
                 } else {
-                    \Notification::error("IndexNow тест: " . implode(", ", $messages));
+                    \Notification::error(LANG_ACTION_SEO_ADMINTESTINDEXNOW_FAILURE . implode(", ", $messages));
                 }
             }
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка тестирования IndexNow: ' . $e->getMessage());
+            \Notification::error(sprintf(LANG_ACTION_SEO_ADMINTESTINDEXNOW_EXCEPTION, $e->getMessage()));
         }
         
         $this->redirect(ADMIN_URL . '/seo?tab=indexnow');

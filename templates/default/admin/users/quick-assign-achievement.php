@@ -2,10 +2,10 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h4 class="mb-0">
             <?php echo bloggy_icon('bs', 'trophy', '24', '#000', 'me-2'); ?>
-            Назначение ачивки пользователю
+            <?php echo LANG_TEMPLATE_USERS_QUICK_ASSIGN_ACHIEVEMENT_TITLE; ?>
         </h4>
         <a href="<?php echo ADMIN_URL; ?>/users" class="btn btn-outline-secondary btn-sm">
-            <?php echo bloggy_icon('bs', 'arrow-left', '18', '#000', 'me-1'); ?> Назад к пользователям
+            <?php echo bloggy_icon('bs', 'arrow-left', '18', '#000', 'me-1'); ?> <?php echo LANG_TEMPLATE_USERS_QUICK_ASSIGN_ACHIEVEMENT_BACK_BTN; ?>
         </a>
     </div>
     
@@ -31,7 +31,7 @@
                             <p class="text-muted mb-1"><?php echo html($user['email']); ?></p>
                             <div class="d-flex gap-2">
                                 <span class="badge bg-<?php echo $user['status'] === 'active' ? 'success' : 'danger'; ?>">
-                                    <?php echo $user['status'] === 'active' ? 'Активен' : 'Заблокирован'; ?>
+                                    <?php echo $user['status'] === 'active' ? LANG_TEMPLATE_USERS_QUICK_ASSIGN_ACHIEVEMENT_STATUS_ACTIVE : LANG_TEMPLATE_USERS_QUICK_ASSIGN_ACHIEVEMENT_STATUS_BANNED; ?>
                                 </span>
                                 <span class="badge bg-secondary">
                                     <?php echo date('d.m.Y', strtotime($user['created_at'])); ?>
@@ -49,7 +49,7 @@
                     <div class="mb-3">
                         <h6 class="mb-2">
                             <?php echo bloggy_icon('bs', 'check-circle', '18', '#28a745', 'me-1'); ?>
-                            Текущие ачивки пользователя
+                            <?php echo LANG_TEMPLATE_USERS_QUICK_ASSIGN_ACHIEVEMENT_CURRENT_ACHIEVEMENTS_TITLE; ?>
                         </h6>
                         <div class="d-flex flex-wrap gap-2">
                             <?php foreach ($userAchievements as $achievement) { ?>
@@ -81,7 +81,7 @@
                 <div class="card-body">
                     <h5 class="card-title mb-4">
                         <?php echo bloggy_icon('bs', 'award', '20', '#000', 'me-2'); ?>
-                        Выберите ачивку для назначения
+                        <?php echo LANG_TEMPLATE_USERS_QUICK_ASSIGN_ACHIEVEMENT_SELECT_TITLE; ?>
                     </h5>
                     
                     <?php if (!empty($availableAchievements)) { ?>
@@ -118,7 +118,7 @@
                                                     
                                                     <div>
                                                         <h6 class="mb-0"><?php echo html($achievement['name']); ?></h6>
-                                                        <small class="text-muted">Ручная ачивка</small>
+                                                        <small class="text-muted"><?php echo LANG_TEMPLATE_USERS_QUICK_ASSIGN_ACHIEVEMENT_MANUAL_BADGE; ?></small>
                                                     </div>
                                                 </div>
                                                 
@@ -132,7 +132,7 @@
                                                     <div class="mt-2">
                                                         <small class="text-muted">
                                                             <?php echo bloggy_icon('bs', 'info-circle', '14', '#6C6C6C', 'me-1'); ?>
-                                                            Обычно получают за:
+                                                            <?php echo LANG_TEMPLATE_USERS_QUICK_ASSIGN_ACHIEVEMENT_CONDITIONS_PREFIX; ?>
                                                         </small>
                                                         <div class="d-flex flex-wrap gap-1 mt-1">
                                                             <?php foreach ($achievement['conditions'] as $condition) { ?>
@@ -140,16 +140,16 @@
                                                                 $conditionText = '';
                                                                 switch($condition['condition_type']) {
                                                                     case 'registration_days':
-                                                                        $conditionText = 'Дней с регистрации';
+                                                                        $conditionText = LANG_TEMPLATE_USERS_QUICK_ASSIGN_ACHIEVEMENT_CONDITION_REGISTRATION_DAYS;
                                                                         break;
                                                                     case 'comments_count':
-                                                                        $conditionText = 'Комментариев';
+                                                                        $conditionText = LANG_TEMPLATE_USERS_QUICK_ASSIGN_ACHIEVEMENT_CONDITION_COMMENTS_COUNT;
                                                                         break;
                                                                     case 'posts_count':
-                                                                        $conditionText = 'Постов';
+                                                                        $conditionText = LANG_TEMPLATE_USERS_QUICK_ASSIGN_ACHIEVEMENT_CONDITION_POSTS_COUNT;
                                                                         break;
                                                                     case 'login_days':
-                                                                        $conditionText = 'Дней входа';
+                                                                        $conditionText = LANG_TEMPLATE_USERS_QUICK_ASSIGN_ACHIEVEMENT_CONDITION_LOGIN_DAYS;
                                                                         break;
                                                                 }
                                                                 ?>
@@ -164,7 +164,7 @@
                                                 <?php } else { ?>
                                                     <small class="text-muted">
                                                         <?php echo bloggy_icon('bs', 'info-circle', '14', '#6C6C6C', 'me-1'); ?>
-                                                        Ачивка без условий
+                                                        <?php echo LANG_TEMPLATE_USERS_QUICK_ASSIGN_ACHIEVEMENT_NO_CONDITIONS; ?>
                                                     </small>
                                                 <?php } ?>
                                             </label>
@@ -178,14 +178,14 @@
                         <div class="mt-4">
                             <div class="form-floating mb-3">
                                 <textarea class="form-control" name="reason" id="reason" 
-                                          placeholder="Причина назначения ачивки" 
+                                          placeholder="<?php echo LANG_TEMPLATE_USERS_QUICK_ASSIGN_ACHIEVEMENT_REASON_PLACEHOLDER; ?>" 
                                           style="height: 100px"></textarea>
                                 <label for="reason">
                                     <?php echo bloggy_icon('bs', 'chat-text', '16', '#000', 'me-1'); ?>
-                                    Причина назначения ачивки (опционально)
+                                    <?php echo LANG_TEMPLATE_USERS_QUICK_ASSIGN_ACHIEVEMENT_REASON_LABEL; ?>
                                 </label>
                                 <div class="form-text">
-                                    Это сообщение будет сохранено в истории назначений
+                                    <?php echo LANG_TEMPLATE_USERS_QUICK_ASSIGN_ACHIEVEMENT_REASON_HINT; ?>
                                 </div>
                             </div>
                             
@@ -195,7 +195,7 @@
                                         <input class="form-check-input" type="checkbox" name="send_notification" 
                                                id="sendNotification" checked>
                                         <label class="form-check-label" for="sendNotification">
-                                            Уведомить пользователя
+                                            <?php echo LANG_TEMPLATE_USERS_QUICK_ASSIGN_ACHIEVEMENT_NOTIFY_LABEL; ?>
                                         </label>
                                     </div>
                                 </div>
@@ -203,11 +203,11 @@
                                 <div class="d-flex gap-2">
                                     <button type="button" class="btn btn-outline-secondary" 
                                             onclick="window.history.back()">
-                                        Отмена
+                                        <?php echo LANG_TEMPLATE_USERS_QUICK_ASSIGN_ACHIEVEMENT_CANCEL_BTN; ?>
                                     </button>
                                     <button type="submit" class="btn btn-primary">
                                         <?php echo bloggy_icon('bs', 'check-lg', '18', '#fff', 'me-1'); ?>
-                                        Назначить ачивку
+                                        <?php echo LANG_TEMPLATE_USERS_QUICK_ASSIGN_ACHIEVEMENT_SUBMIT_BTN; ?>
                                     </button>
                                 </div>
                             </div>
@@ -218,18 +218,18 @@
                         <div class="mb-3">
                             <?php echo bloggy_icon('bs', 'emoji-frown', '48', '#adb5bd'); ?>
                         </div>
-                        <h5 class="text-muted">Нет доступных ачивок для назначения</h5>
+                        <h5 class="text-muted"><?php echo LANG_TEMPLATE_USERS_QUICK_ASSIGN_ACHIEVEMENT_NO_ACHIEVEMENTS_TITLE; ?></h5>
                         <p class="text-muted mb-3">
-                            Все ручные ачивки уже назначены этому пользователю или нет созданных ручных ачивок
+                            <?php echo LANG_TEMPLATE_USERS_QUICK_ASSIGN_ACHIEVEMENT_NO_ACHIEVEMENTS_HINT; ?>
                         </p>
                         <div class="d-flex justify-content-center gap-2">
                             <a href="<?php echo ADMIN_URL; ?>/user-achievements/create" class="btn btn-primary">
                                 <?php echo bloggy_icon('bs', 'plus-lg', '18', '#fff', 'me-1'); ?>
-                                Создать новую ачивку
+                                <?php echo LANG_TEMPLATE_USERS_QUICK_ASSIGN_ACHIEVEMENT_CREATE_ACHIEVEMENT_BTN; ?>
                             </a>
                             <a href="<?php echo ADMIN_URL; ?>/users/edit/<?php echo $user['id']; ?>" class="btn btn-outline-secondary">
                                 <?php echo bloggy_icon('bs', 'person', '18', '#000', 'me-1'); ?>
-                                Редактировать пользователя
+                                <?php echo LANG_TEMPLATE_USERS_QUICK_ASSIGN_ACHIEVEMENT_EDIT_USER_BTN; ?>
                             </a>
                         </div>
                     </div>
@@ -243,31 +243,31 @@
                 <div class="card-body">
                     <h6 class="card-title mb-3">
                         <?php echo bloggy_icon('bs', 'lightbulb', '20', '#ffc107', 'me-2'); ?>
-                        О назначении ачивок
+                        <?php echo LANG_TEMPLATE_USERS_QUICK_ASSIGN_ACHIEVEMENT_INFO_TITLE; ?>
                     </h6>
                     
                     <div class="mb-3">
-                        <h6 class="small text-muted mb-2">Что такое ручные ачивки?</h6>
+                        <h6 class="small text-muted mb-2"><?php echo LANG_TEMPLATE_USERS_QUICK_ASSIGN_ACHIEVEMENT_INFO_MANUAL_TITLE; ?></h6>
                         <p class="small">
-                            Ручные ачивки назначаются администратором вручную за особые заслуги, помощь в развитии проекта или другие достижения.
+                            <?php echo LANG_TEMPLATE_USERS_QUICK_ASSIGN_ACHIEVEMENT_INFO_MANUAL_DESC; ?>
                         </p>
                     </div>
                     
                     <div class="mb-3">
-                        <h6 class="small text-muted mb-2">Автоматические ачивки</h6>
+                        <h6 class="small text-muted mb-2"><?php echo LANG_TEMPLATE_USERS_QUICK_ASSIGN_ACHIEVEMENT_INFO_AUTO_TITLE; ?></h6>
                         <p class="small">
-                            Автоматические ачивки назначаются системой при выполнении определенных условий (количество постов, комментариев, дней на сайте и т.д.).
+                            <?php echo LANG_TEMPLATE_USERS_QUICK_ASSIGN_ACHIEVEMENT_INFO_AUTO_DESC; ?>
                         </p>
                     </div>
                     
                     <div class="mb-3">
-                        <h6 class="small text-muted mb-2">Когда назначать ачивки?</h6>
+                        <h6 class="small text-muted mb-2"><?php echo LANG_TEMPLATE_USERS_QUICK_ASSIGN_ACHIEVEMENT_INFO_WHEN_TITLE; ?></h6>
                         <ul class="small ps-3 mb-0">
-                            <li>За активное участие в жизни сообщества</li>
-                            <li>За помощь в тестировании новых функций</li>
-                            <li>За найденные баги и предложения по улучшению</li>
-                            <li>За создание полезного контента</li>
-                            <li>За помощь другим пользователям</li>
+                            <li><?php echo LANG_TEMPLATE_USERS_QUICK_ASSIGN_ACHIEVEMENT_INFO_WHEN_ITEM1; ?></li>
+                            <li><?php echo LANG_TEMPLATE_USERS_QUICK_ASSIGN_ACHIEVEMENT_INFO_WHEN_ITEM2; ?></li>
+                            <li><?php echo LANG_TEMPLATE_USERS_QUICK_ASSIGN_ACHIEVEMENT_INFO_WHEN_ITEM3; ?></li>
+                            <li><?php echo LANG_TEMPLATE_USERS_QUICK_ASSIGN_ACHIEVEMENT_INFO_WHEN_ITEM4; ?></li>
+                            <li><?php echo LANG_TEMPLATE_USERS_QUICK_ASSIGN_ACHIEVEMENT_INFO_WHEN_ITEM5; ?></li>
                         </ul>
                     </div>
                 </div>
@@ -277,7 +277,7 @@
                 <div class="card-body">
                     <h6 class="card-title mb-3">
                         <?php echo bloggy_icon('bs', 'bar-chart', '20', '#007bff', 'me-2'); ?>
-                        Статистика по ачивкам
+                        <?php echo LANG_TEMPLATE_USERS_QUICK_ASSIGN_ACHIEVEMENT_STATS_TITLE; ?>
                     </h6>
                     
                     <?php
@@ -288,7 +288,7 @@
                     
                     <div class="mb-3">
                         <div class="d-flex justify-content-between mb-1">
-                            <span class="small">Ручных ачивок:</span>
+                            <span class="small"><?php echo LANG_TEMPLATE_USERS_QUICK_ASSIGN_ACHIEVEMENT_STATS_MANUAL; ?></span>
                             <span class="small fw-bold"><?php echo count($manualAchievements); ?></span>
                         </div>
                         <div class="progress" style="height: 4px;">
@@ -299,7 +299,7 @@
                     
                     <div class="mb-3">
                         <div class="d-flex justify-content-between mb-1">
-                            <span class="small">Автоматических ачивок:</span>
+                            <span class="small"><?php echo LANG_TEMPLATE_USERS_QUICK_ASSIGN_ACHIEVEMENT_STATS_AUTO; ?></span>
                             <span class="small fw-bold"><?php echo count($autoAchievements); ?></span>
                         </div>
                         <div class="progress" style="height: 4px;">
@@ -310,7 +310,7 @@
                     
                     <div class="mb-3">
                         <div class="d-flex justify-content-between mb-1">
-                            <span class="small">Получено пользователем:</span>
+                            <span class="small"><?php echo LANG_TEMPLATE_USERS_QUICK_ASSIGN_ACHIEVEMENT_STATS_USER; ?></span>
                             <span class="small fw-bold"><?php echo count($userAchievements); ?></span>
                         </div>
                         <div class="progress" style="height: 6px;">
@@ -322,7 +322,7 @@
                     <div class="text-center mt-3">
                         <a href="<?php echo ADMIN_URL; ?>/user-achievements" class="btn btn-sm btn-outline-primary">
                             <?php echo bloggy_icon('bs', 'trophy', '16', '#0d6efd', 'me-1'); ?>
-                            Управление ачивками
+                            <?php echo LANG_TEMPLATE_USERS_QUICK_ASSIGN_ACHIEVEMENT_MANAGE_BTN; ?>
                         </a>
                     </div>
                 </div>
@@ -345,14 +345,14 @@ document.addEventListener('DOMContentLoaded', function() {
             const selectedAchievement = form.querySelector('input[name="achievement_id"]:checked');
             if (!selectedAchievement) {
                 e.preventDefault();
-                alert('Пожалуйста, выберите ачивку для назначения');
+                alert('<?php echo LANG_TEMPLATE_USERS_QUICK_ASSIGN_ACHIEVEMENT_ALERT_NO_SELECTION; ?>');
                 return;
             }
 
             const submitBtn = form.querySelector('button[type="submit"]');
             const originalText = submitBtn.innerHTML;
             submitBtn.disabled = true;
-            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Назначение...';
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> <?php echo LANG_TEMPLATE_USERS_QUICK_ASSIGN_ACHIEVEMENT_ASSIGNING_TEXT; ?>';
             
             setTimeout(() => {
                 submitBtn.disabled = false;

@@ -20,13 +20,13 @@ class CreateAjax extends TagAction {
         try {
 
             if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-                throw new \Exception('Invalid request method');
+                throw new \Exception(LANG_ACTION_TAGS_CREATEAJAX_INVALID_METHOD);
             }
             
             $name = trim($_POST['name'] ?? '');
             
             if (empty($name)) {
-                throw new \Exception('Название тега не может быть пустым');
+                throw new \Exception(LANG_ACTION_TAGS_CREATEAJAX_EMPTY_NAME);
             }
             
             $allTags = $this->tagModel->getAll();
@@ -43,7 +43,7 @@ class CreateAjax extends TagAction {
                 echo json_encode([
                     'success' => true,
                     'tag' => $existingTag,
-                    'message' => 'Тег уже существует'
+                    'message' => LANG_ACTION_TAGS_CREATEAJAX_TAG_EXISTS
                 ]);
                 exit;
             }
@@ -54,7 +54,7 @@ class CreateAjax extends TagAction {
             echo json_encode([
                 'success' => true,
                 'tag' => $tag,
-                'message' => 'Тег успешно создан'
+                'message' => LANG_ACTION_TAGS_CREATEAJAX_SUCCESS
             ]);
             
         } catch (\Exception $e) {

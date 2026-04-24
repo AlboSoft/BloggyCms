@@ -1,0 +1,34 @@
+<?php
+
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_SITE_NAME_LABEL', 'Название сайта');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_SITE_NAME_PLACEHOLDER', 'Введите название сайта');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_SITE_NAME_HINT', 'Отображается в заголовке страницы');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_SITE_TAGLINE_LABEL', 'Слоган сайта');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_SITE_TAGLINE_PLACEHOLDER', 'Краткое описание вашего блога');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_SITE_TAGLINE_HINT', 'Короткий слоган, который описывает ваш блог. По умолчанию нигде не выводится, но Вы можете добавить его самостоятельно в ваш шаблон.');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_FAVICON_TITLE', 'Favicon сайта');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_FAVICON_UPLOAD_LABEL', 'Загрузить иконку');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_FAVICON_HINT', 'Допустимые форматы: ICO, PNG, SVG, JPG, JPEG, GIF, WebP. Рекомендуемый размер: 32x32 пикселя');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_FAVICON_CURRENT_LABEL', 'Текущая иконка:');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_FAVICON_VIEW_BTN', 'Просмотр');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_FAVICON_REMOVE_BTN', 'Удалить');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_FAVICON_PREVIEW_LABEL', 'Предпросмотр:');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_FAVICON_NOT_SELECTED', 'Не выбран');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_SITE_DESCRIPTION_LABEL', 'Описание сайта для главной страницы');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_SITE_DESCRIPTION_PLACEHOLDER', 'Подробное описание вашего блога для поисковых систем');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_SITE_DESCRIPTION_HINT', 'Это описание будет использоваться в мета-теге description для главной страницы. Описание на всех остальных страницах будет генерироваться из настроек контроллеров');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_CONTACT_EMAIL_LABEL', 'Контактный email');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_CONTACT_EMAIL_HINT', 'Email для обратной связи');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_LANGUAGE_REGION_TITLE', 'Язык и регион');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_DATE_TIME_FORMAT_LABEL', 'Формат даты и времени');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_SEO_SETTINGS_TITLE', 'Базовые настройки SEO');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_KEYWORDS_LABEL', 'Ключевые слова (keywords)');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_KEYWORDS_PLACEHOLDER', 'ключевые, слова, через, запятую');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_KEYWORDS_HINT', 'Ключевые слова для мета-тега keywords');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_SITE_AUTHOR_LABEL', 'Разработчик сайта');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_SITE_AUTHOR_PLACEHOLDER', 'Имя автора или компании');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_SYSTEM_SETTINGS_TITLE', 'Системные настройки');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_MAINTENANCE_MODE_LABEL', 'Режим обслуживания');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_MAINTENANCE_MODE_HINT', 'При включении сайт будет недоступен для обычных посетителей');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_MAINTENANCE_MESSAGE_LABEL', 'Сообщение в режиме обслуживания');
+define('LANG_TEMPLATE_SETTINGS_SITE_TAB_MAINTENANCE_MESSAGE_PLACEHOLDER', 'Сайт временно недоступен. Ведутся технические работы.');

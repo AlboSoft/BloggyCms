@@ -16,14 +16,14 @@ class Vote extends PostAction {
 
         $postId = $this->params['id'] ?? null;
         if (!$postId) {
-            echo json_encode(['success' => false, 'message' => 'Post ID not provided']);
+            echo json_encode(['success' => false, 'message' => LANG_ACTION_POSTS_VOTE_NO_POST_ID]);
             return;
         }
 
         header('Content-Type: application/json');
         
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            echo json_encode(['success' => false, 'message' => 'Invalid request method']);
+            echo json_encode(['success' => false, 'message' => LANG_ACTION_POSTS_VOTE_INVALID_METHOD]);
             return;
         }
     
@@ -31,7 +31,7 @@ class Vote extends PostAction {
             if (!isset($_SESSION['user_id'])) {
                 echo json_encode([
                     'success' => false, 
-                    'message' => 'Требуется авторизация',
+                    'message' => LANG_ACTION_POSTS_VOTE_AUTH_REQUIRED,
                     'redirect' => BASE_URL . '/login'
                 ]);
                 return;
@@ -41,7 +41,7 @@ class Vote extends PostAction {
     
             $post = $this->postModel->getById($postId);
             if (!$post) {
-                echo json_encode(['success' => false, 'message' => 'Пост не найден']);
+                echo json_encode(['success' => false, 'message' => LANG_ACTION_POSTS_VOTE_POST_NOT_FOUND]);
                 return;
             }
     
@@ -51,11 +51,11 @@ class Vote extends PostAction {
                 'success' => true,
                 'liked' => $result['liked'],
                 'likes_count' => $result['likes_count'],
-                'message' => $result['liked'] ? 'Посту понравилось' : 'Лайк удален'
+                'message' => $result['liked'] ? LANG_ACTION_POSTS_VOTE_LIKED : LANG_ACTION_POSTS_VOTE_UNLIKED
             ]);
             
         } catch (\Exception $e) {
-            echo json_encode(['success' => false, 'message' => 'Ошибка сервера: ' . $e->getMessage()]);
+            echo json_encode(['success' => false, 'message' => sprintf(LANG_ACTION_POSTS_VOTE_SERVER_ERROR, $e->getMessage())]);
         }
         exit;
     }

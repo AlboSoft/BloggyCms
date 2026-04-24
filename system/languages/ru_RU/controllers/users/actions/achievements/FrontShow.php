@@ -1,0 +1,8 @@
+<?php
+
+define('LANG_ACTION_USERS_FRONTSHOW_BREADCRUMB_HOME', 'Главная');
+define('LANG_ACTION_USERS_FRONTSHOW_BREADCRUMB_USERS', 'Участники');
+define('LANG_ACTION_USERS_FRONTSHOW_BREADCRUMB_ACHIEVEMENTS', 'Ачивки');
+define('LANG_ACTION_USERS_FRONTSHOW_PAGE_TITLE', '%s — Ачивка');
+define('LANG_ACTION_USERS_FRONTSHOW_ERROR', 'Ошибка при загрузке информации об ачивке');
+define('LANG_ACTION_USERS_FRONTSHOW_RENDER_TITLE', '%s - Ачивки');

@@ -17,12 +17,12 @@ class AdminAchievementAssign extends AdminAchievementAction {
 
             $userId = $this->params['user_id'] ?? null;
             if (!$userId) {
-                throw new \Exception('ID пользователя не указан');
+                throw new \Exception(LANG_ACTION_USERS_ADMINACHIEVEMENTASSIGN_NO_USER_ID);
             }
             
             $user = $this->userModel->getById($userId);
             if (!$user) {
-                throw new \Exception('Пользователь не найден');
+                throw new \Exception(LANG_ACTION_USERS_ADMINACHIEVEMENTASSIGN_USER_NOT_FOUND);
             }
             
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -47,17 +47,17 @@ class AdminAchievementAssign extends AdminAchievementAction {
     private function handlePostRequest($userId) {
         $achievementId = $_POST['achievement_id'] ?? null;
         if (!$achievementId) {
-            throw new \Exception('Ачивка не выбрана');
+            throw new \Exception(LANG_ACTION_USERS_ADMINACHIEVEMENTASSIGN_NO_ACHIEVEMENT);
         }
         
         $achievement = $this->userModel->getAchievementById($achievementId);
         if (!$achievement) {
-            throw new \Exception('Ачивка не найдена');
+            throw new \Exception(LANG_ACTION_USERS_ADMINACHIEVEMENTASSIGN_ACHIEVEMENT_NOT_FOUND);
         }
         
         $this->userModel->assignAchievementToUser($userId, $achievementId);
         
-        \Notification::success('Ачивка успешно назначена пользователю');
+        \Notification::success(LANG_ACTION_USERS_ADMINACHIEVEMENTASSIGN_SUCCESS);
         $this->redirect(ADMIN_URL . '/users/edit/' . $userId);
     }
     
@@ -72,7 +72,7 @@ class AdminAchievementAssign extends AdminAchievementAction {
         $this->render('admin/users/assign-achievement', [
             'user' => $user,
             'achievements' => $achievements,
-            'pageTitle' => 'Назначение ачивки пользователю'
+            'pageTitle' => LANG_ACTION_USERS_ADMINACHIEVEMENTASSIGN_PAGE_TITLE
         ]);
     }
 }

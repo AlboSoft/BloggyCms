@@ -17,19 +17,19 @@ class Update extends ProfileAction {
         $this->checkAuthentication();
         
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            $this->redirectWithError('Неправильный метод запроса', '/profile/edit');
+            $this->redirectWithError(LANG_ACTION_PROFILE_UPDATE_INVALID_METHOD, '/profile/edit');
             return;
         }
         
         if (!$this->validateCsrfToken()) {
-            $this->redirectWithError('Неверный CSRF-токен', '/profile/edit');
+            $this->redirectWithError(LANG_ACTION_PROFILE_UPDATE_INVALID_CSRF, '/profile/edit');
             return;
         }
         
         $user = $this->userModel->getById($_SESSION['user_id']);
         
         if (!$user) {
-            $this->redirectWithError('Пользователь не найден', '/profile/edit');
+            $this->redirectWithError(LANG_ACTION_PROFILE_UPDATE_USER_NOT_FOUND, '/profile/edit');
             return;
         }
 
@@ -78,13 +78,13 @@ class Update extends ProfileAction {
                 $_POST['current_password'] ?? '',
                 $_POST['new_password']
             )) {
-                $this->redirectWithError('Неверный текущий пароль', '/profile/edit');
+                $this->redirectWithError(LANG_ACTION_PROFILE_UPDATE_INVALID_PASSWORD, '/profile/edit');
                 return false;
             }
         }
 
         if (!empty($updateData) && !$this->userModel->update($user['id'], $updateData)) {
-            $this->redirectWithError('Ошибка при сохранении данных', '/profile/edit');
+            $this->redirectWithError(LANG_ACTION_PROFILE_UPDATE_SAVE_ERROR, '/profile/edit');
             return false;
         }
 
@@ -118,7 +118,7 @@ class Update extends ProfileAction {
                     $value = $_POST[$postKey] ?? null;
                     
                     if (empty($value) && $value !== '0') {
-                        $this->redirectWithError('Поле "' . $field['name'] . '" обязательно для заполнения', '/profile/edit');
+                        $this->redirectWithError(sprintf(LANG_ACTION_PROFILE_UPDATE_FIELD_REQUIRED, $field['name']), '/profile/edit');
                         return false;
                     }
                 }
@@ -141,7 +141,7 @@ class Update extends ProfileAction {
                     );
                     
                     if (!$result) {
-                        throw new Exception('Не удалось сохранить поле: ' . $field['name']);
+                        throw new Exception(sprintf(LANG_ACTION_PROFILE_UPDATE_FIELD_SAVE_ERROR, $field['name']));
                     }
                 } elseif ($field['type'] === 'flag') {
                     $this->fieldModel->saveFieldValue(
@@ -156,7 +156,7 @@ class Update extends ProfileAction {
             return true;
             
         } catch (Exception $e) {
-            $this->redirectWithError('Ошибка при сохранении дополнительных полей: ' . $e->getMessage(), '/profile/edit');
+            $this->redirectWithError(sprintf(LANG_ACTION_PROFILE_UPDATE_FIELDS_ERROR, $e->getMessage()), '/profile/edit');
             return false;
         }
     }
@@ -170,16 +170,16 @@ class Update extends ProfileAction {
         
         if ($file['error'] !== UPLOAD_ERR_OK) {
             $errorMessages = [
-                UPLOAD_ERR_INI_SIZE => 'Файл превышает максимальный размер',
-                UPLOAD_ERR_FORM_SIZE => 'Файл превышает максимальный размер формы',
-                UPLOAD_ERR_PARTIAL => 'Файл загружен частично',
-                UPLOAD_ERR_NO_FILE => 'Файл не был загружен',
-                UPLOAD_ERR_NO_TMP_DIR => 'Отсутствует временная папка',
-                UPLOAD_ERR_CANT_WRITE => 'Ошибка записи файла',
-                UPLOAD_ERR_EXTENSION => 'Загрузка файла остановлена расширением'
+                UPLOAD_ERR_INI_SIZE => LANG_ACTION_PROFILE_UPDATE_ERROR_INI_SIZE,
+                UPLOAD_ERR_FORM_SIZE => LANG_ACTION_PROFILE_UPDATE_ERROR_FORM_SIZE,
+                UPLOAD_ERR_PARTIAL => LANG_ACTION_PROFILE_UPDATE_ERROR_PARTIAL,
+                UPLOAD_ERR_NO_FILE => LANG_ACTION_PROFILE_UPDATE_ERROR_NO_FILE,
+                UPLOAD_ERR_NO_TMP_DIR => LANG_ACTION_PROFILE_UPDATE_ERROR_NO_TMP_DIR,
+                UPLOAD_ERR_CANT_WRITE => LANG_ACTION_PROFILE_UPDATE_ERROR_CANT_WRITE,
+                UPLOAD_ERR_EXTENSION => LANG_ACTION_PROFILE_UPDATE_ERROR_EXTENSION
             ];
-            $errorMsg = $errorMessages[$file['error']] ?? 'Неизвестная ошибка загрузки';
-            $this->redirectWithError('Ошибка загрузки аватара: ' . $errorMsg, '/profile/edit');
+            $errorMsg = $errorMessages[$file['error']] ?? LANG_ACTION_PROFILE_UPDATE_ERROR_UNKNOWN;
+            $this->redirectWithError(sprintf(LANG_ACTION_PROFILE_UPDATE_AVATAR_ERROR, $errorMsg), '/profile/edit');
             return null;
         }
 
@@ -192,12 +192,12 @@ class Update extends ProfileAction {
         $fileType = mime_content_type($file['tmp_name']);
         
         if (!in_array($fileType, $allowedTypes)) {
-            $this->redirectWithError('Допустимы только JPG, PNG, GIF или WebP', '/profile/edit');
+            $this->redirectWithError(LANG_ACTION_PROFILE_UPDATE_AVATAR_TYPE_ERROR, '/profile/edit');
             return null;
         }
 
         if ($file['size'] > 5 * 1024 * 1024) {
-            $this->redirectWithError('Максимальный размер файла - 5MB', '/profile/edit');
+            $this->redirectWithError(LANG_ACTION_PROFILE_UPDATE_AVATAR_SIZE_ERROR, '/profile/edit');
             return null;
         }
 
@@ -214,7 +214,7 @@ class Update extends ProfileAction {
         $targetPath = $uploadDir . $filename;
 
         if (!move_uploaded_file($file['tmp_name'], $targetPath)) {
-            $this->redirectWithError('Ошибка загрузки аватара', '/profile/edit');
+            $this->redirectWithError(LANG_ACTION_PROFILE_UPDATE_AVATAR_UPLOAD_ERROR, '/profile/edit');
             return null;
         }
 
@@ -244,18 +244,18 @@ class Update extends ProfileAction {
         $email = trim($email);
         
         if (empty($email)) {
-            $this->redirectWithError('Email не может быть пустым', '/profile/edit');
+            $this->redirectWithError(LANG_ACTION_PROFILE_UPDATE_EMAIL_EMPTY, '/profile/edit');
             return null;
         }
         
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $this->redirectWithError('Некорректный email', '/profile/edit');
+            $this->redirectWithError(LANG_ACTION_PROFILE_UPDATE_EMAIL_INVALID, '/profile/edit');
             return null;
         }
         
         $existingUser = $this->userModel->getByEmail($email);
         if ($existingUser && $existingUser['id'] != $_SESSION['user_id']) {
-            $this->redirectWithError('Этот email уже используется другим пользователем', '/profile/edit');
+            $this->redirectWithError(LANG_ACTION_PROFILE_UPDATE_EMAIL_EXISTS, '/profile/edit');
             return null;
         }
         
@@ -279,7 +279,7 @@ class Update extends ProfileAction {
         }
         
         if (!filter_var($website, FILTER_VALIDATE_URL)) {
-            $this->redirectWithError('Некорректный URL сайта', '/profile/edit');
+            $this->redirectWithError(LANG_ACTION_PROFILE_UPDATE_WEBSITE_INVALID, '/profile/edit');
             return null;
         }
         

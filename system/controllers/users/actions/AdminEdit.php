@@ -28,7 +28,7 @@ class AdminEdit extends UserAction {
         $id = $this->params['id'] ?? null;
         
         if (!$id) {
-            \Notification::error('ID пользователя не указан');
+            \Notification::error(LANG_ACTION_USERS_ADMINEDIT_NO_ID);
             $this->redirect(ADMIN_URL . '/users');
             return;
         }
@@ -36,9 +36,9 @@ class AdminEdit extends UserAction {
         try {
             $user = $this->loadUser($id);
             
-            $this->addBreadcrumb('Панель управления', ADMIN_URL);
-            $this->addBreadcrumb('Пользователи', ADMIN_URL . '/users');
-            $this->addBreadcrumb('Редактирование: ' . ($user['display_name'] ?: $user['username']));
+            $this->addBreadcrumb(LANG_ACTION_USERS_ADMINEDIT_BREADCRUMB_DASHBOARD, ADMIN_URL);
+            $this->addBreadcrumb(LANG_ACTION_USERS_ADMINEDIT_BREADCRUMB_USERS, ADMIN_URL . '/users');
+            $this->addBreadcrumb(sprintf(LANG_ACTION_USERS_ADMINEDIT_BREADCRUMB_EDIT, ($user['display_name'] ?: $user['username'])));
             
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $this->handlePostRequest($id, $user);
@@ -61,7 +61,7 @@ class AdminEdit extends UserAction {
     private function loadUser($id) {
         $user = $this->userModel->getById($id);
         if (!$user) {
-            throw new \Exception('Пользователь не найден');
+            throw new \Exception(LANG_ACTION_USERS_ADMINEDIT_USER_NOT_FOUND);
         }
         return $user;
     }
@@ -83,7 +83,7 @@ class AdminEdit extends UserAction {
         $this->updateUserGroups($id);
         $this->updateUserAchievements($id);
         $this->userModel->update($id, $userData);
-        \Notification::success('Пользователь успешно обновлен');
+        \Notification::success(LANG_ACTION_USERS_ADMINEDIT_SUCCESS);
         $this->redirect(ADMIN_URL . '/users');
     }
     
@@ -93,11 +93,11 @@ class AdminEdit extends UserAction {
     */
     private function validateRequiredFields() {
         if (empty($_POST['username'])) {
-            throw new \Exception('Имя пользователя обязательно');
+            throw new \Exception(LANG_ACTION_USERS_ADMINEDIT_ERROR_USERNAME_REQUIRED);
         }
 
         if (empty($_POST['email'])) {
-            throw new \Exception('Email обязателен');
+            throw new \Exception(LANG_ACTION_USERS_ADMINEDIT_ERROR_EMAIL_REQUIRED);
         }
     }
     
@@ -109,12 +109,12 @@ class AdminEdit extends UserAction {
     private function checkUniqueness($id) {
         $existingUser = $this->userModel->getByUsername($_POST['username']);
         if ($existingUser && $existingUser['id'] != $id) {
-            throw new \Exception('Пользователь с таким именем уже существует');
+            throw new \Exception(LANG_ACTION_USERS_ADMINEDIT_ERROR_USERNAME_EXISTS);
         }
 
         $existingUser = $this->userModel->getByEmail($_POST['email']);
         if ($existingUser && $existingUser['id'] != $id) {
-            throw new \Exception('Пользователь с таким email уже существует');
+            throw new \Exception(LANG_ACTION_USERS_ADMINEDIT_ERROR_EMAIL_EXISTS);
         }
     }
     
@@ -144,7 +144,7 @@ class AdminEdit extends UserAction {
     private function handlePasswordChange($userData) {
         if (!empty($_POST['password'])) {
             if ($_POST['password'] !== $_POST['password_confirm']) {
-                throw new \Exception('Пароли не совпадают');
+                throw new \Exception(LANG_ACTION_USERS_ADMINEDIT_ERROR_PASSWORD_MISMATCH);
             }
             $userData['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
         }
@@ -222,7 +222,7 @@ class AdminEdit extends UserAction {
                 }
                 
             } catch (\Exception $e) {
-                \Notification::error("Ошибка при сохранении поля {$field['name']}: " . $e->getMessage());
+                \Notification::error(sprintf(LANG_ACTION_USERS_ADMINEDIT_ERROR_FIELD_SAVE, $field['name'], $e->getMessage()));
             }
         }
     }
@@ -301,7 +301,7 @@ class AdminEdit extends UserAction {
             'user' => $user,
             'customFields' => $customFields,
             'fieldValues' => $fieldValues,
-            'pageTitle' => 'Редактирование пользователя'
+            'pageTitle' => LANG_ACTION_USERS_ADMINEDIT_PAGE_TITLE
         ]);
     }
     
@@ -319,7 +319,7 @@ class AdminEdit extends UserAction {
         $this->render('admin/users/edit', [
             'user' => array_merge($user, $_POST),
             'customFields' => $customFields,
-            'pageTitle' => 'Редактирование пользователя'
+            'pageTitle' => LANG_ACTION_USERS_ADMINEDIT_PAGE_TITLE
         ]);
     }
 }

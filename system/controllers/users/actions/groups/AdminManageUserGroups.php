@@ -13,24 +13,22 @@ class AdminManageUserGroups extends AdminGroupAction {
     * @return void
     */
     public function execute() {
-        error_log('=== AdminManageUserGroups execute START ===');
-    error_log('params: ' . print_r($this->params, true));
         try {
 
             $userId = $this->params['id'] ?? null;
             if (!$userId) {
-                throw new \Exception('ID пользователя не указан');
+                throw new \Exception(LANG_ACTION_USERS_ADMINMANAGEUSERGROUPS_NO_USER_ID);
             }
 
             $user = $this->userModel->getById($userId);
             if (!$user) {
-                throw new \Exception('Пользователь не найден');
+                throw new \Exception(LANG_ACTION_USERS_ADMINMANAGEUSERGROUPS_USER_NOT_FOUND);
             }
 
-            $this->addBreadcrumb('Панель управления', ADMIN_URL);
-            $this->addBreadcrumb('Пользователи', ADMIN_URL . '/users');
-            $this->addBreadcrumb('Редактирование: ' . ($user['display_name'] ?? $user['username']), ADMIN_URL . '/users/edit/' . $userId);
-            $this->addBreadcrumb('Группы');
+            $this->addBreadcrumb(LANG_ACTION_USERS_ADMINMANAGEUSERGROUPS_BREADCRUMB_DASHBOARD, ADMIN_URL);
+            $this->addBreadcrumb(LANG_ACTION_USERS_ADMINMANAGEUSERGROUPS_BREADCRUMB_USERS, ADMIN_URL . '/users');
+            $this->addBreadcrumb(sprintf(LANG_ACTION_USERS_ADMINMANAGEUSERGROUPS_BREADCRUMB_EDIT, ($user['display_name'] ?? $user['username'])), ADMIN_URL . '/users/edit/' . $userId);
+            $this->addBreadcrumb(LANG_ACTION_USERS_ADMINMANAGEUSERGROUPS_BREADCRUMB_GROUPS);
 
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $this->handlePostRequest($userId);
@@ -56,7 +54,7 @@ class AdminManageUserGroups extends AdminGroupAction {
         
         $this->userModel->updateUserGroups($userId, $groupIds);
         
-        \Notification::success('Группы пользователя обновлены');
+        \Notification::success(LANG_ACTION_USERS_ADMINMANAGEUSERGROUPS_SUCCESS);
         $this->redirect(ADMIN_URL . '/users');
     }
     
@@ -73,7 +71,7 @@ class AdminManageUserGroups extends AdminGroupAction {
             'user' => $user,
             'allGroups' => $allGroups,
             'userGroups' => $userGroups,
-            'pageTitle' => 'Управление группами пользователя'
+            'pageTitle' => LANG_ACTION_USERS_ADMINMANAGEUSERGROUPS_PAGE_TITLE
         ]);
     }
 

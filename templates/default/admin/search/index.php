@@ -2,13 +2,13 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h4 class="mb-0">
             <?php echo bloggy_icon('bs', 'search', '24', '#000', 'me-2'); ?>
-            История поисковых запросов
+            <?php echo LANG_TEMPLATE_SEARCH_ADMININDEX_TITLE; ?>
         </h4>
         <a href="<?php echo ADMIN_URL; ?>/search-history/clear" 
            class="btn btn-danger"
-           onclick="return confirm('Вы уверены, что хотите очистить всю историю поисковых запросов?')">
+           onclick="return confirm('<?php echo LANG_TEMPLATE_SEARCH_ADMININDEX_CLEAR_CONFIRM; ?>')">
             <?php echo bloggy_icon('bs', 'trash', '16', '#fff', 'me-2'); ?>
-            Очистить историю
+            <?php echo LANG_TEMPLATE_SEARCH_ADMININDEX_CLEAR_BTN; ?>
         </a>
     </div>
 
@@ -19,19 +19,19 @@
                     <div class="mb-3">
                         <?php echo bloggy_icon('bs', 'search', '48', '#6C6C6C'); ?>
                     </div>
-                    <h5 class="text-muted">История поисковых запросов пуста</h5>
-                    <p class="text-muted">Здесь будут отображаться поисковые запросы пользователей</p>
+                    <h5 class="text-muted"><?php echo LANG_TEMPLATE_SEARCH_ADMININDEX_EMPTY_TITLE; ?></h5>
+                    <p class="text-muted"><?php echo LANG_TEMPLATE_SEARCH_ADMININDEX_EMPTY_HINT; ?></p>
                 </div>
             <?php } else { ?>
                 <div class="table-responsive">
                     <table class="table table-hover align-middle">
                         <thead class="table-light">
                             <tr>
-                                <th>Поисковый запрос</th>
-                                <th>Количество поисков</th>
-                                <th>Последний поиск</th>
-                                <th>Первый поиск</th>
-                                <th class="text-end">Действия</th>
+                                <th><?php echo LANG_TEMPLATE_SEARCH_ADMININDEX_TABLE_QUERY; ?></th>
+                                <th><?php echo LANG_TEMPLATE_SEARCH_ADMININDEX_TABLE_COUNT; ?></th>
+                                <th><?php echo LANG_TEMPLATE_SEARCH_ADMININDEX_TABLE_LAST_SEARCH; ?></th>
+                                <th><?php echo LANG_TEMPLATE_SEARCH_ADMININDEX_TABLE_FIRST_SEARCH; ?></th>
+                                <th class="text-end"><?php echo LANG_TEMPLATE_SEARCH_ADMININDEX_TABLE_ACTIONS; ?></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -47,7 +47,7 @@
                                     </td>
                                     <td>
                                         <span class="badge bg-light text-dark">
-                                            <?php echo $query['count']; ?> раз
+                                            <?php echo sprintf(LANG_TEMPLATE_SEARCH_ADMININDEX_TIMES, $query['count']); ?>
                                         </span>
                                     </td>
                                     <td>
@@ -64,8 +64,8 @@
                                         <div class="d-flex justify-content-end">
                                             <a href="<?php echo ADMIN_URL; ?>/search-history/delete/<?php echo $query['id']; ?>" 
                                                class="btn btn-sm btn-outline-danger"
-                                               onclick="return confirm('Вы уверены, что хотите удалить этот запрос?')"
-                                               title="Удалить">
+                                               onclick="return confirm('<?php echo LANG_TEMPLATE_SEARCH_ADMININDEX_DELETE_CONFIRM; ?>')"
+                                               title="<?php echo LANG_TEMPLATE_SEARCH_ADMININDEX_DELETE_TITLE; ?>">
                                                 <?php echo bloggy_icon('bs', 'trash', '14', '#000'); ?>
                                             </a>
                                         </div>
@@ -73,7 +73,7 @@
                                 </tr>
                             <?php } ?>
                         </tbody>
-                    </table>
+                     </table>
                 </div>
 
                 <?php if (isset($pages) && $pages > 1) { ?>

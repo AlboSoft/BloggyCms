@@ -11,8 +11,8 @@ class AdminIndex extends SeoAction {
     */
     public function execute() {
         
-        $this->addBreadcrumb('Панель управления', ADMIN_URL);
-        $this->addBreadcrumb('SEO');
+        $this->addBreadcrumb(LANG_ACTION_SEO_ADMININDEX_BREADCRUMB_DASHBOARD, ADMIN_URL);
+        $this->addBreadcrumb(LANG_ACTION_SEO_ADMININDEX_BREADCRUMB_SEO);
         
         try {
             $robotsSettings = $this->seoModel->getRobotsSettings();
@@ -34,10 +34,10 @@ class AdminIndex extends SeoAction {
                 'rss_settings' => $rssSettings,
                 'indexnow_settings' => $indexnowSettings,
                 'schema_settings' => $schemaSettings,
-                'pageTitle' => 'SEO Настройки'
+                'pageTitle' => LANG_ACTION_SEO_ADMININDEX_PAGE_TITLE
             ]);
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при загрузке SEO настроек: ' . $e->getMessage());
+            \Notification::error(sprintf(LANG_ACTION_SEO_ADMININDEX_ERROR, $e->getMessage()));
             $this->redirect(ADMIN_URL);
         }
     }

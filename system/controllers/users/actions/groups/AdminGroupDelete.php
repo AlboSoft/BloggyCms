@@ -17,15 +17,15 @@ class AdminGroupDelete extends AdminGroupAction {
 
             $id = $this->params['id'] ?? null;
             if (!$id) {
-                throw new \Exception('ID группы не указан');
+                throw new \Exception(LANG_ACTION_USERS_ADMINGROUPDELETE_NO_ID);
             }
 
             $this->userModel->deleteGroup($id);
             
-            \Notification::success('Группа успешно удалена');
+            \Notification::success(LANG_ACTION_USERS_ADMINGROUPDELETE_SUCCESS);
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при удалении группы');
+            \Notification::error(LANG_ACTION_USERS_ADMINGROUPDELETE_ERROR);
         }
         
         $this->redirect(ADMIN_URL . '/user-groups');

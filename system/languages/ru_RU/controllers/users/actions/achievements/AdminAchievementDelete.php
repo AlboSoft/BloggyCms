@@ -1,0 +1,6 @@
+<?php
+
+define('LANG_ACTION_USERS_ADMINACHIEVEMENTDELETE_NO_ID', 'ID ачивки не указан');
+define('LANG_ACTION_USERS_ADMINACHIEVEMENTDELETE_NOT_FOUND', 'Ачивка не найдена');
+define('LANG_ACTION_USERS_ADMINACHIEVEMENTDELETE_SUCCESS', 'Ачивка успешно удалена');
+define('LANG_ACTION_USERS_ADMINACHIEVEMENTDELETE_ERROR', 'Ошибка при удалении ачивки: %s');

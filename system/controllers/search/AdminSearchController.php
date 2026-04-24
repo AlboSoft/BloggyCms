@@ -18,7 +18,7 @@ class AdminSearchController extends Controller {
         $this->searchModel = new SearchModel($db);
 
         if (!isset($_SESSION['user_id'])) {
-            Notification::error('Пожалуйста, авторизуйтесь для доступа к истории поиска');
+            Notification::error(LANG_CONTROLLER_ADMINSEARCH_AUTH_REQUIRED);
             $this->redirect(ADMIN_URL . '/login');
             exit;
         }

@@ -191,7 +191,7 @@ abstract class ProfileAction {
     * @return void
     */
     protected function redirectWithSuccess($path) {
-        $_SESSION['success_message'] = 'Профиль успешно обновлен';
+        $_SESSION['success_message'] = LANG_ACTION_PROFILE_BASE_SUCCESS_MESSAGE;
         $this->redirect($path);
         exit;
     }

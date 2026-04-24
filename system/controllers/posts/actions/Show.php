@@ -16,14 +16,14 @@ class Show extends PostAction {
     public function execute() {
         $slug = $this->params['slug'] ?? null;
         if (!$slug) {
-            throw new \Exception('Slug поста не указан');
+            throw new \Exception(LANG_ACTION_POSTS_SHOW_NO_SLUG);
         }
 
         try {
             $post = $this->postModel->getBySlug($slug);
         
             if (!$post) {
-                \Notification::error('Запись не найдена');
+                \Notification::error(LANG_ACTION_POSTS_SHOW_POST_NOT_FOUND);
                 $this->redirect(BASE_URL);
                 return;
             }
@@ -51,7 +51,7 @@ class Show extends PostAction {
             $this->showPost($post);
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при загрузке записи');
+            \Notification::error(LANG_ACTION_POSTS_SHOW_ERROR);
             $this->redirect(BASE_URL);
         }
     }
@@ -71,8 +71,8 @@ class Show extends PostAction {
     * @return void
     */
     private function renderPasswordForm($post) {
-        $this->addBreadcrumb('Главная', BASE_URL);
-        $this->addBreadcrumb('Все записи', BASE_URL . '/posts');
+        $this->addBreadcrumb(LANG_ACTION_POSTS_SHOW_BREADCRUMB_HOME, BASE_URL);
+        $this->addBreadcrumb(LANG_ACTION_POSTS_SHOW_BREADCRUMB_ALL_POSTS, BASE_URL . '/posts');
         
         if (!empty($post['category_id'])) {
             $category = $this->categoryModel->getById($post['category_id']);
@@ -84,8 +84,8 @@ class Show extends PostAction {
             }
         }
         
-        $this->addBreadcrumb($post['title'] . ' (защищено)');
-        $this->setPageTitle($post['title'] . ' (защищено)');
+        $this->addBreadcrumb(sprintf(LANG_ACTION_POSTS_SHOW_BREADCRUMB_PROTECTED, $post['title']));
+        $this->setPageTitle(sprintf(LANG_ACTION_POSTS_SHOW_PAGE_TITLE_PROTECTED, $post['title']));
         
         $categories = $this->categoryModel->getAll();
         $category = $this->categoryModel->getById($post['category_id']);
@@ -107,8 +107,8 @@ class Show extends PostAction {
     * @return void
     */
     private function showPost($post) {
-        $this->addBreadcrumb('Главная', BASE_URL);
-        $this->addBreadcrumb('Все записи', BASE_URL . '/posts');
+        $this->addBreadcrumb(LANG_ACTION_POSTS_SHOW_BREADCRUMB_HOME, BASE_URL);
+        $this->addBreadcrumb(LANG_ACTION_POSTS_SHOW_BREADCRUMB_ALL_POSTS, BASE_URL . '/posts');
         
         if (!empty($post['category_id'])) {
             $category = $this->categoryModel->getById($post['category_id']);
@@ -280,7 +280,7 @@ class Show extends PostAction {
                 }
                 
             } catch (\Exception $e) {
-                DebugLogger::warning('Failed to get user groups in post show', [
+                DebugLogger::warning(LANG_ACTION_POSTS_SHOW_DEBUG_WARNING, [
                     'file' => __FILE__,
                     'line' => __LINE__,
                     'error' => $e->getMessage()

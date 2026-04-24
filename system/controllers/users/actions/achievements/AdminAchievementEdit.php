@@ -16,17 +16,17 @@ class AdminAchievementEdit extends AdminAchievementAction {
         try {
             $id = $this->params['id'] ?? null;
             if (!$id) {
-                throw new \Exception('ID ачивки не указан');
+                throw new \Exception(LANG_ACTION_USERS_ADMINACHIEVEMENTEDIT_NO_ID);
             }
             
             $achievement = $this->userModel->getAchievementById($id);
             if (!$achievement) {
-                throw new \Exception('Ачивка не найдена');
+                throw new \Exception(LANG_ACTION_USERS_ADMINACHIEVEMENTEDIT_NOT_FOUND);
             }
             
-            $this->addBreadcrumb('Панель управления', ADMIN_URL);
-            $this->addBreadcrumb('Ачивки', ADMIN_URL . '/user-achievements');
-            $this->addBreadcrumb('Редактирование: ' . $achievement['name']);
+            $this->addBreadcrumb(LANG_ACTION_USERS_ADMINACHIEVEMENTEDIT_BREADCRUMB_DASHBOARD, ADMIN_URL);
+            $this->addBreadcrumb(LANG_ACTION_USERS_ADMINACHIEVEMENTEDIT_BREADCRUMB_ACHIEVEMENTS, ADMIN_URL . '/user-achievements');
+            $this->addBreadcrumb(sprintf(LANG_ACTION_USERS_ADMINACHIEVEMENTEDIT_BREADCRUMB_EDIT, $achievement['name']));
             
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $this->handlePostRequest($id, $achievement);
@@ -51,7 +51,7 @@ class AdminAchievementEdit extends AdminAchievementAction {
     private function handlePostRequest($id, $achievement) {
 
         if (empty($_POST['name'])) {
-            throw new \Exception('Название ачивки обязательно');
+            throw new \Exception(LANG_ACTION_USERS_ADMINACHIEVEMENTEDIT_ERROR_NAME_REQUIRED);
         }
         
         $conditions = $this->prepareConditions();
@@ -79,7 +79,7 @@ class AdminAchievementEdit extends AdminAchievementAction {
 
         $this->userModel->updateAchievement($id, $achievementData);
         
-        \Notification::success('Ачивка успешно обновлена');
+        \Notification::success(LANG_ACTION_USERS_ADMINACHIEVEMENTEDIT_SUCCESS);
         $this->redirect(ADMIN_URL . '/user-achievements');
     }
     
@@ -159,7 +159,7 @@ class AdminAchievementEdit extends AdminAchievementAction {
     private function renderEditForm($achievement) {
         $this->render('admin/user-achievements/edit', [
             'achievement' => $achievement,
-            'pageTitle' => 'Редактирование ачивки'
+            'pageTitle' => LANG_ACTION_USERS_ADMINACHIEVEMENTEDIT_PAGE_TITLE
         ]);
     }
 }

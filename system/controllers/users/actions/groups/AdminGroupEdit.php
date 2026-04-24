@@ -17,17 +17,17 @@ class AdminGroupEdit extends AdminGroupAction {
 
             $id = $this->params['id'] ?? null;
             if (!$id) {
-                throw new \Exception('ID группы не указан');
+                throw new \Exception(LANG_ACTION_USERS_ADMINGROUPEDIT_NO_ID);
             }
 
             $group = $this->userModel->getGroupById($id);
             if (!$group) {
-                throw new \Exception('Группа не найдена');
+                throw new \Exception(LANG_ACTION_USERS_ADMINGROUPEDIT_NOT_FOUND);
             }
 
-            $this->addBreadcrumb('Панель управления', ADMIN_URL);
-            $this->addBreadcrumb('Группы пользователей', ADMIN_URL . '/user-groups');
-            $this->addBreadcrumb('Редактирование: ' . $group['name']);
+            $this->addBreadcrumb(LANG_ACTION_USERS_ADMINGROUPEDIT_BREADCRUMB_DASHBOARD, ADMIN_URL);
+            $this->addBreadcrumb(LANG_ACTION_USERS_ADMINGROUPEDIT_BREADCRUMB_GROUPS, ADMIN_URL . '/user-groups');
+            $this->addBreadcrumb(sprintf(LANG_ACTION_USERS_ADMINGROUPEDIT_BREADCRUMB_EDIT, $group['name']));
 
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $this->handlePostRequest($id);
@@ -51,7 +51,7 @@ class AdminGroupEdit extends AdminGroupAction {
     private function handlePostRequest($id) {
 
         if (empty($_POST['name'])) {
-            throw new \Exception('Название группы обязательно');
+            throw new \Exception(LANG_ACTION_USERS_ADMINGROUPEDIT_ERROR_NAME_REQUIRED);
         }
 
         $groupData = [
@@ -62,7 +62,7 @@ class AdminGroupEdit extends AdminGroupAction {
 
         $this->userModel->updateGroup($id, $groupData);
 
-        \Notification::success('Группа успешно обновлена');
+        \Notification::success(LANG_ACTION_USERS_ADMINGROUPEDIT_SUCCESS);
         $this->redirect(ADMIN_URL . '/user-groups');
     }
     
@@ -74,7 +74,7 @@ class AdminGroupEdit extends AdminGroupAction {
     private function renderEditForm($group) {
         $this->render('admin/user-groups/edit', [
             'group' => $group,
-            'pageTitle' => 'Редактирование группы'
+            'pageTitle' => LANG_ACTION_USERS_ADMINGROUPEDIT_PAGE_TITLE
         ]);
     }
 }

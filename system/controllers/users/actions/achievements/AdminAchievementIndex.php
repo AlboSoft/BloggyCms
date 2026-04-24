@@ -15,8 +15,8 @@ class AdminAchievementIndex extends AdminAchievementAction {
     public function execute() {
         try {
 
-            $this->addBreadcrumb('Панель управления', ADMIN_URL);
-            $this->addBreadcrumb('Ачивки', ADMIN_URL . '/user-achievements');
+            $this->addBreadcrumb(LANG_ACTION_USERS_ADMINACHIEVEMENTINDEX_BREADCRUMB_DASHBOARD, ADMIN_URL);
+            $this->addBreadcrumb(LANG_ACTION_USERS_ADMINACHIEVEMENTINDEX_BREADCRUMB_ACHIEVEMENTS, ADMIN_URL . '/user-achievements');
             
             $type = $_GET['type'] ?? null;
             $search = $_GET['search'] ?? null;
@@ -33,11 +33,11 @@ class AdminAchievementIndex extends AdminAchievementAction {
             
             $this->render('admin/user-achievements/index', [
                 'achievements' => $achievements,
-                'pageTitle' => 'Управление ачивками'
+                'pageTitle' => LANG_ACTION_USERS_ADMINACHIEVEMENTINDEX_PAGE_TITLE
             ]);
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при загрузке ачивок: ' . $e->getMessage());
+            \Notification::error(sprintf(LANG_ACTION_USERS_ADMINACHIEVEMENTINDEX_ERROR, $e->getMessage()));
             $this->redirect(ADMIN_URL);
         }
     }

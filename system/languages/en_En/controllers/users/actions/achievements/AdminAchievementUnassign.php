@@ -1,0 +1,6 @@
+<?php
+
+define('LANG_ACTION_USERS_ADMINACHIEVEMENTUNASSIGN_MISSING_IDS', 'User ID or achievement ID not specified');
+define('LANG_ACTION_USERS_ADMINACHIEVEMENTUNASSIGN_USER_NOT_FOUND', 'User not found');
+define('LANG_ACTION_USERS_ADMINACHIEVEMENTUNASSIGN_ACHIEVEMENT_NOT_FOUND', 'Achievement not found');
+define('LANG_ACTION_USERS_ADMINACHIEVEMENTUNASSIGN_SUCCESS', 'Achievement successfully revoked from user');

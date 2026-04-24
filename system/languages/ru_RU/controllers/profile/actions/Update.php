@@ -1,0 +1,26 @@
+<?php
+
+define('LANG_ACTION_PROFILE_UPDATE_INVALID_METHOD', 'Неправильный метод запроса');
+define('LANG_ACTION_PROFILE_UPDATE_INVALID_CSRF', 'Неверный CSRF-токен');
+define('LANG_ACTION_PROFILE_UPDATE_USER_NOT_FOUND', 'Пользователь не найден');
+define('LANG_ACTION_PROFILE_UPDATE_INVALID_PASSWORD', 'Неверный текущий пароль');
+define('LANG_ACTION_PROFILE_UPDATE_SAVE_ERROR', 'Ошибка при сохранении данных');
+define('LANG_ACTION_PROFILE_UPDATE_FIELD_REQUIRED', 'Поле "%s" обязательно для заполнения');
+define('LANG_ACTION_PROFILE_UPDATE_FIELD_SAVE_ERROR', 'Не удалось сохранить поле: %s');
+define('LANG_ACTION_PROFILE_UPDATE_FIELDS_ERROR', 'Ошибка при сохранении дополнительных полей: %s');
+define('LANG_ACTION_PROFILE_UPDATE_ERROR_INI_SIZE', 'Файл превышает максимальный размер');
+define('LANG_ACTION_PROFILE_UPDATE_ERROR_FORM_SIZE', 'Файл превышает максимальный размер формы');
+define('LANG_ACTION_PROFILE_UPDATE_ERROR_PARTIAL', 'Файл загружен частично');
+define('LANG_ACTION_PROFILE_UPDATE_ERROR_NO_FILE', 'Файл не был загружен');
+define('LANG_ACTION_PROFILE_UPDATE_ERROR_NO_TMP_DIR', 'Отсутствует временная папка');
+define('LANG_ACTION_PROFILE_UPDATE_ERROR_CANT_WRITE', 'Ошибка записи файла');
+define('LANG_ACTION_PROFILE_UPDATE_ERROR_EXTENSION', 'Загрузка файла остановлена расширением');
+define('LANG_ACTION_PROFILE_UPDATE_ERROR_UNKNOWN', 'Неизвестная ошибка загрузки');
+define('LANG_ACTION_PROFILE_UPDATE_AVATAR_ERROR', 'Ошибка загрузки аватара: %s');
+define('LANG_ACTION_PROFILE_UPDATE_AVATAR_TYPE_ERROR', 'Допустимы только JPG, PNG, GIF или WebP');
+define('LANG_ACTION_PROFILE_UPDATE_AVATAR_SIZE_ERROR', 'Максимальный размер файла - 5MB');
+define('LANG_ACTION_PROFILE_UPDATE_AVATAR_UPLOAD_ERROR', 'Ошибка загрузки аватара');
+define('LANG_ACTION_PROFILE_UPDATE_EMAIL_EMPTY', 'Email не может быть пустым');
+define('LANG_ACTION_PROFILE_UPDATE_EMAIL_INVALID', 'Некорректный email');
+define('LANG_ACTION_PROFILE_UPDATE_EMAIL_EXISTS', 'Этот email уже используется другим пользователем');
+define('LANG_ACTION_PROFILE_UPDATE_WEBSITE_INVALID', 'Некорректный URL сайта');

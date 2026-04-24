@@ -1,0 +1,26 @@
+<?php
+
+define('LANG_ACTION_PROFILE_UPDATE_INVALID_METHOD', 'Invalid request method');
+define('LANG_ACTION_PROFILE_UPDATE_INVALID_CSRF', 'Invalid CSRF token');
+define('LANG_ACTION_PROFILE_UPDATE_USER_NOT_FOUND', 'User not found');
+define('LANG_ACTION_PROFILE_UPDATE_INVALID_PASSWORD', 'Invalid current password');
+define('LANG_ACTION_PROFILE_UPDATE_SAVE_ERROR', 'Error saving data');
+define('LANG_ACTION_PROFILE_UPDATE_FIELD_REQUIRED', 'Field "%s" is required');
+define('LANG_ACTION_PROFILE_UPDATE_FIELD_SAVE_ERROR', 'Failed to save field: %s');
+define('LANG_ACTION_PROFILE_UPDATE_FIELDS_ERROR', 'Error saving custom fields: %s');
+define('LANG_ACTION_PROFILE_UPDATE_ERROR_INI_SIZE', 'File exceeds maximum size');
+define('LANG_ACTION_PROFILE_UPDATE_ERROR_FORM_SIZE', 'File exceeds form maximum size');
+define('LANG_ACTION_PROFILE_UPDATE_ERROR_PARTIAL', 'File was only partially uploaded');
+define('LANG_ACTION_PROFILE_UPDATE_ERROR_NO_FILE', 'No file was uploaded');
+define('LANG_ACTION_PROFILE_UPDATE_ERROR_NO_TMP_DIR', 'Missing temporary directory');
+define('LANG_ACTION_PROFILE_UPDATE_ERROR_CANT_WRITE', 'Failed to write file to disk');
+define('LANG_ACTION_PROFILE_UPDATE_ERROR_EXTENSION', 'File upload stopped by extension');
+define('LANG_ACTION_PROFILE_UPDATE_ERROR_UNKNOWN', 'Unknown upload error');
+define('LANG_ACTION_PROFILE_UPDATE_AVATAR_ERROR', 'Avatar upload error: %s');
+define('LANG_ACTION_PROFILE_UPDATE_AVATAR_TYPE_ERROR', 'Only JPG, PNG, GIF or WebP are allowed');
+define('LANG_ACTION_PROFILE_UPDATE_AVATAR_SIZE_ERROR', 'Maximum file size is 5MB');
+define('LANG_ACTION_PROFILE_UPDATE_AVATAR_UPLOAD_ERROR', 'Avatar upload error');
+define('LANG_ACTION_PROFILE_UPDATE_EMAIL_EMPTY', 'Email cannot be empty');
+define('LANG_ACTION_PROFILE_UPDATE_EMAIL_INVALID', 'Invalid email');
+define('LANG_ACTION_PROFILE_UPDATE_EMAIL_EXISTS', 'This email is already used by another user');
+define('LANG_ACTION_PROFILE_UPDATE_WEBSITE_INVALID', 'Invalid website URL');

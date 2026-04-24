@@ -37,12 +37,12 @@ class AllPosts extends PostAction {
                 'total_posts' => $result['total'],
                 'total_pages' => $result['pages'],
                 'current_page' => $result['current_page'],
-                'title' => 'Все записи',
+                'title' => LANG_ACTION_POSTS_ALLPOSTS_TITLE,
                 'categories' => $categories
             ]);
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при загрузке списка записей: ' . $e->getMessage());
+            \Notification::error(sprintf(LANG_ACTION_POSTS_ALLPOSTS_ERROR, $e->getMessage()));
             $this->redirect(BASE_URL);
         }
     }

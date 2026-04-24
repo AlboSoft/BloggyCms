@@ -17,13 +17,13 @@ class AdminSettingsController extends Controller {
         $this->settingsModel = new SettingsModel($db);
         
         if (!isset($_SESSION['user_id'])) {
-            Notification::error('Пожалуйста, авторизуйтесь для доступа к настройкам');
+            Notification::error(LANG_CONTROLLER_ADMINSETTINGS_AUTH_REQUIRED);
             $this->redirect(ADMIN_URL . '/login');
             exit;
         }
         
         if (!isset($_SESSION['is_admin']) || !$_SESSION['is_admin']) {
-            Notification::error('У вас нет прав для доступа к настройкам');
+            Notification::error(LANG_CONTROLLER_ADMINSETTINGS_PERMISSION_DENIED);
             $this->redirect(ADMIN_URL);
             exit;
         }
@@ -68,7 +68,7 @@ class AdminSettingsController extends Controller {
         
         try {
             if (empty($_FILES['image'])) {
-                throw new Exception('Файл не был загружен');
+                throw new Exception(LANG_CONTROLLER_ADMINSETTINGS_UPLOAD_NO_FILE);
             }
             
             $uploadPath = $_POST['upload_path'] ?? 'uploads/images/';
@@ -82,7 +82,7 @@ class AdminSettingsController extends Controller {
                 'success' => true,
                 'filename' => $fileName,
                 'url' => BASE_URL . '/' . trim($uploadPath, '/') . '/' . $fileName,
-                'message' => 'Изображение успешно загружено'
+                'message' => LANG_CONTROLLER_ADMINSETTINGS_UPLOAD_SUCCESS
             ]);
             
         } catch (Exception $e) {

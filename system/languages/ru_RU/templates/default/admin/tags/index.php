@@ -1,0 +1,17 @@
+<?php
+
+define('LANG_TEMPLATE_TAGS_ADMININDEX_TITLE', 'Управление тегами');
+define('LANG_TEMPLATE_TAGS_ADMININDEX_SETTINGS_BTN', 'Настройки');
+define('LANG_TEMPLATE_TAGS_ADMININDEX_ADD_BTN', 'Добавить тег');
+define('LANG_TEMPLATE_TAGS_ADMININDEX_EMPTY_TITLE', 'Теги пока не созданы');
+define('LANG_TEMPLATE_TAGS_ADMININDEX_EMPTY_HINT', 'Создайте первый тег для ваших постов');
+define('LANG_TEMPLATE_TAGS_ADMININDEX_TABLE_IMAGE', 'Изображение');
+define('LANG_TEMPLATE_TAGS_ADMININDEX_TABLE_TAG', 'Тег');
+define('LANG_TEMPLATE_TAGS_ADMININDEX_TABLE_URL', 'URL');
+define('LANG_TEMPLATE_TAGS_ADMININDEX_TABLE_POSTS', 'Постов с тегом');
+define('LANG_TEMPLATE_TAGS_ADMININDEX_TABLE_ACTIONS', 'Действия');
+define('LANG_TEMPLATE_TAGS_ADMININDEX_POSTS', 'пост(ов)');
+define('LANG_TEMPLATE_TAGS_ADMININDEX_VIEW_TITLE', 'Просмотр');
+define('LANG_TEMPLATE_TAGS_ADMININDEX_EDIT_TITLE', 'Редактировать');
+define('LANG_TEMPLATE_TAGS_ADMININDEX_DELETE_TITLE', 'Удалить');
+define('LANG_TEMPLATE_TAGS_ADMININDEX_DELETE_CONFIRM', 'Вы уверены, что хотите удалить этот тег?');

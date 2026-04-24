@@ -1,0 +1,36 @@
+<?php
+
+define('LANG_TEMPLATE_USERS_INDEX_TITLE', 'Пользователи');
+define('LANG_TEMPLATE_USERS_INDEX_GROUPS_BTN', 'Группы');
+define('LANG_TEMPLATE_USERS_INDEX_ACHIEVEMENTS_BTN', 'Ачивки');
+define('LANG_TEMPLATE_USERS_INDEX_SETTINGS_BTN', 'Настройки');
+define('LANG_TEMPLATE_USERS_INDEX_ADD_BTN', 'Добавить пользователя');
+define('LANG_TEMPLATE_USERS_INDEX_FILTER_GROUP_LABEL', 'Группа');
+define('LANG_TEMPLATE_USERS_INDEX_FILTER_ALL_GROUPS', 'Все группы');
+define('LANG_TEMPLATE_USERS_INDEX_FILTER_STATUS_LABEL', 'Статус');
+define('LANG_TEMPLATE_USERS_INDEX_FILTER_ALL_STATUSES', 'Все статусы');
+define('LANG_TEMPLATE_USERS_INDEX_FILTER_ACTIVE', 'Активные');
+define('LANG_TEMPLATE_USERS_INDEX_FILTER_BANNED', 'Заблокированные');
+define('LANG_TEMPLATE_USERS_INDEX_FILTER_SEARCH_LABEL', 'Поиск');
+define('LANG_TEMPLATE_USERS_INDEX_FILTER_SEARCH_PLACEHOLDER', 'Имя или email...');
+define('LANG_TEMPLATE_USERS_INDEX_FILTER_APPLY_BTN', 'Применить фильтр');
+define('LANG_TEMPLATE_USERS_INDEX_EMPTY_TITLE', 'Пользователи не найдены');
+define('LANG_TEMPLATE_USERS_INDEX_EMPTY_HINT', 'Попробуйте изменить параметры фильтра');
+define('LANG_TEMPLATE_USERS_INDEX_TABLE_USER', 'Пользователь');
+define('LANG_TEMPLATE_USERS_INDEX_TABLE_EMAIL', 'Email');
+define('LANG_TEMPLATE_USERS_INDEX_TABLE_GROUPS', 'Группы');
+define('LANG_TEMPLATE_USERS_INDEX_TABLE_STATUS', 'Статус');
+define('LANG_TEMPLATE_USERS_INDEX_TABLE_REGISTERED', 'Дата регистрации');
+define('LANG_TEMPLATE_USERS_INDEX_TABLE_ACTIONS', 'Действия');
+define('LANG_TEMPLATE_USERS_INDEX_YOU_BADGE', 'Вы');
+define('LANG_TEMPLATE_USERS_INDEX_NO_GROUPS', 'Нет групп');
+define('LANG_TEMPLATE_USERS_INDEX_STATUS_ACTIVE', 'Активен');
+define('LANG_TEMPLATE_USERS_INDEX_STATUS_BANNED', 'Заблокирован');
+define('LANG_TEMPLATE_USERS_INDEX_BAN_TITLE', 'Заблокировать');
+define('LANG_TEMPLATE_USERS_INDEX_BAN_CONFIRM', 'Заблокировать пользователя?');
+define('LANG_TEMPLATE_USERS_INDEX_UNBAN_TITLE', 'Разблокировать');
+define('LANG_TEMPLATE_USERS_INDEX_UNBAN_CONFIRM', 'Разблокировать пользователя?');
+define('LANG_TEMPLATE_USERS_INDEX_EDIT_TITLE', 'Редактировать');
+define('LANG_TEMPLATE_USERS_INDEX_ASSIGN_ACHIEVEMENT_TITLE', 'Назначить ачивку');
+define('LANG_TEMPLATE_USERS_INDEX_DELETE_TITLE', 'Удалить');
+define('LANG_TEMPLATE_USERS_INDEX_DELETE_CONFIRM', 'Вы уверены, что хотите удалить этого пользователя?');

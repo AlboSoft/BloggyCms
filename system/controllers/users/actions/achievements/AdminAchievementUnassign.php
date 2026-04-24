@@ -19,27 +19,27 @@ class AdminAchievementUnassign extends AdminAchievementAction {
             $achievementId = $this->params['achievement_id'] ?? null;
             
             if (!$userId || !$achievementId) {
-                throw new \Exception('Не указаны ID пользователя или ачивки');
+                throw new \Exception(LANG_ACTION_USERS_ADMINACHIEVEMENTUNASSIGN_MISSING_IDS);
             }
             
             $user = $this->userModel->getById($userId);
             if (!$user) {
-                throw new \Exception('Пользователь не найден');
+                throw new \Exception(LANG_ACTION_USERS_ADMINACHIEVEMENTUNASSIGN_USER_NOT_FOUND);
             }
             
             $achievement = $this->userModel->getAchievementById($achievementId);
             if (!$achievement) {
-                throw new \Exception('Ачивка не найдена');
+                throw new \Exception(LANG_ACTION_USERS_ADMINACHIEVEMENTUNASSIGN_ACHIEVEMENT_NOT_FOUND);
             }
             
             $this->userModel->removeAchievementFromUser($userId, $achievementId);
             
             if ($this->isAjaxRequest()) {
-                $this->sendJsonResponse(true, 'Ачивка успешно отозвана у пользователя');
+                $this->sendJsonResponse(true, LANG_ACTION_USERS_ADMINACHIEVEMENTUNASSIGN_SUCCESS);
                 return;
             }
             
-            \Notification::success('Ачивка успешно отозвана у пользователя');
+            \Notification::success(LANG_ACTION_USERS_ADMINACHIEVEMENTUNASSIGN_SUCCESS);
             
         } catch (\Exception $e) {
             if ($this->isAjaxRequest()) {

@@ -15,9 +15,9 @@ class AdminGroupCreate extends AdminGroupAction {
     public function execute() {
         try {
 
-            $this->addBreadcrumb('Панель управления', ADMIN_URL);
-            $this->addBreadcrumb('Группы пользователей', ADMIN_URL . '/user-groups');
-            $this->addBreadcrumb('Создание группы');
+            $this->addBreadcrumb(LANG_ACTION_USERS_ADMINGROUPCREATE_BREADCRUMB_DASHBOARD, ADMIN_URL);
+            $this->addBreadcrumb(LANG_ACTION_USERS_ADMINGROUPCREATE_BREADCRUMB_GROUPS, ADMIN_URL . '/user-groups');
+            $this->addBreadcrumb(LANG_ACTION_USERS_ADMINGROUPCREATE_BREADCRUMB_CREATE);
 
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $this->handlePostRequest();
@@ -38,7 +38,7 @@ class AdminGroupCreate extends AdminGroupAction {
     */
     private function handlePostRequest() {
         if (empty($_POST['name'])) {
-            throw new \Exception('Название группы обязательно');
+            throw new \Exception(LANG_ACTION_USERS_ADMINGROUPCREATE_ERROR_NAME_REQUIRED);
         }
 
         $groupData = [
@@ -49,7 +49,7 @@ class AdminGroupCreate extends AdminGroupAction {
 
         $groupId = $this->userModel->createGroup($groupData);
 
-        \Notification::success('Группа успешно создана');
+        \Notification::success(LANG_ACTION_USERS_ADMINGROUPCREATE_SUCCESS);
         $this->redirect(ADMIN_URL . '/user-groups');
     }
     
@@ -59,7 +59,7 @@ class AdminGroupCreate extends AdminGroupAction {
     */
     private function renderCreateForm() {
         $this->render('admin/user-groups/create', [
-            'pageTitle' => 'Создание группы'
+            'pageTitle' => LANG_ACTION_USERS_ADMINGROUPCREATE_PAGE_TITLE
         ]);
     }
     
@@ -73,7 +73,7 @@ class AdminGroupCreate extends AdminGroupAction {
         
         $this->render('admin/user-groups/create', [
             'group' => $_POST,
-            'pageTitle' => 'Создание группы'
+            'pageTitle' => LANG_ACTION_USERS_ADMINGROUPCREATE_PAGE_TITLE
         ]);
     }
 }

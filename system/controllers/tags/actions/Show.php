@@ -16,7 +16,7 @@ class Show extends TagAction {
         $slug = $this->params['slug'] ?? null;
         
         if (!$slug) {
-            \Notification::error('Тег не найден');
+            \Notification::error(LANG_ACTION_TAGS_SHOW_TAG_NOT_FOUND);
             $this->redirect(BASE_URL);
             return;
         }
@@ -26,15 +26,15 @@ class Show extends TagAction {
             $tag = $this->tagModel->getBySlug($slug);
             
             if (!$tag) {
-                \Notification::error('Тег не найден');
+                \Notification::error(LANG_ACTION_TAGS_SHOW_TAG_NOT_FOUND);
                 $this->redirect(BASE_URL);
                 return;
             }
             
-            $this->addBreadcrumb('Главная', BASE_URL);
-            $this->addBreadcrumb('Теги', BASE_URL . '/tags');
-            $this->addBreadcrumb('Тег: ' . $tag['name']);
-            $this->setPageTitle('Тег: ' . $tag['name']);
+            $this->addBreadcrumb(LANG_ACTION_TAGS_SHOW_BREADCRUMB_HOME, BASE_URL);
+            $this->addBreadcrumb(LANG_ACTION_TAGS_SHOW_BREADCRUMB_TAGS, BASE_URL . '/tags');
+            $this->addBreadcrumb(sprintf(LANG_ACTION_TAGS_SHOW_BREADCRUMB_TAG, $tag['name']));
+            $this->setPageTitle(sprintf(LANG_ACTION_TAGS_SHOW_PAGE_TITLE, $tag['name']));
             
             $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
             $page = max(1, $page);
@@ -58,7 +58,7 @@ class Show extends TagAction {
             ]);
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при загрузке тега');
+            \Notification::error(LANG_ACTION_TAGS_SHOW_ERROR);
             $this->redirect(BASE_URL);
         }
     }

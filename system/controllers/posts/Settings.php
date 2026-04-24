@@ -4,13 +4,13 @@ namespace posts;
 class PostSettings {
     public static function getForm($currentSettings) {
         $fieldsets = [
-            new \Fieldset('Просмотр записи', [
+            new \Fieldset(LANG_CONTROLLER_POSTS_SETTINGS_FIELDSET_POST_VIEW, [
                 'icon' => 'bi bi-eye',
                 'columns' => 'custom',
                 'fields' => [
                     \FieldFactory::alert('alert', [
-                        'title' => 'Пока настроек нет...',
-                        'hint' => 'Их так много, что возможно для них понадобится отдельный контроллер....',
+                        'title' => LANG_CONTROLLER_POSTS_SETTINGS_ALERT_TITLE,
+                        'hint' => LANG_CONTROLLER_POSTS_SETTINGS_ALERT_HINT,
                         'type' => 'info',
                         'icon' => 'info-circle',
                         'dismissible' => false, 

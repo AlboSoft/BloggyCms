@@ -16,15 +16,15 @@ class Edit extends PostAction {
     public function execute() {
         $id = $this->params['id'] ?? null;
         if (!$id) {
-            throw new \Exception('ID поста не указан');
+            throw new \Exception(LANG_ACTION_POSTS_EDIT_NO_ID);
         }
 
         try {
             $post = $this->loadPost($id);
             
-            $this->addBreadcrumb('Панель управления', ADMIN_URL);
-            $this->addBreadcrumb('Посты', ADMIN_URL . '/posts');
-            $this->addBreadcrumb('Редактирование: ' . $post['title']);
+            $this->addBreadcrumb(LANG_ACTION_POSTS_EDIT_BREADCRUMB_DASHBOARD, ADMIN_URL);
+            $this->addBreadcrumb(LANG_ACTION_POSTS_EDIT_BREADCRUMB_POSTS, ADMIN_URL . '/posts');
+            $this->addBreadcrumb(sprintf(LANG_ACTION_POSTS_EDIT_BREADCRUMB_EDIT, $post['title']));
             
             $this->postBlockManager->loadAllPostBlockAssets();
             $categories = $this->categoryModel->getAll();
@@ -54,7 +54,7 @@ class Edit extends PostAction {
     private function loadPost($id) {
         $post = $this->postModel->getById($id);
         if (!$post) {
-            throw new \Exception('Пост не найден');
+            throw new \Exception(LANG_ACTION_POSTS_EDIT_POST_NOT_FOUND);
         }
         return $post;
     }
@@ -132,11 +132,11 @@ class Edit extends PostAction {
     */
     private function validateRequiredFields($hasCategories) {
         if (empty($_POST['title'])) {
-            throw new \Exception('Заголовок обязателен');
+            throw new \Exception(LANG_ACTION_POSTS_EDIT_ERROR_TITLE_REQUIRED);
         }
         
         if ($hasCategories && empty($_POST['category_id'])) {
-            throw new \Exception('Категория обязательна');
+            throw new \Exception(LANG_ACTION_POSTS_EDIT_ERROR_CATEGORY_REQUIRED);
         }
 
         if (!empty($_POST['tags_json'])) {
@@ -146,7 +146,7 @@ class Edit extends PostAction {
                 $maxTags = \SettingsHelper::get('controller_tags', 'max_tags_per_post', 10);
                 
                 if (count($tagsData) > $maxTags) {
-                    throw new \Exception("Максимальное количество тегов: {$maxTags}. Вы выбрали: " . count($tagsData));
+                    throw new \Exception(sprintf(LANG_ACTION_POSTS_EDIT_ERROR_MAX_TAGS, $maxTags, count($tagsData)));
                 }
             }
         }
@@ -157,7 +157,7 @@ class Edit extends PostAction {
             $currentDate = new \DateTime();
             
             if ($selectedDate > $currentDate) {
-                throw new \Exception('Дата публикации не может быть в будущем');
+                throw new \Exception(LANG_ACTION_POSTS_EDIT_ERROR_FUTURE_DATE);
             }
         }
     }
@@ -378,7 +378,7 @@ class Edit extends PostAction {
             );
             
         } catch (\Exception $e) {
-            \Notification::error("Ошибка обработки поля {$field['name']}: " . $e->getMessage());
+            \Notification::error(sprintf(LANG_ACTION_POSTS_EDIT_ERROR_FIELD_PROCESS, $field['name'], $e->getMessage()));
         }
     }
 
@@ -391,13 +391,13 @@ class Edit extends PostAction {
             header('Content-Type: application/json');
             echo json_encode([
                 'success' => true, 
-                'message' => 'Пост успешно обновлен',
+                'message' => LANG_ACTION_POSTS_EDIT_SUCCESS,
                 'redirect' => ADMIN_URL . '/posts'
             ]);
             exit;
         }
 
-        \Notification::success('Пост успешно обновлен');
+        \Notification::success(LANG_ACTION_POSTS_EDIT_SUCCESS);
         $this->redirect(ADMIN_URL . '/posts');
     }
 
@@ -420,12 +420,12 @@ class Edit extends PostAction {
             'preparedBlocks' => $preparedBlocks,
             'postBlockManager' => $this->postBlockManager,
             'hasCategories' => $hasCategories,
-            'pageTitle' => 'Редактирование поста'
+            'pageTitle' => LANG_ACTION_POSTS_EDIT_PAGE_TITLE
         ]);
     }
 
     /**
-    * Обрабатывает ошибку при редактировании поста
+    * Обрабатывает ошибки при редактировании поста
     * @param \Exception $e Исключение
     * @param array|null $post Данные поста
     * @param array $categories Список категорий

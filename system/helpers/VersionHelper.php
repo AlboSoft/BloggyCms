@@ -9,7 +9,6 @@ class VersionHelper {
             return;
         }
         
-        // Используем BASE_PATH, а не ROOT_PATH
         $versionFile = BASE_PATH . '/system/config/version.ini';
         
         if (file_exists($versionFile)) {
@@ -28,7 +27,7 @@ class VersionHelper {
                 'suffix' => '',
                 'build' => 0,
                 'date' => date('Y-m-d'),
-                'name' => 'Development'
+                'name' => LANG_HELPER_VERSION_DEFAULT_NAME
             ]
         ];
     }
@@ -63,7 +62,7 @@ class VersionHelper {
             'has_update' => false,
             'current_version' => self::getVersion(),
             'latest_version' => self::getVersion(),
-            'message' => 'Вы используете последнюю версию системы'
+            'message' => LANG_HELPER_VERSION_NO_UPDATES
         ];
     }
 }

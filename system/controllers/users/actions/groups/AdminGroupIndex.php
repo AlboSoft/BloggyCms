@@ -15,18 +15,18 @@ class AdminGroupIndex extends AdminGroupAction {
     public function execute() {
         try {
 
-            $this->addBreadcrumb('Панель управления', ADMIN_URL);
-            $this->addBreadcrumb('Группы пользователей', ADMIN_URL . '/user-groups');
+            $this->addBreadcrumb(LANG_ACTION_USERS_ADMINGROUPINDEX_BREADCRUMB_DASHBOARD, ADMIN_URL);
+            $this->addBreadcrumb(LANG_ACTION_USERS_ADMINGROUPINDEX_BREADCRUMB_GROUPS, ADMIN_URL . '/user-groups');
 
             $groups = $this->userModel->getAllGroups();
             
             $this->render('admin/user-groups/index', [
                 'groups' => $groups,
-                'pageTitle' => 'Управление группами пользователей'
+                'pageTitle' => LANG_ACTION_USERS_ADMINGROUPINDEX_PAGE_TITLE
             ]);
             
         } catch (\Exception $e) {
-            \Notification::error('Ошибка при загрузке групп');
+            \Notification::error(LANG_ACTION_USERS_ADMINGROUPINDEX_ERROR);
             $this->redirect(ADMIN_URL);
         }
     }

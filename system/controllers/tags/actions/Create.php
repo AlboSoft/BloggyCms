@@ -14,9 +14,9 @@ class Create extends TagAction {
     */
     public function execute() {
 
-        $this->addBreadcrumb('Панель управления', ADMIN_URL);
-        $this->addBreadcrumb('Теги', ADMIN_URL . '/tags');
-        $this->addBreadcrumb('Создание тега');
+        $this->addBreadcrumb(LANG_ACTION_TAGS_CREATE_BREADCRUMB_DASHBOARD, ADMIN_URL);
+        $this->addBreadcrumb(LANG_ACTION_TAGS_CREATE_BREADCRUMB_TAGS, ADMIN_URL . '/tags');
+        $this->addBreadcrumb(LANG_ACTION_TAGS_CREATE_BREADCRUMB_CREATE);
         
         try {
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -41,12 +41,12 @@ class Create extends TagAction {
         $name = trim($_POST['name'] ?? '');
         
         if (empty($name)) {
-            throw new \Exception('Название тега не может быть пустым');
+            throw new \Exception(LANG_ACTION_TAGS_CREATE_ERROR_EMPTY_NAME);
         }
         
         $existingTags = $this->tagModel->searchByName($name, 1);
         if (!empty($existingTags)) {
-            throw new \Exception('Тег с таким названием уже существует');
+            throw new \Exception(LANG_ACTION_TAGS_CREATE_ERROR_NAME_EXISTS);
         }
         
         $slug = $this->tagModel->createSlugFromName($name);
@@ -63,7 +63,7 @@ class Create extends TagAction {
         
         $this->tagModel->create($data);
         
-        \Notification::success('Тег успешно создан');
+        \Notification::success(LANG_ACTION_TAGS_CREATE_SUCCESS);
         $this->redirect(ADMIN_URL . '/tags');
     }
     
@@ -73,7 +73,7 @@ class Create extends TagAction {
     */
     private function renderCreateForm() {
         $this->render('admin/tags/form', [
-            'pageTitle' => 'Создание тега'
+            'pageTitle' => LANG_ACTION_TAGS_CREATE_PAGE_TITLE
         ]);
     }
     
@@ -85,7 +85,7 @@ class Create extends TagAction {
     private function handleError($e) {
         \Notification::error($e->getMessage());
         $this->render('admin/tags/form', [
-            'pageTitle' => 'Создание тега'
+            'pageTitle' => LANG_ACTION_TAGS_CREATE_PAGE_TITLE
         ]);
     }
     
@@ -106,11 +106,11 @@ class Create extends TagAction {
         $allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
         $fileType = mime_content_type($file['tmp_name']);
         if (!in_array($fileType, $allowedTypes)) {
-            throw new \Exception('Недопустимый тип файла. Разрешены: JPG, PNG, GIF, WebP');
+            throw new \Exception(LANG_ACTION_TAGS_CREATE_ERROR_INVALID_TYPE);
         }
         
         if ($file['size'] > 2 * 1024 * 1024) {
-            throw new \Exception('Размер файла не должен превышать 2MB');
+            throw new \Exception(LANG_ACTION_TAGS_CREATE_ERROR_FILE_TOO_LARGE);
         }
         
         $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
@@ -118,7 +118,7 @@ class Create extends TagAction {
         $targetPath = $uploadDir . $fileName;
         
         if (!move_uploaded_file($file['tmp_name'], $targetPath)) {
-            throw new \Exception('Ошибка при загрузке файла');
+            throw new \Exception(LANG_ACTION_TAGS_CREATE_ERROR_UPLOAD);
         }
         
         return $fileName;
