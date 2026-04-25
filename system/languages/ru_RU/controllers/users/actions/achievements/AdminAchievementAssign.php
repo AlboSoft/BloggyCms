@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_USERS_ADMINACHIEVEMENTASSIGN_NO_USER_ID', 'ID пользователя не указан');
 define('LANG_ACTION_USERS_ADMINACHIEVEMENTASSIGN_USER_NOT_FOUND', 'Пользователь не найден');
 define('LANG_ACTION_USERS_ADMINACHIEVEMENTASSIGN_NO_ACHIEVEMENT', 'Ачивка не выбрана');

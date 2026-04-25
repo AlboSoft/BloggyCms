@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_FRAGMENTS_ADMINENTRIES_ID_NOT_SPECIFIED', 'ID фрагмента не указан');
 define('LANG_ACTION_FRAGMENTS_ADMINENTRIES_NOT_FOUND', 'Фрагмент не найден');
 define('LANG_ACTION_FRAGMENTS_ADMINENTRIES_BREADCRUMB_DASHBOARD', 'Панель управления');

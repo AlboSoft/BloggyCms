@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_USERS_ADMINACHIEVEMENTTOGGLE_NO_ID', 'Achievement ID not specified');
 define('LANG_ACTION_USERS_ADMINACHIEVEMENTTOGGLE_NOT_FOUND', 'Achievement not found');
 define('LANG_ACTION_USERS_ADMINACHIEVEMENTTOGGLE_ACTIVATED', 'activated');

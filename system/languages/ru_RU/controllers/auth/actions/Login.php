@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_AUTH_LOGIN_BREADCRUMB_HOME', 'Главная');
 define('LANG_ACTION_AUTH_LOGIN_BREADCRUMB_LOGIN', 'Вход в систему');
 define('LANG_ACTION_AUTH_LOGIN_BREADCRUMB_BLOCKED', 'Доступ временно заблокирован');

@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_FORMS_SETTINGS_TITLE', 'Form Settings: %s');
 define('LANG_TEMPLATE_FORMS_SETTINGS_BACK_BTN', 'Back');
 define('LANG_TEMPLATE_FORMS_SETTINGS_EDIT_FORM_BTN', 'Edit Form');

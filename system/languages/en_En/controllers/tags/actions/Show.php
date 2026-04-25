@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_TAGS_SHOW_TAG_NOT_FOUND', 'Tag not found');
 define('LANG_ACTION_TAGS_SHOW_BREADCRUMB_HOME', 'Home');
 define('LANG_ACTION_TAGS_SHOW_BREADCRUMB_TAGS', 'Tags');

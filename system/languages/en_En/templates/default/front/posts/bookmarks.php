@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_BOOKMARKS_TITLE', 'My Bookmarks');
 define('LANG_TEMPLATE_BOOKMARKS_POST_1', 'saved post');
 define('LANG_TEMPLATE_BOOKMARKS_POST_2', 'saved posts');

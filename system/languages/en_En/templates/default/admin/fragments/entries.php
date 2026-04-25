@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_FRAGMENTS_ENTRIES_TITLE', 'Fragment entries: %s');
 define('LANG_TEMPLATE_FRAGMENTS_ENTRIES_BACK_BTN', 'Back to fragment');
 define('LANG_TEMPLATE_FRAGMENTS_ENTRIES_ADD_BTN', 'Add entry');

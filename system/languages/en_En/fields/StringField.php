@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_FIELD_STRING_TITLE', 'Text string');
 define('LANG_FIELD_STRING_PLACEHOLDER_LABEL', 'Placeholder');
 define('LANG_FIELD_STRING_MAXLENGTH_LABEL', 'Maximum length');

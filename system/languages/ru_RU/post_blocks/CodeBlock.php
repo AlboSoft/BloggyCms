@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_POSTBLOCK_CODE_NAME', 'Пример кода');
 define('LANG_POSTBLOCK_CODE_DESCRIPTION', 'Блок для вставки примеров кода с подсветкой синтаксиса и красивым оформлением');
 define('LANG_POSTBLOCK_CODE_DEFAULT_CODE', '// Ваш код здесь...');

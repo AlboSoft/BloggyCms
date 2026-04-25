@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_CATEGORIES_CHECKPASSWORD_ID_NOT_SPECIFIED', 'ID категории не указан');
 define('LANG_ACTION_CATEGORIES_CHECKPASSWORD_METHOD_NOT_SUPPORTED', 'Метод не поддерживается');
 define('LANG_ACTION_CATEGORIES_CHECKPASSWORD_CATEGORY_NOT_FOUND', 'Категория не найдена');

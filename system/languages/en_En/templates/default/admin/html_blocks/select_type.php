@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_HTMLBLOCKS_SELECT_TYPE_TITLE', 'Select Content Block Type');
 define('LANG_TEMPLATE_HTMLBLOCKS_SELECT_TYPE_BACK_BTN', 'Back to Content Blocks');
 define('LANG_TEMPLATE_HTMLBLOCKS_SELECT_TYPE_FILTER_LABEL', 'Filter by template:');

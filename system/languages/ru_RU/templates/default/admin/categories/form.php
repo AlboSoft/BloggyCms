@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_CATEGORIES_FORM_EDIT_TITLE', 'Редактирование категории');
 define('LANG_TEMPLATE_CATEGORIES_FORM_CREATE_TITLE', 'Создание категории');
 define('LANG_TEMPLATE_CATEGORIES_FORM_BACK_BTN', 'Назад к списку');

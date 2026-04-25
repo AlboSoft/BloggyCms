@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_CONTROLLER_CATEGORIES_SETTINGS_FIELDSET_GENERAL', 'Общие настройки');
 define('LANG_CONTROLLER_CATEGORIES_SETTINGS_SHOW_STAT', 'Отображать блок со статистикой над списком категорий');
 define('LANG_CONTROLLER_CATEGORIES_SETTINGS_SHOW_SEARCH', 'Отображать блок поиска над списком категорий');

@@ -1,4 +1,3 @@
 <?php
-
 define('LANG_ACTION_MENU_ADMINGETSTRUCTURE_ID_NOT_SPECIFIED', 'Menu ID not specified');
 define('LANG_ACTION_MENU_ADMINGETSTRUCTURE_NOT_FOUND', 'Menu not found');

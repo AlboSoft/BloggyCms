@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_POSTBLOCK_VIDEO_NAME', 'Видео');
 define('LANG_POSTBLOCK_VIDEO_DESCRIPTION', 'Вставляет видео с поддержкой загрузки MP4, а также вставки с Rutube, VK Video и Youtube.');
 define('LANG_POSTBLOCK_VIDEO_TYPE_UPLOAD', 'Загруженное');

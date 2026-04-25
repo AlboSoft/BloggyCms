@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_POSTBLOCK_GALLERY_NAME', 'Gallery');
 define('LANG_POSTBLOCK_GALLERY_DESCRIPTION', 'Block for creating image galleries with multiple photos');
 define('LANG_POSTBLOCK_GALLERY_FORM_IMAGES_LABEL', 'Gallery Images');

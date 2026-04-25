@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_SETTINGS_BASE_CONTROLLER_NOT_SET', 'Controller not set for Action');
 define('LANG_ACTION_SETTINGS_BASE_DEFAULT_SITE_NAME', 'Мой блог');
 define('LANG_ACTION_SETTINGS_BASE_DEFAULT_MAINTENANCE_MESSAGE', 'Сайт временно недоступен. Ведутся технические работы.');

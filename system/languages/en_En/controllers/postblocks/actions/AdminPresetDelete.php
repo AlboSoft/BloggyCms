@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_POSTBLOCKS_ADMINPRESETDELETE_ID_NOT_SPECIFIED', 'Preset ID not specified');
 define('LANG_ACTION_POSTBLOCKS_ADMINPRESETDELETE_SUCCESS', 'Preset successfully deleted');
 define('LANG_ACTION_POSTBLOCKS_ADMINPRESETDELETE_ERROR', 'Error deleting preset');

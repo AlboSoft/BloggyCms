@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_HELPER_FIELDS_IMAGE_CURRENT_LABEL', 'Current image');
 define('LANG_HELPER_FIELDS_IMAGE_DELETE_LABEL', 'Delete image');
 define('LANG_HELPER_FIELDS_IMAGE_REPLACE_LABEL', 'Replace image');

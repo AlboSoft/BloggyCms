@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_SETTINGS_SITE_TAB_SITE_NAME_LABEL', 'Название сайта');
 define('LANG_TEMPLATE_SETTINGS_SITE_TAB_SITE_NAME_PLACEHOLDER', 'Введите название сайта');
 define('LANG_TEMPLATE_SETTINGS_SITE_TAB_SITE_NAME_HINT', 'Отображается в заголовке страницы');

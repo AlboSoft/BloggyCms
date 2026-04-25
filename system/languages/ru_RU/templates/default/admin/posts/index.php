@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_POSTS_INDEX_TITLE', 'Посты');
 define('LANG_TEMPLATE_POSTS_INDEX_POST_BLOCKS_BTN', 'Пост-блоки');
 define('LANG_TEMPLATE_POSTS_INDEX_CUSTOM_FIELDS_BTN', 'Дополнительные поля');

@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_HTMLBLOCK_SCROLLTOTOP_NAME', 'Scroll to Top Button');
 define('LANG_HTMLBLOCK_SCROLLTOTOP_DESCRIPTION', 'Adds a button for smooth scrolling to the top of the page. Appears after scrolling.');
 define('LANG_HTMLBLOCK_SCROLLTOTOP_SHORT_DESCRIPTION', 'Scroll to top button');

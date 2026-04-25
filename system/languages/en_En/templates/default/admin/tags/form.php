@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_TAGS_FORM_EDIT_TITLE', 'Edit Tag');
 define('LANG_TEMPLATE_TAGS_FORM_CREATE_TITLE', 'Create Tag');
 define('LANG_TEMPLATE_TAGS_FORM_BACK_BTN', 'Back to Tags');

@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_HTMLBLOCK_DEFAULTFOOTER_NAME', 'Подвал');
 define('LANG_HTMLBLOCK_DEFAULTFOOTER_DESCRIPTION', 'Подвал сайта с меню, виджетами, контактами и навигацией');
 define('LANG_HTMLBLOCK_DEFAULTFOOTER_FIELDSET_BRANDING', 'Брендинг и логотип');

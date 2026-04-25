@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_FRAGMENTS_INDEX_TITLE', 'Фрагменты');
 define('LANG_TEMPLATE_FRAGMENTS_INDEX_CREATE_BTN', 'Создать фрагмент');
 define('LANG_TEMPLATE_FRAGMENTS_INDEX_NO_FRAGMENTS_TITLE', 'Фрагменты не созданы');

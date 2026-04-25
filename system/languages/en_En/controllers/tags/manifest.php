@@ -1,4 +1,3 @@
 <?php
-
 define('LANG_CONTROLLER_TAGS_MANIFEST_NAME', 'Tags');
 define('LANG_CONTROLLER_TAGS_MANIFEST_DESCRIPTION', 'Manages blog tags');

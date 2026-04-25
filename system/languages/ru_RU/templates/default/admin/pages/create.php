@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_PAGES_CREATE_TITLE', 'Создание страницы');
 define('LANG_TEMPLATE_PAGES_CREATE_BACK_BTN', 'Назад к страницам');
 define('LANG_TEMPLATE_PAGES_CREATE_TITLE_LABEL', 'Заголовок страницы');

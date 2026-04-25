@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_FORMS_SETTINGS_TITLE', 'Настройки формы: %s');
 define('LANG_TEMPLATE_FORMS_SETTINGS_BACK_BTN', 'Назад');
 define('LANG_TEMPLATE_FORMS_SETTINGS_EDIT_FORM_BTN', 'Редактировать форму');

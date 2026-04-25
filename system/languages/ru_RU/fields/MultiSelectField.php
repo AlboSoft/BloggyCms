@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_FIELD_MULTISELECT_TITLE', 'Список: мультивыбор');
 define('LANG_FIELD_MULTISELECT_HINT', 'Зажмите Ctrl (Cmd на Mac) для выбора нескольких опций');
 define('LANG_FIELD_MULTISELECT_NOT_SELECTED', 'Не выбрано');

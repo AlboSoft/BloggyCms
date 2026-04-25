@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_POSTS_UPLOADFEATUREDIMAGE_UPLOAD_ERROR', 'Error uploading file');
 define('LANG_ACTION_POSTS_UPLOADFEATUREDIMAGE_INVALID_TYPE', 'Invalid file type. Allowed: JPEG, PNG, GIF, WebP');
 define('LANG_ACTION_POSTS_UPLOADFEATUREDIMAGE_FILE_TOO_LARGE', 'File too large. Maximum size: 5MB');

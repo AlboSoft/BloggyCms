@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_HTMLBLOCK_AUTHOR_NAME', 'Blog Author');
 define('LANG_HTMLBLOCK_AUTHOR_DESCRIPTION', 'Author card with photo, name, description and social media links');
 define('LANG_HTMLBLOCK_AUTHOR_SHORT_DESCRIPTION', 'Author card with photo, description and social links');

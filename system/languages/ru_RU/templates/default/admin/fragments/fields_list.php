@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_FRAGMENTS_FIELDS_LIST_TITLE', 'Поля фрагмента: %s');
 define('LANG_TEMPLATE_FRAGMENTS_FIELDS_LIST_CREATE_BTN', 'Создать поле');
 define('LANG_TEMPLATE_FRAGMENTS_FIELDS_LIST_BACK_BTN', 'Назад к фрагменту');

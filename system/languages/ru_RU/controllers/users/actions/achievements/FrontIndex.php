@@ -1,8 +1,7 @@
 <?php
-
 define('LANG_ACTION_USERS_FRONTINDEX_BREADCRUMB_HOME', 'Главная');
 define('LANG_ACTION_USERS_FRONTINDEX_BREADCRUMB_USERS', 'Участники');
 define('LANG_ACTION_USERS_FRONTINDEX_BREADCRUMB_ACHIEVEMENTS', 'Ачивки');
-define('LANG_ACTION_USERS_FRONTINDEX_PAGE_TITLE', 'Все ачивки блога');
+define('LANG_ACTION_ACHIEVEMENTS_FRONTINDEX_PAGE_TITLE', 'Все ачивки блога');
 define('LANG_ACTION_USERS_FRONTINDEX_RENDER_TITLE', 'Все достижения системы');
-define('LANG_ACTION_USERS_FRONTINDEX_ERROR', 'Ошибка при загрузке списка достижений');
+define('LANG_ACTION_ACHIEVEMENTS_FRONTINDEX_ERROR', 'Ошибка при загрузке списка достижений');

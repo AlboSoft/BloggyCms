@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_POSTBLOCK_POSTBLOCK_NAME', 'Blog Post');
 define('LANG_POSTBLOCK_POSTBLOCK_DESCRIPTION', 'Block for inserting specific post data into page or post body');
 define('LANG_POSTBLOCK_POSTBLOCK_FORM_POST_LABEL', 'Select Post');

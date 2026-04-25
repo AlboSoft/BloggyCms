@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_CONTROLLER_AUTH_SETTINGS_FIELDSET_AUTH', 'Авторизация');
 define('LANG_CONTROLLER_AUTH_SETTINGS_FIELDSET_REGISTER', 'Регистрация');
 define('LANG_CONTROLLER_AUTH_SETTINGS_FIELDSET_ADMIN_ACCESS', 'Доступ к админ-панели');

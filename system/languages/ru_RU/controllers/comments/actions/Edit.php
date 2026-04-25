@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_COMMENTS_EDIT_ID_NOT_SPECIFIED', 'ID комментария не указан');
 define('LANG_ACTION_COMMENTS_EDIT_NOT_AUTH', 'Необходимо авторизоваться для редактирования комментария');
 define('LANG_ACTION_COMMENTS_EDIT_NOT_FOUND', 'Комментарий не найден');

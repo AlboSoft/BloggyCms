@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_DEBUG_ADMINMARKFIXED_AJAX_ONLY', 'AJAX requests only');
 define('LANG_ACTION_DEBUG_ADMINMARKFIXED_ID_NOT_SPECIFIED', 'ID not specified');
 define('LANG_ACTION_DEBUG_ADMINMARKFIXED_SUCCESS', 'Error marked as fixed');

@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_SEARCH_TITLE', 'Site Search');
 define('LANG_TEMPLATE_SEARCH_DESCRIPTION', 'Find publications of interest by keywords');
 define('LANG_TEMPLATE_SEARCH_PLACEHOLDER', 'Enter search query...');

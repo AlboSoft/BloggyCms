@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_SETTINGS_BASE_CONTROLLER_NOT_SET', 'Controller not set for Action');
 define('LANG_ACTION_SETTINGS_BASE_DEFAULT_SITE_NAME', 'My Blog');
 define('LANG_ACTION_SETTINGS_BASE_DEFAULT_MAINTENANCE_MESSAGE', 'Site temporarily unavailable. Maintenance in progress.');

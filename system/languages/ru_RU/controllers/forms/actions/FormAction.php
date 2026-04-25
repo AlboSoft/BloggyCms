@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_FORMS_FORMACTION_CAPTCHA_DEFAULT_QUESTION', 'Сколько будет 2 + 2?');
 define('LANG_ACTION_FORMS_FORMACTION_DEFAULT_SUCCESS_MESSAGE', 'Форма успешно отправлена!');
 define('LANG_ACTION_FORMS_FORMACTION_DEFAULT_ERROR_MESSAGE', 'Произошла ошибка при отправке формы.');

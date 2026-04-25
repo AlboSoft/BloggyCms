@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_HTMLBLOCK_DEFAULTHEADER_NAME', 'Header');
 define('LANG_HTMLBLOCK_DEFAULTHEADER_DESCRIPTION', 'Responsive site header with light and dark theme support');
 define('LANG_HTMLBLOCK_DEFAULTHEADER_FIELDSET_THEME', 'Theme');

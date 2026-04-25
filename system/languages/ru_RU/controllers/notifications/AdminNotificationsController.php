@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_CONTROLLER_NOTIFICATIONS_ACCESS_DENIED', 'Доступ запрещен');
 define('LANG_CONTROLLER_NOTIFICATIONS_GET_ERROR', 'Ошибка при получении уведомлений: ');
 define('LANG_CONTROLLER_NOTIFICATIONS_GO_TO_ERROR', 'Перейти к ошибке');

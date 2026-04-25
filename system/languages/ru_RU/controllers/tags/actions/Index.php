@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_TAGS_INDEX_BREADCRUMB_HOME', 'Главная');
 define('LANG_ACTION_TAGS_INDEX_BREADCRUMB_TAGS', 'Теги');
 define('LANG_ACTION_TAGS_INDEX_PAGE_TITLE', 'Все теги');

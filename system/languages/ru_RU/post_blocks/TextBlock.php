@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_POSTBLOCK_TEXT_NAME', 'Текст');
 define('LANG_POSTBLOCK_TEXT_DESCRIPTION', 'Текстовый блок с поддержкой форматирования (жирный, курсив, ссылки, код и т.д.)');
 define('LANG_POSTBLOCK_TEXT_DEFAULT_CONTENT', 'Ваш текст здесь...');

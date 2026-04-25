@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_POSTBLOCK_ALERT_NAME', 'Alert Block');
 define('LANG_POSTBLOCK_ALERT_DESCRIPTION', 'Block for displaying various types of notifications: info, warning, success, error');
 define('LANG_POSTBLOCK_ALERT_DEFAULT_TITLE', 'Attention!');

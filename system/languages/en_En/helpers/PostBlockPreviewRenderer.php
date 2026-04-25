@@ -1,4 +1,3 @@
 <?php
-
 define('LANG_HELPER_POSTBLOCKPREVIEW_NO_DATA', 'No data');
 define('LANG_HELPER_POSTBLOCKPREVIEW_ERROR_HEADER', 'Error in block: %s');

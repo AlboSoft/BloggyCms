@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_FORMS_ADMINSETTINGS_ID_NOT_SPECIFIED', 'ID формы не указан');
 define('LANG_ACTION_FORMS_ADMINSETTINGS_FORM_NOT_FOUND', 'Форма не найдена');
 define('LANG_ACTION_FORMS_ADMINSETTINGS_BREADCRUMB_DASHBOARD', 'Панель управления');

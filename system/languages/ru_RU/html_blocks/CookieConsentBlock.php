@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_HTMLBLOCK_COOKIECONSENT_NAME', 'Согласие с cookies');
 define('LANG_HTMLBLOCK_COOKIECONSENT_DESCRIPTION', 'Отображает уведомление о согласии с использованием cookies. После согласия скрывается и запоминает выбор пользователя.');
 define('LANG_HTMLBLOCK_COOKIECONSENT_SHORT_DESCRIPTION', 'Уведомление о cookies');

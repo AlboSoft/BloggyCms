@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_FIELDS_ADMINTOGGLE_ID_NOT_SPECIFIED', 'Field ID not specified');
 define('LANG_ACTION_FIELDS_ADMINTOGGLE_NOT_FOUND', 'Field not found');
 define('LANG_ACTION_FIELDS_ADMINTOGGLE_ENABLED', 'enabled');

@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_CORE_FIELDMANAGER_ERROR_INVALID_FIELD_DATA', 'Invalid field data');
 define('LANG_CORE_FIELDMANAGER_ERROR_FIELD_REQUIRED', 'Field "%s" is required');
 define('LANG_CORE_FIELDMANAGER_ERROR_FIELD_INVALID', 'Invalid value for field "%s"');

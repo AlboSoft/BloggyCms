@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_USERS_ACHIEVEMENT_INDEX_TITLE', 'Управление ачивками');
 define('LANG_TEMPLATE_USERS_ACHIEVEMENT_INDEX_ADD_BTN', 'Добавить ачивку');
 define('LANG_TEMPLATE_USERS_ACHIEVEMENT_INDEX_FILTER_TYPE_LABEL', 'Тип ачивки');

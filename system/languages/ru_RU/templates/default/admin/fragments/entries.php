@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_FRAGMENTS_ENTRIES_TITLE', 'Записи фрагмента: %s');
 define('LANG_TEMPLATE_FRAGMENTS_ENTRIES_BACK_BTN', 'Назад к фрагменту');
 define('LANG_TEMPLATE_FRAGMENTS_ENTRIES_ADD_BTN', 'Добавить запись');

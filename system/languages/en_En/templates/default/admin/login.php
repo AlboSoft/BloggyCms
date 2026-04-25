@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_LOGIN_TITLE', 'Authorization');
 define('LANG_LOGIN_SUBTITLE', 'Login to control panel');
 define('LANG_LOGIN_USERNAME_LABEL', 'Username');

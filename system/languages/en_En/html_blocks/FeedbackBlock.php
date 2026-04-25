@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_HTMLBLOCK_FEEDBACK_NAME', 'Feedback');
 define('LANG_HTMLBLOCK_FEEDBACK_DESCRIPTION', 'Feedback block with form and contact information. Supports form selection and display template.');
 define('LANG_HTMLBLOCK_FEEDBACK_SELECT_FORM', '-- Select form --');

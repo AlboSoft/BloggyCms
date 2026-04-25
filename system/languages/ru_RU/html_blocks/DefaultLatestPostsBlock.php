@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_NAME', 'Посты блога');
 define('LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_DESCRIPTION', 'Блок с постами блога с различными фильтрами');
 define('LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_CATEGORY_ALL', '-- Все категории --');

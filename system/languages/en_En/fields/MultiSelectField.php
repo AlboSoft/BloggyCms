@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_FIELD_MULTISELECT_TITLE', 'List: multiselect');
 define('LANG_FIELD_MULTISELECT_HINT', 'Hold Ctrl (Cmd on Mac) to select multiple options');
 define('LANG_FIELD_MULTISELECT_NOT_SELECTED', 'Not selected');

@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_CATEGORIES_ALL_TITLE', 'Категории');
 define('LANG_TEMPLATE_CATEGORIES_ALL_POSTS_BTN', 'Все посты');
 define('LANG_TEMPLATE_CATEGORIES_SECTION_1', 'раздел');

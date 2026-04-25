@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_PAGES_ADMINEDIT_BREADCRUMB_DASHBOARD', 'Панель управления');
 define('LANG_ACTION_PAGES_ADMINEDIT_BREADCRUMB_PAGES', 'Страницы');
 define('LANG_ACTION_PAGES_ADMINEDIT_BREADCRUMB_EDIT', 'Редактирование: ');

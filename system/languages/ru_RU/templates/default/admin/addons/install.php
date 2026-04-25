@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_ADDONS_INSTALL_TITLE', 'Установка пакета');
 define('LANG_TEMPLATE_ADDONS_INSTALL_BACK_BTN', 'Назад к пакетам');
 define('LANG_TEMPLATE_ADDONS_INSTALL_INFO_TITLE', 'Информация о пакете');

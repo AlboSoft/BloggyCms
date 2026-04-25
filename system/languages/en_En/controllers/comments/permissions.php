@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_CONTROLLER_COMMENTS_PERMISSION_ADD_TITLE', 'Comment on posts');
 define('LANG_CONTROLLER_COMMENTS_PERMISSION_ADD_DESC', 'Ability to add comments to posts where allowed');
 define('LANG_CONTROLLER_COMMENTS_PERMISSION_ADD_NO_MOD_TITLE', 'Comment on posts without moderation');

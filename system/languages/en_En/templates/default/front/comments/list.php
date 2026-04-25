@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_COMMENTS_LIST_ADMIN_BADGE_DEFAULT', 'Administrator');
 define('LANG_TEMPLATE_COMMENTS_LIST_REPLY_TITLE', 'Reply');
 define('LANG_TEMPLATE_COMMENTS_LIST_PENDING_TITLE', 'Pending moderation');

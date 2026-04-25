@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_POSTS_EDIT_TITLE', 'Редактирование поста');
 define('LANG_TEMPLATE_POSTS_EDIT_BACK_BTN', 'Назад к постам');
 define('LANG_TEMPLATE_POSTS_EDIT_TITLE_LABEL', 'Заголовок поста');

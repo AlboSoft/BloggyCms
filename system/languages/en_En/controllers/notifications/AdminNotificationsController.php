@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_CONTROLLER_NOTIFICATIONS_ACCESS_DENIED', 'Access denied');
 define('LANG_CONTROLLER_NOTIFICATIONS_GET_ERROR', 'Error getting notifications: ');
 define('LANG_CONTROLLER_NOTIFICATIONS_GO_TO_ERROR', 'Go to error');

@@ -917,3 +917,7 @@ h3 i {
     border-color: var(--tg-error) !important;
     box-shadow: 0 0 0 3px rgba(229, 78, 78, 0.1) !important;
 }
+
+.install-step {
+    animation: fadeIn 0.3s ease;
+}

@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_HELPER_EMAIL_RESET_SUBJECT', 'Password Reset - %s');
 define('LANG_HELPER_EMAIL_RESET_TITLE', 'Password Reset');
 define('LANG_HELPER_EMAIL_RESET_GREETING', 'Hello, <strong>%s</strong>!');

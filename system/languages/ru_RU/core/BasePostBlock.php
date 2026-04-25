@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_CORE_BASEPOSTBLOCK_PRESET_SELECTOR_LABEL', 'Выберите пресет');
 define('LANG_CORE_BASEPOSTBLOCK_PRESET_SELECTOR_NO_PRESET', '-- Без пресета (стандартный шаблон) --');
 define('LANG_CORE_BASEPOSTBLOCK_PRESET_SELECTOR_HINT', 'Используйте сохраненные шаблоны для быстрой настройки внешнего вида постблока');

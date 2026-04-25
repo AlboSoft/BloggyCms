@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_USERS_CREATE_TITLE', 'Создание пользователя');
 define('LANG_TEMPLATE_USERS_CREATE_BACK_BTN', 'Назад к пользователям');
 define('LANG_TEMPLATE_USERS_CREATE_USERNAME_LABEL', 'Имя пользователя');

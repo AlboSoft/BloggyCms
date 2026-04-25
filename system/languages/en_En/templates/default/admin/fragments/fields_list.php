@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_FRAGMENTS_FIELDS_LIST_TITLE', 'Fragment fields: %s');
 define('LANG_TEMPLATE_FRAGMENTS_FIELDS_LIST_CREATE_BTN', 'Create Field');
 define('LANG_TEMPLATE_FRAGMENTS_FIELDS_LIST_BACK_BTN', 'Back to Fragment');

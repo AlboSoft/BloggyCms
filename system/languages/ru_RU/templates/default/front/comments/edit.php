@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_COMMENT_EDIT_UNKNOWN_POST', 'Неизвестный пост');
 define('LANG_TEMPLATE_COMMENT_EDIT_NO_PERMISSION', 'У вас нет прав для редактирования этого комментария.');
 define('LANG_TEMPLATE_COMMENT_EDIT_TITLE', 'Редактирование комментария');

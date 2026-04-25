@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_SETTINGS_SITE_TAB_SITE_NAME_LABEL', 'Site Name');
 define('LANG_TEMPLATE_SETTINGS_SITE_TAB_SITE_NAME_PLACEHOLDER', 'Enter site name');
 define('LANG_TEMPLATE_SETTINGS_SITE_TAB_SITE_NAME_HINT', 'Displayed in page title');

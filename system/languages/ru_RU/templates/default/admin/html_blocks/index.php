@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_HTMLBLOCKS_INDEX_TITLE', 'Контент-блоки');
 define('LANG_TEMPLATE_HTMLBLOCKS_INDEX_CLEAR_CACHE_CONFIRM', 'Очистить кеш CSS блоков? CSS будет перегенерирован автоматически.');
 define('LANG_TEMPLATE_HTMLBLOCKS_INDEX_CLEAR_CACHE_BTN', 'Очистить кеш CSS');

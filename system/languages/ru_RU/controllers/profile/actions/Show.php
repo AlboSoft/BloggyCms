@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_PROFILE_SHOW_BREADCRUMB_HOME', 'Главная');
 define('LANG_ACTION_PROFILE_SHOW_BREADCRUMB_USERS', 'Пользователи');
 define('LANG_ACTION_PROFILE_SHOW_PAGE_TITLE', 'Профиль: %s');

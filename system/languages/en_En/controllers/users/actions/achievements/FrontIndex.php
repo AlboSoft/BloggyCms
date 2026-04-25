@@ -1,8 +1,7 @@
 <?php
-
 define('LANG_ACTION_USERS_FRONTINDEX_BREADCRUMB_HOME', 'Home');
 define('LANG_ACTION_USERS_FRONTINDEX_BREADCRUMB_USERS', 'Users');
 define('LANG_ACTION_USERS_FRONTINDEX_BREADCRUMB_ACHIEVEMENTS', 'Achievements');
-define('LANG_ACTION_USERS_FRONTINDEX_PAGE_TITLE', 'All Blog Achievements');
+define('LANG_ACTION_ACHIEVEMENTS_FRONTINDEX_PAGE_TITLE', 'All Blog Achievements');
 define('LANG_ACTION_USERS_FRONTINDEX_RENDER_TITLE', 'All System Achievements');
-define('LANG_ACTION_USERS_FRONTINDEX_ERROR', 'Error loading achievements list');
+define('LANG_ACTION_ACHIEVEMENTS_FRONTINDEX_ERROR', 'Error loading achievements list');

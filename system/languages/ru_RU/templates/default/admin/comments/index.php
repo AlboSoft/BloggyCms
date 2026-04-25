@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_COMMENTS_INDEX_TITLE', 'Управление комментариями');
 define('LANG_TEMPLATE_COMMENTS_INDEX_NO_COMMENTS_TITLE', 'Нет комментариев');
 define('LANG_TEMPLATE_COMMENTS_INDEX_NO_COMMENTS_TEXT', 'Сейчас в Вашем блоге нет ни одного комментария. Как только они появятся - они будут отображены тут');

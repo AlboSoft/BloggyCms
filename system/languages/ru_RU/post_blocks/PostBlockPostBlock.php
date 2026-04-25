@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_POSTBLOCK_POSTBLOCK_NAME', 'Запись блога');
 define('LANG_POSTBLOCK_POSTBLOCK_DESCRIPTION', 'Блок для вставки данных конкретного поста в тело страницы или поста');
 define('LANG_POSTBLOCK_POSTBLOCK_FORM_POST_LABEL', 'Выберите пост');

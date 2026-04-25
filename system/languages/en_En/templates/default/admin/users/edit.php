@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_USERS_EDIT_TITLE', 'Edit User');
 define('LANG_TEMPLATE_USERS_EDIT_BACK_BTN', 'Back to Users');
 define('LANG_TEMPLATE_USERS_EDIT_MAIN_INFO_TITLE', 'Main Information');

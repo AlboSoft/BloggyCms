@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_HTMLBLOCKS_INDEX_TITLE', 'Content Blocks');
 define('LANG_TEMPLATE_HTMLBLOCKS_INDEX_CLEAR_CACHE_CONFIRM', 'Clear blocks CSS cache? CSS will be regenerated automatically.');
 define('LANG_TEMPLATE_HTMLBLOCKS_INDEX_CLEAR_CACHE_BTN', 'Clear CSS Cache');

@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_USERS_ADMININDEX_BREADCRUMB_DASHBOARD', 'Dashboard');
 define('LANG_ACTION_USERS_ADMININDEX_BREADCRUMB_USERS', 'Users');
 define('LANG_ACTION_USERS_ADMININDEX_HINT_1', 'Create user groups for flexible permission management');

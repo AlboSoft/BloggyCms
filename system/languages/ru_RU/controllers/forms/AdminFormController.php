@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_CONTROLLER_ADMINFORM_AUTH_REQUIRED', 'Пожалуйста, авторизуйтесь для доступа к панели управления');
 define('LANG_CONTROLLER_ADMINFORM_ACCESS_DENIED', 'У вас нет прав доступа к панели управления');
 define('LANG_CONTROLLER_ADMINFORM_NO_TITLE', 'Без названия');

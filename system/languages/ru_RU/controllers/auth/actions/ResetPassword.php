@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_AUTH_RESETPASSWORD_PAGE_TITLE', 'Сброс пароля');
 define('LANG_ACTION_AUTH_RESETPASSWORD_DISABLED', 'Восстановление пароля временно отключено администратором');
 define('LANG_ACTION_AUTH_RESETPASSWORD_TOKEN_MISSING', 'Токен восстановления не указан');

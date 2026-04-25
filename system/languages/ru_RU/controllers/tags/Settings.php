@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_CONTROLLER_TAGS_SETTINGS_FIELDSET_DISPLAY', 'Настройки отображения');
 define('LANG_CONTROLLER_TAGS_SETTINGS_TAG_PREFIX', 'Символ перед тегом');
 define('LANG_CONTROLLER_TAGS_SETTINGS_TAG_PREFIX_HINT', 'Символ, который будет отображаться перед каждым тегом на фронте');

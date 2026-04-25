@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_HTMLBLOCK_AUTHOR_NAME', 'Автор блога');
 define('LANG_HTMLBLOCK_AUTHOR_DESCRIPTION', 'Карточка автора с фото, именем, описанием и ссылками на социальные сети');
 define('LANG_HTMLBLOCK_AUTHOR_SHORT_DESCRIPTION', 'Карточка автора с фото, описанием и ссылками на соцсети');

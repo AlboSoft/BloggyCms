@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_CATEGORIES_INDEX_TITLE', 'Категории');
 define('LANG_TEMPLATE_CATEGORIES_INDEX_FIELDS_BTN', 'Дополнительные поля');
 define('LANG_TEMPLATE_CATEGORIES_INDEX_SETTINGS_BTN', 'Настройки');

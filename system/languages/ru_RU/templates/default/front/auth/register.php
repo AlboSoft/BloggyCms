@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_AUTH_REGISTER_DISABLED_TITLE', 'Регистрация закрыта');
 define('LANG_TEMPLATE_AUTH_REGISTER_DISABLED_TEXT', 'Регистрация новых пользователей временно недоступна');
 define('LANG_TEMPLATE_AUTH_REGISTER_TITLE', 'Создать аккаунт');

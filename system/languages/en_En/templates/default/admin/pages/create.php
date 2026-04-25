@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_PAGES_CREATE_TITLE', 'Create Page');
 define('LANG_TEMPLATE_PAGES_CREATE_BACK_BTN', 'Back to Pages');
 define('LANG_TEMPLATE_PAGES_CREATE_TITLE_LABEL', 'Page Title');

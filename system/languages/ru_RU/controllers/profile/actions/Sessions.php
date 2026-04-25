@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_PROFILE_SESSIONS_UNAUTHORIZED', 'Не авторизован');
 define('LANG_ACTION_PROFILE_SESSIONS_DEVICE_UNKNOWN', 'Неизвестное устройство');
 define('LANG_ACTION_PROFILE_SESSIONS_DEVICE_WINDOWS', 'Windows PC');

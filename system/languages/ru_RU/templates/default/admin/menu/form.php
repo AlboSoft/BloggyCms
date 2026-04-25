@@ -1,6 +1,4 @@
 <?php
-
-define('LANG_TEMPLATE_MENU_FORM_EDIT_TITLE', 'Редактирование меню');
 define('LANG_TEMPLATE_MENU_FORM_CREATE_TITLE', 'Создание меню');
 define('LANG_TEMPLATE_MENU_FORM_BACK_BTN', 'Назад к списку');
 define('LANG_TEMPLATE_MENU_FORM_CURRENT_THEME', 'Текущая тема:');

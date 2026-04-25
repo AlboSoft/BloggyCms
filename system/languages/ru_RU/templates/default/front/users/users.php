@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_USERS_TITLE', 'Участники сообщества');
 define('LANG_TEMPLATE_USERS_ONLINE_1', 'онлайн');
 define('LANG_TEMPLATE_USERS_ONLINE_2', 'онлайн');

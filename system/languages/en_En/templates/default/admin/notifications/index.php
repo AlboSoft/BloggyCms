@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_NOTIFICATIONS_INDEX_TITLE', 'Notifications');
 define('LANG_TEMPLATE_NOTIFICATIONS_INDEX_MARK_ALL_BTN', 'Mark all as read');
 define('LANG_TEMPLATE_NOTIFICATIONS_INDEX_CLEAR_READ_BTN', 'Clear read');

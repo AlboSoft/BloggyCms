@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_CORE_USERACTIVITY_NEVER', 'никогда');
 define('LANG_CORE_USERACTIVITY_UNKNOWN', 'неизвестно');
 define('LANG_CORE_USERACTIVITY_JUST_NOW', 'только что');

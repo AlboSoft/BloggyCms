@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_POSTBLOCK_LIST_NAME', 'List');
 define('LANG_POSTBLOCK_LIST_DESCRIPTION', 'Block for creating ordered and unordered lists');
 define('LANG_POSTBLOCK_LIST_FORM_TYPE_LABEL', 'List Type');

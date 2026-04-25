@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_ACHIEVEMENTS_SYSTEM_TITLE', 'Достижения системы');
 define('LANG_TEMPLATE_ACHIEVEMENTS_STATS_TOTAL', 'Всего ачивок');
 define('LANG_TEMPLATE_ACHIEVEMENTS_USER_1', 'Пользователь');

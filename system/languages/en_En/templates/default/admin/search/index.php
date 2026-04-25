@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_SEARCH_ADMININDEX_TITLE', 'Search Query History');
 define('LANG_TEMPLATE_SEARCH_ADMININDEX_CLEAR_BTN', 'Clear History');
 define('LANG_TEMPLATE_SEARCH_ADMININDEX_CLEAR_CONFIRM', 'Are you sure you want to clear all search query history?');

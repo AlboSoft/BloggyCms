@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_POSTBLOCK_LIST_NAME', 'Список');
 define('LANG_POSTBLOCK_LIST_DESCRIPTION', 'Блок для создания упорядоченных и неупорядоченных списков');
 define('LANG_POSTBLOCK_LIST_FORM_TYPE_LABEL', 'Тип списка');

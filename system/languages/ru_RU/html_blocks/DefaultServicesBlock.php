@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_HTMLBLOCK_DEFAULTSERVICES_NAME', 'Список услуг');
 define('LANG_HTMLBLOCK_DEFAULTSERVICES_DESCRIPTION', 'Блок услуг в харизматичном стиле с картинками и описаниями');
 define('LANG_HTMLBLOCK_DEFAULTSERVICES_FIELDSET_HEADER', 'Заголовочная часть');

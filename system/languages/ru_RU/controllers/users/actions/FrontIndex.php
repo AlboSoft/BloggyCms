@@ -1,7 +1,4 @@
 <?php
-
-define('LANG_ACTION_USERS_FRONTINDEX_BREADCRUMB_HOME', 'Главная');
-define('LANG_ACTION_USERS_FRONTINDEX_BREADCRUMB_USERS', 'Все участники');
 define('LANG_ACTION_USERS_FRONTINDEX_PAGE_TITLE', 'Все участники');
 define('LANG_ACTION_USERS_FRONTINDEX_ERROR', 'Ошибка при загрузке списка пользователей: %s');
 define('LANG_ACTION_USERS_FRONTINDEX_NEVER', 'никогда');

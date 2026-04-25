@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_CONTROLLER_ADDONS_ACTION_INDEX_BREADCRUMB_DASHBOARD', 'Dashboard');
 define('LANG_CONTROLLER_ADDONS_ACTION_INDEX_BREADCRUMB_ADDONS', 'Packages');
 define('LANG_CONTROLLER_ADDONS_ACTION_INDEX_HINT_1', 'Packages must have structure: files/, install.php, package.ini');

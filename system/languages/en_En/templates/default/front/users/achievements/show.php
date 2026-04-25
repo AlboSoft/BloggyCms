@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_ACHIEVEMENT_DETAIL_YOU_HAVE', 'You have earned this achievement');
 define('LANG_TEMPLATE_ACHIEVEMENT_DETAIL_USERS_1', 'user has earned');
 define('LANG_TEMPLATE_ACHIEVEMENT_DETAIL_USERS_2', 'users have earned');

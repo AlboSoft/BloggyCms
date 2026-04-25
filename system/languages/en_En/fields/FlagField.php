@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_FIELD_FLAG_TITLE', 'Flag');
 define('LANG_FIELD_FLAG_DEFAULT_LABEL', 'Enabled');
 define('LANG_FIELD_FLAG_TRUE_TEXT', 'Yes');

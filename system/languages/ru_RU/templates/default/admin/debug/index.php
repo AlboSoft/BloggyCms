@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_DEBUG_INDEX_TITLE', 'Отладка системы');
 define('LANG_TEMPLATE_DEBUG_INDEX_DEBUG_MODE', 'Режим отладки');
 define('LANG_TEMPLATE_DEBUG_INDEX_STAT_ERRORS', 'Ошибок');

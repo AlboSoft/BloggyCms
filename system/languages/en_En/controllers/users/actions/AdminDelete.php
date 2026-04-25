@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_USERS_ADMINDELETE_NO_ID', 'User ID not specified');
 define('LANG_ACTION_USERS_ADMINDELETE_CANNOT_DELETE_SELF', 'Cannot delete your own account');
 define('LANG_ACTION_USERS_ADMINDELETE_USER_NOT_FOUND', 'User not found');

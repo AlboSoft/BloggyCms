@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_CORE_FIELDMANAGER_ERROR_INVALID_FIELD_DATA', 'Некорректные данные поля');
 define('LANG_CORE_FIELDMANAGER_ERROR_FIELD_REQUIRED', 'Поле "%s" обязательно для заполнения');
 define('LANG_CORE_FIELDMANAGER_ERROR_FIELD_INVALID', 'Некорректное значение для поля "%s"');

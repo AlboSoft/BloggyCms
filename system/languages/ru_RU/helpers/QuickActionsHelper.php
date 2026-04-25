@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_HELPER_QUICKACTIONS_TITLE', 'Быстрые действия');
 define('LANG_HELPER_QUICKACTIONS_CLOSE', 'Закрыть');
 define('LANG_HELPER_QUICKACTIONS_CREATE_POST', 'Создать пост');

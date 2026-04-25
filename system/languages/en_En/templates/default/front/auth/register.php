@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_AUTH_REGISTER_DISABLED_TITLE', 'Registration Closed');
 define('LANG_TEMPLATE_AUTH_REGISTER_DISABLED_TEXT', 'New user registration is temporarily unavailable');
 define('LANG_TEMPLATE_AUTH_REGISTER_TITLE', 'Create Account');

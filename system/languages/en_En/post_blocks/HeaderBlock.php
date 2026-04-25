@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_POSTBLOCK_HEADER_NAME', 'Header');
 define('LANG_POSTBLOCK_HEADER_DESCRIPTION', 'Header block with level selection, alignment and additional settings');
 define('LANG_POSTBLOCK_HEADER_DEFAULT_TEXT', 'New header');

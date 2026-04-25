@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_FRAGMENTS_FORM_EDIT_TITLE', 'Edit Fragment');
 define('LANG_TEMPLATE_FRAGMENTS_FORM_CREATE_TITLE', 'Create Fragment');
 define('LANG_TEMPLATE_FRAGMENTS_FORM_BACK_BTN', 'Back');

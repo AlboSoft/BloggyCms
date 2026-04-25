@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_FIELDS_INDEX_TITLE', 'Manage Fields');
 define('LANG_TEMPLATE_FIELDS_INDEX_ENTITY_TYPES', 'Entity Types');
 define('LANG_TEMPLATE_FIELDS_INDEX_ENTITY_POSTS', 'Posts');

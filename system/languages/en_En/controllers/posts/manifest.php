@@ -1,4 +1,3 @@
 <?php
-
 define('LANG_CONTROLLER_POSTS_MANIFEST_NAME', 'Blog Posts');
 define('LANG_CONTROLLER_POSTS_MANIFEST_DESCRIPTION', 'Manage blog posts');

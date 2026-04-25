@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_COMMENTS_EDIT_ID_NOT_SPECIFIED', 'Comment ID not specified');
 define('LANG_ACTION_COMMENTS_EDIT_NOT_AUTH', 'You must be logged in to edit a comment');
 define('LANG_ACTION_COMMENTS_EDIT_NOT_FOUND', 'Comment not found');

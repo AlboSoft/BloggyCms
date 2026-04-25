@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_USERS_ADMINTOGGLESTATUS_NO_ID', 'User ID not specified');
 define('LANG_ACTION_USERS_ADMINTOGGLESTATUS_CANNOT_TOGGLE_SELF', 'Cannot change status of your own account');
 define('LANG_ACTION_USERS_ADMINTOGGLESTATUS_USER_NOT_FOUND', 'User not found');

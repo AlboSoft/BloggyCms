@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_CONTROLLER_CATEGORIES_SETTINGS_FIELDSET_GENERAL', 'General Settings');
 define('LANG_CONTROLLER_CATEGORIES_SETTINGS_SHOW_STAT', 'Show statistics block above categories list');
 define('LANG_CONTROLLER_CATEGORIES_SETTINGS_SHOW_SEARCH', 'Show search block above categories list');

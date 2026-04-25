@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_POSTS_BOOKMARKS_AUTH_REQUIRED', 'Authorization required to view bookmarks');
 define('LANG_ACTION_POSTS_BOOKMARKS_BREADCRUMB_HOME', 'Home');
 define('LANG_ACTION_POSTS_BOOKMARKS_BREADCRUMB_PROFILE', 'My Profile');

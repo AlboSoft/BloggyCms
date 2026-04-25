@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_USERS_MANAGE_GROUPS_TITLE', 'Группы пользователя: %s');
 define('LANG_TEMPLATE_USERS_MANAGE_GROUPS_BACK_BTN', 'Назад к пользователю');
 define('LANG_TEMPLATE_USERS_MANAGE_GROUPS_SELECT_LABEL', 'Выберите группы для пользователя');

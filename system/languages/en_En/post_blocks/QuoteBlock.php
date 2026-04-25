@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_POSTBLOCK_QUOTE_NAME', 'Quote');
 define('LANG_POSTBLOCK_QUOTE_DESCRIPTION', 'Block for formatting quotes with attribution');
 define('LANG_POSTBLOCK_QUOTE_DEFAULT_TEXT', 'Quote text...');

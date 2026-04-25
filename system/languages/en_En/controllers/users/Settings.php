@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_CONTROLLER_USERS_SETTINGS_FIELDSET_GENERAL', 'General Settings');
 define('LANG_CONTROLLER_USERS_SETTINGS_SHOW_FILTER', 'Show filter for quick user search');
 define('LANG_CONTROLLER_USERS_SETTINGS_SHOW_INFO', 'Show tooltip block above categories list');

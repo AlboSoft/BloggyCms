@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_ADDONS_INSTALL_TITLE', 'Install Package');
 define('LANG_TEMPLATE_ADDONS_INSTALL_BACK_BTN', 'Back to Packages');
 define('LANG_TEMPLATE_ADDONS_INSTALL_INFO_TITLE', 'Package Information');

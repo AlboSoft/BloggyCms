@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_POSTS_CREATE_BREADCRUMB_DASHBOARD', 'Панель управления');
 define('LANG_ACTION_POSTS_CREATE_BREADCRUMB_POSTS', 'Посты');
 define('LANG_ACTION_POSTS_CREATE_BREADCRUMB_CREATE', 'Создание поста');

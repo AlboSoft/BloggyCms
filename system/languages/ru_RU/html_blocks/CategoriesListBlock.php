@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_HTMLBLOCK_CATEGORIESLIST_NAME', 'Список категорий');
 define('LANG_HTMLBLOCK_CATEGORIESLIST_DESCRIPTION', 'Блок со списком категорий в стиле карточек');
 define('LANG_HTMLBLOCK_CATEGORIESLIST_FIELDSET_HEADER', 'Заголовочная часть');

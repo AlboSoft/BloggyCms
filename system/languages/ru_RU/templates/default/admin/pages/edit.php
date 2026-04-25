@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_PAGES_EDIT_TITLE', 'Редактирование страницы');
 define('LANG_TEMPLATE_PAGES_EDIT_BACK_BTN', 'Назад к страницам');
 define('LANG_TEMPLATE_PAGES_EDIT_TITLE_LABEL', 'Заголовок страницы');

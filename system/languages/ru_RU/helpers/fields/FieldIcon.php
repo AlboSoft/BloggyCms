@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_HELPER_FIELDS_ICON_NOT_SELECTED', 'Иконка не выбрана');
 define('LANG_HELPER_FIELDS_ICON_SELECT_BTN', 'Выбрать иконку');
 define('LANG_HELPER_FIELDS_ICON_CLEAR_BTN', 'Очистить');

@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_CONTROLLER_COMMENTS_PERMISSION_ADD_TITLE', 'Комментирование записей');
 define('LANG_CONTROLLER_COMMENTS_PERMISSION_ADD_DESC', 'Возможность добавлять комментарии к записям, где это позволено');
 define('LANG_CONTROLLER_COMMENTS_PERMISSION_ADD_NO_MOD_TITLE', 'Комментирование записей без модерации');

@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_HTMLBLOCK_DEFAULTBREADCRUMBS_NAME', 'Хлебные крошки');
 define('LANG_HTMLBLOCK_DEFAULTBREADCRUMBS_DESCRIPTION', 'Навигационная цепочка (хлебные крошки)');
 define('LANG_HTMLBLOCK_DEFAULTBREADCRUMBS_FIELDSET_MAIN', 'Основные настройки');

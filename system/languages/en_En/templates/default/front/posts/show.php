@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_POST_PASSWORD_PROTECTED_TITLE', 'Password protected');
 define('LANG_TEMPLATE_POST_PROTECTED_LABEL', 'Protected');
 define('LANG_TEMPLATE_POST_AUTHOR_DEFAULT', 'Author');

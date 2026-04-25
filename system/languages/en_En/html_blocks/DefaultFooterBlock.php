@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_HTMLBLOCK_DEFAULTFOOTER_NAME', 'Footer');
 define('LANG_HTMLBLOCK_DEFAULTFOOTER_DESCRIPTION', 'Site footer with menus, widgets, contacts and navigation');
 define('LANG_HTMLBLOCK_DEFAULTFOOTER_FIELDSET_BRANDING', 'Branding & Logo');

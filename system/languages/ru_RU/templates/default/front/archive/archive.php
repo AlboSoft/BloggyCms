@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_ARCHIVE_TITLE', 'Архив публикаций');
 define('LANG_TEMPLATE_ARCHIVE_SUBTITLE', 'Хронология всех постов блога');
 define('LANG_TEMPLATE_ARCHIVE_MONTH_JANUARY', 'Январь');

@@ -1,4 +1,3 @@
 <?php
-
 define('LANG_CONTROLLER_FIELDS_MANIFEST_NAME', 'Fields');
 define('LANG_CONTROLLER_FIELDS_MANIFEST_DESCRIPTION', 'Manage custom fields');

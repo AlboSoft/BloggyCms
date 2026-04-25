@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_NAME', 'Blog Posts');
 define('LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_DESCRIPTION', 'Blog posts block with various filters');
 define('LANG_HTMLBLOCK_DEFAULTLATESTPOSTS_CATEGORY_ALL', '-- All categories --');

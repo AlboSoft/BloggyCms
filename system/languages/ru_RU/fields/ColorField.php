@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_FIELD_COLOR_TITLE', 'Выбор цвета');
 define('LANG_FIELD_COLOR_NOT_SPECIFIED', 'Не указано');
 define('LANG_FIELD_COLOR_PRESET_LABEL', 'Пресет оформления');

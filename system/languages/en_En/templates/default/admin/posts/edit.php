@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_POSTS_EDIT_TITLE', 'Edit Post');
 define('LANG_TEMPLATE_POSTS_EDIT_BACK_BTN', 'Back to Posts');
 define('LANG_TEMPLATE_POSTS_EDIT_TITLE_LABEL', 'Post Title');

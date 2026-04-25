@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_PAGES_EDIT_TITLE', 'Edit Page');
 define('LANG_TEMPLATE_PAGES_EDIT_BACK_BTN', 'Back to Pages');
 define('LANG_TEMPLATE_PAGES_EDIT_TITLE_LABEL', 'Page Title');

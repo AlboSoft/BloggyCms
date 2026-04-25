@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_USERS_EDIT_TITLE', 'Редактирование пользователя');
 define('LANG_TEMPLATE_USERS_EDIT_BACK_BTN', 'Назад к пользователям');
 define('LANG_TEMPLATE_USERS_EDIT_MAIN_INFO_TITLE', 'Основная информация');

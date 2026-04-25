@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_CONTROLLER_ADMINFORM_AUTH_REQUIRED', 'Please log in to access the admin panel');
 define('LANG_CONTROLLER_ADMINFORM_ACCESS_DENIED', 'You do not have permission to access the admin panel');
 define('LANG_CONTROLLER_ADMINFORM_NO_TITLE', 'Untitled');

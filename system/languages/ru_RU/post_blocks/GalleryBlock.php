@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_POSTBLOCK_GALLERY_NAME', 'Галерея');
 define('LANG_POSTBLOCK_GALLERY_DESCRIPTION', 'Блок для создания галереи изображений с возможностью добавления нескольких фото');
 define('LANG_POSTBLOCK_GALLERY_FORM_IMAGES_LABEL', 'Изображения галереи');

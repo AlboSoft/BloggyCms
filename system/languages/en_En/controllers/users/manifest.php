@@ -1,4 +1,3 @@
 <?php
-
 define('LANG_CONTROLLER_USERS_MANIFEST_NAME', 'Users');
 define('LANG_CONTROLLER_USERS_MANIFEST_DESCRIPTION', 'Manage blog users');

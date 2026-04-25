@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_USERS_QUICK_ASSIGN_ACHIEVEMENT_TITLE', 'Назначение ачивки пользователю');
 define('LANG_TEMPLATE_USERS_QUICK_ASSIGN_ACHIEVEMENT_BACK_BTN', 'Назад к пользователям');
 define('LANG_TEMPLATE_USERS_QUICK_ASSIGN_ACHIEVEMENT_STATUS_ACTIVE', 'Активен');

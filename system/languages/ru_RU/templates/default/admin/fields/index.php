@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_FIELDS_INDEX_TITLE', 'Управление полями');
 define('LANG_TEMPLATE_FIELDS_INDEX_ENTITY_TYPES', 'Типы сущностей');
 define('LANG_TEMPLATE_FIELDS_INDEX_ENTITY_POSTS', 'Записи');

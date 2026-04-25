@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_FORMS_FORM_EDIT_TITLE', 'Edit Form');
 define('LANG_TEMPLATE_FORMS_FORM_CREATE_TITLE', 'Create Form');
 define('LANG_TEMPLATE_FORMS_FORM_BACK_BTN', 'Back to list');

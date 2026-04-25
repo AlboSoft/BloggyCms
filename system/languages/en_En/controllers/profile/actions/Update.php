@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_PROFILE_UPDATE_INVALID_METHOD', 'Invalid request method');
 define('LANG_ACTION_PROFILE_UPDATE_INVALID_CSRF', 'Invalid CSRF token');
 define('LANG_ACTION_PROFILE_UPDATE_USER_NOT_FOUND', 'User not found');

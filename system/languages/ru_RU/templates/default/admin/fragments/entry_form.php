@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_FRAGMENTS_ENTRY_FORM_EDIT_TITLE', 'Редактирование записи');
 define('LANG_TEMPLATE_FRAGMENTS_ENTRY_FORM_CREATE_TITLE', 'Создание записи');
 define('LANG_TEMPLATE_FRAGMENTS_ENTRY_FORM_BACK_BTN', 'Назад к записям');

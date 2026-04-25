@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_USERS_ADMINDELETE_NO_ID', 'ID пользователя не указан');
 define('LANG_ACTION_USERS_ADMINDELETE_CANNOT_DELETE_SELF', 'Нельзя удалить собственный аккаунт');
 define('LANG_ACTION_USERS_ADMINDELETE_USER_NOT_FOUND', 'Пользователь не найден');

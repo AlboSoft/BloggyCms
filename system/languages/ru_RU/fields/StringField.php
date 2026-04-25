@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_FIELD_STRING_TITLE', 'Текстовая строка');
 define('LANG_FIELD_STRING_PLACEHOLDER_LABEL', 'Плейсхолдер');
 define('LANG_FIELD_STRING_MAXLENGTH_LABEL', 'Максимальная длина');

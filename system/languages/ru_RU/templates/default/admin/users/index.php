@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_USERS_INDEX_TITLE', 'Пользователи');
 define('LANG_TEMPLATE_USERS_INDEX_GROUPS_BTN', 'Группы');
 define('LANG_TEMPLATE_USERS_INDEX_ACHIEVEMENTS_BTN', 'Ачивки');

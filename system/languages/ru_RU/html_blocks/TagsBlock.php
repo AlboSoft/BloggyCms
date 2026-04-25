@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_HTMLBLOCK_TAGS_NAME', 'Теги');
 define('LANG_HTMLBLOCK_TAGS_DESCRIPTION', 'Блок с тегами в виде облака, карточек или списка');
 define('LANG_HTMLBLOCK_TAGS_FIELDSET_HEADER', 'Заголовочная часть');

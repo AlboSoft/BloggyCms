@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_FIELD_ICONSTYLE_TITLE', 'Icon with styles');
 define('LANG_FIELD_ICONSTYLE_ICON_LABEL', 'Icon');
 define('LANG_FIELD_ICONSTYLE_SELECT_BTN', 'Select icon');

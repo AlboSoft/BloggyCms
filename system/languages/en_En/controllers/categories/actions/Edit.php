@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_CATEGORIES_EDIT_ID_NOT_SPECIFIED', 'Category ID not specified');
 define('LANG_ACTION_CATEGORIES_EDIT_PAGE_TITLE', 'Edit Category');
 define('LANG_ACTION_CATEGORIES_EDIT_BREADCRUMB_CATEGORIES', 'Categories');

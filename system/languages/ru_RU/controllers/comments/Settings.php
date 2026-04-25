@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_CONTROLLER_COMMENTS_SETTINGS_FIELDSET_GENERAL', 'Общие настройки');
 define('LANG_CONTROLLER_COMMENTS_SETTINGS_MAX_DEPTH', 'Максимальный уровень вложенности комментариев');
 define('LANG_CONTROLLER_COMMENTS_SETTINGS_MAX_DEPTH_HINT', 'Остальные комментарии будут скрыты под кнопкой "Показать еще"');

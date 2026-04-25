@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_FRAGMENTS_FIELD_FORM_EDIT_TITLE', 'Редактирование поля');
 define('LANG_TEMPLATE_FRAGMENTS_FIELD_FORM_CREATE_TITLE', 'Создание поля');
 define('LANG_TEMPLATE_FRAGMENTS_FIELD_FORM_BACK_BTN', 'Назад к полям');

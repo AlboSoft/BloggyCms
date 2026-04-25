@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_FIELD_NUMBER_TITLE', 'Число');
 define('LANG_FIELD_NUMBER_MIN_LABEL', 'Минимальное значение');
 define('LANG_FIELD_NUMBER_MAX_LABEL', 'Максимальное значение');

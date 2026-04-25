@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_TEMPLATES_MANAGER_TITLE', 'Управление шаблонами');
 define('LANG_TEMPLATE_TEMPLATES_MANAGER_SUBTITLE', 'Редактирование файлов шаблонов в реальном времени');
 define('LANG_TEMPLATE_TEMPLATES_MANAGER_CLEANUP_BACKUPS_BTN', 'Очистить бэкапы');

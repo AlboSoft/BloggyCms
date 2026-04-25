@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_LOGIN_TITLE', 'Авторизация');
 define('LANG_LOGIN_SUBTITLE', 'Вход в панель управления');
 define('LANG_LOGIN_USERNAME_LABEL', 'Логин');

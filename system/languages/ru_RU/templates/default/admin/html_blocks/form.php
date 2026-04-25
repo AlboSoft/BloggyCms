@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_HTMLBLOCKS_FORM_EDIT_TITLE', 'Редактирование блока');
 define('LANG_TEMPLATE_HTMLBLOCKS_FORM_CREATE_TITLE', 'Создание блока');
 define('LANG_TEMPLATE_HTMLBLOCKS_FORM_BACK_BTN', 'Назад к блокам');

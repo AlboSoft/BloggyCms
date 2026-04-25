@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_PAGES_ADMINUPLOADIMAGE_NO_FILE', 'No file was uploaded');
 define('LANG_ACTION_PAGES_ADMINUPLOADIMAGE_ERROR_INI_SIZE', 'File size exceeds maximum allowed');
 define('LANG_ACTION_PAGES_ADMINUPLOADIMAGE_ERROR_FORM_SIZE', 'File size exceeds maximum allowed');

@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_MENU_MENUACTION_SHOW_TO_GROUPS', 'Показывать группам');
 define('LANG_ACTION_MENU_MENUACTION_ALL_GROUPS', 'Все группы (если не выбрано)');
 define('LANG_ACTION_MENU_MENUACTION_SHOW_TO_GROUPS_HINT', 'Оставьте пустым чтобы показывать всем');

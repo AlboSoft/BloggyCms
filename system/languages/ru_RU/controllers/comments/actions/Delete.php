@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_COMMENTS_DELETE_ID_NOT_SPECIFIED', 'ID комментария не указан');
 define('LANG_ACTION_COMMENTS_DELETE_NOT_AUTH', 'Необходимо авторизоваться для удаления комментария');
 define('LANG_ACTION_COMMENTS_DELETE_NOT_FOUND', 'Комментарий не найден');

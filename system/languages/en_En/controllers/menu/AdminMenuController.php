@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_CONTROLLER_ADMINMENU_AUTH_REQUIRED', 'Please log in to access the admin panel');
 define('LANG_CONTROLLER_ADMINMENU_ACCESS_DENIED', 'You do not have permission to access the admin panel');
 define('LANG_CONTROLLER_ADMINMENU_MENU_ITEM', 'Menu Item');

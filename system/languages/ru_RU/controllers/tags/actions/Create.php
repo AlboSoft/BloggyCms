@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_TAGS_CREATE_BREADCRUMB_DASHBOARD', 'Панель управления');
 define('LANG_ACTION_TAGS_CREATE_BREADCRUMB_TAGS', 'Теги');
 define('LANG_ACTION_TAGS_CREATE_BREADCRUMB_CREATE', 'Создание тега');

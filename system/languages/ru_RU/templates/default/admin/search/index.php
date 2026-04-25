@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_SEARCH_ADMININDEX_TITLE', 'История поисковых запросов');
 define('LANG_TEMPLATE_SEARCH_ADMININDEX_CLEAR_BTN', 'Очистить историю');
 define('LANG_TEMPLATE_SEARCH_ADMININDEX_CLEAR_CONFIRM', 'Вы уверены, что хотите очистить всю историю поисковых запросов?');

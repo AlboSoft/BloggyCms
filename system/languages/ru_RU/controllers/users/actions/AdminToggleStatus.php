@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_USERS_ADMINTOGGLESTATUS_NO_ID', 'ID пользователя не указан');
 define('LANG_ACTION_USERS_ADMINTOGGLESTATUS_CANNOT_TOGGLE_SELF', 'Нельзя изменить статус собственного аккаунта');
 define('LANG_ACTION_USERS_ADMINTOGGLESTATUS_USER_NOT_FOUND', 'Пользователь не найден');

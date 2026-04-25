@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_BOOKMARKS_TITLE', 'Мои закладки');
 define('LANG_TEMPLATE_BOOKMARKS_POST_1', 'сохранённый пост');
 define('LANG_TEMPLATE_BOOKMARKS_POST_2', 'сохранённых поста');

@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_POSTBLOCK_CUSTOMHTML_NAME', 'Произвольный HTML');
 define('LANG_POSTBLOCK_CUSTOMHTML_DESCRIPTION', 'Блок для вставки произвольного HTML кода с подсветкой синтаксиса');
 define('LANG_POSTBLOCK_CUSTOMHTML_DEFAULT_CONTENT', '<!-- Вставьте ваш HTML код здесь -->');

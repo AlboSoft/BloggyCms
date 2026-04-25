@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_POSTS_SHOW_NO_SLUG', 'Slug поста не указан');
 define('LANG_ACTION_POSTS_SHOW_POST_NOT_FOUND', 'Запись не найдена');
 define('LANG_ACTION_POSTS_SHOW_ERROR', 'Ошибка при загрузке записи');

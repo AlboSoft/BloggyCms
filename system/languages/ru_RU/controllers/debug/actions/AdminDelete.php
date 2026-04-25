@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_DEBUG_ADMINDELETE_AJAX_ONLY', 'Только AJAX запросы');
 define('LANG_ACTION_DEBUG_ADMINDELETE_ID_NOT_SPECIFIED', 'ID не указан');
 define('LANG_ACTION_DEBUG_ADMINDELETE_SUCCESS', 'Лог удален');

@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_AUTH_LOGIN_BREADCRUMB_HOME', 'Home');
 define('LANG_ACTION_AUTH_LOGIN_BREADCRUMB_LOGIN', 'Login');
 define('LANG_ACTION_AUTH_LOGIN_BREADCRUMB_BLOCKED', 'Access temporarily blocked');

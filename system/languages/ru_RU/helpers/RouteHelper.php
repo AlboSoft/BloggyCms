@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_HELPER_ROUTE_ALL_PAGES', 'Все страницы');
 define('LANG_HELPER_ROUTE_HOMEPAGE', 'Главная страница');
 define('LANG_HELPER_ROUTE_PAGE_404', 'Страница 404');

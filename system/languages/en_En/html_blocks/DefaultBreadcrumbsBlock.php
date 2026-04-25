@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_HTMLBLOCK_DEFAULTBREADCRUMBS_NAME', 'Breadcrumbs');
 define('LANG_HTMLBLOCK_DEFAULTBREADCRUMBS_DESCRIPTION', 'Navigation trail (breadcrumbs)');
 define('LANG_HTMLBLOCK_DEFAULTBREADCRUMBS_FIELDSET_MAIN', 'Main Settings');

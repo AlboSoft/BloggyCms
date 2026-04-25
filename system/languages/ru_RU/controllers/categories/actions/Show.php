@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_CATEGORIES_SHOW_SLUG_NOT_SPECIFIED', 'Slug категории не указан');
 define('LANG_ACTION_CATEGORIES_SHOW_CATEGORY_NOT_FOUND', 'Категория не найдена');
 define('LANG_ACTION_CATEGORIES_SHOW_BREADCRUMB_HOME', 'Главная');

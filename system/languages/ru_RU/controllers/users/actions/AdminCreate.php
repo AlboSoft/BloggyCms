@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_USERS_ADMINCREATE_BREADCRUMB_DASHBOARD', 'Панель управления');
 define('LANG_ACTION_USERS_ADMINCREATE_BREADCRUMB_USERS', 'Пользователи');
 define('LANG_ACTION_USERS_ADMINCREATE_BREADCRUMB_CREATE', 'Создание пользователя');

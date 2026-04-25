@@ -1,7 +1,4 @@
 <?php
-
-define('LANG_CONTROLLER_ADMIN_MANIFEST_NAME', 'Dashboard');
-define('LANG_CONTROLLER_ADMIN_MANIFEST_DESCRIPTION', 'Manage admin panel, statistics blocks and much more');
 define('LANG_CONTROLLER_ADMIN_ACCESS_DENIED', 'Access denied');
 define('LANG_CONTROLLER_ADMIN_SEARCH_LOAD_ERROR', 'Failed to load search query data');
 define('LANG_CONTROLLER_ADMIN_DASHBOARD_LOAD_ERROR', 'Error loading dashboard data');

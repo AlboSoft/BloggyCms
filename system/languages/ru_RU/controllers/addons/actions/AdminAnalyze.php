@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_CONTROLLER_ADDONS_ACTION_ANALYZE_INVALID_METHOD', 'Неверный метод запроса');
 define('LANG_CONTROLLER_ADDONS_ACTION_ANALYZE_FILE_NOT_UPLOADED', 'Файл не загружен');
 define('LANG_CONTROLLER_ADDONS_ACTION_ANALYZE_INVALID_FORMAT', 'Файл должен быть в формате ZIP');

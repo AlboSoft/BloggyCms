@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_PROFILE_EDIT_TITLE', 'Редактирование профиля');
 define('LANG_TEMPLATE_PROFILE_EDIT_BACK_BTN', 'Вернуться к профилю');
 define('LANG_TEMPLATE_PROFILE_EDIT_INFO_TAB', 'Основная информация');

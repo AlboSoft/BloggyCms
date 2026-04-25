@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_HTMLBLOCKS_SELECT_TYPE_TITLE', 'Выберите тип контент-блока');
 define('LANG_TEMPLATE_HTMLBLOCKS_SELECT_TYPE_BACK_BTN', 'Назад к контент-блокам');
 define('LANG_TEMPLATE_HTMLBLOCKS_SELECT_TYPE_FILTER_LABEL', 'Фильтр по шаблону:');

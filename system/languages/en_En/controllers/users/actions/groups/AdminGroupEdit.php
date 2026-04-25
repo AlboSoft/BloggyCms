@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_USERS_ADMINGROUPEDIT_NO_ID', 'Group ID not specified');
 define('LANG_ACTION_USERS_ADMINGROUPEDIT_NOT_FOUND', 'Group not found');
 define('LANG_ACTION_USERS_ADMINGROUPEDIT_BREADCRUMB_DASHBOARD', 'Dashboard');

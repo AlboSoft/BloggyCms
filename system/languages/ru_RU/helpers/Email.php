@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_HELPER_EMAIL_RESET_SUBJECT', 'Восстановление пароля - %s');
 define('LANG_HELPER_EMAIL_RESET_TITLE', 'Восстановление пароля');
 define('LANG_HELPER_EMAIL_RESET_GREETING', 'Здравствуйте, <strong>%s</strong>!');

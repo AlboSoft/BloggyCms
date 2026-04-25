@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_ARCHIVE_TITLE', 'Publication Archive');
 define('LANG_TEMPLATE_ARCHIVE_SUBTITLE', 'Timeline of all blog posts');
 define('LANG_TEMPLATE_ARCHIVE_MONTH_JANUARY', 'January');

@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_HELPER_FILEUPLOAD_UPLOAD_ERROR', 'File upload error: %s');
 define('LANG_HELPER_FILEUPLOAD_FILE_TOO_LARGE', 'File too large. Maximum size: %dKB');
 define('LANG_HELPER_FILEUPLOAD_INVALID_TYPE', 'Invalid file type. Allowed: %s');

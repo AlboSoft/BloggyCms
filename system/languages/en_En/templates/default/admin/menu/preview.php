@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_MENU_PREVIEW_TITLE', 'Menu Preview: %s');
 define('LANG_TEMPLATE_MENU_PREVIEW_EDIT_BTN', 'Edit');
 define('LANG_TEMPLATE_MENU_PREVIEW_BACK_BTN', 'Back');

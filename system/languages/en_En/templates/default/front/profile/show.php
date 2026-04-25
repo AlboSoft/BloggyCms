@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_PROFILE_ONLINE_TITLE', 'Online');
 define('LANG_TEMPLATE_PROFILE_ABOUT_TITLE', 'About');
 define('LANG_TEMPLATE_PROFILE_ABOUT_EMPTY', '%s hasn\'t added any information about themselves yet.');

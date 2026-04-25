@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_HTMLBLOCK_DEFAULTHERO_NAME', 'Баннер-шапка');
 define('LANG_HTMLBLOCK_DEFAULTHERO_DESCRIPTION', 'Харизматичный hero-блок с акцентом на личность и типографику');
 define('LANG_HTMLBLOCK_DEFAULTHERO_FIELDSET_CONTENT', 'Контент');

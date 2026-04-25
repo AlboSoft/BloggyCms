@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_TAGS_ALL_TITLE', 'Коллекция тегов');
 define('LANG_TEMPLATE_TAGS_ALL_DESCRIPTION', 'Исследуйте все теги, используемые на сайте, чтобы найти интересующие вас темы');
 define('LANG_TEMPLATE_TAGS_STATS_TITLE', 'Статистика тегов');

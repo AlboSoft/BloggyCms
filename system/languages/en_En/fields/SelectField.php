@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_FIELD_SELECT_TITLE', 'Select');
 define('LANG_FIELD_SELECT_DEFAULT_OPTION', '-- Select --');
 define('LANG_FIELD_SELECT_NOT_SELECTED', 'Not selected');

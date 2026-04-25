@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_ICONS_INDEX_TITLE', 'Icons');
 define('LANG_TEMPLATE_ICONS_INDEX_SEARCH_PLACEHOLDER', 'Search icons...');
 define('LANG_TEMPLATE_ICONS_INDEX_COPY_CODE_TITLE', 'Copy code');

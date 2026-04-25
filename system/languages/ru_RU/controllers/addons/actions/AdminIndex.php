@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_CONTROLLER_ADDONS_ACTION_INDEX_BREADCRUMB_DASHBOARD', 'Панель управления');
 define('LANG_CONTROLLER_ADDONS_ACTION_INDEX_BREADCRUMB_ADDONS', 'Пакеты');
 define('LANG_CONTROLLER_ADDONS_ACTION_INDEX_HINT_1', 'Пакеты должны иметь структуру: files/, install.php, package.ini');

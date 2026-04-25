@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_COMMENTS_EDIT_TITLE', 'Редактирование комментария');
 define('LANG_TEMPLATE_COMMENTS_EDIT_BACK_BTN', 'Назад к комментариям');
 define('LANG_TEMPLATE_COMMENTS_EDIT_COMMENT_LABEL', 'Комментарий:');

@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_HELPER_FILEUPLOAD_UPLOAD_ERROR', 'Ошибка загрузки файла: %s');
 define('LANG_HELPER_FILEUPLOAD_FILE_TOO_LARGE', 'Файл слишком большой. Максимальный размер: %dКБ');
 define('LANG_HELPER_FILEUPLOAD_INVALID_TYPE', 'Недопустимый тип файла. Разрешенные: %s');

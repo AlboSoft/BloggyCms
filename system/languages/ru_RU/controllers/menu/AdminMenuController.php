@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_CONTROLLER_ADMINMENU_AUTH_REQUIRED', 'Пожалуйста, авторизуйтесь для доступа к панели управления');
 define('LANG_CONTROLLER_ADMINMENU_ACCESS_DENIED', 'У вас нет прав доступа к панели управления');
 define('LANG_CONTROLLER_ADMINMENU_MENU_ITEM', 'Пункт меню');

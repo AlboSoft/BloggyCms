@@ -1,6 +1,4 @@
 <?php
-
-define('LANG_TEMPLATE_MENU_FORM_EDIT_TITLE', 'Edit Menu');
 define('LANG_TEMPLATE_MENU_FORM_CREATE_TITLE', 'Create Menu');
 define('LANG_TEMPLATE_MENU_FORM_BACK_BTN', 'Back to List');
 define('LANG_TEMPLATE_MENU_FORM_CURRENT_THEME', 'Current theme:');

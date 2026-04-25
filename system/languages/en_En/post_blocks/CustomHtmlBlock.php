@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_POSTBLOCK_CUSTOMHTML_NAME', 'Custom HTML');
 define('LANG_POSTBLOCK_CUSTOMHTML_DESCRIPTION', 'Block for inserting custom HTML code with syntax highlighting');
 define('LANG_POSTBLOCK_CUSTOMHTML_DEFAULT_CONTENT', '<!-- Insert your HTML code here -->');

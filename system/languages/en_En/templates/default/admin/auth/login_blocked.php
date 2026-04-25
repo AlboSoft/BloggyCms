@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_AUTH_BLOCKED_TITLE', 'ACCESS BLOCKED');
 define('LANG_TEMPLATE_AUTH_BLOCKED_MAX_ATTEMPTS', 'Maximum number of login attempts exceeded');
 define('LANG_TEMPLATE_AUTH_BLOCKED_UNAVAILABLE', 'Login page temporarily unavailable');

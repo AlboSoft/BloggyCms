@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_FIELD_SELECT_TITLE', 'Список');
 define('LANG_FIELD_SELECT_DEFAULT_OPTION', '-- Выберите --');
 define('LANG_FIELD_SELECT_NOT_SELECTED', 'Не выбрано');

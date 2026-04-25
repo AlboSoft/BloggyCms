@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_FORMS_SHOW_TITLE', 'Отправки формы: %s');
 define('LANG_TEMPLATE_FORMS_SHOW_BACK_BTN', 'Назад');
 define('LANG_TEMPLATE_FORMS_SHOW_EDIT_BTN', 'Редактировать');

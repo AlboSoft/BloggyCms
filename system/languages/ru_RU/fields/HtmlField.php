@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_FIELD_HTML_TITLE', 'HTML-блок');
 define('LANG_FIELD_HTML_HINT', 'Поддерживается HTML разметка. Используйте редактор для удобного форматирования.');
 define('LANG_FIELD_HTML_HEIGHT_LABEL', 'Высота редактора (px)');

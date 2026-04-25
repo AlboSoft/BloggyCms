@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_POSTS_TOGGLESTATUS_NO_ID', 'ID поста не указан');
 define('LANG_ACTION_POSTS_TOGGLESTATUS_POST_NOT_FOUND', 'Пост не найден');
 define('LANG_ACTION_POSTS_TOGGLESTATUS_PUBLISHED', 'опубликован');

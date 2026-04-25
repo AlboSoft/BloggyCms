@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_SETTINGS_ADMININDEX_BREADCRUMB_DASHBOARD', 'Панель управления');
 define('LANG_ACTION_SETTINGS_ADMININDEX_BREADCRUMB_SETTINGS', 'Настройки');
 define('LANG_ACTION_SETTINGS_ADMININDEX_SAVE_SUCCESS', 'Настройки успешно сохранены');

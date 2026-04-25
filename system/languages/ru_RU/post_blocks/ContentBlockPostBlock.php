@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_POSTBLOCK_CONTENTBLOCK_NAME', 'Контент-блок');
 define('LANG_POSTBLOCK_CONTENTBLOCK_DESCRIPTION', 'Блок для вставки готовых контент-блоков в тело страницы или поста');
 define('LANG_POSTBLOCK_CONTENTBLOCK_FORM_SELECT_LABEL', 'Выберите контент-блок');

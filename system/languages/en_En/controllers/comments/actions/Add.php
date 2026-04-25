@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_COMMENTS_ADD_INVALID_METHOD', 'Invalid request method');
 define('LANG_ACTION_COMMENTS_ADD_NO_PERMISSION', 'You do not have permission to add comments');
 define('LANG_ACTION_COMMENTS_ADD_NO_POST_ID', 'Error: Post ID not specified');

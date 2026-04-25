@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_PAGES_ADMINUPLOADIMAGE_NO_FILE', 'Файл не был загружен');
 define('LANG_ACTION_PAGES_ADMINUPLOADIMAGE_ERROR_INI_SIZE', 'Размер файла превышает максимально допустимый');
 define('LANG_ACTION_PAGES_ADMINUPLOADIMAGE_ERROR_FORM_SIZE', 'Размер файла превышает максимально допустимый');

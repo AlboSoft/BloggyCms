@@ -1,4 +1,3 @@
 <?php
-
 define('LANG_CONTROLLER_PAGES_MANIFEST_NAME', 'Pages');
 define('LANG_CONTROLLER_PAGES_MANIFEST_DESCRIPTION', 'Manage blog pages');

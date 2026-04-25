@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_POSTS_VOTE_NO_POST_ID', 'Post ID not provided');
 define('LANG_ACTION_POSTS_VOTE_INVALID_METHOD', 'Invalid request method');
 define('LANG_ACTION_POSTS_VOTE_AUTH_REQUIRED', 'Authorization required');

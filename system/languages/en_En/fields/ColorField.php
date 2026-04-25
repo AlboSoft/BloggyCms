@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_FIELD_COLOR_TITLE', 'Color Selection');
 define('LANG_FIELD_COLOR_NOT_SPECIFIED', 'Not specified');
 define('LANG_FIELD_COLOR_PRESET_LABEL', 'Color preset');

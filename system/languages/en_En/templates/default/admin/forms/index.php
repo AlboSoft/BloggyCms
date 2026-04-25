@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_FORMS_INDEX_TITLE', 'Manage Forms');
 define('LANG_TEMPLATE_FORMS_INDEX_CREATE_BTN', 'Create Form');
 define('LANG_TEMPLATE_FORMS_INDEX_STAT_TOTAL_FORMS', 'Total Forms');

@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_DASHBOARD_TITLE', 'Панель управления');
 define('LANG_DASHBOARD_WELCOME', 'Добро пожаловать в панель управления блога!');
 define('LANG_DASHBOARD_DEBUG_MODE', 'Режим отладки');

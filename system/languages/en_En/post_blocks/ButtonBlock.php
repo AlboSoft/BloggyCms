@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_POSTBLOCK_BUTTON_NAME', 'Button');
 define('LANG_POSTBLOCK_BUTTON_DESCRIPTION', 'Block for creating stylish button with link');
 define('LANG_POSTBLOCK_BUTTON_DEFAULT_TEXT', 'Click me');

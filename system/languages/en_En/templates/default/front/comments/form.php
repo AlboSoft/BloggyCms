@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_COMMENT_FORM_ADMIN_BADGE_DEFAULT', 'Administrator');
 define('LANG_TEMPLATE_COMMENT_FORM_ERROR_NO_POST', 'Error: Could not determine the post for comments');
 define('LANG_TEMPLATE_COMMENT_FORM_LOGIN_REQUIRED_TITLE', 'Comments are only available to registered users');

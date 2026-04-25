@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_TAG_POST_1', 'пост');
 define('LANG_TEMPLATE_TAG_POST_2', 'поста');
 define('LANG_TEMPLATE_TAG_POST_3', 'постов');

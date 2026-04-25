@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_CORE_BASEPOSTBLOCK_PRESET_SELECTOR_LABEL', 'Select preset');
 define('LANG_CORE_BASEPOSTBLOCK_PRESET_SELECTOR_NO_PRESET', '-- No preset (standard template) --');
 define('LANG_CORE_BASEPOSTBLOCK_PRESET_SELECTOR_HINT', 'Use saved templates for quick post block styling');

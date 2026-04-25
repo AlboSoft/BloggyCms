@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_HTMLBLOCKS_FORM_EDIT_TITLE', 'Edit Block');
 define('LANG_TEMPLATE_HTMLBLOCKS_FORM_CREATE_TITLE', 'Create Block');
 define('LANG_TEMPLATE_HTMLBLOCKS_FORM_BACK_BTN', 'Back to Blocks');

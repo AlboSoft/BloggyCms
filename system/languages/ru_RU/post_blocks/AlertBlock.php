@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_POSTBLOCK_ALERT_NAME', 'Блок с предупреждением');
 define('LANG_POSTBLOCK_ALERT_DESCRIPTION', 'Блок для отображения различных типов уведомлений: информация, предупреждение, успех, ошибка');
 define('LANG_POSTBLOCK_ALERT_DEFAULT_TITLE', 'Внимание!');

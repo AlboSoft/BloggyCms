@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_CONTROLLER_COMMENTS_SETTINGS_FIELDSET_GENERAL', 'General Settings');
 define('LANG_CONTROLLER_COMMENTS_SETTINGS_MAX_DEPTH', 'Maximum comment nesting level');
 define('LANG_CONTROLLER_COMMENTS_SETTINGS_MAX_DEPTH_HINT', 'Remaining comments will be hidden under "Show more" button');

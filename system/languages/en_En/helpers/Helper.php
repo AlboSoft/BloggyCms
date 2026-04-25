@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_HELPER_FUNCTIONS_BLOCK_EMPTY', 'Block "%s" has no content.');
 define('LANG_HELPER_FUNCTIONS_BLOCK_UNDEFINED', 'Block "%s" has undefined type.');
 define('LANG_HELPER_FUNCTIONS_BLOCK_NOT_FOUND', 'HTML block with slug "%s" not found');

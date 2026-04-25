@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_POSTBLOCK_BUTTON_NAME', 'Кнопка');
 define('LANG_POSTBLOCK_BUTTON_DESCRIPTION', 'Блок для создания стильной кнопки с ссылкой');
 define('LANG_POSTBLOCK_BUTTON_DEFAULT_TEXT', 'Нажми меня');

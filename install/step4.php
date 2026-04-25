@@ -1,4 +1,42 @@
 <?php
+session_start();
+
+$current_lang = $_SESSION['install_lang'] ?? 'ru';
+
+$lang = [
+    'ru' => [
+        'title' => 'Установка завершена!',
+        'congrats' => 'Поздравляем! BloggyCMS успешно установлен и готов к работе',
+        'your_blog' => 'Ваш блог',
+        'administrator' => 'Администратор',
+        'name' => 'Название',
+        'url' => 'URL',
+        'login' => 'Логин',
+        'email' => 'Email',
+        'security_warning' => 'Важно для безопасности!',
+        'delete_install_folder' => 'Удалите папку /install с сервера после завершения настройки',
+        'restart' => 'Начать заново',
+        'go_to_site' => 'На сайт',
+        'go_to_admin' => 'В админку'
+    ],
+    'en' => [
+        'title' => 'Installation Complete!',
+        'congrats' => 'Congratulations! BloggyCMS has been successfully installed and is ready to use',
+        'your_blog' => 'Your Blog',
+        'administrator' => 'Administrator',
+        'name' => 'Name',
+        'url' => 'URL',
+        'login' => 'Login',
+        'email' => 'Email',
+        'security_warning' => 'Security Important!',
+        'delete_install_folder' => 'Delete the /install folder from the server after completing the setup',
+        'restart' => 'Restart',
+        'go_to_site' => 'Go to Site',
+        'go_to_admin' => 'Go to Admin'
+    ]
+];
+
+$t = $lang[$current_lang];
 
 if (!isset($_SESSION['site_config']) || !isset($_SESSION['db_config'])) {
     $_SESSION['install_step'] = 1;
@@ -9,24 +47,24 @@ $siteConfig = $_SESSION['site_config'];
 $dbConfig = $_SESSION['db_config'];
 ?>
 
-<h2><i class="fas fa-flag-checkered" style="color: var(--accent); margin-right: 8px;"></i> Установка завершена!</h2>
+<h2><i class="fas fa-flag-checkered" style="color: var(--accent); margin-right: 8px;"></i> <?php echo $t['title']; ?></h2>
 
 <div class="alert alert-success" style="margin-bottom: 28px;">
     <i class="fas fa-check-circle"></i>
     <div>
-        <strong>Поздравляем!</strong> BloggyCMS успешно установлен и готов к работе
+        <strong><?php echo $t['congrats']; ?></strong>
     </div>
 </div>
 
 <div class="summary-grid">
     <div class="summary-card">
-        <h4><i class="fas fa-globe"></i> Ваш блог</h4>
+        <h4><i class="fas fa-globe"></i> <?php echo $t['your_blog']; ?></h4>
         <div class="summary-item">
-            <span class="label">Название</span>
+            <span class="label"><?php echo $t['name']; ?></span>
             <span class="value"><?php echo htmlspecialchars($siteConfig['site_name']); ?></span>
         </div>
         <div class="summary-item">
-            <span class="label">URL</span>
+            <span class="label"><?php echo $t['url']; ?></span>
             <span class="value">
                 <a href="<?php echo htmlspecialchars($siteConfig['site_url']); ?>" target="_blank">
                     <?php echo htmlspecialchars($siteConfig['site_url']); ?> 
@@ -37,13 +75,13 @@ $dbConfig = $_SESSION['db_config'];
     </div>
     
     <div class="summary-card">
-        <h4><i class="fas fa-user-shield"></i> Администратор</h4>
+        <h4><i class="fas fa-user-shield"></i> <?php echo $t['administrator']; ?></h4>
         <div class="summary-item">
-            <span class="label">Логин</span>
+            <span class="label"><?php echo $t['login']; ?></span>
             <span class="value"><?php echo htmlspecialchars($siteConfig['admin_username']); ?></span>
         </div>
         <div class="summary-item">
-            <span class="label">Email</span>
+            <span class="label"><?php echo $t['email']; ?></span>
             <span class="value"><?php echo htmlspecialchars($siteConfig['admin_email']); ?></span>
         </div>
     </div>
@@ -52,21 +90,21 @@ $dbConfig = $_SESSION['db_config'];
 <div class="alert alert-warning" style="margin: 28px 0;">
     <i class="fas fa-exclamation-triangle"></i>
     <div>
-        <strong>Важно для безопасности!</strong><br>
-        Удалите папку <strong>/install</strong> с сервера после завершения настройки
+        <strong><?php echo $t['security_warning']; ?></strong><br>
+        <?php echo $t['delete_install_folder']; ?>
     </div>
 </div>
 
 <div class="mt-4 flex-between">
     <a href="?restart=1" class="btn btn-outline">
-        <i class="fas fa-redo"></i> Начать заново
+        <i class="fas fa-redo"></i> <?php echo $t['restart']; ?>
     </a>
     <div class="flex">
         <a href="<?php echo htmlspecialchars($siteConfig['site_url']); ?>" class="btn btn-secondary" target="_blank">
-            <i class="fas fa-home"></i> На сайт
+            <i class="fas fa-home"></i> <?php echo $t['go_to_site']; ?>
         </a>
         <a href="<?php echo htmlspecialchars($siteConfig['site_url']); ?>/admin" class="btn btn-primary" target="_blank">
-            <i class="fas fa-sign-in-alt"></i> В админку
+            <i class="fas fa-sign-in-alt"></i> <?php echo $t['go_to_admin']; ?>
         </a>
     </div>
 </div>

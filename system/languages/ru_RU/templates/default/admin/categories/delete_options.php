@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_CATEGORIES_DELETE_TITLE', 'Удаление категории');
 define('LANG_TEMPLATE_CATEGORIES_DELETE_CATEGORY_LABEL', 'Категория:');
 define('LANG_TEMPLATE_CATEGORIES_DELETE_WARNING_TITLE', 'Внимание!');

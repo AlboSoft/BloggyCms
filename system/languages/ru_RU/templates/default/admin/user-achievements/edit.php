@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_TITLE', 'Редактирование ачивки');
 define('LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_BACK_BTN', 'Назад');
 define('LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_DELETE_BTN', 'Удалить');

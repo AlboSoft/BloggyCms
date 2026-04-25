@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_HELPER_CAPTCHA_MATH_QUESTION', 'How much is %d %s %d?');
 define('LANG_HELPER_CAPTCHA_TEXT_QUESTION_DOG', 'What animal barks?');
 define('LANG_HELPER_CAPTCHA_TEXT_ANSWER_DOG', 'dog');

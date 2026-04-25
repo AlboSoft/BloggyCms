@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_POSTBLOCK_CONTENTBLOCK_NAME', 'Content Block');
 define('LANG_POSTBLOCK_CONTENTBLOCK_DESCRIPTION', 'Block for inserting ready-made content blocks into the body of a page or post');
 define('LANG_POSTBLOCK_CONTENTBLOCK_FORM_SELECT_LABEL', 'Select Content Block');

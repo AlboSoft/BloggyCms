@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_COMMENTS_DELETE_ID_NOT_SPECIFIED', 'Comment ID not specified');
 define('LANG_ACTION_COMMENTS_DELETE_NOT_AUTH', 'You must be logged in to delete a comment');
 define('LANG_ACTION_COMMENTS_DELETE_NOT_FOUND', 'Comment not found');

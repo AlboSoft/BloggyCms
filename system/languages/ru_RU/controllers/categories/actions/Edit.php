@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_CATEGORIES_EDIT_ID_NOT_SPECIFIED', 'ID категории не указан');
 define('LANG_ACTION_CATEGORIES_EDIT_PAGE_TITLE', 'Редактирование категории');
 define('LANG_ACTION_CATEGORIES_EDIT_BREADCRUMB_CATEGORIES', 'Категории');

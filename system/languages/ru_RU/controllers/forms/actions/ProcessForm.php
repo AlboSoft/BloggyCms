@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_FORMS_PROCESSFORM_FORM_NOT_SPECIFIED', 'Форма не указана');
 define('LANG_ACTION_FORMS_PROCESSFORM_FORM_NOT_FOUND', 'Форма не найдена или неактивна');
 define('LANG_ACTION_FORMS_PROCESSFORM_INVALID_METHOD', 'Неверный метод запроса');

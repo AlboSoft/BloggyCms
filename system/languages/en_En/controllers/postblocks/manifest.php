@@ -1,4 +1,3 @@
 <?php
-
 define('LANG_CONTROLLER_POSTBLOCKS_MANIFEST_NAME', 'Post Blocks');
 define('LANG_CONTROLLER_POSTBLOCKS_MANIFEST_DESCRIPTION', 'Manages system post blocks');

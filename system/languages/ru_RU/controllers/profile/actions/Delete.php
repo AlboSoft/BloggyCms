@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_PROFILE_DELETE_UNAUTHORIZED', 'Не авторизован');
 define('LANG_ACTION_PROFILE_DELETE_INVALID_CSRF', 'Неверный CSRF токен');
 define('LANG_ACTION_PROFILE_DELETE_INVALID_PASSWORD', 'Неверный пароль');

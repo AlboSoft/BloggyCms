@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_DASHBOARD_TITLE', 'Dashboard');
 define('LANG_DASHBOARD_WELCOME', 'Welcome to the blog control panel!');
 define('LANG_DASHBOARD_DEBUG_MODE', 'Debug mode');

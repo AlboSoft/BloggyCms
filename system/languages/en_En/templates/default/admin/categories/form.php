@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_CATEGORIES_FORM_EDIT_TITLE', 'Edit Category');
 define('LANG_TEMPLATE_CATEGORIES_FORM_CREATE_TITLE', 'Create Category');
 define('LANG_TEMPLATE_CATEGORIES_FORM_BACK_BTN', 'Back to list');

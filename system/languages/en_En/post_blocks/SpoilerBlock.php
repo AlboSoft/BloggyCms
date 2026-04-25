@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_POSTBLOCK_SPOILER_NAME', 'Spoiler');
 define('LANG_POSTBLOCK_SPOILER_DESCRIPTION', 'Block for hiding content under a spoiler with customizable title');
 define('LANG_POSTBLOCK_SPOILER_DEFAULT_TITLE', 'Click to reveal');

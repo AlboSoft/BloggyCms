@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_MENU_INDEX_TITLE', 'Manage Menus');
 define('LANG_TEMPLATE_MENU_INDEX_CREATE_BTN', 'Create Menu');
 define('LANG_TEMPLATE_MENU_INDEX_NO_MENUS_TITLE', 'No menus created');

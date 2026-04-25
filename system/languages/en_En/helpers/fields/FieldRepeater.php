@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_HELPER_FIELDS_REPEATER_ELEMENT_NUMBER', 'Item #%d');
 define('LANG_HELPER_FIELDS_REPEATER_ADD_BTN', 'Add item');
 define('LANG_HELPER_FIELDS_REPEATER_NEW_ELEMENT', 'New item');

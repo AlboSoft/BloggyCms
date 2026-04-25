@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_ICONS_ADMININDEX_BREADCRUMB_DASHBOARD', 'Панель управления');
 define('LANG_ACTION_ICONS_ADMININDEX_BREADCRUMB_ICONS', 'Иконки');
 define('LANG_ACTION_ICONS_ADMININDEX_PAGE_TITLE', 'Иконки блога');

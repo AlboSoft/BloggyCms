@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_FORMS_FORM_EDIT_TITLE', 'Редактирование формы');
 define('LANG_TEMPLATE_FORMS_FORM_CREATE_TITLE', 'Создание формы');
 define('LANG_TEMPLATE_FORMS_FORM_BACK_BTN', 'Назад к списку');

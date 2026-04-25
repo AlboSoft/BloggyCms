@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_NOTIFICATIONS_INDEX_TITLE', 'Уведомления');
 define('LANG_TEMPLATE_NOTIFICATIONS_INDEX_MARK_ALL_BTN', 'Отметить все как прочитанные');
 define('LANG_TEMPLATE_NOTIFICATIONS_INDEX_CLEAR_READ_BTN', 'Очистить прочитанные');

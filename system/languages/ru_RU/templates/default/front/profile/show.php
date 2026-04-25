@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_PROFILE_ONLINE_TITLE', 'В сети');
 define('LANG_TEMPLATE_PROFILE_ABOUT_TITLE', 'О себе');
 define('LANG_TEMPLATE_PROFILE_ABOUT_EMPTY', '%s ещё не добавил информацию о себе.');

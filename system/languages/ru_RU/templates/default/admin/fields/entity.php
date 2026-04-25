@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_FIELDS_ENTITY_TITLE', 'Поля для %s');
 define('LANG_TEMPLATE_FIELDS_ENTITY_ADD_BTN', 'Добавить поле');
 define('LANG_TEMPLATE_FIELDS_ENTITY_NO_FIELDS_TITLE', 'Поля не созданы');

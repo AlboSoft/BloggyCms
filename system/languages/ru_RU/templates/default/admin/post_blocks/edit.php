@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_POSTBLOCKS_EDIT_TITLE', 'Настройки: %s');
 define('LANG_TEMPLATE_POSTBLOCKS_EDIT_BACK_BTN', 'Назад');
 define('LANG_TEMPLATE_POSTBLOCKS_EDIT_MAIN_SETTINGS_TITLE', 'Основные настройки');

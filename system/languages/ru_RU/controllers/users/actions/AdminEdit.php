@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_USERS_ADMINEDIT_NO_ID', 'ID пользователя не указан');
 define('LANG_ACTION_USERS_ADMINEDIT_BREADCRUMB_DASHBOARD', 'Панель управления');
 define('LANG_ACTION_USERS_ADMINEDIT_BREADCRUMB_USERS', 'Пользователи');

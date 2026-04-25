@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_MENU_ADMINPREVIEW_ID_NOT_SPECIFIED', 'ID меню не указан');
 define('LANG_ACTION_MENU_ADMINPREVIEW_NOT_FOUND', 'Меню не найдено');
 define('LANG_ACTION_MENU_ADMINPREVIEW_BREADCRUMB_DASHBOARD', 'Панель управления');

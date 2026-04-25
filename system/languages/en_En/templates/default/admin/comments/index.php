@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_COMMENTS_INDEX_TITLE', 'Manage Comments');
 define('LANG_TEMPLATE_COMMENTS_INDEX_NO_COMMENTS_TITLE', 'No comments');
 define('LANG_TEMPLATE_COMMENTS_INDEX_NO_COMMENTS_TEXT', 'There are no comments in your blog yet. As soon as they appear, they will be displayed here');

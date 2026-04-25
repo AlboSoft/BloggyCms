@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_POSTBLOCK_IMAGETEXT_NAME', 'Image with Text');
 define('LANG_POSTBLOCK_IMAGETEXT_DESCRIPTION', 'Block with image, title and text description with image position selection');
 define('LANG_POSTBLOCK_IMAGETEXT_DEFAULT_TEXT', 'Description text...');

@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_PAGES_INDEX_TITLE', 'Pages');
 define('LANG_TEMPLATE_PAGES_INDEX_POST_BLOCKS_BTN', 'Post Blocks');
 define('LANG_TEMPLATE_PAGES_INDEX_CUSTOM_FIELDS_BTN', 'Custom Fields');

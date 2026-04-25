@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_USERS_CREATE_TITLE', 'Create User');
 define('LANG_TEMPLATE_USERS_CREATE_BACK_BTN', 'Back to Users');
 define('LANG_TEMPLATE_USERS_CREATE_USERNAME_LABEL', 'Username');

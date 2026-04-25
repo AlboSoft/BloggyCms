@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_ACHIEVEMENT_DETAIL_YOU_HAVE', 'Вы получили эту ачивку');
 define('LANG_TEMPLATE_ACHIEVEMENT_DETAIL_USERS_1', 'пользователь получил');
 define('LANG_TEMPLATE_ACHIEVEMENT_DETAIL_USERS_2', 'пользователя получили');

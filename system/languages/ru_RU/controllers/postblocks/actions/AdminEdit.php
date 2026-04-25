@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_POSTBLOCKS_ADMINEDIT_SYSTEM_NAME_NOT_SPECIFIED', 'Системное имя блока не указано');
 define('LANG_ACTION_POSTBLOCKS_ADMINEDIT_BLOCK_NOT_FOUND', 'Блок не найден');
 define('LANG_ACTION_POSTBLOCKS_ADMINEDIT_BREADCRUMB_DASHBOARD', 'Панель управления');

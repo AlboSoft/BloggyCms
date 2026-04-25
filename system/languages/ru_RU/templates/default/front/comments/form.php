@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_COMMENT_FORM_ADMIN_BADGE_DEFAULT', 'Администратор');
 define('LANG_TEMPLATE_COMMENT_FORM_ERROR_NO_POST', 'Ошибка: Не удалось определить пост для комментариев');
 define('LANG_TEMPLATE_COMMENT_FORM_LOGIN_REQUIRED_TITLE', 'Комментарии доступны только авторизованным пользователям');

@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_FIELD_ICONSTYLE_TITLE', 'Иконка со стилями');
 define('LANG_FIELD_ICONSTYLE_ICON_LABEL', 'Иконка');
 define('LANG_FIELD_ICONSTYLE_SELECT_BTN', 'Выбрать иконку');

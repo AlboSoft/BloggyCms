@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_POST_PASSWORD_TITLE', 'Защищенный пост');
 define('LANG_TEMPLATE_POST_PASSWORD_RESTRICTED_LABEL', 'Доступ ограничен для:');
 define('LANG_TEMPLATE_POST_PASSWORD_ERROR_TITLE', 'Неверный пароль');

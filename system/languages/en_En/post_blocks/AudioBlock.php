@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_POSTBLOCK_AUDIO_NAME', 'Audio');
 define('LANG_POSTBLOCK_AUDIO_DESCRIPTION', 'Inserts an audio player with MP3 support.');
 define('LANG_POSTBLOCK_AUDIO_SHORTCODE_SRC', 'Path to MP3 file');

@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_FORMS_ADMINSHOW_ID_NOT_SPECIFIED', 'Form ID not specified');
 define('LANG_ACTION_FORMS_ADMINSHOW_FORM_NOT_FOUND', 'Form not found');
 define('LANG_ACTION_FORMS_ADMINSHOW_BREADCRUMB_DASHBOARD', 'Dashboard');

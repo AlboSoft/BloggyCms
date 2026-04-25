@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_CATEGORIES_ALL_TITLE', 'Categories');
 define('LANG_TEMPLATE_CATEGORIES_ALL_POSTS_BTN', 'All posts');
 define('LANG_TEMPLATE_CATEGORIES_SECTION_1', 'section');

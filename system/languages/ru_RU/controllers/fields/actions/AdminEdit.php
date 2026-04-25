@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_FIELDS_ADMINEDIT_ID_NOT_SPECIFIED', 'ID поля не указан');
 define('LANG_ACTION_FIELDS_ADMINEDIT_NOT_FOUND', 'Поле не найдено');
 define('LANG_ACTION_FIELDS_ADMINEDIT_BREADCRUMB_DASHBOARD', 'Панель управления');

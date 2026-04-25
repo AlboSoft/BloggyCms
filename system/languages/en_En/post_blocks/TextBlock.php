@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_POSTBLOCK_TEXT_NAME', 'Text');
 define('LANG_POSTBLOCK_TEXT_DESCRIPTION', 'Text block with formatting support (bold, italic, links, code, etc.)');
 define('LANG_POSTBLOCK_TEXT_DEFAULT_CONTENT', 'Your text here...');

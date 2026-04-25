@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_SEO_ADMINTESTINDEXNOW_LOCALHOST_WARNING', 'IndexNow does not work with local domains (%s). Public site access is required for full functionality.');
 define('LANG_ACTION_SEO_ADMINTESTINDEXNOW_INVALID_BASE_URL', 'Invalid BASE_URL format in config. Must start with http:// or https://. Current value: %s');
 define('LANG_ACTION_SEO_ADMINTESTINDEXNOW_NO_KEYS', 'IndexNow keys not configured. Enable and save settings.');

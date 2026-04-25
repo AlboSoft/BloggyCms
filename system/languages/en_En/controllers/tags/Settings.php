@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_CONTROLLER_TAGS_SETTINGS_FIELDSET_DISPLAY', 'Display Settings');
 define('LANG_CONTROLLER_TAGS_SETTINGS_TAG_PREFIX', 'Tag prefix character');
 define('LANG_CONTROLLER_TAGS_SETTINGS_TAG_PREFIX_HINT', 'Character that will be displayed before each tag on the frontend');

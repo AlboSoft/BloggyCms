@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ADMIN_PANEL_TITLE', 'Control Panel');
 define('LANG_ADMIN_DASHBOARD', 'Dashboard');
 define('LANG_ADMIN_POSTS', 'Posts');

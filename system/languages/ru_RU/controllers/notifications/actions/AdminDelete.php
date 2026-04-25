@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_NOTIFICATIONS_ADMINDELETE_ID_NOT_SPECIFIED', 'ID уведомления не указан');
 define('LANG_ACTION_NOTIFICATIONS_ADMINDELETE_ERROR', 'Ошибка: ');
 define('LANG_ACTION_NOTIFICATIONS_ADMINDELETE_NOT_FOUND', 'Уведомление не найдено или доступ запрещен');

@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_POSTBLOCK_HEADER_NAME', 'Заголовок');
 define('LANG_POSTBLOCK_HEADER_DESCRIPTION', 'Блок заголовка с выбором уровня, выравниванием и дополнительными настройками');
 define('LANG_POSTBLOCK_HEADER_DEFAULT_TEXT', 'Новый заголовок');

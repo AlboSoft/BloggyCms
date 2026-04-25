@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_HTMLBLOCK_COOKIECONSENT_NAME', 'Cookie Consent');
 define('LANG_HTMLBLOCK_COOKIECONSENT_DESCRIPTION', 'Displays a cookie consent notification. After consent, it hides and remembers the user\'s choice.');
 define('LANG_HTMLBLOCK_COOKIECONSENT_SHORT_DESCRIPTION', 'Cookie notification');

@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_CONTROLLER_POSTS_PERMISSION_VIEW_TITLE', 'View Posts');
 define('LANG_CONTROLLER_POSTS_PERMISSION_VIEW_DESC', 'Ability to view published posts');
 define('LANG_CONTROLLER_POSTS_PERMISSION_COMMENTS_TITLE', 'Comment on Posts');

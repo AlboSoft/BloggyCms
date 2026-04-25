@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_TAGS_ADMININDEX_BREADCRUMB_DASHBOARD', 'Dashboard');
 define('LANG_ACTION_TAGS_ADMININDEX_BREADCRUMB_TAGS', 'Tags');
 define('LANG_ACTION_TAGS_ADMININDEX_HINT_1', 'You can add your own image to each tag');

@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_FIELDS_ADMINEDIT_ID_NOT_SPECIFIED', 'Field ID not specified');
 define('LANG_ACTION_FIELDS_ADMINEDIT_NOT_FOUND', 'Field not found');
 define('LANG_ACTION_FIELDS_ADMINEDIT_BREADCRUMB_DASHBOARD', 'Dashboard');

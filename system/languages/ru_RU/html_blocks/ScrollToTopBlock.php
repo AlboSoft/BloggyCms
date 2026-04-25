@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_HTMLBLOCK_SCROLLTOTOP_NAME', 'Кнопка вверх');
 define('LANG_HTMLBLOCK_SCROLLTOTOP_DESCRIPTION', 'Добавляет кнопку для плавной прокрутки страницы вверх. Появляется после прокрутки.');
 define('LANG_HTMLBLOCK_SCROLLTOTOP_SHORT_DESCRIPTION', 'Кнопка прокрутки вверх');

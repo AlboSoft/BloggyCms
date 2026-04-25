@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_FIELD_LINK_TITLE', 'Link');
 define('LANG_FIELD_LINK_NOT_SPECIFIED', 'Not specified');
 define('LANG_FIELD_LINK_PLACEHOLDER_LABEL', 'Placeholder');

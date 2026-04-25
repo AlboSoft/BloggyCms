@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_CONTROLLER_PROFILE_PERMISSION_ALL_VIEW_TITLE', 'View Any Profiles');
 define('LANG_CONTROLLER_PROFILE_PERMISSION_ALL_VIEW_DESC', 'Ability to view other users\' profiles');
 define('LANG_CONTROLLER_PROFILE_PERMISSION_EDIT_TITLE', 'Edit Own Profile');

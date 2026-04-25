@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_COMMENTS_ADD_INVALID_METHOD', 'Неверный метод запроса');
 define('LANG_ACTION_COMMENTS_ADD_NO_PERMISSION', 'У вас нет прав на добавление комментариев');
 define('LANG_ACTION_COMMENTS_ADD_NO_POST_ID', 'Ошибка: ID поста не указан');

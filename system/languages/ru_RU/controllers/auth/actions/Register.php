@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_AUTH_REGISTER_BREADCRUMB_HOME', 'Главная');
 define('LANG_ACTION_AUTH_REGISTER_BREADCRUMB_REGISTER', 'Регистрация');
 define('LANG_ACTION_AUTH_REGISTER_PAGE_TITLE', 'Регистрация');

@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_USERS_GROUPS_PERMISSIONS_TITLE', 'Права доступа: %s');
 define('LANG_TEMPLATE_USERS_GROUPS_PERMISSIONS_BACK_BTN', 'Назад к группам');
 define('LANG_TEMPLATE_USERS_GROUPS_PERMISSIONS_NO_PERMISSIONS_TITLE', 'Нет доступных прав');

@@ -1,4 +1,3 @@
 <?php
-
 define('LANG_CONTROLLER_CATEGORIES_MANIFEST_NAME', 'Categories');
 define('LANG_CONTROLLER_CATEGORIES_MANIFEST_DESCRIPTION', 'Manage blog categories');

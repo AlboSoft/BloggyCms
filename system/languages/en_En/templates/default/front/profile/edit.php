@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_PROFILE_EDIT_TITLE', 'Edit Profile');
 define('LANG_TEMPLATE_PROFILE_EDIT_BACK_BTN', 'Back to profile');
 define('LANG_TEMPLATE_PROFILE_EDIT_INFO_TAB', 'Basic Information');

@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_DEBUG_ADMININDEX_BREADCRUMB_DASHBOARD', 'Панель управления');
 define('LANG_ACTION_DEBUG_ADMININDEX_BREADCRUMB_DEBUG', 'Отладка');
 define('LANG_ACTION_DEBUG_ADMININDEX_PAGE_TITLE', 'Отладка системы');

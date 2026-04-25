@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_FIELD_DATE_TITLE', 'Дата');
 define('LANG_FIELD_DATE_NOT_SPECIFIED', 'Не указана');
 define('LANG_FIELD_DATE_INVALID_FORMAT', 'Неверный формат даты');

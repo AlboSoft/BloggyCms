@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_SEARCH_INDEX_BREADCRUMB_HOME', 'Главная');
 define('LANG_ACTION_SEARCH_INDEX_BREADCRUMB_SEARCH', 'Поиск');
 define('LANG_ACTION_SEARCH_INDEX_BREADCRUMB_RESULTS', 'Результаты поиска: "%s"');

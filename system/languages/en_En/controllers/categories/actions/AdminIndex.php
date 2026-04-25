@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_CATEGORIES_ADMININDEX_BREADCRUMB', 'Categories');
 define('LANG_ACTION_CATEGORIES_ADMININDEX_PAGE_TITLE', 'Manage Categories');
 define('LANG_ACTION_CATEGORIES_ADMININDEX_ERROR', 'Error loading categories: ');

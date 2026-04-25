@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_SEARCH_TITLE', 'Поиск по сайту');
 define('LANG_TEMPLATE_SEARCH_DESCRIPTION', 'Найдите интересующие вас публикации по ключевым словам');
 define('LANG_TEMPLATE_SEARCH_PLACEHOLDER', 'Введите поисковый запрос...');

@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_CONTROLLER_LANGUAGE_BREADCRUMB_DASHBOARD', 'Панель управления');
 define('LANG_CONTROLLER_LANGUAGE_BREADCRUMB_LANGUAGE', 'Языковые настройки');
 define('LANG_CONTROLLER_LANGUAGE_PAGE_TITLE', 'Языковые настройки');

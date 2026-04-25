@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_COMMENTS_LIST_ADMIN_BADGE_DEFAULT', 'Администратор');
 define('LANG_TEMPLATE_COMMENTS_LIST_REPLY_TITLE', 'Ответ');
 define('LANG_TEMPLATE_COMMENTS_LIST_PENDING_TITLE', 'На модерации');

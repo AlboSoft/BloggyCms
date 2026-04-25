@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_HTMLBLOCK_DEFAULTHERO_NAME', 'Hero');
 define('LANG_HTMLBLOCK_DEFAULTHERO_DESCRIPTION', 'Charismatic hero block with focus on personality and typography');
 define('LANG_HTMLBLOCK_DEFAULTHERO_FIELDSET_CONTENT', 'Content');

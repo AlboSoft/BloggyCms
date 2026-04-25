@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_COMMENT_EDIT_UNKNOWN_POST', 'Unknown post');
 define('LANG_TEMPLATE_COMMENT_EDIT_NO_PERMISSION', 'You do not have permission to edit this comment.');
 define('LANG_TEMPLATE_COMMENT_EDIT_TITLE', 'Edit Comment');

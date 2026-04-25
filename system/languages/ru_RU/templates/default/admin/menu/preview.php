@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_MENU_PREVIEW_TITLE', 'Предпросмотр меню: %s');
 define('LANG_TEMPLATE_MENU_PREVIEW_EDIT_BTN', 'Редактировать');
 define('LANG_TEMPLATE_MENU_PREVIEW_BACK_BTN', 'Назад');

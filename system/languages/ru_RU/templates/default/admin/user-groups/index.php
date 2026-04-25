@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_USERS_GROUPS_INDEX_TITLE', 'Группы пользователей');
 define('LANG_TEMPLATE_USERS_GROUPS_INDEX_ADD_BTN', 'Добавить группу');
 define('LANG_TEMPLATE_USERS_GROUPS_INDEX_EMPTY_TITLE', 'Группы не найдены');

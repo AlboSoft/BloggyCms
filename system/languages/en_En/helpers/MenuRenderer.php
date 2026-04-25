@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_HELPER_MENURENDERER_NOT_FOUND', 'Menu not found or inactive');
 define('LANG_HELPER_MENURENDERER_NO_MENU_FOR_TEMPLATE', 'No menu found for template: %s');
 define('LANG_HELPER_MENURENDERER_NO_MENUS_FOR_TEMPLATE', 'No menus found for template: %s');

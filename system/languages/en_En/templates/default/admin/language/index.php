@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_LANGUAGE_TITLE', 'Language Settings');
 define('LANG_TEMPLATE_LANGUAGE_ADMIN_LABEL', 'Admin Panel Language');
 define('LANG_TEMPLATE_LANGUAGE_ADMIN_HINT', 'Administrative panel interface language');

@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_TEMPLATES_MANAGER_TITLE', 'Template Manager');
 define('LANG_TEMPLATE_TEMPLATES_MANAGER_SUBTITLE', 'Edit template files in real time');
 define('LANG_TEMPLATE_TEMPLATES_MANAGER_CLEANUP_BACKUPS_BTN', 'Clean Backups');

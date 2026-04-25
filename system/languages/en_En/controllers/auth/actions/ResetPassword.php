@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_AUTH_RESETPASSWORD_PAGE_TITLE', 'Reset Password');
 define('LANG_ACTION_AUTH_RESETPASSWORD_DISABLED', 'Password recovery is temporarily disabled by the administrator');
 define('LANG_ACTION_AUTH_RESETPASSWORD_TOKEN_MISSING', 'Reset token not provided');

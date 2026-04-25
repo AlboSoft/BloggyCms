@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_ACHIEVEMENTS_SYSTEM_TITLE', 'System Achievements');
 define('LANG_TEMPLATE_ACHIEVEMENTS_STATS_TOTAL', 'Total achievements');
 define('LANG_TEMPLATE_ACHIEVEMENTS_USER_1', 'User');

@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_TAGS_ALL_TITLE', 'Tag Collection');
 define('LANG_TEMPLATE_TAGS_ALL_DESCRIPTION', 'Explore all tags used on the site to find topics that interest you');
 define('LANG_TEMPLATE_TAGS_STATS_TITLE', 'Tag Statistics');

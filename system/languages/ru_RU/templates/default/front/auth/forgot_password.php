@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_AUTH_FORGOT_TITLE', 'Восстановление пароля');
 define('LANG_TEMPLATE_AUTH_FORGOT_SUBTITLE', 'Забыли пароль? Мы поможем вам восстановить доступ');
 define('LANG_TEMPLATE_AUTH_FORGOT_SUCCESS_TITLE', 'Письмо отправлено!');

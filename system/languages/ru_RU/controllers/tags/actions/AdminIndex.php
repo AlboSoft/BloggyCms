@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_TAGS_ADMININDEX_BREADCRUMB_DASHBOARD', 'Панель управления');
 define('LANG_ACTION_TAGS_ADMININDEX_BREADCRUMB_TAGS', 'Теги');
 define('LANG_ACTION_TAGS_ADMININDEX_HINT_1', 'К каждому тегу вы можете добавить свое изображение');

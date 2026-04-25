@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_USERS_ADMININDEX_BREADCRUMB_DASHBOARD', 'Панель управления');
 define('LANG_ACTION_USERS_ADMININDEX_BREADCRUMB_USERS', 'Пользователи');
 define('LANG_ACTION_USERS_ADMININDEX_HINT_1', 'Создайте группы пользователей для гибкого разграничения прав');

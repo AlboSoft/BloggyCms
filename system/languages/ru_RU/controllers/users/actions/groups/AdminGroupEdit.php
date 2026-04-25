@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_USERS_ADMINGROUPEDIT_NO_ID', 'ID группы не указан');
 define('LANG_ACTION_USERS_ADMINGROUPEDIT_NOT_FOUND', 'Группа не найдена');
 define('LANG_ACTION_USERS_ADMINGROUPEDIT_BREADCRUMB_DASHBOARD', 'Панель управления');

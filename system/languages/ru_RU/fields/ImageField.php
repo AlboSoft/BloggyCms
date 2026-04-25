@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_FIELD_IMAGE_TITLE', 'Изображение');
 define('LANG_FIELD_IMAGE_PREVIEW_ALT', 'Превью');
 define('LANG_FIELD_IMAGE_DELETE_CHECKBOX', 'Удалить изображение');

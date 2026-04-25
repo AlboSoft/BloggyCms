@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_CONTROLLER_ADMINSETTINGS_FIELDSET_STATS', 'Блоки статистики');
 define('LANG_CONTROLLER_ADMINSETTINGS_FIELDSET_POSTS_STATS', 'Статистика постов');
 define('LANG_CONTROLLER_ADMINSETTINGS_FIELDSET_DETAILED_STATS', 'Детальная статистика');

@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_HTMLBLOCK_DEFAULTSERVICES_NAME', 'Services Character');
 define('LANG_HTMLBLOCK_DEFAULTSERVICES_DESCRIPTION', 'Services block in charismatic style with images and descriptions');
 define('LANG_HTMLBLOCK_DEFAULTSERVICES_FIELDSET_HEADER', 'Header Section');

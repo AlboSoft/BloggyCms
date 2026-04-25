@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_USERS_MANAGE_GROUPS_TITLE', 'User Groups: %s');
 define('LANG_TEMPLATE_USERS_MANAGE_GROUPS_BACK_BTN', 'Back to User');
 define('LANG_TEMPLATE_USERS_MANAGE_GROUPS_SELECT_LABEL', 'Select groups for the user');

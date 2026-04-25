@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_HTMLBLOCK_TAGS_NAME', 'Tags Cloud');
 define('LANG_HTMLBLOCK_TAGS_DESCRIPTION', 'Block with tags as cloud, cards or list');
 define('LANG_HTMLBLOCK_TAGS_FIELDSET_HEADER', 'Header Section');

@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_SEO_ADMININDEX_TITLE', 'SEO Инструменты');
 define('LANG_TEMPLATE_SEO_ADMININDEX_DESCRIPTION', 'Управление файлами robots.txt, sitemap.xml и RSS-лентами');
 define('LANG_TEMPLATE_SEO_ADMININDEX_SCHEMA_TAB', 'Schema.org');

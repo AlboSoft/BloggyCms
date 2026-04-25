@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_POSTBLOCK_QUOTE_NAME', 'Цитата');
 define('LANG_POSTBLOCK_QUOTE_DESCRIPTION', 'Блок для оформления цитат с авторством');
 define('LANG_POSTBLOCK_QUOTE_DEFAULT_TEXT', 'Текст цитаты...');

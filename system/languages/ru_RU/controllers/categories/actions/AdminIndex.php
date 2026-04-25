@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_CATEGORIES_ADMININDEX_BREADCRUMB', 'Категории');
 define('LANG_ACTION_CATEGORIES_ADMININDEX_PAGE_TITLE', 'Управление категориями');
 define('LANG_ACTION_CATEGORIES_ADMININDEX_ERROR', 'Ошибка при загрузке категорий: ');

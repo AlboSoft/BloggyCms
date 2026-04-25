@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_FRAGMENTS_ADMINEDIT_ID_NOT_SPECIFIED', 'Fragment ID not specified');
 define('LANG_ACTION_FRAGMENTS_ADMINEDIT_NOT_FOUND', 'Fragment not found');
 define('LANG_ACTION_FRAGMENTS_ADMINEDIT_BREADCRUMB_DASHBOARD', 'Dashboard');

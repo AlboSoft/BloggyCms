@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_ADDONS_INDEX_TITLE', 'Управление пакетами');
 define('LANG_TEMPLATE_ADDONS_INDEX_CHECK_UPDATES_BTN', 'Проверить обновления');
 define('LANG_TEMPLATE_ADDONS_INDEX_INSTALL_BTN', 'Установить пакет');

@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_TAGS_ADMININDEX_TITLE', 'Управление тегами');
 define('LANG_TEMPLATE_TAGS_ADMININDEX_SETTINGS_BTN', 'Настройки');
 define('LANG_TEMPLATE_TAGS_ADMININDEX_ADD_BTN', 'Добавить тег');

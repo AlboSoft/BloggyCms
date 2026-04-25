@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_POSTBLOCK_IMAGE_NAME', 'Image');
 define('LANG_POSTBLOCK_IMAGE_DESCRIPTION', 'Block for inserting images with file upload');
 define('LANG_POSTBLOCK_IMAGE_PREVIEW_TITLE', 'Image');

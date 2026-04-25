@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_PROFILE_UPDATE_INVALID_METHOD', 'Неправильный метод запроса');
 define('LANG_ACTION_PROFILE_UPDATE_INVALID_CSRF', 'Неверный CSRF-токен');
 define('LANG_ACTION_PROFILE_UPDATE_USER_NOT_FOUND', 'Пользователь не найден');

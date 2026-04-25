@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_HTMLBLOCKS_TYPES_INDEX_TITLE', 'Типы контент-блоков');
 define('LANG_TEMPLATE_HTMLBLOCKS_TYPES_INDEX_BACK_TO_BLOCKS', 'К блокам');
 define('LANG_TEMPLATE_HTMLBLOCKS_TYPES_INDEX_CREATE_BLOCK', 'Создать блок');

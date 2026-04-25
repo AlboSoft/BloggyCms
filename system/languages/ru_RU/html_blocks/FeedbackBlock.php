@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_HTMLBLOCK_FEEDBACK_NAME', 'Обратная связь');
 define('LANG_HTMLBLOCK_FEEDBACK_DESCRIPTION', 'Блок обратной связи с формой и контактной информацией. Поддерживает выбор формы и шаблона отображения.');
 define('LANG_HTMLBLOCK_FEEDBACK_SELECT_FORM', '-- Выберите форму --');

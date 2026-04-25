@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_CATEGORY_PASSWORD_PROTECTED_TITLE', 'Защищено паролем');
 define('LANG_TEMPLATE_CATEGORY_PUBLICATION_1', 'публикация');
 define('LANG_TEMPLATE_CATEGORY_PUBLICATION_2', 'публикации');

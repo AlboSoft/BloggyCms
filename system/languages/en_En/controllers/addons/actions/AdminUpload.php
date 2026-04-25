@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_CONTROLLER_ADDONS_ACTION_UPLOAD_INVALID_METHOD', 'Invalid request method');
 define('LANG_CONTROLLER_ADDONS_ACTION_UPLOAD_FILE_NOT_UPLOADED', 'File not uploaded or upload error occurred');
 define('LANG_CONTROLLER_ADDONS_ACTION_UPLOAD_INVALID_FORMAT', 'File must be in ZIP format');

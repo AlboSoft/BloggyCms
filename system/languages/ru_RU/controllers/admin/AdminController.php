@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_CONTROLLER_ADMIN_ACCESS_DENIED', 'Доступ запрещен');
 define('LANG_CONTROLLER_ADMIN_SEARCH_LOAD_ERROR', 'Не удалось загрузить данные о поисковых запросах');
 define('LANG_CONTROLLER_ADMIN_DASHBOARD_LOAD_ERROR', 'Ошибка при загрузке данных панели управления');

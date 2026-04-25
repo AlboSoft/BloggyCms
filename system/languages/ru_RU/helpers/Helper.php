@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_HELPER_FUNCTIONS_BLOCK_EMPTY', 'Блок "%s" не имеет содержимого.');
 define('LANG_HELPER_FUNCTIONS_BLOCK_UNDEFINED', 'Блок "%s" имеет неопределенный тип.');
 define('LANG_HELPER_FUNCTIONS_BLOCK_NOT_FOUND', 'HTML блок с slug "%s" не найден');

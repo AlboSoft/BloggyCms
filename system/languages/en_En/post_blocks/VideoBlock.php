@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_POSTBLOCK_VIDEO_NAME', 'Video');
 define('LANG_POSTBLOCK_VIDEO_DESCRIPTION', 'Inserts video with support for MP4 upload, as well as embedding from Rutube, VK Video and Youtube.');
 define('LANG_POSTBLOCK_VIDEO_TYPE_UPLOAD', 'Uploaded');

@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_AUTH_BLOCKED_TITLE', 'ДОСТУП ЗАБЛОКИРОВАН');
 define('LANG_TEMPLATE_AUTH_BLOCKED_MAX_ATTEMPTS', 'Превышено максимальное количество попыток входа');
 define('LANG_TEMPLATE_AUTH_BLOCKED_UNAVAILABLE', 'Страница авторизации временно недоступна');

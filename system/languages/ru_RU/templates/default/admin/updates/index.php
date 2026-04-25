@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_UPDATES_CHECK_TITLE', 'Проверка обновлений');
 define('LANG_TEMPLATE_UPDATES_CHECK_BACK_BTN', 'Назад');
 define('LANG_TEMPLATE_UPDATES_CHECK_UPDATE_AVAILABLE_TITLE', 'Доступна новая версия!');

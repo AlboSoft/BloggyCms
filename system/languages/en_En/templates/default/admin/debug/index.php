@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_DEBUG_INDEX_TITLE', 'System Debug');
 define('LANG_TEMPLATE_DEBUG_INDEX_DEBUG_MODE', 'Debug Mode');
 define('LANG_TEMPLATE_DEBUG_INDEX_STAT_ERRORS', 'Errors');

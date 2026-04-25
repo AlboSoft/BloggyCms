@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_POSTS_CREATE_TITLE', 'Create Post');
 define('LANG_TEMPLATE_POSTS_CREATE_BACK_BTN', 'Back to Posts');
 define('LANG_TEMPLATE_POSTS_CREATE_TITLE_LABEL', 'Post Title');

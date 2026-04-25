@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_ACTION_FRAGMENTS_ADMINENTRYDELETE_ID_NOT_SPECIFIED', 'ID записи не указан');
 define('LANG_ACTION_FRAGMENTS_ADMINENTRYDELETE_NOT_FOUND', 'Запись не найдена');
 define('LANG_ACTION_FRAGMENTS_ADMINENTRYDELETE_SUCCESS', 'Запись успешно удалена');

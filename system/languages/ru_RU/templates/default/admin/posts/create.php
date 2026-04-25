@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_POSTS_CREATE_TITLE', 'Создание поста');
 define('LANG_TEMPLATE_POSTS_CREATE_BACK_BTN', 'Назад к постам');
 define('LANG_TEMPLATE_POSTS_CREATE_TITLE_LABEL', 'Заголовок поста');

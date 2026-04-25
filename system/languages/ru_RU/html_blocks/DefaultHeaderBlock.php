@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_HTMLBLOCK_DEFAULTHEADER_NAME', 'Верхнее меню');
 define('LANG_HTMLBLOCK_DEFAULTHEADER_DESCRIPTION', 'Адаптивная шапка сайта с поддержкой светлой и тёмной темы');
 define('LANG_HTMLBLOCK_DEFAULTHEADER_FIELDSET_THEME', 'Тема оформления');

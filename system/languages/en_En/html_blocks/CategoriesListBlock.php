@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_HTMLBLOCK_CATEGORIESLIST_NAME', 'Categories List');
 define('LANG_HTMLBLOCK_CATEGORIESLIST_DESCRIPTION', 'Block with list of categories in card style');
 define('LANG_HTMLBLOCK_CATEGORIESLIST_FIELDSET_HEADER', 'Header Section');

@@ -1,5 +1,4 @@
 <?php
-
 define('LANG_TEMPLATE_FRAGMENTS_INDEX_TITLE', 'Fragments');
 define('LANG_TEMPLATE_FRAGMENTS_INDEX_CREATE_BTN', 'Create Fragment');
 define('LANG_TEMPLATE_FRAGMENTS_INDEX_NO_FRAGMENTS_TITLE', 'No fragments created');
