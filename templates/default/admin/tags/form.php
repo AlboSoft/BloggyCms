@@ -20,9 +20,9 @@
                         </div>
 
                         <div class="mb-4">
-                            <label class="form-label">Описание тега</label>
-                            <textarea name="description" class="form-control" rows="5" placeholder="Введите описание тега. Оно будет отображаться на странице тега"><?php echo isset($tag) ? html($tag['description'] ?? '') : ''; ?></textarea>
-                            <div class="form-text">Описание помогает посетителям понять, о чем этот тег</div>
+                            <label class="form-label"><?php echo LANG_TEMPLATE_TAGS_FORM_DESCRIPTION_LABEL; ?></label>
+                            <textarea name="description" class="form-control" rows="5" placeholder="<?php echo LANG_TEMPLATE_TAGS_FORM_DESCRIPTION_PLACEHOLDER; ?>"><?php echo isset($tag) ? html($tag['description'] ?? '') : ''; ?></textarea>
+                            <div class="form-text"><?php echo LANG_TEMPLATE_TAGS_FORM_DESCRIPTION_HINT; ?></div>
                         </div>
                     </div>
                     

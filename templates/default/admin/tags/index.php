@@ -60,7 +60,7 @@
                                                   data-bs-toggle="tooltip"
                                                   data-bs-placement="top">
                                                 <?php echo bloggy_icon('bs', 'file-text', '13', '#fff', 'me-1'); ?>
-                                                Описание
+                                                <?php echo LANG_TEMPLATE_TAGS_ADMININDEX_HAS_DESC; ?>
                                             </span>
                                         <?php } ?>
                                     </td>
