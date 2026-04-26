@@ -272,7 +272,6 @@ function loadLanguageFiles($dir, &$loadedFiles, &$loadedConstants = []) {
             if (!in_array($relativePath, $loadedFiles)) {
                 $loadedFiles[] = $relativePath;
                 require_once $realPath;
-                error_log("LOADED [manifest]: " . $relativePath);
             }
         }
     }
@@ -284,7 +283,6 @@ function loadLanguageFiles($dir, &$loadedFiles, &$loadedConstants = []) {
             if (!in_array($relativePath, $loadedFiles)) {
                 $loadedFiles[] = $relativePath;
                 require_once $realPath;
-                error_log("LOADED: " . $relativePath);
             }
         }
     }
