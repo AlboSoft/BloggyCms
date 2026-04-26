@@ -73,6 +73,12 @@ class Edit extends TagAction {
         $data['name'] = $name;
         $data['slug'] = $slug;
         
+        if (!empty($_POST['description'])) {
+            $data['description'] = trim($_POST['description']);
+        } else {
+            $data['description'] = null;
+        }
+        
         $this->tagModel->update($id, $data);
         
         \Notification::success(LANG_ACTION_TAGS_EDIT_SUCCESS);

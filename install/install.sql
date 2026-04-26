@@ -659,6 +659,7 @@ CREATE TABLE IF NOT EXISTS `{#}tags` (
   `name` varchar(50) NOT NULL,
   `slug` varchar(50) NOT NULL,
   `image` varchar(255) DEFAULT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

@@ -164,17 +164,18 @@ class TagModel implements ModelAPI {
     
     /**
     * Создать новый тег 
-    * @param array $data Данные тега (name, image)
+    * @param array $data Данные тега (name, image, description)
     * @return int ID созданного тега
     */
     public function create($data) {
         $slug = $this->createUniqueSlug($data['name']);
 
-        $sql = "INSERT INTO tags (name, slug, image) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO tags (name, slug, image, description) VALUES (?, ?, ?, ?)";
         $this->db->query($sql, [
             $data['name'],
             $slug,
-            $data['image'] ?? null
+            $data['image'] ?? null,
+            $data['description'] ?? null
         ]);
 
         $tagId = $this->db->lastInsertId();
@@ -205,12 +206,13 @@ class TagModel implements ModelAPI {
         
         $slug = $this->createUniqueSlug($data['name'], $id);
 
-        $sql = "UPDATE tags SET name = ?, slug = ?, image = ? WHERE id = ?";
+        $sql = "UPDATE tags SET name = ?, slug = ?, image = ?, description = ? WHERE id = ?";
         
         $result = $this->db->query($sql, [
             $data['name'],
             $slug,
             $data['image'] ?? null,
+            $data['description'] ?? null,
             $id
         ]);
 

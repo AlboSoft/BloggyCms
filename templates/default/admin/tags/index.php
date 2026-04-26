@@ -53,6 +53,16 @@
                                     </td>
                                     <td>
                                         <strong><?php echo SettingsHelper::get('controller_tags', 'tag_prefix', '#'); ?><?php echo html($tag['name']); ?></strong>
+                                        <?php if (!empty($tag['description'])) { ?>
+                                            <span class="badge bg-primary text-white ms-2" 
+                                                  style="font-size: 12px; cursor: help; font-weight: 500;"
+                                                  title="<?php echo html($tag['description']); ?>" 
+                                                  data-bs-toggle="tooltip"
+                                                  data-bs-placement="top">
+                                                <?php echo bloggy_icon('bs', 'file-text', '13', '#fff', 'me-1'); ?>
+                                                Описание
+                                            </span>
+                                        <?php } ?>
                                     </td>
                                     <td>
                                         <code class="text-muted"><?php echo html($tag['slug']); ?></code>

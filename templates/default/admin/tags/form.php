@@ -18,6 +18,12 @@
                             <label class="form-label"><?php echo LANG_TEMPLATE_TAGS_FORM_NAME_LABEL; ?></label>
                             <input type="text" name="name" class="form-control form-control-lg" value="<?php echo isset($tag) ? html($tag['name']) : ''; ?>" placeholder="<?php echo LANG_TEMPLATE_TAGS_FORM_NAME_PLACEHOLDER; ?>" required>
                         </div>
+
+                        <div class="mb-4">
+                            <label class="form-label">Описание тега</label>
+                            <textarea name="description" class="form-control" rows="5" placeholder="Введите описание тега. Оно будет отображаться на странице тега"><?php echo isset($tag) ? html($tag['description'] ?? '') : ''; ?></textarea>
+                            <div class="form-text">Описание помогает посетителям понять, о чем этот тег</div>
+                        </div>
                     </div>
                     
                     <div class="col-lg-4">

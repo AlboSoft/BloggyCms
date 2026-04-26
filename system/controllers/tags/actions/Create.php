@@ -56,6 +56,10 @@ class Create extends TagAction {
             'slug' => $slug
         ];
         
+        if (!empty($_POST['description'])) {
+            $data['description'] = trim($_POST['description']);
+        }
+        
         if (!empty($_FILES['image']['tmp_name'])) {
             $imageName = $this->handleImageUpload();
             $data['image'] = $imageName;
