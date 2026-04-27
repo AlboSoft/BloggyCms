@@ -30,8 +30,15 @@ abstract class Field {
             'show' => null,
             'show_class' => 'field-conditional',
             'column' => null,
-            'full_width' => false
+            'full_width' => false,
+            'storage' => 'field',
+            'db_field' => null,
+            'json_key' => null
         ], $options);
+        
+        if ($this->options['db_field'] === null) {
+            $this->options['db_field'] = $name;
+        }
     }
     
     /**
@@ -40,6 +47,38 @@ abstract class Field {
     */
     public function getName() {
         return $this->name;
+    }
+    
+    /**
+    * Получает имя поля в БД (для storage=field)
+    * @return string
+    */
+    public function getDbField() {
+        return $this->options['db_field'];
+    }
+    
+    /**
+    * Получает тип хранения
+    * @return string
+    */
+    public function getStorage() {
+        return $this->options['storage'];
+    }
+    
+    /**
+    * Получает ключ в JSON (для storage=json)
+    * @return string|null
+    */
+    public function getJsonKey() {
+        return $this->options['json_key'];
+    }
+    
+    /**
+    * Проверяет, обязательно ли поле
+    * @return bool
+    */
+    public function isRequired() {
+        return $this->options['required'];
     }
     
     /**
@@ -380,5 +419,4 @@ abstract class Field {
     public function isConditional() {
         return !empty($this->options['show']);
     }
-
 }

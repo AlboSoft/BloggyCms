@@ -18,7 +18,7 @@ class FieldTextarea extends Field {
         
         $rows = isset($this->options['rows']) ? " rows=\"{$this->options['rows']}\"" : ' rows="3"';
         
-        $fieldHtml = "<textarea{$attributes}{$rows}>" . html($value) . "</textarea>";
+        $fieldHtml = "<textarea{$attributes}{$rows}>" . htmlspecialchars($value) . "</textarea>";
         
         return $this->renderFieldGroup($fieldHtml);
     }

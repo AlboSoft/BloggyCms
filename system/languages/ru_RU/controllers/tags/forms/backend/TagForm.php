@@ -1,0 +1,26 @@
+<?php
+define('LANG_TAGFORM_TITLE', 'Тег');
+define('LANG_TAGFORM_MAIN_SECTION', 'Основная информация');
+define('LANG_TAGFORM_FIELD_NAME', 'Название тега');
+define('LANG_TAGFORM_FIELD_NAME_PLACEHOLDER', 'Введите название тега');
+define('LANG_TAGFORM_FIELD_NAME_REQUIRED', 'Название тега обязательно для заполнения');
+define('LANG_TAGFORM_FIELD_NAME_MAXLENGTH', 'Название тега не должно превышать 50 символов');
+define('LANG_TAGFORM_FIELD_DESCRIPTION', 'Описание тега');
+define('LANG_TAGFORM_FIELD_DESCRIPTION_PLACEHOLDER', 'Введите описание тега (не обязательно)');
+define('LANG_TAGFORM_FIELD_IMAGE', 'Изображение тега');
+define('LANG_TAGFORM_FIELD_IMAGE_HINT', 'Рекомендуемый размер: 400x400px. Поддерживаются форматы: JPG, PNG, GIF, WEBP');
+define('LANG_TAGFORM_IMAGE_UPLOAD_ERROR_TYPE', 'Недопустимый тип файла. Разрешены: JPG, PNG, GIF, WEBP');
+define('LANG_TAGFORM_IMAGE_UPLOAD_ERROR_SIZE', 'Размер файла не должен превышать 2 МБ');
+define('LANG_TAGFORM_IMAGE_UPLOAD_ERROR_SAVE', 'Ошибка при сохранении файла');
+define('LANG_TAGFORM_ERROR_NAME_EXISTS', 'Тег с таким названием уже существует');
+define('LANG_TAGFORM_ERROR_CSRF', 'Ошибка проверки безопасности');
+define('LANG_TAGFORM_SUCCESS_CREATE', 'Тег успешно создан');
+define('LANG_TAGFORM_SUCCESS_UPDATE', 'Тег успешно обновлен');
+define('LANG_TAGFORM_SUBMIT_CREATE', 'Создать');
+define('LANG_TAGFORM_SUBMIT_UPDATE', 'Обновить');
+define('LANG_TAGFORM_CANCEL', 'Отмена');
+define('LANG_TAGFORM_BACK_TO_LIST', 'Назад к списку');
+define('LANG_TAGFORM_PAGE_TITLE_CREATE', 'Создание тега');
+define('LANG_TAGFORM_PAGE_TITLE_EDIT', 'Редактирование тега');
+define('LANG_TAGFORM_ERROR_ID_NOT_SPECIFIED', 'ID тега не указан');
+define('LANG_TAGFORM_ERROR_TAG_NOT_FOUND', 'Тег не найден');

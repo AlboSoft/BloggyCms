@@ -29,6 +29,11 @@ class FieldFactory {
     * @return FieldString
     */
     public static function string($name, $options = []) {
+        $defaults = [
+            'storage' => 'field',
+            'db_field' => $name
+        ];
+        $options = array_merge($defaults, $options);
         return self::create('string', $name, $options);
     }
     
@@ -39,6 +44,11 @@ class FieldFactory {
     * @return FieldNumber
     */
     public static function number($name, $options = []) {
+        $defaults = [
+            'storage' => 'field',
+            'db_field' => $name
+        ];
+        $options = array_merge($defaults, $options);
         return self::create('number', $name, $options);
     }
     
@@ -49,6 +59,11 @@ class FieldFactory {
     * @return FieldTextarea
     */
     public static function textarea($name, $options = []) {
+        $defaults = [
+            'storage' => 'field',
+            'db_field' => $name
+        ];
+        $options = array_merge($defaults, $options);
         return self::create('textarea', $name, $options);
     }
     
@@ -59,6 +74,11 @@ class FieldFactory {
     * @return FieldSelect
     */
     public static function select($name, $options = []) {
+        $defaults = [
+            'storage' => 'field',
+            'db_field' => $name
+        ];
+        $options = array_merge($defaults, $options);
         return self::create('select', $name, $options);
     }
     
@@ -69,6 +89,11 @@ class FieldFactory {
     * @return FieldCheckbox
     */
     public static function checkbox($name, $options = []) {
+        $defaults = [
+            'storage' => 'field',
+            'db_field' => $name
+        ];
+        $options = array_merge($defaults, $options);
         return self::create('checkbox', $name, $options);
     }
 
@@ -79,6 +104,12 @@ class FieldFactory {
     * @return FieldImage
     */
     public static function image($name, $options = []) {
+        $defaults = [
+            'storage' => 'field',
+            'db_field' => $name,
+            'upload_path' => 'uploads/images/'
+        ];
+        $options = array_merge($defaults, $options);
         return self::create('image', $name, $options);
     }
     
@@ -90,6 +121,11 @@ class FieldFactory {
     * @return FieldColor
     */
     public static function color($name, $options = []) {
+        $defaults = [
+            'storage' => 'json',
+            'json_key' => $name
+        ];
+        $options = array_merge($defaults, $options);
         return self::create('color', $name, $options);
     }
     
@@ -100,6 +136,11 @@ class FieldFactory {
     * @return FieldDate
     */
     public static function date($name, $options = []) {
+        $defaults = [
+            'storage' => 'field',
+            'db_field' => $name
+        ];
+        $options = array_merge($defaults, $options);
         return self::create('date', $name, $options);
     }
     
@@ -110,6 +151,11 @@ class FieldFactory {
     * @return FieldRepeater
     */
     public static function repeater($name, $options = []) {
+        $defaults = [
+            'storage' => 'json',
+            'json_key' => $name
+        ];
+        $options = array_merge($defaults, $options);
         return self::create('repeater', $name, $options);
     }
 
@@ -120,6 +166,10 @@ class FieldFactory {
     * @return FieldAlert
     */
     public static function alert($name, $options = []) {
+        $defaults = [
+            'storage' => null
+        ];
+        $options = array_merge($defaults, $options);
         return self::create('alert', $name, $options);
     }
     
@@ -130,6 +180,12 @@ class FieldFactory {
     * @return FieldBlockImage
     */
     public static function blockImage($name, $options = []) {
+        $defaults = [
+            'storage' => 'field',
+            'db_field' => $name,
+            'upload_path' => 'uploads/images/'
+        ];
+        $options = array_merge($defaults, $options);
         return self::create('blockimage', $name, $options);
     }
 
@@ -140,6 +196,11 @@ class FieldFactory {
     * @return FieldIcon
     */
     public static function icon($name, $options = []) {
+        $defaults = [
+            'storage' => 'json',
+            'json_key' => $name
+        ];
+        $options = array_merge($defaults, $options);
         return self::create('icon', $name, $options);
     }
 

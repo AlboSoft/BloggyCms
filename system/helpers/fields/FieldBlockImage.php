@@ -44,14 +44,14 @@ class FieldBlockImage extends Field {
         <div class="image-field">
             <?php if ($previewUrl) { ?>
                 <div class="mb-3">
-                    <label class="form-label"><?php echo html($currentLabel) ?></label>
+                    <label class="form-label"><?php echo htmlspecialchars($currentLabel) ?></label>
                     <div class="border rounded p-3 text-center">
-                        <img src="<?php echo html($previewUrl) ?>" alt="Preview" class="<?php echo html($previewClass) ?>" style="max-width: <?php echo html($previewSize) ?>; max-height: <?php echo html($previewSize) ?>;">
+                        <img src="<?php echo htmlspecialchars($previewUrl) ?>" alt="Preview" class="<?php echo htmlspecialchars($previewClass) ?>" style="max-width: <?php echo htmlspecialchars($previewSize) ?>; max-height: <?php echo htmlspecialchars($previewSize) ?>;">
                         <div class="mt-2">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="<?php echo html($removeFieldName) ?>" name="<?php echo html($removeFieldName) ?>" value="1">
-                                <label class="form-check-label text-danger" for="<?php echo html($removeFieldName) ?>">
-                                    <?php echo html($deleteLabel) ?>
+                                <input class="form-check-input" type="checkbox" id="<?php echo htmlspecialchars($removeFieldName) ?>" name="<?php echo htmlspecialchars($removeFieldName) ?>" value="1">
+                                <label class="form-check-label text-danger" for="<?php echo htmlspecialchars($removeFieldName) ?>">
+                                    <?php echo htmlspecialchars($deleteLabel) ?>
                                 </label>
                             </div>
                         </div>
@@ -60,12 +60,12 @@ class FieldBlockImage extends Field {
             <?php } ?>
             <div class="mb-3">
                 <label class="form-label">
-                    <?php echo html($previewUrl ? $replaceLabel : $uploadLabel) ?>
+                    <?php echo htmlspecialchars($previewUrl ? $replaceLabel : $uploadLabel) ?>
                 </label>
-                <input type="file" class="form-control" name="<?php echo html($fileFieldName) ?>" accept="image/*" <?= $this->options['multiple'] ?? false ? 'multiple' : '' ?>>
-                <input type="hidden" name="<?php echo html($hiddenFieldName) ?>" value="<?php echo html($value) ?>">
+                <input type="file" class="form-control" name="<?php echo htmlspecialchars($fileFieldName) ?>" accept="image/*" <?= $this->options['multiple'] ?? false ? 'multiple' : '' ?>>
+                <input type="hidden" name="<?php echo htmlspecialchars($hiddenFieldName) ?>" value="<?php echo htmlspecialchars($value) ?>">
                 <div class="form-text text-muted">
-                    <?php echo html($this->options['hint'] ?? '') ?>
+                    <?php echo htmlspecialchars($this->options['hint'] ?? '') ?>
                 </div>
             </div>
         </div>

@@ -273,10 +273,10 @@ class FieldRepeater extends Field {
             ?>
             <div class="image-preview mb-2">
                 <div class="border rounded p-2 text-center">
-                    <img src="<?= html($previewUrl) ?>" 
+                    <img src="<?= htmlspecialchars($previewUrl) ?>" 
                          alt="Preview" 
-                         class="<?= html($previewClass) ?>" 
-                         style="max-width: <?= html($previewSize) ?>; max-height: <?= html($previewSize) ?>;">
+                         class="<?= htmlspecialchars($previewClass) ?>" 
+                         style="max-width: <?= htmlspecialchars($previewSize) ?>; max-height: <?= htmlspecialchars($previewSize) ?>;">
                     <div class="mt-1">
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" 
@@ -297,7 +297,7 @@ class FieldRepeater extends Field {
         <div>
             <input type="hidden" 
                    name="<?= $hiddenFieldName ?>" 
-                   value="<?= $isTemplate ? '' : html($value) ?>">
+                   value="<?= $isTemplate ? '' : htmlspecialchars($value) ?>">
             <input type="file" 
                    class="form-control form-control-sm" 
                    name="<?= $fileFieldName ?>" 

@@ -1,0 +1,3 @@
+<?php
+define('LANG_HELPER_SIMPLE_FORM_SUBMIT', 'Save');
+define('LANG_HELPER_SIMPLE_FORM_CANCEL', 'Cancel');

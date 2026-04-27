@@ -16,7 +16,7 @@ class FieldString extends Field {
         
         $attributes = $this->getAttributes();
         
-        $fieldHtml = "<input type=\"text\" value=\"" . html($value) . "\"{$attributes}>";
+        $fieldHtml = "<input type=\"text\" value=\"" . htmlspecialchars($value) . "\"{$attributes}>";
         
         return $this->renderFieldGroup($fieldHtml);
     }

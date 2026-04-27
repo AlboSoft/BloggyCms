@@ -38,7 +38,7 @@ class FieldSelect extends Field {
             } else {
                 $selected = $value == $optionValue ? ' selected' : '';
             }
-            $optionsHtml .= "<option value=\"" . html($optionValue) . "\"{$selected}>" . html($optionLabel) . "</option>";
+            $optionsHtml .= "<option value=\"" . htmlspecialchars($optionValue) . "\"{$selected}>" . htmlspecialchars($optionLabel) . "</option>";
         }
         
         $hiddenField = '';

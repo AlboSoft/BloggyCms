@@ -1,0 +1,26 @@
+<?php
+define('LANG_TAGFORM_TITLE', 'Tag');
+define('LANG_TAGFORM_MAIN_SECTION', 'Main Information');
+define('LANG_TAGFORM_FIELD_NAME', 'Tag Name');
+define('LANG_TAGFORM_FIELD_NAME_PLACEHOLDER', 'Enter tag name');
+define('LANG_TAGFORM_FIELD_NAME_REQUIRED', 'Tag name is required');
+define('LANG_TAGFORM_FIELD_NAME_MAXLENGTH', 'Tag name cannot exceed 50 characters');
+define('LANG_TAGFORM_FIELD_DESCRIPTION', 'Tag Description');
+define('LANG_TAGFORM_FIELD_DESCRIPTION_PLACEHOLDER', 'Enter tag description (optional)');
+define('LANG_TAGFORM_FIELD_IMAGE', 'Tag Image');
+define('LANG_TAGFORM_FIELD_IMAGE_HINT', 'Recommended size: 400x400px. Supported formats: JPG, PNG, GIF, WEBP');
+define('LANG_TAGFORM_IMAGE_UPLOAD_ERROR_TYPE', 'Invalid file type. Allowed: JPG, PNG, GIF, WEBP');
+define('LANG_TAGFORM_IMAGE_UPLOAD_ERROR_SIZE', 'File size must not exceed 2 MB');
+define('LANG_TAGFORM_IMAGE_UPLOAD_ERROR_SAVE', 'Error saving file');
+define('LANG_TAGFORM_ERROR_NAME_EXISTS', 'A tag with this name already exists');
+define('LANG_TAGFORM_ERROR_CSRF', 'Security check failed');
+define('LANG_TAGFORM_SUCCESS_CREATE', 'Tag successfully created');
+define('LANG_TAGFORM_SUCCESS_UPDATE', 'Tag successfully updated');
+define('LANG_TAGFORM_SUBMIT_CREATE', 'Create');
+define('LANG_TAGFORM_SUBMIT_UPDATE', 'Update');
+define('LANG_TAGFORM_CANCEL', 'Cancel');
+define('LANG_TAGFORM_BACK_TO_LIST', 'Back to list');
+define('LANG_TAGFORM_PAGE_TITLE_CREATE', 'Create Tag');
+define('LANG_TAGFORM_PAGE_TITLE_EDIT', 'Edit Tag');
+define('LANG_TAGFORM_ERROR_ID_NOT_SPECIFIED', 'Tag ID not specified');
+define('LANG_TAGFORM_ERROR_TAG_NOT_FOUND', 'Tag not found');

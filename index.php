@@ -53,7 +53,8 @@ $coreClasses = [
     'Database', 
     'Controller',
     'Router',
-    'App'
+    'App',
+    'AdminForm'
 ];
 
 foreach ($coreClasses as $className) {
@@ -113,6 +114,16 @@ spl_autoload_register(function ($class) use ($db) {
             
             if (is_dir($moduleDir . '/actions')) {
                 $basePaths[] = $moduleDir . '/actions';
+            }
+            
+            $formsBackendDir = $moduleDir . '/forms/backend';
+            if (is_dir($formsBackendDir)) {
+                $basePaths[] = $formsBackendDir;
+            }
+            
+            $formsFrontendDir = $moduleDir . '/forms/frontend';
+            if (is_dir($formsFrontendDir)) {
+                $basePaths[] = $formsFrontendDir;
             }
         }
     }
