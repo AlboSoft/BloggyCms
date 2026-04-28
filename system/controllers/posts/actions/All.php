@@ -18,11 +18,17 @@ class All extends PostAction {
             $this->addBreadcrumb(LANG_ACTION_POSTS_ALL_BREADCRUMB_HOME, BASE_URL);
             $this->addBreadcrumb(LANG_ACTION_POSTS_ALL_BREADCRUMB_ALL_POSTS);
             $this->setPageTitle(LANG_ACTION_POSTS_ALL_PAGE_TITLE);
-
+            
+            $settingsModel = new \SettingsModel($this->db);
+            $postsSettings = $settingsModel->get('controller_posts');
+            $postsPerPage = (int)($postsSettings['homepage_posts_per_page'] ?? 10);
+            $postsPerPage = max(1, min(50, $postsPerPage));
+            
             $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
             $page = max(1, $page);
             $userGroups = $this->getUserGroups();
-            $result = $this->postModel->getAllPaginated($page, null, $userGroups);
+            $result = $this->postModel->getAllPaginated($page, $postsPerPage, $userGroups);
+            
             $categories = $this->categoryModel->getAll();
             $postIds = array_column($result['posts'], 'id');
             $commentsCount = [];

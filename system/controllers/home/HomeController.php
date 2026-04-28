@@ -28,6 +28,60 @@ class HomeController extends Controller {
     */
     public function indexAction() {
         try {
+            $postsSettings = $this->settingsModel->get('controller_posts');
+            $homepageType = $postsSettings['homepage_type'] ?? 'default';
+            
+            if ($homepageType === 'posts_list') {
+                $postsPerPage = (int)($postsSettings['homepage_posts_per_page'] ?? 10);
+                $postsPerPage = max(1, min(50, $postsPerPage));
+                
+                $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+                $page = max(1, $page);
+                
+                $userGroups = $this->getUserGroups();
+                $result = $this->postModel->getAllPaginated($page, $postsPerPage, $userGroups);
+                
+                $postIds = array_column($result['posts'], 'id');
+                $commentsCount = [];
+                if (!empty($postIds)) {
+                    $commentsCount = $this->postModel->getCommentsCountForPosts($postIds);
+                }
+                
+                foreach ($result['posts'] as &$post) {
+                    $postId = $post['id'];
+                    $post['comments_count'] = $commentsCount[$postId] ?? 0;
+                    
+                    if (isset($_SESSION['user_id'])) {
+                        $post['userLiked'] = $this->postModel->hasUserLiked($post['id'], $_SESSION['user_id']);
+                        $post['userBookmarked'] = $this->postModel->hasBookmark($post['id'], $_SESSION['user_id']);
+                    } else {
+                        $post['userLiked'] = false;
+                        $post['userBookmarked'] = false;
+                    }
+                    
+                    $post['password_protected'] = $post['password_protected'] == 1;
+                    
+                    if (!isset($post['likes_count'])) {
+                        $post['likes_count'] = $post['likes_count'] ?? 0;
+                    }
+                }
+                
+                $this->render('front/posts/index', [
+                    'posts' => $result['posts'],
+                    'total_posts' => $result['total'],
+                    'total_pages' => $result['pages'],
+                    'current_page' => $result['current_page'],
+                    'categories' => $this->categoryModel->getAll(),
+                    'pagination' => [
+                        'current_page' => $result['current_page'],
+                        'total_pages' => $result['pages'],
+                        'has_more' => $page < $result['pages'],
+                        'next_url' => $page < $result['pages'] ? BASE_URL . '/posts?page=' . ($page + 1) : null
+                    ]
+                ]);
+                return;
+            }
+            
             $homeSettings = $this->settingsModel->get('home_page') ?? [];
             
             $showRecentPosts = $homeSettings['show_recent_posts'] ?? true;

@@ -6253,6 +6253,7 @@ a:hover {
 .tg-two-columns {
     display: flex;
     gap: 2rem;
+    margin-top: 50px;
 }
 
 .tg-page-main {

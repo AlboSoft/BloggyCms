@@ -376,48 +376,94 @@ class PostModel implements ModelAPI {
         $perPage = max(1, $perPage);
         $offset = ($page - 1) * $perPage;
         
-        $sql = "
-            SELECT 
-                p.*, 
-                c.name as category_name, 
-                c.slug as category_slug,
-                u.username as author_name,
-                u.display_name as author_display_name,
-                u.avatar as author_avatar,
-                u.bio as author_bio,
-                u.website as author_website,
-                GROUP_CONCAT(
-                    CONCAT(t.name, ':::', t.slug) 
-                    SEPARATOR '|||'
-                ) as tag_data,
-                COALESCE(cm.comments_count, 0) as comments_count
-            FROM posts p 
-            LEFT JOIN categories c ON p.category_id = c.id
-            LEFT JOIN users u ON p.user_id = u.id
-            LEFT JOIN post_tags pt ON p.id = pt.post_id
-            LEFT JOIN tags t ON pt.tag_id = t.id
-            LEFT JOIN (
-                SELECT post_id, COUNT(*) as comments_count
-                FROM comments 
-                WHERE status = 'approved'
-                GROUP BY post_id
-            ) cm ON p.id = cm.post_id
-            WHERE p.status = 'published'
-            GROUP BY p.id, c.name, c.slug, u.username, u.display_name, 
-                    u.avatar, u.bio, u.website, cm.comments_count
-            ORDER BY p.created_at DESC";
+        $isAdmin = isset($_SESSION['is_admin']) && $_SESSION['is_admin'];
         
-        $allPosts = $this->db->fetchAll($sql);
-        
-        $visiblePosts = [];
-        foreach ($allPosts as $post) {
-            if ($this->checkPostVisibility($post['id'], $userGroups)) {
-                $visiblePosts[] = $post;
+        if (!$isAdmin) {
+            if (empty($userGroups)) {
+                $userGroups = ['guest'];
             }
+            
+            $showCondition = "(p.show_to_groups IS NULL OR p.show_to_groups = '' OR p.show_to_groups = '[]' OR p.show_to_groups = '[\"\"]'";
+            $hideCondition = "(p.hide_from_groups IS NULL OR p.hide_from_groups = '' OR p.hide_from_groups = '[]' OR p.hide_from_groups = '[\"\"]'";
+            
+            foreach ($userGroups as $groupId) {
+                $showCondition .= " OR JSON_CONTAINS(p.show_to_groups, ?)";
+                $hideCondition .= " AND NOT JSON_CONTAINS(p.hide_from_groups, ?)";
+            }
+            $showCondition .= ")";
+            $hideCondition .= ")";
+            
+            $visibilityCondition = "AND {$showCondition} AND {$hideCondition}";
+            
+            $params = [];
+            foreach ($userGroups as $groupId) {
+                $params[] = json_encode($groupId);
+                $params[] = json_encode($groupId);
+            }
+            
+            $countSql = "
+                SELECT COUNT(DISTINCT p.id) as total
+                FROM posts p
+                WHERE p.status = 'published'
+                {$visibilityCondition}";
+            
+            $totalResult = $this->db->fetch($countSql, $params);
+            $totalPosts = (int)($totalResult['total'] ?? 0);
+            
+            $sql = "
+                SELECT 
+                    p.*, 
+                    c.name as category_name, 
+                    c.slug as category_slug,
+                    u.username as author_name,
+                    u.display_name as author_display_name,
+                    u.avatar as author_avatar,
+                    GROUP_CONCAT(
+                        CONCAT(t.name, ':::', t.slug) 
+                        SEPARATOR '|||'
+                    ) as tag_data
+                FROM posts p 
+                LEFT JOIN categories c ON p.category_id = c.id
+                LEFT JOIN users u ON p.user_id = u.id
+                LEFT JOIN post_tags pt ON p.id = pt.post_id
+                LEFT JOIN tags t ON pt.tag_id = t.id
+                WHERE p.status = 'published'
+                {$visibilityCondition}
+                GROUP BY p.id
+                ORDER BY p.created_at DESC
+                LIMIT " . (int)$perPage . " OFFSET " . (int)$offset;
+            
+            $posts = $this->db->fetchAll($sql, $params);
+            
+        } else {
+            $countSql = "SELECT COUNT(*) as total FROM posts WHERE status = 'published'";
+            $totalResult = $this->db->fetch($countSql);
+            $totalPosts = (int)($totalResult['total'] ?? 0);
+            
+            $sql = "
+                SELECT 
+                    p.*, 
+                    c.name as category_name, 
+                    c.slug as category_slug,
+                    u.username as author_name,
+                    u.display_name as author_display_name,
+                    u.avatar as author_avatar,
+                    GROUP_CONCAT(
+                        CONCAT(t.name, ':::', t.slug) 
+                        SEPARATOR '|||'
+                    ) as tag_data
+                FROM posts p 
+                LEFT JOIN categories c ON p.category_id = c.id
+                LEFT JOIN users u ON p.user_id = u.id
+                LEFT JOIN post_tags pt ON p.id = pt.post_id
+                LEFT JOIN tags t ON pt.tag_id = t.id
+                WHERE p.status = 'published'
+                GROUP BY p.id
+                ORDER BY p.created_at DESC
+                LIMIT " . (int)$perPage . " OFFSET " . (int)$offset;
+            
+            $posts = $this->db->fetchAll($sql);
         }
-        
-        $totalPosts = count($visiblePosts);
-        $posts = array_slice($visiblePosts, $offset, $perPage);
         
         foreach ($posts as &$post) {
             $tags = [];
@@ -435,8 +481,6 @@ class PostModel implements ModelAPI {
             }
             $post['tags'] = $tags;
             unset($post['tag_data']);
-            
-            $post['comments_count'] = (int)($post['comments_count'] ?? 0);
             
             $post['author_slug'] = $post['author_name'] ?? 'author';
         }

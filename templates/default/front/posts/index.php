@@ -120,12 +120,61 @@
                         <?php } ?>
                     </div>
 
-                    <?php if (!empty($pagination) && $pagination['has_more']) { ?>
-                        <div class="tg-load-more">
-                            <a href="<?php echo $pagination['next_url']; ?>" class="tg-load-more-btn">
-                                <?php echo bloggy_icon('bs', 'arrow-down', '16', 'currentColor'); ?>
-                                <?php echo LANG_TEMPLATE_POSTS_LIST_LOAD_MORE_BTN; ?>
-                            </a>
+                    <?php if (!empty($pagination) && $pagination['total_pages'] > 1) { ?>
+                        <div class="tg-pagination">
+                            <ul class="pagination justify-content-center">
+                                <?php if ($pagination['current_page'] > 1) { ?>
+                                    <li class="page-item">
+                                        <a class="page-link" href="<?php echo BASE_URL; ?>/posts?page=<?php echo $pagination['current_page'] - 1; ?>" aria-label="Previous">
+                                            <span aria-hidden="true">«</span>
+                                        </a>
+                                    </li>
+                                <?php } else { ?>
+                                    <li class="page-item disabled">
+                                        <span class="page-link">«</span>
+                                    </li>
+                                <?php } ?>
+                                
+                                <?php
+                                $start = max(1, $pagination['current_page'] - 2);
+                                $end = min($pagination['total_pages'], $pagination['current_page'] + 2);
+                                
+                                if ($start > 1) { ?>
+                                    <li class="page-item">
+                                        <a class="page-link" href="<?php echo BASE_URL; ?>/posts?page=1">1</a>
+                                    </li>
+                                    <?php if ($start > 2) { ?>
+                                        <li class="page-item disabled"><span class="page-link">...</span></li>
+                                    <?php }
+                                }
+                                
+                                for ($i = $start; $i <= $end; $i++) { ?>
+                                    <li class="page-item <?php echo $i == $pagination['current_page'] ? 'active' : ''; ?>">
+                                        <a class="page-link" href="<?php echo BASE_URL; ?>/posts?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+                                    </li>
+                                <?php }
+                                
+                                if ($end < $pagination['total_pages']) { ?>
+                                    <?php if ($end < $pagination['total_pages'] - 1) { ?>
+                                        <li class="page-item disabled"><span class="page-link">...</span></li>
+                                    <?php } ?>
+                                    <li class="page-item">
+                                        <a class="page-link" href="<?php echo BASE_URL; ?>/posts?page=<?php echo $pagination['total_pages']; ?>"><?php echo $pagination['total_pages']; ?></a>
+                                    </li>
+                                <?php } ?>
+                                
+                                <?php if ($pagination['current_page'] < $pagination['total_pages']) { ?>
+                                    <li class="page-item">
+                                        <a class="page-link" href="<?php echo BASE_URL; ?>/posts?page=<?php echo $pagination['current_page'] + 1; ?>" aria-label="Next">
+                                            <span aria-hidden="true">»</span>
+                                        </a>
+                                    </li>
+                                <?php } else { ?>
+                                    <li class="page-item disabled">
+                                        <span class="page-link">»</span>
+                                    </li>
+                                <?php } ?>
+                            </ul>
                         </div>
                     <?php } ?>
                 </div>
@@ -134,8 +183,7 @@
             <div class="tg-posts-sidebar">
                 <div class="tg-sidebar-card">
                     <div class="tg-sidebar-placeholder">
-                        <?php echo render_html_block('author'); ?>
-                        <?php echo render_html_block('tags-posts'); ?>
+                        расположите тут контент-блоки...
                     </div>
                 </div>
             </div>
