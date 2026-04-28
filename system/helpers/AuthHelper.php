@@ -73,7 +73,7 @@ class AuthHelper {
         }
         
         if (self::can('comment_edit_no_moderations')) {
-            return true;
+            return $currentUserId && $commentUserId && $currentUserId == $commentUserId;
         }
         
         if (self::can('comment_edit')) {

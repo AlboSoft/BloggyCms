@@ -1,5 +1,5 @@
 <?php
-define('LANG_ACTION_TAGS_EDIT_NO_ID', 'Tag ID not specified');
+define('LANG_ACTION_TAGS_EDIT_ID_NOT_SPECIFIED', 'Tag ID not specified');
 define('LANG_ACTION_TAGS_EDIT_TAG_NOT_FOUND', 'Tag not found');
 define('LANG_ACTION_TAGS_EDIT_BREADCRUMB_DASHBOARD', 'Dashboard');
 define('LANG_ACTION_TAGS_EDIT_BREADCRUMB_TAGS', 'Tags');

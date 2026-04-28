@@ -6,6 +6,16 @@ if (session_status() === PHP_SESSION_NONE) {
 
 define('ROOT_PATH', __DIR__);
 
+set_error_handler(function($errno, $errstr, $errfile, $errline) {
+    if (($errno === E_WARNING || $errno === E_NOTICE) && 
+        (strpos($errstr, 'Undefined constant') !== false || 
+         strpos($errstr, 'Use of undefined constant') !== false)) {
+        error_log("[LANG WARNING] $errstr in $errfile on line $errline");
+        return true;
+    }
+    return false;
+}, E_ALL);
+
 if (!file_exists(ROOT_PATH . '/system/config/config.php') || 
     !file_exists(ROOT_PATH . '/system/config/database.php')) {
     header('Location: /install/');
@@ -282,7 +292,11 @@ function loadLanguageFiles($dir, &$loadedFiles, &$loadedConstants = []) {
             $relativePath = str_replace(BASE_PATH . '/', '', $realPath);
             if (!in_array($relativePath, $loadedFiles)) {
                 $loadedFiles[] = $relativePath;
-                require_once $realPath;
+                try {
+                    require_once $realPath;
+                } catch (Throwable $e) {
+                    error_log("[LANG ERROR] Failed to load language file: $realPath - " . $e->getMessage());
+                }
             }
         }
     }
@@ -293,7 +307,11 @@ function loadLanguageFiles($dir, &$loadedFiles, &$loadedConstants = []) {
             $relativePath = str_replace(BASE_PATH . '/', '', $realPath);
             if (!in_array($relativePath, $loadedFiles)) {
                 $loadedFiles[] = $relativePath;
-                require_once $realPath;
+                try {
+                    require_once $realPath;
+                } catch (Throwable $e) {
+                    error_log("[LANG ERROR] Failed to load language file: $realPath - " . $e->getMessage());
+                }
             }
         }
     }
@@ -315,6 +333,8 @@ if (is_dir($languagePath)) {
 }
 
 define('CURRENT_LOCALE', $currentLocale);
+
+require_once SYSTEM_PATH . '/helpers/ConstantHelper.php';
 
 function loadAllHelpers($dir) {
     if (!is_dir($dir)) return;

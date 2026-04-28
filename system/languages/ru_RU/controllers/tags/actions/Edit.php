@@ -1,5 +1,5 @@
 <?php
-define('LANG_ACTION_TAGS_EDIT_NO_ID', 'ID тега не указан');
+define('LANG_ACTION_TAGS_EDIT_ID_NOT_SPECIFIED', 'ID тега не указан');
 define('LANG_ACTION_TAGS_EDIT_TAG_NOT_FOUND', 'Тег не найден');
 define('LANG_ACTION_TAGS_EDIT_BREADCRUMB_DASHBOARD', 'Панель управления');
 define('LANG_ACTION_TAGS_EDIT_BREADCRUMB_TAGS', 'Теги');
