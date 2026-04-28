@@ -275,9 +275,9 @@ class AuthorBlock extends BaseHtmlBlock {
         ob_start();
         ?>
         <div class="row g-4">
-            <?php foreach ($fieldsets as $fieldset): ?>
+            <?php foreach ($fieldsets as $fieldset) { ?>
             <div class="col-12"><?= $fieldset->render($settings) ?></div>
-            <?php endforeach; ?>
+            <?php } ?>
         </div>
         <?php
         return ob_get_clean();

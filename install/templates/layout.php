@@ -33,11 +33,11 @@
                 <div class="steps-list">
                     <div class="step-item <?php echo $step >= 1 ? ($step > 1 ? 'completed' : 'active') : ''; ?>">
                         <div class="step-icon">
-                            <?php if ($step > 1): ?>
+                            <?php if ($step > 1) { ?>
                                 <i class="fas fa-check"></i>
-                            <?php else: ?>
+                            <?php } else { ?>
                                 <i class="fas fa-server"></i>
-                            <?php endif; ?>
+                            <?php } ?>
                         </div>
                         <div class="step-info">
                             <span class="step-name">Проверка системы</span>
@@ -47,11 +47,11 @@
                     
                     <div class="step-item <?php echo $step >= 2 ? ($step > 2 ? 'completed' : 'active') : ''; ?>">
                         <div class="step-icon">
-                            <?php if ($step > 2): ?>
+                            <?php if ($step > 2) { ?>
                                 <i class="fas fa-check"></i>
-                            <?php else: ?>
+                            <?php } else { ?>
                                 <i class="fas fa-database"></i>
-                            <?php endif; ?>
+                            <?php } ?>
                         </div>
                         <div class="step-info">
                             <span class="step-name">База данных</span>
@@ -61,11 +61,11 @@
                     
                     <div class="step-item <?php echo $step >= 3 ? ($step > 3 ? 'completed' : 'active') : ''; ?>">
                         <div class="step-icon">
-                            <?php if ($step > 3): ?>
+                            <?php if ($step > 3) { ?>
                                 <i class="fas fa-check"></i>
-                            <?php else: ?>
+                            <?php } else { ?>
                                 <i class="fas fa-user-shield"></i>
-                            <?php endif; ?>
+                            <?php } ?>
                         </div>
                         <div class="step-info">
                             <span class="step-name">Администратор</span>
@@ -75,11 +75,11 @@
                     
                     <div class="step-item <?php echo $step >= 4 ? 'active' : ''; ?>">
                         <div class="step-icon">
-                            <?php if ($step >= 4): ?>
+                            <?php if ($step >= 4) { ?>
                                 <i class="fas fa-check"></i>
-                            <?php else: ?>
+                            <?php } else { ?>
                                 <i class="fas fa-flag-checkered"></i>
-                            <?php endif; ?>
+                            <?php } ?>
                         </div>
                         <div class="step-info">
                             <span class="step-name">Завершение</span>

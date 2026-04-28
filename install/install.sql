@@ -530,6 +530,7 @@ CREATE TABLE IF NOT EXISTS `{#}posts` (
   `views` int DEFAULT '0',
   `rating` int DEFAULT '0',
   `likes_count` int DEFAULT '0',
+  `is_adult` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `category_id` (`category_id`),
   KEY `user_id` (`user_id`)

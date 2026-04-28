@@ -813,14 +813,14 @@ abstract class BasePostBlock {
             </div>
             <?php if (!empty($content)): ?>
                 <div class="preview-content">
-                    <?php foreach ($content as $key => $value): ?>
-                        <?php if (is_string($value) && !empty(trim($value))): ?>
+                    <?php foreach ($content as $key => $value) { ?>
+                        <?php if (is_string($value) && !empty(trim($value))) { ?>
                             <div class="preview-item">
                                 <small class="text-muted"><?= html($key) ?>:</small>
                                 <div class="text-truncate"><?= html(substr($value, 0, 100)) ?></div>
                             </div>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
+                        <?php } ?>
+                    <?php } ?>
                 </div>
             <?php else: ?>
                 <div class="text-muted small"><?php echo LANG_CORE_BASEPOSTBLOCK_SIMPLE_PREVIEW_NO_DATA; ?></div>

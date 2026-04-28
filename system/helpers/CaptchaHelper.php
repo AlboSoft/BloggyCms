@@ -316,14 +316,14 @@ class CaptchaHelper {
                 </div>
             <?php endif; ?>
             
-            <?php if ($captchaData['type'] !== 'image' || !empty($captchaData['image'])): ?>
+            <?php if ($captchaData['type'] !== 'image' || !empty($captchaData['image'])) { ?>
                 <input type="text"
                     name="captcha_answer"
                     class="form-control"
                     placeholder="<?php echo LANG_HELPER_CAPTCHA_PLACEHOLDER; ?>"
                     autocomplete="off"
                     required>
-            <?php endif; ?>
+            <?php } ?>
             
             <div class="form-text small text-muted mt-1">
                 <i class="bi bi-info-circle me-1"></i>

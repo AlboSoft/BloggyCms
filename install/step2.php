@@ -113,7 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <p class="step-subtitle"><?php echo $t['subtitle']; ?></p>
 
 <?php if (!empty($errors)) { ?>
-    <div class="alert alert-error"><i class="fas fa-exclamation-circle"></i><div><strong><?php echo $t['error']; ?></strong><ul style="margin-top:8px;margin-left:20px"><?php foreach($errors as $e): ?><li><?php echo htmlspecialchars($e); ?></li><?php endforeach; ?></ul></div></div>
+    <div class="alert alert-error"><i class="fas fa-exclamation-circle"></i><div><strong><?php echo $t['error']; ?></strong><ul style="margin-top:8px;margin-left:20px"><?php foreach($errors as $e) { ?><li><?php echo htmlspecialchars($e); ?></li><?php } ?></ul></div></div>
 <?php } ?>
 
 <form method="post" class="needs-validation" id="db-form" novalidate>

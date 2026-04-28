@@ -348,7 +348,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <p class="step-subtitle"><?php echo $t['subtitle']; ?></p>
 
 <?php if (!empty($errors)) { ?>
-    <div class="alert alert-error"><i class="fas fa-exclamation-circle"></i><div><strong><?php echo $t['error']; ?></strong><ul style="margin-top:8px;margin-left:20px"><?php foreach($errors as $e): ?><li><?php echo htmlspecialchars($e); ?></li><?php endforeach; ?></ul></div></div>
+    <div class="alert alert-error"><i class="fas fa-exclamation-circle"></i><div><strong><?php echo $t['error']; ?></strong><ul style="margin-top:8px;margin-left:20px"><?php foreach($errors as $e) { ?><li><?php echo htmlspecialchars($e); ?></li><?php } ?></ul></div></div>
 <?php } ?>
 
 <form method="post" class="needs-validation" novalidate>
@@ -371,22 +371,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="form-group">
             <label class="form-label"><?php echo $t['admin_language']; ?></label>
             <select name="admin_language" class="form-select" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface);">
-                <?php foreach ($availableLocales as $code => $name): ?>
+                <?php foreach ($availableLocales as $code => $name) { ?>
                     <option value="<?php echo $code; ?>" <?php echo $siteConfig['admin_language'] == $code ? 'selected' : ''; ?>>
                         <?php echo htmlspecialchars($name); ?>
                     </option>
-                <?php endforeach; ?>
+                <?php } ?>
             </select>
             <div class="form-hint"><i class="fas fa-info-circle"></i> <?php echo $t['admin_language_hint']; ?></div>
         </div>
         <div class="form-group">
             <label class="form-label"><?php echo $t['site_language']; ?></label>
             <select name="site_language" class="form-select" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface);">
-                <?php foreach ($availableLocales as $code => $name): ?>
+                <?php foreach ($availableLocales as $code => $name) { ?>
                     <option value="<?php echo $code; ?>" <?php echo $siteConfig['site_language'] == $code ? 'selected' : ''; ?>>
                         <?php echo htmlspecialchars($name); ?>
                     </option>
-                <?php endforeach; ?>
+                <?php } ?>
             </select>
             <div class="form-hint"><i class="fas fa-info-circle"></i> <?php echo $t['site_language_hint']; ?></div>
         </div>
