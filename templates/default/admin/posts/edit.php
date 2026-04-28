@@ -232,7 +232,7 @@ add_admin_css('templates/default/admin/assets/css/controllers/post-blocks.css');
                         </div>
                         
                         <div class="mb-3">
-                            <div class="form-check">
+                            <div class="form-check form-switch">
                                 <input class="form-check-input" 
                                        type="checkbox" 
                                        id="password_protected" 
@@ -251,16 +251,22 @@ add_admin_css('templates/default/admin/assets/css/controllers/post-blocks.css');
                                    name="password" 
                                    value="<?php echo html($post['password'] ?? ''); ?>">
                         </div>
-                    </div>
-                </div>
 
-                <div class="card border-0 shadow-sm mb-4">
-                    <div class="card-header bg-white border-0">
-                        <h5 class="card-title mb-0"><?php echo LANG_TEMPLATE_POSTS_EDIT_PUBLISH_DATE_TITLE; ?></h5>
-                    </div>
-                    <div class="card-body">
                         <div class="mb-3">
-                            <div class="form-check">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" 
+                                    name="is_adult" id="is_adult" value="1" 
+                                    <?php echo isset($post['is_adult']) && $post['is_adult'] ? 'checked' : ''; ?>>
+                                <label class="form-check-label" for="is_adult">
+                                    <i class="bi bi-18-plus me-1"></i>
+                                    <?php echo LANG_TEMPLATE_POSTS_EDIT_ADULT_CONTENT; ?>
+                                </label>
+                                <div class="form-text"><?php echo LANG_TEMPLATE_POSTS_EDIT_ADULT_HINT; ?></div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-check form-switch">
                                 <input class="form-check-input" type="checkbox" id="change_publish_date" name="change_publish_date" 
                                     <?php echo (isset($post['created_at']) && $post['created_at'] != date('Y-m-d H:i:s')) ? 'checked' : ''; ?>>
                                 <label class="form-check-label" for="change_publish_date">
@@ -287,6 +293,7 @@ add_admin_css('templates/default/admin/assets/css/controllers/post-blocks.css');
                                 </strong>
                             </small>
                         </div>
+
                     </div>
                 </div>
                 

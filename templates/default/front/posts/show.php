@@ -26,15 +26,21 @@ $totalComments = $totalComments ?? ($post['comments_count'] ?? 0);
                 </span>
                 
                 <?php if ($isPasswordProtected) { ?>
-                <span class="tg-post-protected" title="<?php echo LANG_TEMPLATE_POST_PASSWORD_PROTECTED_TITLE; ?>">
-                    <?php echo bloggy_icon('bs', 'lock-fill', '14', 'currentColor'); ?>
-                    <span><?php echo LANG_TEMPLATE_POST_PROTECTED_LABEL; ?></span>
-                </span>
+                    <span class="tg-post-protected" title="<?php echo LANG_TEMPLATE_POST_PASSWORD_PROTECTED_TITLE; ?>">
+                        <?php echo bloggy_icon('bs', 'lock-fill', '14', 'currentColor'); ?>
+                        <span><?php echo LANG_TEMPLATE_POST_PROTECTED_LABEL; ?></span>
+                    </span>
                 <?php } ?>
             </div>
             
             <h1 class="tg-post-title">
                 <?php echo html($post['title']); ?>
+                <?php if (isset($post['is_adult']) && $post['is_adult']) { ?>
+                    <span class="tg-adult-badge">
+                        <?php echo bloggy_icon('bs', 'cone-striped', '20', '#dc3545'); ?>
+                        18+
+                    </span>
+                <?php } ?>
             </h1>
             
             <div class="tg-post-author">

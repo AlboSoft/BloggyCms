@@ -21,11 +21,28 @@ class Show extends PostAction {
 
         try {
             $post = $this->postModel->getBySlug($slug);
-        
+            
             if (!$post) {
                 \Notification::error(LANG_ACTION_POSTS_SHOW_POST_NOT_FOUND);
                 $this->redirect(BASE_URL);
                 return;
+            }
+            
+            $hasAccess = $this->postModel->checkAdultAccess($post['id']);
+            if (!$hasAccess) {
+                $settingsModel = new \SettingsModel($this->db);
+                $settings = $settingsModel->get('controller_posts');
+                $action = $settings['adult_content_action'] ?? 'none';
+                
+                if ($action === 'redirect_login') {
+                    $_SESSION['redirect_after_login'] = BASE_URL . '/post/' . $post['slug'];
+                    $this->redirect(BASE_URL . '/login');
+                    return;
+                } elseif ($action === 'age_check') {
+                    $_SESSION['adult_redirect_after'] = BASE_URL . '/post/' . $post['slug'];
+                    $this->redirect(BASE_URL . '/post/check-age/' . $post['id']);
+                    return;
+                }
             }
             
             $userGroups = $this->getUserGroups();
@@ -122,7 +139,7 @@ class Show extends PostAction {
         
         $this->addBreadcrumb($post['title']);
         $this->setPageTitle($post['title']);
-        $this->postModel->incrementViews($post['id']);
+        $this->postModel->incrementUniqueViews($post['id']);
         
         $isAdmin = isset($_SESSION['is_admin']) && $_SESSION['is_admin'];
         $userLiked = false;

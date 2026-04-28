@@ -53,6 +53,8 @@ define('LANG_TEMPLATE_POSTS_EDIT_VISIBILITY_HIDE_LABEL', 'Hide from groups');
 define('LANG_TEMPLATE_POSTS_EDIT_VISIBILITY_NO_HIDE', 'Hide from no one');
 define('LANG_TEMPLATE_POSTS_EDIT_VISIBILITY_HIDE_HINT', 'Select groups to hide this post from');
 define('LANG_TEMPLATE_POSTS_EDIT_ALLOW_COMMENTS_LABEL', 'Allow comments');
+define('LANG_TEMPLATE_POSTS_EDIT_ADULT_CONTENT', 'Adult Content 18+');
+define('LANG_TEMPLATE_POSTS_EDIT_ADULT_HINT', 'Check this box if this post contains adult content');
 define('LANG_TEMPLATE_POSTS_EDIT_SEO_TITLE', 'SEO Settings');
 define('LANG_TEMPLATE_POSTS_EDIT_SEO_TITLE_LABEL', 'SEO Title');
 define('LANG_TEMPLATE_POSTS_EDIT_SEO_TITLE_PLACEHOLDER', 'SEO title (if different from main)');

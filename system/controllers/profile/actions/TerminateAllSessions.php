@@ -58,7 +58,7 @@ class TerminateAllSessions extends ProfileAction {
     * @param string $token Токен для проверки
     * @return bool Результат проверки
     */
-    private function validateCsrfToken($token) {
+    protected function validateCsrfToken($token) {
         if (empty($_SESSION['csrf_token']) || empty($token)) {
             return false;
         }

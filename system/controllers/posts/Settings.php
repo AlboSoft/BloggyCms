@@ -34,17 +34,42 @@ class PostSettings {
                     ])
                 ]
             ]),
-            new \Fieldset(LANG_CONTROLLER_POSTS_SETTINGS_FIELDSET_POST_VIEW, [
-                'icon' => 'bi bi-eye',
+            new \Fieldset(LANG_CONTROLLER_POSTS_SETTINGS_FIELDSET_ADULT_CONTENT, [
+                'icon' => 'bi bi-18-plus',
                 'columns' => '12',
                 'fields' => [
-                    \FieldFactory::alert('alert', [
-                        'title' => LANG_CONTROLLER_POSTS_SETTINGS_ALERT_TITLE,
-                        'hint' => LANG_CONTROLLER_POSTS_SETTINGS_ALERT_HINT,
-                        'type' => 'info',
-                        'icon' => 'info-circle',
-                        'dismissible' => false
+                    \FieldFactory::select('adult_content_action', [
+                        'title' => LANG_CONTROLLER_POSTS_SETTINGS_ADULT_CONTENT_ACTION,
+                        'hint' => LANG_CONTROLLER_POSTS_SETTINGS_ADULT_CONTENT_ACTION_HINT,
+                        'default' => 'none',
+                        'options' => [
+                            'none' => LANG_CONTROLLER_POSTS_SETTINGS_ADULT_ACTION_NONE,
+                            'age_check' => LANG_CONTROLLER_POSTS_SETTINGS_ADULT_ACTION_AGE_CHECK,
+                            'redirect_login' => LANG_CONTROLLER_POSTS_SETTINGS_ADULT_ACTION_REDIRECT_LOGIN
+                        ]
                     ]),
+                    \FieldFactory::number('adult_min_age', [
+                        'title' => LANG_CONTROLLER_POSTS_SETTINGS_ADULT_MIN_AGE,
+                        'hint' => LANG_CONTROLLER_POSTS_SETTINGS_ADULT_MIN_AGE_HINT,
+                        'default' => 18,
+                        'min' => 16,
+                        'max' => 21,
+                        'show' => 'field:adult_content_action != none'
+                    ]),
+                    \FieldFactory::checkbox('adult_remember_decision', [
+                        'title' => LANG_CONTROLLER_POSTS_SETTINGS_ADULT_REMEMBER,
+                        'hint' => LANG_CONTROLLER_POSTS_SETTINGS_ADULT_REMEMBER_HINT,
+                        'default' => true,
+                        'switch' => true,
+                        'show' => 'field:adult_content_action = age_check'
+                    ]),
+                    \FieldFactory::alert('adult_info', [
+                        'title' => LANG_CONTROLLER_POSTS_SETTINGS_ADULT_INFO_TITLE,
+                        'hint' => LANG_CONTROLLER_POSTS_SETTINGS_ADULT_INFO_HINT,
+                        'type' => 'warning',
+                        'icon' => 'info-circle',
+                        'full_width' => true
+                    ])
                 ]
             ]),
         ];
@@ -52,11 +77,11 @@ class PostSettings {
         ob_start();
         ?>
         <div class="row">
-            <?php foreach ($fieldsets as $fieldset): ?>
-            <div class="col-md-12">
-                <?= $fieldset->render($currentSettings) ?>
-            </div>
-            <?php endforeach; ?>
+            <?php foreach ($fieldsets as $fieldset) { ?>
+                <div class="col-md-12">
+                    <?= $fieldset->render($currentSettings) ?>
+                </div>
+            <?php } ?>
         </div>
         <?php
         return ob_get_clean();

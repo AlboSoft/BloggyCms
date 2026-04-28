@@ -8,6 +8,15 @@ define('LANG_CONTROLLER_POSTS_SETTINGS_POSTS_PER_PAGE', 'Количество п
 define('LANG_CONTROLLER_POSTS_SETTINGS_POSTS_PER_PAGE_HINT', 'Сколько постов показывать на одной странице (от 1 до 50)');
 define('LANG_CONTROLLER_POSTS_SETTINGS_HOMEPAGE_INFO_TITLE', 'Обратите внимание');
 define('LANG_CONTROLLER_POSTS_SETTINGS_HOMEPAGE_INFO_HINT', 'При выборе "Список всех постов" - стандартное содержимое главной страницы будет заменено на список записей. Пагинация будет работать автоматически.');
-define('LANG_CONTROLLER_POSTS_SETTINGS_FIELDSET_POST_VIEW', 'Просмотр записи');
-define('LANG_CONTROLLER_POSTS_SETTINGS_ALERT_TITLE', 'Пока настроек нет...');
-define('LANG_CONTROLLER_POSTS_SETTINGS_ALERT_HINT', 'Их так много, что возможно для них понадобится отдельный контроллер....');
+define('LANG_CONTROLLER_POSTS_SETTINGS_FIELDSET_ADULT_CONTENT', 'Контент 18+');
+define('LANG_CONTROLLER_POSTS_SETTINGS_ADULT_CONTENT_ACTION', 'Действие для постов 18+');
+define('LANG_CONTROLLER_POSTS_SETTINGS_ADULT_CONTENT_ACTION_HINT', 'Выберите, как обрабатывать посты с пометкой "Контент для взрослых"');
+define('LANG_CONTROLLER_POSTS_SETTINGS_ADULT_ACTION_NONE', 'Открывать без предупреждения');
+define('LANG_CONTROLLER_POSTS_SETTINGS_ADULT_ACTION_AGE_CHECK', 'Открывать с проверкой возраста');
+define('LANG_CONTROLLER_POSTS_SETTINGS_ADULT_ACTION_REDIRECT_LOGIN', 'Отправлять на страницу авторизации');
+define('LANG_CONTROLLER_POSTS_SETTINGS_ADULT_MIN_AGE', 'Минимальный возраст');
+define('LANG_CONTROLLER_POSTS_SETTINGS_ADULT_MIN_AGE_HINT', 'Минимальный возраст для просмотра контента 18+');
+define('LANG_CONTROLLER_POSTS_SETTINGS_ADULT_REMEMBER', 'Запоминать решение пользователя');
+define('LANG_CONTROLLER_POSTS_SETTINGS_ADULT_REMEMBER_HINT', 'После подтверждения возраста пользователь больше не будет видеть запрос для других постов');
+define('LANG_CONTROLLER_POSTS_SETTINGS_ADULT_INFO_TITLE', 'Важно');
+define('LANG_CONTROLLER_POSTS_SETTINGS_ADULT_INFO_HINT', 'Для работы проверки возраста требуется, чтобы пользователи указывали реальную дату рождения. За неподтверждённый возраст администрация ответственности не несёт.');

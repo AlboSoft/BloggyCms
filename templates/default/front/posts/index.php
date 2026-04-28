@@ -63,6 +63,12 @@
                                             <a href="<?php echo BASE_URL . '/post/' . html($post['slug']); ?>">
                                                 <?php echo html($post['title']); ?>
                                             </a>
+                                            <?php if (isset($post['is_adult']) && $post['is_adult']) { ?>
+                                                <span class="tg-adult-badge" title="<?php echo LANG_TEMPLATE_ADULT_BADGE_TITLE; ?>">
+                                                    <?php echo bloggy_icon('bs', 'cone-striped', '16', '#dc3545'); ?>
+                                                    18+
+                                                </span>
+                                            <?php } ?>
                                         </h2>
                                     </div>
 

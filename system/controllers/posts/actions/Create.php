@@ -116,6 +116,7 @@ class Create extends PostAction {
             'seo_title' => $_POST['seo_title'] ?? null,
             'password_protected' => isset($_POST['password_protected']) ? 1 : 0,
             'password' => $_POST['password'] ?? null,
+            'is_adult' => isset($_POST['is_adult']) ? 1 : 0,
             'show_to_groups' => !empty($_POST['show_to_groups']) ? json_encode($_POST['show_to_groups']) : null,
             'hide_from_groups' => !empty($_POST['hide_from_groups']) ? json_encode($_POST['hide_from_groups']) : null
         ];

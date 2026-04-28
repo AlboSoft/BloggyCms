@@ -118,6 +118,11 @@
                                                     <?php echo bloggy_icon('bs', 'lock', '12', '#000'); ?>
                                                 </span>
                                             <?php } ?>
+                                            <?php if (isset($post['is_adult']) && $post['is_adult']) { ?>
+                                                <span class="badge bg-danger ms-2" title="<?php echo LANG_TEMPLATE_ADULT_BADGE_TITLE; ?>" style="font-size: 11px; padding: 3px 6px;">
+                                                    18+
+                                                </span>
+                                            <?php } ?>
                                         </div>
                                     </div>
                                 </td>

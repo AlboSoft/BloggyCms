@@ -4,3 +4,4 @@ define('LANG_TEMPLATE_POSTS_LIST_SUBTITLE', 'Последние публикац
 define('LANG_TEMPLATE_POSTS_LIST_UPDATED', 'обн. %s');
 define('LANG_TEMPLATE_POSTS_LIST_EMPTY_TEXT', 'Пока нет публикаций');
 define('LANG_TEMPLATE_POSTS_LIST_LOAD_MORE_BTN', 'Загрузить ещё');
+define('LANG_TEMPLATE_ADULT_BADGE_TITLE', 'Контент 18+');

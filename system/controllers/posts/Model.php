@@ -83,6 +83,7 @@ class PostModel implements ModelAPI {
         
         if ($post) {
             $post['allow_comments'] = $post['allow_comments'] ?? 1;
+            $post['is_adult'] = $post['is_adult'] ?? 0;
         }
         
         return $post;
@@ -157,8 +158,9 @@ class PostModel implements ModelAPI {
                 show_to_groups,
                 hide_from_groups,
                 allow_comments,
+                is_adult,
                 created_at
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             $this->db->query($sql, [
                 $data['title'],
@@ -176,6 +178,7 @@ class PostModel implements ModelAPI {
                 $data['show_to_groups'] ?? null,
                 $data['hide_from_groups'] ?? null,
                 $data['allow_comments'] ?? 1,
+                $data['is_adult'] ?? 0,
                 $data['created_at'] ?? date('Y-m-d H:i:s')
             ]);
 
@@ -191,7 +194,7 @@ class PostModel implements ModelAPI {
             throw $e;
         }
     }
-    
+
     /**
     * Обновляет существующий пост
     * @param int $id ID поста
@@ -214,7 +217,7 @@ class PostModel implements ModelAPI {
             $allowedFields = [
                 'title', 'short_description', 'slug', 'category_id', 'status', 'featured_image', 
                 'meta_description', 'seo_title', 'password_protected', 'password',
-                'show_to_groups', 'hide_from_groups', 'allow_comments', 'created_at'
+                'show_to_groups', 'hide_from_groups', 'allow_comments', 'is_adult', 'created_at'
             ];
             
             foreach ($allowedFields as $field) {
@@ -594,18 +597,6 @@ class PostModel implements ModelAPI {
         
         return $post['password'] === $password;
     }
-
-    /**
-    * Увеличивает счетчик просмотров поста
-    * @param int $postId ID поста
-    * @return void
-    */
-    public function incrementViews($postId) {
-        $this->db->query(
-            "UPDATE posts SET views = views + 1 WHERE id = ?",
-            [$postId]
-        );
-    }
     
     /**
     * Получает количество просмотров поста 
@@ -615,6 +606,104 @@ class PostModel implements ModelAPI {
     public function getViews($postId) {
         $post = $this->getById($postId);
         return $post ? $post['views'] : 0;
+    }
+
+    /**
+    * Проверяет, имеет ли пользователь доступ к adult-контенту
+    * @param int $postId ID поста
+    * @return bool
+    */
+    public function checkAdultAccess($postId) {
+        $post = $this->getById($postId);
+        
+        if (!$post || !$post['is_adult']) {
+            return true;
+        }
+        
+        $settingsModel = new SettingsModel($this->db);
+        $settings = $settingsModel->get('controller_posts');
+        $action = $settings['adult_content_action'] ?? 'none';
+        
+        switch ($action) {
+            case 'none':
+                return true;
+                
+            case 'redirect_login':
+                return isset($_SESSION['user_id']);
+                
+            case 'age_check':
+                $minAge = (int)($settings['adult_min_age'] ?? 18);
+                $rememberDecision = $settings['adult_remember_decision'] ?? true;
+                
+                if ($rememberDecision && isset($_SESSION['adult_verified']) && $_SESSION['adult_verified'] === true) {
+                    return true;
+                }
+                
+                if (isset($_SESSION['adult_verified_post_' . $postId]) && $_SESSION['adult_verified_post_' . $postId] === true) {
+                    return true;
+                }
+                
+                return false;
+                
+            default:
+                return true;
+        }
+    }
+
+    /**
+    * Проверяет, был ли уже засчитан просмотр поста для текущего пользователя/сессии
+    * @param int $postId ID поста
+    * @return bool true если просмотр уже был засчитан
+    */
+    public function hasPostView($postId) {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        
+        $key = 'viewed_posts';
+        if (!isset($_SESSION[$key])) {
+            $_SESSION[$key] = [];
+        }
+        
+        return in_array($postId, $_SESSION[$key]);
+    }
+
+    /**
+    * Отмечает, что просмотр поста был засчитан
+    * @param int $postId ID поста
+    */
+    public function markPostViewed($postId) {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        
+        $key = 'viewed_posts';
+        if (!isset($_SESSION[$key])) {
+            $_SESSION[$key] = [];
+        }
+        
+        if (!in_array($postId, $_SESSION[$key])) {
+            $_SESSION[$key][] = $postId;
+        }
+    }
+
+    /**
+    * Увеличивает счетчик просмотров поста (только для уникальных просмотров)
+    * @param int $postId ID поста
+    * @return bool true если просмотр был засчитан, false если это повторный просмотр
+    */
+    public function incrementUniqueViews($postId) {
+        if ($this->hasPostView($postId)) {
+            return false;
+        }
+        
+        $this->db->query(
+            "UPDATE posts SET views = views + 1 WHERE id = ?",
+            [$postId]
+        );
+        
+        $this->markPostViewed($postId);
+        return true;
     }
 
     /**

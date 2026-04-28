@@ -6,6 +6,7 @@ return [
     'post/like/{id}' => ['controller' => 'Post', 'action' => 'like'],
     'post/bookmark/{id}' => ['controller' => 'Post', 'action' => 'bookmark'],
     'user/bookmarks' => ['controller' => 'Post', 'action' => 'bookmarks'],
+    'post/check-age/{id}' => ['controller' => 'Post', 'action' => 'checkAge'],
     'post/check-password/{id}' => ['controller' => 'Post', 'action' => 'checkPassword'],
     'admin/posts' => ['controller' => 'Post', 'action' => 'adminIndex', 'admin' => true],
     'admin/posts/create' => ['controller' => 'Post', 'action' => 'create', 'admin' => true],

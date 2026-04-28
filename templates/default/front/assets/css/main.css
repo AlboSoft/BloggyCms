@@ -6721,3 +6721,65 @@ a:hover {
   position: relative;
   bottom: 10px;
 }
+
+.tg-age-check-page {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
+.tg-age-check-card {
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: center;
+    background: #fff;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+}
+.tg-age-check-icon {
+    margin-bottom: 20px;
+}
+.tg-age-check-title {
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+.tg-age-check-text {
+    color: #666;
+    margin-bottom: 30px;
+}
+.tg-age-check-fields {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+.tg-age-field {
+    flex: 1;
+}
+.tg-age-field label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 12px;
+    color: #666;
+}
+.tg-age-check-footer {
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.tg-adult-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: #fff0f0;
+    color: #dc3545;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 20px;
+    margin-left: 10px;
+    vertical-align: middle;
+    border: 1px solid #ffcdd2;
+}

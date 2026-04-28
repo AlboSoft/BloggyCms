@@ -144,6 +144,17 @@ class PostController extends Controller {
         $action->setController($this);
         return $action->execute();
     }
+
+    /**
+    * Проверка возраста для контента 18+
+    * @param int $id ID поста
+    * @return void
+    */
+    public function checkAgeAction($id) {
+        $action = new \posts\actions\CheckAge($this->db, ['id' => $id]);
+        $action->setController($this);
+        return $action->execute();
+    }
     
     /**
     * Голосование за пост (устаревший метод, для обратной совместимости) 
