@@ -382,7 +382,7 @@ class UserModel implements ModelAPI {
 
     /**
     * Получает пользователей с информацией о группах и фильтрацией 
-    * @param array $filters Массив фильтров (role, status, group, search)
+    * @param array $filters Массив фильтров (role, status, group, search, reg_mode, reg_date, reg_date_from, reg_date_to)
     * @return array Массив пользователей с группами
     */
     public function getUsersWithGroups($filters = []) {
@@ -420,6 +420,23 @@ class UserModel implements ModelAPI {
             $params[] = $searchTerm;
             $params[] = $searchTerm;
             $params[] = $searchTerm;
+        }
+        
+        // Фильтрация по дате регистрации
+        if (!empty($filters['reg_mode'])) {
+            if ($filters['reg_mode'] === 'day' && !empty($filters['reg_date'])) {
+                $sql .= " AND DATE(u.created_at) = ?";
+                $params[] = $filters['reg_date'];
+            } elseif ($filters['reg_mode'] === 'period') {
+                if (!empty($filters['reg_date_from'])) {
+                    $sql .= " AND DATE(u.created_at) >= ?";
+                    $params[] = $filters['reg_date_from'];
+                }
+                if (!empty($filters['reg_date_to'])) {
+                    $sql .= " AND DATE(u.created_at) <= ?";
+                    $params[] = $filters['reg_date_to'];
+                }
+            }
         }
         
         $sql .= " GROUP BY u.id ORDER BY u.created_at DESC";

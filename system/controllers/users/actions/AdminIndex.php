@@ -31,12 +31,20 @@ class AdminIndex extends UserAction {
             $status = $_GET['status'] ?? null;
             $group = $_GET['group'] ?? null;
             $search = $_GET['search'] ?? null;
+            $regMode = $_GET['reg_mode'] ?? null;
+            $regDate = $_GET['reg_date'] ?? null;
+            $regDateFrom = $_GET['reg_date_from'] ?? null;
+            $regDateTo = $_GET['reg_date_to'] ?? null;
             
             $users = $this->userModel->getUsersWithGroups([
                 'role' => $role,
                 'status' => $status,
                 'group' => $group,
-                'search' => $search
+                'search' => $search,
+                'reg_mode' => $regMode,
+                'reg_date' => $regDate,
+                'reg_date_from' => $regDateFrom,
+                'reg_date_to' => $regDateTo
             ]);
             
             if (\SettingsHelper::get('controller_users', 'admin_top', true)) {

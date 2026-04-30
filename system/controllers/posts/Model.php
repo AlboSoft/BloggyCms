@@ -800,7 +800,7 @@ class PostModel implements ModelAPI {
     * @param string|null $status Статус поста
     * @return array Массив постов
     */
-    public function getAllWithFilters($categoryId = null, $status = null) {
+    public function getAllWithFilters($categoryId = null, $status = null, $createMode = null, $createDate = null, $createDateFrom = null, $createDateTo = null) {
         $sql = "SELECT p.*, c.name as category_name 
                 FROM posts p 
                 LEFT JOIN categories c ON p.category_id = c.id 
@@ -816,6 +816,23 @@ class PostModel implements ModelAPI {
         if ($status) {
             $sql .= " AND p.status = ?";
             $params[] = $status;
+        }
+        
+        // Фильтрация по дате создания
+        if (!empty($createMode)) {
+            if ($createMode === 'day' && !empty($createDate)) {
+                $sql .= " AND DATE(p.created_at) = ?";
+                $params[] = $createDate;
+            } elseif ($createMode === 'period') {
+                if (!empty($createDateFrom)) {
+                    $sql .= " AND DATE(p.created_at) >= ?";
+                    $params[] = $createDateFrom;
+                }
+                if (!empty($createDateTo)) {
+                    $sql .= " AND DATE(p.created_at) <= ?";
+                    $params[] = $createDateTo;
+                }
+            }
         }
         
         $sql .= " ORDER BY p.created_at DESC";

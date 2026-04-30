@@ -13,7 +13,7 @@
         <div class="card border-0 shadow-sm mb-4">
             <div class="card-body">
                 <form method="get" class="row g-3 align-items-end">
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <label class="form-label"><?php echo LANG_TEMPLATE_USERS_INDEX_FILTER_GROUP_LABEL; ?></label>
                         <select name="group" class="form-select">
                             <option value=""><?php echo LANG_TEMPLATE_USERS_INDEX_FILTER_ALL_GROUPS; ?></option>
@@ -24,7 +24,7 @@
                             <?php } ?>
                         </select>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <label class="form-label"><?php echo LANG_TEMPLATE_USERS_INDEX_FILTER_STATUS_LABEL; ?></label>
                         <select name="status" class="form-select">
                             <option value=""><?php echo LANG_TEMPLATE_USERS_INDEX_FILTER_ALL_STATUSES; ?></option>
@@ -32,12 +32,39 @@
                             <option value="banned" <?php echo ($_GET['status'] ?? '') == 'banned' ? 'selected' : ''; ?>><?php echo LANG_TEMPLATE_USERS_INDEX_FILTER_BANNED; ?></option>
                         </select>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <label class="form-label"><?php echo LANG_TEMPLATE_USERS_INDEX_FILTER_SEARCH_LABEL; ?></label>
                         <input type="text" name="search" class="form-control" placeholder="<?php echo LANG_TEMPLATE_USERS_INDEX_FILTER_SEARCH_PLACEHOLDER; ?>" 
                             value="<?php echo html($_GET['search'] ?? ''); ?>">
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
+                        <label class="form-label"><?php echo LANG_TEMPLATE_USERS_INDEX_FILTER_REG_MODE_LABEL; ?></label>
+                        <select name="reg_mode" class="form-select" id="regModeSelect">
+                            <option value="">-</option>
+                            <option value="day" <?php echo ($_GET['reg_mode'] ?? '') == 'day' ? 'selected' : ''; ?>><?php echo LANG_TEMPLATE_USERS_INDEX_FILTER_REG_MODE_DAY; ?></option>
+                            <option value="period" <?php echo ($_GET['reg_mode'] ?? '') == 'period' ? 'selected' : ''; ?>><?php echo LANG_TEMPLATE_USERS_INDEX_FILTER_REG_MODE_PERIOD; ?></option>
+                        </select>
+                    </div>
+                    <div class="col-md-2" id="dayDateContainer" style="<?php echo ($_GET['reg_mode'] ?? '') == 'day' ? '' : 'display: none;'; ?>">
+                        <label class="form-label"><?php echo LANG_TEMPLATE_USERS_INDEX_FILTER_REG_DATE_LABEL; ?></label>
+                        <input type="date" name="reg_date" class="form-control" 
+                            value="<?php echo html($_GET['reg_date'] ?? ''); ?>">
+                    </div>
+                    <div class="col-md-4" id="periodDateContainer" style="<?php echo ($_GET['reg_mode'] ?? '') == 'period' ? '' : 'display: none;'; ?>">
+                        <div class="row g-2">
+                            <div class="col-md-6">
+                                <label class="form-label"><?php echo LANG_TEMPLATE_USERS_INDEX_FILTER_REG_DATE_FROM; ?></label>
+                                <input type="date" name="reg_date_from" class="form-control" 
+                                    value="<?php echo html($_GET['reg_date_from'] ?? ''); ?>">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label"><?php echo LANG_TEMPLATE_USERS_INDEX_FILTER_REG_DATE_TO; ?></label>
+                                <input type="date" name="reg_date_to" class="form-control" 
+                                    value="<?php echo html($_GET['reg_date_to'] ?? ''); ?>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-auto">
                         <button type="submit" class="btn btn-primary w-100"><?php echo bloggy_icon('bs', 'funnel', '18', '#fff', 'me-2'); ?><?php echo LANG_TEMPLATE_USERS_INDEX_FILTER_APPLY_BTN; ?></button>
                     </div>
                 </form>
@@ -175,3 +202,30 @@
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const regModeSelect = document.getElementById('regModeSelect');
+    const dayDateContainer = document.getElementById('dayDateContainer');
+    const periodDateContainer = document.getElementById('periodDateContainer');
+    
+    if (regModeSelect) {
+        regModeSelect.addEventListener('change', function() {
+            if (this.value === 'day') {
+                dayDateContainer.style.display = '';
+                periodDateContainer.style.display = 'none';
+                periodDateContainer.querySelectorAll('input').forEach(input => input.value = '');
+            } else if (this.value === 'period') {
+                dayDateContainer.style.display = 'none';
+                periodDateContainer.style.display = '';
+                dayDateContainer.querySelector('input').value = '';
+            } else {
+                dayDateContainer.style.display = 'none';
+                periodDateContainer.style.display = 'none';
+                dayDateContainer.querySelector('input').value = '';
+                periodDateContainer.querySelectorAll('input').forEach(input => input.value = '');
+            }
+        });
+    }
+});
+</script>

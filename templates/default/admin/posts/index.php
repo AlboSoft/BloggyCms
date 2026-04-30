@@ -34,7 +34,7 @@
     <div class="card border-0 shadow-sm mb-4">
         <div class="card-body">
             <form method="get" class="row g-3 align-items-end">
-                <div class="col-md-4">
+                <div class="col-md-2">
                     <label class="form-label"><?php echo LANG_TEMPLATE_POSTS_INDEX_FILTER_CATEGORY_LABEL; ?></label>
                     <select name="category" class="form-select">
                         <option value=""><?php echo LANG_TEMPLATE_POSTS_INDEX_FILTER_ALL_CATEGORIES; ?></option>
@@ -48,7 +48,7 @@
                         <?php } ?>
                     </select>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-2">
                     <label class="form-label"><?php echo LANG_TEMPLATE_POSTS_INDEX_FILTER_STATUS_LABEL; ?></label>
                     <select name="status" class="form-select">
                         <option value=""><?php echo LANG_TEMPLATE_POSTS_INDEX_FILTER_ALL_STATUSES; ?></option>
@@ -56,7 +56,34 @@
                         <option value="draft" <?php echo ($_GET['status'] ?? '') == 'draft' ? 'selected' : ''; ?>><?php echo LANG_TEMPLATE_POSTS_INDEX_FILTER_DRAFT; ?></option>
                     </select>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-2">
+                    <label class="form-label"><?php echo LANG_TEMPLATE_POSTS_INDEX_FILTER_CREATE_MODE_LABEL; ?></label>
+                    <select name="create_mode" class="form-select" id="createModeSelect">
+                        <option value="">-</option>
+                        <option value="day" <?php echo ($_GET['create_mode'] ?? '') == 'day' ? 'selected' : ''; ?>><?php echo LANG_TEMPLATE_POSTS_INDEX_FILTER_CREATE_MODE_DAY; ?></option>
+                        <option value="period" <?php echo ($_GET['create_mode'] ?? '') == 'period' ? 'selected' : ''; ?>><?php echo LANG_TEMPLATE_POSTS_INDEX_FILTER_CREATE_MODE_PERIOD; ?></option>
+                    </select>
+                </div>
+                <div class="col-md-2" id="dayCreateDateContainer" style="<?php echo ($_GET['create_mode'] ?? '') == 'day' ? '' : 'display: none;'; ?>">
+                    <label class="form-label"><?php echo LANG_TEMPLATE_POSTS_INDEX_FILTER_CREATE_DATE_LABEL; ?></label>
+                    <input type="date" name="create_date" class="form-control" 
+                        value="<?php echo html($_GET['create_date'] ?? ''); ?>">
+                </div>
+                <div class="col-md-4" id="periodCreateDateContainer" style="<?php echo ($_GET['create_mode'] ?? '') == 'period' ? '' : 'display: none;'; ?>">
+                    <div class="row g-2">
+                        <div class="col-md-6">
+                            <label class="form-label"><?php echo LANG_TEMPLATE_POSTS_INDEX_FILTER_CREATE_DATE_FROM; ?></label>
+                            <input type="date" name="create_date_from" class="form-control" 
+                                value="<?php echo html($_GET['create_date_from'] ?? ''); ?>">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label"><?php echo LANG_TEMPLATE_POSTS_INDEX_FILTER_CREATE_DATE_TO; ?></label>
+                            <input type="date" name="create_date_to" class="form-control" 
+                                value="<?php echo html($_GET['create_date_to'] ?? ''); ?>">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-auto">
                     <button type="submit" class="btn btn-primary w-100">
                         <?php echo bloggy_icon('bs', 'funnel', '16', '#fff', 'me-2'); ?>
                         <?php echo LANG_TEMPLATE_POSTS_INDEX_FILTER_APPLY_BTN; ?>
@@ -207,3 +234,30 @@
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const createModeSelect = document.getElementById('createModeSelect');
+    const dayCreateDateContainer = document.getElementById('dayCreateDateContainer');
+    const periodCreateDateContainer = document.getElementById('periodCreateDateContainer');
+    
+    if (createModeSelect) {
+        createModeSelect.addEventListener('change', function() {
+            if (this.value === 'day') {
+                dayCreateDateContainer.style.display = '';
+                periodCreateDateContainer.style.display = 'none';
+                periodCreateDateContainer.querySelectorAll('input').forEach(input => input.value = '');
+            } else if (this.value === 'period') {
+                dayCreateDateContainer.style.display = 'none';
+                periodCreateDateContainer.style.display = '';
+                dayCreateDateContainer.querySelector('input').value = '';
+            } else {
+                dayCreateDateContainer.style.display = 'none';
+                periodCreateDateContainer.style.display = 'none';
+                dayCreateDateContainer.querySelector('input').value = '';
+                periodCreateDateContainer.querySelectorAll('input').forEach(input => input.value = '');
+            }
+        });
+    }
+});
+</script>

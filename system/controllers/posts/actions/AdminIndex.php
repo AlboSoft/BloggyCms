@@ -21,8 +21,12 @@ class AdminIndex extends PostAction {
         try {
             $categoryId = $_GET['category'] ?? null;
             $status = $_GET['status'] ?? null;
+            $createMode = $_GET['create_mode'] ?? null;
+            $createDate = $_GET['create_date'] ?? null;
+            $createDateFrom = $_GET['create_date_from'] ?? null;
+            $createDateTo = $_GET['create_date_to'] ?? null;
             
-            $posts = $this->postModel->getAllWithFilters($categoryId, $status);
+            $posts = $this->postModel->getAllWithFilters($categoryId, $status, $createMode, $createDate, $createDateFrom, $createDateTo);
             
             $categories = $this->categoryModel->getAll();
             
