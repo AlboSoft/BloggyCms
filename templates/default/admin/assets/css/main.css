@@ -4354,3 +4354,36 @@ h6.card-title {
 .language-pulse {
     animation: languagePulse 0.3s ease;
 }
+
+.tag-no-image {
+    background-color: rgba(255, 193, 7, 0.05);
+}
+
+.tag-no-image:hover {
+    background-color: rgba(255, 193, 7, 0.1);
+}
+
+.tag-image-preview {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.tag-image-preview:hover {
+    transform: scale(1.5);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 10;
+    position: relative;
+}
+
+#filterForm .form-control:focus,
+#filterForm .form-select:focus {
+    border-color: #86b7fe;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.stats-badge {
+    background: #f8f9fa;
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 12px;
+}

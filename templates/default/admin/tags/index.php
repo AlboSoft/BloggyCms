@@ -14,6 +14,64 @@
         </div>
     <?php } ?>
 
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body py-3">
+            <form method="get" class="row g-3 align-items-end">
+                <div class="col-md-3">
+                    <label class="form-label small text-muted mb-1">
+                        <?php echo bloggy_icon('bs', 'search', '14', '#6c757d', 'me-1'); ?>
+                        <?php echo LANG_TEMPLATE_TAGS_ADMININDEX_FILTER_SEARCH_LABEL; ?>
+                    </label>
+                    <input type="text" 
+                           name="search" 
+                           class="form-control" 
+                           value="<?php echo html($searchTerm ?? ''); ?>" 
+                           placeholder="<?php echo LANG_TEMPLATE_TAGS_ADMININDEX_FILTER_SEARCH_PLACEHOLDER; ?>">
+                </div>
+                
+                <div class="col-md-3">
+                    <label class="form-label small text-muted mb-1">
+                        <?php echo bloggy_icon('bs', 'image', '14', '#6c757d', 'me-1'); ?>
+                        <?php echo LANG_TEMPLATE_TAGS_ADMININDEX_FILTER_IMAGE_LABEL; ?>
+                    </label>
+                    <select name="has_image" class="form-select">
+                        <option value=""><?php echo LANG_TEMPLATE_TAGS_ADMININDEX_FILTER_IMAGE_ALL; ?></option>
+                        <option value="yes" <?php echo ($hasImageFilter ?? '') === 'yes' ? 'selected' : ''; ?>><?php echo LANG_TEMPLATE_TAGS_ADMININDEX_FILTER_IMAGE_YES; ?></option>
+                        <option value="no" <?php echo ($hasImageFilter ?? '') === 'no' ? 'selected' : ''; ?>><?php echo LANG_TEMPLATE_TAGS_ADMININDEX_FILTER_IMAGE_NO; ?></option>
+                    </select>
+                </div>
+                
+                <div class="col-md-3">
+                    <label class="form-label small text-muted mb-1">
+                        <?php echo bloggy_icon('bs', 'sort-down', '14', '#6c757d', 'me-1'); ?>
+                        <?php echo LANG_TEMPLATE_TAGS_ADMININDEX_FILTER_SORT_LABEL; ?>
+                    </label>
+                    <select name="sort" class="form-select">
+                        <option value="name_asc" <?php echo ($currentSort ?? 'name_asc') === 'name_asc' ? 'selected' : ''; ?>><?php echo LANG_TEMPLATE_TAGS_ADMININDEX_SORT_NAME_ASC; ?></option>
+                        <option value="name_desc" <?php echo ($currentSort ?? '') === 'name_desc' ? 'selected' : ''; ?>><?php echo LANG_TEMPLATE_TAGS_ADMININDEX_SORT_NAME_DESC; ?></option>
+                        <option value="posts_desc" <?php echo ($currentSort ?? '') === 'posts_desc' ? 'selected' : ''; ?>><?php echo LANG_TEMPLATE_TAGS_ADMININDEX_SORT_POSTS_DESC; ?></option>
+                        <option value="posts_asc" <?php echo ($currentSort ?? '') === 'posts_asc' ? 'selected' : ''; ?>><?php echo LANG_TEMPLATE_TAGS_ADMININDEX_SORT_POSTS_ASC; ?></option>
+                        <option value="created_desc" <?php echo ($currentSort ?? '') === 'created_desc' ? 'selected' : ''; ?>><?php echo LANG_TEMPLATE_TAGS_ADMININDEX_SORT_CREATED_DESC; ?></option>
+                        <option value="created_asc" <?php echo ($currentSort ?? '') === 'created_asc' ? 'selected' : ''; ?>><?php echo LANG_TEMPLATE_TAGS_ADMININDEX_SORT_CREATED_ASC; ?></option>
+                    </select>
+                </div>
+                
+                <div class="col-auto">
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary w-100">
+                            <?php echo bloggy_icon('bs', 'funnel', '16', '#fff', 'me-1'); ?>
+                            <?php echo LANG_TEMPLATE_TAGS_ADMININDEX_FILTER_BTN; ?>
+                        </button>
+                        <a href="<?php echo ADMIN_URL; ?>/tags" class="btn btn-outline-secondary">
+                            <?php echo bloggy_icon('bs', 'arrow-repeat', '16', '#000', 'me-1'); ?>
+                            <?php echo LANG_TEMPLATE_TAGS_ADMININDEX_RESET_BTN; ?>
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <div class="card border-0 shadow-sm">
         <div class="card-body">
             <?php if (empty($tags)) { ?>
@@ -24,6 +82,29 @@
                     <a href="<?php echo ADMIN_URL; ?>/tags/create" class="btn btn-primary"><?php echo bloggy_icon('bs', 'plus-lg', '20', '#fff', 'me-2'); ?><?php echo LANG_TEMPLATE_TAGS_ADMININDEX_ADD_BTN; ?></a>
                 </div>
             <?php } else { ?>
+                
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div class="text-muted small">
+                        <?php echo bloggy_icon('bs', 'tags', '14', '#6c757d', 'me-1'); ?>
+                        <?php echo sprintf(LANG_TEMPLATE_TAGS_ADMININDEX_FOUND_COUNT, $stats['total']); ?>
+                        <?php if (!empty($searchTerm) || !empty($hasImageFilter)): ?>
+                            <a href="<?php echo ADMIN_URL; ?>/tags" class="ms-2 text-decoration-none">
+                                <i class="bi bi-x-circle"></i> <?php echo LANG_TEMPLATE_TAGS_ADMININDEX_RESET_FILTERS; ?>
+                            </a>
+                        <?php endif; ?>
+                    </div>
+                    <div class="text-muted small">
+                        <span class="badge bg-light text-dark border">
+                            <?php echo bloggy_icon('bs', 'image', '12', '#6c757d', 'me-1'); ?>
+                            <?php echo LANG_TEMPLATE_TAGS_ADMININDEX_WITH_IMAGE; ?>: <?php echo $stats['with_image']; ?>
+                        </span>
+                        <span class="badge bg-light text-dark border ms-2">
+                            <?php echo bloggy_icon('bs', 'image-slash', '12', '#6c757d', 'me-1'); ?>
+                            <?php echo LANG_TEMPLATE_TAGS_ADMININDEX_WITHOUT_IMAGE; ?>: <?php echo $stats['without_image']; ?>
+                        </span>
+                    </div>
+                </div>
+                
                 <div class="table-responsive">
                     <table class="table table-hover align-middle">
                         <thead class="table-light">
@@ -77,11 +158,11 @@
                                             <a href="<?php echo ADMIN_URL; ?>/tags/edit/<?php echo $tag['id']; ?>" class="btn btn-sm btn-success" title="<?php echo LANG_TEMPLATE_TAGS_ADMININDEX_EDIT_TITLE; ?>"><?php echo bloggy_icon('bs', 'pencil', '16', '#fff'); ?></a>
                                             <a href="<?php echo ADMIN_URL; ?>/tags/delete/<?php echo $tag['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('<?php echo LANG_TEMPLATE_TAGS_ADMININDEX_DELETE_CONFIRM; ?>')" title="<?php echo LANG_TEMPLATE_TAGS_ADMININDEX_DELETE_TITLE; ?>"><?php echo bloggy_icon('bs', 'trash', '16', '#fff'); ?></a>
                                         </div>
-                                     </td>
+                                    </td>
                                 </tr>
                             <?php } ?>
                         </tbody>
-                     </table>
+                    </table>
                 </div>
             <?php } ?>
         </div>
