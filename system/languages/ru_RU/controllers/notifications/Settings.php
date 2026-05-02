@@ -16,3 +16,6 @@ define('LANG_CONTROLLER_NOTIFICATIONS_SETTINGS_ERRORS_ONLY_UNFIXED', 'Уведо
 define('LANG_CONTROLLER_NOTIFICATIONS_SETTINGS_ERRORS_ONLY_UNFIXED_HINT', 'Повторные уведомления об одной и той же ошибке не будут отправляться, пока она не будет отмечена как исправленная');
 define('LANG_CONTROLLER_NOTIFICATIONS_SETTINGS_ERRORS_THROTTLE', 'Минимальный интервал между уведомлениями (минуты)');
 define('LANG_CONTROLLER_NOTIFICATIONS_SETTINGS_ERRORS_THROTTLE_HINT', 'Чтобы не заспамливать уведомлениями при массовых ошибках');
+define('LANG_CONTROLLER_NOTIFICATIONS_SETTINGS_FIELDSET_USERS', 'Пользователи');
+define('LANG_CONTROLLER_NOTIFICATIONS_SETTINGS_USERS_NOTIFY_ON_REGISTRATION', 'Уведомлять о регистрации нового пользователя');
+define('LANG_CONTROLLER_NOTIFICATIONS_SETTINGS_USERS_NOTIFY_ON_REGISTRATION_HINT', 'Отправлять уведомление администраторам при регистрации нового пользователя');

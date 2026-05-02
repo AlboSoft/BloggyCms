@@ -245,11 +245,27 @@ class AdminNotificationsController extends Controller {
     * @return array Отформатированное уведомление
     */
     private function formatNewUserNotification($notification, $data, $result) {
-        $userName = $data['username'] ?? $notification['created_by_username'] ?? LANG_CONTROLLER_NOTIFICATIONS_NEW_USER;
+        $userName = $data['display_name'] ?? $data['username'] ?? $notification['created_by_username'] ?? LANG_CONTROLLER_NOTIFICATIONS_NEW_USER;
+        $userId = $data['user_id'] ?? null;
+        $userEmail = $data['email'] ?? '';
+        
+        $message = sprintf(LANG_CONTROLLER_NOTIFICATIONS_NEW_USER_MESSAGE, $userName);
+        
+        if (!empty($userEmail)) {
+            $message .= " ($userEmail)";
+        }
+        
+        if ($userId && strpos($_SERVER['REQUEST_URI'] ?? '', '/admin/') !== false) {
+            $profileLink = ADMIN_URL . '/users/edit/' . $userId;
+            $message .= ' <a href="' . $profileLink . '" class="text-decoration-none">→ Перейти к профилю</a>';
+        }
         
         return array_merge($result, [
             'title' => LANG_CONTROLLER_NOTIFICATIONS_NEW_USER_TITLE,
-            'message' => sprintf(LANG_CONTROLLER_NOTIFICATIONS_NEW_USER_MESSAGE, $userName)
+            'message' => $message,
+            'user_id' => $userId,
+            'user_name' => $userName,
+            'user_email' => $userEmail
         ]);
     }
     

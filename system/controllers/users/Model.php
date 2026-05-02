@@ -174,6 +174,13 @@ class UserModel implements ModelAPI {
 
         $this->addUserToDefaultGroup($userId);
         
+        try {
+            $notificationModel = new \NotificationModel($this->db);
+            $notificationModel->addNewUserNotification($userId, $data);
+        } catch (\Exception $e) {
+            error_log('Failed to send user registration notification: ' . $e->getMessage());
+        }
+        
         return $userId;
     }
 

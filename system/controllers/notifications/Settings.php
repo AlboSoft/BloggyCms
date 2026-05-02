@@ -65,6 +65,19 @@ class NotificationsSettings {
                     ]),
                 ]
             ]),
+
+            new \Fieldset(LANG_CONTROLLER_NOTIFICATIONS_SETTINGS_FIELDSET_USERS, [
+                'icon' => 'bi bi-people',
+                'columns' => '12',
+                'fields' => [
+                    \FieldFactory::checkbox('notify_on_user_registration', [
+                        'title' => LANG_CONTROLLER_NOTIFICATIONS_SETTINGS_USERS_NOTIFY_ON_REGISTRATION,
+                        'hint' => LANG_CONTROLLER_NOTIFICATIONS_SETTINGS_USERS_NOTIFY_ON_REGISTRATION_HINT,
+                        'default' => true,
+                        'switch' => true
+                    ]),
+                ]
+            ]),
         ];
         
         ob_start();

@@ -293,4 +293,58 @@ class NotificationModel implements ModelAPI {
         
         return $notifications;
     }
+
+    /**
+    * Добавляет уведомление о регистрации нового пользователя
+    * @param int $userId ID созданного пользователя
+    * @param array $userData Данные пользователя
+    * @return bool
+    */
+    public function addNewUserNotification($userId, $userData) {
+        try {
+
+            $notifyEnabled = \SettingsHelper::get('controller_notifications', 'notify_on_user_registration', true);
+            
+            if (!$notifyEnabled) {
+                return false;
+            }
+            
+            $username = $userData['username'] ?? '';
+            $email = $userData['email'] ?? '';
+            $displayName = $userData['display_name'] ?? $username;
+            
+            $userModel = new \UserModel($this->db);
+            
+            $admins = $userModel->getAdmins();
+            
+            if (empty($admins)) {
+                return false;
+            }
+            
+            $message = "Зарегистрирован новый пользователь: {$displayName}";
+            
+            foreach ($admins as $admin) {
+                $this->add([
+                    'type' => 'new_user',
+                    'title' => 'Новый пользователь',
+                    'message' => $message,
+                    'data' => json_encode([
+                        'user_id' => $userId,
+                        'username' => $username,
+                        'display_name' => $displayName,
+                        'email' => $email,
+                        'created_at' => date('Y-m-d H:i:s')
+                    ]),
+                    'user_id' => $admin['id'],
+                    'created_by' => $userId
+                ]);
+            }
+            
+            return true;
+            
+        } catch (\Exception $e) {
+            return false;
+        }
+    }
+
 }

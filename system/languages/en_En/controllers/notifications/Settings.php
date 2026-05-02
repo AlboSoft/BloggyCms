@@ -16,3 +16,6 @@ define('LANG_CONTROLLER_NOTIFICATIONS_SETTINGS_ERRORS_ONLY_UNFIXED', 'Notify onl
 define('LANG_CONTROLLER_NOTIFICATIONS_SETTINGS_ERRORS_ONLY_UNFIXED_HINT', 'Repeated notifications about the same error will not be sent until it is marked as fixed');
 define('LANG_CONTROLLER_NOTIFICATIONS_SETTINGS_ERRORS_THROTTLE', 'Minimum interval between notifications (minutes)');
 define('LANG_CONTROLLER_NOTIFICATIONS_SETTINGS_ERRORS_THROTTLE_HINT', 'To avoid spamming notifications during mass errors');
+define('LANG_CONTROLLER_NOTIFICATIONS_SETTINGS_FIELDSET_USERS', 'Users');
+define('LANG_CONTROLLER_NOTIFICATIONS_SETTINGS_USERS_NOTIFY_ON_REGISTRATION', 'Notify about new user registration');
+define('LANG_CONTROLLER_NOTIFICATIONS_SETTINGS_USERS_NOTIFY_ON_REGISTRATION_HINT', 'Send a notification to administrators when a new user registers');
