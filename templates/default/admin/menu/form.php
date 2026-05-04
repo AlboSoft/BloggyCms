@@ -1,6 +1,9 @@
 <?php
     add_admin_js('templates/default/admin/assets/js/controllers/menu-builder.js');
     add_admin_js('templates/default/admin/assets/js/controllers/menu-icons.js');
+    add_admin_js('templates/default/admin/assets/js/controllers/ace.js');
+    add_admin_js('templates/default/admin/assets/js/controllers/mode-html.js');
+    add_admin_js('templates/default/admin/assets/js/controllers/theme-monokai.js');
 ?>
 
 <div class="container-fluid p-0">
@@ -83,11 +86,15 @@
                                         $children = $item['children'] ?? array();
                                         $hasChildren = !empty($children);
                                         $levelClass = 'level-' . min($level, 4);
+                                        $isExtra = isset($item['is_extra']) && $item['is_extra'];
+                                        $extraBadge = $isExtra ? '<span class="badge bg-warning ms-2">extra</span>' : '';
+                                        
                                         $itemData = html(json_encode(array(
                                             'title' => $item['title'] ?? '',
                                             'url' => $item['url'] ?? '',
                                             'class' => $item['class'] ?? '',
-                                            'target' => $item['target'] ?? '_self'
+                                            'target' => $item['target'] ?? '_self',
+                                            'is_extra' => $isExtra
                                         )));
                                         ?>
                                         <div class="menu-item-card card mb-2 <?php echo $levelClass; ?>" 
@@ -111,7 +118,7 @@
                                                                     <?php echo bloggy_icon('bs', 'link-45deg', '16', '#0d6efd', 'me-2'); ?>
                                                                 <?php } ?>
                                                                 <div>
-                                                                    <h6 class="mb-1"><?php echo !empty($title) ? $title : LANG_TEMPLATE_MENU_FORM_NO_TITLE; ?></h6>
+                                                                    <h6 class="mb-1"><?php echo !empty($title) ? $title : LANG_TEMPLATE_MENU_FORM_NO_TITLE; ?><?php echo $extraBadge; ?></h6>
                                                                     <small class="text-muted"><?php echo $url; ?></small>
                                                                 </div>
                                                             </div>
@@ -203,12 +210,59 @@
                         </div>
                         
                         <div class="mb-3">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" 
+                                       name="use_custom_template" 
+                                       id="use_custom_template" 
+                                       value="1"
+                                       <?php echo ($useCustomTemplate ?? false) ? 'checked' : ''; ?>>
+                                <label class="form-check-label fw-semibold" for="use_custom_template">
+                                    <?php echo bloggy_icon('bs', 'code-square', '16', '#0d6efd', 'me-1'); ?>
+                                    <?php echo LANG_TEMPLATE_MENU_FORM_USE_CUSTOM_TEMPLATE; ?>
+                                </label>
+                                <div class="form-text">
+                                    <?php echo LANG_TEMPLATE_MENU_FORM_USE_CUSTOM_TEMPLATE_HINT; ?>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="custom-template-container" style="<?php echo ($useCustomTemplate ?? false) ? '' : 'display: none;'; ?>">
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold d-flex align-items-center">
+                                    <?php echo bloggy_icon('bs', 'code', '16', '#0d6efd', 'me-1'); ?>
+                                    <?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_LABEL; ?>
+                                </label>
+                                <div class="mb-2">
+                                    <small class="text-muted">
+                                        <?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_HINT; ?><br>
+                                        <code>{li}...{/li}</code> - <?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_NORMAL; ?><br>
+                                        <code>{li=sub}...{/li=sub}</code> - <?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_SUB; ?><br>
+                                        <code>{li-extra}...{/li-extra}</code> - <?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_EXTRA; ?>
+                                    </small>
+                                </div>
+                                <div id="custom-template-editor" style="height: 400px; width: 100%; border: 1px solid #dee2e6; border-radius: 0.375rem;"></div>
+                                <textarea name="custom_template" id="custom_template" style="display: none;"><?php echo html($customTemplate ?? ''); ?></textarea>
+                                <div class="form-text mt-2">
+                                    <strong><?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_SHORTCODES_TITLE; ?></strong><br>
+                                    <code>{url}</code> - <?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_SHORTCODE_URL; ?><br>
+                                    <code>{title}</code> - <?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_SHORTCODE_TITLE; ?><br>
+                                    <code>{target}</code> - <?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_SHORTCODE_TARGET; ?><br>
+                                    <code>{class}</code> - <?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_SHORTCODE_CLASS; ?><br>
+                                    <code>{icon}</code> - <?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_SHORTCODE_ICON; ?><br>
+                                    <code>{active_class}</code> - <?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_SHORTCODE_ACTIVE; ?><br>
+                                    <code>{has_children}</code> - <?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_SHORTCODE_HAS_CHILDREN; ?><br>
+                                    <code>{level}</code> - <?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_SHORTCODE_LEVEL; ?>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3" id="template-select-container">
                             <label class="form-label">
                                 <?php echo bloggy_icon('bs', 'layout-wtf', '16', '#000', 'me-1'); ?>
                                 <?php echo LANG_TEMPLATE_MENU_FORM_TEMPLATE_LABEL; ?>
                                 <span class="text-danger">*</span>
                             </label>
-                            <select class="form-select" name="template" required <?php echo empty($availableTemplates) ? 'disabled' : ''; ?>>
+                            <select class="form-select" name="template">
                                 <option value=""><?php echo LANG_TEMPLATE_MENU_FORM_SELECT_TEMPLATE; ?></option>
                                 <?php foreach ($availableTemplates as $templateKey => $templateName) { ?>
                                     <option value="<?php echo $templateKey; ?>" 
@@ -245,17 +299,17 @@
                 <div class="card border-0 shadow-sm">
                     <div class="card-body">
                         <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-primary" <?php echo empty($availableTemplates) ? 'disabled' : ''; ?>>
+                            <button type="submit" class="btn btn-primary">
                                 <?php echo bloggy_icon('bs', 'check-lg', '20', '#fff', 'me-2'); ?>
                                 <?php echo isset($menu['id']) ? LANG_TEMPLATE_MENU_FORM_UPDATE_BTN : LANG_TEMPLATE_MENU_FORM_CREATE_BTN; ?>
                             </button>
                             
                             <?php if (isset($menu['id'])) { ?>
-                            <a href="<?php echo ADMIN_URL; ?>/menu/preview/<?php echo $menu['id']; ?>" 
-                               class="btn btn-outline-secondary">
-                                <?php echo bloggy_icon('bs', 'eye', '16', '#000', 'me-2'); ?>
-                                <?php echo LANG_TEMPLATE_MENU_FORM_PREVIEW_BTN; ?>
-                            </a>
+                                <a href="<?php echo ADMIN_URL; ?>/menu/preview/<?php echo $menu['id']; ?>" 
+                                class="btn btn-outline-secondary">
+                                    <?php echo bloggy_icon('bs', 'eye', '16', '#000', 'me-2'); ?>
+                                    <?php echo LANG_TEMPLATE_MENU_FORM_PREVIEW_BTN; ?>
+                                </a>
                             <?php } ?>
                         </div>
                     </div>
@@ -339,59 +393,59 @@
                         </div>
 
                         <div class="mb-2">
-    <div class="d-flex justify-content-between align-items-center mb-1">
-        <label class="form-label mb-0">
-            <?php echo bloggy_icon('bs', 'code-slash', '16', '#000', 'me-1'); ?>
-            <?php echo LANG_TEMPLATE_MENU_FORM_MODAL_SHORTCODES_LABEL; ?>
-        </label>
-        <button type="button" class="btn btn-link btn-sm p-0 text-decoration-none" 
-                data-bs-toggle="collapse" data-bs-target="#shortcodeHelp">
-            <?php echo bloggy_icon('bs', 'info-circle', '16', '#000', 'me-1'); ?>
-            <?php echo LANG_TEMPLATE_MENU_FORM_MODAL_SHORTCODES_HELP; ?>
-        </button>
-    </div>
-    
-    <div class="d-flex flex-wrap gap-1 mb-2" id="shortcode-buttons">
-        <button type="button" class="btn btn-outline-secondary btn-sm shortcode-btn" 
-                data-shortcode="{username}">
-            {username}
-        </button>
-        <button type="button" class="btn btn-outline-secondary btn-sm shortcode-btn" 
-                data-shortcode="{user_id}">
-            {user_id}
-        </button>
-        <button type="button" class="btn btn-outline-secondary btn-sm shortcode-btn" 
-                data-shortcode="{email}">
-            {email}
-        </button>
-        <button type="button" class="btn btn-outline-secondary btn-sm shortcode-btn" 
-                data-shortcode="{base_url}">
-            {base_url}
-        </button>
-    </div>
-    
-    <div class="collapse" id="shortcodeHelp">
-        <div class="card card-body bg-light p-2 small">
-            <table class="table table-sm table-borderless mb-0">
-                <tr><td class="p-1"><code>{username}</code></td><td class="p-1"><?php echo LANG_TEMPLATE_MENU_FORM_SHORTCODE_USERNAME; ?></td></tr>
-                <tr><td class="p-1"><code>{user_id}</code></td><td class="p-1"><?php echo LANG_TEMPLATE_MENU_FORM_SHORTCODE_USER_ID; ?></td></tr>
-                <tr><td class="p-1"><code>{email}</code></td><td class="p-1"><?php echo LANG_TEMPLATE_MENU_FORM_SHORTCODE_EMAIL; ?></td></tr>
-                <tr><td class="p-1"><code>{first_name}</code></td><td class="p-1"><?php echo LANG_TEMPLATE_MENU_FORM_SHORTCODE_FIRST_NAME; ?></td></tr>
-                <tr><td class="p-1"><code>{last_name}</code></td><td class="p-1"><?php echo LANG_TEMPLATE_MENU_FORM_SHORTCODE_LAST_NAME; ?></td></tr>
-                <tr><td class="p-1"><code>{display_name}</code></td><td class="p-1"><?php echo LANG_TEMPLATE_MENU_FORM_SHORTCODE_DISPLAY_NAME; ?></td></tr>
-                <tr><td class="p-1"><code>{slug}</code></td><td class="p-1"><?php echo LANG_TEMPLATE_MENU_FORM_SHORTCODE_SLUG; ?></td></tr>
-                <tr><td class="p-1"><code>{base_url}</code></td><td class="p-1"><?php echo LANG_TEMPLATE_MENU_FORM_SHORTCODE_BASE_URL; ?></td></tr>
-                <tr><td class="p-1"><code>{admin_url}</code></td><td class="p-1"><?php echo LANG_TEMPLATE_MENU_FORM_SHORTCODE_ADMIN_URL; ?></td></tr>
-                <tr><td class="p-1"><code>{user_field:поле}</code></td><td class="p-1"><?php echo LANG_TEMPLATE_MENU_FORM_SHORTCODE_USER_FIELD; ?></td></tr>
-            </table>
-        </div>
-    </div>
-    
-    <div class="shortcode-preview small text-muted mt-2" id="shortcode-preview" style="display: none;">
-        <?php echo bloggy_icon('bs', 'eye', '16', '#000', 'me-1'); ?>
-        <?php echo LANG_TEMPLATE_MENU_FORM_SHORTCODE_PREVIEW; ?> <span id="preview-text"></span>
-    </div>
-</div>
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <label class="form-label mb-0">
+                                    <?php echo bloggy_icon('bs', 'code-slash', '16', '#000', 'me-1'); ?>
+                                    <?php echo LANG_TEMPLATE_MENU_FORM_MODAL_SHORTCODES_LABEL; ?>
+                                </label>
+                                <button type="button" class="btn btn-link btn-sm p-0 text-decoration-none" 
+                                        data-bs-toggle="collapse" data-bs-target="#shortcodeHelp">
+                                    <?php echo bloggy_icon('bs', 'info-circle', '16', '#000', 'me-1'); ?>
+                                    <?php echo LANG_TEMPLATE_MENU_FORM_MODAL_SHORTCODES_HELP; ?>
+                                </button>
+                            </div>
+                            
+                            <div class="d-flex flex-wrap gap-1 mb-2" id="shortcode-buttons">
+                                <button type="button" class="btn btn-outline-secondary btn-sm shortcode-btn" 
+                                        data-shortcode="{username}">
+                                    {username}
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm shortcode-btn" 
+                                        data-shortcode="{user_id}">
+                                    {user_id}
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm shortcode-btn" 
+                                        data-shortcode="{email}">
+                                    {email}
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm shortcode-btn" 
+                                        data-shortcode="{base_url}">
+                                    {base_url}
+                                </button>
+                            </div>
+                            
+                            <div class="collapse" id="shortcodeHelp">
+                                <div class="card card-body bg-light p-2 small">
+                                    <table class="table table-sm table-borderless mb-0">
+                                        <tr><td class="p-1"><code>{username}</code></td><td class="p-1"><?php echo LANG_TEMPLATE_MENU_FORM_SHORTCODE_USERNAME; ?></td></tr>
+                                        <tr><td class="p-1"><code>{user_id}</code></td><td class="p-1"><?php echo LANG_TEMPLATE_MENU_FORM_SHORTCODE_USER_ID; ?></td></tr>
+                                        <tr><td class="p-1"><code>{email}</code></td><td class="p-1"><?php echo LANG_TEMPLATE_MENU_FORM_SHORTCODE_EMAIL; ?></td></tr>
+                                        <tr><td class="p-1"><code>{first_name}</code></td><td class="p-1"><?php echo LANG_TEMPLATE_MENU_FORM_SHORTCODE_FIRST_NAME; ?></td></tr>
+                                        <tr><td class="p-1"><code>{last_name}</code></td><td class="p-1"><?php echo LANG_TEMPLATE_MENU_FORM_SHORTCODE_LAST_NAME; ?></td></tr>
+                                        <tr><td class="p-1"><code>{display_name}</code></td><td class="p-1"><?php echo LANG_TEMPLATE_MENU_FORM_SHORTCODE_DISPLAY_NAME; ?></td></tr>
+                                        <tr><td class="p-1"><code>{slug}</code></td><td class="p-1"><?php echo LANG_TEMPLATE_MENU_FORM_SHORTCODE_SLUG; ?></td></tr>
+                                        <tr><td class="p-1"><code>{base_url}</code></td><td class="p-1"><?php echo LANG_TEMPLATE_MENU_FORM_SHORTCODE_BASE_URL; ?></td></tr>
+                                        <tr><td class="p-1"><code>{admin_url}</code></td><td class="p-1"><?php echo LANG_TEMPLATE_MENU_FORM_SHORTCODE_ADMIN_URL; ?></td></tr>
+                                        <tr><td class="p-1"><code>{user_field:поле}</code></td><td class="p-1"><?php echo LANG_TEMPLATE_MENU_FORM_SHORTCODE_USER_FIELD; ?></td></tr>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                            <div class="shortcode-preview small text-muted mt-2" id="shortcode-preview" style="display: none;">
+                                <?php echo bloggy_icon('bs', 'eye', '16', '#000', 'me-1'); ?>
+                                <?php echo LANG_TEMPLATE_MENU_FORM_SHORTCODE_PREVIEW; ?> <span id="preview-text"></span>
+                            </div>
+                        </div>
                         
                         <div class="col-md-6">
                             <label class="form-label">
@@ -502,53 +556,70 @@
                         </div>
 
                         <div class="border-top pt-3 mt-3">
-                        <h6 class="text-muted mb-3">
-                            <?php echo bloggy_icon('bs', 'shield-lock', '16', '#000', 'me-1'); ?>
-                            <?php echo LANG_TEMPLATE_MENU_FORM_VISIBILITY_TITLE; ?>
-                        </h6>
-    
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label class="form-label small">
-                                    <?php echo bloggy_icon('bs', 'eye', '16', '#000', 'me-1'); ?>
-                                    <?php echo LANG_TEMPLATE_MENU_FORM_SHOW_TO_GROUPS; ?>
-                                </label>
-                                <select class="form-select form-select-sm" id="item-show-to" multiple size="4">
-                                    <option value=""><?php echo LANG_TEMPLATE_MENU_FORM_ALL_GROUPS; ?></option>
-                                    <?php 
-                                    $groups = $this->getUserGroups();
-                                    foreach ($groups as $group) { 
-                                    ?>
-                                        <option value="<?php echo $group['id']; ?>">
-                                            <?php echo html($group['name']); ?>
-                                        </option>
-                                    <?php } ?>
-                                </select>
-                                <div class="form-text small"><?php echo LANG_TEMPLATE_MENU_FORM_SHOW_TO_GROUPS_HINT; ?></div>
-                            </div>
+                            <h6 class="text-muted mb-3">
+                                <?php echo bloggy_icon('bs', 'star', '16', '#000', 'me-1'); ?>
+                                <?php echo LANG_TEMPLATE_MENU_FORM_ADDITIONAL_SETTINGS; ?>
+                            </h6>
                             
-                            <div class="col-md-6">
-                                <label class="form-label small">
-                                    <?php echo bloggy_icon('bs', 'eye-slash', '16', '#000', 'me-1'); ?>
-                                    <?php echo LANG_TEMPLATE_MENU_FORM_HIDE_FROM_GROUPS; ?>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="item-extra">
+                                <label class="form-check-label" for="item-extra">
+                                    <?php echo LANG_TEMPLATE_MENU_FORM_EXTRA_MENU_ITEM; ?>
                                 </label>
-                                <select class="form-select form-select-sm" id="item-hide-from" multiple size="4">
-                                    <option value=""><?php echo LANG_TEMPLATE_MENU_FORM_NO_HIDE; ?></option>
-                                    <?php foreach ($groups as $group) { ?>
-                                        <option value="<?php echo $group['id']; ?>">
-                                            <?php echo html($group['name']); ?>
-                                        </option>
-                                    <?php } ?>
-                                </select>
-                                <div class="form-text small"><?php echo LANG_TEMPLATE_MENU_FORM_HIDE_FROM_GROUPS_HINT; ?></div>
+                                <div class="form-text small">
+                                    <?php echo LANG_TEMPLATE_MENU_FORM_EXTRA_MENU_HINT; ?> <code>{li-extra}</code>
+                                </div>
                             </div>
                         </div>
+
+                        <div class="border-top pt-3 mt-3">
+                            <h6 class="text-muted mb-3">
+                                <?php echo bloggy_icon('bs', 'shield-lock', '16', '#000', 'me-1'); ?>
+                                <?php echo LANG_TEMPLATE_MENU_FORM_VISIBILITY_TITLE; ?>
+                            </h6>
     
-                        <div class="alert alert-info mt-2 p-2 small">
-                            <?php echo bloggy_icon('bs', 'info-circle', '16', '#000', 'me-1'); ?>
-                            <strong><?php echo LANG_TEMPLATE_MENU_FORM_PRIORITY_TITLE; ?></strong> <?php echo LANG_TEMPLATE_MENU_FORM_PRIORITY_TEXT; ?>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="form-label small">
+                                        <?php echo bloggy_icon('bs', 'eye', '16', '#000', 'me-1'); ?>
+                                        <?php echo LANG_TEMPLATE_MENU_FORM_SHOW_TO_GROUPS; ?>
+                                    </label>
+                                    <select class="form-select form-select-sm" id="item-show-to" multiple size="4">
+                                        <option value=""><?php echo LANG_TEMPLATE_MENU_FORM_ALL_GROUPS; ?></option>
+                                        <?php 
+                                        $groups = $this->getUserGroups();
+                                        foreach ($groups as $group) { 
+                                        ?>
+                                            <option value="<?php echo $group['id']; ?>">
+                                                <?php echo html($group['name']); ?>
+                                            </option>
+                                        <?php } ?>
+                                    </select>
+                                    <div class="form-text small"><?php echo LANG_TEMPLATE_MENU_FORM_SHOW_TO_GROUPS_HINT; ?></div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <label class="form-label small">
+                                        <?php echo bloggy_icon('bs', 'eye-slash', '16', '#000', 'me-1'); ?>
+                                        <?php echo LANG_TEMPLATE_MENU_FORM_HIDE_FROM_GROUPS; ?>
+                                    </label>
+                                    <select class="form-select form-select-sm" id="item-hide-from" multiple size="4">
+                                        <option value=""><?php echo LANG_TEMPLATE_MENU_FORM_NO_HIDE; ?></option>
+                                        <?php foreach ($groups as $group) { ?>
+                                            <option value="<?php echo $group['id']; ?>">
+                                                <?php echo html($group['name']); ?>
+                                            </option>
+                                        <?php } ?>
+                                    </select>
+                                    <div class="form-text small"><?php echo LANG_TEMPLATE_MENU_FORM_HIDE_FROM_GROUPS_HINT; ?></div>
+                                </div>
+                            </div>
+    
+                            <div class="alert alert-info mt-2 p-2 small">
+                                <?php echo bloggy_icon('bs', 'info-circle', '16', '#000', 'me-1'); ?>
+                                <strong><?php echo LANG_TEMPLATE_MENU_FORM_PRIORITY_TITLE; ?></strong> <?php echo LANG_TEMPLATE_MENU_FORM_PRIORITY_TEXT; ?>
+                            </div>
                         </div>
-                    </div>
 
                     </div>
                 </form>

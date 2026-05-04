@@ -396,6 +396,8 @@ CREATE TABLE IF NOT EXISTS `{#}menus` (
   `template` varchar(255) NOT NULL,
   `structure` text NOT NULL,
   `visibility_settings` text,
+  `use_custom_template` tinyint(1) NOT NULL DEFAULT 0,
+  `custom_template` text DEFAULT NULL,
   `status` enum('active','inactive') DEFAULT 'active',
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

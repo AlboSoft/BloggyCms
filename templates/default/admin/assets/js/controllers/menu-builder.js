@@ -4,6 +4,8 @@
         this.currentEditIndex = null;
         this.currentParentIndex = null;
         this.isEditing = false;
+        this.customEditor = null;
+        this.templateSelectClone = null;
         this.init();
     }
 
@@ -14,6 +16,12 @@
         this.updateStatistics();
         this.setupShortcodeHints();
         this.addAdditionalShortcodeButtons();
+        
+        const useCustomCheckbox = document.getElementById('use_custom_template');
+        if (useCustomCheckbox && useCustomCheckbox.checked) {
+            this.toggleCustomTemplate(true);
+            setTimeout(() => this.initCustomTemplateEditor(), 200);
+        }
     }
 
     setupEventListeners() {
@@ -52,16 +60,142 @@
             this.handleFormSubmit(e);
         });
 
+        const customTemplateCheckbox = document.getElementById('use_custom_template');
+        if (customTemplateCheckbox) {
+            customTemplateCheckbox.addEventListener('change', (e) => {
+                this.toggleCustomTemplate(e.target.checked);
+            });
+        }
+
         const menuItemModal = document.getElementById('menuItemModal');
         if (menuItemModal) {
-            menuItemModal.addEventListener('show.bs.modal', () => {
-                
-            });
-            
+            menuItemModal.addEventListener('show.bs.modal', () => {});
             menuItemModal.addEventListener('hidden.bs.modal', () => {
                 this.isEditing = false;
             });
         }
+    }
+
+    toggleCustomTemplate(useCustom) {
+        const container = document.getElementById('custom-template-container');
+        const templateSelectContainer = document.getElementById('template-select-container');
+        const templateSelect = document.querySelector('select[name="template"]');
+        
+        if (container) {
+            container.style.display = useCustom ? 'block' : 'none';
+        }
+        
+        if (useCustom) {
+            if (templateSelectContainer) {
+                templateSelectContainer.style.display = 'none';
+            }
+            
+            if (templateSelect) {
+                templateSelect.removeAttribute('required');
+                templateSelect.value = '';
+            }
+            
+            if (!this.customEditor) {
+                setTimeout(() => this.initCustomTemplateEditor(), 100);
+            }
+        } else {
+            if (templateSelectContainer) {
+                templateSelectContainer.style.display = 'block';
+            }
+            
+            if (templateSelect) {
+                templateSelect.setAttribute('required', 'required');
+                if (!templateSelect.value) {
+                    const firstOption = templateSelect.querySelector('option[value!=""]');
+                    if (firstOption) {
+                        templateSelect.value = firstOption.value;
+                    }
+                }
+            }
+        }
+    }
+
+    initCustomTemplateEditor() {
+        const editorElement = document.getElementById('custom-template-editor');
+        if (!editorElement) return;
+        
+        if (typeof ace === 'undefined') {
+            setTimeout(() => this.initCustomTemplateEditor(), 200);
+            return;
+        }
+        
+        try {
+            if (this.customEditor) {
+                this.customEditor.destroy();
+            }
+            
+            this.customEditor = ace.edit("custom-template-editor", {
+                theme: "ace/theme/monokai",
+                mode: "ace/mode/html",
+                showPrintMargin: false,
+                fontSize: "14px",
+                tabSize: 2,
+                useSoftTabs: true,
+                wrap: true,
+                minLines: 15,
+                maxLines: 30
+            });
+            
+            this.customEditor.session.setUseWrapMode(true);
+            
+            const textarea = document.getElementById('custom_template');
+            let content = '';
+            
+            if (textarea && textarea.value) {
+                content = textarea.value;
+            } else {
+                content = `<ul class="custom-menu">
+    {li}
+        <li class="{active_class}">
+            <a href="{url}" target="{target}" class="{class}">
+                {icon}<span>{title}</span>
+            </a>
+        </li>
+    {/li}
+    
+    {li=sub}
+        <li class="dropdown {active_class}">
+            <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">
+                {icon}{title}
+            </a>
+            <ul class="dropdown-menu">
+                {children}
+            </ul>
+        </li>
+    {/li=sub}
+    
+    {li-extra}
+        <li class="extra-item">
+            <a href="{url}" class="btn btn-primary">
+                {icon}{title}
+            </a>
+        </li>
+    {/li-extra}
+</ul>`;
+            }
+            
+            this.customEditor.setValue(content);
+            this.customEditor.clearSelection();
+            
+            const form = document.getElementById('menu-form');
+            if (form && !this._submitHandlerAttached) {
+                form.addEventListener('submit', () => {
+                    if (this.customEditor) {
+                        const ta = document.getElementById('custom_template');
+                        if (ta) {
+                            ta.value = this.customEditor.getValue();
+                        }
+                    }
+                });
+                this._submitHandlerAttached = true;
+            }
+            
+        } catch (error) {}
     }
 
     loadInitialData() {
@@ -108,30 +242,12 @@
         });
     }
 
-    renderVisibilityBadges(visibility) {
-        if (!visibility) return '';
-        
-        let badges = '';
-        
-        if (visibility.show_to_groups && visibility.show_to_groups.length > 0) {
-            badges += `<span class="badge bg-success me-1" title="Показывать группам">👁️ ${visibility.show_to_groups.length}</span>`;
-        }
-        
-        if (visibility.hide_from_groups && visibility.hide_from_groups.length > 0) {
-            badges += `<span class="badge bg-danger me-1" title="Скрывать от групп">🚫 ${visibility.hide_from_groups.length}</span>`;
-        }
-        
-        if (badges) {
-            return `<div class="mt-2">${badges}</div>`;
-        }
-        
-        return '';
-    }
-
     createMenuItemElement(container, itemData, level = 0) {
         const index = this.itemCounter++;
         const hasChildren = itemData.children && itemData.children.length > 0;
         const levelClass = 'level-' + Math.min(level, 4);
+        const isExtra = itemData.is_extra === true;
+        const extraBadge = isExtra ? '<span class="badge bg-warning ms-2">extra</span>' : '';
 
         const itemJson = JSON.stringify({
             title: itemData.title || '',
@@ -140,7 +256,8 @@
             target: itemData.target || '_self',
             icon: itemData.icon || null,
             visibility: itemData.visibility || null,
-            icon_only: itemData.icon_only || false
+            icon_only: itemData.icon_only || false,
+            is_extra: isExtra || false
         });
 
         let iconHtml = '';
@@ -175,6 +292,7 @@
                                     <div>
                                         <h6 class="mb-1">${this.escapeHtml(itemData.title || 'Без названия')} 
                                             ${itemData.icon_only ? '<span class="badge bg-info ms-2">только иконка</span>' : ''}
+                                            ${extraBadge}
                                         </h6>
                                         <small class="text-muted">${this.escapeHtml(itemData.url || '')}</small>
                                     </div>
@@ -204,12 +322,9 @@
                         </div>
                     </div>
                     
-                    <!-- Контейнер для детей (всегда создаем, но показываем только если есть дети) -->
                     <div class="menu-children-container mt-3" style="${hasChildren ? '' : 'display: none;'}">
                         <div class="border-top pt-3">
-                            <div class="menu-children sortable-menu">
-                                <!-- Дети будут добавлены отдельно -->
-                            </div>
+                            <div class="menu-children sortable-menu"></div>
                         </div>
                     </div>
                 </div>
@@ -269,6 +384,9 @@
         document.getElementById('parent-item-index').value = parentIndex || '';
         document.getElementById('item-target').value = '_self';
         
+        const extraCheckbox = document.getElementById('item-extra');
+        if (extraCheckbox) extraCheckbox.checked = false;
+        
         if (window.menuIconManager) {
             window.menuIconManager.clearSelectedIcon();
         }
@@ -287,6 +405,12 @@
         document.getElementById('item-class').value = itemData.class || '';
         document.getElementById('edit-item-index').value = this.currentEditIndex;
         document.getElementById('parent-item-index').value = '';
+        
+        const extraCheckbox = document.getElementById('item-extra');
+        if (extraCheckbox) {
+            extraCheckbox.checked = itemData.is_extra || false;
+        }
+        
         this.fillVisibilitySettings(itemData.visibility);
         if (window.menuIconManager) {
             window.menuIconManager.clearSelectedIcon();
@@ -325,6 +449,7 @@
         const url = document.getElementById('item-url').value.trim();
         const target = document.getElementById('item-target').value;
         const cssClass = document.getElementById('item-class').value.trim();
+        const isExtra = document.getElementById('item-extra')?.checked || false;
 
         if (!title || !url) {
             alert('Пожалуйста, заполните название и URL');
@@ -348,7 +473,8 @@
             class: cssClass,
             visibility: visibility,
             icon: iconData,
-            icon_only: iconData ? (iconData.icon_only || false) : false
+            icon_only: iconData ? (iconData.icon_only || false) : false,
+            is_extra: isExtra
         };
 
         if (this.currentEditIndex) {
@@ -464,7 +590,8 @@
                     target: itemData.target || '_self',
                     icon: itemData.icon || null,
                     visibility: itemData.visibility || null,
-                    icon_only: itemData.icon_only || false
+                    icon_only: itemData.icon_only || false,
+                    is_extra: itemData.is_extra || false
                 })}'>
                 <div class="card-body p-3">
                     <div class="d-flex justify-content-between align-items-center">
@@ -509,7 +636,6 @@
                         </div>
                     </div>
                     
-                    <!-- Пустой контейнер для будущих детей -->
                     <div class="menu-children-container mt-3" style="display: none;">
                         <div class="border-top pt-3">
                             <div class="menu-children sortable-menu"></div>
@@ -621,7 +747,9 @@
         const structure = [];
         const container = document.getElementById('menu-items-container');
         
-        container.querySelectorAll('.menu-item-card').forEach(item => {
+        if (!container) return structure;
+        
+        container.querySelectorAll(':scope > .menu-item-card').forEach(item => {
             if (!item.closest('.menu-children')) {
                 structure.push(this.collectMenuItemData(item));
             }
@@ -635,9 +763,11 @@
         const childrenContainer = menuItem.querySelector('.menu-children');
         if (childrenContainer && childrenContainer.children.length > 0) {
             itemData.children = [];
-            childrenContainer.querySelectorAll('.menu-item-card').forEach(childItem => {
+            childrenContainer.querySelectorAll(':scope > .menu-item-card').forEach(childItem => {
                 itemData.children.push(this.collectMenuItemData(childItem));
             });
+        } else {
+            itemData.children = [];
         }
         
         return itemData;
@@ -647,8 +777,11 @@
         const totalItems = document.querySelectorAll('.menu-item-card').length;
         const nestedItems = document.querySelectorAll('.menu-children .menu-item-card').length;
         
-        document.getElementById('total-items').textContent = totalItems;
-        document.getElementById('nested-items').textContent = nestedItems;
+        const totalSpan = document.getElementById('total-items');
+        const nestedSpan = document.getElementById('nested-items');
+        
+        if (totalSpan) totalSpan.textContent = totalItems;
+        if (nestedSpan) nestedSpan.textContent = nestedItems;
     }
 
     hideEmptyMessage() {
@@ -666,6 +799,26 @@
     }
 
     handleFormSubmit(e) {
+        const useCustomCheckbox = document.getElementById('use_custom_template');
+        const templateSelect = document.querySelector('select[name="template"]');
+        
+        if (templateSelect) {
+            if (useCustomCheckbox && useCustomCheckbox.checked) {
+                templateSelect.removeAttribute('required');
+            } else {
+                templateSelect.setAttribute('required', 'required');
+            }
+        }
+        
+        this.updateMenuStructure();
+        
+        if (this.customEditor) {
+            const textarea = document.getElementById('custom_template');
+            if (textarea) {
+                textarea.value = this.customEditor.getValue();
+            }
+        }
+        
         const structure = this.collectMenuStructure();
         let isValid = true;
         const errors = [];
@@ -680,7 +833,7 @@
                 errors.push(`${path}Не заполнен URL`);
             }
             
-            if (item.children) {
+            if (item.children && item.children.length > 0) {
                 item.children.forEach((child, index) => {
                     validateItem(child, `${path}Пункт ${index + 1} → `);
                 });
@@ -696,9 +849,11 @@
             alert('Ошибки в форме:\n' + errors.join('\n'));
             return;
         }
+        
     }
 
     escapeHtml(unsafe) {
+        if (!unsafe) return '';
         return unsafe
             .replace(/&/g, "&amp;")
             .replace(/</g, "&lt;")
@@ -713,7 +868,7 @@
         
         document.querySelectorAll('.shortcode-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
-                const shortcode = e.target.dataset.shortcode;
+                const shortcode = e.currentTarget.dataset.shortcode;
                 this.insertShortcodeAtCursor(shortcode);
             });
         });
@@ -824,7 +979,7 @@
             btn.title = 'Нажмите чтобы вставить шорткод';
             
             btn.addEventListener('click', (e) => {
-                this.insertShortcodeAtCursor(e.target.dataset.shortcode);
+                this.insertShortcodeAtCursor(e.currentTarget.dataset.shortcode);
             });
             
             container.appendChild(btn);

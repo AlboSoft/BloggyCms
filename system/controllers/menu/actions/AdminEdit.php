@@ -29,17 +29,66 @@ class AdminEdit extends MenuAction {
             return;
         }
         
+        $menuStructure = json_decode($menu['structure'], true) ?: [];
+        
         $this->addBreadcrumb(LANG_ACTION_MENU_ADMINEDIT_BREADCRUMB_DASHBOARD, ADMIN_URL);
         $this->addBreadcrumb(LANG_ACTION_MENU_ADMINEDIT_BREADCRUMB_MENU, ADMIN_URL . '/menu');
         $this->addBreadcrumb(LANG_ACTION_MENU_ADMINEDIT_BREADCRUMB_EDIT . html($menu['name']));
         
         $availableTemplates = $this->menuModel->getAvailableTemplates();
         $currentTheme = $this->menuModel->getCurrentTheme();
-        $menuStructure = json_decode($menu['structure'], true) ?: [];
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
-                $this->handlePostRequest($id, $menu, $menuStructure, $availableTemplates);
+                if (empty(trim($_POST['name']))) {
+                    throw new \Exception(LANG_ACTION_MENU_ADMINEDIT_NAME_REQUIRED);
+                }
+                
+                $useCustomTemplate = isset($_POST['use_custom_template']) ? 1 : 0;
+                $customTemplate = null;
+                
+                if ($useCustomTemplate) {
+                    $customTemplate = $_POST['custom_template'] ?? '';
+                    if (empty(trim($customTemplate))) {
+                        throw new \Exception('Пожалуйста, заполните кастомный шаблон меню');
+                    }
+                } else {
+                    if (empty($_POST['template'])) {
+                        throw new \Exception(LANG_ACTION_MENU_ADMINEDIT_TEMPLATE_REQUIRED);
+                    }
+                    if (!isset($availableTemplates[$_POST['template']])) {
+                        throw new \Exception(LANG_ACTION_MENU_ADMINEDIT_TEMPLATE_NOT_EXISTS);
+                    }
+                }
+                
+                $menuStructure = json_decode($_POST['menu_structure'] ?? '[]', true);
+                if (!$this->menuModel->validateMenuStructure($menuStructure)) {
+                    throw new \Exception(LANG_ACTION_MENU_ADMINEDIT_INVALID_STRUCTURE);
+                }
+                
+                $menuData = [
+                    'name' => trim($_POST['name']),
+                    'structure' => json_encode($menuStructure, JSON_UNESCAPED_UNICODE),
+                    'status' => $_POST['status'] ?? 'active',
+                    'use_custom_template' => $useCustomTemplate,
+                    'custom_template' => $customTemplate
+                ];
+                
+                if (!$useCustomTemplate) {
+                    $menuData['template'] = $_POST['template'] ?? 'default';
+                } else {
+                    $menuData['template'] = !empty($menu['template']) ? $menu['template'] : 'custom';
+                }
+                
+                $success = $this->menuModel->update($id, $menuData);
+                
+                if ($success) {
+                    \Notification::success(LANG_ACTION_MENU_ADMINEDIT_SUCCESS);
+                    $this->redirect(ADMIN_URL . '/menu');
+                } else {
+                    throw new \Exception(LANG_ACTION_MENU_ADMINEDIT_UPDATE_FAILED);
+                }
+                
             } catch (\Exception $e) {
                 \Notification::error($e->getMessage());
                 
@@ -53,6 +102,8 @@ class AdminEdit extends MenuAction {
             'availableTemplates' => $availableTemplates,
             'menuStructure' => $menuStructure,
             'currentTheme' => $currentTheme,
+            'useCustomTemplate' => (bool)($menu['use_custom_template'] ?? false),
+            'customTemplate' => $menu['custom_template'] ?? '',
             'pageTitle' => LANG_ACTION_MENU_ADMINEDIT_PAGE_TITLE . html($menu['name'])
         ]);
     }

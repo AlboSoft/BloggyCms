@@ -106,6 +106,19 @@ class MenuRenderer {
             return '<!-- ' . LANG_HELPER_MENURENDERER_FILTERED_EMPTY . ' -->';
         }
         
+        $useCustomTemplate = !empty($menu['use_custom_template']) && !empty($menu['custom_template']);
+        
+        if ($useCustomTemplate) {
+            $currentUrl = $_SERVER['REQUEST_URI'];
+            $customTemplate = $menu['custom_template'];
+            
+            if (!class_exists('CustomMenuParser')) {
+                require_once SYSTEM_PATH . '/helpers/CustomMenuParser.php';
+            }
+            
+            return CustomMenuParser::parse($customTemplate, $filteredStructure, $currentUrl);
+        }
+        
         if ($currentTheme === null) {
             $currentTheme = $menuModel->getCurrentTheme();
         }

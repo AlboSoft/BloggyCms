@@ -38,6 +38,8 @@ class MenuModel implements ModelAPI {
     public function create($data) {
         $data['created_at'] = date('Y-m-d H:i:s');
         $data['updated_at'] = date('Y-m-d H:i:s');
+        $data['use_custom_template'] = isset($data['use_custom_template']) ? (int)$data['use_custom_template'] : 0;
+        $data['custom_template'] = $data['custom_template'] ?? null;
         
         $this->db->insert('menus', $data);
         return $this->db->lastInsertId();
@@ -51,7 +53,34 @@ class MenuModel implements ModelAPI {
     */
     public function update($id, $data) {
         $data['updated_at'] = date('Y-m-d H:i:s');
-        return $this->db->update('menus', $data, ['id' => $id]) > 0;
+        
+        if (isset($data['use_custom_template'])) {
+            $data['use_custom_template'] = (int)$data['use_custom_template'];
+        }
+        
+        $updateData = [];
+        $allowedFields = ['name', 'template', 'status', 'structure', 
+                          'use_custom_template', 'custom_template'];
+        
+        foreach ($allowedFields as $field) {
+            if (array_key_exists($field, $data)) {
+                $updateData[$field] = $data[$field];
+            }
+        }
+        
+        return $this->db->update('menus', $updateData, ['id' => $id]) > 0;
+    }
+
+    /**
+    * Получить меню для рендеринга
+    */
+    public function getForRendering($id) {
+        $menu = $this->getById($id);
+        if (!$menu) return null;
+        
+        $menu['structure'] = json_decode($menu['structure'], true) ?: [];
+        
+        return $menu;
     }
     
     /**

@@ -22,16 +22,26 @@ class AdminCreate extends MenuAction {
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
-                if (empty($_POST['name'])) {
+                if (empty(trim($_POST['name']))) {
                     throw new \Exception(LANG_ACTION_MENU_ADMINCREATE_NAME_REQUIRED);
                 }
                 
-                if (empty($_POST['template'])) {
+                if (empty($_POST['template']) && empty($_POST['use_custom_template'])) {
                     throw new \Exception(LANG_ACTION_MENU_ADMINCREATE_TEMPLATE_REQUIRED);
                 }
                 
-                if (!isset($availableTemplates[$_POST['template']])) {
-                    throw new \Exception(LANG_ACTION_MENU_ADMINCREATE_TEMPLATE_NOT_EXISTS);
+                $useCustomTemplate = isset($_POST['use_custom_template']) ? 1 : 0;
+                $customTemplate = null;
+                
+                if ($useCustomTemplate) {
+                    $customTemplate = $_POST['custom_template'] ?? '';
+                    if (empty(trim($customTemplate))) {
+                        throw new \Exception('Пожалуйста, заполните кастомный шаблон меню');
+                    }
+                } else {
+                    if (!isset($availableTemplates[$_POST['template']])) {
+                        throw new \Exception(LANG_ACTION_MENU_ADMINCREATE_TEMPLATE_NOT_EXISTS);
+                    }
                 }
                 
                 $menuStructure = json_decode($_POST['menu_structure'] ?? '[]', true);
@@ -39,19 +49,23 @@ class AdminCreate extends MenuAction {
                     throw new \Exception(LANG_ACTION_MENU_ADMINCREATE_INVALID_STRUCTURE);
                 }
                 
-                $this->validateAndProcessVisibilitySettings($menuStructure);
-                
                 $menuData = [
                     'name' => trim($_POST['name']),
-                    'template' => $_POST['template'],
                     'structure' => json_encode($menuStructure, JSON_UNESCAPED_UNICODE),
-                    'status' => $_POST['status'] ?? 'active'
+                    'status' => $_POST['status'] ?? 'active',
+                    'use_custom_template' => $useCustomTemplate,
+                    'custom_template' => $customTemplate
                 ];
+                
+                if ($useCustomTemplate) {
+                    $menuData['template'] = 'custom';
+                } else {
+                    $menuData['template'] = $_POST['template'];
+                }
                 
                 $menuId = $this->menuModel->create($menuData);
                 
                 \Notification::success(LANG_ACTION_MENU_ADMINCREATE_SUCCESS);
-                
                 $this->redirect(ADMIN_URL . '/menu');
                 
             } catch (\Exception $e) {
@@ -62,6 +76,8 @@ class AdminCreate extends MenuAction {
                     'availableTemplates' => $availableTemplates,
                     'menuStructure' => $menuStructure ?? [],
                     'currentTheme' => $currentTheme,
+                    'useCustomTemplate' => $useCustomTemplate ?? false,
+                    'customTemplate' => $customTemplate ?? '',
                     'pageTitle' => LANG_ACTION_MENU_ADMINCREATE_PAGE_TITLE
                 ]);
                 return;
@@ -73,6 +89,8 @@ class AdminCreate extends MenuAction {
             'availableTemplates' => $availableTemplates,
             'menuStructure' => [],
             'currentTheme' => $currentTheme,
+            'useCustomTemplate' => false,
+            'customTemplate' => '',
             'pageTitle' => LANG_ACTION_MENU_ADMINCREATE_PAGE_TITLE
         ]);
     }
