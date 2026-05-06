@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Страница не найдена
+ * Template Name: 404
  */
 ?>
 
@@ -18,7 +18,7 @@
                     <?php echo LANG_TEMPLATE_ERROR_404_HOME_BTN; ?>
                 </a>
                 <a href="javascript:history.back()" class="btn btn-outline-secondary">
-                    <?php echo bloggy_icon('bs', 'arrow-left', '16', 'currentColor', 'me-1'); ?>
+                    <?php echo bloggy_icon('bs', 'arrow-left', '18', '#4848B2', 'me-1'); ?>
                     <?php echo LANG_TEMPLATE_ERROR_404_BACK_BTN; ?>
                 </a>
             </div>
