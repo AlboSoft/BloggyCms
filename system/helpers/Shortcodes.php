@@ -1,10 +1,5 @@
 <?php
 
-/**
-* Система шорткодов
-* @package Helpers
-*/
-
 if (class_exists('ShortcodeRegistry')) {
     return;
 }
@@ -122,6 +117,117 @@ class ShortcodeRegistry {
         return $content;
     }
 }
+
+$GLOBALS['_menu_cache'] = [];
+
+/**
+* Получение кешированного меню
+* @param string $key Ключ кеша
+* @param callable $callback Функция для получения меню
+* @return string HTML меню
+*/
+function get_cached_menu($key, $callback) {
+    if (!isset($GLOBALS['_menu_cache'][$key])) {
+        $GLOBALS['_menu_cache'][$key] = $callback();
+    }
+    return $GLOBALS['_menu_cache'][$key];
+}
+
+/**
+* Рендеринг меню по ID
+* @param int $menuId ID меню
+* @return string HTML меню
+*/
+function render_menu_by_id($menuId) {
+    return get_cached_menu('menu_id_' . $menuId, function() use ($menuId) {
+        if (!class_exists('MenuRenderer')) {
+            if (file_exists(__DIR__ . '/MenuRenderer.php')) {
+                require_once __DIR__ . '/MenuRenderer.php';
+            } else {
+                return '<!-- MenuRenderer.php не найден -->';
+            }
+        }
+        
+        if (method_exists('MenuRenderer', 'renderById')) {
+            return MenuRenderer::renderById($menuId);
+        }
+        
+        return '<!-- Метод renderById не найден в MenuRenderer -->';
+    });
+}
+
+/**
+* Рендеринг меню по имени (slug)
+* @param string $menuName Название меню
+* @return string HTML меню
+*/
+function render_menu_by_name($menuName) {
+    return get_cached_menu('menu_name_' . $menuName, function() use ($menuName) {
+        if (!class_exists('MenuRenderer')) {
+            if (file_exists(__DIR__ . '/MenuRenderer.php')) {
+                require_once __DIR__ . '/MenuRenderer.php';
+            } else {
+                return '<!-- MenuRenderer.php не найден -->';
+            }
+        }
+        
+        if (method_exists('MenuRenderer', 'render')) {
+            return MenuRenderer::render($menuName);
+        }
+        
+        return '<!-- Метод render не найден в MenuRenderer -->';
+    });
+}
+
+ShortcodeRegistry::add('menurender', function($attrs, $content = null) {
+    if (isset($attrs['id'])) {
+        return render_menu_by_id((int)$attrs['id']);
+    }
+    
+    if (isset($attrs['slug'])) {
+        return render_menu_by_name($attrs['slug']);
+    }
+    
+    if (isset($attrs['name'])) {
+        return render_menu_by_name($attrs['name']);
+    }
+    
+    if (!empty($attrs[0])) {
+        $param = $attrs[0];
+        if (is_numeric($param)) {
+            return render_menu_by_id((int)$param);
+        } else {
+            return render_menu_by_name($param);
+        }
+    }
+    
+    return '<!-- Ошибка: не указан идентификатор меню. Используйте: {menurender id="1"} или {menurender slug="main-menu"} -->';
+});
+
+ShortcodeRegistry::add('menu', function($attrs, $content = null) {
+    if (isset($attrs['id'])) {
+        return render_menu_by_id((int)$attrs['id']);
+    }
+    
+    if (isset($attrs['slug'])) {
+        return render_menu_by_name($attrs['slug']);
+    }
+    
+    if (isset($attrs['name'])) {
+        return render_menu_by_name($attrs['name']);
+    }
+    
+    if (!empty($attrs[0])) {
+        $param = $attrs[0];
+        if (is_numeric($param)) {
+            return render_menu_by_id((int)$param);
+        } else {
+            return render_menu_by_name($param);
+        }
+    }
+    
+    return '<!-- Ошибка: не указан идентификатор меню. Используйте: {menu id="1"} или {menu slug="main-menu"} -->';
+});
 
 /**
 * Основная функция обработки всех шорткодов в контенте
@@ -267,6 +373,54 @@ function process_shortcodes(string $content, array $posts = [], array $blocks = 
         }
     }
     
+    if (preg_match_all('/\{menurender:([^}\s]+)\}/', $content, $matches)) {
+        foreach ($matches[0] as $index => $fullMatch) {
+            $param = $matches[1][$index];
+            $menuHtml = '';
+            
+            try {
+                if (is_numeric($param)) {
+                    $menuHtml = render_menu_by_id((int)$param);
+                } else {
+                    $menuHtml = render_menu_by_name($param);
+                }
+                
+                if (empty($menuHtml)) {
+                    $menuHtml = '<!-- Меню "' . htmlspecialchars($param) . '" не найдено -->';
+                }
+                
+                $content = str_replace($fullMatch, $menuHtml, $content);
+            } catch (Exception $e) {
+                $content = str_replace($fullMatch, '<!-- Ошибка загрузки меню: ' . $e->getMessage() . ' -->', $content);
+            }
+        }
+    }
+    
+    if (preg_match_all('/\{menurender(?:\s+id=["\'](\d+)["\']|\s+slug=["\']([^"\']+)["\']|\s+name=["\']([^"\']+)["\'])/i', $content, $matches, PREG_SET_ORDER)) {
+        foreach ($matches as $match) {
+            $fullMatch = $match[0];
+            $menuHtml = '';
+            
+            try {
+                if (!empty($match[1])) {
+                    $menuId = (int)$match[1];
+                    $menuHtml = render_menu_by_id($menuId);
+                } elseif (!empty($match[2]) || !empty($match[3])) {
+                    $slug = !empty($match[2]) ? $match[2] : $match[3];
+                    $menuHtml = render_menu_by_name($slug);
+                }
+                
+                if (empty($menuHtml)) {
+                    $menuHtml = '<!-- Меню не найдено -->';
+                }
+                
+                $content = str_replace($fullMatch, $menuHtml, $content);
+            } catch (Exception $e) {
+                $content = str_replace($fullMatch, '<!-- Ошибка загрузки меню: ' . $e->getMessage() . ' -->', $content);
+            }
+        }
+    }
+    
     $content = preg_replace_callback(
         '/\{front-image:([^:}]+)(?::([^}]+))?\}/i',
         function($matches) {
@@ -277,7 +431,7 @@ function process_shortcodes(string $content, array $posts = [], array $blocks = 
         },
         $content
     );
-    
+
     if (class_exists('ShortcodeRegistry')) {
         $content = ShortcodeRegistry::process($content);
     }
