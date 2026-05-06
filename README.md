@@ -82,12 +82,12 @@ BloggyCMS — это гибкая и расширяемая платформа, 
 
 ---
 
-## 🔗 Ссылки
+## Ссылки
 
-- [🌐 Официальный сайт проекта](https://bloggy.su)
-- [📘 Документация](https://github.com/pechoradev/BloggyCms/wiki)
-- [🐛 Сообщить об ошибке](https://github.com/pechoradev/BloggyCms/discussions/categories/bug-reports)
-- [📦 Скачать последнюю версию](https://github.com/pechoradev/BloggyCms/releases/tag/v1.0.0-rc.5)
+- [Официальный сайт проекта](https://bloggy.su)
+- [Документация](https://github.com/pechoradev/BloggyCms/wiki)
+- [Сообщить об ошибке](https://github.com/pechoradev/BloggyCms/discussions/categories/bug-reports)
+- [Скачать последнюю версию](https://github.com/pechoradev/BloggyCms/releases/tag/v1.0.0-rc.5)
 
 ---
 
