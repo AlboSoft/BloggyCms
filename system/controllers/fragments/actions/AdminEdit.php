@@ -66,6 +66,7 @@ class AdminEdit extends FragmentAction {
         $this->render('admin/fragments/form', [
             'fragment' => $fragment,
             'stats' => $stats,
+            'pageTitle' => LANG_ACTION_FRAGMENTS_ADMINEDIT_PAGE_TITLE . $fragment['name'],
             'isEdit' => true
         ]);
     }

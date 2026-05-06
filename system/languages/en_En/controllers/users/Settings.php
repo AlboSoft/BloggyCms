@@ -4,3 +4,5 @@ define('LANG_CONTROLLER_USERS_SETTINGS_SHOW_FILTER', 'Show filter for quick user
 define('LANG_CONTROLLER_USERS_SETTINGS_SHOW_INFO', 'Show tooltip block above categories list');
 define('LANG_CONTROLLER_USERS_SETTINGS_SHOW_INFO_HINT', 'Random useful tips about working with users will be shown');
 define('LANG_CONTROLLER_USERS_SETTINGS_ADMIN_TOP', 'Display site administrators at the top of the list');
+define('LANG_CONTROLLER_USERS_SETTINGS_SHOW_LAST_ACHIEVEMENT', 'Show the latest received achievement');
+define('LANG_CONTROLLER_USERS_SETTINGS_SHOW_LAST_ACHIEVEMENT_HINT', 'Display a badge with the name of the last achievement next to the user nickname');

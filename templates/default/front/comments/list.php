@@ -73,7 +73,22 @@ function renderCommentsTree($comments, $level = 0) {
                     
                     <div class="tg-comment-info">
                         <div class="tg-comment-author">
-                            <span class="tg-author-name"><?php echo html($userName); ?></span>
+                            
+                            <?php if (!empty($comment['user_id'])) { ?>
+                                <a href="<?php echo BASE_URL; ?>/profile/<?php echo html($comment['author_username'] ?? ''); ?>" 
+                                class="tg-author-name tg-author-link">
+                                    <?php echo html($userName); ?>
+                                </a>
+                            <?php } else { ?>
+                                <span class="tg-author-name"><?php echo html($userName); ?></span>
+                            <?php } ?>
+
+                            <?php if (!empty($comment['show_last_achievement']) && !empty($comment['last_achievement'])) { ?>
+                                <span class="tg-badge tg-badge-achievement" title="<?php echo html($comment['last_achievement']['name']); ?><?php echo !empty($comment['last_achievement']['description']) ? ' - ' . html($comment['last_achievement']['description']) : ''; ?> (<?php echo $comment['last_achievement']['unlocked_formatted']; ?>)" data-bs-toggle="tooltip">
+                                    <?php echo bloggy_icon('bs', 'trophy', '10', '#ffc107', 'tg-mr-1'); ?>
+                                    <?php echo html($comment['last_achievement']['name']); ?>
+                                </span>
+                            <?php } ?>
                             
                             <?php if ($level > 0) { ?>
                                 <span class="tg-badge tg-badge-reply" title="<?php echo LANG_TEMPLATE_COMMENTS_LIST_REPLY_TITLE; ?>">

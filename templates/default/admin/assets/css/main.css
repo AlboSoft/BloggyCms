@@ -4387,3 +4387,23 @@ h6.card-title {
     padding: 4px 12px;
     font-size: 12px;
 }
+
+.achievement-latest-badge {
+    color: #755416;
+    font-weight: 500;
+    font-size: 11px;
+    padding: 4px 8px;
+    border-radius: 20px;
+    border: none;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    transition: all 0.2s ease;
+    position: relative;
+    top: 2px;
+    border: 1px solid #e7d0a4;
+}
+
+.achievement-latest-badge:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    cursor: help;
+}

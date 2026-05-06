@@ -26,12 +26,22 @@ class FrontIndex extends UserAction {
                 $this->enrichUserData($user, $activityManager);
             }
             
+            $showLastAchievement = \UserModel::isShowLastAchievementEnabled();
+            
+            if ($showLastAchievement) {
+                foreach ($users as &$user) {
+                    $lastAchievement = $this->userModel->getLastAchievement($user['id']);
+                    $user['last_achievement'] = $lastAchievement;
+                }
+            }
+            
             $customFields = $this->fieldModel->getActiveByEntityType('user');
             
             $this->render('front/users/users', [
                 'users' => $users,
                 'customFields' => $customFields,
-                'total_users' => count($users)
+                'total_users' => count($users),
+                'showLastAchievement' => $showLastAchievement
             ]);
             
         } catch (\Exception $e) {

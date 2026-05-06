@@ -85,6 +85,7 @@ class AdminFieldEdit extends FragmentAction {
             'fragment' => $fragment,
             'fieldTypes' => $fieldTypes,
             'field' => $field,
+            'pageTitle' => LANG_ACTION_FRAGMENTS_ADMINFIELDEDIT_PAGE_TITLE . $field['name'],
             'isEdit' => true
         ]);
     }

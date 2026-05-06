@@ -51,17 +51,27 @@ class AdminIndex extends UserAction {
                 $users = $this->sortUsersWithAdminsFirst($users);
             }
             
+            $showLastAchievement = \UserModel::isShowLastAchievementEnabled();
+            
+            if ($showLastAchievement) {
+                foreach ($users as &$user) {
+                    $lastAchievement = $this->userModel->getLastAchievement($user['id']);
+                    $user['last_achievement'] = $lastAchievement;
+                }
+            }
+            
             $allGroups = $this->userModel->getAllGroups();
             
             $this->render('admin/users/index', [
                 'users' => $users,
                 'allGroups' => $allGroups,
                 'randomHint' => $randomHint,
+                'showLastAchievement' => $showLastAchievement,
                 'pageTitle' => LANG_ACTION_USERS_ADMININDEX_PAGE_TITLE
             ]);
             
         } catch (\Exception $e) {
-            \Notification::error(LANG_ACTION_USERS_ADMININDEX_ERROR);
+            \Notification::error(LANG_ACTION_USERS_ADMININDEX_ERROR . ' ' . $e->getMessage());
             $this->redirect(ADMIN_URL);
         }
     }

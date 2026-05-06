@@ -48,6 +48,7 @@ class AdminFields extends FragmentAction {
             'total' => $result['total'] ?? 0,
             'pages' => $result['pages'] ?? 1,
             'current_page' => $result['current_page'] ?? 1,
+            'pageTitle' => LANG_ACTION_FRAGMENTS_ADMINFIELDS_PAGE_TITLE . $fragment['name'],
             'perPage' => $perPage
         ]);
     }

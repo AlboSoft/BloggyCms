@@ -51,6 +51,7 @@ class AdminCreate extends FragmentAction {
         
         $this->render('admin/fragments/form', [
             'fragment' => $_POST ?? null,
+            'pageTitle' => LANG_ACTION_FRAGMENTS_ADMINCREATE_PAGE_TITLE,
             'isEdit' => false
         ]);
     }

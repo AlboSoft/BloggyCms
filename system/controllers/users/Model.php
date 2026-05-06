@@ -1280,4 +1280,40 @@ class UserModel implements ModelAPI {
         return $result && $result['is_unlocked'];
     }
 
+    /**
+    * Получает последнюю полученную ачивку пользователя
+    * @param int $userId ID пользователя
+    * @return array|null Данные последней ачивки или null
+    */
+    public function getLastAchievement($userId) {
+        $sql = "SELECT ua.*, uad.unlocked_at 
+                FROM user_achievements ua
+                JOIN user_achievements_data uad ON ua.id = uad.achievement_id
+                WHERE uad.user_id = ? 
+                AND uad.is_unlocked = 1
+                ORDER BY uad.unlocked_at DESC 
+                LIMIT 1";
+        
+        $achievement = $this->db->fetch($sql, [$userId]);
+        
+        if ($achievement) {
+            $achievement['unlocked_formatted'] = date('d.m.Y H:i', strtotime($achievement['unlocked_at']));
+            $achievement['tooltip_text'] = sprintf(
+                LANG_USER_MODEL_ACHIEVEMENT_TOOLTIP,
+                $achievement['name'],
+                $achievement['unlocked_formatted']
+            );
+        }
+        
+        return $achievement;
+    }
+
+    /**
+    * Проверяет, включено ли отображение последней ачивки в настройках
+    * @return bool
+    */
+    public static function isShowLastAchievementEnabled() {
+        return (bool)\SettingsHelper::get('controller_users', 'show_last_achievement', true);
+    }
+
 }

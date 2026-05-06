@@ -24,6 +24,12 @@ class UsersSettings {
                         'default' => true,
                         'switch' => true
                     ]),
+                    \FieldFactory::checkbox('show_last_achievement', [
+                        'title' => LANG_CONTROLLER_USERS_SETTINGS_SHOW_LAST_ACHIEVEMENT,
+                        'hint' => LANG_CONTROLLER_USERS_SETTINGS_SHOW_LAST_ACHIEVEMENT_HINT,
+                        'default' => true,
+                        'switch' => true
+                    ])
                 ]
             ]),
             

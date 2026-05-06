@@ -51,6 +51,7 @@ class AdminEntryCreate extends FragmentAction {
             'fragment' => $fragment,
             'fields' => $fields,
             'entry' => null,
+            'pageTitle' => LANG_ACTION_FRAGMENTS_ADMINENTRYCREATE_PAGE_TITLE . $fragment['name'],
             'isEdit' => false
         ]);
     }

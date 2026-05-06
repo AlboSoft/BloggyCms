@@ -24,11 +24,29 @@ $fieldModel = new FieldModel($this->db);
             </div>
             <div class="tg-profile-info">
                 <h1 class="tg-profile-name">
-                    <?php echo html($user['display_name'] ?? $user['username']); ?>
-                    <?php if ($is_online) { ?>
-                        <span class="tg-online" title="<?php echo LANG_TEMPLATE_PROFILE_ONLINE_TITLE; ?>"></span>
-                    <?php } ?>
-                </h1>
+                <?php echo html($user['display_name'] ?? $user['username']); ?>
+                <?php if ($showLastAchievement && !empty($last_achievement)) { ?>
+                    <span class="tg-latest-achievement-badge" 
+                        title="<?php echo html($last_achievement['name']); ?><?php echo !empty($last_achievement['description']) ? ' - ' . html($last_achievement['description']) : ''; ?>
+                                (<?php echo $last_achievement['unlocked_formatted']; ?>)"
+                        data-bs-toggle="tooltip">
+                        <?php if (!empty($last_achievement['image'])) { ?>
+                            <img src="<?php echo BASE_URL; ?>/uploads/achievements/<?php echo $last_achievement['image']; ?>" 
+                                alt="<?php echo html($last_achievement['name']); ?>"
+                                class="tg-achievement-badge-icon">
+                        <?php } else { ?>
+                            <?php 
+                            $iconName = str_replace('bi-', '', $last_achievement['icon'] ?? 'trophy');
+                            echo bloggy_icon('bs', $iconName, '14', '#ffc107', 'me-1');
+                            ?>
+                        <?php } ?>
+                        <?php echo html($last_achievement['name']); ?>
+                    </span>
+                <?php } ?>
+                <?php if ($is_online) { ?>
+                    <span class="tg-online" title="<?php echo LANG_TEMPLATE_PROFILE_ONLINE_TITLE; ?>"></span>
+                <?php } ?>
+            </h1>
                 <div class="tg-profile-meta">
                     <span class="tg-username">@<?php echo html($user['username']); ?></span>
                     <?php if (!$is_online && !empty($last_activity_human)) { ?>

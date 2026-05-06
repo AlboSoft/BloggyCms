@@ -78,6 +78,7 @@ class AdminFieldCreate extends FragmentAction {
             'fragment' => $fragment,
             'fieldTypes' => $fieldTypes,
             'field' => null,
+            'pageTitle' => LANG_ACTION_FRAGMENTS_ADMINFIELDCREATE_PAGE_TITLE . $fragment['name'],
             'isEdit' => false
         ]);
     }

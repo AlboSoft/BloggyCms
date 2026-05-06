@@ -126,6 +126,22 @@
                                                 <?php if ($user['id'] == $_SESSION['user_id']) { ?>
                                                     <span class="badge bg-info ms-2"><?php echo LANG_TEMPLATE_USERS_INDEX_YOU_BADGE; ?></span>
                                                 <?php } ?>
+                                                <?php if ($showLastAchievement && !empty($user['last_achievement'])) { ?>
+                                                    <span class="badge achievement-latest-badge ms-2" 
+                                                        title="<?php echo html($user['last_achievement']['tooltip_text']); ?>"
+                                                        data-bs-toggle="tooltip">
+                                                        <?php if ($user['last_achievement']['image']) { ?>
+                                                            <img src="<?php echo BASE_URL; ?>/uploads/achievements/<?php echo $user['last_achievement']['image']; ?>" 
+                                                                style="width: 14px; height: 14px; object-fit: cover; border-radius: 2px; margin-right: 4px;">
+                                                        <?php } else { ?>
+                                                            <?php 
+                                                            $iconName = str_replace('bi-', '', $user['last_achievement']['icon']);
+                                                            echo bloggy_icon('bs', $iconName, '12', '#ffc107', 'me-1');
+                                                            ?>
+                                                        <?php } ?>
+                                                        <?php echo html($user['last_achievement']['name']); ?>
+                                                    </span>
+                                                <?php } ?>
                                             </div>
                                         </div>
                                     </td>

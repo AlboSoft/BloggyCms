@@ -59,6 +59,7 @@ class AdminEntryEdit extends FragmentAction {
             'fragment' => $fragment,
             'fields' => $fields,
             'entry' => $entry,
+            'pageTitle' => LANG_ACTION_FRAGMENTS_ADMINENTRYEDIT_PAGE_TITLE . $fragment['name'],
             'isEdit' => true
         ]);
     }

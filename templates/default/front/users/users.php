@@ -79,6 +79,22 @@ if (!empty($users)) {
                                             <?php echo html($user['display_name'] ?? $user['username']); ?>
                                         </a>
                                     </h3>
+                                    <?php if ($showLastAchievement && !empty($user['last_achievement'])) { ?>
+                                        <span class="badge achievement-latest-badge ms-2" 
+                                            title="<?php echo html($user['last_achievement']['tooltip_text'] ?? $user['last_achievement']['name']); ?>"
+                                            data-bs-toggle="tooltip">
+                                            <?php if (!empty($user['last_achievement']['image'])) { ?>
+                                                <img src="<?php echo BASE_URL; ?>/uploads/achievements/<?php echo $user['last_achievement']['image']; ?>" 
+                                                    style="width: 12px; height: 12px; object-fit: cover; border-radius: 2px; margin-right: 4px;">
+                                            <?php } else { ?>
+                                                <?php 
+                                                $iconName = str_replace('bi-', '', $user['last_achievement']['icon'] ?? 'trophy');
+                                                echo bloggy_icon('bs', $iconName, '10', '#ffc107', 'me-1');
+                                                ?>
+                                            <?php } ?>
+                                            <?php echo html($user['last_achievement']['name']); ?>
+                                        </span>
+                                    <?php } ?>
                                     <div class="tg-text-muted" style="font-size: 12px;">
                                         @<?php echo html($user['username']); ?>
                                     </div>

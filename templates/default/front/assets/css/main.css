@@ -5767,10 +5767,6 @@ a:hover {
     min-height: auto;
 }
 
-.tg-badge:hover {
-    background: #d1d5db;
-}
-
 .tg-btn-sm {
     padding: 0.4375rem 0.875rem;
     font-size: 0.875rem;
@@ -6782,4 +6778,47 @@ a:hover {
     margin-left: 10px;
     vertical-align: middle;
     border: 1px solid #ffcdd2;
+}
+
+.tg-latest-achievement-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: linear-gradient(135deg, #ffd89b 0%, #c7e9fb 100%);
+    color: #2c3e50;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-left: 10px;
+    vertical-align: middle;
+    cursor: help;
+    transition: all 0.2s ease;
+    border: none;
+}
+
+.tg-latest-achievement-badge:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.tg-achievement-badge-icon {
+    width: 16px;
+    height: 16px;
+    object-fit: cover;
+    border-radius: 3px;
+}
+
+.tg-badge.tg-badge-achievement {
+  color: #b16522;
+  font-size: 10px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: help;
+  transition: all 0.2s ease;
+  border: 1px solid #f5c193;
 }

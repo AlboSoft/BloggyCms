@@ -38,6 +38,7 @@ class AdminEntries extends FragmentAction {
             'fragment' => $fragment,
             'entries' => $entries,
             'fields' => $fields,
+            'pageTitle' => LANG_ACTION_FRAGMENTS_ADMINENTRIES_PAGE_TITLE . $fragment['name'],
             'stats' => $stats
         ]);
     }

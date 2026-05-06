@@ -30,6 +30,7 @@ class AdminIndex extends FragmentAction {
         $this->render('admin/fragments/index', [
             'fragments' => $fragments,
             'randomHint' => $randomHint,
+            'pageTitle' => LANG_ACTION_FRAGMENTS_ADMININDEX_PAGE_TITLE,
             'totalFragments' => count($fragments)
         ]);
     }

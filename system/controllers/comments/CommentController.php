@@ -164,6 +164,15 @@ class CommentController extends Controller {
             } catch (Exception $e) {}
         }
         
+        $showLastAchievement = \UserModel::isShowLastAchievementEnabled();
+        $lastAchievement = null;
+        
+        if ($showLastAchievement && $userId) {
+            try {
+                $lastAchievement = $this->userModel->getLastAchievement($userId);
+            } catch (Exception $e) {}
+        }
+        
         $createdAt = $comment['created_at'];
         $now = time();
         $commentTime = strtotime($createdAt);
@@ -198,6 +207,7 @@ class CommentController extends Controller {
             'updated_at' => $updatedAtDisplay,
             'was_edited' => $wasEdited,
             'author_name' => $this->getUserDisplayName($comment),
+            'author_username' => $comment['author_username'] ?? null,
             'author_avatar' => $this->getUserAvatarFromComment($comment),
             'is_pending' => $comment['status'] === 'pending',
             'is_own_comment' => $isOwnComment,
@@ -205,7 +215,9 @@ class CommentController extends Controller {
             'user_groups' => $userGroups,
             'can_edit' => $canEdit,
             'can_delete' => $canDelete,
-            'can_reply' => $canReply
+            'can_reply' => $canReply,
+            'show_last_achievement' => $showLastAchievement,
+            'last_achievement' => $lastAchievement
         ];
     }
     

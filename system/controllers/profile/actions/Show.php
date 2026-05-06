@@ -99,6 +99,12 @@ class Show extends ProfileAction {
         $groups = $this->getUserGroups($user['id']);
         $roleDisplay = $this->getRoleDisplay($user['role'] ?? 'user');
         $isUserAdmin = ($user['role'] === 'admin' || !empty($user['is_admin']));
+        $showLastAchievement = \UserModel::isShowLastAchievementEnabled();
+        $lastAchievement = null;
+        
+        if ($showLastAchievement) {
+            $lastAchievement = $this->userModel->getLastAchievement($user['id']);
+        }
         
         $this->render('front/profile/show', [
             'user' => $user,
@@ -120,7 +126,9 @@ class Show extends ProfileAction {
             'is_online' => $isOnline,
             'last_activity_human' => $lastActivityInfo['human'],
             'last_activity_days' => $lastActivityInfo['days'],
-            'roleDisplay' => $roleDisplay
+            'roleDisplay' => $roleDisplay,
+            'showLastAchievement' => $showLastAchievement,
+            'last_achievement' => $lastAchievement
         ]);
     }
     
