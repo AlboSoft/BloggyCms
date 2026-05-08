@@ -101,7 +101,7 @@
         if (deletePresetBtn) {
             deletePresetBtn.addEventListener('click', function(e) {
                 e.preventDefault();
-                if (confirm('Вы уверены, что хотите удалить этот пресет?')) {
+                if (confirm(lang === 'ru' ? 'Вы уверены, что хотите удалить этот пресет?' : 'Are you sure you want to delete this preset?')) {
                     deletePreset();
                 }
             });
@@ -154,13 +154,13 @@
                     renderPresets(data.presets);
                 } else {
                     if (window.notificationSystem && typeof window.notificationSystem.showNotification === 'function') {
-                        window.notificationSystem.showNotification(data.message || 'Ошибка при загрузке пресетов', 'danger');
+                        window.notificationSystem.showNotification(data.message || (lang === 'ru' ? 'Ошибка при загрузке пресетов' : 'Error loading presets'), 'danger');
                     }
                 }
             })
             .catch(error => {
                 if (window.notificationSystem && typeof window.notificationSystem.showNotification === 'function') {
-                    window.notificationSystem.showNotification('Ошибка при загрузке пресетов', 'danger');
+                    window.notificationSystem.showNotification(lang === 'ru' ? 'Ошибка при загрузке пресетов' : 'Error loading presets', 'danger');
                 }
             });
     }
@@ -204,11 +204,11 @@
                                 </button>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item edit-preset" href="#" data-id="${preset.id}">
-                                        <i class="bi bi-pencil me-2"></i>Редактировать
+                                        <i class="bi bi-pencil me-2"></i>${lang === 'ru' ? 'Редактировать' : 'Edit'}
                                     </a></li>
                                     <li><hr class="dropdown-divider"></li>
                                     <li><a class="dropdown-item delete-preset text-danger" href="#" data-id="${preset.id}">
-                                        <i class="bi bi-trash me-2"></i>Удалить
+                                        <i class="bi bi-trash me-2"></i>${lang === 'ru' ? 'Удалить' : 'Delete'}
                                     </a></li>
                                 </ul>
                             </div>
@@ -217,11 +217,11 @@
                             ${escapeHtml(preview)}
                         </p>
                         <div class="d-flex justify-content-between align-items-center">
-                            <small class="text-muted">Обновлен: ${date}</small>
+                            <small class="text-muted">${lang === 'ru' ? 'Обновлен: ' : 'Updated: '}${date}</small>
                             <button type="button" class="btn btn-sm btn-outline-primary use-preset" 
                                     data-id="${preset.id}" 
                                     data-template-encoded="${templateForData}">
-                                Использовать
+                                ${lang === 'ru' ? 'Использовать' : 'Use'}
                             </button>
                         </div>
                     </div>
@@ -244,7 +244,7 @@
             btn.addEventListener('click', function(e) {
                 e.preventDefault();
                 const presetId = this.getAttribute('data-id');
-                if (confirm('Вы уверены, что хотите удалить этот пресет?')) {
+                if (confirm(lang === 'ru' ? 'Вы уверены, что хотите удалить этот пресет?' : 'Are you sure you want to delete this preset?')) {
                     deletePreset(presetId);
                 }
             });
@@ -259,7 +259,7 @@
                     blockTemplateEditor.setValue(template, -1);
                     
                     if (window.notificationSystem && typeof window.notificationSystem.showNotification === 'function') {
-                        window.notificationSystem.showNotification('Шаблон блока обновлен из пресета', 'success');
+                        window.notificationSystem.showNotification(lang === 'ru' ? 'Шаблон блока обновлен из пресета' : 'Block template updated from preset', 'success');
                     }
                 }
             });
@@ -276,7 +276,7 @@
         const deleteBtn = document.getElementById('delete-preset-btn');
         
         if (presetId) {
-            document.getElementById('presetModalLabel').textContent = 'Редактирование пресета';
+            document.getElementById('presetModalLabel').textContent = lang === 'ru' ? 'Редактирование пресета' : 'Edit preset';
             document.getElementById('preset_id').value = presetId;
             if (deleteBtn) deleteBtn.style.display = 'inline-block';
             
@@ -291,17 +291,17 @@
                         }
                     } else {
                         if (window.notificationSystem && typeof window.notificationSystem.showNotification === 'function') {
-                            window.notificationSystem.showNotification(data.message || 'Ошибка при загрузке пресета', 'danger');
+                            window.notificationSystem.showNotification(data.message || (lang === 'ru' ? 'Ошибка при загрузке пресета' : 'Error loading preset'), 'danger');
                         }
                     }
                 })
                 .catch(error => {
                     if (window.notificationSystem && typeof window.notificationSystem.showNotification === 'function') {
-                        window.notificationSystem.showNotification('Ошибка при загрузке пресета', 'danger');
+                        window.notificationSystem.showNotification(lang === 'ru' ? 'Ошибка при загрузке пресета' : 'Error loading preset', 'danger');
                     }
                 });
         } else {
-            document.getElementById('presetModalLabel').textContent = 'Создание пресета';
+            document.getElementById('presetModalLabel').textContent = lang === 'ru' ? 'Создание пресета' : 'Create preset';
             document.getElementById('preset_id').value = '';
             document.getElementById('preset_name').value = '';
             if (presetEditorInstance) presetEditorInstance.setValue('', -1);
@@ -347,13 +347,13 @@
                 resetPresetForm();
             } else {
                 if (window.notificationSystem && typeof window.notificationSystem.showNotification === 'function') {
-                    window.notificationSystem.showNotification(data.message || 'Ошибка при сохранении пресета', 'danger');
+                    window.notificationSystem.showNotification(data.message || (lang === 'ru' ? 'Ошибка при сохранении пресета' : 'Error saving preset'), 'danger');
                 }
             }
         })
         .catch(error => {
             if (window.notificationSystem && typeof window.notificationSystem.showNotification === 'function') {
-                window.notificationSystem.showNotification('Ошибка при сохранении пресета', 'danger');
+                window.notificationSystem.showNotification(lang === 'ru' ? 'Ошибка при сохранении пресета' : 'Error saving preset', 'danger');
             }
         });
     }
@@ -386,13 +386,13 @@
                 }
             } else {
                 if (window.notificationSystem && typeof window.notificationSystem.showNotification === 'function') {
-                    window.notificationSystem.showNotification(data.message || 'Ошибка при удалении пресета', 'danger');
+                    window.notificationSystem.showNotification(data.message || (lang === 'ru' ? 'Ошибка при удалении пресета' : 'Error deleting preset'), 'danger');
                 }
             }
         })
         .catch(error => {
             if (window.notificationSystem && typeof window.notificationSystem.showNotification === 'function') {
-                window.notificationSystem.showNotification('Ошибка при удалении пресета', 'danger');
+                window.notificationSystem.showNotification(lang === 'ru' ? 'Ошибка при удалении пресета' : 'Error deleting preset', 'danger');
             }
         });
     }
@@ -418,27 +418,27 @@
             if (xhr.status === 200) {
                 const response = JSON.parse(xhr.responseText);
                 if (response.success && response.template) {
-                    if (confirm('Загрузить стандартный шаблон? Текущий шаблон будет заменен.')) {
+                    if (confirm(lang === 'ru' ? 'Загрузить стандартный шаблон? Текущий шаблон будет заменен.' : 'Load default template? The current template will be replaced.')) {
                         blockTemplateEditor.setValue(response.template, -1);
                         
                         if (window.notificationSystem && typeof window.notificationSystem.showNotification === 'function') {
-                            window.notificationSystem.showNotification('Стандартный шаблон загружен', 'success');
+                            window.notificationSystem.showNotification(lang === 'ru' ? 'Стандартный шаблон загружен' : 'Default template loaded', 'success');
                         }
                     }
                 } else {
                     if (window.notificationSystem && typeof window.notificationSystem.showNotification === 'function') {
-                        window.notificationSystem.showNotification(response.message || 'Не удалось загрузить шаблон', 'danger');
+                        window.notificationSystem.showNotification(response.message || (lang === 'ru' ? 'Не удалось загрузить шаблон' : 'Failed to load template'), 'danger');
                     }
                 }
             } else {
                 if (window.notificationSystem && typeof window.notificationSystem.showNotification === 'function') {
-                    window.notificationSystem.showNotification('Ошибка при загрузке шаблона', 'danger');
+                    window.notificationSystem.showNotification(lang === 'ru' ? 'Ошибка при загрузке шаблона' : 'Error loading template', 'danger');
                 }
             }
         };
         xhr.onerror = function() {
             if (window.notificationSystem && typeof window.notificationSystem.showNotification === 'function') {
-                window.notificationSystem.showNotification('Ошибка при загрузке шаблона', 'danger');
+                window.notificationSystem.showNotification(lang === 'ru' ? 'Ошибка при загрузке шаблона' : 'Error loading template', 'danger');
             }
         };
         xhr.send();

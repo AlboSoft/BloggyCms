@@ -24,7 +24,7 @@ class FormBuilder {
                 }
             });
         } else {
-            console.error('Контейнер выбора типа поля не найден!');
+            console.error(lang === 'ru' ? 'Контейнер выбора типа поля не найден!' : 'Field type selector container not found!');
         }
 
         const saveBtn = document.getElementById('save-field-btn');
@@ -79,7 +79,7 @@ class FormBuilder {
                 this.showEmptyMessage();
             }
         } catch (error) {
-            console.error('Ошибка при разборе структуры формы:', error);
+            console.error(lang === 'ru' ? 'Ошибка при разборе структуры формы:' : 'Error parsing form structure:', error);
             this.showEmptyMessage();
         }
     }
@@ -87,7 +87,7 @@ class FormBuilder {
     renderFormStructure(structure) {
         const container = document.getElementById('form-fields-container');
         if (!container) {
-            console.error('Контейнер полей не найден!');
+            console.error(lang === 'ru' ? 'Контейнер полей не найден!' : 'Fields container not found!');
             return;
         }
         
@@ -134,9 +134,9 @@ class FormBuilder {
         let previewHtml = this.createFieldPreview(fieldData);
 
         let badges = '';
-        if (required) badges += '<span class="badge bg-danger ms-1">Обязательное</span>';
+        if (required) badges += '<span class="badge bg-danger ms-1">' + (lang === 'ru' ? 'Обязательное' : 'Required') + '</span>';
         if (fieldData.validation && Object.keys(fieldData.validation).length > 0) {
-            badges += '<span class="badge bg-info ms-1">Валидация</span>';
+            badges += '<span class="badge bg-info ms-1">' + (lang === 'ru' ? 'Валидация' : 'Validation') + '</span>';
         }
 
         return `
@@ -146,7 +146,7 @@ class FormBuilder {
                         <div>
                             <h6 class="card-title mb-1">
                                 <i class="bi bi-${this.getFieldTypeIcon(type)} me-2"></i>
-                                ${this.escapeHtml(label) || 'Без названия'} ${badges}
+                                ${this.escapeHtml(label) || (lang === 'ru' ? 'Без названия' : 'Untitled')} ${badges}
                             </h6>
                             <small class="text-muted">
                                 <code>name="${this.escapeHtml(name)}"</code>
@@ -170,7 +170,7 @@ class FormBuilder {
                         ${previewHtml}
                     </div>
                     
-                    <!-- Скрытые данные -->
+                    <!-- ${lang === 'ru' ? 'Скрытые данные' : 'Hidden data'} -->
                     <input type="hidden" class="field-data" 
                            value='${this.escapeHtml(JSON.stringify(fieldData))}'>
                 </div>
@@ -198,7 +198,7 @@ class FormBuilder {
                            placeholder="${this.escapeHtml(placeholder)}"
                            ${required ? 'required' : ''}
                            disabled>
-                    ${required ? '<div class="invalid-feedback d-none">Обязательное поле</div>' : ''}
+                    ${required ? `<div class="invalid-feedback d-none">${lang === 'ru' ? 'Обязательное поле' : 'Required field'}</div>` : ''}
                 `;
                 
             case 'textarea':
@@ -208,20 +208,20 @@ class FormBuilder {
                               placeholder="${this.escapeHtml(placeholder)}"
                               ${required ? 'required' : ''}
                               disabled></textarea>
-                    ${required ? '<div class="invalid-feedback d-none">Обязательное поле</div>' : ''}
+                    ${required ? `<div class="invalid-feedback d-none">${lang === 'ru' ? 'Обязательное поле' : 'Required field'}</div>` : ''}
                 `;
                 
             case 'select':
                 return `
                     <select class="form-select form-select-sm" ${required ? 'required' : ''} disabled>
-                        <option value="">${this.escapeHtml(placeholder || 'Выберите...')}</option>
+                        <option value="">${this.escapeHtml(placeholder || (lang === 'ru' ? 'Выберите...' : 'Select...'))}</option>
                         ${options.map(opt => `
                             <option value="${this.escapeHtml(opt.value || '')}">
                                 ${this.escapeHtml(opt.label || '')}
                             </option>
                         `).join('')}
                     </select>
-                    ${required ? '<div class="invalid-feedback d-none">Обязательное поле</div>' : ''}
+                    ${required ? `<div class="invalid-feedback d-none">${lang === 'ru' ? 'Обязательное поле' : 'Required field'}</div>` : ''}
                 `;
                 
             case 'checkbox':
@@ -233,7 +233,7 @@ class FormBuilder {
                                disabled>
                         <label class="form-check-label">${this.escapeHtml(label)}</label>
                     </div>
-                    ${required ? '<div class="invalid-feedback d-none">Обязательное поле</div>' : ''}
+                    ${required ? `<div class="invalid-feedback d-none">${lang === 'ru' ? 'Обязательное поле' : 'Required field'}</div>` : ''}
                 `;
                 
             case 'radio':
@@ -250,7 +250,7 @@ class FormBuilder {
                             </div>
                         `).join('')}
                     </div>
-                    ${required ? '<div class="invalid-feedback d-none">Обязательное поле</div>' : ''}
+                    ${required ? `<div class="invalid-feedback d-none">${lang === 'ru' ? 'Обязательное поле' : 'Required field'}</div>` : ''}
                 `;
                 
             case 'file':
@@ -259,7 +259,7 @@ class FormBuilder {
                            class="form-control form-control-sm" 
                            ${required ? 'required' : ''}
                            disabled>
-                    ${required ? '<div class="invalid-feedback d-none">Обязательное поле</div>' : ''}
+                    ${required ? `<div class="invalid-feedback d-none">${lang === 'ru' ? 'Обязательное поле' : 'Required field'}</div>` : ''}
                 `;
                 
             case 'submit':
@@ -267,12 +267,12 @@ class FormBuilder {
                     <button type="button" 
                             class="btn btn-primary btn-sm ${fieldData.class || ''}" 
                             disabled>
-                        ${this.escapeHtml(label || 'Отправить')}
+                        ${this.escapeHtml(label || (lang === 'ru' ? 'Отправить' : 'Submit'))}
                     </button>
                 `;
                 
             default:
-                return `<div class="alert alert-warning small p-2">Превью недоступно для типа "${type}"</div>`;
+                return `<div class="alert alert-warning small p-2">${lang === 'ru' ? 'Превью недоступно для типа' : 'Preview unavailable for type'} "${type}"</div>`;
         }
     }
 
@@ -344,13 +344,13 @@ class FormBuilder {
             html += `
                 <div class="col-md-12">
                     <label class="form-label">
-                        <i class="bi bi-textarea-t me-1"></i>Плейсхолдер
+                        <i class="bi bi-textarea-t me-1"></i>${lang === 'ru' ? 'Плейсхолдер' : 'Placeholder'}
                     </label>
                     <input type="text" 
-                           class="form-control" 
-                           id="field-placeholder" 
-                           name="placeholder"
-                           placeholder="Текст-подсказка">
+                        class="form-control" 
+                        id="field-placeholder" 
+                        name="placeholder"
+                        placeholder="${lang === 'ru' ? 'Текст-подсказка' : 'Hint text'}">
                 </div>
             `;
         }
@@ -359,15 +359,15 @@ class FormBuilder {
             html += `
                 <div class="col-md-12">
                     <label class="form-label">
-                        <i class="bi bi-list-ul me-1"></i>Опции
+                        <i class="bi bi-list-ul me-1"></i>${lang === 'ru' ? 'Опции' : 'Options'}
                     </label>
                     <div id="field-options-container">
                         <div class="option-item mb-2">
                             <div class="input-group input-group-sm">
-                                <span class="input-group-text">Значение</span>
-                                <input type="text" class="form-control option-value" placeholder="value1">
-                                <span class="input-group-text">Текст</span>
-                                <input type="text" class="form-control option-label" placeholder="Опция 1">
+                                <span class="input-group-text">${lang === 'ru' ? 'Значение' : 'Value'}</span>
+                                <input type="text" class="form-control option-value" placeholder="${lang === 'ru' ? 'значение1' : 'value1'}">
+                                <span class="input-group-text">${lang === 'ru' ? 'Текст' : 'Label'}</span>
+                                <input type="text" class="form-control option-label" placeholder="${lang === 'ru' ? 'Опция 1' : 'Option 1'}">
                                 <button type="button" class="btn btn-outline-danger remove-option" onclick="formBuilder.removeOption(this)">
                                     <i class="bi bi-trash"></i>
                                 </button>
@@ -375,7 +375,7 @@ class FormBuilder {
                         </div>
                     </div>
                     <button type="button" class="btn btn-outline-secondary btn-sm mt-2" onclick="formBuilder.addOption()">
-                        <i class="bi bi-plus-circle me-1"></i>Добавить опцию
+                        <i class="bi bi-plus-circle me-1"></i>${lang === 'ru' ? 'Добавить опцию' : 'Add option'}
                     </button>
                 </div>
             `;
@@ -386,7 +386,7 @@ class FormBuilder {
                 html += `
                     <div class="col-md-6">
                         <label class="form-label">
-                            <i class="bi bi-textarea-resize me-1"></i>Количество строк
+                            <i class="bi bi-textarea-resize me-1"></i>${lang === 'ru' ? 'Количество строк' : 'Number of rows'}
                         </label>
                         <input type="number" 
                                class="form-control" 
@@ -403,7 +403,7 @@ class FormBuilder {
                 html += `
                     <div class="col-md-6">
                         <label class="form-label">
-                            <i class="bi bi-check2-square me-1"></i>Разрешить несколько файлов
+                            <i class="bi bi-check2-square me-1"></i>${lang === 'ru' ? 'Разрешить несколько файлов' : 'Allow multiple files'}
                         </label>
                         <div class="form-check">
                             <input class="form-check-input" 
@@ -411,20 +411,20 @@ class FormBuilder {
                                    id="field-multiple" 
                                    name="multiple">
                             <label class="form-check-label" for="field-multiple">
-                                Да
+                                ${lang === 'ru' ? 'Да' : 'Yes'}
                             </label>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">
-                            <i class="bi bi-files me-1"></i>Разрешенные типы файлов
+                            <i class="bi bi-files me-1"></i>${lang === 'ru' ? 'Разрешенные типы файлов' : 'Allowed file types'}
                         </label>
                         <input type="text" 
                                class="form-control" 
                                id="field-accept" 
                                name="accept"
                                placeholder=".jpg,.png,.pdf">
-                        <div class="form-text small">Через запятую: .jpg, .png, .pdf</div>
+                        <div class="form-text small">${lang === 'ru' ? 'Через запятую: .jpg, .png, .pdf' : 'Comma separated: .jpg, .png, .pdf'}</div>
                     </div>
                 `;
                 break;
@@ -433,7 +433,7 @@ class FormBuilder {
                 html += `
                     <div class="col-md-6">
                         <label class="form-label">
-                            <i class="bi bi-palette me-1"></i>CSS классы
+                            <i class="bi bi-palette me-1"></i>${lang === 'ru' ? 'CSS классы' : 'CSS classes'}
                         </label>
                         <input type="text" 
                                class="form-control" 
@@ -448,13 +448,13 @@ class FormBuilder {
                 html += `
                     <div class="col-md-12">
                         <label class="form-label">
-                            <i class="bi bi-eye-slash me-1"></i>Значение по умолчанию
+                            <i class="bi bi-eye-slash me-1"></i>${lang === 'ru' ? 'Значение по умолчанию' : 'Default value'}
                         </label>
                         <input type="text" 
                                class="form-control" 
                                id="field-default-value" 
                                name="default_value"
-                               placeholder="Значение скрытого поля">
+                               placeholder="${lang === 'ru' ? 'Значение скрытого поля' : 'Hidden field value'}">
                     </div>
                 `;
                 break;
@@ -483,10 +483,10 @@ class FormBuilder {
         const optionHtml = `
             <div class="option-item mb-2">
                 <div class="input-group input-group-sm">
-                    <span class="input-group-text">Значение</span>
-                    <input type="text" class="form-control option-value" placeholder="value">
-                    <span class="input-group-text">Текст</span>
-                    <input type="text" class="form-control option-label" placeholder="Опция">
+                    <span class="input-group-text">${lang === 'ru' ? 'Значение' : 'Value'}</span>
+                    <input type="text" class="form-control option-value" placeholder="${lang === 'ru' ? 'значение' : 'value'}">
+                    <span class="input-group-text">${lang === 'ru' ? 'Текст' : 'Label'}</span>
+                    <input type="text" class="form-control option-label" placeholder="${lang === 'ru' ? 'Опция' : 'Option'}">
                     <button type="button" class="btn btn-outline-danger remove-option" onclick="formBuilder.removeOption(this)">
                         <i class="bi bi-trash"></i>
                     </button>
@@ -544,7 +544,7 @@ class FormBuilder {
         
         const form = document.getElementById('field-settings-form');
         if (!form) {
-            console.error('Форма настроек поля не найдена!');
+            console.error(lang === 'ru' ? 'Форма настроек поля не найдена!' : 'Field settings form not found!');
             return;
         }
         
@@ -579,7 +579,7 @@ class FormBuilder {
         }
 
         if (fieldData.type === 'submit') {
-            fieldData.button_text = formData.get('button_text') || 'Отправить';
+            fieldData.button_text = formData.get('button_text') || (lang === 'ru' ? 'Отправить' : 'Submit');
         }
 
         const defaultValue = formData.get('default_value') || '';
@@ -588,13 +588,13 @@ class FormBuilder {
         }
 
         if (!fieldData.label.trim()) {
-            alert('Пожалуйста, заполните заголовок поля');
+            alert(lang === 'ru' ? 'Пожалуйста, заполните заголовок поля' : 'Please enter the field label');
             document.getElementById('field-label').focus();
             return;
         }
         
         if (!fieldData.name.trim() && fieldData.type !== 'submit') {
-            alert('Пожалуйста, заполните имя поля (атрибут name)');
+            alert(lang === 'ru' ? 'Пожалуйста, заполните имя поля (атрибут name)' : 'Please enter the field name (name attribute)');
             document.getElementById('field-name').focus();
             return;
         }
@@ -666,7 +666,7 @@ class FormBuilder {
     }
 
     removeField(fieldCard) {
-        if (!confirm('Удалить это поле из формы?')) return;
+        if (!confirm(lang === 'ru' ? 'Удалить это поле из формы?' : 'Delete this field from the form?')) return;
 
         fieldCard.remove();
         
@@ -683,7 +683,7 @@ class FormBuilder {
         
         const fieldDataElement = fieldCard.querySelector('.field-data');
         if (!fieldDataElement) {
-            console.error('Данные поля не найдены');
+            console.error(lang === 'ru' ? 'Данные поля не найдены' : 'Field data not found');
             return;
         }
         
@@ -691,7 +691,7 @@ class FormBuilder {
         try {
             fieldData = JSON.parse(fieldDataElement.value);
         } catch (e) {
-            console.error('Ошибка при разборе данных поля:', e);
+            console.error(lang === 'ru' ? 'Ошибка при разборе данных поля:' : 'Error parsing field data:', e);
             return;
         }
         
@@ -718,7 +718,7 @@ class FormBuilder {
         const descInput = document.getElementById('field-description');
         const placeholderInput = document.getElementById('field-placeholder');
         const requiredCheckbox = document.getElementById('field-required');
-        const classInput = document.getElementById('field-class'); // CSS классы
+        const classInput = document.getElementById('field-class');
         
         if (labelInput) labelInput.value = fieldData.label || '';
         if (nameInput) nameInput.value = fieldData.name || '';
@@ -748,7 +748,7 @@ class FormBuilder {
         }
         
         if (fieldData.type === 'submit' && document.getElementById('field-button-text')) {
-            document.getElementById('field-button-text').value = fieldData.button_text || 'Отправить';
+            document.getElementById('field-button-text').value = fieldData.button_text || (lang === 'ru' ? 'Отправить' : 'Submit');
         }
         
         if ((fieldData.type === 'select' || fieldData.type === 'radio') && fieldData.options) {
@@ -799,7 +799,7 @@ class FormBuilder {
                 <div class="col-md-4">
                     <input type="text" 
                            class="form-control form-control-sm rule-param" 
-                           placeholder="Параметр"
+                           placeholder="${lang === 'ru' ? 'Параметр' : 'Parameter'}"
                            value="${this.escapeHtml(paramValue)}">
                 </div>
             `;
@@ -809,14 +809,14 @@ class FormBuilder {
             <div class="row mb-2 validation-rule" id="${ruleId}">
                 <div class="col-md-${hasParam ? '4' : '8'}">
                     <select class="form-select form-select-sm rule-type">
-                        <option value="">Выберите правило</option>
-                        <option value="required" ${type === 'required' ? 'selected' : ''}>Обязательное</option>
+                        <option value="">${lang === 'ru' ? 'Выберите правило' : 'Select a rule'}</option>
+                        <option value="required" ${type === 'required' ? 'selected' : ''}>${lang === 'ru' ? 'Обязательное' : 'Required'}</option>
                         <option value="email" ${type === 'email' ? 'selected' : ''}>Email</option>
                         <option value="url" ${type === 'url' ? 'selected' : ''}>URL</option>
-                        <option value="numeric" ${type === 'numeric' ? 'selected' : ''}>Число</option>
-                        <option value="min" ${type === 'min' ? 'selected' : ''}>Минимальное</option>
-                        <option value="max" ${type === 'max' ? 'selected' : ''}>Максимальное</option>
-                        <option value="regex" ${type === 'regex' ? 'selected' : ''}>Регулярное выражение</option>
+                        <option value="numeric" ${type === 'numeric' ? 'selected' : ''}>${lang === 'ru' ? 'Число' : 'Number'}</option>
+                        <option value="min" ${type === 'min' ? 'selected' : ''}>${lang === 'ru' ? 'Минимальное' : 'Minimum'}</option>
+                        <option value="max" ${type === 'max' ? 'selected' : ''}>${lang === 'ru' ? 'Максимальное' : 'Maximum'}</option>
+                        <option value="regex" ${type === 'regex' ? 'selected' : ''}>${lang === 'ru' ? 'Регулярное выражение' : 'Regular expression'}</option>
                     </select>
                 </div>
                 ${paramHtml}
@@ -859,21 +859,17 @@ class FormBuilder {
         }
 
         let badges = '';
-        if (fieldData.required) badges += '<span class="badge bg-danger ms-1">Обязательное</span>';
+        if (fieldData.required) badges += '<span class="badge bg-danger ms-1">' + (lang === 'ru' ? 'Обязательное' : 'Required') + '</span>';
         if (fieldData.validation && Object.keys(fieldData.validation).length > 0) {
-            badges += '<span class="badge bg-info ms-1">Валидация</span>';
+            badges += '<span class="badge bg-info ms-1">' + (lang === 'ru' ? 'Валидация' : 'Validation') + '</span>';
         }
 
-        title.innerHTML = `<i class="bi bi-${this.getFieldTypeIcon(fieldData.type)} me-2"></i>${this.escapeHtml(fieldData.label) || 'Без названия'} ${badges}`;
+        title.innerHTML = `<i class="bi bi-${this.getFieldTypeIcon(fieldData.type)} me-2"></i>${this.escapeHtml(fieldData.label) || (lang === 'ru' ? 'Без названия' : 'Untitled')} ${badges}`;
         subtitle.innerHTML = `<code>name="${this.escapeHtml(fieldData.name)}"</code> ${fieldData.description ? `- ${this.escapeHtml(fieldData.description)}` : ''}`;
         preview.innerHTML = this.createFieldPreview(fieldData);
     }
 
     initializeSortable() {
-        if (typeof Sortable === 'undefined') {
-            console.warn('Sortable.js не загружен');
-            return;
-        }
 
         const container = document.getElementById('form-fields-container');
         if (!container) return;
@@ -889,7 +885,7 @@ class FormBuilder {
                 }
             });
         } catch (e) {
-            console.error('Ошибка при инициализации Sortable:', e);
+            console.error(lang === 'ru' ? 'Ошибка при инициализации Sortable:' : 'Error initializing Sortable:', e);
         }
     }
 
@@ -906,7 +902,7 @@ class FormBuilder {
                     const fieldData = JSON.parse(fieldDataElement.value);
                     structure.push(fieldData);
                 } catch (e) {
-                    console.error('Ошибка при разборе данных поля:', e);
+                    console.error(lang === 'ru' ? 'Ошибка при разборе данных поля:' : 'Error parsing field data:', e);
                 }
             }
         });
@@ -983,14 +979,14 @@ class FormBuilder {
         
         if (structure.length === 0) {
             e.preventDefault();
-            alert('Добавьте хотя бы одно поле в форму');
+            alert(lang === 'ru' ? 'Добавьте хотя бы одно поле в форму' : 'Add at least one field to the form');
             return;
         }
 
         const hasSubmit = structure.some(field => field.type === 'submit');
         if (!hasSubmit) {
             e.preventDefault();
-            alert('Добавьте кнопку отправки (поле типа "submit")');
+            alert(lang === 'ru' ? 'Добавьте кнопку отправки (поле типа "submit")' : 'Add a submit button (field type "submit")');
             return;
         }
 
@@ -1000,7 +996,10 @@ class FormBuilder {
         structure.forEach((field, index) => {
             if (field.name && field.type !== 'submit') {
                 if (fieldNames.includes(field.name)) {
-                    errors.push(`Поле "${field.label || field.name}" (№${index + 1}): имя "${field.name}" уже используется другим полем`);
+                    errors.push(lang === 'ru' 
+                        ? `Поле "${field.label || field.name}" (№${index + 1}): имя "${field.name}" уже используется другим полем`
+                        : `Field "${field.label || field.name}" (#${index + 1}): name "${field.name}" is already used by another field`
+                    );
                 }
                 fieldNames.push(field.name);
             }
@@ -1008,7 +1007,7 @@ class FormBuilder {
         
         if (errors.length > 0) {
             e.preventDefault();
-            alert('Ошибки в форме:\n' + errors.join('\n'));
+            alert((lang === 'ru' ? 'Ошибки в форме:\n' : 'Form errors:\n') + errors.join('\n'));
         }
     }
 

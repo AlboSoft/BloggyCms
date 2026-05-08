@@ -42,7 +42,7 @@
 
     renderBlockButtons() {
         if (!window.availablePostBlocks || Object.keys(window.availablePostBlocks).length === 0) {
-            this.blockButtons.innerHTML = '<div class="text-center text-muted py-3 w-100">Нет доступных блоков</div>';
+            this.blockButtons.innerHTML = `<div class="text-center text-muted py-3 w-100">${lang === 'ru' ? 'Нет доступных блоков' : 'No blocks available'}</div>`;
             return;
         }
 
@@ -68,7 +68,7 @@
             }
         });
 
-        this.blockButtons.innerHTML = html || '<div class="text-center text-muted py-2 w-100">Блоки не найдены</div>';
+        this.blockButtons.innerHTML = html || `<div class="text-center text-muted py-2 w-100">${lang === 'ru' ? 'Блоки не найдены' : 'No blocks found'}</div>`;
         this.initTooltips(this.blockButtons);
     }
 
@@ -107,8 +107,12 @@
 
     getCategoryName(category) {
         const names = {
-            'text': '📝 Текст', 'media': '🖼️ Медиа', 'layout': '📐 Компоновка',
-            'advanced': '⚙️ Расширенные', 'basic': '🔧 Основные', 'other': '📦 Другие'
+            'text': lang === 'ru' ? '📝 Текст' : '📝 Text',
+            'media': lang === 'ru' ? '🖼️ Медиа' : '🖼️ Media',
+            'layout': lang === 'ru' ? '📐 Компоновка' : '📐 Layout',
+            'advanced': lang === 'ru' ? '⚙️ Расширенные' : '⚙️ Advanced',
+            'basic': lang === 'ru' ? '🔧 Основные' : '🔧 Basic',
+            'other': lang === 'ru' ? '📦 Другие' : '📦 Other'
         };
         return names[category] || category;
     }
@@ -177,7 +181,7 @@
 
         const blockInfo = window.availablePostBlocks?.[block.type];
         if (!blockInfo) {
-            alert(`Информация о блоке не найдена: ${block.type}`);
+            alert(lang === 'ru' ? `Информация о блоке не найдена: ${block.type}` : `Block information not found: ${block.type}`);
             return;
         }
 
@@ -202,13 +206,13 @@
                     <div class="modal-body" id="post-block-settings-content">
                         <div class="text-center py-5">
                             <div class="spinner-border text-primary" role="status"></div>
-                            <p class="mt-2 text-muted">Загрузка формы...</p>
+                            <p class="mt-2 text-muted">${lang === 'ru' ? 'Загрузка формы...' : 'Loading form...'}</p>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">${lang === 'ru' ? 'Отмена' : 'Cancel'}</button>
                         <button type="button" class="btn btn-primary" id="save-post-block-settings">
-                            <i class="bi bi-check-lg me-1"></i>Сохранить
+                            <i class="bi bi-check-lg me-1"></i>${lang === 'ru' ? 'Сохранить' : 'Save'}
                         </button>
                     </div>
                 </div>
@@ -257,12 +261,11 @@
                 }
                 this.reinitializeAllBlocks();
             }, 150);
-            // ====================
             
             this.bindSaveHandler(block.id, modal);
         } catch (error) {
             console.error('Form load error:', error);
-            content.innerHTML = `<div class="alert alert-danger">Ошибка загрузки формы: ${error.message}</div>`;
+            content.innerHTML = `<div class="alert alert-danger">${lang === 'ru' ? 'Ошибка загрузки формы: ' : 'Error loading form: '}${error.message}</div>`;
         }
     }
 
@@ -306,15 +309,15 @@
                 }
             });
             const originalText = saveButton.innerHTML;
-            saveButton.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Сохранение...';
+            saveButton.innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span> ${lang === 'ru' ? 'Сохранение...' : 'Saving...'}`;
             saveButton.disabled = true;
 
             try {
                 const block = this.blocksData.find(b => b.id === blockId);
-                if (!block) throw new Error('Блок не найден');
+                if (!block) throw new Error(lang === 'ru' ? 'Блок не найден' : 'Block not found');
 
                 const form = modal.querySelector('form');
-                if (!form) throw new Error('Форма не найдена');
+                if (!form) throw new Error(lang === 'ru' ? 'Форма не найдена' : 'Form not found');
 
                 const formData = new FormData(form);
                 const contentData = {};
@@ -356,13 +359,13 @@
                     this.invalidateBlockCache(block);
                     await this.updateBlockPreview(blockId);
                     this.updateHiddenField();
-                    this.showNotification('Настройки сохранены', 'success');
+                    this.showNotification(lang === 'ru' ? 'Настройки сохранены' : 'Settings saved', 'success');
                 } else {
-                    throw new Error(data.message || 'Ошибка сохранения');
+                    throw new Error(data.message || (lang === 'ru' ? 'Ошибка сохранения' : 'Save error'));
                 }
             } catch (error) {
                 console.error('Save error:', error);
-                this.showNotification('Ошибка: ' + error.message, 'error');
+                this.showNotification((lang === 'ru' ? 'Ошибка: ' : 'Error: ') + error.message, 'error');
             } finally {
                 saveButton.innerHTML = originalText;
                 saveButton.disabled = false;
@@ -451,7 +454,7 @@
                 
                 this.previewCache.set(cacheKey, data.html);
             } else {
-                throw new Error(data.message || 'Ошибка данных');
+                throw new Error(data.message || (lang === 'ru' ? 'Ошибка данных' : 'Data error'));
             }
         } catch (error) {
             console.warn(`Preview load failed for ${blockId}:`, error);
@@ -477,7 +480,7 @@
         return `
             <div class="alert alert-warning small mb-0 py-2">
                 <i class="bi bi-exclamation-circle me-1"></i>
-                Ошибка превью: ${this.escapeHtml(error)}
+                ${lang === 'ru' ? 'Ошибка превью: ' : 'Preview error: '}${this.escapeHtml(error)}
             </div>`;
     }
 
@@ -488,8 +491,8 @@
             this.blocksContainer.innerHTML = `
                 <div class="text-center text-muted py-5 empty-state">
                     <i class="bi bi-inbox display-4 d-block mb-3 opacity-50"></i>
-                    <p class="mb-1">Нет добавленных блоков</p>
-                    <small class="text-muted">Добавьте блоки из панели выше</small>
+                    <p class="mb-1">${lang === 'ru' ? 'Нет добавленных блоков' : 'No blocks added'}</p>
+                    <small class="text-muted">${lang === 'ru' ? 'Добавьте блоки из панели выше' : 'Add blocks from the panel above'}</small>
                 </div>`;
             return;
         }
@@ -514,7 +517,7 @@
     renderBlockStructure(block, blockInfo, index) {
         const hasPreset = block.settings?.preset_id;
         const presetBadge = hasPreset ? 
-            `<span class="badge bg-success text-dark"><i class="bi bi-gear me-1"></i>${this.escapeHtml(block.settings.preset_name || 'Пресет')}</span>` : '';
+            `<span class="badge bg-success text-dark"><i class="bi bi-gear me-1"></i>${this.escapeHtml(block.settings.preset_name || (lang === 'ru' ? 'Пресет' : 'Preset'))}</span>` : '';
 
         return `
             <div class="post-block-item ${hasPreset ? 'has-preset' : ''}" data-block-id="${block.id}" data-block-type="${block.type}">
@@ -529,13 +532,13 @@
                             </div>
                         </div>
                         <div class="block-actions d-flex gap-1">
-                            <button type="button" class="btn btn-sm btn-light edit-post-block" title="Редактировать"><i class="bi bi-pencil"></i></button>
-                            <button type="button" class="btn btn-sm btn-light text-danger remove-post-block" title="Удалить"><i class="bi bi-trash"></i></button>
-                            <span class="drag-handle btn btn-sm btn-light" title="Перетащить"><i class="bi bi-grip-vertical"></i></span>
+                            <button type="button" class="btn btn-sm btn-light edit-post-block" title="${lang === 'ru' ? 'Редактировать' : 'Edit'}"><i class="bi bi-pencil"></i></button>
+                            <button type="button" class="btn btn-sm btn-light text-danger remove-post-block" title="${lang === 'ru' ? 'Удалить' : 'Delete'}"><i class="bi bi-trash"></i></button>
+                            <span class="drag-handle btn btn-sm btn-light" title="${lang === 'ru' ? 'Перетащить' : 'Drag'}"><i class="bi bi-grip-vertical"></i></span>
                         </div>
                     </div>
                     <div class="block-preview-container p-3" id="preview-${block.id}">
-                        <!-- Превью загрузится асинхронно -->
+                        <!-- ${lang === 'ru' ? 'Превью загрузится асинхронно' : 'Preview will load asynchronously'} -->
                     </div>
                 </div>
             </div>`;
@@ -619,7 +622,7 @@
 
     createPresetSelector(presets, currentBlock) {
         const currentPresetId = currentBlock.settings?.preset_id || '';
-        let options = '<option value="">-- Без пресета --</option>';
+        let options = `<option value="">${lang === 'ru' ? '-- Без пресета --' : '-- No preset --'}</option>`;
         
         presets.forEach(preset => {
             const selected = currentPresetId == preset.id ? 'selected' : '';
@@ -628,7 +631,7 @@
 
         return `
             <div class="mb-3 p-3 bg-light rounded">
-                <label class="form-label small fw-bold mb-1">Пресет оформления</label>
+                <label class="form-label small fw-bold mb-1">${lang === 'ru' ? 'Пресет оформления' : 'Design preset'}</label>
                 <select class="form-select form-select-sm" id="block-preset-select">${options}</select>
             </div>`;
     }

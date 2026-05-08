@@ -50,12 +50,12 @@ function fetchCaptchaExample() {
     .then(data => {
         if (data.success) {
             document.getElementById('captcha_example').innerHTML = `
-                <p><strong>Вопрос:</strong> ${data.question}</p>
-                <p><strong>Ответ:</strong> ${data.answer}</p>
+                <p><strong>${lang === 'ru' ? 'Вопрос:' : 'Question:'}</strong> ${data.question}</p>
+                <p><strong>${lang === 'ru' ? 'Ответ:' : 'Answer:'}</strong> ${data.answer}</p>
             `;
         }
     })
     .catch(error => {
-        console.error('Error:', error);
+        console.error(lang === 'ru' ? 'Ошибка:' : 'Error:', error);
     });
 }

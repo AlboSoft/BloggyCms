@@ -54,14 +54,14 @@
             
             const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
             if (!allowedTypes.includes(file.type)) {
-                alert('Допустимы только изображения в форматах JPG, PNG, GIF или WebP');
+                alert(lang === 'ru' ? 'Допустимы только изображения в форматах JPG, PNG, GIF или WebP' : 'Only images in JPG, PNG, GIF or WebP formats are allowed');
                 this.value = '';
                 return;
             }
             
             const maxSize = 5 * 1024 * 1024;
             if (file.size > maxSize) {
-                alert('Файл слишком большой. Максимальный размер: 5MB');
+                alert(lang === 'ru' ? 'Файл слишком большой. Максимальный размер: 5MB' : 'File is too large. Maximum size: 5MB');
                 this.value = '';
                 return;
             }
@@ -76,8 +76,8 @@
                 const previewDiv = document.createElement('div');
                 previewDiv.className = 'image-preview mt-2 text-center';
                 previewDiv.innerHTML = `
-                    <img src="${e.target.result}" class="img-thumbnail" style="max-height: 150px;" alt="Превью">
-                    <div class="form-text mt-1">Предпросмотр нового изображения</div>
+                    <img src="${e.target.result}" class="img-thumbnail" style="max-height: 150px;" alt="${lang === 'ru' ? 'Превью' : 'Preview'}">
+                    <div class="form-text mt-1">${lang === 'ru' ? 'Предпросмотр нового изображения' : 'Preview of new image'}</div>
                 `;
                 imageInput.parentNode.appendChild(previewDiv);
             };

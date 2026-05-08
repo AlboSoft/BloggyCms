@@ -37,7 +37,7 @@
         });
 
         document.getElementById('delete-all-logs').addEventListener('click', function() {
-            if (confirm('Вы уверены, что хотите удалить ВСЕ логи? Это действие нельзя отменить.')) {
+            if (confirm(lang === 'ru' ? 'Вы уверены, что хотите удалить ВСЕ логи? Это действие нельзя отменить.' : 'Are you sure you want to delete ALL logs? This action cannot be undone.')) {
                 deleteAllLogs();
             }
         });
@@ -71,7 +71,7 @@
         const tbody = document.getElementById('logs-tbody');
         
         if (!logs || logs.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="6" class="text-center py-5 text-muted">Нет записей</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="6" class="text-center py-5 text-muted">' + (lang === 'ru' ? 'Нет записей' : 'No records') + '</td></tr>';
             return;
         }
         
@@ -103,15 +103,15 @@
                     </td>
                     <td class="text-end">
                         <div class="btn-group btn-group-sm">
-                            <button class="btn btn-outline-secondary view-log" data-id="${log.id}" title="Просмотр">
+                            <button class="btn btn-outline-secondary view-log" data-id="${log.id}" title="${lang === 'ru' ? 'Просмотр' : 'View'}">
                                 <i class="bi bi-eye"></i>
                             </button>
                             ${!isFixed ? `
-                            <button class="btn btn-outline-success mark-fixed" data-id="${log.id}" title="Отметить как исправленную">
+                            <button class="btn btn-outline-success mark-fixed" data-id="${log.id}" title="${lang === 'ru' ? 'Отметить как исправленную' : 'Mark as fixed'}">
                                 <i class="bi bi-check-lg"></i>
                             </button>
                             ` : ''}
-                            <button class="btn btn-outline-danger delete-log" data-id="${log.id}" title="Удалить">
+                            <button class="btn btn-outline-danger delete-log" data-id="${log.id}" title="${lang === 'ru' ? 'Удалить' : 'Delete'}">
                                 <i class="bi bi-trash"></i>
                             </button>
                         </div>
@@ -223,7 +223,7 @@
         
         let traceHtml = '';
         if (log.trace_decoded && log.trace_decoded.length > 0) {
-            traceHtml = '<div class="context-section"><h6>Стек вызовов:</h6>';
+            traceHtml = '<div class="context-section"><h6>' + (lang === 'ru' ? 'Стек вызовов:' : 'Call stack:') + '</h6>';
             log.trace_decoded.forEach((trace, idx) => {
                 if (idx < 15) {
                     traceHtml += `
@@ -242,19 +242,19 @@
         
         let contextHtml = '';
         if (log.context_decoded) {
-            contextHtml = '<div class="context-section"><h6>Контекст ошибки:</h6>';
+            contextHtml = '<div class="context-section"><h6>' + (lang === 'ru' ? 'Контекст ошибки:' : 'Error context:') + '</h6>';
             
             if (log.context_decoded.get) {
-                contextHtml += `<div class="mb-3"><strong>GET параметры:</strong><pre class="context-pre">${escapeHtml(JSON.stringify(log.context_decoded.get, null, 2))}</pre></div>`;
+                contextHtml += `<div class="mb-3"><strong>${lang === 'ru' ? 'GET параметры:' : 'GET parameters:'}</strong><pre class="context-pre">${escapeHtml(JSON.stringify(log.context_decoded.get, null, 2))}</pre></div>`;
             }
             if (log.context_decoded.post) {
-                contextHtml += `<div class="mb-3"><strong>POST параметры:</strong><pre class="context-pre">${escapeHtml(JSON.stringify(log.context_decoded.post, null, 2))}</pre></div>`;
+                contextHtml += `<div class="mb-3"><strong>${lang === 'ru' ? 'POST параметры:' : 'POST parameters:'}</strong><pre class="context-pre">${escapeHtml(JSON.stringify(log.context_decoded.post, null, 2))}</pre></div>`;
             }
             if (log.context_decoded.session) {
-                contextHtml += `<div class="mb-3"><strong>Данные сессии:</strong><pre class="context-pre">${escapeHtml(JSON.stringify(log.context_decoded.session, null, 2))}</pre></div>`;
+                contextHtml += `<div class="mb-3"><strong>${lang === 'ru' ? 'Данные сессии:' : 'Session data:'}</strong><pre class="context-pre">${escapeHtml(JSON.stringify(log.context_decoded.session, null, 2))}</pre></div>`;
             }
             if (log.context_decoded.server) {
-                contextHtml += `<div class="mb-3"><strong>Информация о запросе:</strong><pre class="context-pre">${escapeHtml(JSON.stringify(log.context_decoded.server, null, 2))}</pre></div>`;
+                contextHtml += `<div class="mb-3"><strong>${lang === 'ru' ? 'Информация о запросе:' : 'Request information:'}</strong><pre class="context-pre">${escapeHtml(JSON.stringify(log.context_decoded.server, null, 2))}</pre></div>`;
             }
             
             contextHtml += '</div>';
@@ -264,33 +264,33 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="mb-3">
-                        <strong>Тип ошибки:</strong><br>
+                        <strong>${lang === 'ru' ? 'Тип ошибки:' : 'Error type:'}</strong><br>
                         <span class="log-type-badge ${log.type_class} mt-1">${getTypeIcon(log.type)} ${log.type_label}</span>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="mb-3">
-                        <strong>Код ошибки:</strong><br>
+                        <strong>${lang === 'ru' ? 'Код ошибки:' : 'Error code:'}</strong><br>
                         <code>${log.code || '-'}</code>
                     </div>
                 </div>
             </div>
             
             <div class="mb-3">
-                <strong>Сообщение:</strong><br>
+                <strong>${lang === 'ru' ? 'Сообщение:' : 'Message:'}</strong><br>
                 <div class="alert alert-${log.type_class} mt-1">${escapeHtml(log.message)}</div>
             </div>
             
             <div class="row">
                 <div class="col-md-8">
                     <div class="mb-3">
-                        <strong>Файл:</strong><br>
+                        <strong>${lang === 'ru' ? 'Файл:' : 'File:'}</strong><br>
                         <code class="text-danger">${escapeHtml(log.file || '-')}</code>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="mb-3">
-                        <strong>Строка:</strong><br>
+                        <strong>${lang === 'ru' ? 'Строка:' : 'Line:'}</strong><br>
                         <code class="text-danger">${log.line || '-'}</code>
                     </div>
                 </div>
@@ -299,13 +299,13 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="mb-3">
-                        <strong>Дата и время:</strong><br>
+                        <strong>${lang === 'ru' ? 'Дата и время:' : 'Date & time:'}</strong><br>
                         <code>${log.created_formatted}</code>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="mb-3">
-                        <strong>URL:</strong><br>
+                        <strong>${lang === 'ru' ? 'URL:' : 'URL:'}</strong><br>
                         <code class="small">${escapeHtml(log.url || '-')}</code>
                     </div>
                 </div>
@@ -314,13 +314,13 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="mb-3">
-                        <strong>IP адрес:</strong><br>
+                        <strong>${lang === 'ru' ? 'IP адрес:' : 'IP address:'}</strong><br>
                         <code>${escapeHtml(log.ip || '-')}</code>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="mb-3">
-                        <strong>Метод запроса:</strong><br>
+                        <strong>${lang === 'ru' ? 'Метод запроса:' : 'Request method:'}</strong><br>
                         <code>${escapeHtml(log.method || '-')}</code>
                     </div>
                 </div>
@@ -347,14 +347,14 @@
                 const modal = bootstrap.Modal.getInstance(document.getElementById('logDetailModal'));
                 if (modal) modal.hide();
                 
-                showNotification('Ошибка отмечена как исправленная', 'success');
+                showNotification(lang === 'ru' ? 'Ошибка отмечена как исправленная' : 'Error marked as fixed', 'success');
             }
         })
         .catch(error => console.error('Error marking as fixed:', error));
     }
 
     function deleteLog(id) {
-        if (!confirm('Удалить эту запись?')) return;
+        if (!confirm(lang === 'ru' ? 'Удалить эту запись?' : 'Delete this record?')) return;
         
         fetch(`${ADMIN_URL}/debug/delete/${id}`, {
             method: 'POST',
@@ -365,7 +365,7 @@
             if (data.success) {
                 loadLogs(currentPage);
                 loadStats();
-                showNotification('Лог удален', 'success');
+                showNotification(lang === 'ru' ? 'Лог удален' : 'Log deleted', 'success');
             }
         })
         .catch(error => console.error('Error deleting log:', error));
@@ -381,7 +381,7 @@
             if (data.success) {
                 loadLogs(1);
                 loadStats();
-                showNotification('Все логи удалены', 'success');
+                showNotification(lang === 'ru' ? 'Все логи удалены' : 'All logs deleted', 'success');
             }
         })
         .catch(error => console.error('Error deleting all logs:', error));

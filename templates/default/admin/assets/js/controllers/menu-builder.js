@@ -290,8 +290,8 @@
                                         '<i class="bi bi-link-45deg text-primary me-2"></i>'
                                     }
                                     <div>
-                                        <h6 class="mb-1">${this.escapeHtml(itemData.title || 'Без названия')} 
-                                            ${itemData.icon_only ? '<span class="badge bg-info ms-2">только иконка</span>' : ''}
+                                        <h6 class="mb-1">${this.escapeHtml(itemData.title || (lang === 'ru' ? 'Без названия' : 'Untitled'))} 
+                                            ${itemData.icon_only ? `<span class="badge bg-info ms-2">${lang === 'ru' ? 'только иконка' : 'icon only'}</span>` : ''}
                                             ${extraBadge}
                                         </h6>
                                         <small class="text-muted">${this.escapeHtml(itemData.url || '')}</small>
@@ -300,23 +300,23 @@
                             </div>
                         </div>
                         <div class="btn-group btn-group-sm">
-                            <button type="button" class="btn btn-outline-secondary menu-item-handle" title="Перетащить">
+                            <button type="button" class="btn btn-outline-secondary menu-item-handle" title="${lang === 'ru' ? 'Перетащить' : 'Drag'}">
                                 <i class="bi bi-arrows-move"></i>
                             </button>
                             <button type="button" class="btn btn-outline-primary edit-menu-item" 
-                                    title="Редактировать"
+                                    title="${lang === 'ru' ? 'Редактировать' : 'Edit'}"
                                     data-bs-toggle="modal" 
                                     data-bs-target="#menuItemModal">
                                 <i class="bi bi-pencil"></i>
                             </button>
                             <button type="button" class="btn btn-outline-success add-child-item" 
-                                    title="Добавить подпункт"
+                                    title="${lang === 'ru' ? 'Добавить подпункт' : 'Add subitem'}"
                                     data-bs-toggle="modal" 
                                     data-bs-target="#menuItemModal"
                                     data-parent-index="${index}">
                                 <i class="bi bi-patch-plus"></i>
                             </button>
-                            <button type="button" class="btn btn-outline-danger remove-menu-item" title="Удалить">
+                            <button type="button" class="btn btn-outline-danger remove-menu-item" title="${lang === 'ru' ? 'Удалить' : 'Delete'}">
                                 <i class="bi bi-trash"></i>
                             </button>
                         </div>
@@ -377,7 +377,7 @@
         
         document.getElementById('menuItemModalLabel').innerHTML = 
             '<i class="bi bi-plus-circle me-2"></i>' + 
-            (parentIndex ? 'Добавить подпункт' : 'Добавить пункт меню');
+            (parentIndex ? (lang === 'ru' ? 'Добавить подпункт' : 'Add subitem') : (lang === 'ru' ? 'Добавить пункт меню' : 'Add menu item'));
         
         document.getElementById('menu-item-form').reset();
         document.getElementById('edit-item-index').value = '';
@@ -398,7 +398,7 @@
         this.isEditing = true;
         
         document.getElementById('menuItemModalLabel').innerHTML = 
-            '<i class="bi bi-pencil me-2"></i>Редактировать пункт меню';
+            '<i class="bi bi-pencil me-2"></i>' + (lang === 'ru' ? 'Редактировать пункт меню' : 'Edit menu item');
         document.getElementById('item-title').value = itemData.title || '';
         document.getElementById('item-url').value = itemData.url || '';
         document.getElementById('item-target').value = itemData.target || '_self';
@@ -452,7 +452,7 @@
         const isExtra = document.getElementById('item-extra')?.checked || false;
 
         if (!title || !url) {
-            alert('Пожалуйста, заполните название и URL');
+            alert(lang === 'ru' ? 'Пожалуйста, заполните название и URL' : 'Please fill in the title and URL');
             return;
         }
 
@@ -605,8 +605,8 @@
                                     ${iconHtml}
                                     <i class="bi bi-link-45deg text-primary me-2"></i>
                                     <div>
-                                        <h6 class="mb-1">${this.escapeHtml(itemData.title || 'Новый пункт')} 
-                                            ${itemData.icon_only ? '<span class="badge bg-info ms-2">только иконка</span>' : ''}
+                                        <h6 class="mb-1">${this.escapeHtml(itemData.title || (lang === 'ru' ? 'Новый пункт' : 'New item'))} 
+                                            ${itemData.icon_only ? `<span class="badge bg-info ms-2">${lang === 'ru' ? 'только иконка' : 'icon only'}</span>` : ''}
                                         </h6>
                                         <small class="text-muted">${this.escapeHtml(itemData.url || '')}</small>
                                     </div>
@@ -614,23 +614,23 @@
                             </div>
                         </div>
                         <div class="btn-group btn-group-sm">
-                            <button type="button" class="btn btn-outline-secondary menu-item-handle" title="Перетащить">
+                            <button type="button" class="btn btn-outline-secondary menu-item-handle" title="${lang === 'ru' ? 'Перетащить' : 'Drag'}">
                                 <i class="bi bi-arrows-move"></i>
                             </button>
                             <button type="button" class="btn btn-outline-primary edit-menu-item" 
-                                    title="Редактировать"
+                                    title="${lang === 'ru' ? 'Редактировать' : 'Edit'}"
                                     data-bs-toggle="modal" 
                                     data-bs-target="#menuItemModal">
                                 <i class="bi bi-pencil"></i>
                             </button>
                             <button type="button" class="btn btn-outline-success add-child-item" 
-                                    title="Добавить подпункт"
+                                    title="${lang === 'ru' ? 'Добавить подпункт' : 'Add subitem'}"
                                     data-bs-toggle="modal" 
                                     data-bs-target="#menuItemModal"
                                     data-parent-index="${fullIndex}">
                                 <i class="bi bi-patch-plus"></i>
                             </button>
-                            <button type="button" class="btn btn-outline-danger remove-menu-item" title="Удалить">
+                            <button type="button" class="btn btn-outline-danger remove-menu-item" title="${lang === 'ru' ? 'Удалить' : 'Delete'}">
                                 <i class="bi bi-trash"></i>
                             </button>
                         </div>
@@ -665,7 +665,7 @@
         const urlElement = itemElement.querySelector('small');
         const iconElement = itemElement.querySelector('.bi');
 
-        if (titleElement) titleElement.textContent = itemData.title || 'Без названия';
+        if (titleElement) titleElement.textContent = itemData.title || (lang === 'ru' ? 'Без названия' : 'Untitled');
         if (urlElement) urlElement.textContent = itemData.url;
 
         const hasChildren = itemElement.querySelector('.menu-children')?.children.length > 0;
@@ -684,7 +684,7 @@
     }
 
     removeMenuItem(menuItem) {
-        if (!confirm('Удалить этот пункт меню?')) return;
+        if (!confirm(lang === 'ru' ? 'Удалить этот пункт меню?' : 'Delete this menu item?')) return;
 
         const children = menuItem.querySelectorAll('.menu-item-card');
         children.forEach(child => child.remove());
@@ -826,27 +826,27 @@
         const validateItem = (item, path = '') => {
             if (!item.title || item.title.trim() === '') {
                 isValid = false;
-                errors.push(`${path}Не заполнено название`);
+                errors.push(`${path}${lang === 'ru' ? 'Не заполнено название' : 'Title is required'}`);
             }
             if (!item.url || item.url.trim() === '') {
                 isValid = false;
-                errors.push(`${path}Не заполнен URL`);
+                errors.push(`${path}${lang === 'ru' ? 'Не заполнен URL' : 'URL is required'}`);
             }
             
             if (item.children && item.children.length > 0) {
                 item.children.forEach((child, index) => {
-                    validateItem(child, `${path}Пункт ${index + 1} → `);
+                    validateItem(child, `${path}${lang === 'ru' ? 'Пункт ' : 'Item '}${index + 1} → `);
                 });
             }
         };
         
         structure.forEach((item, index) => {
-            validateItem(item, `Пункт ${index + 1}: `);
+            validateItem(item, `${lang === 'ru' ? 'Пункт ' : 'Item '}${index + 1}: `);
         });
-        
+
         if (!isValid) {
             e.preventDefault();
-            alert('Ошибки в форме:\n' + errors.join('\n'));
+            alert((lang === 'ru' ? 'Ошибки в форме:\n' : 'Form errors:\n') + errors.join('\n'));
             return;
         }
         
@@ -921,17 +921,17 @@
             .replace(/\{username\}/g, 'vasya')
             .replace(/\{user_id\}/g, '123')
             .replace(/\{email\}/g, 'user@example.com')
-            .replace(/\{first_name\}/g, 'Вася')
-            .replace(/\{last_name\}/g, 'Пупкин')
-            .replace(/\{display_name\}/g, 'Василий')
-            .replace(/\{slug\}/g, 'vasya-pupkin')
+            .replace(/\{first_name\}/g, lang === 'ru' ? 'Вася' : 'John')
+            .replace(/\{last_name\}/g, lang === 'ru' ? 'Пупкин' : 'Doe')
+            .replace(/\{display_name\}/g, lang === 'ru' ? 'Василий' : 'John Doe')
+            .replace(/\{slug\}/g, lang === 'ru' ? 'vasya-pupkin' : 'john-doe')
             .replace(/\{base_url\}/g, window.location.origin)
             .replace(/\{admin_url\}/g, window.location.origin + '/admin')
             .replace(/\{year\}/g, new Date().getFullYear())
             .replace(/\{month\}/g, String(new Date().getMonth() + 1).padStart(2, '0'))
             .replace(/\{day\}/g, String(new Date().getDate()).padStart(2, '0'));
-        
-        preview = preview.replace(/\{user_field:([^}]+)\}/g, 'значение_поля');
+
+        preview = preview.replace(/\{user_field:([^}]+)\}/g, lang === 'ru' ? 'значение_поля' : 'field_value');
         
         previewTextElement.textContent = preview;
         previewElement.style.display = 'block';
@@ -941,9 +941,9 @@
         const customFieldBtn = document.createElement('button');
         customFieldBtn.type = 'button';
         customFieldBtn.className = 'btn btn-outline-info btn-sm mt-1';
-        customFieldBtn.innerHTML = '<i class="bi bi-plus-circle me-1"></i>Добавить кастомное поле';
+        customFieldBtn.innerHTML = '<i class="bi bi-plus-circle me-1"></i>' + (lang === 'ru' ? 'Добавить кастомное поле' : 'Add custom field');
         customFieldBtn.addEventListener('click', () => {
-            const fieldName = prompt('Введите название поля пользователя (например: phone, city):');
+            const fieldName = prompt(lang === 'ru' ? 'Введите название поля пользователя (например: phone, city):' : 'Enter user field name (e.g., phone, city):');
             if (fieldName) {
                 this.insertShortcodeAtCursor(`{user_field:${fieldName}}`);
             }
@@ -976,7 +976,7 @@
             btn.className = 'btn btn-outline-secondary btn-sm shortcode-btn';
             btn.dataset.shortcode = shortcode.code;
             btn.textContent = shortcode.label;
-            btn.title = 'Нажмите чтобы вставить шорткод';
+            btn.title = lang === 'ru' ? 'Нажмите чтобы вставить шорткод' : 'Click to insert shortcode';
             
             btn.addEventListener('click', (e) => {
                 this.insertShortcodeAtCursor(e.currentTarget.dataset.shortcode);

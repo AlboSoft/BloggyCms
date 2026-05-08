@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="<?php echo html(substr(SettingsHelper::get('general', 'admin_language', 'ru_RU'), 0, 2)); ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +8,7 @@
     <meta name="author" content="Albo Soft">
     <meta name="copyright" content="© <?php echo date('Y'); ?> Albo Soft. <?php echo LANG_ADMIN_ALL_RIGHTS_RESERVED; ?>">
     <meta name="application-name" content="BloggyCms">
+    <meta name="admin-language" content="<?php echo html(substr(SettingsHelper::get('general', 'admin_language', 'ru_RU'), 0, 2)); ?>">
     <?php echo favicon(); ?>
     <?php echo base_admin_css(['bootstrap', 'icons', 'main']); ?>
     <?php echo render_admin_css(); ?>

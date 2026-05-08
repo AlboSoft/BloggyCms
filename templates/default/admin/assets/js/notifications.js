@@ -36,8 +36,8 @@
         
         toastEl.innerHTML = `
             <div class="toast-header">
-                <strong class="me-auto">Уведомление</strong>
-                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Закрыть"></button>
+                <strong class="me-auto">${lang === 'ru' ? 'Уведомление' : 'Notification'}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="${lang === 'ru' ? 'Закрыть' : 'Close'}"></button>
             </div>
             <div class="toast-body">${message}</div>
             <div class="toast-progress"></div>
@@ -181,8 +181,8 @@
         
         toastEl.innerHTML = `
             <div class="toast-header">
-                <strong class="me-auto">Уведомление</strong>
-                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Закрыть"></button>
+                <strong class="me-auto">${lang === 'ru' ? 'Уведомление' : 'Notification'}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="${lang === 'ru' ? 'Закрыть' : 'Close'}"></button>
             </div>
             <div class="toast-body">${message}</div>
             <div class="toast-progress"></div>
@@ -296,9 +296,9 @@ class AdminNotificationsSystem {
         this.dropdownContent.innerHTML = `
             <div class="text-center py-3">
                 <i class="bi bi-exclamation-triangle text-warning" style="font-size: 32px;"></i>
-                <p class="text-muted mt-2 mb-0">Ошибка загрузки уведомлений</p>
+                <p class="text-muted mt-2 mb-0">${lang === 'ru' ? 'Ошибка загрузки уведомлений' : 'Error loading notifications'}</p>
                 <button class="btn btn-sm btn-primary mt-2" onclick="window.notificationSystem.adminNotifications.loadDropdownNotifications()">
-                    Повторить
+                    ${lang === 'ru' ? 'Повторить' : 'Retry'}
                 </button>
             </div>
         `;
@@ -371,7 +371,7 @@ class AdminNotificationsSystem {
             this.dropdownContent.innerHTML = `
                 <div class="text-center py-3">
                     <i class="bi bi-bell-slash text-muted" style="font-size: 32px;"></i>
-                    <p class="text-muted mt-2 mb-0">Нет непрочитанных уведомлений</p>
+                    <p class="text-muted mt-2 mb-0">${lang === 'ru' ? 'Нет непрочитанных уведомлений' : 'No unread notifications'}</p>
                 </div>
             `;
             return;
@@ -401,7 +401,7 @@ class AdminNotificationsSystem {
                     <div class="flex-grow-1 ms-2" style="font-size: 13px;">
                         <div class="d-flex justify-content-between">
                             <strong class="text-truncate" style="max-width: 180px;">
-                                ${this.escapeHtml(notification.title || 'Уведомление')}
+                                ${this.escapeHtml(notification.title || (lang === 'ru' ? 'Уведомление' : 'Notification'))}
                             </strong>
                             <small class="text-muted">${notification.time || ''}</small>
                         </div>
@@ -485,11 +485,11 @@ class AdminNotificationsSystem {
 
     async markAllAsRead() {
         if (this.unreadCount === 0) {
-            window.notificationSystem.showNotification('Нет непрочитанных уведомлений', 'warning');
+            window.notificationSystem.showNotification(lang === 'ru' ? 'Нет непрочитанных уведомлений' : 'No unread notifications', 'warning');
             return;
         }
 
-        if (confirm('Отметить все уведомления как прочитанные?')) {
+        if (confirm(lang === 'ru' ? 'Отметить все уведомления как прочитанные?' : 'Mark all notifications as read?')) {
             try {
                 const response = await fetch(`${this.baseUrl}/notifications/mark-all-read`, {
                     method: 'POST',
@@ -504,14 +504,14 @@ class AdminNotificationsSystem {
                 if (data.success) {
                     this.loadDropdownNotifications();
                     this.loadUnreadCount();
-                    window.notificationSystem.showNotification('Все уведомления отмечены как прочитанные', 'success');
+                    window.notificationSystem.showNotification(lang === 'ru' ? 'Все уведомления отмечены как прочитанные' : 'All notifications marked as read', 'success');
                 }
             } catch (error) {}
         }
     }
 
     async clearReadNotifications() {
-        if (confirm('Удалить все прочитанные уведомления?')) {
+        if (confirm(lang === 'ru' ? 'Удалить все прочитанные уведомления?' : 'Delete all read notifications?')) {
             try {
                 const response = await fetch(`${this.baseUrl}/notifications/clear`, {
                     method: 'POST',
@@ -527,7 +527,7 @@ class AdminNotificationsSystem {
                     if (window.location.pathname.includes('/notifications')) {
                         window.location.reload();
                     } else {
-                        window.notificationSystem.showNotification('Прочитанные уведомления удалены', 'success');
+                        window.notificationSystem.showNotification(lang === 'ru' ? 'Прочитанные уведомления удалены' : 'Read notifications deleted', 'success');
                     }
                 }
             } catch (error) {}
@@ -605,9 +605,9 @@ async function loadNotificationsPage() {
     container.innerHTML = `
         <div class="text-center py-5">
             <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Загрузка...</span>
+                <span class="visually-hidden">${lang === 'ru' ? 'Загрузка...' : 'Loading...'}</span>
             </div>
-            <p class="text-muted mt-2">Загрузка уведомлений...</p>
+            <p class="text-muted mt-2">${lang === 'ru' ? 'Загрузка уведомлений...' : 'Loading notifications...'}</p>
         </div>
     `;
     
@@ -622,8 +622,8 @@ async function loadNotificationsPage() {
         container.innerHTML = `
             <div class="text-center py-5">
                 <i class="bi bi-exclamation-triangle text-danger" style="font-size: 48px;"></i>
-                <p class="text-muted mt-3">Ошибка загрузки уведомлений</p>
-                <button class="btn btn-primary" onclick="loadNotificationsPage()">Повторить</button>
+                <p class="text-muted mt-3">${lang === 'ru' ? 'Ошибка загрузки уведомлений' : 'Error loading notifications'}</p>
+                <button class="btn btn-primary" onclick="loadNotificationsPage()">${lang === 'ru' ? 'Повторить' : 'Retry'}</button>
             </div>
         `;
     }
@@ -637,7 +637,7 @@ function renderNotificationsPage(notifications) {
         container.innerHTML = `
             <div class="text-center py-5">
                 <i class="bi bi-bell-slash text-muted" style="font-size: 48px;"></i>
-                <p class="text-muted mt-3">У вас пока нет уведомлений</p>
+                <p class="text-muted mt-3">${lang === 'ru' ? 'У вас пока нет уведомлений' : 'You have no notifications yet'}</p>
             </div>
         `;
         return;
@@ -654,16 +654,16 @@ function renderNotificationsPage(notifications) {
             <div class="d-flex">
                 <div class="flex-shrink-0">
                     <div class="rounded-circle bg-${notification.color || 'primary'} text-white d-flex align-items-center justify-content-center" 
-                         style="width: 40px; height: 40px;">
+                        style="width: 40px; height: 40px;">
                         <i class="bi bi-${notification.icon || 'bell'}"></i>
                     </div>
                 </div>
                 <div class="flex-grow-1 ms-3">
                     <div class="d-flex justify-content-between align-items-start">
-                        <h6 class="mb-1">${escapeHtml(notification.title || 'Уведомление')}</h6>
+                        <h6 class="mb-1">${escapeHtml(notification.title || (lang === 'ru' ? 'Уведомление' : 'Notification'))}</h6>
                         <div>
                             <span class="badge bg-${badgeColor} me-2">
-                                ${notification.is_read ? 'Прочитано' : 'Новое'}
+                                ${notification.is_read ? (lang === 'ru' ? 'Прочитано' : 'Read') : (lang === 'ru' ? 'Новое' : 'New')}
                             </span>
                             <small class="text-muted">${notification.time_full || notification.time || ''}</small>
                         </div>
@@ -675,7 +675,7 @@ function renderNotificationsPage(notifications) {
                     
                     ${notification.created_by ? `
                     <small class="text-muted d-block mb-2">
-                        <i class="bi bi-person"></i> От: ${escapeHtml(notification.created_by)}
+                        <i class="bi bi-person"></i> ${lang === 'ru' ? 'От:' : 'From:'} ${escapeHtml(notification.created_by)}
                     </small>
                     ` : ''}
                     
@@ -686,13 +686,13 @@ function renderNotificationsPage(notifications) {
                                 <i class="bi bi-file-text text-primary me-2"></i>
                                 <div>
                                     <a href="${BASE_URL || ''}/post/${notification.data?.post_slug || ''}" 
-                                       class="text-decoration-none text-primary fw-bold"
-                                       target="_blank">
+                                    class="text-decoration-none text-primary fw-bold"
+                                    target="_blank">
                                         ${escapeHtml(notification.data.post_title)}
                                     </a>
                                     <br>
                                     <small class="text-muted">
-                                        ID комментария: ${notification.data.comment_id || '—'}
+                                        ${lang === 'ru' ? 'ID комментария:' : 'Comment ID:'} ${notification.data.comment_id || '—'}
                                     </small>
                                 </div>
                             </div>
@@ -703,20 +703,20 @@ function renderNotificationsPage(notifications) {
                     <div class="mt-2 d-flex gap-2">
                         ${!notification.is_read ? `
                         <button class="btn btn-sm btn-outline-primary mark-read-btn" data-id="${notification.id}">
-                            <i class="bi bi-check me-1"></i> Прочитано
+                            <i class="bi bi-check me-1"></i> ${lang === 'ru' ? 'Прочитано' : 'Mark read'}
                         </button>
                         ` : ''}
                         
                         ${isComment && notification.data?.post_id ? `
                         <a href="${ADMIN_URL || ''}/comments" 
-                           class="btn btn-sm btn-outline-info"
-                           target="_blank">
-                            <i class="bi bi-chat-dots me-1"></i> К комментариям
+                        class="btn btn-sm btn-outline-info"
+                        target="_blank">
+                            <i class="bi bi-chat-dots me-1"></i> ${lang === 'ru' ? 'К комментариям' : 'To comments'}
                         </a>
                         ` : ''}
                         
                         <button class="btn btn-sm btn-outline-danger delete-btn" data-id="${notification.id}">
-                            <i class="bi bi-trash me-1"></i> Удалить
+                            <i class="bi bi-trash me-1"></i> ${lang === 'ru' ? 'Удалить' : 'Delete'}
                         </button>
                     </div>
                 </div>
@@ -747,7 +747,7 @@ async function markAsReadPage(id) {
                 const badge = notificationEl.querySelector('.badge');
                 if (badge) {
                     badge.className = 'badge bg-secondary me-2';
-                    badge.textContent = 'Прочитано';
+                    badge.textContent = lang === 'ru' ? 'Прочитано' : 'Read';
                 }
                 
                 const markReadBtn = notificationEl.querySelector('.mark-read-btn');
@@ -761,12 +761,12 @@ async function markAsReadPage(id) {
             }
         }
     } catch (error) {
-        alert('Ошибка при обновлении уведомления');
+        alert(lang === 'ru' ? 'Ошибка при обновлении уведомления' : 'Error updating notification');
     }
 }
 
 async function deleteNotificationPage(id) {
-    if (!confirm('Удалить это уведомление?')) return;
+    if (!confirm(lang === 'ru' ? 'Удалить это уведомление?' : 'Delete this notification?')) return;
     
     try {
         const response = await fetch(`/admin/notifications/delete/${id}`, {
@@ -793,13 +793,13 @@ async function deleteNotificationPage(id) {
                 container.innerHTML = `
                     <div class="text-center py-5">
                         <i class="bi bi-bell-slash text-muted" style="font-size: 48px;"></i>
-                        <p class="text-muted mt-3">У вас пока нет уведомлений</p>
+                        <p class="text-muted mt-3">${lang === 'ru' ? 'У вас пока нет уведомлений' : 'You have no notifications yet'}</p>
                     </div>
                 `;
             }
         }
     } catch (error) {
-        alert('Ошибка при удалении уведомления');
+        alert(lang === 'ru' ? 'Ошибка при удалении уведомления' : 'Error deleting notification');
     }
 }
 

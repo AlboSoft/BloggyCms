@@ -74,7 +74,7 @@
             if (submitBtn) {
                 const originalBtnHtml = submitBtn.innerHTML;
                 submitBtn.disabled = true;
-                submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Сохранение...';
+                submitBtn.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> ${lang === 'ru' ? 'Сохранение...' : 'Saving...'}`;
                 
                 setTimeout(() => {
                     submitBtn.disabled = false;

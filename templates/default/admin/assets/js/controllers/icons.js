@@ -17,14 +17,14 @@ function copyIconCode(code) {
     textarea.setSelectionRange(0, 99999);
     
     try {
-        document.execCommand('copy');
+    document.execCommand('copy');
         if (window.notificationSystem) {
-            window.notificationSystem.showNotification('Код иконки скопирован в буфер обмена', 'success');
+            window.notificationSystem.showNotification(lang === 'ru' ? 'Код иконки скопирован в буфер обмена' : 'Icon code copied to clipboard', 'success');
         }
     } catch (err) {
-        console.error('Ошибка копирования:', err);
+        console.error(lang === 'ru' ? 'Ошибка копирования:' : 'Copy error:', err);
         if (window.notificationSystem) {
-            window.notificationSystem.showNotification('Не удалось скопировать код', 'danger');
+            window.notificationSystem.showNotification(lang === 'ru' ? 'Не удалось скопировать код' : 'Failed to copy code', 'danger');
         }
     }
     

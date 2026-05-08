@@ -148,7 +148,7 @@
             if (!this.hiddenInput) return;
             this.hiddenInput.value = JSON.stringify({});
             if (this.previewBox) {
-                this.previewBox.innerHTML = '<div class="text-muted small text-center">Иконка<br>не выбрана</div>';
+                this.previewBox.innerHTML = `<div class="text-muted small text-center">${lang === 'ru' ? 'Иконка<br>не выбрана' : 'Icon<br>not selected'}</div>`;
             }
             if (this.clearBtn) {
                 this.clearBtn.style.display = 'none';
@@ -159,7 +159,7 @@
         
         openIconSelector() {
             if (!this.hasIcons) {
-                alert('Иконки не найдены. Проверьте папку templates/default/admin/icons/');
+                alert(lang === 'ru' ? 'Иконки не найдены. Проверьте папку templates/default/admin/icons/' : 'Icons not found. Check the templates/default/admin/icons/ folder.');
                 return;
             }
             
@@ -170,25 +170,25 @@
             <div id="${modalId}" class="icon-selector-modal" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:10000;display:flex;align-items:center;justify-content:center;">
                 <div style="background:white;border-radius:8px;width:90%;max-width:1000px;max-height:80%;overflow:hidden;display:flex;flex-direction:column;">
                     <div style="padding:15px;border-bottom:1px solid #dee2e6;display:flex;justify-content:space-between;align-items:center;">
-                        <h5 style="margin:0;">Выбор иконки</h5>
+                        <h5 style="margin:0;">${lang === 'ru' ? 'Выбор иконки' : 'Icon Selection'}</h5>
                         <button type="button" class="close-modal" style="background:none;border:none;font-size:24px;cursor:pointer;">&times;</button>
                     </div>
                     <div style="padding:15px;border-bottom:1px solid #dee2e6;">
                         <div class="row">
                             <div class="col-md-8">
-                                <input type="text" class="form-control icon-search-input" placeholder="Поиск иконок...">
+                                <input type="text" class="form-control icon-search-input" placeholder="${lang === 'ru' ? 'Поиск иконок...' : 'Search icons...'}">
                             </div>
                             <div class="col-md-4">
                                 <select class="form-select icon-set-filter">
-                                    <option value="all">Все наборы</option>
+                                    <option value="all">${lang === 'ru' ? 'Все наборы' : 'All sets'}</option>
                                 </select>
                             </div>
                         </div>
                     </div>
                     <div id="${modalId}-content" style="padding:15px;overflow-y:auto;flex:1;"></div>
                     <div style="padding:15px;border-top:1px solid #dee2e6;display:flex;justify-content:flex-end;gap:10px;">
-                        <button type="button" class="btn btn-secondary close-modal">Отмена</button>
-                        <button type="button" class="btn btn-primary icon-select-confirm-btn" disabled>Выбрать</button>
+                        <button type="button" class="btn btn-secondary close-modal">${lang === 'ru' ? 'Отмена' : 'Cancel'}</button>
+                        <button type="button" class="btn btn-primary icon-select-confirm-btn" disabled>${lang === 'ru' ? 'Выбрать' : 'Select'}</button>
                     </div>
                 </div>
             </div>`;
@@ -257,7 +257,7 @@
                 }
                 
                 if (!hasAnyIcons) {
-                    contentContainer.innerHTML = '<div class="alert alert-info text-center py-5">Иконки не найдены</div>';
+                    contentContainer.innerHTML = `<div class="alert alert-info text-center py-5">${lang === 'ru' ? 'Иконки не найдены' : 'Icons not found'}</div>`;
                     return;
                 }
                 

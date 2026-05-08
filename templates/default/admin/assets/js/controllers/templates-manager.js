@@ -185,7 +185,7 @@ function loadTemplateFiles(template) {
     const fileCounter = document.getElementById('fileCounter');
     
     if (fileList) {
-        fileList.innerHTML = '<div class="loading-state"><div class="spinner"></div><p>Загрузка файлов...</p></div>';
+        fileList.innerHTML = `<div class="loading-state"><div class="spinner"></div><p>${lang === 'ru' ? 'Загрузка файлов...' : 'Loading files...'}</p></div>`;
     }
 
     fetch(`${ADMIN_URL}/templates/get-files?template=${template}`)
@@ -202,11 +202,11 @@ function loadTemplateFiles(template) {
                     fileList.innerHTML = `
                         <div class="empty-state">
                             <svg width="48" height="48" style="fill: #9ca3af"><use href="${BASE_URL}/templates/default/admin/icons/bs.svg#folder"></use></svg>
-                            <h5>Папка front не найдена или пуста</h5>
-                            <p>Создайте папку <strong>front</strong> в шаблоне <strong>${template}</strong></p>
+                            <h5>${lang === 'ru' ? 'Папка front не найдена или пуста' : 'front folder not found or empty'}</h5>
+                            <p>${lang === 'ru' ? `Создайте папку <strong>front</strong> в шаблоне <strong>${template}</strong>` : `Create a <strong>front</strong> folder in the <strong>${template}</strong> template`}</p>
                             <button class="btn-create-folder" onclick="window.createFrontFolder('${template}')">
                                 <svg width="14" height="14" style="fill: currentColor"><use href="${BASE_URL}/templates/default/admin/icons/bs.svg#folder-plus"></use></svg>
-                                Создать папку front
+                                ${lang === 'ru' ? 'Создать папку front' : 'Create front folder'}
                             </button>
                         </div>
                     `;
@@ -220,7 +220,7 @@ function loadTemplateFiles(template) {
         .catch(error => {
             console.error('Error loading files:', error);
             if (fileList) {
-                fileList.innerHTML = '<div class="error-state">Ошибка загрузки файлов</div>';
+                fileList.innerHTML = `<div class="error-state">${lang === 'ru' ? 'Ошибка загрузки файлов' : 'Error loading files'}</div>`;
             }
         });
 }
@@ -236,14 +236,14 @@ window.createFrontFolder = function(template) {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            showToast('Папка front успешно создана', 'success');
+            showToast(lang === 'ru' ? 'Папка front успешно создана' : 'Front folder created successfully', 'success');
             loadTemplateFiles(template);
         } else {
-            showToast('Ошибка: ' + data.error, 'danger');
+            showToast((lang === 'ru' ? 'Ошибка: ' : 'Error: ') + data.error, 'danger');
         }
     })
     .catch(error => {
-        showToast('Ошибка при создании папки', 'danger');
+        showToast(lang === 'ru' ? 'Ошибка при создании папки' : 'Error creating folder', 'danger');
     });
 };
 
@@ -280,8 +280,8 @@ function renderTreeView(files, template) {
         fileList.innerHTML = `
             <div class="empty-state">
                 <svg width="48" height="48" style="fill: #9ca3af"><use href="${BASE_URL}/templates/default/admin/icons/bs.svg#file-earmark-x"></use></svg>
-                <h5>Файлы не найдены</h5>
-                <p>Нет файлов, соответствующих критериям поиска</p>
+                <h5>${lang === 'ru' ? 'Файлы не найдены' : 'No files found'}</h5>
+                <p>${lang === 'ru' ? 'Нет файлов, соответствующих критериям поиска' : 'No files match the search criteria'}</p>
             </div>
         `;
         return;
@@ -318,9 +318,9 @@ function renderTreeView(files, template) {
                 html += `
                     <li class="tree-file">
                         <a href="#" class="file-item-link" 
-                           data-file="${escapeHtml(fullFilePath)}" 
-                           data-template="${escapeHtml(template)}"
-                           data-editable="${isEditable}">
+                        data-file="${escapeHtml(fullFilePath)}" 
+                        data-template="${escapeHtml(template)}"
+                        data-editable="${isEditable}">
                             <div class="file-item-content">
                                 <div class="file-item-info">
                                     <svg width="16" height="16" class="file-icon"><use href="${BASE_URL}/templates/default/admin/icons/bs.svg#file-code"></use></svg>
@@ -332,7 +332,7 @@ function renderTreeView(files, template) {
                                 </div>
                                 <div class="file-meta">
                                     <span class="file-size">${escapeHtml(file.size)}</span>
-                                    ${!isEditable ? '<span class="badge-readonly">только чтение</span>' : ''}
+                                    ${!isEditable ? `<span class="badge-readonly">${lang === 'ru' ? 'только чтение' : 'read-only'}</span>` : ''}
                                 </div>
                             </div>
                         </a>
@@ -392,7 +392,7 @@ function renderFlatFileList(files, template) {
         fileList.innerHTML = `
             <div class="empty-state">
                 <svg width="48" height="48" style="fill: #9ca3af"><use href="${BASE_URL}/templates/default/admin/icons/bs.svg#file-earmark-x"></use></svg>
-                <h5>Файлы не найдены</h5>
+                <h5>${lang === 'ru' ? 'Файлы не найдены' : 'No files found'}</h5>
             </div>
         `;
         return;
@@ -419,7 +419,7 @@ function renderFlatFileList(files, template) {
                     </div>
                     <div class="flat-file-meta">
                         <span class="file-size">${escapeHtml(file.size)}</span>
-                        ${!isEditable ? '<span class="badge-readonly">только чтение</span>' : ''}
+                        ${!isEditable ? `<span class="badge-readonly">${lang === 'ru' ? 'только чтение' : 'read-only'}</span>` : ''}
                     </div>
                 </div>
             </a>
@@ -506,7 +506,7 @@ function loadFileContent(template, filePath) {
         if (refreshBtn) refreshBtn.style.display = 'flex';
         if (saveBtn) saveBtn.style.display = 'flex';
         
-        editor.setValue('// Загрузка файла...', -1);
+        editor.setValue(lang === 'ru' ? '// Загрузка файла...' : '// Loading file...', -1);
         editor.setReadOnly(false);
         setEditorMode(extension);
         
@@ -520,19 +520,21 @@ function loadFileContent(template, filePath) {
                     editor.session.getUndoManager().reset();
                     updateFileInfo(data.info, filePath);
                 } else {
-                    editor.setValue('// Ошибка загрузки файла: ' + data.error, -1);
-                    showToast('Ошибка загрузки файла: ' + data.error, 'danger');
+                    editor.setValue((lang === 'ru' ? '// Ошибка загрузки файла: ' : '// Error loading file: ') + data.error, -1);
+                    showToast((lang === 'ru' ? 'Ошибка загрузки файла: ' : 'Error loading file: ') + data.error, 'danger');
                 }
             })
             .catch(error => {
-                editor.setValue('// Ошибка загрузки файла: ' + error.message, -1);
-                showToast('Ошибка загрузки файла: ' + error.message, 'danger');
+                editor.setValue((lang === 'ru' ? '// Ошибка загрузки файла: ' : '// Error loading file: ') + error.message, -1);
+                showToast((lang === 'ru' ? 'Ошибка загрузки файла: ' : 'Error loading file: ') + error.message, 'danger');
             });
     } else {
         if (refreshBtn) refreshBtn.style.display = 'none';
         if (saveBtn) saveBtn.style.display = 'none';
         
-        editor.setValue(`// Этот файл (${extension}) не может быть отредактирован в текстовом редакторе\n// Вы можете скачать его`, -1);
+        editor.setValue(lang === 'ru' 
+        ? `// Этот файл (${extension}) не может быть отредактирован в текстовом редакторе\n// Вы можете скачать его` 
+        : `// This file (${extension}) cannot be edited in the text editor\n// You can download it`, -1);
         editor.setReadOnly(true);
         
         const url = `${ADMIN_URL}/templates/get-file?template=${template}&file=${encodeURIComponent(filePath)}`;
@@ -608,13 +610,13 @@ function saveFile() {
         if (data.success) {
             const saveBtn = document.getElementById('saveFile');
             if (saveBtn) saveBtn.disabled = true;
-            showToast(data.message || 'Файл успешно сохранен', 'success');
+            showToast(data.message || (lang === 'ru' ? 'Файл успешно сохранен' : 'File saved successfully'), 'success');
         } else {
-            showToast('Ошибка сохранения: ' + data.error, 'danger');
+            showToast((lang === 'ru' ? 'Ошибка сохранения: ' : 'Save error: ') + data.error, 'danger');
         }
     })
     .catch(error => {
-        showToast('Ошибка сохранения', 'danger');
+        showToast(lang === 'ru' ? 'Ошибка сохранения' : 'Error saving', 'danger');
     });
 }
 
@@ -622,14 +624,14 @@ function uploadFile(event) {
     const file = event.target.files[0];
     if (!file) return;
     
-    const uploadPath = prompt('Введите путь для сохранения (относительно папки front):\n\nПример: images, css, js, или оставьте пустым для корня', '');
+    const uploadPath = prompt(lang === 'ru' ? 'Введите путь для сохранения (относительно папки front):\n\nПример: images, css, js, или оставьте пустым для корня' : 'Enter path to save (relative to front folder):\n\nExample: images, css, js, or leave empty for root', '');
     
     const formData = new FormData();
     formData.append('file', file);
     formData.append('template', currentTemplate);
     formData.append('path', uploadPath || '');
     
-    showToast('Загрузка файла...', 'info');
+    showToast(lang === 'ru' ? 'Загрузка файла...' : 'Uploading file...', 'info');
     
     fetch(`${ADMIN_URL}/templates/upload-file`, {
         method: 'POST',
@@ -638,15 +640,15 @@ function uploadFile(event) {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            showToast('Файл успешно загружен', 'success');
+            showToast(lang === 'ru' ? 'Файл успешно загружен' : 'File uploaded successfully', 'success');
             loadTemplateFiles(currentTemplate);
         } else {
-            showToast('Ошибка загрузки: ' + data.error, 'danger');
+            showToast((lang === 'ru' ? 'Ошибка загрузки: ' : 'Upload error: ') + data.error, 'danger');
         }
     })
     .catch(error => {
         console.error('Upload error:', error);
-        showToast('Ошибка загрузки', 'danger');
+        showToast(lang === 'ru' ? 'Ошибка загрузки' : 'Upload error', 'danger');
     });
     
     event.target.value = '';

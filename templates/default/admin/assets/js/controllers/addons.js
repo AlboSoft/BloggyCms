@@ -86,19 +86,19 @@
             if (file.name.toLowerCase().endsWith('.zip')) {
                 handleFileSelect(file);
             } else {
-                showResult('error', 'Пожалуйста, выберите ZIP-архив');
+                showResult('error', lang === 'ru' ? 'Пожалуйста, выберите ZIP-архив' : 'Please select a ZIP archive');
             }
         }
     }
     
     function handleFileSelect(file) {
         if (!file.name.toLowerCase().endsWith('.zip')) {
-            showResult('error', 'Файл должен быть в формате ZIP');
+            showResult('error', lang === 'ru' ? 'Файл должен быть в формате ZIP' : 'File must be in ZIP format');
             return;
         }
         
         if (file.size > 50 * 1024 * 1024) {
-            showResult('error', 'Размер файла не должен превышать 50MB');
+            showResult('error', lang === 'ru' ? 'Размер файла не должен превышать 50MB' : 'File size must not exceed 50MB');
             return;
         }
         
@@ -123,7 +123,7 @@
         formData.append('analyze_only', '1');
         formData.append('addon_file', file);
         
-        showLoading('Анализ пакета...');
+        showLoading(lang === 'ru' ? 'Анализ пакета...' : 'Analyzing package...');
         
         fetch(window.ADMIN_URL + '/addons/analyze', {
             method: 'POST',
@@ -141,7 +141,7 @@
                     elements.installBtn.disabled = false;
                 }
             } else {
-                showResult('error', 'Ошибка анализа пакета: ' + data.message);
+                showResult('error', (lang === 'ru' ? 'Ошибка анализа пакета: ' : 'Package analysis error: ') + data.message);
                 if (elements.installBtn) {
                     elements.installBtn.disabled = true;
                 }
@@ -149,7 +149,7 @@
         })
         .catch(error => {
             console.error('Error:', error);
-            showResult('error', 'Ошибка при анализе пакета: ' + error.message);
+            showResult('error', (lang === 'ru' ? 'Ошибка при анализе пакета: ' : 'Error analyzing package: ') + error.message);
             if (elements.installBtn) {
                 elements.installBtn.disabled = true;
             }
@@ -174,9 +174,9 @@
         
         if (typeEl) {
             if (info.type === 'install') {
-                typeEl.innerHTML = '<span class="badge bg-success">Установка</span>';
+                typeEl.innerHTML = `<span class="badge bg-success">${lang === 'ru' ? 'Установка' : 'Install'}</span>`;
             } else {
-                typeEl.innerHTML = '<span class="badge bg-warning">Обновление</span>';
+                typeEl.innerHTML = `<span class="badge bg-warning">${lang === 'ru' ? 'Обновление' : 'Update'}</span>`;
             }
         }
         
@@ -218,10 +218,10 @@
         if (statusDiv) {
             if (info.type === 'update') {
                 statusDiv.className = 'alert alert-warning mb-0';
-                statusDiv.innerHTML = '<i class="bi bi-arrow-repeat me-1"></i> Обновление существующего пакета';
+                statusDiv.innerHTML = `<i class="bi bi-arrow-repeat me-1"></i> ${lang === 'ru' ? 'Обновление существующего пакета' : 'Updating existing package'}`;
             } else {
                 statusDiv.className = 'alert alert-success mb-0';
-                statusDiv.innerHTML = '<i class="bi bi-check-circle me-1"></i> Готов к установке';
+                statusDiv.innerHTML = `<i class="bi bi-check-circle me-1"></i> ${lang === 'ru' ? 'Готов к установке' : 'Ready to install'}`;
             }
         }
 
@@ -276,7 +276,7 @@
             progress += 10;
             if (progress <= 90) {
                 if (elements.progressBar) elements.progressBar.style.width = progress + '%';
-                if (elements.progressText) elements.progressText.textContent = `Установка... ${progress}%`;
+                if (elements.progressText) elements.progressText.textContent = `${lang === 'ru' ? 'Установка...' : 'Installing...'} ${progress}%`;
             }
         }, 300);
         
@@ -291,27 +291,27 @@
         .then(data => {
             clearInterval(interval);
             if (elements.progressBar) elements.progressBar.style.width = '100%';
-            if (elements.progressText) elements.progressText.textContent = 'Готово';
+            if (elements.progressText) elements.progressText.textContent = lang === 'ru' ? 'Готово' : 'Done';
             
             setTimeout(() => {
                 if (data.success) {
                     showResult('success', `
-                        <strong>✅ Пакет успешно установлен!</strong><br>
-                        <strong>Название:</strong> ${escapeHtml(data.package.title)}<br>
-                        <strong>Версия:</strong> v${escapeHtml(data.package.version_string)}<br>
-                        <strong>Тип:</strong> ${data.package.type === 'install' ? 'Установка' : 'Обновление'}<br>
-                        ${data.package.description ? `<strong>Описание:</strong> ${escapeHtml(data.package.description)}` : ''}
+                        <strong>${lang === 'ru' ? 'Пакет успешно установлен!' : 'Package installed successfully!'}</strong><br>
+                        <strong>${lang === 'ru' ? 'Название:' : 'Name:'}</strong> ${escapeHtml(data.package.title)}<br>
+                        <strong>${lang === 'ru' ? 'Версия:' : 'Version:'}</strong> v${escapeHtml(data.package.version_string)}<br>
+                        <strong>${lang === 'ru' ? 'Тип:' : 'Type:'}</strong> ${data.package.type === 'install' ? (lang === 'ru' ? 'Установка' : 'Install') : (lang === 'ru' ? 'Обновление' : 'Update')}<br>
+                        ${data.package.description ? `<strong>${lang === 'ru' ? 'Описание:' : 'Description:'}</strong> ${escapeHtml(data.package.description)}` : ''}
                         <hr>
                         <button type="button" class="btn btn-primary btn-sm mt-2" onclick="window.location.href='${window.ADMIN_URL}/addons'">
-                            Перейти к списку пакетов
+                            ${lang === 'ru' ? 'Перейти к списку пакетов' : 'Go to packages list'}
                         </button>
                         <button type="button" class="btn btn-outline-secondary btn-sm mt-2 ms-2" onclick="location.reload()">
-                            Установить другой пакет
+                            ${lang === 'ru' ? 'Установить другой пакет' : 'Install another package'}
                         </button>
                     `);
                     if (elements.installBtn) elements.installBtn.disabled = true;
                 } else {
-                    showResult('danger', '❌ Ошибка: ' + escapeHtml(data.message));
+                    showResult('danger', `${lang === 'ru' ? 'Ошибка:' : 'Error:'} ${escapeHtml(data.message)}`);
                     resetUpload();
                 }
             }, 500);
@@ -319,7 +319,7 @@
         .catch(error => {
             clearInterval(interval);
             console.error('Error:', error);
-            showResult('danger', 'Ошибка при загрузке пакета: ' + error.message);
+            showResult('danger', `${lang === 'ru' ? 'Ошибка при загрузке пакета:' : 'Error loading package:'} ${error.message}`);
             resetUpload();
         });
     }
@@ -331,7 +331,7 @@
         checkUpdatesBtn.addEventListener('click', function() {
             const originalText = this.innerHTML;
             this.disabled = true;
-            this.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Проверка...';
+            this.innerHTML = `<span class="spinner-border spinner-border-sm me-2"></span>${lang === 'ru' ? 'Проверка...' : 'Checking...'}`;
             
             fetch(window.ADMIN_URL + '/addons/check-updates', {
                 method: 'GET',
@@ -344,21 +344,21 @@
             .then(data => {
                 if (data.success) {
                     if (data.has_updates) {
-                        let message = 'Найдены обновления:\n';
+                        let message = `${lang === 'ru' ? 'Найдены обновления:' : 'Updates found:'}\n`;
                         data.updates.forEach(update => {
                             message += `\n- ${update.title}: ${update.current_version} → ${update.new_version}`;
                         });
                         alert(message);
                     } else {
-                        alert('Обновлений не найдено');
+                        alert(lang === 'ru' ? 'Обновлений не найдено' : 'No updates found');
                     }
                 } else {
-                    alert('Ошибка: ' + (data.message || 'Неизвестная ошибка'));
+                    alert(`${lang === 'ru' ? 'Ошибка:' : 'Error:'} ${data.message || (lang === 'ru' ? 'Неизвестная ошибка' : 'Unknown error')}`);
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('Ошибка при проверке обновлений');
+                alert(lang === 'ru' ? 'Ошибка при проверке обновлений' : 'Error checking for updates');
             })
             .finally(() => {
                 this.disabled = false;
@@ -380,7 +380,7 @@
                 modalBody.innerHTML = `
                     <div class="text-center py-4">
                         <div class="spinner-border text-primary"></div>
-                        <p class="mt-2">Загрузка...</p>
+                        <p class="mt-2">${lang === 'ru' ? 'Загрузка...' : 'Loading...'}</p>
                     </div>
                 `;
                 
@@ -405,50 +405,50 @@
                                     <div class="row mb-3">
                                         <div class="col-md-6">
                                             <div class="mb-2">
-                                                <strong class="text-muted">Версия:</strong>
+                                                <strong class="text-muted">${lang === 'ru' ? 'Версия:' : 'Version:'}</strong>
                                                 <span class="badge bg-info ms-2">v${escapeHtml(addon.version_string)}</span>
                                             </div>
                                             <div class="mb-2">
-                                                <strong class="text-muted">Дата релиза:</strong>
+                                                <strong class="text-muted">${lang === 'ru' ? 'Дата релиза:' : 'Release date:'}</strong>
                                                 ${escapeHtml(addon.version_date || '—')}
                                             </div>
                                             <div class="mb-2">
-                                                <strong class="text-muted">Тип:</strong>
+                                                <strong class="text-muted">${lang === 'ru' ? 'Тип:' : 'Type:'}</strong>
                                                 <span class="badge bg-${addon.type === 'install' ? 'success' : 'warning'} ms-2">
-                                                    ${addon.type === 'install' ? 'Установка' : 'Обновление'}
+                                                    ${addon.type === 'install' ? (lang === 'ru' ? 'Установка' : 'Install') : (lang === 'ru' ? 'Обновление' : 'Update')}
                                                 </span>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="mb-2">
-                                                <strong class="text-muted">Установлен:</strong>
+                                                <strong class="text-muted">${lang === 'ru' ? 'Установлен:' : 'Installed:'}</strong>
                                                 ${formatDate(addon.installed_at)}
                                             </div>
                                             ${addon.updated_at ? `
                                             <div class="mb-2">
-                                                <strong class="text-muted">Обновлен:</strong>
+                                                <strong class="text-muted">${lang === 'ru' ? 'Обновлен:' : 'Updated:'}</strong>
                                                 ${formatDate(addon.updated_at)}
                                             </div>
                                             ` : ''}
                                             <div class="mb-2">
-                                                <strong class="text-muted">Системное имя:</strong>
+                                                <strong class="text-muted">${lang === 'ru' ? 'Системное имя:' : 'System name:'}</strong>
                                                 <code>${escapeHtml(addon.system_name)}</code>
                                             </div>
                                         </div>
                                     </div>
                                     
                                     ${addon.description ? `
-                                    <div class="mb-3">
-                                        <strong class="text-muted">Описание:</strong>
-                                        <div class="p-3 bg-light rounded mt-2">
-                                            ${nl2br(escapeHtml(addon.description))}
+                                        <div class="mb-3">
+                                            <strong class="text-muted">${lang === 'ru' ? 'Описание:' : 'Description:'}</strong>
+                                            <div class="p-3 bg-light rounded mt-2">
+                                                ${nl2br(escapeHtml(addon.description))}
+                                            </div>
                                         </div>
-                                    </div>
                                     ` : ''}
                                     
                                     ${addon.author_name ? `
                                     <div class="mb-3">
-                                        <strong class="text-muted">Автор:</strong>
+                                        <strong class="text-muted">${lang === 'ru' ? 'Автор:' : 'Author:'}</strong>
                                         <div class="mt-1">
                                             <strong>${escapeHtml(addon.author_name)}</strong>
                                             ${addon.author_url ? `<br><a href="${escapeHtml(addon.author_url)}" target="_blank">${escapeHtml(addon.author_url)}</a>` : ''}
@@ -462,7 +462,7 @@
                     } else {
                         modalBody.innerHTML = `
                             <div class="alert alert-danger">
-                                ${escapeHtml(data.message || 'Ошибка загрузки информации')}
+                                ${escapeHtml(data.message || (lang === 'ru' ? 'Ошибка загрузки информации' : 'Error loading information'))}
                             </div>
                         `;
                     }
@@ -471,7 +471,7 @@
                     console.error('Error:', error);
                     modalBody.innerHTML = `
                         <div class="alert alert-danger">
-                            Ошибка загрузки информации о пакете
+                            ${lang === 'ru' ? 'Ошибка загрузки информации о пакете' : 'Error loading package information'}
                         </div>
                     `;
                 });

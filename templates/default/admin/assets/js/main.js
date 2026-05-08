@@ -1,4 +1,6 @@
-﻿document.addEventListener('DOMContentLoaded', function() {
+﻿const lang = document.querySelector('meta[name="admin-language"]')?.content || 'ru';
+
+document.addEventListener('DOMContentLoaded', function() {
     initBootstrapComponents();
     initProfileDropdown();
     initMobileMenu();
@@ -167,7 +169,7 @@ function loadContent(url, container) {
             initEventHandlers();
         })
         .catch(error => {
-            showToast('Ошибка загрузки контента', 'danger');
+            showToast(lang === 'ru' ? 'Ошибка загрузки контента' : 'Error loading content', 'danger');
         });
 }
 
@@ -186,7 +188,7 @@ function createGlobalLoader() {
     loader.id = 'global-loader';
     loader.innerHTML = `
         <div class="spinner-border text-primary" role="status">
-            <span class="visually-hidden">Загрузка...</span>
+            <span class="visually-hidden">${lang === 'ru' ? 'Загрузка...' : 'Loading...'}</span>
         </div>
     `;
     loader.style.cssText = `
@@ -214,7 +216,7 @@ document.getElementById('faviconInput')?.addEventListener('change', function(e) 
         const fileExtension = '.' + file.name.split('.').pop().toLowerCase();
         
         if (!validTypes.includes(file.type) && !validExtensions.includes(fileExtension)) {
-            alert('Пожалуйста, выберите файл в формате ICO, PNG или SVG');
+            alert(lang === 'ru' ? 'Пожалуйста, выберите файл в формате ICO, PNG или SVG' : 'Please select a file in ICO, PNG or SVG format');
             e.target.value = '';
             return;
         }
@@ -279,7 +281,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const slug = slugInput.value.trim();
             if (slug && !/^[a-z0-9-]+$/.test(slug)) {
                 e.preventDefault();
-                alert('Slug должен содержать только латинские буквы, цифры и дефисы');
+                alert(lang === 'ru' ? 'Slug должен содержать только латинские буквы, цифры и дефисы' : 'Slug can only contain Latin letters, numbers and hyphens');
                 slugInput.focus();
                 return false;
             }

@@ -33,14 +33,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         if (passwordInput.value.length < 6) {
-            passwordInput.setCustomValidity('Пароль должен содержать минимум 6 символов');
+            passwordInput.setCustomValidity(lang === 'ru' ? 'Пароль должен содержать минимум 6 символов' : 'Password must be at least 6 characters');
             return false;
         } else {
             passwordInput.setCustomValidity('');
         }
         
         if (passwordInput.value !== confirmInput.value) {
-            confirmInput.setCustomValidity('Пароли не совпадают');
+            confirmInput.setCustomValidity(lang === 'ru' ? 'Пароли не совпадают' : 'Passwords do not match');
             return false;
         } else {
             confirmInput.setCustomValidity('');
@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
         passwordInput.addEventListener('input', function() {
             if (changePasswordCheckbox.checked) {
                 if (this.value.length > 0 && this.value.length < 6) {
-                    this.setCustomValidity('Пароль должен содержать минимум 6 символов');
+                    this.setCustomValidity(lang === 'ru' ? 'Пароль должен содержать минимум 6 символов' : 'Password must be at least 6 characters');
                 } else {
                     this.setCustomValidity('');
                 }
@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (submitBtn) {
                 const originalHtml = submitBtn.innerHTML;
                 submitBtn.disabled = true;
-                submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Сохранение...';
+                submitBtn.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> ${lang === 'ru' ? 'Сохранение...' : 'Saving...'}`;
                 submitBtn.setAttribute('data-original-html', originalHtml);
             }
             
@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const achievementId = this.dataset.achievementId;
             const achievementName = this.dataset.achievementName;
             
-            if (confirm(`Вы уверены, что хотите отозвать ачивку "${achievementName}" у пользователя?`)) {
+            if (confirm(lang === 'ru' ? `Вы уверены, что хотите отозвать ачивку "${achievementName}" у пользователя?` : `Are you sure you want to revoke the achievement "${achievementName}" from the user?`)) {
                 const originalHtml = this.innerHTML;
                 this.disabled = true;
                 this.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
@@ -148,20 +148,20 @@ document.addEventListener('DOMContentLoaded', function() {
                         const toast = document.createElement('div');
                         toast.className = 'alert alert-success alert-dismissible fade show position-fixed';
                         toast.style.cssText = 'top: 20px; right: 20px; z-index: 9999;';
-                        toast.innerHTML = 'Ачивка успешно отозвана';
+                        toast.innerHTML = lang === 'ru' ? 'Ачивка успешно отозвана' : 'Achievement revoked successfully';
                         document.body.appendChild(toast);
                         setTimeout(() => toast.remove(), 3000);
                         
                         setTimeout(() => location.reload(), 1000);
                     } else {
-                        alert(data.message || 'Ошибка при отзыве ачивки');
+                        alert(data.message || (lang === 'ru' ? 'Ошибка при отзыве ачивки' : 'Error revoking achievement'));
                         this.disabled = false;
                         this.innerHTML = originalHtml;
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    alert('Ошибка при отзыве ачивки');
+                    alert(lang === 'ru' ? 'Ошибка при отзыве ачивки' : 'Error revoking achievement');
                     this.disabled = false;
                     this.innerHTML = originalHtml;
                 });

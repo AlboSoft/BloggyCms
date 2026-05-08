@@ -59,15 +59,15 @@
                 if (currentCount >= this.maxTags) {
                     counterElement.className = 'badge bg-danger';
                     this.tagSearch.disabled = true;
-                    this.tagSearch.placeholder = 'Достигнут лимит тегов';
+                    this.tagSearch.placeholder = lang === 'ru' ? 'Достигнут лимит тегов' : 'Tag limit reached';
                 } else if (currentCount >= this.maxTags - 2) {
                     counterElement.className = 'badge bg-warning text-dark';
                     this.tagSearch.disabled = false;
-                    this.tagSearch.placeholder = 'Начните вводить название тега...';
+                    this.tagSearch.placeholder = lang === 'ru' ? 'Начните вводить название тега...' : 'Start typing tag name...';
                 } else {
                     counterElement.className = 'badge bg-light text-dark';
                     this.tagSearch.disabled = false;
-                    this.tagSearch.placeholder = 'Начните вводить название тега...';
+                    this.tagSearch.placeholder = lang === 'ru' ? 'Начните вводить название тега...' : 'Start typing tag name...';
                 }
             }
         }
@@ -79,7 +79,7 @@
                 const tagIds = JSON.parse(this.tagsJson.value || '[]');
                 this.selectedTags = tagIds.map(tagId => ({
                     id: tagId,
-                    name: existingTags[tagId] || `Тег ${tagId}`
+                    name: existingTags[tagId] || `${lang === 'ru' ? 'Тег' : 'Tag'} ${tagId}`
                 }));
                 
             } catch (e) {
@@ -139,7 +139,7 @@
             if (e.key === 'Enter') {
                 e.preventDefault();
                 if (this.selectedTags.length >= this.maxTags) {
-                    alert(`Максимальное количество тегов: ${this.maxTags}`);
+                    alert(lang === 'ru' ? `Максимальное количество тегов: ${this.maxTags}` : `Maximum number of tags: ${this.maxTags}`);
                     return;
                 }
                 
@@ -182,7 +182,7 @@
             tagBadge.className = 'badge bg-primary me-2 mb-2 tag-badge';
             tagBadge.innerHTML = `
                 ${tag.name}
-                <button type="button" class="btn-close btn-close-white ms-1" style="font-size: 0.7rem;" aria-label="Удалить"></button>
+                <button type="button" class="btn-close btn-close-white ms-1" style="font-size: 0.7rem;" aria-label="${lang === 'ru' ? 'Удалить' : 'Delete'}"></button>
             `;
             tagBadge.dataset.tagId = tag.id;
             
@@ -202,7 +202,7 @@
 
         addExistingTag(tagId, tagName) {
             if (this.selectedTags.length >= this.maxTags) {
-                alert(`Максимальное количество тегов: ${this.maxTags}`);
+                alert(lang === 'ru' ? `Максимальное количество тегов: ${this.maxTags}` : `Maximum number of tags: ${this.maxTags}`);
                 return;
             }
             
@@ -217,7 +217,7 @@
 
         async createNewTag(tagName) {
             if (this.selectedTags.length >= this.maxTags) {
-                alert(`Максимальное количество тегов: ${this.maxTags}`);
+                alert(lang === 'ru' ? `Максимальное количество тегов: ${this.maxTags}` : `Maximum number of tags: ${this.maxTags}`);
                 return;
             }
             
@@ -246,10 +246,10 @@
                     this.renderSelectedTags();
                     this.tagSearch.value = '';
                 } else {
-                    this.showError(data.message || 'Ошибка создания тега');
+                    this.showError(data.message || (lang === 'ru' ? 'Ошибка создания тега' : 'Error creating tag'));
                 }
             } catch (error) {
-                this.showError('Ошибка создания тега. Проверьте консоль для подробностей.');
+                this.showError(lang === 'ru' ? 'Ошибка создания тега. Проверите консоль для подробностей.' : 'Error creating tag. Check console for details.');
             } finally {
                 this.hideLoading();
                 this.hideSuggestions();
@@ -258,7 +258,7 @@
 
         showLoading(tagName) {
             this.tagSearch.disabled = true;
-            this.tagSearch.value = 'Создание тега...';
+            this.tagSearch.value = lang === 'ru' ? 'Создание тега...' : 'Creating tag...';
         }
 
         hideLoading() {
@@ -272,7 +272,7 @@
 
         showSuggestions(suggestions, showCreateOption = false, newTagName = '') {
             if (this.selectedTags.length >= this.maxTags) {
-                this.tagsSuggestions.innerHTML = '<div class="dropdown-item text-muted">Достигнут лимит тегов</div>';
+                this.tagsSuggestions.innerHTML = `<div class="dropdown-item text-muted">${lang === 'ru' ? 'Достигнут лимит тегов' : 'Tag limit reached'}</div>`;
                 this.tagsSuggestions.style.display = 'block';
                 return;
             }
@@ -280,7 +280,7 @@
             this.tagsSuggestions.innerHTML = '';
             
             if (suggestions.length === 0 && !showCreateOption) {
-                this.tagsSuggestions.innerHTML = '<div class="dropdown-item text-muted">Теги не найдены</div>';
+                this.tagsSuggestions.innerHTML = `<div class="dropdown-item text-muted">${lang === 'ru' ? 'Теги не найдены' : 'No tags found'}</div>`;
             } else {
                 suggestions.forEach(tag => {
                     const item = this.createSuggestionItem(tag);
@@ -322,7 +322,7 @@
             createItem.className = 'dropdown-item text-success';
             createItem.innerHTML = `
                 <i class="bi bi-plus-circle me-2"></i>
-                Создать новый тег: "${newTagName}"
+                ${lang === 'ru' ? 'Создать новый тег:' : 'Create new tag:'} "${newTagName}"
             `;
             createItem.addEventListener('click', (e) => {
                 e.preventDefault();

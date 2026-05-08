@@ -29,7 +29,7 @@
             const type = this.fieldTypeSelect.value;
             
             if (!type) {
-                this.fieldSettingsContent.innerHTML = '<div class="alert alert-info">Выберите тип поля чтобы увидеть его настройки</div>';
+                this.fieldSettingsContent.innerHTML = `<div class="alert alert-info">${lang === 'ru' ? 'Выберите тип поля чтобы увидеть его настройки' : 'Select a field type to see its settings'}</div>`;
                 return;
             }
             const currentFormData = this.collectFormData();
@@ -37,7 +37,7 @@
             this.fieldSettingsContent.innerHTML = `
                 <div class="text-center py-3">
                     <div class="spinner-border" role="status"></div>
-                    <div class="mt-2">Загрузка настроек...</div>
+                    <div class="mt-2">${lang === 'ru' ? 'Загрузка настроек...' : 'Loading settings...'}</div>
                 </div>
             `;
 
@@ -56,7 +56,7 @@
                 
             } catch (error) {
                 console.error('Error loading field settings:', error);
-                this.fieldSettingsContent.innerHTML = '<div class="alert alert-danger">Ошибка загрузки настроек поля</div>';
+                this.fieldSettingsContent.innerHTML = `<div class="alert alert-danger">${lang === 'ru' ? 'Ошибка загрузки настроек поля' : 'Error loading field settings'}</div>`;
             }
         }
  

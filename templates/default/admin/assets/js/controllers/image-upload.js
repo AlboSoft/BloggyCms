@@ -79,7 +79,7 @@
             
             buttonsContainer.innerHTML = `
                 <button type="button" class="btn btn-outline-primary btn-sm replace-image-btn" onclick="imageUploader.handleReplaceImage()">
-                    <i class="bi bi-arrow-repeat me-1"></i>Заменить изображение
+                    <i class="bi bi-arrow-repeat me-1"></i>${lang === 'ru' ? 'Заменить изображение' : 'Replace image'}
                 </button>
             `;
         }
@@ -150,12 +150,12 @@
                 const file = files[0];
                 
                 if (!file.type.match('image.*')) {
-                    this.showError('Пожалуйста, выберите изображение');
+                    this.showError(lang === 'ru' ? 'Пожалуйста, выберите изображение' : 'Please select an image');
                     return;
                 }
-                
+
                 if (file.size > 5 * 1024 * 1024) {
-                    this.showError('Файл слишком большой. Максимальный размер: 5MB');
+                    this.showError(lang === 'ru' ? 'Файл слишком большой. Максимальный размер: 5MB' : 'File is too large. Maximum size: 5MB');
                     return;
                 }
                 
@@ -221,13 +221,13 @@
                     this.createHiddenInput('uploaded_image_url', result.url);
                     
                 } else {
-                    this.showError(result.message || 'Ошибка загрузки изображения');
+                    this.showError(result.message || (lang === 'ru' ? 'Ошибка загрузки изображения' : 'Image upload error'));
                     this.showUploadForm();
                 }
             } catch (error) {
                 if (error.name === 'AbortError') {
                 } else {
-                    this.showError('Ошибка сети при загрузке изображения');
+                    this.showError(lang === 'ru' ? 'Ошибка сети при загрузке изображения' : 'Network error during image upload');
                     this.showUploadForm();
                 }
             }
@@ -258,7 +258,7 @@
                     
                     if (progress >= 100) {
                         clearInterval(interval);
-                        this.elements.progressText.textContent = 'Загрузка завершена!';
+                        this.elements.progressText.textContent = lang === 'ru' ? 'Загрузка завершена!' : 'Upload complete!';
                     }
                 }, 100);
             }

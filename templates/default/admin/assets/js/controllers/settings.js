@@ -139,7 +139,7 @@
         const dangerousButtons = document.querySelectorAll('a[href*="cleanup-backups"], .btn-danger');
         dangerousButtons.forEach(button => {
             button.addEventListener('click', function(e) {
-                if (!confirm('Вы уверены, что хотите выполнить это действие? Это действие нельзя отменить.')) {
+                if (!confirm(lang === 'ru' ? 'Вы уверены, что хотите выполнить это действие? Это действие нельзя отменить.' : 'Are you sure you want to perform this action? This action cannot be undone.')) {
                     e.preventDefault();
                 }
             });

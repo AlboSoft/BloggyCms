@@ -123,7 +123,7 @@ class MenuIconManager {
                     <div class="custom-modal-content" style="background: white; border-radius: 8px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); display: flex; flex-direction: column; max-height: 90vh;">
                         <div class="custom-modal-header" style="padding: 1rem 1.5rem; border-bottom: 1px solid #dee2e6; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;">
                             <h5 class="custom-modal-title" style="margin: 0; font-size: 1.25rem;">
-                                <i class="bi bi-images me-2"></i>Выбор иконки
+                                <i class="bi bi-images me-2"></i>${lang === 'ru' ? 'Выбор иконки' : 'Icon Selection'}
                             </h5>
                             <button type="button" class="btn-close" onclick="window.menuIconManager.closeIconSelector()" aria-label="Close"></button>
                         </div>
@@ -136,7 +136,7 @@ class MenuIconManager {
                                     <input type="text" 
                                         id="iconSearchModalInput" 
                                         class="form-control border-0 bg-light" 
-                                        placeholder="Поиск иконок..."
+                                        placeholder="${lang === 'ru' ? 'Поиск иконок...' : 'Search icons...'}"
                                         autocomplete="off"
                                         autocorrect="off"
                                         autocapitalize="none"
@@ -157,10 +157,10 @@ class MenuIconManager {
                         </div>
                         <div class="custom-modal-footer" style="padding: 1rem 1.5rem; border-top: 1px solid #dee2e6; display: flex; justify-content: flex-end; gap: 0.5rem; flex-shrink: 0;">
                             <button type="button" class="btn btn-outline-secondary" onclick="window.menuIconManager.closeIconSelector()">
-                                <i class="bi bi-x-circle me-1"></i>Отмена
+                                <i class="bi bi-x-circle me-1"></i>${lang === 'ru' ? 'Отмена' : 'Cancel'}
                             </button>
                             <button type="button" class="btn btn-primary" onclick="window.menuIconManager.confirmIconSelection()">
-                                <i class="bi bi-check-lg me-1"></i>Выбрать
+                                <i class="bi bi-check-lg me-1"></i>${lang === 'ru' ? 'Выбрать' : 'Select'}
                             </button>
                         </div>
                     </div>
@@ -310,7 +310,7 @@ class MenuIconManager {
             this.setSelectedIcon(this.selectedIcon);
             this.closeIconSelector();
         } else {
-            alert('Пожалуйста, выберите иконку');
+            alert(lang === 'ru' ? 'Пожалуйста, выберите иконку' : 'Please select an icon');
         }
     }
 
@@ -633,7 +633,7 @@ class MenuIconManager {
                             <line x1="12" y1="16" x2="12.01" y2="16"></line>
                         </svg>
                     </div>
-                    <p class="mb-0">Иконки не найдены</p>
+                    <p class="mb-0">${lang === 'ru' ? 'Иконки не найдены' : 'Icons not found'}</p>
                 </div>
             `;
         }

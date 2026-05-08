@@ -159,10 +159,10 @@ class IconField {
                 this.setupSearch();
                 
             } else {
-                this.modalContent.innerHTML = '<div class="alert alert-danger m-3">Не удалось загрузить иконки</div>';
+                this.modalContent.innerHTML = `<div class="alert alert-danger m-3">${lang === 'ru' ? 'Не удалось загрузить иконки' : 'Failed to load icons'}</div>`;
             }
         } catch (error) {
-            this.modalContent.innerHTML = '<div class="alert alert-danger m-3">Ошибка загрузки иконок</div>';
+            this.modalContent.innerHTML = `<div class="alert alert-danger m-3">${lang === 'ru' ? 'Ошибка загрузки иконок' : 'Failed to load icons'}</div>`;
         }
     }
     
@@ -267,7 +267,7 @@ class IconField {
                 <div class="empty-icon-placeholder text-muted text-center py-3">
                     <i class="bi bi-question-circle fs-3"></i>
                     <div class="mt-1">
-                        <small>Иконка не выбрана</small>
+                        <small>${lang === 'ru' ? 'Иконка не выбрана' : 'Icon not selected'}</small>
                     </div>
                 </div>
             `;

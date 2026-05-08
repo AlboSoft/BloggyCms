@@ -7,7 +7,7 @@ function loadErrorLogs() {
     tbody.innerHTML = `
         <tr><td colspan="3" class="text-center py-5">
             <div class="spinner-border text-primary" role="status"></div>
-            <p class="mt-2 text-muted">Загрузка логов...</p>
+            <p class="mt-2 text-muted">${lang === 'ru' ? 'Загрузка логов...' : 'Loading logs...'}</p>
         </td></tr>
     `;
     
@@ -22,12 +22,12 @@ function loadErrorLogs() {
             document.getElementById('log-file-size').textContent = `(${data.log_file_size})`;
             applyFiltersAndRender();
         } else {
-            showError(data.message || 'Ошибка загрузки системных логов');
+            showError(data.message || (lang === 'ru' ? 'Ошибка загрузки системных логов' : 'Failed to load system logs'));
         }
     })
     .catch(error => {
         console.error('Error loading logs:', error);
-        showError('Ошибка загрузки системных логов');
+        showError(lang === 'ru' ? 'Ошибка загрузки системных логов' : 'Error loading system logs');
     });
 }
 
@@ -66,7 +66,7 @@ function renderLogsTable(logs) {
     const tbody = document.getElementById('logs-tbody');
     
     if (!logs || logs.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="3" class="text-center py-5 text-muted">Нет записей</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="3" class="text-center py-5 text-muted">' + (lang === 'ru' ? 'Нет записей' : 'No items') + '</td></tr>';
         return;
     }
     
@@ -139,7 +139,7 @@ function getTypeClass(type) {
 }
 
 function clearErrorLogs() {
-    if (confirm('Вы уверены, что хотите очистить системный лог? Это действие нельзя отменить.')) {
+    if (confirm(lang === 'ru' ? 'Вы уверены, что хотите очистить системный лог? Это действие нельзя отменить.' : 'Are you sure you want to clear the system log? This action cannot be undone.')) {
         fetch(ADMIN_URL + '/debug/clear-error-logs', {
             method: 'POST',
             headers: { 'X-Requested-With': 'XMLHttpRequest' }
@@ -148,13 +148,13 @@ function clearErrorLogs() {
         .then(data => {
             if (data.success) {
                 if (typeof showNotification === 'function') {
-                    showNotification('Системный лог очищен', 'success');
+                    showNotification(lang === 'ru' ? 'Системный лог очищен' : 'System log cleared', 'success');
                 } else {
-                    alert('Системный лог очищен');
+                    alert(lang === 'ru' ? 'Системный лог очищен' : 'System log cleared');
                 }
                 loadErrorLogs();
             } else {
-                const msg = data.message || 'Ошибка при очистке лога';
+                const msg = data.message || (lang === 'ru' ? 'Ошибка при очистке лога' : 'Error clearing log');
                 if (typeof showNotification === 'function') {
                     showNotification(msg, 'error');
                 } else {
@@ -165,9 +165,9 @@ function clearErrorLogs() {
         .catch(error => {
             console.error('Error clearing logs:', error);
             if (typeof showNotification === 'function') {
-                showNotification('Ошибка сети при очистке лога', 'error');
+                showNotification(lang === 'ru' ? 'Ошибка сети при очистке лога' : 'Network error while clearing log', 'error');
             } else {
-                alert('Ошибка сети при очистке лога');
+                alert(lang === 'ru' ? 'Ошибка сети при очистке лога' : 'Network error while clearing log');
             }
         });
     }

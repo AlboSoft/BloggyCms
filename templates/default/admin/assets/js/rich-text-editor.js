@@ -29,7 +29,6 @@
             this.updateToolbarState = this.updateToolbarState.bind(this);
             
             if (!this.editor || !this.editor.isContentEditable) {
-                console.warn('RichTextEditor: editor element not found or not editable');
                 return;
             }
             
@@ -72,12 +71,12 @@
                     if (selectedText && this.isTextInLink()) {
                         document.execCommand('unlink', false, null);
                     } else if (selectedText) {
-                        const url = prompt('Введите URL ссылки:', 'https://');
+                        const url = prompt(lang === 'ru' ? 'Введите URL ссылки:' : 'Enter link URL:', 'https://');
                         if (url) {
                             document.execCommand('createLink', false, url);
                         }
                     } else {
-                        alert('Выделите текст для создания ссылки');
+                        alert(lang === 'ru' ? 'Выделите текст для создания ссылки' : 'Select text to create a link');
                     }
                 } else if (command === 'unlink') {
                     document.execCommand('unlink', false, null);
@@ -99,7 +98,7 @@
 
             const selectedText = selection.toString();
             if (!selectedText) {
-                alert('Выделите текст для оформления как код');
+                alert(lang === 'ru' ? 'Выделите текст для оформления как код' : 'Select text to format as code');
                 return;
             }
 

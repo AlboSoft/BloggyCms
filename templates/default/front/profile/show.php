@@ -27,8 +27,7 @@ $fieldModel = new FieldModel($this->db);
                 <?php echo html($user['display_name'] ?? $user['username']); ?>
                 <?php if ($showLastAchievement && !empty($last_achievement)) { ?>
                     <span class="tg-latest-achievement-badge" 
-                        title="<?php echo html($last_achievement['name']); ?><?php echo !empty($last_achievement['description']) ? ' - ' . html($last_achievement['description']) : ''; ?>
-                                (<?php echo $last_achievement['unlocked_formatted']; ?>)"
+                        title="<?php echo html($last_achievement['name']); ?><?php echo !empty($last_achievement['description']) ? ' - ' . html($last_achievement['description']) : ''; ?> (<?php echo $last_achievement['unlocked_formatted']; ?>)"
                         data-bs-toggle="tooltip">
                         <?php if (!empty($last_achievement['image'])) { ?>
                             <img src="<?php echo BASE_URL; ?>/uploads/achievements/<?php echo $last_achievement['image']; ?>" 

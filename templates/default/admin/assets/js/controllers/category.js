@@ -119,7 +119,7 @@ if (typeof CategoriesManagement === 'undefined') {
             const originalText = submitBtn ? submitBtn.innerHTML : '';
             
             if (submitBtn) {
-                submitBtn.innerHTML = '<i class="bi bi-arrow-repeat spinner"></i> Сохранение...';
+                submitBtn.innerHTML = `<i class="bi bi-arrow-repeat spinner"></i> ${lang === 'ru' ? 'Сохранение...' : 'Saving...'}`;
                 submitBtn.disabled = true;
             }
             
@@ -135,13 +135,13 @@ if (typeof CategoriesManagement === 'undefined') {
                 const data = await response.json();
                 
                 if (data.success) {
-                    this.showNotification('Порядок категорий успешно обновлен', 'success');
+                    this.showNotification(lang === 'ru' ? 'Порядок категорий успешно обновлен' : 'Category order updated successfully', 'success');
                 } else {
-                    this.showNotification('Ошибка при обновлении порядка: ' + data.message, 'error');
+                    this.showNotification(`${lang === 'ru' ? 'Ошибка при обновлении порядка:' : 'Error updating order:'} ${data.message}`, 'error');
                     setTimeout(() => location.reload(), 2000);
                 }
             } catch (error) {
-                this.showNotification('Ошибка при обновлении порядка категорий', 'error');
+                this.showNotification(lang === 'ru' ? 'Ошибка при обновлении порядка категорий' : 'Error updating category order', 'error');
                 setTimeout(() => location.reload(), 2000);
             } finally {
                 if (submitBtn) {

@@ -118,42 +118,42 @@ class DashboardStats {
                 <div>
                     <h5 class="mb-0">
                         <i class="bi bi-graph-up me-2"></i>
-                        Детальная статистика
+                        ${lang === 'ru' ? 'Детальная статистика' : 'Detailed statistics'}
                     </h5>
-                    <p class="text-muted small mb-0">Аналитика публикаций и активности</p>
+                    <p class="text-muted small mb-0">${lang === 'ru' ? 'Аналитика публикаций и активности' : 'Publication and activity analytics'}</p>
                 </div>
                 <div class="d-flex align-items-center gap-2">
                     <div class="btn-group btn-group-sm me-2">
                         <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="bi bi-download me-1"></i>Экспорт
+                            <i class="bi bi-download me-1"></i>${lang === 'ru' ? 'Экспорт' : 'Export'}
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li><a class="dropdown-item" href="#" id="exportFullHtml">
-                                <i class="bi bi-file-earmark-text me-2"></i>HTML (полный отчет)
+                                <i class="bi bi-file-earmark-text me-2"></i>${lang === 'ru' ? 'HTML (полный отчет)' : 'HTML (full report)'}
                             </a></li>
                             <li><a class="dropdown-item" href="#" id="exportPublicationsHtml">
-                                <i class="bi bi-file-earmark-text me-2"></i>HTML (публикации)
+                                <i class="bi bi-file-earmark-text me-2"></i>${lang === 'ru' ? 'HTML (публикации)' : 'HTML (publications)'}
                             </a></li>
                             <li><a class="dropdown-item" href="#" id="exportPopularHtml">
-                                <i class="bi bi-file-earmark-text me-2"></i>HTML (популярные)
+                                <i class="bi bi-file-earmark-text me-2"></i>${lang === 'ru' ? 'HTML (популярные)' : 'HTML (popular)'}
                             </a></li>
                             <li><a class="dropdown-item" href="#" id="exportCommentsHtml">
-                                <i class="bi bi-file-earmark-text me-2"></i>HTML (комментарии)
+                                <i class="bi bi-file-earmark-text me-2"></i>${lang === 'ru' ? 'HTML (комментарии)' : 'HTML (comments)'}
                             </a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="#" id="exportPdf">
-                                <i class="bi bi-file-pdf me-2"></i>PDF (печать)
+                                <i class="bi bi-file-pdf me-2"></i>${lang === 'ru' ? 'PDF (печать)' : 'PDF (print)'}
                             </a></li>
                         </ul>
                     </div>
                     <div class="period-selector btn-group btn-group-sm">
-                        <button type="button" class="btn ${this.currentPeriod === 'week' ? 'btn-primary' : 'btn-outline-secondary'} period-btn" data-period="week">Неделя</button>
-                        <button type="button" class="btn ${this.currentPeriod === 'month' ? 'btn-primary' : 'btn-outline-secondary'} period-btn" data-period="month">Месяц</button>
-                        <button type="button" class="btn ${this.currentPeriod === 'quarter' ? 'btn-primary' : 'btn-outline-secondary'} period-btn" data-period="quarter">Квартал</button>
-                        <button type="button" class="btn ${this.currentPeriod === 'year' ? 'btn-primary' : 'btn-outline-secondary'} period-btn" data-period="year">Год</button>
-                        <button type="button" class="btn ${this.currentPeriod === 'all' ? 'btn-primary' : 'btn-outline-secondary'} period-btn" data-period="all">Всё время</button>
+                        <button type="button" class="btn ${this.currentPeriod === 'week' ? 'btn-primary' : 'btn-outline-secondary'} period-btn" data-period="week">${lang === 'ru' ? 'Неделя' : 'Week'}</button>
+                        <button type="button" class="btn ${this.currentPeriod === 'month' ? 'btn-primary' : 'btn-outline-secondary'} period-btn" data-period="month">${lang === 'ru' ? 'Месяц' : 'Month'}</button>
+                        <button type="button" class="btn ${this.currentPeriod === 'quarter' ? 'btn-primary' : 'btn-outline-secondary'} period-btn" data-period="quarter">${lang === 'ru' ? 'Квартал' : 'Quarter'}</button>
+                        <button type="button" class="btn ${this.currentPeriod === 'year' ? 'btn-primary' : 'btn-outline-secondary'} period-btn" data-period="year">${lang === 'ru' ? 'Год' : 'Year'}</button>
+                        <button type="button" class="btn ${this.currentPeriod === 'all' ? 'btn-primary' : 'btn-outline-secondary'} period-btn" data-period="all">${lang === 'ru' ? 'Всё время' : 'All time'}</button>
                     </div>
-                    <button type="button" class="btn btn-outline-secondary btn-sm" id="refreshStatsBtn" title="Обновить">
+                    <button type="button" class="btn btn-outline-secondary btn-sm" id="refreshStatsBtn" title="${lang === 'ru' ? 'Обновить' : 'Refresh'}">
                         <i class="bi bi-arrow-repeat"></i>
                     </button>
                 </div>
@@ -166,22 +166,22 @@ class DashboardStats {
                         <div class="card-header bg-white border-0">
                             <h6 class="card-title mb-0">
                                 <i class="bi bi-calendar me-2"></i>
-                                Динамика публикаций
+                                ${lang === 'ru' ? 'Динамика публикаций' : 'Publication trends'}
                             </h6>
                         </div>
                         <div class="card-body">
                             <canvas id="publicationsChart" height="150"></canvas>
                             <div class="publications-stats mt-3 d-flex justify-content-around text-center">
                                 <div>
-                                    <div class="small text-muted">Всего постов</div>
+                                    <div class="small text-muted">${lang === 'ru' ? 'Всего постов' : 'Total posts'}</div>
                                     <div class="h5 mb-0" id="total-posts">0</div>
                                 </div>
                                 <div>
-                                    <div class="small text-muted">За этот месяц</div>
+                                    <div class="small text-muted">${lang === 'ru' ? 'За этот месяц' : 'This month'}</div>
                                     <div class="h5 mb-0" id="this-month-posts">0</div>
                                 </div>
                                 <div>
-                                    <div class="small text-muted">Динамика</div>
+                                    <div class="small text-muted">${lang === 'ru' ? 'Динамика' : 'Trend'}</div>
                                     <div class="h5 mb-0" id="posts-trend">0%</div>
                                 </div>
                             </div>
@@ -195,13 +195,13 @@ class DashboardStats {
                         <div class="card-header bg-white border-0">
                             <h6 class="card-title mb-0">
                                 <i class="bi bi-pie-chart me-2"></i>
-                                Общая статистика
+                                ${lang === 'ru' ? 'Общая статистика' : 'Overall statistics'}
                             </h6>
                         </div>
                         <div class="card-body" id="summary-stats-content">
                             <div class="text-center py-4">
                                 <div class="spinner-border text-primary" role="status"></div>
-                                <p class="mt-2 text-muted small">Загрузка...</p>
+                                <p class="mt-2 text-muted small">${lang === 'ru' ? 'Загрузка...' : 'Loading...'}</p>
                             </div>
                         </div>
                     </div>
@@ -213,7 +213,7 @@ class DashboardStats {
                         <div class="card-header bg-white border-0">
                             <h6 class="card-title mb-0">
                                 <i class="bi bi-eye me-2"></i>
-                                Топ популярных постов
+                                ${lang === 'ru' ? 'Топ популярных постов' : 'Top popular posts'}
                             </h6>
                         </div>
                         <div class="card-body">
@@ -229,7 +229,7 @@ class DashboardStats {
                         <div class="card-header bg-white border-0">
                             <h6 class="card-title mb-0">
                                 <i class="bi bi-heart-fill me-2 text-danger"></i>
-                                Топ залайканных постов
+                                ${lang === 'ru' ? 'Топ залайканных постов' : 'Top liked posts'}
                             </h6>
                         </div>
                         <div class="card-body">
@@ -245,7 +245,7 @@ class DashboardStats {
                         <div class="card-header bg-white border-0">
                             <h6 class="card-title mb-0">
                                 <i class="bi bi-chat-dots me-2"></i>
-                                Статистика комментариев
+                                ${lang === 'ru' ? 'Статистика комментариев' : 'Comment statistics'}
                             </h6>
                         </div>
                         <div class="card-body">
@@ -359,8 +359,7 @@ class DashboardStats {
             const text = await response.text();
             
             if (text.trim().startsWith('<!DOCTYPE') || text.trim().startsWith('<')) {
-                console.error('Server returned HTML instead of JSON');
-                return { error: 'Сервер вернул HTML вместо JSON' };
+                return { error: lang === 'ru' ? 'Сервер вернул HTML вместо JSON' : 'Server returned HTML instead of JSON' };
             }
             
             const data = JSON.parse(text);
@@ -393,7 +392,7 @@ class DashboardStats {
             data: {
                 labels: data.labels,
                 datasets: [{
-                    label: 'Публикации',
+                    label: lang === 'ru' ? 'Публикации' : 'Publications',
                     data: data.data,
                     borderColor: colors.publicationsBorder,
                     backgroundColor: colors.publications,
@@ -415,7 +414,7 @@ class DashboardStats {
                         intersect: false,
                         callbacks: {
                             label: function(context) {
-                                return `Публикаций: ${context.raw}`;
+                                return `${lang === 'ru' ? 'Публикаций: ' : 'Publications: '}${context.raw}`;
                             }
                         }
                     }
@@ -452,7 +451,7 @@ class DashboardStats {
         const data = await this.fetchStats('popular', { limit });
         
         if (data.error || !data.labels || data.labels.length === 0) {
-            this.showChartError('popularPostsChart', data.error || 'Нет данных');
+            this.showChartError('popularPostsChart', data.error || (lang === 'ru' ? 'Нет данных' : 'No data'));
             return;
         }
         
@@ -469,7 +468,7 @@ class DashboardStats {
             data: {
                 labels: data.labels,
                 datasets: [{
-                    label: 'Просмотры',
+                    label: lang === 'ru' ? 'Просмотры' : 'Views',
                     data: data.data,
                     backgroundColor: colors.popular,
                     borderRadius: 8,
@@ -484,7 +483,7 @@ class DashboardStats {
                     tooltip: {
                         callbacks: {
                             label: function(context) {
-                                return `Просмотров: ${context.raw}`;
+                                return `${lang === 'ru' ? 'Просмотров: ' : 'Views: '}${context.raw}`;
                             }
                         }
                     }
@@ -492,7 +491,7 @@ class DashboardStats {
                 scales: {
                     y: {
                         beginAtZero: true,
-                        title: { display: true, text: 'Количество просмотров' }
+                        title: { display: true, text: lang === 'ru' ? 'Количество просмотров' : 'views' }
                     }
                 },
                 onClick: (event, activeElements) => {
@@ -513,7 +512,7 @@ class DashboardStats {
         const data = await this.fetchStats('liked', { limit });
         
         if (data.error || !data.labels || data.labels.length === 0) {
-            this.showChartError('likedPostsChart', data.error || 'Нет данных');
+            this.showChartError('likedPostsChart', data.error || (lang === 'ru' ? 'Нет данных' : 'No data'));
             return;
         }
         
@@ -530,7 +529,7 @@ class DashboardStats {
             data: {
                 labels: data.labels,
                 datasets: [{
-                    label: 'Лайки',
+                    label: lang === 'ru' ? 'Лайки' : 'Likes',
                     data: data.data,
                     backgroundColor: colors.liked,
                     borderRadius: 8,
@@ -545,7 +544,7 @@ class DashboardStats {
                     tooltip: {
                         callbacks: {
                             label: function(context) {
-                                return `Лайков: ${context.raw}`;
+                                return `${lang === 'ru' ? 'Лайков: ' : 'Likes: '}${context.raw}`;
                             }
                         }
                     }
@@ -553,7 +552,7 @@ class DashboardStats {
                 scales: {
                     y: {
                         beginAtZero: true,
-                        title: { display: true, text: 'Количество лайков' }
+                        title: { display: true, text: lang === 'ru' ? 'Количество лайков' : 'Number of likes' }
                     }
                 },
                 onClick: (event, activeElements) => {
@@ -590,7 +589,7 @@ class DashboardStats {
             data: {
                 labels: data.labels,
                 datasets: [{
-                    label: 'Комментарии',
+                    label: lang === 'ru' ? 'Комментарии' : 'Comments',
                     data: data.data,
                     borderColor: colors.commentsBorder,
                     backgroundColor: colors.comments,
@@ -609,7 +608,7 @@ class DashboardStats {
                     tooltip: {
                         callbacks: {
                             label: function(context) {
-                                return `Комментариев: ${context.raw}`;
+                                return `${lang === 'ru' ? 'Комментариев: ' : 'Comments: '}${context.raw}`;
                             }
                         }
                     }
@@ -626,23 +625,23 @@ class DashboardStats {
         const total = (data.status.approved + data.status.pending + data.status.spam) || 1;
         const statusHtml = `
             <div class="mb-4">
-                <h6 class="small text-muted mb-2">Статусы комментариев</h6>
+                <h6 class="small text-muted mb-2">${lang === 'ru' ? 'Статусы комментариев' : 'Comment statuses'}</h6>
                 <div class="d-flex justify-content-between mb-1">
-                    <span>✅ Одобрены</span>
+                    <span>${lang === 'ru' ? '✅ Одобрены' : '✅ Approved'}</span>
                     <span class="fw-bold">${data.status.approved}</span>
                 </div>
                 <div class="progress mb-2" style="height: 4px;">
                     <div class="progress-bar bg-success" style="width: ${(data.status.approved / total * 100).toFixed(1)}%"></div>
                 </div>
                 <div class="d-flex justify-content-between mb-1">
-                    <span>⏳ На модерации</span>
+                    <span>${lang === 'ru' ? '⏳ На модерации' : '⏳ Pending moderation'}</span>
                     <span class="fw-bold">${data.status.pending}</span>
                 </div>
                 <div class="progress mb-2" style="height: 4px;">
                     <div class="progress-bar bg-warning" style="width: ${(data.status.pending / total * 100).toFixed(1)}%"></div>
                 </div>
                 <div class="d-flex justify-content-between mb-1">
-                    <span>⚠️ Спам</span>
+                    <span>${lang === 'ru' ? '⚠️ Спам' : '⚠️ Spam'}</span>
                     <span class="fw-bold">${data.status.spam}</span>
                 </div>
                 <div class="progress mb-2" style="height: 4px;">
@@ -651,7 +650,7 @@ class DashboardStats {
             </div>
         `;
         
-        let topPostsHtml = '<h6 class="small text-muted mb-2">Топ комментируемых постов</h6>';
+        let topPostsHtml = '<h6 class="small text-muted mb-2">' + (lang === 'ru' ? 'Топ комментируемых постов' : 'Top commented posts') + '</h6>';
         if (data.top_posts && data.top_posts.length > 0) {
             topPostsHtml += '<div class="list-group list-group-flush">';
             data.top_posts.forEach(post => {
@@ -664,7 +663,7 @@ class DashboardStats {
             });
             topPostsHtml += '</div>';
         } else {
-            topPostsHtml += '<p class="text-muted small">Нет данных</p>';
+            topPostsHtml += '<p class="text-muted small">' + (lang === 'ru' ? 'Нет данных' : 'No data') + '</p>';
         }
         
         const statusStatsDiv = document.getElementById('comments-status-stats');
@@ -688,13 +687,13 @@ class DashboardStats {
         
         let html = `
             <div class="mb-4">
-                <h6 class="small text-muted mb-2">Активные комментаторы (30 дней)</h6>
+                <h6 class="small text-muted mb-2">${lang === 'ru' ? 'Активные комментаторы (30 дней)' : 'Active commenters (30 days)'}</h6>
                 <div class="h3 mb-0">${data.active_commenters || 0}</div>
-                <small class="text-muted">пользователей оставили комментарии</small>
+                <small class="text-muted">${lang === 'ru' ? 'пользователей оставили комментарии' : 'users left comments'}</small>
             </div>
             
             <div class="mb-4">
-                <h6 class="small text-muted mb-2">Посты по категориям</h6>
+                <h6 class="small text-muted mb-2">${lang === 'ru' ? 'Посты по категориям' : 'Posts by categories'}</h6>
                 <div class="categories-stats">
         `;
         
@@ -713,7 +712,7 @@ class DashboardStats {
                 `;
             });
         } else {
-            html += '<p class="text-muted small">Нет данных</p>';
+            html += '<p class="text-muted small">' + (lang === 'ru' ? 'Нет данных' : 'No data') + '</p>';
         }
         
         html += `
@@ -721,7 +720,7 @@ class DashboardStats {
             </div>
             
             <div>
-                <h6 class="small text-muted mb-2">Последние 12 месяцев</h6>
+                <h6 class="small text-muted mb-2">${lang === 'ru' ? 'Последние 12 месяцев' : 'Last 12 months'}</h6>
                 <div id="mini-monthly-chart"></div>
             </div>
         `;
@@ -766,7 +765,7 @@ class DashboardStats {
                     tooltip: {
                         callbacks: {
                             label: function(context) {
-                                return `Постов: ${context.raw}`;
+                                return `${lang === 'ru' ? 'Постов: ' : 'Posts: '}${context.raw}`;
                             }
                         }
                     }
@@ -843,8 +842,8 @@ class DashboardStats {
         tooltip.style.zIndex = '9999';
         tooltip.innerHTML = `
             <strong>${this.escapeHtml(post.title)}</strong><br>
-            ${type === 'popular' ? `👁️ Просмотров: ${post.views}` : `❤️ Лайков: ${post.actual_likes || post.likes_count}`}<br>
-            📅 ${new Date(post.created_at).toLocaleDateString('ru-RU')}
+            ${type === 'popular' ? `👁️ ${lang === 'ru' ? 'Просмотров: ' : 'Views: '}${post.views}` : `❤️ ${lang === 'ru' ? 'Лайков: ' : 'Likes: '}${post.actual_likes || post.likes_count}`}<br>
+            📅 ${new Date(post.created_at).toLocaleDateString(lang === 'ru' ? 'ru-RU' : 'en-EN')}
         `;
         document.body.appendChild(tooltip);
         
@@ -858,7 +857,7 @@ class DashboardStats {
         
         window.open(url.toString(), '_blank');
         
-        this.showNotification('Экспорт CSV начался', 'success');
+        this.showNotification(lang === 'ru' ? 'Экспорт CSV начался' : 'CSV export started', 'success');
     }
     
     exportToPDF() {
@@ -889,7 +888,7 @@ class DashboardStats {
             }, 1000);
         }, 200);
         
-        this.showNotification('Подготовка PDF...', 'info');
+        this.showNotification(lang === 'ru' ? 'Подготовка PDF...' : 'Preparing PDF...', 'info');
     }
     
     showNotification(message, type = 'info') {

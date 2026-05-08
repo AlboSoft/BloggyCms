@@ -13,11 +13,6 @@ function initHtmlBlockForm() {
 }
 
 function initAceEditors() {
-    if (typeof ace === 'undefined') {
-        console.error('Ace editor not loaded!');
-        return;
-    }
-    
     initCssEditor();
     initJsEditor();
     initHtmlEditor();
@@ -138,7 +133,7 @@ function initFragmentHandlers() {
             .then(data => {
                 if (data.success && fragmentSelect) {
                     const selectedValue = fragmentSelect.getAttribute('data-selected') || '';
-                    fragmentSelect.innerHTML = '<option value="">-- Выберите фрагмент --</option>';
+                    fragmentSelect.innerHTML = '<option value="">' + (lang === 'ru' ? '-- Выберите фрагмент --' : '-- Select fragment --') + '</option>';
                     
                     data.fragments.forEach(fragment => {
                         const option = document.createElement('option');
@@ -181,12 +176,12 @@ function initFragmentHandlers() {
                         let html = `
                             <div class="mb-3">
                                 <div class="d-flex flex-wrap gap-2 align-items-center mb-2">
-                                    <span class="badge bg-primary px-3 py-2">📋 Базовые</span>
+                                    <span class="badge bg-primary px-3 py-2">${lang === 'ru' ? 'Базовые' : 'Basic'}</span>
                         `;
                         
                         const baseShortcodes = [
-                            { code: fragment.shortcode_simple, desc: 'Простой вывод всех записей' },
-                            { code: fragment.shortcode_loop, desc: 'Кастомный цикл по записям' }
+                            { code: fragment.shortcode_simple, desc: (lang === 'ru' ? 'Простой вывод всех записей' : 'Simple output of all posts') },
+                            { code: fragment.shortcode_loop, desc: (lang === 'ru' ? 'Кастомный цикл по записям' : 'Custom posts loop') }
                         ];
                         
                         baseShortcodes.forEach(item => {
@@ -194,10 +189,10 @@ function initFragmentHandlers() {
                                 <div class="shortcode-item d-inline-flex align-items-center bg-white rounded border px-2 py-1">
                                     <code class="small me-1">${escapeHtml(item.code)}</code>
                                     <div class="btn-group btn-group-sm ms-1">
-                                        <button class="btn btn-sm btn-link text-secondary p-0 copy-shortcode" data-shortcode="${escapeHtml(item.code)}" title="Копировать">
+                                        <button class="btn btn-sm btn-link text-secondary p-0 copy-shortcode" data-shortcode="${escapeHtml(item.code)}" title="${lang === 'ru' ? 'Копировать' : 'Copy'}">
                                             <svg class="icon" width="12" height="12"><use href="/templates/default/admin/icons/bs.svg#copy"/></svg>
                                         </button>
-                                        <button class="btn btn-sm btn-link text-primary p-0 ms-1 insert-shortcode" data-shortcode="${escapeHtml(item.code)}" title="Вставить">
+                                        <button class="btn btn-sm btn-link text-primary p-0 ms-1 insert-shortcode" data-shortcode="${escapeHtml(item.code)}" title="${lang === 'ru' ? 'Вставить' : 'Insert'}">
                                             <svg class="icon" width="12" height="12"><use href="/templates/default/admin/icons/bs.svg#plus"/></svg>
                                         </button>
                                     </div>
@@ -211,7 +206,7 @@ function initFragmentHandlers() {
                             html += `
                                 <div class="mt-3">
                                     <div class="d-flex flex-wrap gap-2 align-items-center mb-2">
-                                        <span class="badge bg-success px-3 py-2">📝 Поля фрагмента</span>
+                                        <span class="badge bg-success px-3 py-2">${lang === 'ru' ? 'Поля фрагмента' : 'Fragment fields'}</span>
                                     </div>
                                     <div class="d-flex flex-wrap gap-2">
                             `;
@@ -224,10 +219,10 @@ function initFragmentHandlers() {
                                             <div class="shortcode-item d-inline-flex align-items-center bg-light rounded px-2 py-1">
                                                 <code class="small me-1" style="font-size: 0.7rem;">${escapeHtml(field.shortcode)}</code>
                                                 <div class="btn-group btn-group-sm ms-1">
-                                                    <button class="btn btn-sm btn-link text-secondary p-0 copy-shortcode" data-shortcode="${escapeHtml(field.shortcode)}" title="Копировать">
+                                                    <button class="btn btn-sm btn-link text-secondary p-0 copy-shortcode" data-shortcode="${escapeHtml(field.shortcode)}" title="${lang === 'ru' ? 'Копировать' : 'Copy'}">
                                                         <svg class="icon" width="10" height="10"><use href="/templates/default/admin/icons/bs.svg#copy"/></svg>
                                                     </button>
-                                                    <button class="btn btn-sm btn-link text-primary p-0 ms-1 insert-shortcode" data-shortcode="${escapeHtml(field.shortcode)}" title="Вставить">
+                                                    <button class="btn btn-sm btn-link text-primary p-0 ms-1 insert-shortcode" data-shortcode="${escapeHtml(field.shortcode)}" title="${lang === 'ru' ? 'Вставить' : 'Insert'}">
                                                         <svg class="icon" width="10" height="10"><use href="/templates/default/admin/icons/bs.svg#plus"/></svg>
                                                     </button>
                                                 </div>
@@ -235,17 +230,17 @@ function initFragmentHandlers() {
                                             <div class="shortcode-item d-inline-flex align-items-center bg-light rounded px-2 py-1">
                                                 <code class="small me-1" style="font-size: 0.7rem;">${escapeHtml(field.display_shortcode)}</code>
                                                 <div class="btn-group btn-group-sm ms-1">
-                                                    <button class="btn btn-sm btn-link text-secondary p-0 copy-shortcode" data-shortcode="${escapeHtml(field.display_shortcode)}" title="Копировать">
+                                                    <button class="btn btn-sm btn-link text-secondary p-0 copy-shortcode" data-shortcode="${escapeHtml(field.display_shortcode)}" title="${lang === 'ru' ? 'Копировать' : 'Copy'}">
                                                         <svg class="icon" width="10" height="10"><use href="/templates/default/admin/icons/bs.svg#copy"/></svg>
                                                     </button>
-                                                    <button class="btn btn-sm btn-link text-primary p-0 ms-1 insert-shortcode" data-shortcode="${escapeHtml(field.display_shortcode)}" title="Вставить">
+                                                    <button class="btn btn-sm btn-link text-primary p-0 ms-1 insert-shortcode" data-shortcode="${escapeHtml(field.display_shortcode)}" title="${lang === 'ru' ? 'Вставить' : 'Insert'}">
                                                         <svg class="icon" width="10" height="10"><use href="/templates/default/admin/icons/bs.svg#plus"/></svg>
                                                     </button>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="small text-muted mt-1" style="font-size: 0.65rem;">
-                                            ${field.type === 'image' ? '🖼️ Изображение' : '📄 Текст'}
+                                            ${field.type === 'image' ? (lang === 'ru' ? 'Изображение' : 'Image') : (lang === 'ru' ? 'Текст' : 'Text')}
                                         </div>
                                     </div>
                                 `;
@@ -324,7 +319,7 @@ function initFragmentHandlers() {
                     shortcodesList.innerHTML = `
                         <div class="text-center text-muted py-3">
                             <svg class="icon" width="16" height="16"><use href="/templates/default/admin/icons/bs.svg#arrow-left"/></svg>
-                            Выберите фрагмент слева
+                            ${lang === 'ru' ? 'Выберите фрагмент' : 'Select fragment'}
                         </div>
                     `;
                 }
@@ -353,7 +348,7 @@ function addAssetRow(type) {
         <button type="button" class="btn btn-outline-primary select-asset-btn" 
                 data-asset-type="${type}"
                 data-bs-toggle="tooltip"
-                title="Выбрать из папки блока">
+                title="${lang === 'ru' ? 'Выбрать из папки блока' : 'Select from block folder'}">
             <svg class="icon icon-folder" width="16" height="16">
                 <use href="/templates/default/admin/icons/bs.svg#folder2-open"></use>
             </svg>
@@ -442,7 +437,7 @@ function handleAssetSelectClick(e) {
     if (typeDisplay) typeDisplay.value = currentAssetType.toUpperCase();
     if (blockTypeDisplay) blockTypeDisplay.value = blockType;
     if (modalTitle) {
-        modalTitle.textContent = `Выберите ${currentAssetType.toUpperCase()} файл для блока ${blockType}`;
+        modalTitle.textContent = lang === 'ru' ? `Выберите ${currentAssetType.toUpperCase()} файл для блока ${blockType}` : `Select ${currentAssetType.toUpperCase()} file for block ${blockType}`;
     }
     
     if (assetSelectorModal) {
@@ -461,7 +456,7 @@ async function loadAssetFiles(blockType, assetType) {
     filesList.innerHTML = `
         <div class="text-center py-4">
             <div class="spinner-border text-primary" role="status"></div>
-            <p class="mt-2 text-muted">Загрузка файлов...</p>
+            <p class="mt-2 text-muted">${lang === 'ru' ? 'Загрузка файлов...' : 'Loading files...'}</p>
         </div>
     `;
     
@@ -508,7 +503,7 @@ async function loadAssetFiles(blockType, assetType) {
                     <svg class="icon icon-warning me-2" width="16" height="16">
                         <use href="/templates/default/admin/icons/bs.svg#exclamation-triangle"></use>
                     </svg>
-                    ${data.message || 'Файлы не найдены. Вы можете указать путь вручную.'}
+                    ${data.message || (lang === 'ru' ? 'Файлы не найдены. Вы можете указать путь вручную.' : 'Files not found. You can specify the path manually.')}
                 `;
             }
         }
@@ -519,7 +514,7 @@ async function loadAssetFiles(blockType, assetType) {
                 <svg class="icon icon-error me-2" width="16" height="16">
                     <use href="/templates/default/admin/icons/bs.svg#exclamation-circle"></use>
                 </svg>
-                Ошибка загрузки: ${escapeHtml(error.message)}
+                ${lang === 'ru' ? 'Ошибка загрузки:' : 'Error loading:'} ${escapeHtml(error.message)}
             </div>
         `;
     }
