@@ -137,12 +137,19 @@ class AdminController extends Controller {
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
+                $token = $_POST['csrf_token'] ?? '';
+                if (!\CsrfToken::verify($token, 'admin_login')) {
+                    throw new \Exception('Invalid CSRF token');
+                }
+
                 $username = $_POST['username'] ?? '';
                 $password = $_POST['password'] ?? '';
-        
+
                 $user = $this->userModel->authenticate($username, $password);
-        
+
                 if ($user) {
+                    session_regenerate_id(true);
+
                     $_SESSION['user_id'] = $user['id'];
                     $_SESSION['username'] = $user['username'];
                     $_SESSION['is_admin'] = $user['is_admin'];
@@ -151,14 +158,14 @@ class AdminController extends Controller {
                     return;
                 } else {
                     Notification::error(LANG_CONTROLLER_ADMIN_INVALID_CREDENTIALS);
-                    $this->render('admin/login');
+                    $this->render('admin/login', ['csrf_token' => \CsrfToken::generate('admin_login')]);
                 }
             } catch (Exception $e) {
                 Notification::error(LANG_CONTROLLER_ADMIN_AUTH_ERROR);
-                $this->render('admin/login');
+                $this->render('admin/login', ['csrf_token' => \CsrfToken::generate('admin_login')]);
             }
         } else {
-            $this->render('admin/login');
+            $this->render('admin/login', ['csrf_token' => \CsrfToken::generate('admin_login')]);
         }
     }
     
