@@ -151,10 +151,6 @@ class Controller {
             $layoutFile = TEMPLATES_PATH . '/default/admin/layout.php';
         } else {
             $layoutFile = TEMPLATES_PATH . '/' . DEFAULT_TEMPLATE . '/front/layout.php';
-            
-            $categories = $this->db->fetchAll("SELECT * FROM categories ORDER BY name");
-            $pages = $this->db->fetchAll("SELECT * FROM pages WHERE status = 'published' ORDER BY title");
-            $tags = $this->db->fetchAll("SELECT * FROM tags ORDER BY name");
         }
         
         if (!file_exists($layoutFile)) {
