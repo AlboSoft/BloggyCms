@@ -41,7 +41,8 @@ class Database {
             $this->prefix = defined('DB_PREFIX') ? DB_PREFIX : '';
             
         } catch(PDOException $e) {
-            die("Connection failed: " . $e->getMessage());
+            error_log("Database connection failed: " . $e->getMessage());
+            die("Connection failed. Please check logs.");
         }
     }
 
@@ -58,41 +59,45 @@ class Database {
     }
 
     /**
-    * Обрабатывает SQL и добавляет префикс к таблицам
-    * Поддерживает: FROM, JOIN, INTO, UPDATE, TABLE, REFERENCES
-    * @param string $sql SQL запрос
-    * @return string Обработанный SQL
-    */
+     * Обрабатывает SQL и добавляет префикс к таблицам
+     * Поддерживает: FROM, JOIN, INTO, UPDATE, TABLE, REFERENCES
+     * @param string $sql SQL запрос
+     * @return string Обработанный SQL
+     */
     private function addPrefixToSql($sql) {
         if (empty($this->prefix)) {
             return $sql;
         }
-        
+
         $skipTables = [
             'INFORMATION_SCHEMA', 'performance_schema', 'mysql', 'sys',
             'CURRENT_TIMESTAMP', 'CURRENT_DATE', 'CURRENT_TIME',
             'NULL', 'TRUE', 'FALSE'
         ];
-        
+
         $sql = preg_replace_callback(
-            '/(FROM|JOIN|INTO|UPDATE|TABLE|REFERENCES|DELETE\s+FROM)\s+`?([a-zA-Z][a-zA-Z0-9_]*)`?/i',
+            '/(FROM|JOIN|INTO|UPDATE|TABLE|REFERENCES|DELETE\s+FROM)\s+`?([a-zA-Z_][a-zA-Z0-9_]*)`?/i',
             function($matches) use ($skipTables) {
                 $keyword = $matches[1];
                 $tableName = $matches[2];
-                
+
                 if (in_array(strtoupper($tableName), $skipTables)) {
                     return $matches[0];
                 }
-                
+
                 if (strpos($tableName, $this->prefix) === 0) {
                     return $matches[0];
                 }
-                
+
+                if (!preg_match('/^[a-zA-Z_][a-zA-Z0-9_]*$/', $tableName)) {
+                    return $matches[0];
+                }
+
                 return $keyword . ' `' . $this->prefix . $tableName . '`';
             },
             $sql
         );
-        
+
         return $sql;
     }
 
