@@ -594,8 +594,12 @@ class PostModel implements ModelAPI {
         if (!$post || !$post['password_protected']) {
             return true;
         }
-        
-        return $post['password'] === $password;
+
+        if (!isset($post['password']) || strlen($post['password']) < 32) {
+            return false;
+        }
+
+        return password_verify($password, $post['password']);
     }
     
     /**

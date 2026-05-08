@@ -243,8 +243,12 @@ class CategoryModel implements ModelAPI {
         if (!$category || !$category['password_protected']) {
             return true;
         }
-        
-        return $category['password'] === $password;
+
+        if (!isset($category['password']) || strlen($category['password']) < 32) {
+            return false;
+        }
+
+        return password_verify($password, $category['password']);
     }
     
     /**
