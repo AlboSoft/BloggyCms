@@ -82,7 +82,12 @@ try {
     die("Ошибка подключения к базе данных: " . $e->getMessage());
 }
 
-spl_autoload_register(function ($class) use ($db) {
+spl_autoload_register(function ($class) {
+    static $classMap = null;
+    static $helperSubdirs = null;
+    static $modulePaths = null;
+    static $modelMap = null;
+
     if ($class === 'AchievementTriggers') {
         $file = ROOT_PATH . '/system/controllers/users/AchievementTriggers.php';
         if (file_exists($file)) {
@@ -90,66 +95,120 @@ spl_autoload_register(function ($class) use ($db) {
             return;
         }
     }
-    
-    $classPath = str_replace('\\', '/', $class);
 
-    $basePaths = [
-        ROOT_PATH . '/system/controllers',
-        ROOT_PATH . '/system',
-        ROOT_PATH . '/system/core',
-        ROOT_PATH . '/system/helpers',
-        ROOT_PATH . '/system/fields',
-        ROOT_PATH . '/system/html_blocks',
-        ROOT_PATH . '/system/post_blocks'
-    ];
-    
-    $helpersDir = ROOT_PATH . '/system/helpers';
-    if (is_dir($helpersDir)) {
-        $helperSubdirs = glob($helpersDir . '/*', GLOB_ONLYDIR);
-        foreach ($helperSubdirs as $subdir) {
-            $basePaths[] = $subdir;
-        }
-    }
-    
-    $controllersDir = ROOT_PATH . '/system/controllers';
-    if (is_dir($controllersDir)) {
-        $modules = glob($controllersDir . '/*', GLOB_ONLYDIR);
-        foreach ($modules as $moduleDir) {
-            $basePaths[] = $moduleDir;
-            
-            $modelsSubdir = $moduleDir . '/models';
-            if (is_dir($modelsSubdir)) {
-                $basePaths[] = $modelsSubdir;
+    if ($classMap === null) {
+        $classMap = [];
+        $helperSubdirs = [];
+        $modulePaths = [];
+        $modelMap = [];
+
+        $helpersDir = ROOT_PATH . '/system/helpers';
+        if (is_dir($helpersDir)) {
+            foreach (glob($helpersDir . '/*', GLOB_ONLYDIR) as $subdir) {
+                $helperSubdirs[] = $subdir;
             }
-            
-            if (is_dir($moduleDir . '/actions')) {
-                $basePaths[] = $moduleDir . '/actions';
-            }
-            
-            $formsBackendDir = $moduleDir . '/forms/backend';
-            if (is_dir($formsBackendDir)) {
-                $basePaths[] = $formsBackendDir;
-            }
-            
-            $formsFrontendDir = $moduleDir . '/forms/frontend';
-            if (is_dir($formsFrontendDir)) {
-                $basePaths[] = $formsFrontendDir;
+            foreach (glob($helpersDir . '/*.php') as $file) {
+                $name = basename($file, '.php');
+                $classMap[$name] = $file;
             }
         }
+
+        $controllersDir = ROOT_PATH . '/system/controllers';
+        if (is_dir($controllersDir)) {
+            foreach (glob($controllersDir . '/*', GLOB_ONLYDIR) as $moduleDir) {
+                $moduleName = basename($moduleDir);
+                $modulePaths[] = $moduleDir;
+
+                foreach (glob($moduleDir . '/*.php') as $file) {
+                    $name = basename($file, '.php');
+                    $classMap[$name] = $file;
+                }
+                foreach (glob($moduleDir . '/models/*.php') as $file) {
+                    $name = basename($file, '.php');
+                    $classMap[$name] = $file;
+                }
+                foreach (glob($moduleDir . '/actions/*.php') as $file) {
+                    $name = basename($file, '.php');
+                    $classMap[$name] = $file;
+                }
+            }
+        }
+
+        $coreDir = ROOT_PATH . '/system/core';
+        if (is_dir($coreDir)) {
+            foreach (glob($coreDir . '/*.php') as $file) {
+                $name = basename($file, '.php');
+                $classMap[$name] = $file;
+            }
+        }
+
+        $systemDir = ROOT_PATH . '/system';
+        foreach (glob($systemDir . '/*.php') as $file) {
+            $name = basename($file, '.php');
+            $classMap[$name] = $file;
+        }
+
+        $fieldsDir = ROOT_PATH . '/system/fields';
+        if (is_dir($fieldsDir)) {
+            foreach (glob($fieldsDir . '/*.php') as $file) {
+                $name = basename($file, '.php');
+                $classMap[$name] = $file;
+            }
+        }
+
+        $htmlBlocksDir = ROOT_PATH . '/system/html_blocks';
+        if (is_dir($htmlBlocksDir)) {
+            foreach (glob($htmlBlocksDir . '/*.php') as $file) {
+                $name = basename($file, '.php');
+                $classMap[$name] = $file;
+            }
+        }
+
+        $postBlocksDir = ROOT_PATH . '/system/post_blocks';
+        if (is_dir($postBlocksDir)) {
+            foreach (glob($postBlocksDir . '/*.php') as $file) {
+                $name = basename($file, '.php');
+                $classMap[$name] = $file;
+            }
+        }
+
+        $modelMap = [
+            'Post' => 'posts/Model.php',
+            'User' => 'users/Model.php',
+            'Category' => 'categories/Model.php',
+            'Comment' => 'comments/Model.php',
+            'Page' => 'pages/Model.php',
+            'Tag' => 'tags/Tag.php',
+            'Field' => 'fields/Model.php',
+            'Setting' => 'settings/Model.php',
+            'Auth' => 'auth/Model.php',
+        ];
     }
-    
+
+    if (isset($classMap[$class])) {
+        require_once $classMap[$class];
+        return;
+    }
+
     if (preg_match('/(.+?)Model$/', $class, $matches)) {
         $baseName = $matches[1];
         $classNameWithoutModel = str_replace('Model', '', $class);
-        
+
+        if (isset($modelMap[$baseName])) {
+            $file = ROOT_PATH . '/system/controllers/' . $modelMap[$baseName];
+            if (file_exists($file)) {
+                require_once $file;
+                return;
+            }
+        }
+
+        $controllerDirs = glob(ROOT_PATH . '/system/controllers/*', GLOB_ONLYDIR);
         $possibleFiles = [
             $class . '.php',
             $classNameWithoutModel . 'Model.php',
             'Model.php'
         ];
-        
-        $controllerDirs = glob(ROOT_PATH . '/system/controllers/*', GLOB_ONLYDIR);
-        
+
         foreach ($controllerDirs as $controllerDir) {
             foreach ($possibleFiles as $fileName) {
                 $fullPath = $controllerDir . '/' . $fileName;
@@ -159,7 +218,7 @@ spl_autoload_register(function ($class) use ($db) {
                         return;
                     }
                 }
-                
+
                 $modelSubdirPath = $controllerDir . '/models/' . $fileName;
                 if (file_exists($modelSubdirPath)) {
                     require_once $modelSubdirPath;
@@ -172,7 +231,7 @@ spl_autoload_register(function ($class) use ($db) {
 
         $modelName = strtolower($baseName);
         $modelDir = ROOT_PATH . '/system/controllers/' . $modelName;
-        
+
         if (is_dir($modelDir)) {
             foreach ($possibleFiles as $fileName) {
                 $modelFile = $modelDir . '/' . $fileName;
@@ -182,7 +241,7 @@ spl_autoload_register(function ($class) use ($db) {
                         return;
                     }
                 }
-                
+
                 $modelSubdirFile = $modelDir . '/models/' . $fileName;
                 if (file_exists($modelSubdirFile)) {
                     require_once $modelSubdirFile;
@@ -194,12 +253,23 @@ spl_autoload_register(function ($class) use ($db) {
         }
     }
 
+    $classPath = str_replace('\\', '/', $class);
+    $basePaths = array_merge([
+        ROOT_PATH . '/system/controllers',
+        ROOT_PATH . '/system',
+        ROOT_PATH . '/system/core',
+    ], $helperSubdirs, $modulePaths, [
+        ROOT_PATH . '/system/fields',
+        ROOT_PATH . '/system/html_blocks',
+        ROOT_PATH . '/system/post_blocks'
+    ]);
+
     $possibleFiles = [
         $classPath . '.php',
         $class . '.php',
         basename($classPath) . '.php',
     ];
-    
+
     foreach ($basePaths as $basePath) {
         foreach ($possibleFiles as $file) {
             $fullPath = $basePath . '/' . $file;
