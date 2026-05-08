@@ -26,6 +26,7 @@
                         <?php } ?>
 
                         <form method="post">
+                            <?php echo \CsrfToken::field('admin_login'); ?>
                             <input type="hidden" name="username" value="<?php echo html($username ?? ''); ?>">
                             <input type="hidden" name="password" value="<?php echo html($password ?? ''); ?>">
                             <input type="hidden" name="expected_answer" value="<?php echo html($expectedAnswer ?? ''); ?>">
