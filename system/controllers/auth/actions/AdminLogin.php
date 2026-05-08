@@ -42,6 +42,13 @@ class AdminLogin extends AuthAction {
         $attemptsInfo = $this->loginAttemptModel->getAttemptsInfo();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $token = $_POST['csrf_token'] ?? '';
+            if (!\CsrfToken::verify($token, 'admin_login')) {
+                $_SESSION['admin_login_attempt_failed'] = true;
+                $this->showBlockedPage();
+                return;
+            }
+
             $username = $_POST['username'] ?? '';
             $password = $_POST['password'] ?? '';
             $newAttempts = $this->loginAttemptModel->incrementAttempt(null, $maxAttempts, $blockTime);
@@ -65,7 +72,8 @@ class AdminLogin extends AuthAction {
                         'authSettings' => $authSettings,
                         'currentAttempts' => $newAttempts['attempts'],
                         'maxAttempts' => $maxAttempts,
-                        'error' => LANG_ACTION_AUTH_ADMINLOGIN_ANSWER_REQUIRED
+                        'error' => LANG_ACTION_AUTH_ADMINLOGIN_ANSWER_REQUIRED,
+                        'csrf_token' => \CsrfToken::generate('admin_login')
                     ]);
                     return;
                 } else {
@@ -83,7 +91,8 @@ class AdminLogin extends AuthAction {
                             'authSettings' => $authSettings,
                             'currentAttempts' => $newAttempts['attempts'],
                             'maxAttempts' => $maxAttempts,
-                            'error' => LANG_ACTION_AUTH_ADMINLOGIN_INVALID_ANSWER
+                            'error' => LANG_ACTION_AUTH_ADMINLOGIN_INVALID_ANSWER,
+                            'csrf_token' => \CsrfToken::generate('admin_login')
                         ]);
                         return;
                     }
@@ -104,14 +113,16 @@ class AdminLogin extends AuthAction {
                 'expectedAnswer' => $randomQA['answer'],
                 'authSettings' => $authSettings,
                 'currentAttempts' => $attemptsInfo['attempts'],
-                'maxAttempts' => $maxAttempts
+                'maxAttempts' => $maxAttempts,
+                'csrf_token' => \CsrfToken::generate('admin_login')
             ]);
         } else {
             $this->render('admin/login', [
                 'showQuestion' => false,
                 'authSettings' => $authSettings,
                 'currentAttempts' => $attemptsInfo['attempts'],
-                'maxAttempts' => $maxAttempts
+                'maxAttempts' => $maxAttempts,
+                'csrf_token' => \CsrfToken::generate('admin_login')
             ]);
         }
     }
@@ -264,25 +275,27 @@ class AdminLogin extends AuthAction {
     private function processAdminLogin($username, $password, $authSettings, $currentAttempts) {
         $user = $this->userModel->authenticate($username, $password);
         if ($user && ($user['is_admin'] || $user['role'] === 'admin')) {
+            session_regenerate_id(true);
+
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
             $_SESSION['is_admin'] = true;
-            
+
             $this->updateLastAdminIP($user['id'], $_SERVER['REMOTE_ADDR']);
-            
+
             $activityManager = UserActivityManager::getInstance($this->db);
             $activityManager->touch($user['id']);
-            
+
             unset($_SESSION['admin_login_attempt_failed']);
             $this->loginAttemptModel->resetAttempts();
             $this->redirect(ADMIN_URL . '/');
         } else {
             $_SESSION['admin_login_attempt_failed'] = true;
-            
+
             $showQA = $authSettings['show_qa'] ?? false;
             $qaParam = $authSettings['qa_param'] ?? 'opt2';
             $wordsArray = $authSettings['words_array'] ?? [];
-            
+
             $shouldShowQA = $this->shouldShowQuestions($showQA, $qaParam, $username);
             $randomQA = $this->getRandomQuestion($wordsArray);
 
@@ -293,7 +306,8 @@ class AdminLogin extends AuthAction {
                 'expectedAnswer' => $shouldShowQA ? $randomQA['answer'] : '',
                 'authSettings' => $authSettings,
                 'currentAttempts' => $currentAttempts,
-                'maxAttempts' => $authSettings['count_auth'] ?? 3
+                'maxAttempts' => $authSettings['count_auth'] ?? 3,
+                'csrf_token' => \CsrfToken::generate('admin_login')
             ]);
         }
     }
