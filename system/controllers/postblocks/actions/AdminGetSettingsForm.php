@@ -15,12 +15,19 @@ class AdminGetSettingsForm extends PostBlockAction {
     */
     public function execute() {
         
-        $systemName = $_GET['system_name'] ?? '';
+        $input = json_decode(file_get_contents('php://input'), true);
         
-        $currentSettings = isset($_GET['current_settings']) ? 
-            json_decode(urldecode($_GET['current_settings']), true) : [];
-        $currentContent = isset($_GET['current_content']) ? 
-            json_decode(urldecode($_GET['current_content']), true) : [];
+        if ($input) {
+            $systemName = $input['system_name'] ?? '';
+            $currentSettings = $input['current_settings'] ?? [];
+            $currentContent = $input['current_content'] ?? [];
+        } else {
+            $systemName = $_GET['system_name'] ?? '';
+            $currentSettings = isset($_GET['current_settings']) ? 
+                json_decode(urldecode($_GET['current_settings']), true) : [];
+            $currentContent = isset($_GET['current_content']) ? 
+                json_decode(urldecode($_GET['current_content']), true) : [];
+        }
         
         if (empty($systemName)) {
             echo '';

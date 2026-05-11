@@ -18,7 +18,8 @@ class AdminGetPresets extends PostBlockAction {
         
         try {
 
-            $systemName = $_GET['system_name'] ?? '';
+            $input = json_decode(file_get_contents('php://input'), true);
+            $systemName = $input['system_name'] ?? $_GET['system_name'] ?? '';
 
             if (empty($systemName)) {
                 throw new \Exception(LANG_ACTION_POSTBLOCKS_ADMINGETPRESETS_SYSTEM_NAME_NOT_SPECIFIED);

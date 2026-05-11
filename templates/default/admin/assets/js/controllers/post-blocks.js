@@ -234,7 +234,17 @@
         try {
             const [presets, response] = await Promise.all([
                 this.getBlockPresets(block.type),
-                fetch(`${window.ADMIN_URL}/post-blocks/get-settings-form?system_name=${block.type}&current_settings=${encodeURIComponent(JSON.stringify(block.settings || {}))}&current_content=${encodeURIComponent(JSON.stringify(block.content || {}))}`)
+                fetch(`${window.ADMIN_URL}/post-blocks/get-settings-form`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        system_name: block.type,
+                        current_settings: block.settings || {},
+                        current_content: block.content || {}
+                    })
+                })
             ]);
             
             if (!response.ok) throw new Error(`HTTP ${response.status}`);
@@ -564,7 +574,11 @@
 
     async getDefaultContent(blockType) {
         try {
-            const res = await fetch(`${window.ADMIN_URL}/post-blocks/get-default-content?system_name=${blockType}`);
+            const res = await fetch(`${window.ADMIN_URL}/post-blocks/get-default-content`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ system_name: blockType })
+            });
             const data = await res.json();
             return data.success ? data.content : {};
         } catch { return {}; }
@@ -572,7 +586,11 @@
 
     async getDefaultSettings(blockType) {
         try {
-            const res = await fetch(`${window.ADMIN_URL}/post-blocks/get-default-settings?system_name=${blockType}`);
+            const res = await fetch(`${window.ADMIN_URL}/post-blocks/get-default-settings`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ system_name: blockType })
+            });
             const data = await res.json();
             return data.success ? data.settings : {};
         } catch { return {}; }
@@ -580,7 +598,11 @@
 
     async getBlockPresets(blockType) {
         try {
-            const res = await fetch(`${window.ADMIN_URL}/post-blocks/get-presets?system_name=${blockType}`);
+            const res = await fetch(`${window.ADMIN_URL}/post-blocks/get-presets`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ system_name: blockType })
+            });
             const data = await res.json();
             return data.success ? (data.presets || []) : [];
         } catch { return []; }

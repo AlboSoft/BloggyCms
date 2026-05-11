@@ -17,7 +17,8 @@ class AdminGetDefaultSettings extends PostBlockAction {
         header('Content-Type: application/json');
         
         try {
-            $systemName = $_GET['system_name'] ?? '';
+            $input = json_decode(file_get_contents('php://input'), true);
+            $systemName = $input['system_name'] ?? $_GET['system_name'] ?? '';
             
             if (empty($systemName)) {
                 throw new \Exception(LANG_ACTION_POSTBLOCKS_ADMINGETDEFAULTSETTINGS_SYSTEM_NAME_NOT_SPECIFIED);
