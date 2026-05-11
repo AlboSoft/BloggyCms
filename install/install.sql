@@ -142,7 +142,8 @@ CREATE TABLE IF NOT EXISTS `{#}bookmarks` (
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_bookmark` (`user_id`,`post_id`),
-  KEY `post_id` (`post_id`)
+  KEY `post_id` (`post_id`),
+  KEY `idx_bookmarks_user_post` (`user_id`, `post_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -166,7 +167,8 @@ CREATE TABLE IF NOT EXISTS `{#}categories` (
   `password` varchar(255) DEFAULT NULL,
   `sort_order` int NOT NULL DEFAULT '0',
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `idx_categories_slug` (`slug`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -189,7 +191,9 @@ CREATE TABLE IF NOT EXISTS `{#}comments` (
   PRIMARY KEY (`id`),
   KEY `post_id` (`post_id`),
   KEY `user_id` (`user_id`),
-  KEY `parent_id` (`parent_id`)
+  KEY `parent_id` (`parent_id`),
+  KEY `idx_comments_post_status` (`post_id`, `status`),
+  KEY `idx_comments_status_created` (`status`, `created_at`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -442,7 +446,9 @@ CREATE TABLE IF NOT EXISTS `{#}pages` (
   `status` enum('draft','published') DEFAULT 'draft',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `idx_pages_status` (`status`),
+  KEY `idx_pages_status_created` (`status`, `created_at`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -535,7 +541,12 @@ CREATE TABLE IF NOT EXISTS `{#}posts` (
   `is_adult` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `category_id` (`category_id`),
-  KEY `user_id` (`user_id`)
+  KEY `user_id` (`user_id`),
+  KEY `idx_posts_status` (`status`),
+  KEY `idx_posts_created_at` (`created_at`),
+  KEY `idx_posts_status_created` (`status`, `created_at`),
+  KEY `idx_posts_category_status` (`category_id`, `status`),
+  KEY `idx_posts_user_status` (`user_id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -604,7 +615,8 @@ CREATE TABLE IF NOT EXISTS `{#}post_likes` (
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_like` (`post_id`,`user_id`),
-  KEY `user_id` (`user_id`)
+  KEY `user_id` (`user_id`),
+  KEY `idx_post_likes_post_count` (`post_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -617,7 +629,8 @@ CREATE TABLE IF NOT EXISTS `{#}post_tags` (
   `post_id` int NOT NULL,
   `tag_id` int NOT NULL,
   PRIMARY KEY (`post_id`,`tag_id`),
-  KEY `tag_id` (`tag_id`)
+  KEY `tag_id` (`tag_id`),
+  KEY `idx_post_tags_tag_post` (`tag_id`, `post_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -664,7 +677,8 @@ CREATE TABLE IF NOT EXISTS `{#}tags` (
   `image` varchar(255) DEFAULT NULL,
   `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `idx_tags_slug` (`slug`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -708,7 +722,9 @@ CREATE TABLE IF NOT EXISTS `{#}users` (
   `role` enum('admin','user') DEFAULT 'user',
   `status` enum('active','banned') DEFAULT 'active',
   `last_admin_ip` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `idx_users_status` (`status`),
+  KEY `idx_users_last_activity` (`last_activity`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
