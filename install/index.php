@@ -2,6 +2,13 @@
 
 session_start();
 
+if (isset($_GET['lang']) && in_array($_GET['lang'], ['ru', 'en'])) {
+    $_SESSION['install_lang'] = $_GET['lang'];
+    $redirectUrl = strtok($_SERVER['REQUEST_URI'], '?');
+    header('Location: ' . $redirectUrl);
+    exit;
+}
+
 ob_start();
 
 if (isset($_SESSION['install_complete']) && $_SESSION['install_complete'] === true &&

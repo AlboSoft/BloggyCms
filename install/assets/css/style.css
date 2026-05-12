@@ -921,3 +921,97 @@ h3 i {
 .install-step {
     animation: fadeIn 0.3s ease;
 }
+
+.icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    fill: currentColor;
+    stroke: none;
+    flex-shrink: 0;
+}
+
+.icon-sm { width: 16px; height: 16px; }
+.icon-md { width: 20px; height: 20px; }
+.icon-lg { width: 24px; height: 24px; }
+.icon-xl { width: 32px; height: 32px; }
+.icon-2xl { width: 48px; height: 48px; }
+
+.btn .icon {
+    margin-right: 8px;
+}
+
+.step-icon .icon {
+    width: 20px;
+    height: 20px;
+}
+
+.logo-icon .icon {
+    width: 32px;
+    height: 32px;
+}
+
+.icon-accent {
+    fill: var(--accent, #3498db);
+}
+
+.icon-success {
+    fill: #27ae60;
+}
+
+.icon-error {
+    fill: #e74c3c;
+}
+
+.icon-warning {
+    fill: #f39c12;
+}
+
+.icon-info {
+    fill: #3498db;
+}
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 26px;
+    flex-shrink: 0;
+}
+
+.toggle-switch .toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.3s;
+    border-radius: 34px;
+}
+
+.toggle-switch .toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.3s;
+    border-radius: 50%;
+}
+
+input:checked + .toggle-switch .toggle-slider {
+    background-color: #3498db;
+}
+
+input:checked + .toggle-switch .toggle-slider:before {
+    transform: translateX(24px);
+}
+
+input:focus + .toggle-switch .toggle-slider {
+    box-shadow: 0 0 2px #3498db;
+}

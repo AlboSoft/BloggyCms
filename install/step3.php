@@ -344,29 +344,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<h2><i class="fas fa-user-shield" style="color: var(--accent); margin-right: 8px;"></i> <?php echo $t['title']; ?></h2>
+<h2><?php echo icon('bs', 'person-badge', '24', 'var(--accent)', '', 'style="margin-right: 8px;"'); ?> <?php echo $t['title']; ?></h2>
 <p class="step-subtitle"><?php echo $t['subtitle']; ?></p>
 
 <?php if (!empty($errors)) { ?>
-    <div class="alert alert-error"><i class="fas fa-exclamation-circle"></i><div><strong><?php echo $t['error']; ?></strong><ul style="margin-top:8px;margin-left:20px"><?php foreach($errors as $e) { ?><li><?php echo htmlspecialchars($e); ?></li><?php } ?></ul></div></div>
+    <div class="alert alert-error"><?php echo icon('bs', 'exclamation-circle', '20'); ?><div><strong><?php echo $t['error']; ?></strong><ul style="margin-top:8px;margin-left:20px"><?php foreach($errors as $e) { ?><li><?php echo htmlspecialchars($e); ?></li><?php } ?></ul></div></div>
 <?php } ?>
 
 <form method="post" class="needs-validation" novalidate>
-    <h3><i class="fas fa-globe"></i> <?php echo $t['blog_settings']; ?></h3>
+    <h3><?php echo icon('bs', 'globe2', '16'); ?> <?php echo $t['blog_settings']; ?></h3>
     <div class="form-row">
         <div class="form-group">
             <label class="form-label"><?php echo $t['site_name']; ?> <span class="required">*</span></label>
             <input type="text" name="site_name" class="form-input" value="<?php echo htmlspecialchars($siteConfig['site_name']); ?>" required placeholder="Мой блог">
-            <div class="form-hint"><i class="fas fa-info-circle"></i> <?php echo $t['site_name_hint']; ?></div>
+            <div class="form-hint"><?php echo icon('bs', 'info-circle', '14'); ?> <?php echo $t['site_name_hint']; ?></div>
         </div>
         <div class="form-group">
             <label class="form-label"><?php echo $t['site_url']; ?> <span class="required">*</span></label>
             <input type="url" name="site_url" id="site_url" class="form-input" value="<?php echo htmlspecialchars($siteConfig['site_url']); ?>" required>
-            <div class="form-hint"><i class="fas fa-info-circle"></i> <?php echo $t['site_url_hint']; ?></div>
+            <div class="form-hint"><?php echo icon('bs', 'info-circle', '14'); ?> <?php echo $t['site_url_hint']; ?></div>
         </div>
     </div>
 
-    <h3 style="margin-top: 30px;"><i class="fas fa-language"></i> <?php echo $t['language_settings']; ?></h3>
+    <h3 style="margin-top: 30px;"><?php echo icon('bs', 'translate', '16'); ?> <?php echo $t['language_settings']; ?></h3>
     <div class="form-row">
         <div class="form-group">
             <label class="form-label"><?php echo $t['admin_language']; ?></label>
@@ -377,7 +377,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </option>
                 <?php } ?>
             </select>
-            <div class="form-hint"><i class="fas fa-info-circle"></i> <?php echo $t['admin_language_hint']; ?></div>
+            <div class="form-hint"><?php echo icon('bs', 'info-circle', '14'); ?> <?php echo $t['admin_language_hint']; ?></div>
         </div>
         <div class="form-group">
             <label class="form-label"><?php echo $t['site_language']; ?></label>
@@ -388,21 +388,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </option>
                 <?php } ?>
             </select>
-            <div class="form-hint"><i class="fas fa-info-circle"></i> <?php echo $t['site_language_hint']; ?></div>
+            <div class="form-hint"><?php echo icon('bs', 'info-circle', '14'); ?> <?php echo $t['site_language_hint']; ?></div>
         </div>
     </div>
 
-    <h3 style="margin-top: 30px;"><i class="fas fa-user-lock"></i> <?php echo $t['admin_data']; ?></h3>
+    <h3 style="margin-top: 30px;"><?php echo icon('bs', 'person-lock', '16'); ?> <?php echo $t['admin_data']; ?></h3>
     <div class="form-row">
         <div class="form-group">
             <label class="form-label"><?php echo $t['username']; ?> <span class="required">*</span></label>
             <input type="text" name="admin_username" class="form-input" value="<?php echo htmlspecialchars($siteConfig['admin_username']); ?>" required minlength="3">
-            <div class="form-hint"><i class="fas fa-info-circle"></i> <?php echo $t['username_hint']; ?></div>
+            <div class="form-hint"><?php echo icon('bs', 'info-circle', '14'); ?> <?php echo $t['username_hint']; ?></div>
         </div>
         <div class="form-group">
             <label class="form-label"><?php echo $t['email']; ?> <span class="required">*</span></label>
             <input type="email" name="admin_email" class="form-input" value="<?php echo htmlspecialchars($siteConfig['admin_email']); ?>" required>
-            <div class="form-hint"><i class="fas fa-info-circle"></i> <?php echo $t['email_hint']; ?></div>
+            <div class="form-hint"><?php echo icon('bs', 'info-circle', '14'); ?> <?php echo $t['email_hint']; ?></div>
         </div>
     </div>
     <div class="form-row">
@@ -412,7 +412,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <input type="password" name="admin_password" id="admin_password"
                        class="form-input" required minlength="6">
                 <button type="button" class="password-toggle" title="<?php echo $t['password']; ?>">
-                    <i class="fas fa-eye"></i>
+                    <?php echo icon('bs', 'eye', '16'); ?>
                 </button>
             </div>
             <div class="password-strength">
@@ -426,7 +426,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <input type="password" name="admin_password_confirm" id="admin_password_confirm"
                        class="form-input" required>
                 <button type="button" class="password-toggle" title="<?php echo $t['password_confirm']; ?>">
-                    <i class="fas fa-eye"></i>
+                    <?php echo icon('bs', 'eye', '16'); ?>
                 </button>
             </div>
             <div class="form-hint"><?php echo $t['password_confirm_hint']; ?></div>
@@ -434,18 +434,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <div class="alert alert-info" style="margin-top:24px">
-        <i class="fas fa-shield-alt"></i>
+        <?php echo icon('bs', 'shield-check', '16'); ?>
         <div><strong><?php echo $t['important']; ?>:</strong> <?php echo $t['save_credentials']; ?></div>
     </div>
 
     <div class="mt-4 flex-between">
-        <a href="index.php" class="btn btn-outline"><i class="fas fa-arrow-left"></i> <?php echo $t['back']; ?></a>
+        <a href="index.php" class="btn btn-outline"><?php echo icon('bs', 'arrow-left', '16'); ?> <?php echo $t['back']; ?></a>
         <div class="flex">
             <button type="button" onclick="generatePassword()" class="btn btn-secondary">
-                <i class="fas fa-random"></i> <?php echo $t['generate']; ?>
+                <?php echo icon('bs', 'shuffle', '16'); ?> <?php echo $t['generate']; ?>
             </button>
             <button type="submit" class="btn btn-primary" id="install-btn">
-                <?php echo $t['install']; ?> <i class="fas fa-check"></i>
+                <?php echo $t['install']; ?> <?php echo icon('bs', 'check-lg', '16'); ?>
             </button>
         </div>
     </div>

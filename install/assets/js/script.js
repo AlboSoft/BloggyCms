@@ -5,10 +5,41 @@ document.addEventListener('DOMContentLoaded', function() {
     initDatabaseTest();
     initProgressIndicator();
     initAutoDetectUrl();
+    initToggleSwitches();
 });
+
+function getCurrentLang() {
+    return document.documentElement.lang || 'ru';
+}
+
+function initToggleSwitches() {
+    document.querySelectorAll('.toggle-switch').forEach(toggle => {
+        const checkbox = toggle.previousElementSibling;
+        if (checkbox && checkbox.type === 'checkbox') {
+            if (checkbox.checked) {
+                toggle.querySelector('.toggle-slider').style.backgroundColor = '#3498db';
+            }
+            
+            toggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                checkbox.checked = !checkbox.checked;
+                checkbox.dispatchEvent(new Event('change'));
+                
+                const slider = this.querySelector('.toggle-slider');
+                if (checkbox.checked) {
+                    slider.style.backgroundColor = '#3498db';
+                } else {
+                    slider.style.backgroundColor = '#ccc';
+                }
+            });
+        }
+    });
+}
 
 function initFormValidation() {
     const forms = document.querySelectorAll('.needs-validation');
+    const lang = getCurrentLang();
+    const errorMessage = lang === 'ru' ? 'Заполните все обязательные поля' : 'Please fill all required fields';
     
     forms.forEach(form => {
         form.addEventListener('submit', function(event) {
@@ -39,7 +70,7 @@ function initFormValidation() {
             if (hasEmpty) {
                 event.preventDefault();
                 event.stopPropagation();
-                showNotification('Заполните все обязательные поля', 'error');
+                showNotification(errorMessage, 'error');
                 return;
             }
             
@@ -64,6 +95,11 @@ function initPasswordStrength() {
     const passwordInput = document.getElementById('admin_password');
     if (!passwordInput) return;
     
+    const lang = getCurrentLang();
+    const weakText = lang === 'ru' ? 'Слабый пароль' : 'Weak password';
+    const mediumText = lang === 'ru' ? 'Средний пароль' : 'Medium password';
+    const strongText = lang === 'ru' ? 'Надёжный пароль' : 'Strong password';
+    
     const strengthContainer = document.createElement('div');
     strengthContainer.className = 'password-strength';
     strengthContainer.innerHTML = `
@@ -84,13 +120,13 @@ function initPasswordStrength() {
         strengthBar.className = 'strength-bar';
         if (strength.score <= 1) {
             strengthBar.classList.add('weak');
-            strengthText.textContent = 'Слабый пароль';
+            strengthText.textContent = weakText;
         } else if (strength.score === 2) {
             strengthBar.classList.add('medium');
-            strengthText.textContent = 'Средний пароль';
+            strengthText.textContent = mediumText;
         } else {
             strengthBar.classList.add('strong');
-            strengthText.textContent = 'Надежный пароль';
+            strengthText.textContent = strongText;
         }
     });
     
@@ -109,6 +145,8 @@ function initPasswordStrength() {
 
 function initPasswordToggle() {
     const passwordFields = document.querySelectorAll('input[type="password"]');
+    const lang = getCurrentLang();
+    const toggleTitle = lang === 'ru' ? 'Показать/скрыть пароль' : 'Show/hide password';
     
     passwordFields.forEach(field => {
         if (field.closest('.password-wrapper')?.querySelector('.password-toggle')) {
@@ -127,8 +165,8 @@ function initPasswordToggle() {
         const toggleBtn = document.createElement('button');
         toggleBtn.type = 'button';
         toggleBtn.className = 'password-toggle';
-        toggleBtn.title = 'Показать/скрыть пароль';
-        toggleBtn.innerHTML = '<i class="fas fa-eye"></i>';
+        toggleBtn.title = toggleTitle;
+        toggleBtn.innerHTML = '<svg class="icon icon-eye" width="16" height="16" fill="currentColor" style="display: inline-block; vertical-align: middle;"><use href="../templates/default/admin/icons/bs.svg#eye"/></svg>';
         const parent = field.closest('.password-wrapper') || field.parentElement;
         parent.style.position = 'relative';
         
@@ -139,10 +177,11 @@ function initPasswordToggle() {
             e.stopPropagation();
             const type = field.getAttribute('type') === 'password' ? 'text' : 'password';
             field.setAttribute('type', type);
-            const icon = this.querySelector('i');
+            
+            const icon = this.querySelector('use');
             if (icon) {
-                icon.classList.toggle('fa-eye', type === 'password');
-                icon.classList.toggle('fa-eye-slash', type === 'text');
+                const href = type === 'password' ? '../templates/default/admin/icons/bs.svg#eye' : '../templates/default/admin/icons/bs.svg#eye-slash';
+                icon.setAttribute('href', href);
             }
         });
     });
@@ -157,10 +196,14 @@ function initDatabaseTest() {
     testBtn.addEventListener('click', async function() {
         const form = document.getElementById('db-form');
         const formData = new FormData(form);
+        const lang = getCurrentLang();
+        const checkingText = lang === 'ru' ? 'Проверка...' : 'Checking...';
+        const successText = lang === 'ru' ? 'Подключение успешно!' : 'Connection successful!';
+        const errorText = lang === 'ru' ? 'Ошибка' : 'Error';
+        const networkErrorText = lang === 'ru' ? 'Ошибка сети' : 'Network error';
         
         this.disabled = true;
-        const originalContent = this.innerHTML;
-        this.innerHTML = '<span class="spinner"></span>';
+        this.innerHTML = '<span class="spinner"></span> ' + checkingText;
         
         try {
             const response = await fetch('ajax/test-connection.php', {
@@ -170,15 +213,15 @@ function initDatabaseTest() {
             const result = await response.json();
             
             if (result.success) {
-                showNotification('Подключение успешно!', 'success');
+                showNotification(successText, 'success');
             } else {
-                showNotification('Ошибка: ' + result.message, 'error');
+                showNotification(errorText + ': ' + result.message, 'error');
             }
         } catch (error) {
-            showNotification('Ошибка сети', 'error');
+            showNotification(networkErrorText, 'error');
         } finally {
             this.disabled = false;
-            this.innerHTML = originalContent;
+            this.innerHTML = originalText;
         }
     });
 }
@@ -231,6 +274,8 @@ function showNotification(message, type = 'info') {
 window.generatePassword = function() {
     const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()';
     let password = '';
+    const lang = getCurrentLang();
+    const generatedText = lang === 'ru' ? 'Пароль сгенерирован' : 'Password generated';
     
     for (let i = 0; i < 12; i++) {
         password += charset.charAt(Math.floor(Math.random() * charset.length));
@@ -242,6 +287,6 @@ window.generatePassword = function() {
     if (passwordField && confirmField) {
         passwordField.value = password;
         confirmField.value = password;
-        showNotification('Пароль сгенерирован', 'success');
+        showNotification(generatedText, 'success');
     }
 };

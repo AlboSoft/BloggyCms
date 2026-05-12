@@ -109,11 +109,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<h2><i class="fas fa-database" style="color: var(--accent); margin-right: 8px;"></i> <?php echo $t['title']; ?></h2>
+<h2><?php echo icon('bs', 'database', '24', 'var(--accent)', '', 'style="margin-right: 8px;"'); ?> <?php echo $t['title']; ?></h2>
 <p class="step-subtitle"><?php echo $t['subtitle']; ?></p>
 
 <?php if (!empty($errors)) { ?>
-    <div class="alert alert-error"><i class="fas fa-exclamation-circle"></i><div><strong><?php echo $t['error']; ?></strong><ul style="margin-top:8px;margin-left:20px"><?php foreach($errors as $e) { ?><li><?php echo htmlspecialchars($e); ?></li><?php } ?></ul></div></div>
+    <div class="alert alert-error"><?php echo icon('bs', 'exclamation-circle', '20'); ?><div><strong><?php echo $t['error']; ?></strong><ul style="margin-top:8px;margin-left:20px"><?php foreach($errors as $e) { ?><li><?php echo htmlspecialchars($e); ?></li><?php } ?></ul></div></div>
 <?php } ?>
 
 <form method="post" class="needs-validation" id="db-form" novalidate>
@@ -121,24 +121,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="form-group">
             <label class="form-label"><?php echo $t['host']; ?> <span class="required">*</span></label>
             <input type="text" name="db_host" class="form-input" value="<?php echo htmlspecialchars($dbConfig['host']); ?>" required>
-            <div class="form-hint"><i class="fas fa-info-circle"></i> <?php echo $t['host_hint']; ?></div>
+            <div class="form-hint"><?php echo icon('bs', 'info-circle', '14'); ?> <?php echo $t['host_hint']; ?></div>
         </div>
         <div class="form-group">
             <label class="form-label"><?php echo $t['port']; ?> <span class="required">*</span></label>
             <input type="number" name="db_port" class="form-input" value="<?php echo htmlspecialchars($dbConfig['port']); ?>" required>
-            <div class="form-hint"><i class="fas fa-info-circle"></i> <?php echo $t['port_hint']; ?></div>
+            <div class="form-hint"><?php echo icon('bs', 'info-circle', '14'); ?> <?php echo $t['port_hint']; ?></div>
         </div>
     </div>
     <div class="form-row">
         <div class="form-group">
             <label class="form-label"><?php echo $t['db_name']; ?> <span class="required">*</span></label>
             <input type="text" name="db_name" class="form-input" value="<?php echo htmlspecialchars($dbConfig['name']); ?>" required>
-            <div class="form-hint"><i class="fas fa-info-circle"></i> <?php echo $t['name_hint']; ?></div>
+            <div class="form-hint"><?php echo icon('bs', 'info-circle', '14'); ?> <?php echo $t['name_hint']; ?></div>
         </div>
         <div class="form-group">
             <label class="form-label"><?php echo $t['db_prefix']; ?></label>
             <input type="text" name="db_prefix" class="form-input" value="<?php echo htmlspecialchars($dbConfig['prefix']); ?>">
-            <div class="form-hint"><i class="fas fa-info-circle"></i> <?php echo $t['prefix_hint']; ?></div>
+            <div class="form-hint"><?php echo icon('bs', 'info-circle', '14'); ?> <?php echo $t['prefix_hint']; ?></div>
         </div>
     </div>
     <div class="form-row">
@@ -152,7 +152,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <input type="password" name="db_pass" class="form-input"
                        value="<?php echo htmlspecialchars($dbConfig['pass']); ?>" id="db_pass">
                 <button type="button" class="password-toggle" title="<?php echo $t['toggle_password'] ?? 'Показать/скрыть пароль'; ?>">
-                    <i class="fas fa-eye"></i>
+                    <?php echo icon('bs', 'eye', '16'); ?>
                 </button>
             </div>
         </div>
@@ -160,27 +160,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <div class="form-group mt-3">
         <div class="form-check" style="background: var(--surface-alt); padding: 16px; border-radius: var(--radius-sm); border: 1px solid var(--border);">
-            <input type="checkbox" name="install_demo" id="install_demo" class="form-check-input" value="1" <?php echo !empty($dbConfig['install_demo']) ? 'checked' : ''; ?>>
-            <label class="form-check-label" for="install_demo" style="font-weight: 600; color: var(--text-primary); cursor: pointer;">
-                <i class="fas fa-seedling" style="color: var(--accent); margin-right: 6px;"></i>
-                <?php echo $t['install_demo']; ?>
+            <label style="display: flex; align-items: center; gap: 12px; cursor: pointer; margin-bottom: 8px;">
+                <input type="checkbox" name="install_demo" id="install_demo" value="1" <?php echo !empty($dbConfig['install_demo']) ? 'checked' : ''; ?> style="display: none;">
+                <div class="toggle-switch">
+                    <span class="toggle-slider"></span>
+                </div>
+                <span class="form-check-label" style="font-weight: 600; color: var(--text-primary); cursor: pointer;">
+                    <?php echo icon('bs', 'flower1', '16', 'var(--accent)', '', 'style="margin-right: 6px;"'); ?>
+                    <?php echo $t['install_demo']; ?>
+                </span>
             </label>
             <div class="form-hint" style="margin-top: 8px; margin-left: 24px;">
-                <i class="fas fa-info-circle"></i> 
+                <?php echo icon('bs', 'info-circle', '14'); ?> 
                 <?php echo $t['install_demo_desc']; ?>
             </div>
         </div>
     </div>
 
     <div class="alert alert-info" style="margin-top:24px">
-        <i class="fas fa-info-circle"></i>
+        <?php echo icon('bs', 'info-circle', '14'); ?>
         <div><strong><?php echo $t['important']; ?>:</strong> <?php echo $t['permissions_hint']; ?></div>
     </div>
     <div class="mt-4 flex-between">
-        <a href="?restart=1" class="btn btn-outline"><i class="fas fa-arrow-left"></i> <?php echo $t['back_btn']; ?></a>
+        <a href="?restart=1" class="btn btn-outline"><?php echo icon('bs', 'arrow-left', '16'); ?> <?php echo $t['back_btn']; ?></a>
         <div class="flex">
-            <button type="button" id="test-connection" class="btn btn-secondary"><i class="fas fa-plug"></i> <?php echo $t['test_btn']; ?></button>
-            <button type="submit" class="btn btn-primary"><?php echo $t['connect_btn']; ?> <i class="fas fa-arrow-right"></i></button>
+            <button type="button" id="test-connection" class="btn btn-secondary"><?php echo icon('bs', 'plug', '16'); ?> <?php echo $t['test_btn']; ?></button>
+            <button type="submit" class="btn btn-primary"><?php echo $t['connect_btn']; ?> <?php echo icon('bs', 'arrow-right', '16'); ?></button>
         </div>
     </div>
 </form>
@@ -223,7 +228,7 @@ document.getElementById('test-connection')?.addEventListener('click', function()
     })
     .finally(() => {
         this.disabled = false;
-        this.innerHTML = '<i class="fas fa-plug"></i> <?php echo $t['test_btn']; ?>';
+        this.innerHTML = '<?php echo icon('bs', 'plug', '16'); ?> <?php echo $t['test_btn']; ?>';
     });
 });
 </script>
