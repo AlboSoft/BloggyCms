@@ -249,13 +249,45 @@ class AdminSettings {
                 ]
             ]),
 
-            new \Fieldset(LANG_CONTROLLER_ADMINSETTINGS_FIELDSET_APPEARANCE, [
-                'icon' => 'bi bi-palette',
-                'columns' => '6',
+            new \Fieldset(LANG_CONTROLLER_ADMINSETTINGS_FIELDSET_HEADER, [
+                'icon' => 'bi bi-grid-1x2',
+                'columns' => 'custom',
                 'fields' => [
+                    \FieldFactory::alert('header_info', [
+                        'title' => LANG_CONTROLLER_ADMINSETTINGS_ALERT_TITLE,
+                        'hint' => LANG_CONTROLLER_ADMINSETTINGS_BRANDING_HINT,
+                        'type' => 'success',
+                        'icon' => 'info-circle',
+                        'full_width' => true
+                    ]),
+                    \FieldFactory::checkbox('show_site_name_in_logo', [
+                        'title' => LANG_CONTROLLER_ADMINSETTINGS_FIELD_SHOW_SITE_NAME_IN_LOGO,
+                        'hint' => LANG_CONTROLLER_ADMINSETTINGS_HINT_SHOW_SITE_NAME_IN_LOGO,
+                        'default' => true,
+                        'switch' => true,
+                        'column' => 12
+                    ]),
+                    
+                    \FieldFactory::image('logo_image', [
+                        'title' => LANG_CONTROLLER_ADMINSETTINGS_FIELD_LOGO_IMAGE,
+                        'upload_path' => 'uploads/settings/admin/',
+                        'preview_size' => '64px',
+                        'show' => 'field:show_site_name_in_logo',
+                        'column' => 6
+                    ]),
+                    
+                    \FieldFactory::string('custom_site_name', [
+                        'title' => LANG_CONTROLLER_ADMINSETTINGS_FIELD_CUSTOM_SITE_NAME,
+                        'hint' => LANG_CONTROLLER_ADMINSETTINGS_HINT_CUSTOM_SITE_NAME,
+                        'placeholder' => LANG_CONTROLLER_ADMINSETTINGS_PLACEHOLDER_CUSTOM_SITE_NAME,
+                        'maxlength' => 100,
+                        'show' => 'field:show_site_name_in_logo',
+                        'column' => 6
+                    ]),
                     \FieldFactory::image('bg_panel', [
                         'title' => LANG_CONTROLLER_ADMINSETTINGS_FIELD_BG_PANEL,
-                        'upload_path' => 'uploads/settings/admin/'
+                        'upload_path' => 'uploads/settings/admin/',
+                        'column' => 6
                     ]),
                     \FieldFactory::select('notification_position', [
                         'title' => LANG_CONTROLLER_ADMINSETTINGS_FIELD_NOTIFICATION_POSITION,
@@ -265,7 +297,8 @@ class AdminSettings {
                             'bottom-left' => LANG_CONTROLLER_ADMINSETTINGS_OPTION_BOTTOM_LEFT,
                             'bottom-right' => LANG_CONTROLLER_ADMINSETTINGS_OPTION_BOTTOM_RIGHT
                         ],
-                        'default' => 'top-right'
+                        'default' => 'top-right',
+                        'column' => 6
                     ]),
                 ]
             ]),

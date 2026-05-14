@@ -1,88 +1,90 @@
 <div class="login-wrapper">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-4">
-                <div class="card login-card">
-                    <div class="card-body p-4">
-                        <div class="login-header">
-                            <div class="login-icon">
-                                <img src="/templates/default/admin/assets/img/logo-outline.png" style="width: 64px;">
-                            </div>
-                            <h4><?php echo LANG_LOGIN_TITLE; ?></h4>
-                            <p class="text-muted"><?php echo LANG_LOGIN_SUBTITLE; ?></p>
-                        </div>
-                        
-                        <?php if(isset($error) && !empty($error)) { ?>
-                            <div class="alert alert-danger d-flex align-items-center" role="alert">
-                                <i class="bi bi-exclamation-circle me-2"></i><?php echo html($error); ?>
-                            </div>
-                        <?php } ?>
+    <div class="login-box">
+        <div class="login-header">
+            <div class="login-logo">
+                <img src="/templates/default/admin/assets/img/logo-outline.png" alt="">
+            </div>
+            <h1 class="login-title"><?php echo LANG_LOGIN_TITLE; ?></h1>
+            <p class="login-subtitle"><?php echo LANG_LOGIN_SUBTITLE; ?></p>
+        </div>
 
-                        <?php if (isset($currentAttempts) && $currentAttempts > 0) { ?>
-                        <div class="alert alert-warning d-flex align-items-center" role="alert">
-                            <i class="bi bi-exclamation-triangle me-2"></i>
-                            <?php echo LANG_LOGIN_ATTEMPT_TEXT; ?> <?php echo $currentAttempts; ?> <?php echo LANG_LOGIN_OF_TEXT; ?> <?php echo $maxAttempts; ?>
-                        </div>
-                        <?php } ?>
+        <?php if (isset($error) && !empty($error)) { ?>
+            <div class="login-alert login-alert-error" role="alert">
+                <i class="bi bi-exclamation-circle"></i>
+                <span><?php echo html($error); ?></span>
+            </div>
+        <?php } ?>
 
-                        <form method="post">
-                            <?php echo \CsrfToken::field('admin_login'); ?>
-                            <input type="hidden" name="username" value="<?php echo html($username ?? ''); ?>">
-                            <input type="hidden" name="password" value="<?php echo html($password ?? ''); ?>">
-                            <input type="hidden" name="expected_answer" value="<?php echo html($expectedAnswer ?? ''); ?>">
-                            
-                            <div class="mb-4">
-                                <label class="form-label text-muted"><?php echo LANG_LOGIN_USERNAME_LABEL; ?></label>
-                                <div class="input-group">
-                                    <span class="input-group-text">
-                                        <i class="bi bi-person"></i>
-                                    </span>
-                                    <input type="text" name="username" class="form-control" placeholder="<?php echo LANG_LOGIN_USERNAME_PLACEHOLDER; ?>" required 
-                                        value="<?php echo html($username ?? ''); ?>" 
-                                        <?php echo (isset($showQuestion) && $showQuestion && !empty($username)) ? 'readonly' : 'autofocus'; ?>>
-                                </div>
-                            </div>
+        <?php if (isset($currentAttempts) && $currentAttempts > 0) { ?>
+            <div class="login-alert login-alert-warning" role="alert">
+                <i class="bi bi-exclamation-triangle"></i>
+                <span><?php echo LANG_LOGIN_ATTEMPT_TEXT; ?> <?php echo $currentAttempts; ?> <?php echo LANG_LOGIN_OF_TEXT; ?> <?php echo $maxAttempts; ?></span>
+            </div>
+        <?php } ?>
 
-                            <div class="mb-4">
-                                <label class="form-label text-muted"><?php echo LANG_LOGIN_PASSWORD_LABEL; ?></label>
-                                <div class="input-group">
-                                    <span class="input-group-text">
-                                        <i class="bi bi-key"></i>
-                                    </span>
-                                    <input type="password" name="password" class="form-control" placeholder="<?php echo LANG_LOGIN_PASSWORD_PLACEHOLDER; ?>" required
-                                        <?php echo (isset($showQuestion) && $showQuestion && !empty($password)) ? 'readonly' : ''; ?>>
-                                </div>
-                            </div>
+        <form method="post" class="login-form" novalidate>
+            <?php echo \CsrfToken::field('admin_login'); ?>
+            <input type="hidden" name="username" value="<?php echo html($username ?? ''); ?>">
+            <input type="hidden" name="password" value="<?php echo html($password ?? ''); ?>">
+            <input type="hidden" name="expected_answer" value="<?php echo html($expectedAnswer ?? ''); ?>">
 
-                            <?php if (isset($showQuestion) && $showQuestion && !empty($question) && $question !== LANG_LOGIN_ERROR_NO_QUESTIONS) { ?>
-                                <div class="mb-4">
-                                    <label class="form-label text-muted"><?php echo LANG_LOGIN_SECURITY_QUESTION_LABEL; ?></label>
-                                    <div class="alert alert-info">
-                                        <strong><?php echo html($question); ?></strong>
-                                    </div>
-                                </div>
-                                
-                                <div class="mb-4">
-                                    <label class="form-label text-muted"><?php echo LANG_LOGIN_SECURITY_ANSWER_LABEL; ?></label>
-                                    <div class="input-group">
-                                        <span class="input-group-text">
-                                            <i class="bi bi-chat-dots"></i>
-                                        </span>
-                                        <input type="text" name="qa_answer" class="form-control" placeholder="<?php echo LANG_LOGIN_SECURITY_ANSWER_PLACEHOLDER; ?>" required autofocus>
-                                    </div>
-                                </div>
-                            <?php } ?>
-
-                            <div class="d-grid">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="bi bi-box-arrow-in-right me-2"></i>
-                                    <?php echo (isset($showQuestion) && $showQuestion) ? LANG_LOGIN_CONTINUE_BUTTON : LANG_LOGIN_SUBMIT_BUTTON; ?>
-                                </button>
-                            </div>
-                        </form>
-                    </div>
+            <div class="login-field">
+                <label for="login-username" class="login-label"><?php echo LANG_LOGIN_USERNAME_LABEL; ?></label>
+                <div class="login-input-wrapper">
+                    <input type="text"
+                           id="login-username"
+                           name="username"
+                           class="login-input"
+                           placeholder="<?php echo LANG_LOGIN_USERNAME_PLACEHOLDER; ?>"
+                           required
+                           autocomplete="username"
+                           value="<?php echo html($username ?? ''); ?>"
+                           <?php echo (isset($showQuestion) && $showQuestion && !empty($username)) ? 'readonly' : 'autofocus'; ?>>
+                    <span class="login-input-icon"><i class="bi bi-person"></i></span>
                 </div>
             </div>
-        </div>
+
+            <div class="login-field">
+                <label for="login-password" class="login-label"><?php echo LANG_LOGIN_PASSWORD_LABEL; ?></label>
+                <div class="login-input-wrapper">
+                    <input type="password"
+                           id="login-password"
+                           name="password"
+                           class="login-input"
+                           placeholder="<?php echo LANG_LOGIN_PASSWORD_PLACEHOLDER; ?>"
+                           required
+                           autocomplete="current-password"
+                           <?php echo (isset($showQuestion) && $showQuestion && !empty($password)) ? 'readonly' : ''; ?>>
+                    <span class="login-input-icon"><i class="bi bi-lock"></i></span>
+                </div>
+            </div>
+
+            <?php if (isset($showQuestion) && $showQuestion && !empty($question) && $question !== LANG_LOGIN_ERROR_NO_QUESTIONS) { ?>
+                <div class="login-question">
+                    <span class="login-question-label"><?php echo LANG_LOGIN_SECURITY_QUESTION_LABEL; ?></span>
+                    <?php echo html($question); ?>
+                </div>
+
+                <div class="login-field">
+                    <label for="login-answer" class="login-label"><?php echo LANG_LOGIN_SECURITY_ANSWER_LABEL; ?></label>
+                    <div class="login-input-wrapper">
+                        <input type="text"
+                               id="login-answer"
+                               name="qa_answer"
+                               class="login-input"
+                               placeholder="<?php echo LANG_LOGIN_SECURITY_ANSWER_PLACEHOLDER; ?>"
+                               required
+                               autocomplete="off"
+                               autofocus>
+                        <span class="login-input-icon"><i class="bi bi-chat-dots"></i></span>
+                    </div>
+                </div>
+            <?php } ?>
+
+            <button type="submit" class="login-submit">
+                <i class="bi bi-box-arrow-in-right"></i>
+                <?php echo (isset($showQuestion) && $showQuestion) ? LANG_LOGIN_CONTINUE_BUTTON : LANG_LOGIN_SUBMIT_BUTTON; ?>
+            </button>
+        </form>
     </div>
 </div>

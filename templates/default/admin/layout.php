@@ -35,20 +35,39 @@
     ?>
         <div class="admin-wrapper">
             <aside class="sidebar" <?php if(!empty(SettingsHelper::get('controller_admin', 'bg_panel'))) { ?>style="background-size: cover; background-image: url('<?php echo BASE_URL ?>/uploads/settings/admin/<?php echo SettingsHelper::get('controller_admin', 'bg_panel') ?>')"<?php } ?>>
-                <div class="sidebar-brand">
-                    <div class="brand-row">
-                        <a href="<?php echo ADMIN_URL ?>" class="brand-logo">
-                            <img src="/templates/default/admin/assets/img/logo-outline-light.png" alt="<?php echo LANG_ADMIN_FAVICON_ALT; ?>">
-                            <span>BLOGGY<span class="cms-highlight">CMS</span></span>
-                        </a>
-                        <div class="version-wrapper">
-                            <span class="version-badge"><?php echo LANG_ADMIN_VERSION; ?> <?php echo VersionHelper::getVersion(); ?></span>
-                            <a href="/admin/check-updates" class="version-update" title="<?php echo LANG_ADMIN_CHECK_UPDATES; ?>">
-                                <?php echo bloggy_icon('bs', 'arrow-repeat', '14', '#ffffff'); ?>
+                    <div class="sidebar-brand">
+                        <div class="brand-row">
+                            <a href="<?php echo ADMIN_URL ?>" class="brand-logo">
+                                <?php 
+                                $logoImage = SettingsHelper::get('controller_admin', 'logo_image');
+                                if (!empty($logoImage)) { 
+                                ?>
+                                    <img src="<?php echo BASE_URL . '/uploads/settings/admin/' . $logoImage; ?>" 
+                                        alt="<?php echo LANG_ADMIN_FAVICON_ALT; ?>"
+                                        class="brand-image">
+                                <?php } else { ?>
+                                    <img src="/templates/default/admin/assets/img/logo-outline-light.png" 
+                                        alt="<?php echo LANG_ADMIN_FAVICON_ALT; ?>">
+                                <?php } ?>
+                                
+                                <?php if (SettingsHelper::get('controller_admin', 'show_site_name_in_logo', true)) {
+                                    $customSiteName = trim(SettingsHelper::get('controller_admin', 'custom_site_name', ''));
+                                    $siteName = !empty($customSiteName) ? $customSiteName : SettingsHelper::get('general', 'site_name', 'BloggyCMS');
+                                ?>
+                                    <span><?php echo html($siteName); ?></span>
+                                <?php } else { ?>
+                                    <span>BLOGGY<span class="cms-highlight">CMS</span></span>
+                                <?php } ?>
                             </a>
+                            
+                            <div class="version-wrapper">
+                                <span class="version-badge"><?php echo LANG_ADMIN_VERSION; ?> <?php echo VersionHelper::getVersion(); ?></span>
+                                <a href="/admin/check-updates" class="version-update" title="<?php echo LANG_ADMIN_CHECK_UPDATES; ?>">
+                                    <?php echo bloggy_icon('bs', 'arrow-repeat', '14', '#ffffff'); ?>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
                 <nav class="nav flex-column">
                     <?php
                     $menuItems = [

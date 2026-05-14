@@ -4,7 +4,6 @@ define('LANG_CONTROLLER_ADMINSETTINGS_FIELDSET_POSTS_STATS', 'Статистик
 define('LANG_CONTROLLER_ADMINSETTINGS_FIELDSET_DETAILED_STATS', 'Детальная статистика');
 define('LANG_CONTROLLER_ADMINSETTINGS_FIELDSET_QUICK_ACTIONS', 'Быстрые действия');
 define('LANG_CONTROLLER_ADMINSETTINGS_FIELDSET_SEARCH', 'Поисковые запросы');
-define('LANG_CONTROLLER_ADMINSETTINGS_FIELDSET_APPEARANCE', 'Внешний вид');
 define('LANG_CONTROLLER_ADMINSETTINGS_FIELD_ALL_POSTS', 'Общее количество постов');
 define('LANG_CONTROLLER_ADMINSETTINGS_FIELD_CATEGORIES', 'Общее количество категорий');
 define('LANG_CONTROLLER_ADMINSETTINGS_FIELD_TAGS', 'Общее количество тегов');
@@ -58,3 +57,12 @@ define('LANG_CONTROLLER_ADMINSETTINGS_OPTION_TOP_LEFT', 'Сверху слева
 define('LANG_CONTROLLER_ADMINSETTINGS_OPTION_TOP_RIGHT', 'Сверху справа');
 define('LANG_CONTROLLER_ADMINSETTINGS_OPTION_BOTTOM_LEFT', 'Снизу слева');
 define('LANG_CONTROLLER_ADMINSETTINGS_OPTION_BOTTOM_RIGHT', 'Снизу справа');
+define('LANG_CONTROLLER_ADMINSETTINGS_FIELDSET_HEADER', 'Брендирование');
+define('LANG_CONTROLLER_ADMINSETTINGS_BRANDING_HINT', 'Если вы хотите заменить логотип BloggyCMS на ваш бренд, или показывать название сайта - включите эту опцию');
+define('LANG_CONTROLLER_ADMINSETTINGS_FIELD_SHOW_SITE_NAME_IN_LOGO', 'Отображать название сайта в логотипе');
+define('LANG_CONTROLLER_ADMINSETTINGS_HINT_SHOW_SITE_NAME_IN_LOGO', 'При включении вместо стандартного текста BLOGGYCMS будет отображаться название вашего сайта');
+define('LANG_CONTROLLER_ADMINSETTINGS_FIELD_LOGO_IMAGE', 'Иконка (изображение)');
+define('LANG_CONTROLLER_ADMINSETTINGS_FIELD_CUSTOM_SITE_NAME', 'Название сайта в шапке');
+define('LANG_CONTROLLER_ADMINSETTINGS_HINT_CUSTOM_SITE_NAME', 'Если не заполнено, будет использоваться общее название сайта из настроек');
+define('LANG_CONTROLLER_ADMINSETTINGS_PLACEHOLDER_CUSTOM_SITE_NAME', 'Мой сайт');
+define('LANG_CONTROLLER_ADMINSETTINGS_ALERT_TITLE', 'Брендирование админ-панели');
