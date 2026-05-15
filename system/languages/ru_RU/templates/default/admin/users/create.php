@@ -26,9 +26,6 @@ define('LANG_TEMPLATE_USERS_CREATE_ACHIEVEMENTS_MANUAL_BADGE', 'ручная');
 define('LANG_TEMPLATE_USERS_CREATE_ACHIEVEMENTS_HINT', 'Только ручные ачивки можно назначать вручную. Автоматические ачивки присваиваются при выполнении условий.');
 define('LANG_TEMPLATE_USERS_CREATE_ACHIEVEMENTS_EMPTY_TITLE', 'Ачивки не созданы');
 define('LANG_TEMPLATE_USERS_CREATE_ACHIEVEMENTS_CREATE_BTN', 'Создать ачивку');
-define('LANG_TEMPLATE_USERS_CREATE_ROLE_LABEL', 'Роль');
-define('LANG_TEMPLATE_USERS_CREATE_ROLE_USER', 'Пользователь');
-define('LANG_TEMPLATE_USERS_CREATE_ROLE_ADMIN', 'Администратор');
 define('LANG_TEMPLATE_USERS_CREATE_STATUS_LABEL', 'Статус');
 define('LANG_TEMPLATE_USERS_CREATE_STATUS_ACTIVE', 'Активен');
 define('LANG_TEMPLATE_USERS_CREATE_STATUS_BANNED', 'Заблокирован');
@@ -36,3 +33,5 @@ define('LANG_TEMPLATE_USERS_CREATE_SUBMIT_BTN', 'Создать пользова
 define('LANG_TEMPLATE_USERS_CREATE_SUBMIT_CREATING_TEXT', 'Создание...');
 define('LANG_TEMPLATE_USERS_CREATE_VALIDATION_PASSWORDS_MISMATCH', 'Пароли не совпадают');
 define('LANG_TEMPLATE_USERS_CREATE_VALIDATION_PASSWORD_MIN_LENGTH', 'Пароль должен содержать минимум 6 символов');
+define('LANG_TEMPLATE_USERS_CREATE_IS_ADMIN_LABEL', 'Администратор');
+define('LANG_TEMPLATE_USERS_CREATE_IS_ADMIN_HINT', 'Предоставить пользователю полный доступ к админ-панели');

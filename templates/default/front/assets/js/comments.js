@@ -51,7 +51,7 @@ class CommentsSystem {
         const commentElement = document.getElementById(`comment-${commentId}`);
         const originalHTML = approveBtn.innerHTML;
         
-        approveBtn.innerHTML = this.getIconHtml('hourglass-bottom', 'currentColor', 'mr-1 pb-1') + 'Одобрение...';
+        approveBtn.innerHTML = this.getIconHtml('hourglass-bottom', 'currentColor', 'mr-1 pb-1') + (lang === 'ru' ? 'Одобрение...' : 'Approving...');
         approveBtn.disabled = true;
         
         try {
@@ -68,7 +68,7 @@ class CommentsSystem {
             }
             
         } catch (error) {
-            this.handleApproveError('Ошибка сети', approveBtn, originalHTML);
+            this.handleApproveError(lang === 'ru' ? 'Ошибка сети' : 'Network error', approveBtn, originalHTML);
         }
     }
 
@@ -401,7 +401,7 @@ class CommentsSystem {
             }
             
         } catch (error) {
-            this.handleCommentError('Произошла ошибка при отправке комментария');
+            this.handleCommentError(lang === 'ru' ? 'Произошла ошибка при отправке комментария' : 'An error occurred while sending the comment');
         } finally {
             this.showFormLoading(false);
         }
@@ -411,13 +411,13 @@ class CommentsSystem {
         const content = form.querySelector('#content')?.value.trim() || '';
         
         if (content.length < 10) {
-            this.showNotification('Текст комментария должен содержать не менее 10 символов', 'error');
+            this.showNotification(lang === 'ru' ? 'Текст комментария должен содержать не менее 10 символов' : 'Comment text must be at least 10 characters', 'error');
             form.querySelector('#content')?.focus();
             return false;
         }
         
         if (content.length > 5000) {
-            this.showNotification('Текст комментария слишком длинный (максимум 5000 символов)', 'error');
+            this.showNotification(lang === 'ru' ? 'Текст комментария слишком длинный (максимум 5000 символов)' : 'Comment text is too long (maximum 5000 characters)', 'error');
             form.querySelector('#content')?.focus();
             return false;
         }
@@ -427,13 +427,13 @@ class CommentsSystem {
             const authorEmail = form.querySelector('#author_email')?.value.trim() || '';
             
             if (!authorName) {
-                this.showNotification('Пожалуйста, введите ваше имя', 'error');
+                this.showNotification(lang === 'ru' ? 'Пожалуйста, введите ваше имя' : 'Please enter your name', 'error');
                 form.querySelector('#author_name')?.focus();
                 return false;
             }
             
             if (!authorEmail || !this.isValidEmail(authorEmail)) {
-                this.showNotification('Пожалуйста, введите корректный email', 'error');
+                this.showNotification(lang === 'ru' ? 'Пожалуйста, введите корректный email' : 'Please enter a valid email', 'error');
                 form.querySelector('#author_email')?.focus();
                 return false;
             }
@@ -461,8 +461,8 @@ class CommentsSystem {
         }
         
         if (submitText) {
-            submitText.textContent = show ? 'Отправка...' : 
-                (document.getElementById('comment-parent-id')?.value > 0 ? 'Отправить ответ' : 'Отправить комментарий');
+            submitText.textContent = show ? (lang === 'ru' ? 'Отправка...' : 'Sending...') : 
+                (document.getElementById('comment-parent-id')?.value > 0 ? (lang === 'ru' ? 'Отправить ответ' : 'Send reply') : (lang === 'ru' ? 'Отправить комментарий' : 'Send comment'));
         }
     }
     
@@ -519,7 +519,9 @@ class CommentsSystem {
     
     async showDeleteConfirmation(commentAuthor = '') {
         return new Promise((resolve) => {
-            if (window.confirm(`Вы уверены, что хотите удалить комментарий${commentAuthor ? ' от ' + commentAuthor : ''}?`)) {
+            if (window.confirm(lang === 'ru' 
+                ? `Вы уверены, что хотите удалить комментарий${commentAuthor ? ' от ' + commentAuthor : ''}?`
+                : `Are you sure you want to delete the comment${commentAuthor ? ' by ' + commentAuthor : ''}?`)) {
                 resolve(true);
             } else {
                 resolve(false);
@@ -531,7 +533,7 @@ class CommentsSystem {
         const originalHTML = deleteBtn.innerHTML;
         const originalDisabled = deleteBtn.disabled;
         
-        deleteBtn.innerHTML = '<svg class="icon icon-hourglass-bottom" width="18" height="18" style="fill: currentColor"><use href="/templates/default/admin/icons/bs.svg#hourglass-bottom"></use></svg> Удаление...';
+        deleteBtn.innerHTML = '<svg class="icon icon-hourglass-bottom" width="18" height="18" style="fill: currentColor"><use href="/templates/default/admin/icons/bs.svg#hourglass-bottom"></use></svg> ' + (lang === 'ru' ? 'Удаление...' : 'Deleting...');
         deleteBtn.disabled = true;
         
         try {
@@ -548,7 +550,7 @@ class CommentsSystem {
             }
             
         } catch (error) {
-            this.handleDeleteError('Ошибка сети', deleteBtn, originalHTML, originalDisabled);
+            this.handleDeleteError(lang === 'ru' ? 'Ошибка сети' : 'Network error', deleteBtn, originalHTML, originalDisabled);
         }
     }
     
@@ -597,12 +599,14 @@ class CommentsSystem {
         
         const formTitle = document.getElementById('comment-form-title');
         if (formTitle) {
-            formTitle.textContent = author ? `Ответить на комментарий ${author}` : 'Ответить на комментарий';
+            formTitle.textContent = author 
+                ? (lang === 'ru' ? `Ответить на комментарий ${author}` : `Reply to ${author}'s comment`)
+                : (lang === 'ru' ? 'Ответить на комментарий' : 'Reply to comment');
         }
         
         const submitText = document.getElementById('comment-submit-text');
         if (submitText) {
-            submitText.textContent = 'Отправить ответ';
+            submitText.textContent = lang === 'ru' ? 'Отправить ответ' : 'Send reply';
         }
     }
     
@@ -645,12 +649,12 @@ class CommentsSystem {
         
         const formTitle = document.getElementById('comment-form-title');
         if (formTitle) {
-            formTitle.textContent = 'Оставить комментарий';
+            formTitle.textContent = lang === 'ru' ? 'Оставить комментарий' : 'Leave a comment';
         }
         
         const submitText = document.getElementById('comment-submit-text');
         if (submitText) {
-            submitText.textContent = 'Отправить комментарий';
+            submitText.textContent = lang === 'ru' ? 'Отправить комментарий' : 'Send comment';
         }
         
         const contentInput = document.getElementById('content');
@@ -680,10 +684,10 @@ class CommentsSystem {
     toggleDeepReplies(button, container) {
         if (container.style.display === 'none' || !container.style.display) {
             container.style.display = 'block';
-            button.innerHTML = this.getIconHtml('chevron-up') + '<span>Скрыть ответы</span>';
+            button.innerHTML = this.getIconHtml('chevron-up') + '<span>' + (lang === 'ru' ? 'Скрыть ответы' : 'Hide replies') + '</span>';
         } else {
             container.style.display = 'none';
-            button.innerHTML = this.getIconHtml('chevron-down') + '<span>Показать ответы</span>';
+            button.innerHTML = this.getIconHtml('chevron-down') + '<span>' + (lang === 'ru' ? 'Показать ответы' : 'Show replies') + '</span>';
         }
     }
     
@@ -741,15 +745,16 @@ class CommentsSystem {
         const parentId = commentData.parent_id || 0;
         const showGroups = this.config.show_groups !== false;
         const showAdminBadge = this.config.show_admin_badge || false;
-        const adminBadgeTitle = this.config.admin_badge_title || 'Администратор';
+        const adminBadgeTitle = this.config.admin_badge_title || (lang === 'ru' ? 'Администратор' : 'Administrator');
         const adminBadgeIcon = this.config.admin_badge_icon || 'bs:rocket';
         const adminBadgeBgColor = this.config.admin_badge_bg_color || '#007bff';
         const adminBadgeTextColor = this.config.admin_badge_text_color || '#ffffff';
-        const moderationText = this.config.moderation_text || 'На модерации';
-        const youText = this.config.you_text || 'Вы';
-        const replyText = this.config.reply_text || 'Ответить';
-        const editText = this.config.edit_text || 'Редактировать';
-        const deleteText = this.config.delete_text || 'Удалить';
+        const moderationText = this.config.moderation_text || (lang === 'ru' ? 'На модерации' : 'On moderation');
+        const youText = this.config.you_text || (lang === 'ru' ? 'Вы' : 'You');
+        const replyText = this.config.reply_text || (lang === 'ru' ? 'Ответить' : 'Reply');
+        const editText = this.config.edit_text || (lang === 'ru' ? 'Редактировать' : 'Edit');
+        const deleteText = this.config.delete_text || (lang === 'ru' ? 'Удалить' : 'Delete');
+        
         let groupsHTML = '';
         if (showGroups && userGroups.length > 0) {
             groupsHTML = '<div class="user-groups">';
@@ -758,12 +763,14 @@ class CommentsSystem {
             });
             groupsHTML += '</div>';
         }
+        
         let adminBadgeStyle = '';
         let adminBadgeIconColor = 'currentColor';
         if (showAdminBadge && isAdmin && adminBadgeBgColor && adminBadgeTextColor) {
             adminBadgeStyle = `style="background-color: ${adminBadgeBgColor}; color: ${adminBadgeTextColor};"`;
             adminBadgeIconColor = adminBadgeTextColor;
         }
+        
         let adminBadgeHTML = '';
         if (showAdminBadge && isAdmin) {
             const iconParts = adminBadgeIcon.split(':');
@@ -791,7 +798,7 @@ class CommentsSystem {
         let ownBadgeHTML = '';
         if (isOwnComment) {
             ownBadgeHTML = `
-                <span class="badge-own" title="Ваш комментарий">
+                <span class="badge-own" title="${lang === 'ru' ? 'Ваш комментарий' : 'Your comment'}">
                     ${this.getIconHtml('person-check', 'currentColor', 'me-1')}
                     <span class="badge-text">${youText}</span>
                 </span>
@@ -801,7 +808,7 @@ class CommentsSystem {
         let replyBadgeHTML = '';
         if (parentId > 0) {
             replyBadgeHTML = `
-                <span class="badge-reply" title="Ответ">
+                <span class="badge-reply" title="${lang === 'ru' ? 'Ответ' : 'Reply'}">
                     ${this.getIconHtml('reply', 'currentColor', 'me-1')}
                 </span>
             `;
@@ -849,9 +856,9 @@ class CommentsSystem {
             actionsHTML += `
                 <a href="${this.config.admin_url}/comments/edit/${commentData.id}" 
                 class="btn-action btn-admin"
-                title="Редактировать (админ)">
+                title="${lang === 'ru' ? 'Редактировать (админ)' : 'Edit (admin)'}">
                     ${this.getIconHtml('gear', 'currentColor', 'me-1')}
-                    <span>Админ</span>
+                    <span>${lang === 'ru' ? 'Админ' : 'Admin'}</span>
                 </a>
             `;
         }
@@ -901,7 +908,7 @@ class CommentsSystem {
                                 </span>
                                 
                                 ${commentData.was_edited ? `
-                                    <span class="comment-updated" title="Отредактирован${commentData.updated_at ? ': ' + commentData.updated_at : ''}">
+                                    <span class="comment-updated" title="${lang === 'ru' ? 'Отредактирован' : 'Edited'}${commentData.updated_at ? ': ' + commentData.updated_at : ''}">
                                         ${this.getIconHtml('pencil', 'currentColor', 'mr-1 pb-1')}
                                     </span>
                                 ` : ''}
@@ -912,7 +919,7 @@ class CommentsSystem {
                             <div class="comment-admin-actions">
                                 <a href="${this.config.admin_url}/comments/approve/${commentData.id}" 
                                 class="btn-admin-approve" 
-                                title="Одобрить комментарий"
+                                title="${lang === 'ru' ? 'Одобрить комментарий' : 'Approve comment'}"
                                 data-comment-id="${commentData.id}">
                                     ${this.getIconHtml('check-lg', '#ffffff', '')}
                                 </a>
@@ -1019,10 +1026,10 @@ class CommentsSystem {
             <div class="comment-deleted">
                 <div class="deleted-message">
                     <svg class="icon icon-trash mr-1 pb-1" width="18" height="18" style="fill: currentColor"><use href="/templates/default/admin/icons/bs.svg#trash"></use></svg>
-                    Комментарий удален
+                    ${lang === 'ru' ? 'Комментарий удален' : 'Comment deleted'}
                 </div>
                 <div class="deleted-replies">
-                    Ответы на этот комментарий сохранены
+                    ${lang === 'ru' ? 'Ответы на этот комментарий сохранены' : 'Replies to this comment are preserved'}
                 </div>
             </div>
         `;
@@ -1057,8 +1064,8 @@ class CommentsSystem {
             commentsList.innerHTML = `
                 <div class="comments-empty text-center py-5">
                     ${this.getIconHtml('chat-text', '#6c757d', 'mb-3')}
-                    <h5 class="text-muted mt-3">Комментариев пока нет</h5>
-                    <p class="text-muted">Будьте первым, кто оставит комментарий!</p>
+                    <h5 class="text-muted mt-3">${lang === 'ru' ? 'Комментариев пока нет' : 'No comments yet'}</h5>
+                    <p class="text-muted">${lang === 'ru' ? 'Будьте первым, кто оставит комментарий!' : 'Be the first to leave a comment!'}</p>
                 </div>
             `;
         }

@@ -34,12 +34,12 @@ define('LANG_TEMPLATE_USERS_EDIT_ACHIEVEMENTS_HINT', 'Only manual achievements c
 define('LANG_TEMPLATE_USERS_EDIT_ACHIEVEMENTS_EMPTY_TITLE', 'No achievements created');
 define('LANG_TEMPLATE_USERS_EDIT_ACHIEVEMENTS_CREATE_BTN', 'Create Achievement');
 define('LANG_TEMPLATE_USERS_EDIT_USER_SETTINGS_TITLE', 'User Settings');
-define('LANG_TEMPLATE_USERS_EDIT_ROLE_LABEL', 'Role');
-define('LANG_TEMPLATE_USERS_EDIT_ROLE_USER', 'User');
-define('LANG_TEMPLATE_USERS_EDIT_ROLE_ADMIN', 'Administrator');
 define('LANG_TEMPLATE_USERS_EDIT_STATUS_LABEL', 'Status');
 define('LANG_TEMPLATE_USERS_EDIT_STATUS_ACTIVE', 'Active');
 define('LANG_TEMPLATE_USERS_EDIT_STATUS_BANNED', 'Banned');
 define('LANG_TEMPLATE_USERS_EDIT_REGISTERED_LABEL', 'Registered:');
 define('LANG_TEMPLATE_USERS_EDIT_SAVE_BTN', 'Save Changes');
 define('LANG_TEMPLATE_USERS_EDIT_CANCEL_BTN', 'Cancel');
+define('LANG_TEMPLATE_USERS_EDIT_IS_ADMIN_LABEL', 'Administrator');
+define('LANG_TEMPLATE_USERS_EDIT_IS_ADMIN_HINT', 'Grant the user full access to the admin panel');
+define('LANG_TEMPLATE_USERS_EDIT_MAIN_ADMIN_WARNING', 'Main system administrator - status cannot be changed');

@@ -36,11 +36,11 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const formData = new FormData(form);
             const submitBtn = form.querySelector('button[type="submit"]');
-            const originalText = submitBtn ? submitBtn.innerHTML : 'Отправить';
+            const originalText = submitBtn ? submitBtn.innerHTML : (lang === 'ru' ? 'Отправить' : 'Submit');
             
             if (submitBtn) {
                 submitBtn.disabled = true;
-                submitBtn.innerHTML = '<i class="bi bi-hourglass-split me-1"></i>Отправка...';
+                submitBtn.innerHTML = '<i class="bi bi-hourglass-split me-1"></i>' + (lang === 'ru' ? 'Отправка...' : 'Sending...');
             }
             
             fetch(form.action, {
@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('Произошла ошибка при отправке формы. Попробуйте позже.');
+                alert(lang === 'ru' ? 'Произошла ошибка при отправке формы. Попробуйте позже.' : 'An error occurred while submitting the form. Please try again later.');
                 if (submitBtn) {
                     submitBtn.disabled = false;
                     submitBtn.innerHTML = originalText;
@@ -125,16 +125,16 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         if (username.length < 3) {
-            usernameStatus.innerHTML = '<span class="tg-status-error">Too short</span>';
+            usernameStatus.innerHTML = '<span class="tg-status-error">' + (lang === 'ru' ? 'Слишком короткое' : 'Too short') + '</span>';
             return;
         }
         
         if (!/^[a-zA-Z0-9_]+$/.test(username)) {
-            usernameStatus.innerHTML = '<span class="tg-status-error">Invalid characters</span>';
+            usernameStatus.innerHTML = '<span class="tg-status-error">' + (lang === 'ru' ? 'Недопустимые символы' : 'Invalid characters') + '</span>';
             return;
         }
         
-        usernameStatus.innerHTML = '<span class="tg-status-valid">Available</span>';
+        usernameStatus.innerHTML = '<span class="tg-status-valid">' + (lang === 'ru' ? 'Доступно' : 'Available') + '</span>';
     }
     
     function checkEmail() {
@@ -146,11 +146,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         if (!email.includes('@') || !email.includes('.')) {
-            emailStatus.innerHTML = '<span class="tg-status-error">Invalid format</span>';
+            emailStatus.innerHTML = '<span class="tg-status-error">' + (lang === 'ru' ? 'Неверный формат' : 'Invalid format') + '</span>';
             return;
         }
         
-        emailStatus.innerHTML = '<span class="tg-status-valid">Valid</span>';
+        emailStatus.innerHTML = '<span class="tg-status-valid">' + (lang === 'ru' ? 'Верный' : 'Valid') + '</span>';
     }
     
     function checkPasswordStrength() {
@@ -177,7 +177,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (password.length >= 8) strength = 'medium';
         if (password.length >= 10 && /[A-Z]/.test(password) && /[0-9]/.test(password)) strength = 'strong';
         
-        const strengthText = strength === 'weak' ? 'Weak' : strength === 'medium' ? 'Medium' : 'Strong';
+        const strengthText = strength === 'weak' ? (lang === 'ru' ? 'Слабый' : 'Weak') : strength === 'medium' ? (lang === 'ru' ? 'Средний' : 'Medium') : (lang === 'ru' ? 'Сильный' : 'Strong');
         const strengthColor = strength === 'weak' ? '#dc3545' : strength === 'medium' ? '#f1c40f' : '#31b131';
         
         passwordStrength.innerHTML = `<span class="tg-status" style="color: ${strengthColor};">${strengthText}</span>`;
@@ -193,9 +193,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         if (password === confirm) {
-            passwordMatch.innerHTML = '<span class="tg-status-valid">✓ Match</span>';
+            passwordMatch.innerHTML = '<span class="tg-status-valid">✓ ' + (lang === 'ru' ? 'Совпадают' : 'Match') + '</span>';
         } else {
-            passwordMatch.innerHTML = '<span class="tg-status-error">✗ Don\'t match</span>';
+            passwordMatch.innerHTML = '<span class="tg-status-error">✗ ' + (lang === 'ru' ? 'Не совпадают' : 'Don\'t match') + '</span>';
         }
     }
     
@@ -250,16 +250,16 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (username.length < 3) {
                 isValid = false;
-                errorMessage = 'Username must be at least 3 characters';
+                errorMessage = lang === 'ru' ? 'Имя пользователя должно содержать не менее 3 символов' : 'Username must be at least 3 characters';
             } else if (password.length < 6) {
                 isValid = false;
-                errorMessage = 'Password must be at least 6 characters';
+                errorMessage = lang === 'ru' ? 'Пароль должен содержать не менее 6 символов' : 'Password must be at least 6 characters';
             } else if (password !== confirm) {
                 isValid = false;
-                errorMessage = 'Passwords do not match';
+                errorMessage = lang === 'ru' ? 'Пароли не совпадают' : 'Passwords do not match';
             } else if (!terms) {
                 isValid = false;
-                errorMessage = 'You must agree to the Terms of Service';
+                errorMessage = lang === 'ru' ? 'Вы должны согласиться с условиями использования' : 'You must agree to the Terms of Service';
             }
             
             if (!isValid) {
@@ -270,7 +270,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const submitBtn = document.getElementById('submit-btn');
             const originalText = submitBtn.innerHTML;
-            submitBtn.innerHTML = '<svg class="icon icon-hourglass tg-mr-1" width="16" height="16" style="fill: currentColor"><use href="/templates/default/admin/icons/bs.svg#hourglass"></use></svg> Создаю аккаунт...';
+            submitBtn.innerHTML = '<svg class="icon icon-hourglass tg-mr-1" width="16" height="16" style="fill: currentColor"><use href="/templates/default/admin/icons/bs.svg#hourglass"></use></svg> ' + (lang === 'ru' ? 'Создаю аккаунт...' : 'Creating account...');
             submitBtn.disabled = true;
             
             setTimeout(() => {

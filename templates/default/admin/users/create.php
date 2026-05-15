@@ -259,11 +259,14 @@
                 <div class="card border-0 shadow-sm mb-4">
                     <div class="card-body">
                         <div class="mb-4">
-                            <label class="form-label"><?php echo LANG_TEMPLATE_USERS_CREATE_ROLE_LABEL; ?></label>
-                            <select class="form-select" name="role" required>
-                                <option value="user"><?php echo LANG_TEMPLATE_USERS_CREATE_ROLE_USER; ?></option>
-                                <option value="admin"><?php echo LANG_TEMPLATE_USERS_CREATE_ROLE_ADMIN; ?></option>
-                            </select>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" name="is_admin" id="is_admin" value="1">
+                                <label class="form-check-label" for="is_admin">
+                                    <?php echo bloggy_icon('bs', 'shield-lock', '16', '#000', 'me-1'); ?>
+                                    <?php echo LANG_TEMPLATE_USERS_CREATE_IS_ADMIN_LABEL; ?>
+                                </label>
+                                <div class="form-text"><?php echo LANG_TEMPLATE_USERS_CREATE_IS_ADMIN_HINT; ?></div>
+                            </div>
                         </div>
                         
                         <div class="mb-4">

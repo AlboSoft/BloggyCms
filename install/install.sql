@@ -719,7 +719,6 @@ CREATE TABLE IF NOT EXISTS `{#}users` (
   `avatar` varchar(255) DEFAULT 'default.jpg',
   `bio` text,
   `website` varchar(255) DEFAULT NULL,
-  `role` enum('admin','user') DEFAULT 'user',
   `status` enum('active','banned') DEFAULT 'active',
   `last_admin_ip` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),

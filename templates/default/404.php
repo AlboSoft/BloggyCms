@@ -1,21 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<?php echo html(substr(SettingsHelper::get('general', 'site_language', 'ru_RU'), 0, 2)); ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 - Page Not Found</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta name="site-language" content="<?php echo html(substr(SettingsHelper::get('general', 'site_language', 'ru_RU'), 0, 2)); ?>">
+    <title><?php echo LANG_404_PAGE_TITLE; ?></title>
+    <link href="/templates/default/front/assets/css/404.css" rel="stylesheet">
 </head>
-<body class="bg-light">
-    <div class="container">
-        <div class="row justify-content-center mt-5">
-            <div class="col-md-6 text-center">
-                <h1 class="display-1">404</h1>
-                <h2>Page Not Found</h2>
-                <p class="lead">The page you are looking for doesn't exist or has been moved.</p>
-                <a href="<?= BASE_URL ?>" class="btn btn-primary">Go Home</a>
-            </div>
+<body>
+    <canvas id="bgCanvas"></canvas>
+    <div class="scanlines"></div>
+    <div class="glitch-overlay" id="glitchOverlay"></div>
+
+    <div class="content" id="mainContent">
+        <div class="error-code" id="errorCode">
+            <span class="digit" data-char="4">4</span>
+            <span class="digit zero-wrap">
+                <span class="zero-portal" id="portalZero">0</span>
+                <div class="portal-ring"></div>
+                <div class="portal-glow"></div>
+            </span>
+            <span class="digit" data-char="4">4</span>
         </div>
+
+        <div class="subtitle" id="subtitle"><?php echo LANG_404_SUBTITLE; ?></div>
+        <div class="message" id="messageText">
+            <?php echo LANG_404_MESSAGE; ?>
+        </div>
+
+        <div class="btn-wrapper" id="btnWrapper">
+            <a href="<?php echo BASE_URL; ?>" class="home-btn" id="homeBtn">
+                ← <?php echo LANG_404_BACK_HOME; ?>
+            </a>
+        </div>
+
+        <div class="attempt-counter" id="attemptCounter"></div>
     </div>
+
+    <div class="secret-hint"><?php echo LANG_404_SECRET_HINT; ?></div>
+    
+<script>const lang = document.querySelector('meta[name="site-language"]')?.content || 'ru';</script>
+<script src="/templates/default/front/assets/js/404.js"></script>
 </body>
 </html>

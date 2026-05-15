@@ -107,7 +107,7 @@ class AdminCreate extends UserAction {
             'display_name' => $_POST['display_name'] ?? null,
             'bio' => $_POST['bio'] ?? null,
             'website' => $_POST['website'] ?? null,
-            'role' => $_POST['role'] ?? 'user',
+            'is_admin' => isset($_POST['is_admin']) ? 1 : 0,
             'status' => $_POST['status'] ?? 'active'
         ];
     }

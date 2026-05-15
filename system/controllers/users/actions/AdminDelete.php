@@ -13,11 +13,16 @@ class AdminDelete extends UserAction {
     * @return void
     */
     public function execute() {
-
         $id = $this->params['id'] ?? null;
         
         if (!$id) {
             \Notification::error(LANG_ACTION_USERS_ADMINDELETE_NO_ID);
+            $this->redirect(ADMIN_URL . '/users');
+            return;
+        }
+        
+        if ($id == 1) {
+            \Notification::error(LANG_ACTION_USERS_ADMINDELETE_CANNOT_DELETE_MAIN_ADMIN);
             $this->redirect(ADMIN_URL . '/users');
             return;
         }
@@ -37,8 +42,8 @@ class AdminDelete extends UserAction {
                 return;
             }
             
-            if ($user['role'] === 'admin') {
-                $adminsCount = $this->userModel->db->fetch("SELECT COUNT(*) as count FROM users WHERE role = 'admin'");
+            if ($user['is_admin'] == 1) {
+                $adminsCount = $this->userModel->db->fetch("SELECT COUNT(*) as count FROM users WHERE is_admin = 1");
                 if ($adminsCount['count'] <= 1) {
                     \Notification::error(LANG_ACTION_USERS_ADMINDELETE_LAST_ADMIN);
                     $this->redirect(ADMIN_URL . '/users');

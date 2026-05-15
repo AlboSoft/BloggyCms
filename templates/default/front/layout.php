@@ -11,7 +11,7 @@ if ($maintenanceMode && !$isAdmin) {
     header('Retry-After: 3600');
     ?>
     <!DOCTYPE html>
-    <html lang="ru">
+    <html lang="<?php echo html(substr(SettingsHelper::get('general', 'site_language', 'ru_RU'), 0, 2)); ?>">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,7 +40,7 @@ $faviconUrl = !empty($favicon) ? BASE_URL . '/' . $favicon : BASE_URL . '/templa
 ?>
 
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="<?php echo html(substr(SettingsHelper::get('general', 'site_language', 'ru_RU'), 0, 2)); ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -48,7 +48,7 @@ $faviconUrl = !empty($favicon) ? BASE_URL . '/' . $favicon : BASE_URL . '/templa
     <link rel="icon" type="image/x-icon" href="<?= $faviconUrl ?>">
     <link rel="shortcut icon" type="image/x-icon" href="<?= $faviconUrl ?>">
     <link rel="apple-touch-icon" href="<?= $faviconUrl ?>">
-    
+    <meta name="site-language" content="<?php echo html(substr(SettingsHelper::get('general', 'site_language', 'ru_RU'), 0, 2)); ?>">
     <?php if(!empty(SettingsHelper::get('general', 'site_description'))) { ?>
     <meta name="description" content="<?php echo SettingsHelper::get('general', 'site_description'); ?>">
     <?php } ?>
@@ -74,10 +74,8 @@ $faviconUrl = !empty($favicon) ? BASE_URL . '/' . $favicon : BASE_URL . '/templa
     <?php echo render_html_block('footer'); ?>
     <?php echo render_html_block('top'); ?>
     <?php echo render_html_block('cookies'); ?>
-
-    
+    <script>const lang = document.querySelector('meta[name="site-language"]')?.content || 'ru';</script>
     <?php echo base_front_js(['bootstrap.bundle.min','notifications','main']); ?>
-    
     <?php echo render_front_js(); ?>
     <?php echo render_front_bottom_js(); ?>
 

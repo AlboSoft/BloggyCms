@@ -34,12 +34,12 @@ define('LANG_TEMPLATE_USERS_EDIT_ACHIEVEMENTS_HINT', 'Только ручные 
 define('LANG_TEMPLATE_USERS_EDIT_ACHIEVEMENTS_EMPTY_TITLE', 'Ачивки не созданы');
 define('LANG_TEMPLATE_USERS_EDIT_ACHIEVEMENTS_CREATE_BTN', 'Создать ачивку');
 define('LANG_TEMPLATE_USERS_EDIT_USER_SETTINGS_TITLE', 'Настройки пользователя');
-define('LANG_TEMPLATE_USERS_EDIT_ROLE_LABEL', 'Роль');
-define('LANG_TEMPLATE_USERS_EDIT_ROLE_USER', 'Пользователь');
-define('LANG_TEMPLATE_USERS_EDIT_ROLE_ADMIN', 'Администратор');
 define('LANG_TEMPLATE_USERS_EDIT_STATUS_LABEL', 'Статус');
 define('LANG_TEMPLATE_USERS_EDIT_STATUS_ACTIVE', 'Активен');
 define('LANG_TEMPLATE_USERS_EDIT_STATUS_BANNED', 'Заблокирован');
 define('LANG_TEMPLATE_USERS_EDIT_REGISTERED_LABEL', 'Зарегистрирован:');
 define('LANG_TEMPLATE_USERS_EDIT_SAVE_BTN', 'Сохранить изменения');
 define('LANG_TEMPLATE_USERS_EDIT_CANCEL_BTN', 'Отмена');
+define('LANG_TEMPLATE_USERS_EDIT_IS_ADMIN_LABEL', 'Администратор');
+define('LANG_TEMPLATE_USERS_EDIT_IS_ADMIN_HINT', 'Предоставить пользователю полный доступ к админ-панели');
+define('LANG_TEMPLATE_USERS_EDIT_MAIN_ADMIN_WARNING', 'Главный администратор системы - статус нельзя изменить');

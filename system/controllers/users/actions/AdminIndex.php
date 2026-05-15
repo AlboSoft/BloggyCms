@@ -117,7 +117,7 @@ class AdminIndex extends UserAction {
             }
         }
         
-        if (isset($user['is_admin']) && $user['is_admin']) {
+        if (isset($user['is_admin']) && $user['is_admin'] == 1) {
             return true;
         }
         

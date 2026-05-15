@@ -5,3 +5,4 @@ define('LANG_ACTION_USERS_ADMINDELETE_USER_NOT_FOUND', 'Пользователь
 define('LANG_ACTION_USERS_ADMINDELETE_LAST_ADMIN', 'Нельзя удалить последнего администратора');
 define('LANG_ACTION_USERS_ADMINDELETE_SUCCESS', 'Пользователь успешно удален');
 define('LANG_ACTION_USERS_ADMINDELETE_ERROR', 'Ошибка при удалении пользователя: %s');
+define('LANG_ACTION_USERS_ADMINDELETE_CANNOT_DELETE_MAIN_ADMIN', 'Нельзя удалить главного администратора системы');

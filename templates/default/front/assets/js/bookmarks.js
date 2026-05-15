@@ -78,7 +78,7 @@
         const counter = document.querySelector('.text-muted.small.mb-0');
         if (counter) {
             const count = document.querySelectorAll('.bookmark-item').length;
-            counter.textContent = `📚 ${count} сохранённых публикаций`;
+            counter.textContent = `📚 ${count} ${lang === 'ru' ? 'сохранённых публикаций' : 'saved publications'}`;
         }
     }
 }

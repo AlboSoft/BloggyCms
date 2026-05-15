@@ -39,3 +39,4 @@ define('LANG_TEMPLATE_USERS_INDEX_EDIT_TITLE', 'Редактировать');
 define('LANG_TEMPLATE_USERS_INDEX_ASSIGN_ACHIEVEMENT_TITLE', 'Назначить ачивку');
 define('LANG_TEMPLATE_USERS_INDEX_DELETE_TITLE', 'Удалить');
 define('LANG_TEMPLATE_USERS_INDEX_DELETE_CONFIRM', 'Вы уверены, что хотите удалить этого пользователя?');
+define('LANG_TEMPLATE_USERS_INDEX_ADMIN_BADGE', 'Администратор');

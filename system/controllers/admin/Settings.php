@@ -263,7 +263,7 @@ class AdminSettings {
                     \FieldFactory::checkbox('show_site_name_in_logo', [
                         'title' => LANG_CONTROLLER_ADMINSETTINGS_FIELD_SHOW_SITE_NAME_IN_LOGO,
                         'hint' => LANG_CONTROLLER_ADMINSETTINGS_HINT_SHOW_SITE_NAME_IN_LOGO,
-                        'default' => true,
+                        'default' => false,
                         'switch' => true,
                         'column' => 12
                     ]),

@@ -218,21 +218,21 @@
     show(message, type = 'primary', delay = 5000) {
         const toastId = 'toast-' + Date.now();
         
-        let title = 'Уведомление';
+        let title = lang === 'ru' ? 'Уведомление' : 'Notification';
         switch(type) {
-            case 'success': title = 'Успешно'; break;
-            case 'danger': title = 'Ошибка'; break;
-            case 'warning': title = 'Внимание'; break;
-            case 'info': title = 'Информация'; break;
-            case 'primary': title = 'Сообщение'; break;
+            case 'success': title = lang === 'ru' ? 'Успешно' : 'Success'; break;
+            case 'danger': title = lang === 'ru' ? 'Ошибка' : 'Error'; break;
+            case 'warning': title = lang === 'ru' ? 'Внимание' : 'Warning'; break;
+            case 'info': title = lang === 'ru' ? 'Информация' : 'Info'; break;
+            case 'primary': title = lang === 'ru' ? 'Сообщение' : 'Message'; break;
         }
         
         const toastHtml = `
             <div id="${toastId}" class="toast front-toast ${type}" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="toast-header">
                     <strong class="me-auto">${title}</strong>
-                    <small class="text-white opacity-75">Только что</small>
-                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Закрыть"></button>
+                    <small class="text-white opacity-75">${lang === 'ru' ? 'Только что' : 'Just now'}</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="${lang === 'ru' ? 'Закрыть' : 'Close'}"></button>
                 </div>
                 <div class="toast-body">
                     ${this.escapeHtml(message)}

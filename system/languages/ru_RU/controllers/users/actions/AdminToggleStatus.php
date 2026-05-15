@@ -6,3 +6,4 @@ define('LANG_ACTION_USERS_ADMINTOGGLESTATUS_ACTIVATED', 'активирован'
 define('LANG_ACTION_USERS_ADMINTOGGLESTATUS_BANNED', 'заблокирован');
 define('LANG_ACTION_USERS_ADMINTOGGLESTATUS_SUCCESS', 'Пользователь %s');
 define('LANG_ACTION_USERS_ADMINTOGGLESTATUS_ERROR', 'Ошибка при изменении статуса пользователя: %s');
+define('LANG_ACTION_USERS_ADMINTOGGLESTATUS_CANNOT_TOGGLE_MAIN_ADMIN', 'Нельзя изменить статус главного администратора системы');

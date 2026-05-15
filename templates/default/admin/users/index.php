@@ -123,6 +123,12 @@
                                             <?php } ?>
                                             <div>
                                                 <strong><?php echo html($user['username']); ?></strong>
+                                                <?php if (isset($user['is_admin']) && $user['is_admin'] == 1) { ?>
+                                                    <span class="badge bg-danger ms-2">
+                                                        <?php echo bloggy_icon('bs', 'shield-lock', '12', '#ba0909', 'me-1'); ?>
+                                                        <?php echo LANG_TEMPLATE_USERS_INDEX_ADMIN_BADGE; ?>
+                                                    </span>
+                                                <?php } ?>
                                                 <?php if ($user['id'] == $_SESSION['user_id']) { ?>
                                                     <span class="badge bg-info ms-2"><?php echo LANG_TEMPLATE_USERS_INDEX_YOU_BADGE; ?></span>
                                                 <?php } ?>
@@ -171,20 +177,22 @@
                                     </td>
                                     <td>
                                         <div class="d-flex justify-content-end gap-1">
-                                            <?php if ($user['status'] === 'active' && $user['id'] != $_SESSION['user_id']) { ?>
-                                                <a href="<?php echo ADMIN_URL; ?>/users/toggle-status/<?php echo $user['id']; ?>" 
-                                                   class="btn btn-sm btn-outline-warning"
-                                                   title="<?php echo LANG_TEMPLATE_USERS_INDEX_BAN_TITLE; ?>"
-                                                   onclick="return confirm('<?php echo LANG_TEMPLATE_USERS_INDEX_BAN_CONFIRM; ?>')">
-                                                    <?php echo bloggy_icon('bs', 'lock', '16', '#000'); ?>
-                                                </a>
-                                            <?php } elseif ($user['status'] === 'banned' && $user['id'] != $_SESSION['user_id']) { ?>
-                                                <a href="<?php echo ADMIN_URL; ?>/users/toggle-status/<?php echo $user['id']; ?>" 
-                                                   class="btn btn-sm btn-outline-success"
-                                                   title="<?php echo LANG_TEMPLATE_USERS_INDEX_UNBAN_TITLE; ?>"
-                                                   onclick="return confirm('<?php echo LANG_TEMPLATE_USERS_INDEX_UNBAN_CONFIRM; ?>')">
-                                                    <?php echo bloggy_icon('bs', 'unlock', '16', '#000'); ?>
-                                                </a>
+                                            <?php if ($user['id'] != 1) { ?>
+                                                <?php if ($user['status'] === 'active' && $user['id'] != $_SESSION['user_id']) { ?>
+                                                    <a href="<?php echo ADMIN_URL; ?>/users/toggle-status/<?php echo $user['id']; ?>" 
+                                                    class="btn btn-sm btn-outline-warning"
+                                                    title="<?php echo LANG_TEMPLATE_USERS_INDEX_BAN_TITLE; ?>"
+                                                    onclick="return confirm('<?php echo LANG_TEMPLATE_USERS_INDEX_BAN_CONFIRM; ?>')">
+                                                        <?php echo bloggy_icon('bs', 'lock', '16', '#000'); ?>
+                                                    </a>
+                                                <?php } elseif ($user['status'] === 'banned' && $user['id'] != $_SESSION['user_id']) { ?>
+                                                    <a href="<?php echo ADMIN_URL; ?>/users/toggle-status/<?php echo $user['id']; ?>" 
+                                                    class="btn btn-sm btn-outline-success"
+                                                    title="<?php echo LANG_TEMPLATE_USERS_INDEX_UNBAN_TITLE; ?>"
+                                                    onclick="return confirm('<?php echo LANG_TEMPLATE_USERS_INDEX_UNBAN_CONFIRM; ?>')">
+                                                        <?php echo bloggy_icon('bs', 'unlock', '16', '#000'); ?>
+                                                    </a>
+                                                <?php } ?>
                                             <?php } ?>
                                             
                                             <a href="<?php echo ADMIN_URL; ?>/users/edit/<?php echo $user['id']; ?>" 
@@ -199,13 +207,13 @@
                                                 <?php echo bloggy_icon('bs', 'trophy', '16', '#000'); ?>
                                             </a>
 
-                                            <?php if ($user['id'] != $_SESSION['user_id']) { ?>
-                                            <a href="<?php echo ADMIN_URL; ?>/users/delete/<?php echo $user['id']; ?>" 
-                                                class="btn btn-sm btn-outline-danger"
-                                                onclick="return confirm('<?php echo LANG_TEMPLATE_USERS_INDEX_DELETE_CONFIRM; ?>')"
-                                                title="<?php echo LANG_TEMPLATE_USERS_INDEX_DELETE_TITLE; ?>">
-                                                <?php echo bloggy_icon('bs', 'trash', '16', '#000'); ?>
-                                            </a>
+                                            <?php if ($user['id'] != $_SESSION['user_id'] && $user['id'] != 1) { ?>
+                                                <a href="<?php echo ADMIN_URL; ?>/users/delete/<?php echo $user['id']; ?>" 
+                                                    class="btn btn-sm btn-outline-danger"
+                                                    onclick="return confirm('<?php echo LANG_TEMPLATE_USERS_INDEX_DELETE_CONFIRM; ?>')"
+                                                    title="<?php echo LANG_TEMPLATE_USERS_INDEX_DELETE_TITLE; ?>">
+                                                    <?php echo bloggy_icon('bs', 'trash', '16', '#000'); ?>
+                                                </a>
                                             <?php } ?>
                                         </div>
                                     </td>

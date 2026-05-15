@@ -156,6 +156,14 @@ class UserModel implements ModelAPI {
     * @return int ID созданного пользователя
     */
     public function create($data) {
+        if (!isset($data['is_admin'])) {
+            $data['is_admin'] = 0;
+        }
+        
+        if (isset($data['role'])) {
+            unset($data['role']);
+        }
+        
         $fields = [];
         $placeholders = [];
         $values = [];
@@ -191,8 +199,12 @@ class UserModel implements ModelAPI {
     * @return bool Результат операции
     */
     public function update($id, $data) {
+        if ($id == 1 && isset($data['is_admin']) && $data['is_admin'] != 1) {
+            unset($data['is_admin']);
+        }
+        
         if (method_exists($this->db, 'update')) {
-            $validFields = ['display_name', 'email', 'website', 'bio', 'avatar', 'password', 'username', 'role', 'status', 'last_login', 'last_admin_ip'];
+            $validFields = ['display_name', 'email', 'website', 'bio', 'avatar', 'password', 'username', 'status', 'last_login', 'last_admin_ip', 'is_admin'];
             $filteredData = array_intersect_key($data, array_flip($validFields));
             
             if (empty($filteredData)) {
@@ -207,7 +219,7 @@ class UserModel implements ModelAPI {
             $fields = [];
             $values = [];
             
-            $allowedFields = ['display_name', 'email', 'website', 'bio', 'avatar', 'password', 'username', 'role', 'status', 'last_login', 'last_admin_ip'];
+            $allowedFields = ['display_name', 'email', 'website', 'bio', 'avatar', 'password', 'username', 'status', 'last_login', 'last_admin_ip', 'is_admin'];
             
             foreach ($data as $field => $value) {
                 if (in_array($field, $allowedFields)) {
@@ -237,6 +249,24 @@ class UserModel implements ModelAPI {
     */
     public function delete($id) {
         try {
+            // Защита главного администратора
+            if ($id == 1) {
+                throw new Exception('Нельзя удалить главного администратора системы');
+            }
+            
+            $user = $this->getById($id);
+            
+            if (!$user) {
+                throw new Exception('Пользователь не найден');
+            }
+            
+            if ($user['is_admin'] == 1) {
+                $adminsCount = $this->db->fetchValue("SELECT COUNT(*) FROM users WHERE is_admin = 1");
+                if ($adminsCount <= 1) {
+                    throw new Exception('Нельзя удалить единственного администратора');
+                }
+            }
+            
             $this->db->query("START TRANSACTION");
             $this->db->query("DELETE FROM users_groups WHERE user_id = ?", [$id]);
             $this->db->query("DELETE FROM user_achievements_data WHERE user_id = ?", [$id]);
@@ -268,7 +298,7 @@ class UserModel implements ModelAPI {
     * @return array Массив администраторов
     */
     public function getAdmins() {
-        return $this->db->fetchAll("SELECT * FROM users WHERE role = 'admin' ORDER BY username");
+        return $this->db->fetchAll("SELECT * FROM users WHERE is_admin = 1 ORDER BY username");
     }
     
     /**

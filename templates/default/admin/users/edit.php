@@ -307,11 +307,22 @@ $customFields = $fieldModel->getActiveByEntityType('user');
                     </div>
                     <div class="card-body">
                         <div class="mb-4">
-                            <label class="form-label"><?php echo LANG_TEMPLATE_USERS_EDIT_ROLE_LABEL; ?></label>
-                            <select class="form-select" name="role" required>
-                                <option value="user" <?php echo ($user['role'] ?? 'user') === 'user' ? 'selected' : ''; ?>><?php echo LANG_TEMPLATE_USERS_EDIT_ROLE_USER; ?></option>
-                                <option value="admin" <?php echo ($user['role'] ?? 'user') === 'admin' ? 'selected' : ''; ?>><?php echo LANG_TEMPLATE_USERS_EDIT_ROLE_ADMIN; ?></option>
-                            </select>
+                            <?php if ($user['id'] == 1) { ?>
+                                <div class="alert alert-warning mb-0">
+                                    <?php echo bloggy_icon('bs', 'shield-lock', '16', '#856404', 'me-2'); ?>
+                                    <?php echo LANG_TEMPLATE_USERS_EDIT_MAIN_ADMIN_WARNING; ?>
+                                </div>
+                                <input type="hidden" name="is_admin" value="1">
+                            <?php } else { ?>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" name="is_admin" id="is_admin" value="1" <?php echo ($user['is_admin'] ?? 0) ? 'checked' : ''; ?>>
+                                    <label class="form-check-label" for="is_admin">
+                                        <?php echo bloggy_icon('bs', 'shield-lock', '16', '#000', 'me-1'); ?>
+                                        <?php echo LANG_TEMPLATE_USERS_EDIT_IS_ADMIN_LABEL; ?>
+                                    </label>
+                                    <div class="form-text"><?php echo LANG_TEMPLATE_USERS_EDIT_IS_ADMIN_HINT; ?></div>
+                                </div>
+                            <?php } ?>
                         </div>
                         
                         <div class="mb-4">

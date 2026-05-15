@@ -39,3 +39,4 @@ define('LANG_TEMPLATE_USERS_INDEX_EDIT_TITLE', 'Edit');
 define('LANG_TEMPLATE_USERS_INDEX_ASSIGN_ACHIEVEMENT_TITLE', 'Assign Achievement');
 define('LANG_TEMPLATE_USERS_INDEX_DELETE_TITLE', 'Delete');
 define('LANG_TEMPLATE_USERS_INDEX_DELETE_CONFIRM', 'Are you sure you want to delete this user?');
+define('LANG_TEMPLATE_USERS_INDEX_ADMIN_BADGE', 'Administrator');

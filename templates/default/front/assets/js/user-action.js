@@ -201,7 +201,7 @@
                 
             } else {}
         } catch (error) {
-            console.error('Ошибка сети:', error);
+            console.error(lang === 'ru' ? 'Ошибка сети:' : 'Network error:', error);
         } finally {
             button.disabled = false;
             button.style.opacity = '';
@@ -271,12 +271,12 @@
                         }, 300);
                     }
                     
-                    this.showNotification('Публикация удалена из закладок', 'success');
+                    this.showNotification(lang === 'ru' ? 'Публикация удалена из закладок' : 'Publication removed from bookmarks', 'success');
                     
                 }, 400);
                 
             } else {
-                this.showNotification('Ошибка при удалении закладки', 'error');
+                this.showNotification(lang === 'ru' ? 'Ошибка при удалении закладки' : 'Error removing bookmark', 'error');
                 
                 button.innerHTML = originalContent;
                 button.disabled = false;
@@ -284,7 +284,7 @@
             }
             
         } catch (error) {
-            this.showNotification('Ошибка сети. Пожалуйста, попробуйте еще раз.', 'error');
+            this.showNotification(lang === 'ru' ? 'Ошибка сети. Пожалуйста, попробуйте еще раз.' : 'Network error. Please try again.', 'error');
             button.innerHTML = originalContent;
             button.disabled = false;
             button.style.opacity = '';
@@ -297,7 +297,7 @@
         if (counterElement) {
             const currentCount = document.querySelectorAll('.bookmark-item').length;
             const iconHtml = window.bloggyIcon ? window.bloggyIcon('bs', 'journal-bookmark', '14', '#6c757d', 'me-1') : '';
-            counterElement.innerHTML = `${iconHtml} ${currentCount} сохранённых публикаций`;
+            counterElement.innerHTML = `${iconHtml} ${currentCount} ${lang === 'ru' ? 'сохранённых публикаций' : 'saved publications'}`;
             counterElement.style.transition = 'all 0.3s ease';
             counterElement.style.transform = 'scale(1.1)';
             counterElement.style.color = '#dc3545';

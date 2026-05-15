@@ -13,11 +13,16 @@ class AdminToggleStatus extends UserAction {
     * @return void
     */
     public function execute() {
-
         $id = $this->params['id'] ?? null;
         
         if (!$id) {
             \Notification::error(LANG_ACTION_USERS_ADMINTOGGLESTATUS_NO_ID);
+            $this->redirect(ADMIN_URL . '/users');
+            return;
+        }
+        
+        if ($id == 1) {
+            \Notification::error(LANG_ACTION_USERS_ADMINTOGGLESTATUS_CANNOT_TOGGLE_MAIN_ADMIN);
             $this->redirect(ADMIN_URL . '/users');
             return;
         }

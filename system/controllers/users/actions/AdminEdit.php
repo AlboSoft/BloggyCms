@@ -76,13 +76,30 @@ class AdminEdit extends UserAction {
     private function handlePostRequest($id, $user) {
         $this->validateRequiredFields();
         $this->checkUniqueness($id);
+        
+        if ($id == 1 && isset($_POST['is_admin']) && $_POST['is_admin'] != 1) {
+            throw new \Exception(LANG_ACTION_USERS_ADMINEDIT_CANNOT_REMOVE_MAIN_ADMIN_ADMIN);
+        }
+        
+        $currentUserId = $this->getCurrentUserId();
+        if ($id == $currentUserId && isset($_POST['is_admin']) && $_POST['is_admin'] != 1 && $user['is_admin'] == 1) {
+            throw new \Exception(LANG_ACTION_USERS_ADMINEDIT_CANNOT_REMOVE_OWN_ADMIN);
+        }
+        
         $userData = $this->prepareUserData($user);
         $userData = $this->handlePasswordChange($userData);
         $userData = $this->handleAvatarUpdate($userData, $user);
+        
         $this->saveCustomFields($id, $user);
         $this->updateUserGroups($id);
         $this->updateUserAchievements($id);
         $this->userModel->update($id, $userData);
+        
+        if ($id == $currentUserId) {
+            $updatedUser = $this->userModel->getById($id);
+            $_SESSION['is_admin'] = ($updatedUser['is_admin'] == 1);
+        }
+        
         \Notification::success(LANG_ACTION_USERS_ADMINEDIT_SUCCESS);
         $this->redirect(ADMIN_URL . '/users');
     }
@@ -130,7 +147,7 @@ class AdminEdit extends UserAction {
             'display_name' => $_POST['display_name'] ?? null,
             'website' => $_POST['website'] ?? null,
             'bio' => $_POST['bio'] ?? null,
-            'role' => $_POST['role'] ?? 'user',
+            'is_admin' => isset($_POST['is_admin']) ? 1 : 0,
             'status' => $_POST['status'] ?? 'active'
         ];
     }

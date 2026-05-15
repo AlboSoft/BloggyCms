@@ -2,7 +2,7 @@
     <div class="login-box">
         <div class="login-header">
             <div class="login-logo">
-                <img src="/templates/default/admin/assets/img/logo-outline.png" alt="">
+                <img src="/templates/default/admin/assets/img/logo-outline-light.png" alt="BloggyCms">
             </div>
             <h1 class="login-title"><?php echo LANG_LOGIN_TITLE; ?></h1>
             <p class="login-subtitle"><?php echo LANG_LOGIN_SUBTITLE; ?></p>
