@@ -28,6 +28,14 @@ class UserController extends Controller {
     }
 
     /**
+    * Возвращает системное имя контроллера
+    * @return string
+    */
+    public function getSystemName() {
+        return 'users';
+    }
+
+    /**
     * Отображает список пользователей (публичная часть) 
     * @return void
     */

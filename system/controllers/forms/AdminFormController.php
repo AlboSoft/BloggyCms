@@ -27,6 +27,14 @@ class AdminFormController extends Controller {
             return;
         }
     }
+
+    /**
+    * Возвращает системное имя контроллера
+    * @return string
+    */
+    public function getSystemName() {
+        return 'forms';
+    }
     
     /**
     * Действие: Главная страница управления формами

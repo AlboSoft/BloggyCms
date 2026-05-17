@@ -65,7 +65,7 @@ class Show extends ProfileAction {
         $currentUserId = $_SESSION['user_id'] ?? null;
         $isOwnProfile = ($currentUserId && $currentUserId == $user['id']);
         
-        $profileUserIsAdmin = ($user['role'] === 'admin' || !empty($user['is_admin']));
+        $profileUserIsAdmin = (!empty($user['is_admin']) || $user['is_admin'] == 1);
         
         if ($profileUserIsAdmin) {
             $userPosts = $this->postModel->getPublishedByUserId($user['id']);
@@ -97,8 +97,7 @@ class Show extends ProfileAction {
         $unlockedCount = count($achievements);
         $allAchievementsCount = count($allAchievements);
         $groups = $this->getUserGroups($user['id']);
-        $roleDisplay = $this->getRoleDisplay($user['role'] ?? 'user');
-        $isUserAdmin = ($user['role'] === 'admin' || !empty($user['is_admin']));
+        $isUserAdmin = (!empty($user['is_admin']) || $user['is_admin'] == 1);
         $showLastAchievement = \UserModel::isShowLastAchievementEnabled();
         $lastAchievement = null;
         
@@ -126,7 +125,6 @@ class Show extends ProfileAction {
             'is_online' => $isOnline,
             'last_activity_human' => $lastActivityInfo['human'],
             'last_activity_days' => $lastActivityInfo['days'],
-            'roleDisplay' => $roleDisplay,
             'showLastAchievement' => $showLastAchievement,
             'last_achievement' => $lastAchievement
         ]);
@@ -156,23 +154,4 @@ class Show extends ProfileAction {
         }
     }
     
-    /**
-    * Получает отображаемое название роли пользователя
-    * @param string $userRole Код роли пользователя
-    * @return string Отображаемое название роли
-    */
-    private function getRoleDisplay($userRole) {
-        if ($userRole === 'user') {
-            return '';
-        }
-        
-        $roles = [
-            'admin' => LANG_ACTION_PROFILE_SHOW_ROLE_ADMIN,
-            'author' => LANG_ACTION_PROFILE_SHOW_ROLE_AUTHOR,
-            'editor' => LANG_ACTION_PROFILE_SHOW_ROLE_EDITOR,
-            'moderator' => LANG_ACTION_PROFILE_SHOW_ROLE_MODERATOR
-        ];
-        
-        return $roles[$userRole] ?? LANG_ACTION_PROFILE_SHOW_ROLE_MEMBER;
-    }
 }

@@ -53,20 +53,25 @@ class SettingsModel implements ModelAPI {
     * @return bool true при успешном сохранении
     */
     public function save($group, $settings) {
+        $settings = $this->normalizeBooleanValues($settings);
+        
         $existing = $this->db->fetch(
             "SELECT id, settings FROM settings WHERE group_key = ? ORDER BY id DESC LIMIT 1",
             [$group]
         );
         
+        $jsonOptions = JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES;
+        $settingsJson = json_encode($settings, $jsonOptions);
+        
         if ($existing) {
             $this->db->query(
                 "UPDATE settings SET settings = ?, updated_at = NOW() WHERE id = ?",
-                [json_encode($settings), $existing['id']]
+                [$settingsJson, $existing['id']]
             );
         } else {
             $this->db->query(
                 "INSERT INTO settings (group_key, settings) VALUES (?, ?)",
-                [$group, json_encode($settings)]
+                [$group, $settingsJson]
             );
         }
         
@@ -77,6 +82,25 @@ class SettingsModel implements ModelAPI {
         }
         
         return true;
+    }
+
+    /**
+    * Рекурсивно преобразует все boolean значения в int (0/1) для корректной JSON-сериализации
+    * @param mixed $data Входные данные
+    * @return mixed Данные с преобразованными boolean значениями
+    */
+    private function normalizeBooleanValues($data) {
+        if (is_bool($data)) {
+            return $data ? 1 : 0;
+        }
+        
+        if (is_array($data)) {
+            foreach ($data as $key => $value) {
+                $data[$key] = $this->normalizeBooleanValues($value);
+            }
+        }
+        
+        return $data;
     }
     
     /**

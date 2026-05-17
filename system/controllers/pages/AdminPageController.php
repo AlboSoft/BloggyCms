@@ -5,6 +5,14 @@
 * @package Controllers
 */
 class AdminPageController extends Controller {
+
+    /**
+    * Возвращает системное имя контроллера
+    * @return string
+    */
+    public function getSystemName() {
+        return 'pages';
+    }
     
     /**
     * Отображает список всех страниц в административной панели

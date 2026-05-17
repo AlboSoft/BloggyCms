@@ -21,6 +21,14 @@ class PageController extends Controller {
         $this->postBlockModel = new PostBlockModel($db);
         $this->postBlockManager = new PostBlockManager($db);
     }
+
+    /**
+    * Возвращает системное имя контроллера
+    * @return string
+    */
+    public function getSystemName() {
+        return 'pages';
+    }
     
     /**
     * Отображает страницу по её URL-адресу (slug)

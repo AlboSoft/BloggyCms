@@ -214,7 +214,7 @@ class App {
     public function run() {
         $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         $route = $this->router->match($uri);
-    
+
         if ($route) {
             $controllerName = $route['controller'] . 'Controller';
             $actionName = $route['action'] . 'Action';
@@ -224,14 +224,46 @@ class App {
             }
             
             $controller = new $controllerName($this->db);
-
+            
+            $systemName = $controller->getSystemName();
+            $settingsKey = 'controller_' . $systemName;
+            
+            $isEnabled = SettingsHelper::get($settingsKey, 'enabled', true);
+            
+            if (!$isEnabled) {
+                $isControllersController = ($route['controller'] === 'Controllers');
+                
+                if (!$isControllersController) {
+                    $this->show404();
+                    return;
+                }
+            }
+            
             $params = $route['params'] ?? [];
-
             $this->callControllerAction($controller, $actionName, $params);
         } else {
-            header("HTTP/1.0 404 Not Found");
-            require TEMPLATES_PATH . '/' . DEFAULT_TEMPLATE . '/404.php';
+            $this->show404();
         }
+    }
+
+    /**
+    * Показывает страницу 404
+    */
+    private function show404() {
+        header("HTTP/1.0 404 Not Found");
+        
+        $template404 = TEMPLATES_PATH . '/' . DEFAULT_TEMPLATE . '/404.php';
+        if (file_exists($template404)) {
+            include $template404;
+        } else {
+            $fallback404 = TEMPLATES_PATH . '/404.php';
+            if (file_exists($fallback404)) {
+                include $fallback404;
+            } else {
+                echo "404 - Page not found";
+            }
+        }
+        exit;
     }
     
     /**

@@ -943,7 +943,7 @@ class SeoModel implements ModelAPI {
         if (class_exists('NotificationModel')) {
             $notificationModel = new NotificationModel($this->db);
             $admin_ids = $this->db->fetchAll(
-                "SELECT id FROM users WHERE is_admin = 1 OR role = 'admin'"
+                "SELECT id FROM users WHERE is_admin = 1"
             );
             
             foreach ($admin_ids as $admin) {

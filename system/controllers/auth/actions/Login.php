@@ -78,7 +78,7 @@ class Login extends AuthAction {
                 $_SESSION['username'] = $user['username'];
                 $_SESSION['display_name'] = $user['display_name'];
                 $_SESSION['avatar'] = $user['avatar'];
-                $_SESSION['is_admin'] = $user['role'] === 'admin';
+                $_SESSION['is_admin'] = ($user['is_admin'] == 1 || $user['is_admin'] === true);
 
                 if (!empty($_POST['remember_me'])) {
                     $cookieLifetime = 86400 * 30;

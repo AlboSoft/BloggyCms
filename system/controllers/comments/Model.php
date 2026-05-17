@@ -375,7 +375,7 @@ class CommentModel implements ModelAPI {
         if ($userId) {
             try {
                 $user = $this->userModel->getById($userId);
-                $isAdmin = $user && (!empty($user['is_admin']) || $user['role'] === 'admin');
+                $isAdmin = $user && (!empty($user['is_admin']) || $user['is_admin'] == 1);
             } catch (Exception $e) {}
         }
         

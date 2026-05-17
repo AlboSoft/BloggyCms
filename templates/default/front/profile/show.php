@@ -59,11 +59,6 @@ $fieldModel = new FieldModel($this->db);
                         <?php } ?>
                     </div>
                 <?php } ?>
-                <?php if (!empty($roleDisplay)) { ?>
-                    <div class="tg-profile-role">
-                        <span class="tg-role-badge"><?php echo html($roleDisplay); ?></span>
-                    </div>
-                <?php } ?>
             </div>
             <?php if ($is_own_profile) { ?>
                 <a href="<?php echo BASE_URL; ?>/profile/edit" class="tg-edit-btn">

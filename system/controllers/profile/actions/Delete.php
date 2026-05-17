@@ -38,9 +38,9 @@ class Delete extends ProfileAction {
             return;
         }
         
-        if ($user['role'] === 'admin') {
+        if ($user['is_admin'] == 1) {
             $adminsCount = $this->db->fetchValue(
-                "SELECT COUNT(*) FROM users WHERE role = 'admin'"
+                "SELECT COUNT(*) FROM users WHERE is_admin = 1"
             );
             if ($adminsCount <= 1) {
                 header('Content-Type: application/json');

@@ -11,6 +11,14 @@ class FormController extends Controller {
         parent::__construct($db);
         $this->formModel = new FormModel($db);
     }
+
+    /**
+    * Возвращает системное имя контроллера
+    * @return string
+    */
+    public function getSystemName() {
+        return 'forms';
+    }
     
     public function showAction($slug) {
         $action = new \forms\actions\ShowForm($this->db, ['slug' => $slug]);

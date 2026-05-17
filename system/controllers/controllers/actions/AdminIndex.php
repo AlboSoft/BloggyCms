@@ -116,18 +116,20 @@ class AdminIndex extends ControllersAction {
             'has_settings' => false,
             'has_routing' => false,
             'is_system' => false,
+            'is_protected' => false,
             'version' => '1.0.0',
             'description' => '',
             'author' => 'BloggyCMS',
             'path' => $dirName,
-            'actions_count' => 0
+            'actions_count' => 0,
+            'is_enabled' => true
         ];
         
         $systemControllers = [
             'admin', 'auth', 'settings', 'users', 'posts', 'categories', 
             'pages', 'menu', 'comments', 'profile', 'search', 
             'tags', 'fields', 'html_blocks', 'icons', 'postblocks', 'home', 'fragments',
-            'docs', 'addons', 'archive', 'forms', 'login_attempt', 'notifications', 'seo', 'debug', 'language'
+            'docs', 'addons', 'archive', 'forms', 'login_attempt', 'notifications', 'seo', 'debug', 'language', 'controllers'
         ];
         $info['is_system'] = in_array(strtolower($dirName), $systemControllers);
         
@@ -136,6 +138,9 @@ class AdminIndex extends ControllersAction {
             $manifestData = $this->loadManifestFile($manifestFile);
             if ($manifestData) {
                 $info = array_merge($info, $manifestData);
+                if (isset($manifestData['is_protected']) && $manifestData['is_protected'] === true) {
+                    $info['is_protected'] = true;
+                }
             }
         }
         
@@ -153,6 +158,27 @@ class AdminIndex extends ControllersAction {
         if (is_dir($actionsDir)) {
             $phpFiles = glob($actionsDir . '/*.php');
             $info['actions_count'] = count($phpFiles);
+        }
+        
+        $tableName = $this->db->getPrefix() . 'settings';
+        $settingsKey = 'controller_' . $dirName;
+        
+        $result = $this->db->fetch(
+            "SELECT settings FROM `{$tableName}` WHERE group_key = ?",
+            [$settingsKey]
+        );
+        
+        if ($result && isset($result['settings'])) {
+            $settings = json_decode($result['settings'], true);
+            
+            if (isset($settings['enabled'])) {
+                $val = $settings['enabled'];
+                if ($val === 1 || $val === '1' || $val === true) {
+                    $info['is_enabled'] = true;
+                } else {
+                    $info['is_enabled'] = false;
+                }
+            }
         }
         
         return $info;

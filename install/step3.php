@@ -293,12 +293,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt = $pdo->prepare("SELECT id FROM `{$usersTable}` WHERE username = ? OR email = ?");
             $stmt->execute([$siteConfig['admin_username'], $siteConfig['admin_email']]);
             $existing = $stmt->fetch(PDO::FETCH_ASSOC);
+
             if ($existing) {
-                $stmt = $pdo->prepare("UPDATE `{$usersTable}` SET password = ?, email = ?, is_admin = 1, role = 'admin' WHERE id = ?");
+                $stmt = $pdo->prepare("UPDATE `{$usersTable}` SET password = ?, email = ?, is_admin = 1 WHERE id = ?");
                 $stmt->execute([$hashedPassword, $siteConfig['admin_email'], $existing['id']]);
                 $userId = $existing['id'];
             } else {
-                $stmt = $pdo->prepare("INSERT INTO `{$usersTable}` (username, password, email, is_admin, role, created_at, status) VALUES (?, ?, ?, 1, 'admin', NOW(), 'active')");
+                $stmt = $pdo->prepare("INSERT INTO `{$usersTable}` (username, password, email, is_admin, status, created_at) VALUES (?, ?, ?, 1, 'active', NOW())");
                 $stmt->execute([$siteConfig['admin_username'], $hashedPassword, $siteConfig['admin_email']]);
                 $userId = $pdo->lastInsertId();
             }

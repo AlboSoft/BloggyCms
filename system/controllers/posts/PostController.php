@@ -43,6 +43,14 @@ class PostController extends Controller {
     }
 
     /**
+    * Возвращает системное имя контроллера
+    * @return string
+    */
+    public function getSystemName() {
+        return 'posts';
+    }
+
+    /**
     * Проверяет, является ли текущий запрос AJAX-запросом
     * @return bool true если запрос AJAX
     */

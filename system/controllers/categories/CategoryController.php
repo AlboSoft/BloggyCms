@@ -38,6 +38,14 @@ class CategoryController extends Controller {
     }
 
     /**
+    * Возвращает системное имя контроллера
+    * @return string
+    */
+    public function getSystemName() {
+        return 'categories';
+    }
+
+    /**
     * Определение типа запроса (AJAX или обычный)
     * @return bool true если запрос выполнен через AJAX
     */

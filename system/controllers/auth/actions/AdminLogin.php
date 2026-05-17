@@ -274,7 +274,7 @@ class AdminLogin extends AuthAction {
     */
     private function processAdminLogin($username, $password, $authSettings, $currentAttempts) {
         $user = $this->userModel->authenticate($username, $password);
-        if ($user && ($user['is_admin'] || $user['role'] === 'admin')) {
+        if ($user && ($user['is_admin'] == 1 || $user['is_admin'] === true)) {
             session_regenerate_id(true);
 
             $_SESSION['user_id'] = $user['id'];

@@ -100,7 +100,7 @@ class PostModel implements ModelAPI {
                     c.password_protected as category_password_protected, c.id as category_id,
                     u.username as author_name, u.display_name as author_display_name, 
                     u.avatar as author_avatar, u.bio as author_bio, u.website as author_website,
-                    u.email as author_email, u.role as author_role, u.status as author_status,
+                    u.email as author_email, u.status as author_status,
                     u.created_at as author_created_at
             FROM posts p 
             LEFT JOIN categories c ON p.category_id = c.id 

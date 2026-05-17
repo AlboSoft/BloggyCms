@@ -67,7 +67,6 @@ class Register extends AuthAction {
                     'email' => $_POST['email'],
                     'password' => password_hash($_POST['password'], PASSWORD_DEFAULT),
                     'display_name' => $_POST['display_name'] ?? $_POST['username'],
-                    'role' => 'user',
                     'status' => 'active'
                 ];
 

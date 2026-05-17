@@ -85,7 +85,7 @@ class DebugModel implements ModelAPI {
                 return;
             }
             
-            $admins = $this->db->fetchAll("SELECT id FROM users WHERE is_admin = 1 OR role = 'admin'");
+            $admins = $this->db->fetchAll("SELECT id FROM users WHERE is_admin = 1");
             
             if (empty($admins)) {
                 return;

@@ -70,6 +70,19 @@ class Controller {
     public function getControllerInfo() {
         return $this->controllerInfo;
     }
+
+    /**
+    * Возвращает системное имя контроллера для настроек
+    * По умолчанию - имя класса в нижнем регистре без 'Controller'
+    * Но может быть переопределено в дочерних контроллерах
+    * 
+    * @return string
+    */
+    public function getSystemName() {
+        $className = get_class($this);
+        $name = str_replace('Controller', '', $className);
+        return strtolower($name);
+    }
     
     /**
     * Получить настройки по умолчанию

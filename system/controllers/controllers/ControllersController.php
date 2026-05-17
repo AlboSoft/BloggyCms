@@ -42,4 +42,15 @@ class ControllersController extends Controller {
         $action->setController($this);
         return $action->execute();
     }
+
+    /**
+    * Действие: Переключение статуса контроллера (AJAX)
+    * @return mixed
+    */
+    public function toggleAction() {
+        $action = new \controllers\actions\AdminToggle($this->db);
+        $action->setController($this);
+        return $action->execute();
+    }
+
 }

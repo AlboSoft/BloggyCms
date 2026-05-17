@@ -14,22 +14,63 @@ function getCurrentLang() {
 
 function initToggleSwitches() {
     document.querySelectorAll('.toggle-switch').forEach(toggle => {
-        const checkbox = toggle.previousElementSibling;
+        let checkbox = null;
+        
+        const parent = toggle.closest('label');
+        if (parent) {
+            checkbox = parent.querySelector('input[type="checkbox"]');
+        }
+        
+        if (!checkbox) {
+            checkbox = toggle.previousElementSibling;
+            if (checkbox && checkbox.type !== 'checkbox') {
+                checkbox = null;
+            }
+        }
+        
+        if (!checkbox) {
+            let parentElement = toggle.parentElement;
+            while (parentElement && !checkbox) {
+                checkbox = parentElement.querySelector('input[type="checkbox"]');
+                parentElement = parentElement.parentElement;
+            }
+        }
+        
         if (checkbox && checkbox.type === 'checkbox') {
-            if (checkbox.checked) {
-                toggle.querySelector('.toggle-slider').style.backgroundColor = '#3498db';
+            const slider = toggle.querySelector('.toggle-slider');
+            if (checkbox.checked && slider) {
+                slider.style.backgroundColor = '#3498db';
+            } else if (slider) {
+                slider.style.backgroundColor = '#ccc';
             }
             
             toggle.addEventListener('click', function(e) {
+                e.preventDefault();
                 e.stopPropagation();
-                checkbox.checked = !checkbox.checked;
-                checkbox.dispatchEvent(new Event('change'));
                 
-                const slider = this.querySelector('.toggle-slider');
-                if (checkbox.checked) {
-                    slider.style.backgroundColor = '#3498db';
-                } else {
-                    slider.style.backgroundColor = '#ccc';
+                checkbox.checked = !checkbox.checked;
+                
+                const changeEvent = new Event('change', { bubbles: true });
+                checkbox.dispatchEvent(changeEvent);
+                
+                const sliderEl = this.querySelector('.toggle-slider');
+                if (sliderEl) {
+                    if (checkbox.checked) {
+                        sliderEl.style.backgroundColor = '#3498db';
+                    } else {
+                        sliderEl.style.backgroundColor = '#ccc';
+                    }
+                }
+            });
+            
+            checkbox.addEventListener('change', function() {
+                const sliderEl = toggle.querySelector('.toggle-slider');
+                if (sliderEl) {
+                    if (this.checked) {
+                        sliderEl.style.backgroundColor = '#3498db';
+                    } else {
+                        sliderEl.style.backgroundColor = '#ccc';
+                    }
                 }
             });
         }

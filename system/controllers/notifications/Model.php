@@ -53,7 +53,7 @@ class NotificationModel implements ModelAPI {
     * @return array Массив пользователей с правами администратора
     */
     private function getAdminUsers() {
-        $sql = "SELECT id FROM users WHERE is_admin = 1 OR role = 'admin'";
+        $sql = "SELECT id FROM users WHERE is_admin = 1";
         return $this->db->fetchAll($sql);
     }
 

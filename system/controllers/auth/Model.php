@@ -54,7 +54,6 @@ class User implements ModelAPI {
             $user['bio'] = $user['bio'] ?? '';
             $user['website'] = $user['website'] ?? '';
             $user['avatar'] = $user['avatar'] ?? 'default.jpg';
-            $user['role'] = $user['role'] ?? 'user';
             $user['status'] = $user['status'] ?? 'active';
         }
         
@@ -81,19 +80,13 @@ class User implements ModelAPI {
     }
 
     /**
-    * Получение всех пользователей с фильтрацией по роли и статусу
-    * @param string|null $role Фильтр по роли
+    * Получение всех пользователей с фильтрацией
     * @param string|null $status Фильтр по статусу (active/inactive)
     * @return array Массив пользователей, удовлетворяющих фильтрам
     */
-    public function getAllWithFilters($role = null, $status = null) {
+    public function getAllWithFilters($status = null) {
         $sql = "SELECT * FROM users WHERE 1=1";
         $params = [];
-
-        if ($role) {
-            $sql .= " AND role = ?";
-            $params[] = $role;
-        }
 
         if ($status) {
             $sql .= " AND status = ?";
@@ -162,7 +155,7 @@ class User implements ModelAPI {
     public function update($id, $data) {
 
         if (method_exists($this->db, 'update')) {
-            $validFields = ['display_name', 'email', 'website', 'bio', 'avatar', 'password', 'username', 'role', 'status'];
+            $validFields = ['display_name', 'email', 'website', 'bio', 'avatar', 'password', 'username', 'status'];
             $filteredData = array_intersect_key($data, array_flip($validFields));
             
             return $this->db->update('users', $filteredData, ['id' => $id]);
@@ -206,7 +199,7 @@ class User implements ModelAPI {
     * @return array Массив администраторов
     */
     public function getAdmins() {
-        return $this->db->fetchAll("SELECT * FROM users WHERE role = 'admin' ORDER BY username");
+        return $this->db->fetchAll("SELECT * FROM users WHERE is_admin = 1 ORDER BY username");
     }
     
     /**
