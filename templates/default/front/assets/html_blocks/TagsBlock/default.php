@@ -122,14 +122,18 @@ if(function_exists('bloggy_icon')) {
                                 <span class="tag-hash">#</span><?php echo html($tag['name']); ?>
                             </h3>
                             
-                            <?php if($showPostCount) { ?>
-                                <div class="tag-card-meta">
-                                    <span class="tag-posts-count">
-                                        <?php echo $tag['posts_count'] ?? 0; ?> 
-                                        <?php echo plural_form($tag['posts_count'] ?? 0, ['пост', 'поста', 'постов']); ?>
-                                    </span>
-                                </div>
-                            <?php } ?>
+                            <?php if($showPostCount) { 
+                              $count = $tag['posts_count'] ?? 0;
+                              $countText = ($lang === 'ru') 
+                              ? plural_form($count, ['пост', 'поста', 'постов']) 
+                              : ($count === 1 ? 'post' : 'posts');
+                            ?>
+                            <div class="tag-card-meta">
+                             <span class="tag-posts-count">
+                            <?php echo $count . ' ' . $countText; ?>
+                            </span>
+                            </div>
+                             <?php } ?>
                         </div>
                         <div class="tag-card-arrow">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -160,12 +164,17 @@ if(function_exists('bloggy_icon')) {
                                 <span class="tag-hash">#</span><?php echo html($tag['name']); ?>
                             </h3>
                         </div>
-                        <?php if($showPostCount) { ?>
-                            <div class="tag-list-count">
-                                <?php echo $tag['posts_count'] ?? 0; ?>
-                                <span class="label"><?php echo plural_form($tag['posts_count'] ?? 0, ['пост', 'поста', 'постов']); ?></span>
-                            </div>
-                        <?php } ?>
+                       <?php if($showPostCount) { 
+                        $count = $tag['posts_count'] ?? 0;
+                        $countText = ($lang === 'ru') 
+                        ? plural_form($count, ['пост', 'поста', 'постов']) 
+                        : ($count === 1 ? 'post' : 'posts');
+                       ?>
+                     <div class="tag-list-count">
+                    <?php echo $count; ?>
+                     <span class="label"><?php echo $countText; ?></span>
+                     </div>
+                    <?php } ?>
                     </a>
                     <?php } ?>
                 </div>
