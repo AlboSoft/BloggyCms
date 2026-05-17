@@ -166,7 +166,13 @@ function renderCategory($category, $settings, $level = 0) {
             }
             
             if (!empty($settings['show_post_count'])) {
-                $html .= '<div class="category-count">' . ($category['posts_count'] ?? 0) . ' ' . plural($category['posts_count'] ?? 0, ['пост', 'поста', 'постов']) . '</div>';
+                $count = $category['posts_count'] ?? 0;
+    
+                $countText = ($lang === 'ru') 
+                ? plural($count, ['пост', 'поста', 'постов']) 
+                : ($count === 1 ? 'post' : 'posts');
+
+                $html .= '<div class="category-count">' . $count . ' ' . $countText . '</div>';
             }
             
             if(!empty($contentClass)) {
