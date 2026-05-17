@@ -715,6 +715,7 @@ CREATE TABLE IF NOT EXISTS `{#}users` (
   `last_login` timestamp NULL DEFAULT NULL,
   `last_activity` timestamp NULL DEFAULT NULL,
   `is_admin` tinyint(1) DEFAULT '0',
+  `role` varchar(50) DEFAULT 'user',
   `display_name` varchar(100) DEFAULT NULL,
   `avatar` varchar(255) DEFAULT 'default.jpg',
   `bio` text,
