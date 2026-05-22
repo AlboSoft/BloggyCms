@@ -143,6 +143,29 @@
                         <h5 class="card-title mb-0"><?php echo LANG_TEMPLATE_PAGES_CREATE_PUBLISH_TITLE; ?></h5>
                     </div>
                     <div class="card-body">
+
+                    <div class="mb-4">
+                        <label class="form-label"><?php echo bloggy_icon('bs', 'diagram-2', '16', '#000', 'me-1'); ?><?php echo LANG_TEMPLATE_PAGES_CREATE_PARENT_LABEL; ?></label>
+                        <select name="parent_id" class="form-select">
+                            <option value=""><?php echo LANG_TEMPLATE_PAGES_CREATE_PARENT_NONE; ?></option>
+                            <?php if (!empty($availableParents)) { ?>
+                                <?php 
+                                $renderOptions = function($pages, $level = 0) use (&$renderOptions) {
+                                    foreach ($pages as $page) {
+                                        $indent = str_repeat('—', $level) . ($level > 0 ? ' ' : '');
+                                        echo '<option value="' . $page['id'] . '">' . $indent . html($page['title']) . '</option>';
+                                        if (!empty($page['children'])) {
+                                            $renderOptions($page['children'], $level + 1);
+                                        }
+                                    }
+                                };
+                                $renderOptions($availableParents);
+                                ?>
+                            <?php } ?>
+                        </select>
+                        <div class="form-text"><?php echo LANG_TEMPLATE_PAGES_CREATE_PARENT_HINT; ?></div>
+                    </div>
+
                         <div class="mb-4">
                             <label class="form-label"><?php echo LANG_TEMPLATE_PAGES_CREATE_STATUS_LABEL; ?></label>
                             <select name="status" class="form-select" required>

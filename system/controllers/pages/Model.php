@@ -9,13 +9,23 @@ class PageModel implements ModelAPI {
     use APIAware;
 
     protected $allowedAPIMethods = [
-        'getBySlug',
-        'getById',
-        'getAll',
+        'getAll', 
+        'getById', 
+        'getBySlug', 
+        'create', 
+        'update', 
+        'delete',
         'getBlocks',
-        'getRecent',
+        'createWithBlocks',
+        'updateWithBlocks',
+        'getStats',
         'search',
-        'getStats'
+        'getRecent',
+        'getAvailableParents', 
+        'getWithHierarchy', 
+        'hasChildren', 
+        'getAllDescendants', 
+        'getChildren'
     ];
     
     private $db;
@@ -64,8 +74,17 @@ class PageModel implements ModelAPI {
             ? $this->createUniqueSlug($data['slug']) 
             : $this->createUniqueSlug($data['title']);
         
-        $sql = "INSERT INTO pages (title, slug, status) VALUES (?, ?, ?)";
+        $parentId = !empty($data['parent_id']) ? (int)$data['parent_id'] : null;
+        if ($parentId !== null) {
+            $parent = $this->getById($parentId);
+            if (!$parent) {
+                $parentId = null; // Родитель не найден — обнуляем
+            }
+        }
+        
+        $sql = "INSERT INTO pages (parent_id, title, slug, status) VALUES (?, ?, ?, ?)";
         $this->db->query($sql, [
+            $parentId,
             $data['title'],
             $slug,
             $data['status'] ?? 'draft'
@@ -101,9 +120,32 @@ class PageModel implements ModelAPI {
             ? $this->createUniqueSlug($data['slug'], $id) 
             : $this->createUniqueSlug($data['title'], $id);
         
-        $sql = "UPDATE pages SET title = ?, slug = ?, status = ? WHERE id = ?";
+        // защитаа от циклических ссылок
+        if (array_key_exists('parent_id', $data)) {
+            if ($data['parent_id'] === '' || $data['parent_id'] === null) {
+                $parentId = null;
+            } else {
+                $parentId = (int)$data['parent_id'];
+                
+                // Нельзя сделать родителем самого себя
+                if ($parentId == $id) {
+                    $parentId = null;
+                } else {
+                    // Нельзя сделать родителем своего потомка
+                    $descendants = $this->getAllDescendants($id);
+                    if (in_array($parentId, $descendants)) {
+                        $parentId = null;
+                    }
+                }
+            }
+        } else {
+            $parentId = $oldPage['parent_id'] ?? null;
+        }
+        
+        $sql = "UPDATE pages SET parent_id = ?, title = ?, slug = ?, status = ? WHERE id = ?";
         
         $result = $this->db->query($sql, [
+            $parentId,
             $data['title'],
             $slug,
             $data['status'] ?? 'draft',
@@ -131,6 +173,10 @@ class PageModel implements ModelAPI {
             
             if (!$page) {
                 throw new Exception('Страница не найдена');
+            }
+            
+            if ($this->hasChildren($id)) {
+                throw new Exception(LANG_ACTION_PAGES_ADMINDELETE_HAS_CHILDREN);
             }
             
             $this->db->beginTransaction();
@@ -254,7 +300,7 @@ class PageModel implements ModelAPI {
     }
     
     /**
-    * Создает страницу вместе с её блоками (для обратной совместимости)
+    * Создает страницу вместе с её блоками
     * @param array $data Данные страницы
     * @param array $blocks Массив блоков контента
     * @return int ID созданной страницы
@@ -281,7 +327,7 @@ class PageModel implements ModelAPI {
     }
     
     /**
-    * Обновляет страницу вместе с её блоками (для обратной совместимости)
+    * Обновляет страницу вместе с её блоками
     * @param int $pageId ID страницы
     * @param array $data Данные для обновления
     * @param array $blocks Массив новых блоков контента
@@ -348,5 +394,106 @@ class PageModel implements ModelAPI {
             ORDER BY created_at DESC 
             LIMIT ?
         ", [$limit]);
+    }
+
+    /**
+    * Получить доступные родительские страницы (для селекта в форме)
+    * @param int|null $excludeId ID исключаемой страницы (при редактировании)
+    * @return array Дерево страниц
+    */
+    public function getAvailableParents($excludeId = null) {
+        $sql = "SELECT id, title, parent_id FROM pages";
+        $params = [];
+        
+        if ($excludeId) {
+            $sql .= " WHERE id != ?";
+            $params[] = $excludeId;
+            
+            $descendants = $this->getAllDescendants($excludeId);
+            if (!empty($descendants)) {
+                $placeholders = implode(',', array_fill(0, count($descendants), '?'));
+                $sql .= " AND id NOT IN ($placeholders)";
+                $params = array_merge($params, $descendants);
+            }
+        }
+        
+        $sql .= " ORDER BY title ASC";
+        $pages = $this->db->fetchAll($sql, $params);
+        
+        return $this->buildTree($pages);
+    }
+    
+    /**
+    * Получить все страницы с иерархией (для списка в админке)
+    * @return array Дерево страниц
+    */
+    public function getWithHierarchy() {
+        $sql = "SELECT * FROM pages ORDER BY title ASC";
+        $pages = $this->db->fetchAll($sql);
+        
+        return $this->buildTree($pages);
+    }
+    
+    /**
+    * Проверить наличие дочерних страниц
+    * @param int $id ID страницы
+    * @return bool
+    */
+    public function hasChildren($id) {
+        $sql = "SELECT COUNT(*) as count FROM pages WHERE parent_id = ?";
+        $result = $this->db->fetch($sql, [$id]);
+        return (int)($result['count'] ?? 0) > 0;
+    }
+    
+    /**
+    * Получить всех потомков страницы (рекурсивно)
+    * @param int $id ID страницы
+    * @return array Массив ID потомков
+    */
+    public function getAllDescendants($id) {
+        $descendants = [];
+        $children = $this->getChildren($id);
+        
+        foreach ($children as $child) {
+            $descendants[] = $child['id'];
+            $descendants = array_merge($descendants, $this->getAllDescendants($child['id']));
+        }
+        
+        return $descendants;
+    }
+    
+    /**
+    * Получить прямых детей страницы
+    * @param int $parentId ID родителя
+    * @return array
+    */
+    public function getChildren($parentId) {
+        $sql = "SELECT * FROM pages WHERE parent_id = ? ORDER BY title ASC";
+        return $this->db->fetchAll($sql, [$parentId]);
+    }
+    
+    /**
+    * Построить дерево из плоского списка страниц
+    * @param array $pages Плоский массив страниц
+    * @return array Дерево
+    */
+    private function buildTree($pages) {
+        $indexed = [];
+        foreach ($pages as &$page) {
+            $page['children'] = [];
+            $indexed[$page['id']] = &$page;
+        }
+        
+        $tree = [];
+        foreach ($pages as &$page) {
+            $parentId = $page['parent_id'] ?? null;
+            if ($parentId && isset($indexed[$parentId])) {
+                $indexed[$parentId]['children'][] = &$page;
+            } else {
+                $tree[] = &$page;
+            }
+        }
+        
+        return $tree;
     }
 }

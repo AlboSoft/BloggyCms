@@ -440,6 +440,7 @@ CREATE TABLE IF NOT EXISTS `{#}notifications` (
 
 CREATE TABLE IF NOT EXISTS `{#}pages` (
   `id` int NOT NULL AUTO_INCREMENT,
+  `parent_id` int DEFAULT NULL,
   `title` varchar(255) NOT NULL,
   `slug` varchar(255) NOT NULL,
   `content` text,
@@ -448,7 +449,8 @@ CREATE TABLE IF NOT EXISTS `{#}pages` (
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `idx_pages_status` (`status`),
-  KEY `idx_pages_status_created` (`status`, `created_at`)
+  KEY `idx_pages_status_created` (`status`, `created_at`),
+  KEY `idx_pages_parent_id` (`parent_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -969,6 +971,12 @@ ALTER TABLE `{#}html_blocks`
 ALTER TABLE `{#}page_blocks`
   ADD CONSTRAINT `fk_{#}page_blocks_page` FOREIGN KEY (`page_id`) REFERENCES `{#}pages` (`id`) ON DELETE CASCADE;
 
+--
+-- Ограничения внешнего ключа таблицы `{#}pages`
+--
+ALTER TABLE `{#}pages`
+  ADD CONSTRAINT `fk_{#}pages_parent` FOREIGN KEY (`parent_id`) REFERENCES `{#}pages` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+  
 --
 -- Ограничения внешнего ключа таблицы `{#}password_resets`
 --

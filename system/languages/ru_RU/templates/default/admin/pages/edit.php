@@ -24,3 +24,6 @@ define('LANG_TEMPLATE_PAGES_EDIT_STATUS_DRAFT', 'Черновик');
 define('LANG_TEMPLATE_PAGES_EDIT_STATUS_PUBLISHED', 'Опубликовано');
 define('LANG_TEMPLATE_PAGES_EDIT_SUBMIT_BTN', 'Обновить страницу');
 define('LANG_TEMPLATE_PAGES_EDIT_CANCEL_BTN', 'Отмена');
+define('LANG_TEMPLATE_PAGES_EDIT_PARENT_LABEL', 'Родительская страница');
+define('LANG_TEMPLATE_PAGES_EDIT_PARENT_NONE', '— Без родителя —');
+define('LANG_TEMPLATE_PAGES_EDIT_PARENT_HINT', 'Выберите страницу, к которой будет привязана текущая');

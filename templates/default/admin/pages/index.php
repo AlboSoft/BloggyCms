@@ -47,47 +47,65 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($pages as $page) { ?>
-                            <tr>
-                                <td>
-                                    <strong><?php echo html($page['title']); ?></strong>
-                                </td>
-                                <td>
-                                    <code class="text-muted"><?php echo html($page['slug']); ?></code>
-                                </td>
-                                <td>
-                                    <span class="badge bg-<?php echo $page['status'] === 'published' ? 'success' : 'warning'; ?>">
-                                        <?php echo $page['status'] === 'published' ? LANG_TEMPLATE_PAGES_INDEX_STATUS_PUBLISHED : LANG_TEMPLATE_PAGES_INDEX_STATUS_DRAFT; ?>
-                                    </span>
-                                </td>
-                                <td>
-                                    <small class="text-muted">
-                                        <?php echo date('d.m.Y', strtotime($page['created_at'])); ?>
-                                    </small>
-                                </td>
-                                <td>
-                                    <div class="d-flex justify-content-end gap-2">
-                                        <a href="<?php echo BASE_URL; ?>/page/<?php echo $page['slug']; ?>" 
-                                           class="btn btn-sm btn-outline-secondary" 
-                                           target="_blank"
-                                           title="<?php echo LANG_TEMPLATE_PAGES_INDEX_ACTION_VIEW; ?>">
-                                           <?php echo bloggy_icon('bs', 'eye', '16', '#000'); ?>
-                                        </a>
-                                        <a href="<?php echo ADMIN_URL; ?>/pages/edit/<?php echo $page['id']; ?>" 
-                                           class="btn btn-sm btn-outline-primary"
-                                           title="<?php echo LANG_TEMPLATE_PAGES_INDEX_ACTION_EDIT; ?>">
-                                           <?php echo bloggy_icon('bs', 'pencil', '16', '#000'); ?>
-                                        </a>
-                                        <a href="<?php echo ADMIN_URL; ?>/pages/delete/<?php echo $page['id']; ?>" 
-                                           class="btn btn-sm btn-outline-danger"
-                                           onclick="return confirm('<?php echo LANG_TEMPLATE_PAGES_INDEX_DELETE_CONFIRM; ?>')"
-                                           title="<?php echo LANG_TEMPLATE_PAGES_INDEX_ACTION_DELETE; ?>">
-                                            <?php echo bloggy_icon('bs', 'trash', '16', '#000'); ?>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <?php } ?>
+                            <?php 
+                                $renderPageRow = function($pages, $level = 0) use (&$renderPageRow) {
+                                    foreach ($pages as $page) {
+                                        $indent = $level * 30;
+                                        $isChild = $level > 0;
+                                        ?>
+                                        <tr class="<?php echo $isChild ? 'child-page' : 'parent-page'; ?>">
+                                            <td>
+                                                <div style="padding-left: <?php echo $indent; ?>px; <?php echo $isChild ? 'font-style: italic; color: #6c757d;' : ''; ?>">
+                                                    <?php if ($isChild) { ?>
+                                                        <span class="text-muted me-1">↳</span>
+                                                    <?php } ?>
+                                                    <strong><?php echo html($page['title']); ?></strong>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <code class="text-muted"><?php echo html($page['slug']); ?></code>
+                                            </td>
+                                            <td>
+                                                <span class="badge bg-<?php echo $page['status'] === 'published' ? 'success' : 'warning'; ?>">
+                                                    <?php echo $page['status'] === 'published' ? LANG_TEMPLATE_PAGES_INDEX_STATUS_PUBLISHED : LANG_TEMPLATE_PAGES_INDEX_STATUS_DRAFT; ?>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <small class="text-muted"><?php echo date('d.m.Y', strtotime($page['created_at'])); ?></small>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex justify-content-end gap-2">
+                                                    <a href="<?php echo BASE_URL; ?>/page/<?php echo $page['slug']; ?>"
+                                                    class="btn btn-sm btn-outline-secondary"
+                                                    target="_blank"
+                                                    title="<?php echo LANG_TEMPLATE_PAGES_INDEX_ACTION_VIEW; ?>">
+                                                        <?php echo bloggy_icon('bs', 'eye', '16', '#000'); ?>
+                                                    </a>
+                                                    <a href="<?php echo ADMIN_URL; ?>/pages/edit/<?php echo $page['id']; ?>"
+                                                    class="btn btn-sm btn-outline-primary"
+                                                    title="<?php echo LANG_TEMPLATE_PAGES_INDEX_ACTION_EDIT; ?>">
+                                                        <?php echo bloggy_icon('bs', 'pencil', '16', '#000'); ?>
+                                                    </a>
+                                                    <a href="<?php echo ADMIN_URL; ?>/pages/delete/<?php echo $page['id']; ?>"
+                                                    class="btn btn-sm btn-outline-danger"
+                                                    title="<?php echo LANG_TEMPLATE_PAGES_INDEX_ACTION_DELETE; ?>"
+                                                    onclick="return confirm('<?php echo LANG_TEMPLATE_PAGES_INDEX_DELETE_CONFIRM; ?>')">
+                                                        <?php echo bloggy_icon('bs', 'trash', '16', '#000'); ?>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <?php
+                                        if (!empty($page['children'])) {
+                                            $renderPageRow($page['children'], $level + 1);
+                                        }
+                                    }
+                                };
+
+                                if (!empty($pages)) {
+                                    $renderPageRow($pages);
+                                }
+                                ?>
                         </tbody>
                     </table>
                 </div>

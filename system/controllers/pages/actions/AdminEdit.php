@@ -188,7 +188,10 @@ class AdminEdit extends PageAction {
     private function updatePageData() {
         $data = [
             'title' => $_POST['title'],
-            'status' => $_POST['status'] ?? 'draft'
+            'status' => $_POST['status'] ?? 'draft',
+            'parent_id' => isset($_POST['parent_id']) && $_POST['parent_id'] !== '' 
+                ? (int)$_POST['parent_id'] 
+                : null
         ];
 
         if (!empty($_POST['slug'])) {
@@ -329,11 +332,15 @@ class AdminEdit extends PageAction {
     * @param array $preparedBlocks Подготовленные блоки
     */
     private function renderEditForm($page, $preparedBlocks) {
+
+        $availableParents = $this->pageModel->getAvailableParents($page['id']);
+
         $this->render('admin/pages/edit', [
             'page' => $page,
             'preparedBlocks' => $preparedBlocks,
             'postBlockManager' => $this->postBlockManager,
-            'pageTitle' => LANG_ACTION_PAGES_ADMINEDIT_PAGE_TITLE
+            'pageTitle' => LANG_ACTION_PAGES_ADMINEDIT_PAGE_TITLE,
+            'availableParents' => $availableParents
         ]);
     }
     

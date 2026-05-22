@@ -25,3 +25,6 @@ define('LANG_TEMPLATE_PAGES_CREATE_STATUS_DRAFT', 'Draft');
 define('LANG_TEMPLATE_PAGES_CREATE_STATUS_PUBLISHED', 'Published');
 define('LANG_TEMPLATE_PAGES_CREATE_SUBMIT_BTN', 'Create Page');
 define('LANG_TEMPLATE_PAGES_CREATE_CANCEL_BTN', 'Cancel');
+define('LANG_TEMPLATE_PAGES_CREATE_PARENT_LABEL', 'Parent Page');
+define('LANG_TEMPLATE_PAGES_CREATE_PARENT_NONE', '— No parent —');
+define('LANG_TEMPLATE_PAGES_CREATE_PARENT_HINT', 'Select the page to which this one will be attached');

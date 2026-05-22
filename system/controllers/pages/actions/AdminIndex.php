@@ -32,7 +32,7 @@ class AdminIndex extends PageAction {
     * @return array Массив всех страниц
     */
     private function loadPages() {
-        return $this->pageModel->getAll();
+        return $this->pageModel->getWithHierarchy();
     }
     
     /**

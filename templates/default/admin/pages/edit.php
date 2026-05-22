@@ -144,6 +144,31 @@
                         <h5 class="card-title mb-0"><?php echo LANG_TEMPLATE_PAGES_EDIT_PUBLISH_TITLE; ?></h5>
                     </div>
                     <div class="card-body">
+
+                        <div class="mb-4">
+                            <label class="form-label"><?php echo bloggy_icon('bs', 'diagram-2', '16', '#000', 'me-1'); ?><?php echo LANG_TEMPLATE_PAGES_EDIT_PARENT_LABEL; ?></label>
+                            <select name="parent_id" class="form-select">
+                                <option value=""><?php echo LANG_TEMPLATE_PAGES_EDIT_PARENT_NONE; ?></option>
+                                <?php if (!empty($availableParents)) { ?>
+                                    <?php 
+                                    $currentParentId = $page['parent_id'] ?? null;
+                                    $renderOptions = function($pages, $level = 0) use (&$renderOptions, $currentParentId) {
+                                        foreach ($pages as $p) {
+                                            $indent = str_repeat('—', $level) . ($level > 0 ? ' ' : '');
+                                            $selected = ($currentParentId == $p['id']) ? 'selected' : '';
+                                            echo '<option value="' . $p['id'] . '" ' . $selected . '>' . $indent . html($p['title']) . '</option>';
+                                            if (!empty($p['children'])) {
+                                                $renderOptions($p['children'], $level + 1);
+                                            }
+                                        }
+                                    };
+                                    $renderOptions($availableParents);
+                                    ?>
+                                <?php } ?>
+                            </select>
+                            <div class="form-text"><?php echo LANG_TEMPLATE_PAGES_EDIT_PARENT_HINT; ?></div>
+                        </div>
+
                         <div class="mb-4">
                             <label class="form-label"><?php echo LANG_TEMPLATE_PAGES_EDIT_STATUS_LABEL; ?></label>
                             <select name="status" class="form-select" required>

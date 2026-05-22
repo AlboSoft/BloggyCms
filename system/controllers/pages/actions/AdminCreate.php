@@ -69,9 +69,10 @@ class AdminCreate extends PageAction {
     private function preparePageData() {
         $data = [
             'title' => $_POST['title'],
-            'status' => $_POST['status'] ?? 'draft'
+            'status' => $_POST['status'] ?? 'draft',
+            'parent_id' => !empty($_POST['parent_id']) ? (int)$_POST['parent_id'] : null
         ];
-
+        
         if (!empty($_POST['slug'])) {
             $data['slug'] = $this->sanitizeSlug($_POST['slug']);
         }
@@ -176,12 +177,14 @@ class AdminCreate extends PageAction {
         \Notification::error(LANG_ACTION_PAGES_ADMINCREATE_ERROR . $e->getMessage());
         
         $preparedBlocks = $this->prepareBlocksFromPost();
+        $availableParents = $this->pageModel->getAvailableParents(); // ← ДОБАВИТЬ
         
         $this->render('admin/pages/create', [
             'data' => $_POST,
             'preparedBlocks' => $preparedBlocks,
             'postBlockManager' => $this->postBlockManager,
-            'pageTitle' => LANG_ACTION_PAGES_ADMINCREATE_PAGE_TITLE
+            'pageTitle' => LANG_ACTION_PAGES_ADMINCREATE_PAGE_TITLE,
+            'availableParents' => $availableParents
         ]);
     }
     
@@ -216,9 +219,12 @@ class AdminCreate extends PageAction {
     * @return void
     */
     private function renderCreateForm() {
+        $availableParents = $this->pageModel->getAvailableParents();
+        
         $this->render('admin/pages/create', [
             'postBlockManager' => $this->postBlockManager,
-            'pageTitle' => LANG_ACTION_PAGES_ADMINCREATE_PAGE_TITLE
+            'pageTitle' => LANG_ACTION_PAGES_ADMINCREATE_PAGE_TITLE,
+            'availableParents' => $availableParents
         ]);
     }
     
