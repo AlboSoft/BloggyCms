@@ -4702,3 +4702,52 @@ h6.card-title {
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     cursor: help;
 }
+
+.breadcrumb-wrapper-modern {
+    background: #f8f9fa;
+    padding: 12px 24px;
+    margin: 0 24px 20px 24px;
+    border-radius: 12px;
+    border: 1px solid #e9ecef;
+}
+
+.admin-breadcrumb-modern {
+    margin: 0;
+    padding: 0;
+}
+
+.admin-breadcrumb-modern .breadcrumb {
+    margin-bottom: 0;
+    background: transparent;
+    padding: 0;
+}
+
+.admin-breadcrumb-modern .breadcrumb-item {
+    font-size: 14px;
+}
+
+.admin-breadcrumb-modern .breadcrumb-item a {
+    color: #4f46e5;
+    text-decoration: none;
+}
+
+.admin-breadcrumb-modern .breadcrumb-item a:hover {
+    text-decoration: underline;
+}
+
+.admin-breadcrumb-modern .breadcrumb-item.active {
+    color: #6c757d;
+    font-weight: 500;
+}
+
+.admin-breadcrumb-modern .breadcrumb-item + .breadcrumb-item::before {
+    content: "›";
+    color: #adb5bd;
+}
+
+@media (max-width: 768px) {
+    .breadcrumb-wrapper-modern {
+        margin: 0 16px 16px 16px;
+        padding: 10px 16px;
+    }
+}

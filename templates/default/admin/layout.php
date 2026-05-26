@@ -112,26 +112,7 @@
 
             <main class="content-wrapper">
                 <div class="top-bar d-flex justify-content-between align-items-center">
-                    <div class="breadcrumb-wrapper">
-                        <?php 
-                        if (isset($breadcrumbs) && $breadcrumbs instanceof BreadcrumbsManager && !$breadcrumbs->isEmpty()) {
-                            echo $breadcrumbs->render([
-                                'container_tag' => 'div',
-                                'container_class' => 'admin-breadcrumb',
-                                'list_tag' => 'ol',
-                                'list_class' => 'breadcrumb mb-0',
-                                'item_tag' => 'li',
-                                'item_class' => 'breadcrumb-item',
-                                'active_class' => 'active',
-                                'home_icon' => 'house'
-                            ]);
-                        } else {
-                            echo '<h6 class="mb-0"><a href="' . ADMIN_URL . '" style="text-decoration:none">';
-                            echo bloggy_icon('bs', 'house', '16', '#000', 'me-1');
-                            echo ' ' . LANG_ADMIN_BREADCRUMBS_HOME . '</a></h6>';
-                        }
-                        ?>
-                    </div>
+                    <div class="breadcrumb-wrapper"></div>
                     <div class="d-flex align-items-center">
                         <div class="d-flex align-items-center me-3" style="gap: 10px;">
                             <div class="dropdown">
@@ -191,17 +172,17 @@
                         </div>
                         <div class="dropdown">
                             <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                <?php if(!empty($currentUser['avatar']) && $currentUser['avatar'] !== 'default.jpg'): ?>
+                                <?php if(!empty($currentUser['avatar']) && $currentUser['avatar'] !== 'default.jpg') { ?>
                                     <img src="<?php echo BASE_URL ?>/uploads/avatars/<?php echo $currentUser['avatar'] ?>" 
                                          class="rounded-circle me-2" 
                                          style="width: 32px; height: 32px; object-fit: cover;"
                                          alt="<?php echo html($currentUser['username']) ?>">
-                                <?php else: ?>
+                                <?php } else { ?>
                                     <div class="rounded-circle me-2 d-flex align-items-center justify-content-center bg-secondary text-white" 
                                          style="width: 32px; height: 32px;">
                                         <i class="bi bi-person" style="font-size: 16px;"></i>
                                     </div>
-                                <?php endif; ?>
+                                <?php } ?>
                                 <span class="text-muted">
                                     <?php echo html($currentUser['display_name'] ?: $currentUser['username']) ?>
                                 </span>
@@ -233,6 +214,21 @@
                         </div>
                     </div>
                 </div>
+
+                <?php if (isset($breadcrumbs) && $breadcrumbs instanceof BreadcrumbsManager && !$breadcrumbs->isEmpty()): ?>
+                <div class="breadcrumb-wrapper-modern">
+                    <?php echo $breadcrumbs->render([
+                        'container_tag' => 'div',
+                        'container_class' => 'admin-breadcrumb-modern',
+                        'list_tag' => 'ol',
+                        'list_class' => 'breadcrumb',
+                        'item_tag' => 'li',
+                        'item_class' => 'breadcrumb-item',
+                        'active_class' => 'active',
+                        'home_icon' => 'house-door'
+                    ]); ?>
+                </div>
+                <?php endif; ?>
 
                 <div class="container-fluid px-5">
                     <?php echo $content ?>

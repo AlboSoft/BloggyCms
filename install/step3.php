@@ -146,7 +146,7 @@ function updateSiteSettings(PDO $pdo, string $prefix, array $siteConfig): void {
         'time_format' => 'H:i',
         'site_author' => $siteConfig['admin_username'],
         'contact_email' => $siteConfig['admin_email'],
-        'site_tagline' => 'Мой блог на BloggyCMS',
+        'site_tagline' => 'Мой блог',
         'site_description' => 'Современный блог на BloggyCMS',
         'meta_keywords' => 'блог, cms, php, программирование',
         'enable_sitemap' => '1',
@@ -220,7 +220,7 @@ function updateSiteSettings(PDO $pdo, string $prefix, array $siteConfig): void {
 
 $errors = [];
 $siteConfig = [
-    'site_name' => 'Мой блог на BloggyCMS', 
+    'site_name' => 'Мой блог', 
     'site_url' => '', 
     'admin_email' => '', 
     'admin_username' => 'admin', 
