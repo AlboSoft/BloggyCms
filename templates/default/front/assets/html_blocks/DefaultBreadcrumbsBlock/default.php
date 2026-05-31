@@ -15,7 +15,7 @@ if (empty($items)) {
 ?>
 
 <?php if (!empty($containerClass)) { ?>
-<div class="<?= htmlspecialchars($containerClass) ?>" style="--breadcrumb-separator: '<?= htmlspecialchars($separator) ?>';">
+<div class="<?= html($containerClass ?? '') ?>" style="--breadcrumb-separator: '<?= html($separator ?? '') ?>';">
 <?php } ?>
 
     <nav aria-label="breadcrumb">
@@ -33,7 +33,7 @@ if (empty($items)) {
                 
                 <?php if (!$isLast && !empty($item['url'])) { ?>
                     
-                    <a href="<?= htmlspecialchars($item['url']) ?>" itemprop="item">
+                    <a href="<?= html($item['url'] ?? '') ?>" itemprop="item">
                         
                         <?php if ($isHome && !empty($homeIcon)) { 
                             $iconParts = explode(':', $homeIcon);
@@ -42,14 +42,14 @@ if (empty($items)) {
                             echo bloggy_icon($iconSet, $iconName, '16 16', 'currentColor', 'me-1 breadcrumb-svg');
                         } ?>
                         
-                        <span itemprop="name"><?= htmlspecialchars($item['title']) ?></span>
+                        <span itemprop="name"><?= html($item['title'] ?? '') ?></span>
                         
                     </a>
                     
                 <?php } else { ?>
                     
                     <span itemprop="name">
-                        <?= htmlspecialchars($item['title']) ?>
+                        <?= html($item['title'] ?? '') ?>
                     </span>
                     
                 <?php } ?>

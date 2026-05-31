@@ -25,6 +25,7 @@ $lang_data = [
         'agree_license' => 'Я принимаю условия лицензионного соглашения',
         'license_accept_error' => 'Для продолжения установки необходимо принять условия лицензии',
         'license_text_title' => 'MIT License',
+        'license_info_text' => 'Пожалуйста, ознакомьтесь с условиями лицензии выше и примите их, чтобы продолжить установку.',
     ],
     'en' => [
         'title_lang' => 'Installer Language',
@@ -49,6 +50,7 @@ $lang_data = [
         'agree_license' => 'I agree to the terms of the license agreement',
         'license_accept_error' => 'You must accept the license terms to continue installation',
         'license_text_title' => 'MIT License',
+        'license_info_text' => 'Please read the license terms above and accept them to continue installation.',
     ]
 ];
 
@@ -137,11 +139,11 @@ if (isset($_POST['next']) && !$license_accepted) {
 
 <?php if (!$license_accepted) { ?>
     <div style="background: #fff8e7; border-radius: 12px; padding: 20px; margin-bottom: 30px; border: 1px solid #ffe0a3;">
-        <div style="display: flex; align-items: flex-start; gap: 15px; flex-wrap: wrap;">
-            <div style="flex: 1;">
-                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 15px; flex-wrap: wrap;">
+            <div style="flex: 1; width: 100%;">
+                <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 10px; text-align: center; width: 100%;">
                     <?php echo icon('bs', 'file-earmark-text', '20', '#e67e22'); ?>
-                    <h3 style="margin: 0; font-size: 1.1rem; color: #2c3e50;"><?php echo $t['license_title']; ?></h3>
+                    <h3 style="margin: 0 !important; font-size: 1.1rem !important; color: #2c3e50 !important; text-align: center !important; width: auto;"><?php echo $t['license_title']; ?></h3>
                 </div>
                 <div style="background: #f5f5f5; border-radius: 8px; padding: 12px; max-height: 200px; overflow-y: auto; font-family: monospace; font-size: 11px; line-height: 1.4; margin-bottom: 12px; border: 1px solid #e0e0e0;">
                     <strong><?php echo $t['license_text_title']; ?></strong><br><br>
@@ -165,17 +167,19 @@ if (isset($_POST['next']) && !$license_accepted) {
                     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
                     SOFTWARE.
                 </div>
-                <form method="post" style="margin: 0;">
-                    <label style="display: flex; align-items: center; gap: 12px; cursor: pointer; margin-bottom: 15px;">
-                        <input type="checkbox" name="accept_license" value="1" required style="display: none;">
+                <form method="post" style="margin: 0;" id="license-form">
+                    <label style="display: flex; align-items: center; gap: 12px; cursor: pointer; margin-bottom: 15px; justify-content: center;">
+                        <input type="checkbox" name="accept_license" id="accept_license_checkbox" value="1" style="display: none;">
                         <div class="toggle-switch">
                             <span class="toggle-slider"></span>
                         </div>
                         <span><?php echo $t['agree_license']; ?></span>
                     </label>
-                    <button type="submit" name="submit_license" class="btn btn-primary">
-                        <?php echo icon('bs', 'check-lg', '16'); ?> <?php echo $t['continue']; ?>
-                    </button>
+                    <div style="text-align: center;">
+                        <button type="submit" name="submit_license" id="submit_license_btn" class="btn btn-primary" disabled>
+                            <?php echo icon('bs', 'check-lg', '16'); ?> <?php echo $t['continue']; ?>
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -183,9 +187,40 @@ if (isset($_POST['next']) && !$license_accepted) {
 
     <div style="text-align: center; padding: 40px 20px;">
         <?php echo icon('bs', 'file-earmark-text', '48', '#e67e22', '', 'style="margin-bottom: 20px;"'); ?>
-        <h3><?php echo $t['license_title']; ?></h3>
-        <p>Пожалуйста, ознакомьтесь с условиями лицензии выше и примите их, чтобы продолжить установку.</p>
+        <h3 style="display: block !important; text-align: center !important; justify-content: center !important; margin: 16px 0 !important;"><?php echo $t['license_title']; ?></h3>
+        <p style="text-align: center !important;"><?php echo $t['license_info_text']; ?></p>
     </div>
+
+    <script>
+        (function() {
+            const checkbox = document.getElementById('accept_license_checkbox');
+            const submitBtn = document.getElementById('submit_license_btn');
+            const toggleSlider = document.querySelector('.toggle-switch');
+            
+            if (checkbox && submitBtn) {
+                if (toggleSlider) {
+                    toggleSlider.parentElement.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        checkbox.checked = !checkbox.checked;
+                        submitBtn.disabled = !checkbox.checked;
+                        
+                        const slider = toggleSlider.querySelector('.toggle-slider');
+                        if (slider) {
+                            if (checkbox.checked) {
+                                slider.style.backgroundColor = '#3498db';
+                            } else {
+                                slider.style.backgroundColor = '#ccc';
+                            }
+                        }
+                    });
+                }
+                
+                checkbox.addEventListener('change', function() {
+                    submitBtn.disabled = !this.checked;
+                });
+            }
+        })();
+    </script>
 
 <?php } else { ?>
 
