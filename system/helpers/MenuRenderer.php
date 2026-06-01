@@ -164,6 +164,7 @@ class MenuRenderer {
         $class = $item['class'] ?? '';
         $target = $item['target'] ?? '_self';
         $title = htmlspecialchars($item['title'], ENT_QUOTES, 'UTF-8');
+        $description = isset($item['description']) ? htmlspecialchars($item['description'], ENT_QUOTES, 'UTF-8') : '';
         
         $url = self::processUrl($item['url'] ?? '');
         $url = htmlspecialchars($url, ENT_QUOTES, 'UTF-8');
@@ -187,7 +188,13 @@ class MenuRenderer {
             $html .= $iconHtml;
             $html .= '<span class="visually-hidden">' . $title . '</span>';
         } else {
-            $html .= $iconHtml . $title;
+            $html .= $iconHtml;
+            $html .= '<div class="menu-text">';
+            $html .= '<span class="menu-title">' . $title . '</span>';
+            if (!empty($description)) {
+                $html .= '<span class="menu-description">' . $description . '</span>';
+            }
+            $html .= '</div>';
         }
         
         $html .= '</a>';

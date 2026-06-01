@@ -246,6 +246,7 @@
                                     <strong><?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_SHORTCODES_TITLE; ?></strong><br>
                                     <code>{url}</code> - <?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_SHORTCODE_URL; ?><br>
                                     <code>{title}</code> - <?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_SHORTCODE_TITLE; ?><br>
+                                    <code>{desc}</code> - <?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_SHORTCODE_DESC; ?><br>
                                     <code>{target}</code> - <?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_SHORTCODE_TARGET; ?><br>
                                     <code>{class}</code> - <?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_SHORTCODE_CLASS; ?><br>
                                     <code>{icon}</code> - <?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_SHORTCODE_ICON; ?><br>
@@ -374,7 +375,18 @@
                                    required>
                             <div class="form-text"><?php echo LANG_TEMPLATE_MENU_FORM_MODAL_TITLE_HINT; ?></div>
                         </div>
-                        
+                        <div class="col-md-12">
+                            <label class="form-label">
+                                <?php echo bloggy_icon('bs', 'chat-text', '16', '#000', 'me-1'); ?>
+                                <?php echo LANG_TEMPLATE_MENU_FORM_MODAL_DESC_LABEL; ?>
+                            </label>
+                            <input type="text" 
+                                class="form-control" 
+                                id="item-description" 
+                                placeholder="<?php echo LANG_TEMPLATE_MENU_FORM_MODAL_DESC_PLACEHOLDER; ?>" 
+                                maxlength="255">
+                            <div class="form-text"><?php echo LANG_TEMPLATE_MENU_FORM_MODAL_DESC_HINT; ?></div>
+                        </div>
                         <div class="col-md-12">
                             <label class="form-label">
                                 <?php echo bloggy_icon('bs', 'link', '16', '#000', 'me-1'); ?>

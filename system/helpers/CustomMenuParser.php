@@ -87,6 +87,7 @@ class CustomMenuParser {
     private static function renderMenuItem($item, $template, $currentUrl) {
         $url = self::processUrl($item['url'] ?? '#');
         $title = html($item['title'] ?? '', ENT_QUOTES, 'UTF-8');
+        $description = isset($item['description']) ? html($item['description'], ENT_QUOTES, 'UTF-8') : '';
         $target = $item['target'] ?? '_self';
         $class = html($item['class'] ?? '', ENT_QUOTES, 'UTF-8');
         $isActive = self::isActiveUrl($url, $currentUrl);
@@ -104,6 +105,7 @@ class CustomMenuParser {
         
         $result = str_replace('{url}', $url, $template);
         $result = str_replace('{title}', $title, $result);
+        $result = str_replace('{desc}', $description, $result);
         $result = str_replace('{target}', $target, $result);
         $result = str_replace('{class}', $class, $result);
         $result = str_replace('{icon}', $iconHtml, $result);

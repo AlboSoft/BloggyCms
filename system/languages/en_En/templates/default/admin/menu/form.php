@@ -104,3 +104,8 @@ define('LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_SHORTCODE_ICON', 'HTML icon');
 define('LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_SHORTCODE_ACTIVE', '"active" class for current item');
 define('LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_SHORTCODE_HAS_CHILDREN', 'true/false');
 define('LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_SHORTCODE_LEVEL', 'nesting level');
+define('LANG_TEMPLATE_MENU_FORM_MODAL_DESC_LABEL', 'Item Description');
+define('LANG_TEMPLATE_MENU_FORM_MODAL_DESC_PLACEHOLDER', 'Brief description of the menu item (optional)');
+define('LANG_TEMPLATE_MENU_FORM_MODAL_DESC_HINT', 'Will be displayed below the menu item title if supported by the template');
+define('LANG_TEMPLATE_MENU_FORM_SHORTCODE_DESC', 'Menu item description');
+define('LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_SHORTCODE_DESC', '{desc} - Menu item description');

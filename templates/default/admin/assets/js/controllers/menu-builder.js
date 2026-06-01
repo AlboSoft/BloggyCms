@@ -154,6 +154,7 @@
         <li class="{active_class}">
             <a href="{url}" target="{target}" class="{class}">
                 {icon}<span>{title}</span>
+                {desc}
             </a>
         </li>
     {/li}
@@ -162,6 +163,7 @@
         <li class="dropdown {active_class}">
             <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">
                 {icon}{title}
+                {desc}
             </a>
             <ul class="dropdown-menu">
                 {children}
@@ -173,6 +175,7 @@
         <li class="extra-item">
             <a href="{url}" class="btn btn-primary">
                 {icon}{title}
+                {desc}
             </a>
         </li>
     {/li-extra}
@@ -248,10 +251,13 @@
         const levelClass = 'level-' + Math.min(level, 4);
         const isExtra = itemData.is_extra === true;
         const extraBadge = isExtra ? '<span class="badge bg-warning ms-2">extra</span>' : '';
+        const hasDesc = itemData.description && itemData.description.trim() !== '';
+        const descBadge = hasDesc ? '<span class="badge bg-info ms-2">desc</span>' : '';
 
         const itemJson = JSON.stringify({
             title: itemData.title || '',
             url: itemData.url || '',
+            description: itemData.description || '',
             class: itemData.class || '',
             target: itemData.target || '_self',
             icon: itemData.icon || null,
@@ -283,17 +289,19 @@
                                 <span class="level-dot"></span>
                             </div>
                             <div class="flex-grow-1">
-                                <div class="d-flex align-items-center">
+                                <div class="d-flex align-items-start">
                                     ${iconHtml}
                                     ${hasChildren ? 
-                                        '<i class="bi bi-folder-fill text-warning me-2"></i>' : 
-                                        '<i class="bi bi-link-45deg text-primary me-2"></i>'
+                                        '<i class="bi bi-folder-fill text-warning me-2 mt-1"></i>' : 
+                                        '<i class="bi bi-link-45deg text-primary me-2 mt-1"></i>'
                                     }
                                     <div>
                                         <h6 class="mb-1">${this.escapeHtml(itemData.title || (lang === 'ru' ? 'Без названия' : 'Untitled'))} 
+                                            ${descBadge}
                                             ${itemData.icon_only ? `<span class="badge bg-info ms-2">${lang === 'ru' ? 'только иконка' : 'icon only'}</span>` : ''}
                                             ${extraBadge}
                                         </h6>
+                                        ${itemData.description ? `<small class="text-muted d-block">${this.escapeHtml(itemData.description)}</small>` : ''}
                                         <small class="text-muted">${this.escapeHtml(itemData.url || '')}</small>
                                     </div>
                                 </div>
@@ -383,6 +391,7 @@
         document.getElementById('edit-item-index').value = '';
         document.getElementById('parent-item-index').value = parentIndex || '';
         document.getElementById('item-target').value = '_self';
+        document.getElementById('item-description').value = '';
         
         const extraCheckbox = document.getElementById('item-extra');
         if (extraCheckbox) extraCheckbox.checked = false;
@@ -401,6 +410,7 @@
             '<i class="bi bi-pencil me-2"></i>' + (lang === 'ru' ? 'Редактировать пункт меню' : 'Edit menu item');
         document.getElementById('item-title').value = itemData.title || '';
         document.getElementById('item-url').value = itemData.url || '';
+        document.getElementById('item-description').value = itemData.description || '';
         document.getElementById('item-target').value = itemData.target || '_self';
         document.getElementById('item-class').value = itemData.class || '';
         document.getElementById('edit-item-index').value = this.currentEditIndex;
@@ -447,6 +457,7 @@
     saveMenuItemFromModal() {
         const title = document.getElementById('item-title').value.trim();
         const url = document.getElementById('item-url').value.trim();
+        const description = document.getElementById('item-description').value.trim();
         const target = document.getElementById('item-target').value;
         const cssClass = document.getElementById('item-class').value.trim();
         const isExtra = document.getElementById('item-extra')?.checked || false;
@@ -469,6 +480,7 @@
         const itemData = {
             title: title,
             url: url,
+            description: description,
             target: target,
             class: cssClass,
             visibility: visibility,
@@ -579,6 +591,9 @@
             `;
         }
 
+        const hasDesc = itemData.description && itemData.description.trim() !== '';
+        const descBadge = hasDesc ? '<span class="badge bg-info ms-2">desc</span>' : '';
+
         const itemHTML = `
             <div class="menu-item-card card mb-2 level-${Math.min(level, 4)}" 
                 data-index="${fullIndex}" 
@@ -586,6 +601,7 @@
                 data-item='${JSON.stringify({
                     title: itemData.title || '',
                     url: itemData.url || '',
+                    description: itemData.description || '',
                     class: itemData.class || '',
                     target: itemData.target || '_self',
                     icon: itemData.icon || null,
@@ -601,13 +617,15 @@
                                 <span class="level-dot"></span>
                             </div>
                             <div class="flex-grow-1">
-                                <div class="d-flex align-items-center">
+                                <div class="d-flex align-items-start">
                                     ${iconHtml}
-                                    <i class="bi bi-link-45deg text-primary me-2"></i>
+                                    <i class="bi bi-link-45deg text-primary me-2 mt-1"></i>
                                     <div>
                                         <h6 class="mb-1">${this.escapeHtml(itemData.title || (lang === 'ru' ? 'Новый пункт' : 'New item'))} 
+                                            ${descBadge}
                                             ${itemData.icon_only ? `<span class="badge bg-info ms-2">${lang === 'ru' ? 'только иконка' : 'icon only'}</span>` : ''}
                                         </h6>
+                                        ${itemData.description ? `<small class="text-muted d-block">${this.escapeHtml(itemData.description)}</small>` : ''}
                                         <small class="text-muted">${this.escapeHtml(itemData.url || '')}</small>
                                     </div>
                                 </div>
@@ -662,10 +680,38 @@
 
         itemElement.dataset.item = JSON.stringify(itemData);
         const titleElement = itemElement.querySelector('h6');
-        const urlElement = itemElement.querySelector('small');
+        const descElement = itemElement.querySelector('.card-body .d-flex .d-flex .d-flex .small.text-muted.d-block');
+        const urlElement = itemElement.querySelector('small.text-muted:not(.d-block)');
         const iconElement = itemElement.querySelector('.bi');
 
-        if (titleElement) titleElement.textContent = itemData.title || (lang === 'ru' ? 'Без названия' : 'Untitled');
+        if (titleElement) {
+            const hasDesc = itemData.description && itemData.description.trim() !== '';
+            const descBadge = hasDesc ? '<span class="badge bg-info ms-2">desc</span>' : '';
+            titleElement.innerHTML = `${this.escapeHtml(itemData.title || (lang === 'ru' ? 'Без названия' : 'Untitled'))} ${descBadge}`;
+        }
+        
+        const descContainer = itemElement.querySelector('.card-body .d-flex .d-flex .d-flex');
+        if (descContainer) {
+            const existingDesc = descContainer.querySelector('.small.text-muted.d-block');
+            if (itemData.description && itemData.description.trim() !== '') {
+                if (existingDesc) {
+                    existingDesc.textContent = itemData.description;
+                } else {
+                    const descSpan = document.createElement('small');
+                    descSpan.className = 'text-muted d-block';
+                    descSpan.textContent = itemData.description;
+                    const titleDiv = descContainer.querySelector('div');
+                    if (titleDiv) {
+                        titleDiv.appendChild(descSpan);
+                    }
+                }
+            } else {
+                if (existingDesc) {
+                    existingDesc.remove();
+                }
+            }
+        }
+        
         if (urlElement) urlElement.textContent = itemData.url;
 
         const hasChildren = itemElement.querySelector('.menu-children')?.children.length > 0;
@@ -964,7 +1010,8 @@
             { code: '{admin_url}', label: '{admin_url}' },
             { code: '{year}', label: '{year}' },
             { code: '{month}', label: '{month}' },
-            { code: '{day}', label: '{day}' }
+            { code: '{day}', label: '{day}' },
+            { code: '{desc}', label: '{desc}' }
         ];
         
         const container = document.getElementById('shortcode-buttons');
