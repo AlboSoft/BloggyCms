@@ -109,3 +109,8 @@ define('LANG_TEMPLATE_MENU_FORM_MODAL_DESC_PLACEHOLDER', 'Brief description of t
 define('LANG_TEMPLATE_MENU_FORM_MODAL_DESC_HINT', 'Will be displayed below the menu item title if supported by the template');
 define('LANG_TEMPLATE_MENU_FORM_SHORTCODE_DESC', 'Menu item description');
 define('LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_SHORTCODE_DESC', '{desc} - Menu item description');
+define('LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_CHILDREN', 'Container for child items');
+define('LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_CHILDREN_ITEM', 'Template for single child item');
+define('LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_SHORTCODE_CHILDREN', 'HTML of child items (inserted automatically)');
+define('LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_EXAMPLE_TITLE', 'Usage example');
+define('LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_EXAMPLE_TEXT', 'Inside {li=children} you can use {li=children-item} to style each child item. The {children} shortcode is used inside {li=sub} to insert rendered children.');

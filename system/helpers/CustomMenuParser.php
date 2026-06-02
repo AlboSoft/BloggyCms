@@ -1,104 +1,156 @@
 <?php
 
 /**
-* Парсер кастомных шаблонов меню с поддержкой шорткодов
+* Парсер кастомных шаблонов меню
 */
 class CustomMenuParser {
     
     /**
-    * Парсит кастомный шаблон меню
-    * @param string $template Шаблон с шорткодами
-    * @param array $menuItems Массив пунктов меню
-    * @param string $currentUrl Текущий URL для определения активности
-    * @return string Отрендеренный HTML
+    * Главный метод парсинга
     */
     public static function parse($template, $menuItems, $currentUrl) {
         if (empty($template)) {
-            return '<!-- Empty custom template -->';
-        }
-        
-        // шорткод {li=sub}...{/li} (пункты с детьми)
-        $template = preg_replace_callback(
-            '/\{li=sub\}(.*?)\{\/li=sub\}/s',
-            function($matches) use ($menuItems, $currentUrl) {
-                $innerTemplate = $matches[1];
-                return self::renderMenuItems($menuItems, $innerTemplate, $currentUrl, true);
-            },
-            $template
-        );
-        
-        // шорткод {li-extra}...{/li} (экстра-пункты)
-        $template = preg_replace_callback(
-            '/\{li-extra\}(.*?)\{\/li-extra\}/s',
-            function($matches) use ($menuItems, $currentUrl) {
-                $innerTemplate = $matches[1];
-                $extraItems = self::filterExtraItems($menuItems);
-                return self::renderMenuItems($extraItems, $innerTemplate, $currentUrl, false);
-            },
-            $template
-        );
-        
-        // шорткод {li}...{/li} (обычные пункты)
-        $template = preg_replace_callback(
-            '/\{li\}(.*?)\{\/li\}/s',
-            function($matches) use ($menuItems, $currentUrl) {
-                $innerTemplate = $matches[1];
-                $normalItems = self::filterNormalItems($menuItems);
-                return self::renderMenuItems($normalItems, $innerTemplate, $currentUrl, false);
-            },
-            $template
-        );
-        
-        return $template;
-    }
-    
-    /**
-    * Рендерит пункты меню с помощью шаблона
-    */
-    private static function renderMenuItems($items, $template, $currentUrl, $isSubmenu = false) {
-        if (empty($items)) {
             return '';
         }
         
-        $output = '';
-        foreach ($items as $item) {
-            if ($isSubmenu && empty($item['children'])) {
-                continue;
-            }
-            
-            if ($isSubmenu && !empty($item['children'])) {
-                $output .= self::renderMenuItemWithChildren($item, $template, $currentUrl);
-            }
-            else if (!$isSubmenu) {
-                if (!empty($item['children'])) {
-                    $output .= self::renderMenuItemWithChildren($item, $template, $currentUrl);
-                } else {
-                    $output .= self::renderMenuItem($item, $template, $currentUrl);
+        $result = preg_replace_callback(
+            '/\{li=sub\}(.*?)\{\/li=sub\}/s',
+            function($matches) use ($menuItems, $currentUrl) {
+                $itemTemplate = $matches[1];
+                $output = '';
+                
+                foreach ($menuItems as $item) {
+                    if (!empty($item['children'])) {
+                        $output .= self::renderParentItem($item, $itemTemplate, $currentUrl);
+                    }
                 }
-            }
-        }
+                
+                return $output;
+            },
+            $template
+        );
         
-        return $output;
+        $result = preg_replace_callback(
+            '/\{li\}(.*?)\{\/li\}/s',
+            function($matches) use ($menuItems, $currentUrl) {
+                $itemTemplate = $matches[1];
+                $output = '';
+                
+                foreach ($menuItems as $item) {
+                    if (empty($item['children']) && empty($item['is_extra'])) {
+                        $output .= self::renderRegularItem($item, $itemTemplate, $currentUrl);
+                    }
+                }
+                
+                return $output;
+            },
+            $result
+        );
+        
+        $result = preg_replace_callback(
+            '/\{li-extra\}(.*?)\{\/li-extra\}/s',
+            function($matches) use ($menuItems, $currentUrl) {
+                $itemTemplate = $matches[1];
+                $output = '';
+                
+                foreach ($menuItems as $item) {
+                    if (!empty($item['is_extra'])) {
+                        $output .= self::renderRegularItem($item, $itemTemplate, $currentUrl);
+                    }
+                }
+                
+                return $output;
+            },
+            $result
+        );
+        
+        return $result;
     }
     
     /**
-    * Рендерит один пункт меню без детей
+    * Рендерит родительский пункт с детьми
     */
-    private static function renderMenuItem($item, $template, $currentUrl) {
+    private static function renderParentItem($item, $template, $currentUrl) {
+        if (preg_match('/\{li=children\}(.*?)\{\/li=children\}/s', $template, $childrenMatch)) {
+            $fullChildrenBlock  = $childrenMatch[0];
+            $childrenContainer  = $childrenMatch[1];
+
+            if (preg_match('/\{li=children-item\}(.*?)\{\/li=children-item\}/s', $childrenContainer, $itemMatch)) {
+                $itemBlock    = $itemMatch[0];
+                $itemTemplate = $itemMatch[1];
+
+                $renderedChildren = '';
+                foreach ($item['children'] as $child) {
+                    $renderedChildren .= self::renderChildItem($child, $itemTemplate, $currentUrl);
+                }
+
+                $finalChildrenHtml = str_replace($itemBlock, $renderedChildren, $childrenContainer);
+                $placeholder = '___CHILDREN_BLOCK_' . md5(uniqid('', true)) . '___';
+                $result = str_replace($fullChildrenBlock, $placeholder, $template);
+                $result = self::replaceShortcodes($result, $item, $currentUrl);
+                $result = str_replace($placeholder, $finalChildrenHtml, $result);
+
+                return $result;
+            }
+        }
+
+        return self::replaceShortcodes($template, $item, $currentUrl);
+    }
+    
+    /**
+    * Рендерит дочерний пункт
+    */
+    private static function renderChildItem($child, $template, $currentUrl) {
+        $url = self::processUrl($child['url'] ?? '#');
+        $title = html($child['title'] ?? '', ENT_QUOTES, 'UTF-8');
+        $desc = isset($child['description']) ? html($child['description'], ENT_QUOTES, 'UTF-8') : '';
+        $target = $child['target'] ?? '_self';
+        $class = html($child['class'] ?? '', ENT_QUOTES, 'UTF-8');
+        
+        $iconHtml = '';
+        if (!empty($child['icon']) && is_array($child['icon']) && !empty($child['icon']['id'])) {
+            $iconSet = $child['icon']['set'] ?? 'bs';
+            $iconId = $child['icon']['id'];
+            $iconSize = $child['icon']['size'] ?? 20;
+            $iconColor = $child['icon']['color'] ?? 'currentColor';
+            $iconHtml = bloggy_icon($iconSet, $iconId, "{$iconSize} {$iconSize}", $iconColor, 'menu-icon');
+        }
+        
+        $result = str_replace('{url}', $url, $template);
+        $result = str_replace('{title}', $title, $result);
+        $result = str_replace('{desc}', $desc, $result);
+        $result = str_replace('{target}', $target, $result);
+        $result = str_replace('{class}', $class, $result);
+        $result = str_replace('{icon}', $iconHtml, $result);
+        
+        return $result;
+    }
+    
+    /**
+    * Рендерит обычный пункт меню (без детей)
+    */
+    private static function renderRegularItem($item, $template, $currentUrl) {
+        return self::replaceShortcodes($template, $item, $currentUrl);
+    }
+    
+    /**
+    * Заменяет все шорткоды в шаблоне
+    */
+    private static function replaceShortcodes($template, $item, $currentUrl) {
         $url = self::processUrl($item['url'] ?? '#');
         $title = html($item['title'] ?? '', ENT_QUOTES, 'UTF-8');
         $description = isset($item['description']) ? html($item['description'], ENT_QUOTES, 'UTF-8') : '';
         $target = $item['target'] ?? '_self';
         $class = html($item['class'] ?? '', ENT_QUOTES, 'UTF-8');
+        
         $isActive = self::isActiveUrl($url, $currentUrl);
-        $level = $item['level'] ?? 0;
-        $hasChildren = !empty($item['children']);
+        $activeClass = $isActive ? 'active' : '';
         
         $iconHtml = '';
         if (!empty($item['icon']) && is_array($item['icon']) && !empty($item['icon']['id'])) {
             $iconSet = $item['icon']['set'] ?? 'bs';
             $iconId = $item['icon']['id'];
-            $iconSize = $item['icon']['size'] ?? 18;
+            $iconSize = $item['icon']['size'] ?? 20;
             $iconColor = $item['icon']['color'] ?? 'currentColor';
             $iconHtml = bloggy_icon($iconSet, $iconId, "{$iconSize} {$iconSize}", $iconColor, 'menu-icon');
         }
@@ -109,95 +161,24 @@ class CustomMenuParser {
         $result = str_replace('{target}', $target, $result);
         $result = str_replace('{class}', $class, $result);
         $result = str_replace('{icon}', $iconHtml, $result);
-        $result = str_replace('{active_class}', $isActive ? 'active' : '', $result);
-        $result = str_replace('{has_children}', $hasChildren ? 'true' : 'false', $result);
-        $result = str_replace('{level}', $level, $result);
+        $result = str_replace('{active_class}', $activeClass, $result);
+        $result = str_replace('{has_children}', !empty($item['children']) ? 'true' : 'false', $result);
         
         return $result;
-    }
-    
-    /**
-    * Рендерит пункт меню с детьми
-    */
-    private static function renderMenuItemWithChildren($item, $template, $currentUrl) {
-        $output = self::renderMenuItem($item, $template, $currentUrl);
-        
-        if (!empty($item['children'])) {
-            if (strpos($output, '{children}') !== false) {
-                $childrenHtml = '';
-                foreach ($item['children'] as $child) {
-                    $child['level'] = ($item['level'] ?? 0) + 1;
-                    $childrenHtml .= self::renderMenuItemWithChildren($child, $template, $currentUrl);
-                }
-                $output = str_replace('{children}', $childrenHtml, $output);
-            }
-        }
-        
-        return $output;
-    }
-    
-    /**
-    * Фильтрует обычные пункты меню (не экстра и без детей)
-    */
-    private static function filterNormalItems($items) {
-        $result = [];
-        foreach ($items as $item) {
-            if (!self::isExtraItem($item) && empty($item['children'])) {
-                $result[] = $item;
-            }
-        }
-        return $result;
-    }
-    
-    /**
-    * Фильтрует экстра-пункты меню
-    */
-    private static function filterExtraItems($items) {
-        $result = [];
-        foreach ($items as $item) {
-            if (self::isExtraItem($item)) {
-                $result[] = $item;
-                if (!empty($item['children'])) {
-                    $result = array_merge($result, self::filterExtraItems($item['children']));
-                }
-            } elseif (!empty($item['children'])) {
-                $childExtras = self::filterExtraItems($item['children']);
-                $result = array_merge($result, $childExtras);
-            }
-        }
-        return $result;
-    }
-    
-    /**
-    * Проверяет, является ли пункт экстра-пунктом
-    */
-    private static function isExtraItem($item) {
-        return isset($item['is_extra']) && $item['is_extra'] === true;
-    }
-    
-    /**
-    * Проверяет, есть ли у пункта видимые дети (не экстра)
-    */
-    private static function hasVisibleChildren($item) {
-        if (empty($item['children'])) return false;
-        
-        foreach ($item['children'] as $child) {
-            if (!self::isExtraItem($child)) {
-                return true;
-            }
-        }
-        return false;
     }
     
     /**
     * Обрабатывает URL с шорткодами
     */
     private static function processUrl($url) {
-        if (empty($url)) {
+        if (empty($url) || $url === '#') {
             return $url;
         }
         
-        $userId = $_SESSION['user_id'] ?? null;
+        if (filter_var($url, FILTER_VALIDATE_URL)) {
+            return $url;
+        }
+        
         $userData = self::getCurrentUserData();
         
         $shortcodes = [
@@ -210,15 +191,13 @@ class CustomMenuParser {
             '{slug}' => $userData['slug'] ?? '',
             '{base_url}' => BASE_URL,
             '{admin_url}' => ADMIN_URL,
-            '{site_name}' => self::getSiteSetting('site_name'),
             '{year}' => date('Y'),
             '{month}' => date('m'),
             '{day}' => date('d'),
         ];
         
         $url = preg_replace_callback('/\{user_field:([^}]+)\}/', function($matches) use ($userData) {
-            $fieldName = $matches[1];
-            return $userData[$fieldName] ?? '';
+            return $userData[$matches[1]] ?? '';
         }, $url);
         
         foreach ($shortcodes as $shortcode => $replacement) {
@@ -229,18 +208,17 @@ class CustomMenuParser {
     }
     
     /**
-    * Проверяет, активен ли URL
+    * Проверяет активный URL
     */
     private static function isActiveUrl($url, $currentUrl) {
-        if ($url === $currentUrl) {
-            return true;
+        if (empty($url) || $url === '#') {
+            return false;
         }
         
-        if ($url !== '/' && strpos($currentUrl, $url) === 0) {
-            return true;
-        }
+        $currentPath = parse_url($currentUrl, PHP_URL_PATH);
+        $urlPath = parse_url($url, PHP_URL_PATH);
         
-        return false;
+        return $urlPath === $currentPath;
     }
     
     /**
@@ -255,37 +233,9 @@ class CustomMenuParser {
             $db = Database::getInstance();
             $userModel = new UserModel($db);
             $user = $userModel->getById($_SESSION['user_id']);
-            
-            if (!$user) {
-                return [];
-            }
-            
-            return [
-                'id' => $user['id'] ?? '',
-                'username' => $user['username'] ?? '',
-                'email' => $user['email'] ?? '',
-                'first_name' => $user['first_name'] ?? '',
-                'last_name' => $user['last_name'] ?? '',
-                'display_name' => $user['display_name'] ?? '',
-                'slug' => $user['slug'] ?? '',
-                'avatar' => $user['avatar'] ?? '',
-                'role' => $user['role'] ?? '',
-                'status' => $user['status'] ?? ''
-            ];
-            
+            return $user ?: [];
         } catch (Exception $e) {
             return [];
-        }
-    }
-    
-    /**
-    * Получает настройку блога
-    */
-    private static function getSiteSetting($key) {
-        try {
-            return SettingsHelper::get('site', $key) ?? '';
-        } catch (Exception $e) {
-            return '';
         }
     }
 }

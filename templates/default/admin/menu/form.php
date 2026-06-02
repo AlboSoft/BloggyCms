@@ -232,27 +232,44 @@
                                     <?php echo bloggy_icon('bs', 'code', '16', '#0d6efd', 'me-1'); ?>
                                     <?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_LABEL; ?>
                                 </label>
+                                
                                 <div class="mb-2">
                                     <small class="text-muted">
                                         <?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_HINT; ?><br>
                                         <code>{li}...{/li}</code> - <?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_NORMAL; ?><br>
                                         <code>{li=sub}...{/li=sub}</code> - <?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_SUB; ?><br>
-                                        <code>{li-extra}...{/li-extra}</code> - <?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_EXTRA; ?>
+                                        <code>{li-extra}...{/li-extra}</code> - <?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_EXTRA; ?><br>
+                                        <code>{li=children}...{/li=children}</code> - <?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_CHILDREN; ?><br>
+                                        <code>{li=children-item}...{/li=children-item}</code> - <?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_CHILDREN_ITEM; ?>
                                     </small>
                                 </div>
+                                
                                 <div id="custom-template-editor" style="height: 400px; width: 100%; border: 1px solid #dee2e6; border-radius: 0.375rem;"></div>
                                 <textarea name="custom_template" id="custom_template" style="display: none;"><?php echo html($customTemplate ?? ''); ?></textarea>
+                                
                                 <div class="form-text mt-2">
-                                    <strong><?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_SHORTCODES_TITLE; ?></strong><br>
-                                    <code>{url}</code> - <?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_SHORTCODE_URL; ?><br>
-                                    <code>{title}</code> - <?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_SHORTCODE_TITLE; ?><br>
-                                    <code>{desc}</code> - <?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_SHORTCODE_DESC; ?><br>
-                                    <code>{target}</code> - <?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_SHORTCODE_TARGET; ?><br>
-                                    <code>{class}</code> - <?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_SHORTCODE_CLASS; ?><br>
-                                    <code>{icon}</code> - <?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_SHORTCODE_ICON; ?><br>
-                                    <code>{active_class}</code> - <?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_SHORTCODE_ACTIVE; ?><br>
-                                    <code>{has_children}</code> - <?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_SHORTCODE_HAS_CHILDREN; ?><br>
-                                    <code>{level}</code> - <?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_SHORTCODE_LEVEL; ?>
+                                    <strong><?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_SHORTCODES_TITLE; ?></strong>
+                                    <div class="row mt-2">
+                                        <div class="col-md-6">
+                                            <code>{url}</code> - <?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_SHORTCODE_URL; ?><br>
+                                            <code>{title}</code> - <?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_SHORTCODE_TITLE; ?><br>
+                                            <code>{desc}</code> - <?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_SHORTCODE_DESC; ?><br>
+                                            <code>{target}</code> - <?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_SHORTCODE_TARGET; ?><br>
+                                            <code>{class}</code> - <?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_SHORTCODE_CLASS; ?><br>
+                                            <code>{icon}</code> - <?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_SHORTCODE_ICON; ?>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <code>{active_class}</code> - <?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_SHORTCODE_ACTIVE; ?><br>
+                                            <code>{has_children}</code> - <?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_SHORTCODE_HAS_CHILDREN; ?><br>
+                                            <code>{level}</code> - <?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_SHORTCODE_LEVEL; ?><br>
+                                            <code>{children}</code> - <?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_SHORTCODE_CHILDREN; ?><br>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="alert alert-info mt-3 p-2 small">
+                                    <strong><?php echo bloggy_icon('bs', 'lightbulb', '14', '#000', 'me-1'); ?> <?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_EXAMPLE_TITLE; ?></strong><br>
+                                    <?php echo LANG_TEMPLATE_MENU_FORM_CUSTOM_TEMPLATE_EXAMPLE_TEXT; ?>
                                 </div>
                             </div>
                         </div>
