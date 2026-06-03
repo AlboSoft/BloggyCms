@@ -119,6 +119,25 @@ function importDemoSql(PDO $pdo, string $prefix): void {
     $sql = preg_replace('/^--.*$/m', '', $sql);
     $sql = preg_replace('/\/\*.*?\*\//s', '', $sql);
     
+    $currentDateTime = date('Y-m-d H:i:s');
+    $currentDate = date('Y-m-d');
+
+    $sql = preg_replace_callback(
+        "/(\d{4}-\d{2}-\d{2}) (\d{2}:\d{2}:\d{2})/",
+        function($matches) use ($currentDateTime) {
+            return $currentDateTime;
+        },
+        $sql
+    );
+    
+    $sql = preg_replace_callback(
+        "/(\d{4}-\d{2}-\d{2})(?![:\d])/",
+        function($matches) use ($currentDate) {
+            return $currentDate;
+        },
+        $sql
+    );
+    
     $queries = array_filter(array_map('trim', explode(';', $sql)));
     
     $pdo->exec("SET FOREIGN_KEY_CHECKS = 0");
@@ -129,7 +148,9 @@ function importDemoSql(PDO $pdo, string $prefix): void {
                 $pdo->exec($query);
             } catch (PDOException $e) {
                 $msg = $e->getMessage();
-                if (strpos($msg, 'Duplicate') === false && strpos($msg, 'already exists') === false) {
+                if (strpos($msg, 'Duplicate') === false && 
+                    strpos($msg, 'already exists') === false &&
+                    strpos($msg, 'constraint fails') === false) {
                     throw new Exception("Demo SQL Error: " . $msg);
                 }
             }
