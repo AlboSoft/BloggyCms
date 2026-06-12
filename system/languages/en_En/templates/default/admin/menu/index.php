@@ -15,3 +15,4 @@ define('LANG_TEMPLATE_MENU_INDEX_ACTION_PREVIEW', 'Preview');
 define('LANG_TEMPLATE_MENU_INDEX_ACTION_EDIT', 'Edit');
 define('LANG_TEMPLATE_MENU_INDEX_ACTION_DELETE', 'Delete');
 define('LANG_TEMPLATE_MENU_INDEX_DELETE_CONFIRM', 'Are you sure you want to delete menu "');
+define('LANG_TEMPLATE_MENU_INDEX_ACTION_ITEMS', 'Manage Items');

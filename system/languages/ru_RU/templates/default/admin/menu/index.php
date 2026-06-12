@@ -15,3 +15,4 @@ define('LANG_TEMPLATE_MENU_INDEX_ACTION_PREVIEW', 'Предпросмотр');
 define('LANG_TEMPLATE_MENU_INDEX_ACTION_EDIT', 'Редактировать');
 define('LANG_TEMPLATE_MENU_INDEX_ACTION_DELETE', 'Удалить');
 define('LANG_TEMPLATE_MENU_INDEX_DELETE_CONFIRM', 'Вы уверены, что хотите удалить меню "');
+define('LANG_TEMPLATE_MENU_INDEX_ACTION_ITEMS', 'Управление пунктами');

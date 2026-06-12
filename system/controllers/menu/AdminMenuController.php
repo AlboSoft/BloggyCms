@@ -50,12 +50,67 @@ class AdminMenuController extends Controller {
     }
     
     /**
-    * Действие: Редактирование существующего меню
+    * Действие: Редактирование основных настроек меню
     * @param int $id ID редактируемого меню
     * @return mixed
     */
     public function editAction($id) {
         $action = new \menu\actions\AdminEdit($this->db, ['id' => $id]);
+        $action->setController($this);
+        return $action->execute();
+    }
+    
+    /**
+    * Действие: Управление пунктами меню
+    * @param int $id ID меню
+    * @return mixed
+    */
+    public function itemsAction($id) {
+        $action = new \menu\actions\AdminItems($this->db, ['id' => $id]);
+        $action->setController($this);
+        return $action->execute();
+    }
+    
+    /**
+    * Действие: Создание пункта меню
+    * @param int $menuId ID меню
+    * @return mixed
+    */
+    public function itemCreateAction($menuId) {
+        $parentId = $_GET['parent_id'] ?? null;
+        $action = new \menu\actions\AdminItemCreate($this->db, ['menuId' => $menuId, 'parent_id' => $parentId]);
+        $action->setController($this);
+        return $action->execute();
+    }
+    
+    /**
+    * Действие: Редактирование пункта меню
+    * @param string $id ID пункта меню (UUID-like)
+    * @return mixed
+    */
+    public function itemEditAction($id) {
+        $action = new \menu\actions\AdminItemEdit($this->db, ['id' => $id]);
+        $action->setController($this);
+        return $action->execute();
+    }
+    
+    /**
+    * Действие: Удаление пункта меню
+    * @param string $id ID пункта меню
+    * @return mixed
+    */
+    public function itemDeleteAction($id) {
+        $action = new \menu\actions\AdminItemDelete($this->db, ['id' => $id]);
+        $action->setController($this);
+        return $action->execute();
+    }
+    
+    /**
+    * Действие: Сортировка пунктов меню (AJAX)
+    * @return mixed
+    */
+    public function reorderAction() {
+        $action = new \menu\actions\AdminReorder($this->db);
         $action->setController($this);
         return $action->execute();
     }
@@ -94,104 +149,6 @@ class AdminMenuController extends Controller {
     }
 
     /**
-    * Рендеринг одного пункта меню для формы (рекурсивно)
-    * @param array $item Данные пункта меню
-    * @param string $index Уникальный индекс пункта в структуре
-    * @return string HTML-код пункта меню
-    */
-    public function renderMenuItem($item, $index) {
-        $title = html($item['title'] ?? '');
-        $url = html($item['url'] ?? '');
-        $class = html($item['class'] ?? '');
-        $target = $item['target'] ?? '_self';
-        $children = $item['children'] ?? [];
-        
-        ob_start();
-        ?>
-        <div class="menu-item card mb-2" data-index="<?= $index ?>">
-            <div class="card-body">
-                <div class="d-flex justify-content-between align-items-start mb-2">
-                    <h6 class="card-title mb-0"><?php echo LANG_CONTROLLER_ADMINMENU_MENU_ITEM; ?></h6>
-                    <div class="btn-group btn-group-sm">
-                        <button type="button" class="btn btn-outline-secondary menu-item-handle">
-                            <i class="bi bi-arrows-move"></i>
-                        </button>
-                        <button type="button" class="btn btn-outline-primary toggle-children">
-                            <i class="bi bi-list-nested"></i>
-                        </button>
-                        <button type="button" class="btn btn-outline-danger remove-menu-item">
-                            <i class="bi bi-trash"></i>
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="mb-2">
-                            <label class="form-label small"><?php echo LANG_CONTROLLER_ADMINMENU_FIELD_TITLE; ?></label>
-                            <input type="text" 
-                                class="form-control form-control-sm menu-item-title" 
-                                placeholder="<?php echo LANG_CONTROLLER_ADMINMENU_PLACEHOLDER_TITLE; ?>" 
-                                maxlength="100"
-                                value="<?= $title ?>">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="mb-2">
-                            <label class="form-label small">URL</label>
-                            <input type="text" 
-                                class="form-control form-control-sm menu-item-url" 
-                                placeholder="/page" 
-                                maxlength="255"
-                                value="<?= $url ?>">
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="mb-2">
-                            <label class="form-label small"><?php echo LANG_CONTROLLER_ADMINMENU_FIELD_CSS_CLASS; ?></label>
-                            <input type="text" 
-                                class="form-control form-control-sm menu-item-class" 
-                                placeholder="css-class" 
-                                maxlength="50"
-                                value="<?= $class ?>">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="mb-2">
-                            <label class="form-label small"><?php echo LANG_CONTROLLER_ADMINMENU_FIELD_OPEN_IN; ?></label>
-                            <select class="form-select form-select-sm menu-item-target">
-                                <option value="_self" <?= $target === '_self' ? 'selected' : '' ?>><?php echo LANG_CONTROLLER_ADMINMENU_TARGET_SELF; ?></option>
-                                <option value="_blank" <?= $target === '_blank' ? 'selected' : '' ?>><?php echo LANG_CONTROLLER_ADMINMENU_TARGET_BLANK; ?></option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="menu-children-container mt-3" style="display: <?= !empty($children) ? 'block' : 'none' ?>;">
-                    <div class="border-top pt-3">
-                        <h6 class="small text-muted mb-2"><?php echo LANG_CONTROLLER_ADMINMENU_NESTED_ITEMS; ?></h6>
-                        <div class="menu-children sortable-menu">
-                            <?php if (!empty($children)) { ?>
-                                <?php foreach ($children as $childIndex => $child) { ?>
-                                    <?= $this->renderMenuItem($child, $index . '_' . $childIndex) ?>
-                                <?php } ?>
-                            <?php } ?>
-                        </div>
-                        <button type="button" class="btn btn-outline-secondary btn-sm add-child-item">
-                            <i class="bi bi-plus-circle me-1"></i><?php echo LANG_CONTROLLER_ADMINMENU_ADD_NESTED_ITEM; ?>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <?php
-        return ob_get_clean();
-    }
-
-    /**
     * Получение всех групп пользователей
     * @return array Массив групп пользователей
     */
@@ -207,5 +164,4 @@ class AdminMenuController extends Controller {
         
         return $groups;
     }
-
 }

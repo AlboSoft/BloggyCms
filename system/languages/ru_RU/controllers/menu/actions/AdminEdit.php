@@ -8,6 +8,6 @@ define('LANG_ACTION_MENU_ADMINEDIT_PAGE_TITLE', 'Редактирование м
 define('LANG_ACTION_MENU_ADMINEDIT_NAME_REQUIRED', 'Название меню обязательно');
 define('LANG_ACTION_MENU_ADMINEDIT_TEMPLATE_REQUIRED', 'Шаблон меню обязателен');
 define('LANG_ACTION_MENU_ADMINEDIT_TEMPLATE_NOT_EXISTS', 'Указанный шаблон не существует в текущей теме');
-define('LANG_ACTION_MENU_ADMINEDIT_INVALID_STRUCTURE', 'Некорректная структура меню');
 define('LANG_ACTION_MENU_ADMINEDIT_SUCCESS', 'Меню успешно обновлено');
 define('LANG_ACTION_MENU_ADMINEDIT_UPDATE_FAILED', 'Не удалось обновить меню');
+define('LANG_ACTION_MENU_ADMINEDIT_CUSTOM_TEMPLATE_REQUIRED', 'Пожалуйста, заполните кастомный шаблон меню');

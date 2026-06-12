@@ -61,14 +61,19 @@
                             </td>
                             <td class="end">
                                 <div class="btn-group btn-group-sm">
+                                    <a href="<?php echo ADMIN_URL; ?>/menu/items/<?php echo $menu['id']; ?>" 
+                                    class="btn btn-outline-info" 
+                                    title="<?php echo LANG_TEMPLATE_MENU_INDEX_ACTION_ITEMS; ?>">
+                                        <?php echo bloggy_icon('bs', 'list-ul', '16', '#000'); ?>
+                                    </a>
                                     <a href="<?php echo ADMIN_URL; ?>/menu/preview/<?php echo $menu['id']; ?>" 
-                                       class="btn btn-outline-secondary" 
-                                       title="<?php echo LANG_TEMPLATE_MENU_INDEX_ACTION_PREVIEW; ?>">
+                                    class="btn btn-outline-secondary" 
+                                    title="<?php echo LANG_TEMPLATE_MENU_INDEX_ACTION_PREVIEW; ?>">
                                         <?php echo bloggy_icon('bs', 'eye', '16', '#000'); ?>
                                     </a>
                                     <a href="<?php echo ADMIN_URL; ?>/menu/edit/<?php echo $menu['id']; ?>" 
-                                       class="btn btn-outline-primary" 
-                                       title="<?php echo LANG_TEMPLATE_MENU_INDEX_ACTION_EDIT; ?>">
+                                    class="btn btn-outline-primary" 
+                                    title="<?php echo LANG_TEMPLATE_MENU_INDEX_ACTION_EDIT; ?>">
                                         <?php echo bloggy_icon('bs', 'pencil', '16', '#000'); ?>
                                     </a>
                                     <button type="button" 
@@ -90,11 +95,11 @@
 </div>
 
 <?php ob_start(); ?>
-<script>
-    function confirmDelete(menuId, menuName) {
-        if (confirm('<?php echo LANG_TEMPLATE_MENU_INDEX_DELETE_CONFIRM; ?>' + menuName + '"?')) {
-            window.location.href = '<?php echo ADMIN_URL; ?>/menu/delete/' + menuId;
+    <script>
+        function confirmDelete(menuId, menuName) {
+            if (confirm('<?php echo LANG_TEMPLATE_MENU_INDEX_DELETE_CONFIRM; ?>' + menuName + '"?')) {
+                window.location.href = '<?php echo ADMIN_URL; ?>/menu/delete/' + menuId;
+            }
         }
-    }
-</script>
+    </script>
 <?php admin_bottom_js(ob_get_clean()); ?>

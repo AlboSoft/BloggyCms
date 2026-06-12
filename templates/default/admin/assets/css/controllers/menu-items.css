@@ -1,0 +1,46 @@
+.sortable-ghost {
+    opacity: 0.4;
+    background-color: #e9ecef;
+}
+
+.sortable-chosen {
+    background-color: #fff3cd;
+}
+
+.sortable-drag {
+    cursor: grabbing;
+}
+
+.drag-handle {
+    cursor: grab;
+    display: inline-block;
+}
+
+.drag-handle:active {
+    cursor: grabbing;
+}
+
+#menu-items-table tr {
+    transition: background-color 0.2s ease;
+}
+
+#menu-items-table tr:hover {
+    background-color: #f8f9fa;
+}
+
+.badge {
+    font-weight: 500;
+}
+
+[data-level] {
+    position: relative;
+}
+
+@keyframes flashSaved {
+    0% { background-color: #d4edda; }
+    100% { background-color: transparent; }
+}
+
+.row-saved {
+    animation: flashSaved 0.5s ease;
+}

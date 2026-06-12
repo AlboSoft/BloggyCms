@@ -60,7 +60,7 @@ class MenuModel implements ModelAPI {
         
         $updateData = [];
         $allowedFields = ['name', 'template', 'status', 'structure', 
-                          'use_custom_template', 'custom_template'];
+                        'use_custom_template', 'custom_template'];
         
         foreach ($allowedFields as $field) {
             if (array_key_exists($field, $data)) {
@@ -68,7 +68,17 @@ class MenuModel implements ModelAPI {
             }
         }
         
-        return $this->db->update('menus', $updateData, ['id' => $id]) > 0;
+        if (empty($updateData)) {
+            return true;
+        }
+        
+        $existing = $this->db->fetch("SELECT id FROM menus WHERE id = ?", [$id]);
+        if (!$existing) {
+            return false;
+        }
+        
+        $this->db->update('menus', $updateData, ['id' => $id]);
+        return true;
     }
 
     /**
@@ -367,6 +377,416 @@ class MenuModel implements ModelAPI {
         }
         
         return $filteredStructure;
+    }
+
+    /**
+    * Получение плоской структуры меню
+    * @param int $menuId ID меню
+    * @return array Массив пунктов с информацией об уровне вложенности
+    */
+    public function getFlatStructure($menuId) {
+        $menu = $this->getById($menuId);
+        if (!$menu) {
+            return [];
+        }
+        
+        $structure = json_decode($menu['structure'], true) ?: [];
+        $flat = [];
+        $this->flattenStructure($structure, $flat);
+        
+        return $flat;
+    }
+    
+    /**
+    * Рекурсивное преобразование вложенной структуры в плоскую
+    * @param array $items Массив пунктов
+    * @param array &$flat Ссылка на плоский массив
+    * @param int $level Текущий уровень вложенности
+    * @param int|null $parentId ID родительского пункта
+    */
+    private function flattenStructure($items, &$flat, $level = 0, $parentId = null) {
+        foreach ($items as $index => $item) {
+            $itemId = $this->generateItemId($item, $index);
+            
+            $flat[] = [
+                'id' => $itemId,
+                'title' => $item['title'],
+                'url' => $item['url'],
+                'description' => $item['description'] ?? '',
+                'class' => $item['class'] ?? '',
+                'target' => $item['target'] ?? '_self',
+                'icon' => $item['icon'] ?? null,
+                'icon_only' => $item['icon_only'] ?? false,
+                'visibility' => $item['visibility'] ?? null,
+                'is_extra' => $item['is_extra'] ?? false,
+                'level' => $level,
+                'parent_id' => $parentId,
+                'has_children' => !empty($item['children']),
+                'order' => $index
+            ];
+            
+            if (!empty($item['children'])) {
+                $this->flattenStructure($item['children'], $flat, $level + 1, $itemId);
+            }
+        }
+    }
+    
+    /**
+    * Генерация уникального ID для пункта меню
+    * @param array $item Данные пункта
+    * @param int $index Индекс в массиве
+    * @return string Уникальный ID
+    */
+    private function generateItemId($item, $index) {
+        if (!empty($item['item_id'])) {
+            return $item['item_id'];
+        }
+        
+        $string = ($item['title'] ?? '') . ($item['url'] ?? '') . $index;
+        return md5($string);
+    }
+    
+    /**
+    * Добавление нового пункта в структуру меню
+    * @param int $menuId ID меню
+    * @param array $itemData Данные нового пункта
+    * @param string|null $parentId ID родительского пункта
+    * @return bool Результат операции
+    */
+    public function addMenuItem($menuId, $itemData, $parentId = null) {
+        $menu = $this->getById($menuId);
+        if (!$menu) {
+            return false;
+        }
+        
+        $structure = json_decode($menu['structure'], true) ?: [];
+        
+        if ($parentId) {
+            $result = $this->addItemToParent($structure, $parentId, $itemData);
+            if (!$result) {
+                return false;
+            }
+        } else {
+            $structure[] = $this->prepareItemData($itemData);
+        }
+        
+        return $this->update($menuId, ['structure' => json_encode($structure, JSON_UNESCAPED_UNICODE)]);
+    }
+    
+    /**
+    * Рекурсивное добавление пункта к родителю
+    * @param array &$items Ссылка на массив пунктов
+    * @param string $parentId ID родительского пункта
+    * @param array $itemData Данные нового пункта
+    * @return bool Результат операции
+    */
+    private function addItemToParent(&$items, $parentId, $itemData) {
+        if (!is_array($items)) {
+            return false;
+        }
+        
+        foreach ($items as &$item) {
+            if (!is_array($item)) {
+                continue;
+            }
+            
+            $currentId = $this->generateItemId($item, 0);
+            if ($currentId === $parentId) {
+                if (!isset($item['children'])) {
+                    $item['children'] = [];
+                }
+                $item['children'][] = $this->prepareItemData($itemData);
+                return true;
+            }
+            
+            if (!empty($item['children']) && is_array($item['children'])) {
+                if ($this->addItemToParent($item['children'], $parentId, $itemData)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    /**
+    * Обновление существующего пункта меню
+    * @param int $menuId ID меню
+    * @param string $itemId ID пункта для обновления
+    * @param array $itemData Новые данные пункта
+    * @return bool Результат операции
+    */
+    public function updateMenuItem($menuId, $itemId, $itemData) {
+        $menu = $this->getById($menuId);
+        if (!$menu) {
+            return false;
+        }
+        $structure = json_decode($menu['structure'], true) ?: [];
+        $updated = $this->updateItemInStructure($structure, $itemId, $itemData);
+        if (!$updated) {
+            return false;
+        }
+        $newStructure = json_encode($structure, JSON_UNESCAPED_UNICODE);
+
+        if ($newStructure === $menu['structure']) {
+            return true;
+        }
+
+        return $this->update($menuId, ['structure' => $newStructure]);
+    }
+    
+    /**
+    * Рекурсивное обновление пункта в структуре
+    * @param array &$items Ссылка на массив пунктов
+    * @param string $itemId ID искомого пункта
+    * @param array $itemData Новые данные
+    * @return bool Результат операции
+    */
+    private function updateItemInStructure(&$items, $itemId, $itemData) {
+        foreach ($items as $key => &$item) {
+            $currentId = $this->generateItemId($item, $key);
+            if ($currentId === $itemId) {
+                $children = isset($item['children']) ? $item['children'] : [];
+                
+                $newData = $this->prepareItemData($itemData);
+                
+                foreach ($newData as $field => $value) {
+                    $item[$field] = $value;
+                }
+                
+                if (!empty($children)) {
+                    $item['children'] = $children;
+                }
+                
+                return true;
+            }
+            
+            if (!empty($item['children'])) {
+                if ($this->updateItemInStructure($item['children'], $itemId, $itemData)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    /**
+    * Удаление пункта из структуры меню
+    * @param int $menuId ID меню
+    * @param string $itemId ID удаляемого пункта
+    * @return bool Результат операции
+    */
+    public function deleteMenuItem($menuId, $itemId) {
+        $menu = $this->getById($menuId);
+        if (!$menu) {
+            return false;
+        }
+        
+        $structure = json_decode($menu['structure'], true) ?: [];
+        
+        if ($this->deleteItemFromStructure($structure, $itemId)) {
+            return $this->update($menuId, ['structure' => json_encode($structure, JSON_UNESCAPED_UNICODE)]);
+        }
+        
+        return false;
+    }
+    
+    /**
+    * Рекурсивное удаление пункта из структуры
+    * @param array &$items Ссылка на массив пунктов
+    * @param string $itemId ID удаляемого пункта
+    * @return bool Результат операции
+    */
+    private function deleteItemFromStructure(&$items, $itemId) {
+        foreach ($items as $key => &$item) {
+            $currentId = $this->generateItemId($item, $key);
+            if ($currentId === $itemId) {
+                unset($items[$key]);
+                $items = array_values($items);
+                return true;
+            }
+            
+            if (!empty($item['children'])) {
+                if ($this->deleteItemFromStructure($item['children'], $itemId)) {
+                    if (empty($item['children'])) {
+                        unset($item['children']);
+                    }
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    /**
+    * Обновление порядка сортировки пунктов меню
+    * @param int $menuId ID меню
+    * @param array $orderedItems Массив с порядком ID
+    * @return bool Результат операции
+    */
+    public function reorderItems($menuId, $orderedItems) {
+        $menu = $this->getById($menuId);
+        if (!$menu) {
+            return false;
+        }
+        
+        $currentStructure = json_decode($menu['structure'], true) ?: [];
+        $newStructure = $this->buildStructureFromOrder($currentStructure, $orderedItems);
+        
+        return $this->update($menuId, ['structure' => json_encode($newStructure, JSON_UNESCAPED_UNICODE)]);
+    }
+    
+    /**
+    * Построение структуры из плоского порядка
+    * @param array $currentStructure Текущая структура
+    * @param array $orderedItems Плоский массив с порядком
+    * @return array Новая структура
+    */
+    private function buildStructureFromOrder($currentStructure, $orderedItems) {
+        $itemsMap = [];
+        $this->buildItemsMap($currentStructure, $itemsMap);
+        
+        $orderMap = [];
+        foreach ($orderedItems as $index => $item) {
+            $orderMap[$item['id']] = [
+                'parent_id' => $item['parent_id'],
+                'order' => $index
+            ];
+        }
+        
+        usort($orderedItems, function($a, $b) use ($orderMap) {
+            $aParent = $orderMap[$a['id']]['parent_id'];
+            $bParent = $orderMap[$b['id']]['parent_id'];
+            
+            if ($aParent === null && $bParent !== null) return -1;
+            if ($aParent !== null && $bParent === null) return 1;
+            
+            return $orderMap[$a['id']]['order'] - $orderMap[$b['id']]['order'];
+        });
+        
+        $newStructure = [];
+        $structureMap = [];
+        
+        foreach ($orderedItems as $item) {
+            $itemId = $item['id'];
+            $parentId = $item['parent_id'];
+            
+            if (!isset($itemsMap[$itemId])) {
+                continue;
+            }
+            
+            $menuItem = $itemsMap[$itemId];
+            
+            unset($menuItem['children']);
+            
+            if ($parentId === null) {
+                $newStructure[] = $menuItem;
+                $structureMap[$itemId] = &$newStructure[count($newStructure) - 1];
+            } else {
+                if (isset($structureMap[$parentId])) {
+                    if (!isset($structureMap[$parentId]['children'])) {
+                        $structureMap[$parentId]['children'] = [];
+                    }
+                    $structureMap[$parentId]['children'][] = $menuItem;
+                    $structureMap[$itemId] = &$structureMap[$parentId]['children'][count($structureMap[$parentId]['children']) - 1];
+                } else {
+                    $newStructure[] = $menuItem;
+                    $structureMap[$itemId] = &$newStructure[count($newStructure) - 1];
+                }
+            }
+        }
+        
+        return $newStructure;
+    }
+    
+    /**
+    * Построение карты всех элементов структуры
+    * @param array $items Массив пунктов
+    * @param array &$map Ссылка на карту
+    */
+    private function buildItemsMap($items, &$map, $index = 0) {
+        foreach ($items as $itemIndex => $item) {
+            $itemId = $this->generateItemId($item, $itemIndex);
+            $map[$itemId] = $item;
+            
+            if (!empty($item['children'])) {
+                $this->buildItemsMap($item['children'], $map, 0);
+            }
+        }
+    }
+    
+    /**
+    * Подготовка данных пункта для сохранения
+    * @param array $itemData Исходные данные
+    * @return array Подготовленные данные
+    */
+    private function prepareItemData($itemData) {
+        $item = [];
+
+        if (!isset($itemData['item_id'])) {
+            $item['item_id'] = uniqid() . '_' . time() . '_' . mt_rand(1000, 9999);
+        } else {
+            $item['item_id'] = $itemData['item_id'];
+        }
+        if (isset($itemData['title'])) {
+            $item['title'] = trim($itemData['title']);
+        }
+        if (isset($itemData['url'])) {
+            $item['url'] = trim($itemData['url']);
+        }
+        if (isset($itemData['target'])) {
+            $item['target'] = $itemData['target'];
+        }
+        if (!empty($itemData['description'])) {
+            $item['description'] = trim($itemData['description']);
+        }
+        if (!empty($itemData['class'])) {
+            $item['class'] = trim($itemData['class']);
+        }
+        if (!empty($itemData['icon']) && !empty($itemData['icon']['id'])) {
+            $item['icon'] = $itemData['icon'];
+        }
+        if (!empty($itemData['icon_only'])) {
+            $item['icon_only'] = true;
+        }
+        if (!empty($itemData['is_extra'])) {
+            $item['is_extra'] = true;
+        }
+
+        $hasVisibility = false;
+        $visibilityData = [];
+
+        $showToGroups = $itemData['visibility']['show_to_groups']
+            ?? $itemData['show_to_groups']
+            ?? null;
+        $hideFromGroups = $itemData['visibility']['hide_from_groups']
+            ?? $itemData['hide_from_groups']
+            ?? null;
+
+        if (isset($showToGroups) && is_array($showToGroups)) {
+            $filtered = array_values(array_filter($showToGroups, function($val) {
+                return $val !== null && $val !== '' && $val !== 'null';
+            }));
+            if (!empty($filtered)) {
+                $visibilityData['show_to_groups'] = $filtered;
+                $hasVisibility = true;
+            }
+        }
+
+        if (isset($hideFromGroups) && is_array($hideFromGroups)) {
+            $filtered = array_values(array_filter($hideFromGroups, function($val) {
+                return $val !== null && $val !== '' && $val !== 'null';
+            }));
+            if (!empty($filtered)) {
+                $visibilityData['hide_from_groups'] = $filtered;
+                $hasVisibility = true;
+            }
+        }
+
+        if ($hasVisibility) {
+            $item['visibility'] = $visibilityData;
+        }
+
+        return $item;
     }
 
 }

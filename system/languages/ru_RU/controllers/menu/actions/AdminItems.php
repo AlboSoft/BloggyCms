@@ -1,0 +1,7 @@
+<?php
+define('LANG_ACTION_MENU_ADMINITEMS_ID_NOT_SPECIFIED', 'ID меню не указан');
+define('LANG_ACTION_MENU_ADMINITEMS_MENU_NOT_FOUND', 'Меню не найдено');
+define('LANG_ACTION_MENU_ADMINITEMS_BREADCRUMB_DASHBOARD', 'Панель управления');
+define('LANG_ACTION_MENU_ADMINITEMS_BREADCRUMB_MENU', 'Меню');
+define('LANG_ACTION_MENU_ADMINITEMS_BREADCRUMB_ITEMS', 'Пункты меню');
+define('LANG_ACTION_MENU_ADMINITEMS_PAGE_TITLE', 'Пункты меню: %s');
