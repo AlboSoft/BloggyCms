@@ -84,24 +84,24 @@ INSERT IGNORE INTO `{#}block_types` (`id`, `system_name`, `name`, `description`,
 
 CREATE TABLE IF NOT EXISTS `{#}debug_logs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `type` varchar(50) NOT NULL COMMENT 'E_ERROR, E_WARNING, E_NOTICE, Exception',
-  `code` int(11) DEFAULT NULL COMMENT 'Код ошибки',
-  `message` text NOT NULL COMMENT 'Сообщение об ошибке',
-  `file` varchar(512) DEFAULT NULL COMMENT 'Файл, где произошла ошибка',
-  `line` int(11) DEFAULT NULL COMMENT 'Строка в файле',
-  `trace` longtext COMMENT 'Стек вызовов (JSON)',
-  `context` longtext COMMENT 'Контекст (переменные, сессии, запрос) (JSON)',
-  `url` text COMMENT 'URL, на котором произошла ошибка',
-  `method` varchar(10) DEFAULT NULL COMMENT 'HTTP метод (GET, POST)',
-  `ip` varchar(45) DEFAULT NULL COMMENT 'IP адрес пользователя',
-  `user_id` int(11) DEFAULT NULL COMMENT 'ID пользователя, если авторизован',
-  `is_fixed` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'Пометка, что ошибка исправлена',
+  `type` varchar(50) NOT NULL,
+  `code` int(11) DEFAULT NULL,
+  `message` text NOT NULL,
+  `file` varchar(512) DEFAULT NULL,
+  `line` int(11) DEFAULT NULL,
+  `trace` longtext,
+  `context` longtext,
+  `url` text,
+  `method` varchar(10) DEFAULT NULL,
+  `ip` varchar(45) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `is_fixed` tinyint(1) NOT NULL DEFAULT '0',
   `created_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `type` (`type`),
   KEY `created_at` (`created_at`),
   KEY `is_fixed` (`is_fixed`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Логи ошибок для режима отладки';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Структура таблицы `{#}installed_addons`
@@ -733,13 +733,13 @@ CREATE TABLE IF NOT EXISTS `{#}users` (
 --
 CREATE TABLE `{#}fragments` (
     `id` int(11) NOT NULL AUTO_INCREMENT,
-    `system_name` varchar(100) NOT NULL COMMENT 'Системное имя (для шорткодов)',
-    `name` varchar(255) NOT NULL COMMENT 'Название фрагмента',
-    `description` text COMMENT 'Описание',
-    `css_files` text COMMENT 'CSS файлы (JSON)',
-    `js_files` text COMMENT 'JS файлы (JSON)',
-    `inline_css` text COMMENT 'Инлайн CSS',
-    `inline_js` text COMMENT 'Инлайн JS',
+    `system_name` varchar(100) NOT NULL,
+    `name` varchar(255) NOT NULL,
+    `description` text,
+    `css_files` text,
+    `js_files` text,
+    `inline_css` text,
+    `inline_js` text,
     `status` enum('active','inactive') DEFAULT 'active',
     `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
     `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -753,9 +753,9 @@ CREATE TABLE `{#}fragments` (
 --
 CREATE TABLE `{#}fragment_entries` (
     `id` int(11) NOT NULL AUTO_INCREMENT,
-    `fragment_id` int(11) NOT NULL COMMENT 'ID фрагмента',
-    `data` text COMMENT 'Данные записи (JSON)',
-    `sort_order` int(11) DEFAULT 0 COMMENT 'Порядок сортировки',
+    `fragment_id` int(11) NOT NULL,
+    `data` text,
+    `sort_order` int(11) DEFAULT 0,
     `status` enum('active','inactive') DEFAULT 'active',
     `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
     `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

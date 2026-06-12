@@ -142,7 +142,7 @@
                                     data-parent-id="<?php echo $item['parent_id'] ?? ''; ?>"
                                     data-level="<?php echo $item['level']; ?>">
                                     <td class="text-center">
-                                        <span class="drag-handle text-muted cursor-move" title="<?php echo LANG_TEMPLATE_MENU_ITEMS_DRAG_TITLE; ?>">
+                                        <span class="drag-handle text-muted cursor-move">
                                             <?php echo bloggy_icon('bs', 'grip-vertical', '18', '#9ca3af'); ?>
                                         </span>
                                     </td>
