@@ -524,13 +524,13 @@ class PageTreeBlock extends BaseHtmlBlock {
 
     public function getFrontendCss(): array {
         return [
-            '/templates/default/front/assets/css/page-tree.css'
+            '/templates/default/front/assets/html_blocks/PageTreeBlock/css/page-tree.css'
         ];
     }
 
     public function getFrontendJs(): array {
         return [
-            '/templates/default/front/assets/js/page-tree.js'
+            '/templates/default/front/assets/html_blocks/PageTreeBlock/js/page-tree.js'
         ];
     }
 
