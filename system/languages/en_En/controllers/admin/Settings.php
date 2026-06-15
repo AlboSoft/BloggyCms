@@ -52,7 +52,6 @@ define('LANG_CONTROLLER_ADMINSETTINGS_ALERT_TITLE', '<strong>Hint</strong>');
 define('LANG_CONTROLLER_ADMINSETTINGS_ALERT_HINT', 'To hide the button completely - disable all quick actions');
 define('LANG_CONTROLLER_ADMINSETTINGS_FIELD_SHOW_SEARCH', 'Show search query history');
 define('LANG_CONTROLLER_ADMINSETTINGS_FIELD_SHOW_POPULAR_SEARCH', 'Show popular search queries');
-define('LANG_CONTROLLER_ADMINSETTINGS_FIELD_BG_PANEL', 'Sidebar background image');
 define('LANG_CONTROLLER_ADMINSETTINGS_FIELD_NOTIFICATION_POSITION', 'System notifications position');
 define('LANG_CONTROLLER_ADMINSETTINGS_OPTION_TOP_LEFT', 'Top left');
 define('LANG_CONTROLLER_ADMINSETTINGS_OPTION_TOP_RIGHT', 'Top right');

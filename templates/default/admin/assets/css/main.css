@@ -36,14 +36,34 @@ body {
 }
 
 .sidebar {
-    width: 285px;
-    background: var(--tg-bg-sidebar, #1a1a2e);
-    position: fixed;
-    left: 0;
-    top: 0;
-    height: 100vh;
-    z-index: 1000;
-    overflow-y: auto;
+  width: 285px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  z-index: 1000;
+  overflow-y: auto;
+  background: linear-gradient(125deg, #0a0f1a 0%, #0f172a 100%);
+}
+
+.sidebar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: 
+    repeating-linear-gradient(90deg, rgba(0, 255, 255, 0.05) 0px, rgba(0, 255, 255, 0.05) 1px, transparent 1px, transparent 40px),
+    repeating-linear-gradient(0deg, rgba(0, 255, 255, 0.05) 0px, rgba(0, 255, 255, 0.05) 1px, transparent 1px, transparent 40px);
+  pointer-events: none;
+  animation: gridMove 20s linear infinite;
+}
+
+@keyframes gridMove {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 40px 40px;
+  }
 }
 
 .sidebar-brand {
@@ -80,33 +100,6 @@ body {
 
 .brand-logo .cms-highlight {
     color: rgb(163, 230, 237);
-}
-
-.version-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    flex-shrink: 0;
-}
-
-.version-badge {
-    background: rgb(255, 198, 90);
-    color: #000;
-    font-size: 10px;
-    font-weight: bold;
-    padding: 3px 8px;
-    border-radius: 20px;
-    white-space: nowrap;
-}
-
-.version-update {
-    transition: opacity 0.2s ease;
-    display: flex;
-    align-items: center;
-}
-
-.version-update:hover {
-    opacity: 1;
 }
 
 .sidebar .nav {
@@ -1145,7 +1138,7 @@ pre.bg-dark code {
 .sidebar .nav-link.active {
     color: #fff;
     background: rgba(255, 255, 255, 0.2);
-    border-left: 3px solid #fff;
+    border-left: 5px solid #ed4c5b;
     font-weight: 600;
 }
 
@@ -4750,4 +4743,27 @@ h6.card-title {
         margin: 0 16px 16px 16px;
         padding: 10px 16px;
     }
+}
+
+.version-wrapper-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #3181d6;
+    padding: 6px 12px;
+    border-radius: 20px;
+}
+
+.version-badge-top {
+    font-size: 12px;
+    color: #fff;
+    font-weight: 500;
+}
+
+.version-update-top {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    transition: color 0.2s;
 }

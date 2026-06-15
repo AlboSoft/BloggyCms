@@ -284,11 +284,6 @@ class AdminSettings {
                         'show' => 'field:show_site_name_in_logo',
                         'column' => 6
                     ]),
-                    \FieldFactory::image('bg_panel', [
-                        'title' => LANG_CONTROLLER_ADMINSETTINGS_FIELD_BG_PANEL,
-                        'upload_path' => 'uploads/settings/admin/',
-                        'column' => 6
-                    ]),
                     \FieldFactory::select('notification_position', [
                         'title' => LANG_CONTROLLER_ADMINSETTINGS_FIELD_NOTIFICATION_POSITION,
                         'options' => [
@@ -298,7 +293,7 @@ class AdminSettings {
                             'bottom-right' => LANG_CONTROLLER_ADMINSETTINGS_OPTION_BOTTOM_RIGHT
                         ],
                         'default' => 'top-right',
-                        'column' => 6
+                        'column' => 12
                     ]),
                 ]
             ]),

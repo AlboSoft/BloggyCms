@@ -51,7 +51,6 @@ define('LANG_CONTROLLER_ADMINSETTINGS_ALERT_TITLE', '<strong>Подсказка<
 define('LANG_CONTROLLER_ADMINSETTINGS_ALERT_HINT', 'Чтобы вообще не отображать кнопку - отключите все быстрые действия');
 define('LANG_CONTROLLER_ADMINSETTINGS_FIELD_SHOW_SEARCH', 'Отображать историю поисковых запросов');
 define('LANG_CONTROLLER_ADMINSETTINGS_FIELD_SHOW_POPULAR_SEARCH', 'Отображать популярные поисковые запросы');
-define('LANG_CONTROLLER_ADMINSETTINGS_FIELD_BG_PANEL', 'Фоновое изображение боковой панели');
 define('LANG_CONTROLLER_ADMINSETTINGS_FIELD_NOTIFICATION_POSITION', 'Положение уведомлений системы');
 define('LANG_CONTROLLER_ADMINSETTINGS_OPTION_TOP_LEFT', 'Сверху слева');
 define('LANG_CONTROLLER_ADMINSETTINGS_OPTION_TOP_RIGHT', 'Сверху справа');

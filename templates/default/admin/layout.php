@@ -34,7 +34,7 @@
         }
     ?>
         <div class="admin-wrapper">
-            <aside class="sidebar" <?php if(!empty(SettingsHelper::get('controller_admin', 'bg_panel'))) { ?>style="background-size: cover; background-image: url('<?php echo BASE_URL ?>/uploads/settings/admin/<?php echo SettingsHelper::get('controller_admin', 'bg_panel') ?>')"<?php } ?>>
+            <aside class="sidebar">
                     <div class="sidebar-brand">
                         <div class="brand-row">
                             <a href="<?php echo ADMIN_URL ?>" class="brand-logo">
@@ -59,13 +59,6 @@
                                     <span>BLOGGY<span class="cms-highlight">CMS</span></span>
                                 <?php } ?>
                             </a>
-                            
-                            <div class="version-wrapper">
-                                <span class="version-badge"><?php echo LANG_ADMIN_VERSION; ?> <?php echo VersionHelper::getVersion(); ?></span>
-                                <a href="/admin/check-updates" class="version-update" title="<?php echo LANG_ADMIN_CHECK_UPDATES; ?>">
-                                    <?php echo bloggy_icon('bs', 'arrow-repeat', '14', '#ffffff'); ?>
-                                </a>
-                            </div>
                         </div>
                     </div>
                 <nav class="nav flex-column">
@@ -112,7 +105,22 @@
 
             <main class="content-wrapper">
                 <div class="top-bar d-flex justify-content-between align-items-center">
-                    <div class="breadcrumb-wrapper"></div>
+
+                    <div class="d-flex align-items-center">
+                        <div class="version-wrapper-top">
+                            <span class="version-badge-top"><?php echo LANG_ADMIN_VERSION; ?> <?php echo VersionHelper::getVersion(); ?></span>
+                        </div>
+                        
+                        <div class="ms-2" id="updateBadgePlaceholder">
+                            <a href="/admin/check-updates" class="text-decoration-none">
+                                <span class="badge bg-success rounded-pill px-3 py-2 d-flex align-items-center gap-1">
+                                    <?php echo bloggy_icon('bs', 'arrow-repeat', '14', '#32A34A'); ?>
+                                    <span class="fw-semibold">New Version!</span>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+
                     <div class="d-flex align-items-center">
                         <div class="d-flex align-items-center me-3" style="gap: 10px;">
                             <div class="dropdown">
@@ -215,20 +223,20 @@
                     </div>
                 </div>
 
-                <?php if (isset($breadcrumbs) && $breadcrumbs instanceof BreadcrumbsManager && !$breadcrumbs->isEmpty()): ?>
-                <div class="breadcrumb-wrapper-modern">
-                    <?php echo $breadcrumbs->render([
-                        'container_tag' => 'div',
-                        'container_class' => 'admin-breadcrumb-modern',
-                        'list_tag' => 'ol',
-                        'list_class' => 'breadcrumb',
-                        'item_tag' => 'li',
-                        'item_class' => 'breadcrumb-item',
-                        'active_class' => 'active',
-                        'home_icon' => 'house-door'
-                    ]); ?>
-                </div>
-                <?php endif; ?>
+                <?php if (isset($breadcrumbs) && $breadcrumbs instanceof BreadcrumbsManager && !$breadcrumbs->isEmpty()) { ?>
+                    <div class="breadcrumb-wrapper-modern">
+                        <?php echo $breadcrumbs->render([
+                            'container_tag' => 'div',
+                            'container_class' => 'admin-breadcrumb-modern',
+                            'list_tag' => 'ol',
+                            'list_class' => 'breadcrumb',
+                            'item_tag' => 'li',
+                            'item_class' => 'breadcrumb-item',
+                            'active_class' => 'active',
+                            'home_icon' => 'house-door'
+                        ]); ?>
+                    </div>
+                <?php } ?>
 
                 <div class="container-fluid px-5">
                     <?php echo $content ?>
