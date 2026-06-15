@@ -3894,7 +3894,6 @@ a:hover {
 }
 
 .tg-page {
-  padding: 24px 20px;
   min-height: auto;
   display: block;
 }
@@ -6417,17 +6416,6 @@ a:hover {
 
 .tg-custom-field-value {
     color: #2d3748;
-}
-
-.tg-sidebar-placeholder {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    color: #9ca3af;
-    padding: 20px;
-    color: #a0aec0;
 }
 
 .tg-sidebar-placeholder svg {

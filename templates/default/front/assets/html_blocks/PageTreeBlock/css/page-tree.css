@@ -1,0 +1,260 @@
+.page-tree-block {
+    --pt-accent: #2563eb;
+    --pt-link: #3b82f6;
+    --pt-link-hover: #2563eb;
+    --pt-active: #1d4ed8;
+    --pt-indent: 24px;
+    --pt-padding-top: 40px;
+    --pt-padding-bottom: 40px;
+}
+
+.page-tree-block.theme-light {
+    --pt-bg: #ffffff;
+    --pt-text: #1f2937;
+    --pt-border: #e5e7eb;
+    --pt-hover: #f3f4f6;
+    --pt-muted: #6b7280;
+}
+
+.page-tree-block.theme-dark {
+    --pt-bg: #1f2937;
+    --pt-text: #f9fafb;
+    --pt-border: #374151;
+    --pt-hover: #374151;
+    --pt-muted: #9ca3af;
+}
+
+.page-tree-block.theme-custom {
+    background-color: var(--pt-bg);
+    color: var(--pt-text);
+}
+
+.page-tree-container {
+    padding-top: var(--pt-padding-top);
+    padding-bottom: var(--pt-padding-bottom);
+}
+
+.page-tree-header {
+    margin-bottom: 24px;
+}
+
+.page-tree-header.align-left {
+    text-align: left;
+}
+
+.page-tree-header.align-center {
+    text-align: center;
+}
+
+.page-tree-tree .tree-children {
+    list-style: none;
+    margin: 0;
+    padding-left: 24px;
+}
+
+.page-tree-header.align-right {
+    text-align: right;
+}
+
+.page-tree-badge {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--pt-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+}
+
+.page-tree-title {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.page-tree-description {
+    font-size: 16px;
+    color: var(--pt-muted);
+}
+
+.page-tree-tree,
+.page-tree-tree ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.page-tree-tree ul {
+    padding-left: var(--pt-indent);
+}
+
+.tree-item {
+    margin-bottom: 4px;
+}
+
+.tree-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    color: var(--pt-text);
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.tree-link:hover {
+    background-color: var(--pt-hover);
+    color: var(--pt-link-hover);
+}
+
+.tree-link.active {
+    background-color: rgba(37, 99, 235, 0.1);
+    color: var(--pt-active);
+    font-weight: 500;
+}
+
+.tree-icon {
+    display: inline-flex;
+    align-items: center;
+    width: 20px;
+    flex-shrink: 0;
+}
+
+.tree-info {
+    flex: 1;
+}
+
+.tree-title {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.tree-description {
+    font-size: 12px;
+    color: var(--pt-muted);
+    margin-top: 2px;
+}
+
+.children-count {
+    font-size: 12px;
+    color: var(--pt-muted);
+    margin-left: 6px;
+    font-weight: normal;
+}
+
+.page-status.draft {
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 12px;
+    background-color: #f59e0b;
+    color: #fff;
+    margin-left: 8px;
+}
+
+.page-tree-accordion {
+    border: 1px solid var(--pt-border);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.accordion-item {
+    border-bottom: 1px solid var(--pt-border);
+}
+
+.accordion-item:last-child {
+    border-bottom: none;
+}
+
+.accordion-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.accordion-header:hover {
+    background-color: var(--pt-hover);
+}
+
+.accordion-icon {
+    transition: transform 0.2s ease;
+    width: 20px;
+    display: inline-flex;
+    flex-shrink: 0;
+}
+
+.accordion-item.open .accordion-icon {
+    transform: rotate(90deg);
+}
+
+.accordion-link {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: var(--pt-text);
+}
+
+.accordion-link:hover {
+    color: var(--pt-link-hover);
+}
+
+.accordion-link.active {
+    color: var(--pt-active);
+    font-weight: 500;
+}
+
+.accordion-content {
+    display: none;
+    padding: 8px 16px 16px 40px;
+    background-color: var(--pt-hover);
+}
+
+.accordion-item.open .accordion-content {
+    display: block;
+}
+
+.item-title {
+    font-size: 14px;
+}
+
+.item-icon {
+    display: inline-flex;
+    width: 20px;
+    flex-shrink: 0;
+}
+
+.page-tree-empty {
+    text-align: center;
+    padding: 48px 24px;
+    background-color: var(--pt-hover);
+    border-radius: 8px;
+}
+
+.empty-icon {
+    margin-bottom: 16px;
+}
+
+.empty-title {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.empty-description {
+    color: var(--pt-muted);
+}
+
+@media (max-width: 768px) {
+    .page-tree-title {
+        font-size: 24px;
+    }
+    
+    .page-tree-tree ul {
+        padding-left: calc(var(--pt-indent) - 8px);
+    }
+}
