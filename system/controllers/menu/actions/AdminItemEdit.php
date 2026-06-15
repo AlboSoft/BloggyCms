@@ -179,12 +179,16 @@ class AdminItemEdit extends MenuAction {
             ];
         }
         
-        if (!empty($data['icon_only'])) {
-            $itemData['icon_only'] = true;
+        if (isset($data['icon_only'])) {
+            $itemData['icon_only'] = !empty($data['icon_only']) && $data['icon_only'] == 1;
+        } else {
+            $itemData['icon_only'] = false;
         }
         
-        if (!empty($data['is_extra'])) {
-            $itemData['is_extra'] = true;
+        if (isset($data['is_extra'])) {
+            $itemData['is_extra'] = !empty($data['is_extra']) && $data['is_extra'] == 1;
+        } else {
+            $itemData['is_extra'] = false;
         }
         
         $visibility = [];

@@ -6594,7 +6594,7 @@ a:hover {
 .header__nav-inner { display: flex; align-items: center; width: 100%; }
 .header__nav .menu { display: flex; align-items: center; gap: 4px; margin: 0; padding: 0; list-style: none; }
 .header__nav .menu-item { position: relative; }
-.header__nav .menu-item > a { display: flex; align-items: center; gap: 8px; padding: 8px 14px; color: var(--header-text-secondary); text-decoration: none; font-size: 0.9375rem; font-weight: 500; border-radius: 8px; transition: all var(--transition-fast); white-space: nowrap; }
+.header__nav .menu-item > a { display: flex; align-items: center; gap: 8px; padding: 8px 14px; color: var(--header-text-secondary); text-decoration: none; font-size: 0.9375rem; font-weight: bold; border-radius: 8px; transition: all var(--transition-fast); white-space: nowrap; }
 .header__nav .menu-item > a:hover { color: var(--header-text); background: var(--header-hover-bg); }
 .header__nav .menu-item.active > a { color: var(--header-text); background: var(--header-active-bg); }
 .header__nav .menu-icon { flex-shrink: 0; width: 18px; height: 18px; color: currentColor; }
@@ -6612,7 +6612,7 @@ a:hover {
 .header__nav .menu-item.has-children::after { content: ''; position: absolute; top: 100%; left: 0; right: 0; height: 12px; background: transparent; z-index: calc(var(--z-dropdown) - 1); }
 .header__nav .menu-item.has-children:hover > .submenu { opacity: 1; visibility: visible; transform: translateY(0); pointer-events: auto; }
 .header__nav .submenu-item { margin: 2px 0; }
-.header__nav .submenu-item > a { display: flex; align-items: center; gap: 10px; padding: 10px 14px; color: var(--header-text-secondary); text-decoration: none; font-size: 0.875rem; border-radius: 6px; transition: all var(--transition-fast); }
+.header__nav .submenu-item > a { display: flex; align-items: center; gap: 10px; padding: 10px 14px; color: var(--header-text-secondary); text-decoration: none; font-size: 0.875rem; border-radius: 6px; transition: all var(--transition-fast); font-weight: bold; }
 .header__nav .submenu-item > a:hover { color: var(--header-text); background: var(--header-hover-bg); }
 .header__nav .submenu-icon { flex-shrink: 0; width: 16px; height: 16px; color: currentColor; }
 .header__nav .submenu .has-children { position: relative; }

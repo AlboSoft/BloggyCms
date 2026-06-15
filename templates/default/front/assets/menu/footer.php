@@ -1,9 +1,8 @@
 <?php
 /**
- * Footer Menu Template
- * Вертикальное меню для подвала сайта
- * 
- */
+* Footer Menu Template
+* Вертикальное меню для подвала сайта
+*/
 
 $currentUrl = $_SERVER['REQUEST_URI'];
 ?>
@@ -18,6 +17,7 @@ $currentUrl = $_SERVER['REQUEST_URI'];
         $title = html($item['title'] ?? '', ENT_QUOTES, 'UTF-8');
         $target = $item['target'] ?? '_self';
         $itemClass = $item['class'] ?? '';
+        $iconOnly = !empty($item['icon_only']);
         
         $iconHtml = '';
         if (!empty($item['icon']) && is_array($item['icon']) && !empty($item['icon']['id'])) {
@@ -44,7 +44,11 @@ $currentUrl = $_SERVER['REQUEST_URI'];
                         aria-expanded="false"
                         aria-haspopup="true">
                     <?php if ($iconHtml) echo $iconHtml; ?>
-                    <span class="footer-menu-title"><?php echo $title; ?></span>
+                    <?php if (!$iconOnly) { ?>
+                        <span class="footer-menu-title"><?php echo $title; ?></span>
+                    <?php } else { ?>
+                        <span class="visually-hidden"><?php echo $title; ?></span>
+                    <?php } ?>
                     <?php echo bloggy_icon('bs', 'chevron-down', '14 14', 'currentColor', 'footer-menu-arrow'); ?>
                 </button>
                 
@@ -58,6 +62,7 @@ $currentUrl = $_SERVER['REQUEST_URI'];
                         $childTitle = html($child['title'] ?? '', ENT_QUOTES, 'UTF-8');
                         $childTarget = $child['target'] ?? '_self';
                         $childClass = $child['class'] ?? '';
+                        $childIconOnly = !empty($child['icon_only']);
                         
                         $childIconHtml = '';
                         if (!empty($child['icon']) && is_array($child['icon']) && !empty($child['icon']['id'])) {
@@ -83,7 +88,11 @@ $currentUrl = $_SERVER['REQUEST_URI'];
                                         class="footer-submenu-link footer-menu-parent"
                                         aria-expanded="false">
                                     <?php if ($childIconHtml) echo $childIconHtml; ?>
-                                    <span class="footer-menu-title"><?php echo $childTitle; ?></span>
+                                    <?php if (!$childIconOnly) { ?>
+                                        <span class="footer-menu-title"><?php echo $childTitle; ?></span>
+                                    <?php } else { ?>
+                                        <span class="visually-hidden"><?php echo $childTitle; ?></span>
+                                    <?php } ?>
                                     <?php echo bloggy_icon('bs', 'chevron-right', '12 12', 'currentColor', 'footer-menu-arrow'); ?>
                                 </button>
                                 
@@ -96,6 +105,7 @@ $currentUrl = $_SERVER['REQUEST_URI'];
                                         $subchildTitle = html($subchild['title'] ?? '', ENT_QUOTES, 'UTF-8');
                                         $subchildTarget = $subchild['target'] ?? '_self';
                                         $subchildClass = $subchild['class'] ?? '';
+                                        $subchildIconOnly = !empty($subchild['icon_only']);
                                         
                                         $subchildClasses = ['footer-submenu-item'];
                                         if ($subchildIsActive) $subchildClasses[] = 'active';
@@ -108,7 +118,11 @@ $currentUrl = $_SERVER['REQUEST_URI'];
                                             <a href="<?php echo $subchildUrl; ?>" 
                                                class="footer-submenu-link <?php echo $subchildIsActive ? 'active' : ''; ?>"
                                                target="<?php echo $subchildTarget; ?>">
-                                                <span class="footer-menu-title"><?php echo $subchildTitle; ?></span>
+                                                <?php if (!$subchildIconOnly) { ?>
+                                                    <span class="footer-menu-title"><?php echo $subchildTitle; ?></span>
+                                                <?php } else { ?>
+                                                    <span class="visually-hidden"><?php echo $subchildTitle; ?></span>
+                                                <?php } ?>
                                             </a>
                                         </li>
                                     <?php } ?>
@@ -119,7 +133,11 @@ $currentUrl = $_SERVER['REQUEST_URI'];
                                    class="footer-submenu-link <?php echo $childIsActive ? 'active' : ''; ?>"
                                    target="<?php echo $childTarget; ?>">
                                     <?php if ($childIconHtml) echo $childIconHtml; ?>
-                                    <span class="footer-menu-title"><?php echo $childTitle; ?></span>
+                                    <?php if (!$childIconOnly) { ?>
+                                        <span class="footer-menu-title"><?php echo $childTitle; ?></span>
+                                    <?php } else { ?>
+                                        <span class="visually-hidden"><?php echo $childTitle; ?></span>
+                                    <?php } ?>
                                 </a>
                             <?php } ?>
                         </li>
@@ -131,7 +149,11 @@ $currentUrl = $_SERVER['REQUEST_URI'];
                    class="footer-menu-link <?php echo $isActive ? 'active' : ''; ?>"
                    target="<?php echo $target; ?>">
                     <?php if ($iconHtml) echo $iconHtml; ?>
-                    <span class="footer-menu-title"><?php echo $title; ?></span>
+                    <?php if (!$iconOnly) { ?>
+                        <span class="footer-menu-title"><?php echo $title; ?></span>
+                    <?php } else { ?>
+                        <span class="visually-hidden"><?php echo $title; ?></span>
+                    <?php } ?>
                 </a>
             <?php } ?>
         </li>

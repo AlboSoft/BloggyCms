@@ -241,18 +241,20 @@
                                 </div>
                             </div>
                             
-                            <div class="row mt-2">
+                            <div class="row mt-4">
                                 <div class="col-md-12">
-                                    <div class="form-check">
+                                    <div class="form-check form-switch">
                                         <input class="form-check-input" 
-                                               type="checkbox" 
-                                               id="item-icon-only"
-                                               <?php echo ($formData['icon_only'] ?? false) ? 'checked' : ''; ?>>
-                                        <label class="form-check-label" for="item-icon-only">
-                                            <?php echo bloggy_icon('bs', 'fonts', '16', '#000', 'me-1'); ?>
+                                            type="checkbox" 
+                                            role="switch"
+                                            id="item-icon-only"
+                                            name="icon_only"
+                                            value="1"
+                                            <?php echo ($formData['icon_only'] ?? false) ? 'checked' : ''; ?>>
+                                        <label class="form-check-label fw-semibold" for="item-icon-only">
                                             <?php echo LANG_TEMPLATE_MENU_ITEM_FORM_ICON_ONLY_LABEL; ?>
                                         </label>
-                                        <div class="form-text small">
+                                        <div class="form-text text-muted small mt-1">
                                             <?php echo LANG_TEMPLATE_MENU_ITEM_FORM_ICON_ONLY_HINT; ?>
                                         </div>
                                     </div>
@@ -261,15 +263,20 @@
                         </div>
                         
                         <div class="border-top pt-4 mt-2">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="item-extra" name="is_extra"
-                                       <?php echo ($formData['is_extra'] ?? false) ? 'checked' : ''; ?>>
-                                <label class="form-check-label" for="item-extra">
-                                    <?php echo bloggy_icon('bs', 'star', '16', '#000', 'me-1'); ?>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" 
+                                    type="checkbox" 
+                                    role="switch"
+                                    id="item-extra" 
+                                    name="is_extra"
+                                    value="1"
+                                    <?php echo ($formData['is_extra'] ?? false) ? 'checked' : ''; ?>>
+                                <label class="form-check-label fw-semibold" for="item-extra">
                                     <?php echo LANG_TEMPLATE_MENU_ITEM_FORM_EXTRA_MENU_ITEM; ?>
                                 </label>
-                                <div class="form-text small">
-                                    <?php echo LANG_TEMPLATE_MENU_ITEM_FORM_EXTRA_MENU_HINT; ?> <code>{li-extra}</code>
+                                <div class="form-text text-muted small mt-1">
+                                    <?php echo LANG_TEMPLATE_MENU_ITEM_FORM_EXTRA_MENU_HINT; ?> 
+                                    <code class="bg-light px-1 rounded">{li-extra}</code>
                                 </div>
                             </div>
                         </div>

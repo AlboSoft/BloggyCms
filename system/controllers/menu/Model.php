@@ -719,6 +719,11 @@ class MenuModel implements ModelAPI {
     * @param array $itemData Исходные данные
     * @return array Подготовленные данные
     */
+        /**
+     * Подготовка данных пункта для сохранения
+     * @param array $itemData Исходные данные
+     * @return array Подготовленные данные
+     */
     private function prepareItemData($itemData) {
         $item = [];
 
@@ -727,6 +732,7 @@ class MenuModel implements ModelAPI {
         } else {
             $item['item_id'] = $itemData['item_id'];
         }
+
         if (isset($itemData['title'])) {
             $item['title'] = trim($itemData['title']);
         }
@@ -742,24 +748,37 @@ class MenuModel implements ModelAPI {
         if (!empty($itemData['class'])) {
             $item['class'] = trim($itemData['class']);
         }
-        if (!empty($itemData['icon']) && !empty($itemData['icon']['id'])) {
-            $item['icon'] = $itemData['icon'];
+
+        if (!empty($itemData['icon']) && is_array($itemData['icon']) && !empty($itemData['icon']['id'])) {
+            $item['icon'] = [
+                'id' => $itemData['icon']['id'],
+                'set' => $itemData['icon']['set'] ?? 'bs',
+                'size' => (int)($itemData['icon']['size'] ?? 20),
+                'color' => $itemData['icon']['color'] ?? '#000000'
+            ];
         }
-        if (!empty($itemData['icon_only'])) {
-            $item['icon_only'] = true;
+        
+        if (isset($itemData['icon_only'])) {
+            $item['icon_only'] = ($itemData['icon_only'] == 1 || $itemData['icon_only'] === true);
+        } else {
+            $item['icon_only'] = false;
         }
-        if (!empty($itemData['is_extra'])) {
-            $item['is_extra'] = true;
+
+        if (isset($itemData['is_extra'])) {
+            $item['is_extra'] = ($itemData['is_extra'] == 1 || $itemData['is_extra'] === true);
+        } else {
+            $item['is_extra'] = false;
         }
 
         $hasVisibility = false;
         $visibilityData = [];
 
-        $showToGroups = $itemData['visibility']['show_to_groups']
-            ?? $itemData['show_to_groups']
+        $showToGroups = $itemData['visibility']['show_to_groups'] 
+            ?? $itemData['show_to_groups'] 
             ?? null;
-        $hideFromGroups = $itemData['visibility']['hide_from_groups']
-            ?? $itemData['hide_from_groups']
+            
+        $hideFromGroups = $itemData['visibility']['hide_from_groups'] 
+            ?? $itemData['hide_from_groups'] 
             ?? null;
 
         if (isset($showToGroups) && is_array($showToGroups)) {
