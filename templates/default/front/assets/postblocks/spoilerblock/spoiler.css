@@ -23,16 +23,32 @@
     font-weight: 500;
     color: #1e293b;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: background 0.2s ease;
+    user-select: none;
+    position: relative;
 }
 
 .spoiler-toggle:hover {
     background: #f1f5f9;
 }
 
+.spoiler-toggle:focus-visible {
+    outline: 2px solid #3b82f6;
+    outline-offset: -2px;
+}
+
 .spoiler-icon {
-    transition: transform 0.2s ease;
     flex-shrink: 0;
+    transition: transform 0.3s ease;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+}
+
+.spoiler-icon svg {
+    display: block;
+    width: 100%;
+    height: 100%;
 }
 
 .spoiler-toggle.icon-before .spoiler-icon {
@@ -48,27 +64,28 @@
 }
 
 .spoiler-content {
-    display: none;
+    max-height: 0;
     overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    transform: translateY(-8px);
 }
 
-.post-block-spoiler.show .spoiler-content {
-    display: block;
+.spoiler-content.show {
+    max-height: 1000px;
+    opacity: 1;
+    transform: translateY(0);
 }
 
-.post-block-spoiler:not(.no-animation) .spoiler-content {
-    display: block;
-    animation: spoilerFadeIn 0.3s ease-out;
+.spoiler-content.no-animation {
+    transition: none !important;
 }
 
-@keyframes spoilerFadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
+@media (prefers-reduced-motion: reduce) {
+    .spoiler-content {
+        transition: none !important;
     }
 }
 
@@ -77,6 +94,43 @@
     background: #fff;
     color: #334155;
     line-height: 1.6;
+}
+
+.spoiler-icon-chevron {
+    transition: transform 0.3s ease;
+}
+
+.spoiler-toggle.spoiler-icon-left {
+    display: flex;
+    align-items: center;
+}
+.spoiler-toggle.spoiler-icon-left .spoiler-icon {
+    margin-right: 0.75rem;
+    order: -1;
+}
+.spoiler-toggle.spoiler-icon-left .spoiler-title {
+    order: 0;
+}
+
+.spoiler-toggle.spoiler-icon-right {
+    display: flex;
+    align-items: center;
+}
+.spoiler-toggle.spoiler-icon-right .spoiler-icon {
+    margin-left: 0.75rem;
+    order: 1;
+}
+.spoiler-toggle.spoiler-icon-right .spoiler-title {
+    order: 0;
+    flex: 1;
+}
+
+.spoiler-toggle[aria-expanded="true"] .spoiler-icon-chevron {
+    transform: rotate(180deg);
+}
+
+.spoiler-toggle[aria-expanded="false"] .spoiler-icon-chevron {
+    transform: rotate(0deg);
 }
 
 @media (max-width: 768px) {

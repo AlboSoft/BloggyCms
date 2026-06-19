@@ -23,15 +23,15 @@ class SpoilerBlock extends BasePostBlock {
 
     public function getTemplateWithShortcodes(): string {
         return '
-        <div class="post-block-spoiler {custom_class} {show_default} {no_animation_class}" data-spoiler>
+        <div class="post-block-spoiler {custom_class} {no_animation_class}" data-spoiler>
             <div class="spoiler-header">
-                <button type="button" class="spoiler-toggle {icon_position}" aria-expanded="{aria_expanded}">
+                <button type="button" class="spoiler-toggle spoiler-icon-{icon_position}" aria-expanded="{aria_expanded}">
                     {icon_before}
                     <span class="spoiler-title">{title}</span>
                     {icon_after}
                 </button>
             </div>
-            <div class="spoiler-content" aria-hidden="{aria_hidden}">
+            <div class="spoiler-content collapse {show_default}" aria-hidden="{aria_hidden}">
                 <div class="spoiler-body">
                     {content}
                 </div>
@@ -49,9 +49,7 @@ class SpoilerBlock extends BasePostBlock {
     public function getDefaultSettings(): array {
         return [
             'show_default' => '',
-            'icon_before' => 'chevron-down',
-            'icon_after' => '',
-            'icon_position' => 'icon-after',
+            'icon_position' => 'left',
             'custom_class' => '',
             'animation' => true
         ];
@@ -91,71 +89,21 @@ class SpoilerBlock extends BasePostBlock {
     public function getSettingsForm($currentSettings = []): string {
         $currentSettings = $this->validateAndNormalizeSettings($currentSettings);
         $showDefault = $currentSettings['show_default'] ?? '';
-        $iconBefore = $currentSettings['icon_before'] ?? 'chevron-down';
-        $iconAfter = $currentSettings['icon_after'] ?? '';
-        $iconPosition = $currentSettings['icon_position'] ?? 'icon-after';
+        $iconPosition = $currentSettings['icon_position'] ?? 'left';
         $customClass = $currentSettings['custom_class'] ?? '';
         $animation = $currentSettings['animation'] ?? true;
-
-        $spoilerIcons = [
-            '' => LANG_POSTBLOCK_SPOILER_ICON_NONE,
-            'chevron-down' => LANG_POSTBLOCK_SPOILER_ICON_CHEVRON_DOWN,
-            'chevron-right' => LANG_POSTBLOCK_SPOILER_ICON_CHEVRON_RIGHT,
-            'plus' => LANG_POSTBLOCK_SPOILER_ICON_PLUS,
-            'dash' => LANG_POSTBLOCK_SPOILER_ICON_DASH,
-            'caret-down' => LANG_POSTBLOCK_SPOILER_ICON_CARET_DOWN,
-            'caret-right' => LANG_POSTBLOCK_SPOILER_ICON_CARET_RIGHT,
-            'arrow-down' => LANG_POSTBLOCK_SPOILER_ICON_ARROW_DOWN,
-            'arrow-right' => LANG_POSTBLOCK_SPOILER_ICON_ARROW_RIGHT,
-            'eye' => LANG_POSTBLOCK_SPOILER_ICON_EYE,
-            'info-circle' => LANG_POSTBLOCK_SPOILER_ICON_INFO,
-            'question-circle' => LANG_POSTBLOCK_SPOILER_ICON_QUESTION,
-            'chevron-double-down' => LANG_POSTBLOCK_SPOILER_ICON_DOUBLE_DOWN,
-            'chevron-double-right' => LANG_POSTBLOCK_SPOILER_ICON_DOUBLE_RIGHT,
-            'arrow-down-circle' => LANG_POSTBLOCK_SPOILER_ICON_ARROW_DOWN_CIRCLE,
-            'arrow-right-circle' => LANG_POSTBLOCK_SPOILER_ICON_ARROW_RIGHT_CIRCLE,
-            'caret-down-fill' => LANG_POSTBLOCK_SPOILER_ICON_CARET_DOWN_FILL,
-            'caret-right-fill' => LANG_POSTBLOCK_SPOILER_ICON_CARET_RIGHT_FILL
-        ];
 
         ob_start();
         ?>
         <div class="row">
             <div class="col-md-6">
                 <div class="mb-4">
-                    <label class="form-label"><?php echo LANG_POSTBLOCK_SPOILER_SETTINGS_ICON_BEFORE; ?></label>
-                    <select name="settings[icon_before]" class="form-select">
-                        <?php foreach($spoilerIcons as $value => $name) { ?>
-                            <option value="<?= $value ?>" <?= $iconBefore === $value ? 'selected' : '' ?>>
-                                <?= $name ?>
-                            </option>
-                        <?php } ?>
-                    </select>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="mb-4">
-                    <label class="form-label"><?php echo LANG_POSTBLOCK_SPOILER_SETTINGS_ICON_AFTER; ?></label>
-                    <select name="settings[icon_after]" class="form-select">
-                        <?php foreach($spoilerIcons as $value => $name) { ?>
-                            <option value="<?= $value ?>" <?= $iconAfter === $value ? 'selected' : '' ?>>
-                                <?= $name ?>
-                            </option>
-                        <?php } ?>
-                    </select>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6">
-                <div class="mb-4">
                     <label class="form-label"><?php echo LANG_POSTBLOCK_SPOILER_SETTINGS_ICON_POSITION; ?></label>
                     <select name="settings[icon_position]" class="form-select">
-                        <option value="icon-before" <?= $iconPosition === 'icon-before' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_SPOILER_POSITION_BEFORE; ?></option>
-                        <option value="icon-after" <?= $iconPosition === 'icon-after' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_SPOILER_POSITION_AFTER; ?></option>
-                        <option value="icon-both" <?= $iconPosition === 'icon-both' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_SPOILER_POSITION_BOTH; ?></option>
+                        <option value="left" <?= $iconPosition === 'left' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_SPOILER_POSITION_LEFT; ?></option>
+                        <option value="right" <?= $iconPosition === 'right' ? 'selected' : '' ?>><?php echo LANG_POSTBLOCK_SPOILER_POSITION_RIGHT; ?></option>
                     </select>
+                    <div class="form-text"><?php echo LANG_POSTBLOCK_SPOILER_ICON_POSITION_HINT; ?></div>
                 </div>
             </div>
             <div class="col-md-6">
@@ -212,7 +160,16 @@ class SpoilerBlock extends BasePostBlock {
     }
 
     public function processFrontend($content, $settings = []): string {
-        return parent::processFrontend($content, $settings);
+        $content = $this->validateAndNormalizeContent($content);
+        
+        $dbSettings = $this->getBlockSettings();
+        $mergedSettings = array_merge($dbSettings, $settings);
+        $settings = $this->validateAndNormalizeSettings($mergedSettings);
+        
+        $blockSettings = $this->getBlockSettings();
+        $template = $blockSettings['template'] ?? $this->getTemplateWithShortcodes();
+        
+        return $this->renderWithTemplate($content, $settings, $template);
     }
 
     protected function renderWithTemplate($content, $settings, $template): string {
@@ -227,17 +184,23 @@ class SpoilerBlock extends BasePostBlock {
         }
 
         $showDefault = $settings['show_default'] ?? '';
-        $iconBefore = $settings['icon_before'] ?? 'chevron-down';
-        $iconAfter = $settings['icon_after'] ?? '';
-        $iconPosition = $settings['icon_position'] ?? 'icon-after';
+        $isOpen = ($showDefault === 'show');
+        
+        $iconPosition = $settings['icon_position'] ?? 'left';
         $customClass = $settings['custom_class'] ?? '';
         $animation = $settings['animation'] ?? true;
         $presetId = $settings['preset_id'] ?? null;
         $presetName = $settings['preset_name'] ?? '';
-        $isOpen = $showDefault === 'show';
+        
         $ariaExpanded = $isOpen ? 'true' : 'false';
         $ariaHidden = $isOpen ? 'false' : 'true';
         $noAnimationClass = !$animation ? 'no-animation' : '';
+        $blockId = 'spoiler-' . rand(100000, 999999);
+        
+        $contentClasses = 'spoiler-content collapse';
+        if ($isOpen) {
+            $contentClasses .= ' show';
+        }
         
         $presetClass = '';
         if ($presetId) {
@@ -252,37 +215,41 @@ class SpoilerBlock extends BasePostBlock {
             }
         }
 
-        $iconBeforeHtml = '';
-        $iconAfterHtml = '';
+        $iconName = $isOpen ? 'chevron-up' : 'chevron-down';
+        $iconHtml = bloggy_icon('bs', $iconName, '16 16', 'currentColor', 'spoiler-icon spoiler-icon-chevron');
 
-        if ($iconPosition === 'icon-before' || $iconPosition === 'icon-both') {
-            if (!empty($iconBefore)) {
-                $iconBeforeHtml = bloggy_icon('bs', $iconBefore, '16 16', null, 'spoiler-icon me-2');
-            }
-        }
-        
-        if ($iconPosition === 'icon-after' || $iconPosition === 'icon-both') {
-            if (!empty($iconAfter)) {
-                $iconAfterHtml = bloggy_icon('bs', $iconAfter, '16 16', null, 'spoiler-icon ms-2');
-            }
+        if ($iconPosition === 'left') {
+            $iconBefore = $iconHtml;
+            $iconAfter = '';
+        } else {
+            $iconBefore = '';
+            $iconAfter = $iconHtml;
         }
 
         $result = $template;
         
-        $result = str_replace('{custom_class}', trim($customClass . ' ' . $presetClass), $result);
         $result = str_replace('{icon_position}', html($iconPosition), $result);
-        $result = str_replace('{icon_before}', $iconBeforeHtml, $result);
-        $result = str_replace('{icon_after}', $iconAfterHtml, $result);
+        $result = str_replace('{block_id}', html($blockId), $result);
+        $result = str_replace('{custom_class}', trim($customClass . ' ' . $presetClass), $result);
+        $result = str_replace('{icon_before}', $iconBefore, $result);
+        $result = str_replace('{icon_after}', $iconAfter, $result);
         $result = str_replace('{title}', html($title), $result);
-        $result = str_replace('{show_default}', $isOpen ? 'show' : '', $result);
         $result = str_replace('{content}', $contentText, $result);
         $result = str_replace('{preset_id}', $presetId ? html($presetId) : '', $result);
         $result = str_replace('{preset_name}', $presetName ? html($presetName) : '', $result);
         $result = str_replace('{block_type}', $this->getSystemName(), $result);
-        $result = str_replace('{block_name}', $this->getName(), $result);
+        $result = str_replace('{block_name}', $this->getSystemName(), $result);
         $result = str_replace('{aria_expanded}', $ariaExpanded, $result);
         $result = str_replace('{aria_hidden}', $ariaHidden, $result);
         $result = str_replace('{no_animation_class}', $noAnimationClass, $result);
+        
+        $result = preg_replace(
+            '/class="spoiler-content[^"]*"/',
+            'class="' . $contentClasses . '"',
+            $result
+        );
+        
+        $result = str_replace('{show_default}', '', $result);
 
         return $result;
     }
@@ -293,10 +260,10 @@ class SpoilerBlock extends BasePostBlock {
             '{content}' => LANG_POSTBLOCK_SPOILER_SHORTCODE_CONTENT,
             '{block_id}' => LANG_POSTBLOCK_SPOILER_SHORTCODE_BLOCK_ID,
             '{show_default}' => LANG_POSTBLOCK_SPOILER_SHORTCODE_SHOW_DEFAULT,
+            '{custom_class}' => LANG_POSTBLOCK_SPOILER_SHORTCODE_CUSTOM_CLASS,
             '{icon_before}' => LANG_POSTBLOCK_SPOILER_SHORTCODE_ICON_BEFORE,
             '{icon_after}' => LANG_POSTBLOCK_SPOILER_SHORTCODE_ICON_AFTER,
-            '{icon_position}' => LANG_POSTBLOCK_SPOILER_SHORTCODE_ICON_POSITION,
-            '{custom_class}' => LANG_POSTBLOCK_SPOILER_SHORTCODE_CUSTOM_CLASS
+            '{icon_position}' => LANG_POSTBLOCK_SPOILER_SHORTCODE_ICON_POSITION
         ]);
     }
 
@@ -313,8 +280,8 @@ class SpoilerBlock extends BasePostBlock {
             $errors[] = LANG_POSTBLOCK_SPOILER_VALIDATION_CUSTOM_CLASS;
         }
 
-        $allowedIconPositions = ['icon-before', 'icon-after', 'icon-both'];
-        if (!empty($settings['icon_position']) && !in_array($settings['icon_position'], $allowedIconPositions)) {
+        $allowedPositions = ['left', 'right'];
+        if (!empty($settings['icon_position']) && !in_array($settings['icon_position'], $allowedPositions)) {
             $errors[] = LANG_POSTBLOCK_SPOILER_VALIDATION_ICON_POSITION;
         }
 
@@ -372,6 +339,34 @@ class SpoilerBlock extends BasePostBlock {
         if (!is_array($settings)) {
             return [];
         }
+
+        if (!isset($settings['icon_position']) || !in_array($settings['icon_position'], ['left', 'right'])) {
+            $settings['icon_position'] = 'left';
+        }
+        
+        if (!isset($settings['show_default']) || $settings['show_default'] === false || $settings['show_default'] === 'null') {
+            $settings['show_default'] = '';
+        }
+        
+        if (!isset($settings['animation'])) {
+            $settings['animation'] = true;
+        } else {
+            $settings['animation'] = (bool)$settings['animation'];
+        }
+        
+        if (isset($settings['custom_class'])) {
+            $settings['custom_class'] = preg_replace('/[^a-zA-Z0-9-_ ]/', '', trim($settings['custom_class']));
+        } else {
+            $settings['custom_class'] = '';
+        }
+        
+        if (isset($settings['preset_id'])) {
+            $settings['preset_id'] = (int)$settings['preset_id'];
+        }
+        
+        if (isset($settings['preset_name'])) {
+            $settings['preset_name'] = trim($settings['preset_name']);
+        }
         
         return $settings;
     }
@@ -405,28 +400,34 @@ class SpoilerBlock extends BasePostBlock {
             $settings = [];
         }
         
+        $currentSettings = $this->getBlockSettings();
+        
         if (isset($_POST['settings']['show_default']) && $_POST['settings']['show_default'] === 'show') {
             $settings['show_default'] = 'show';
         } else {
             $settings['show_default'] = '';
         }
         
-        $settings['animation'] = isset($_POST['settings']['animation']) && ($_POST['settings']['animation'] == '1' || $_POST['settings']['animation'] == 'on');
-        
-        if (isset($_POST['settings']['icon_before'])) {
-            $settings['icon_before'] = trim($_POST['settings']['icon_before']);
-        }
-        
-        if (isset($_POST['settings']['icon_after'])) {
-            $settings['icon_after'] = trim($_POST['settings']['icon_after']);
+        if (isset($_POST['settings']['animation']) && ($_POST['settings']['animation'] == '1' || $_POST['settings']['animation'] == 'on')) {
+            $settings['animation'] = true;
+        } elseif (!isset($_POST['settings']['animation'])) {
+            $settings['animation'] = false;
+        } else {
+            $settings['animation'] = $settings['animation'] ?? ($currentSettings['animation'] ?? true);
         }
         
         if (isset($_POST['settings']['icon_position'])) {
-            $settings['icon_position'] = trim($_POST['settings']['icon_position']);
+            $iconPosition = trim($_POST['settings']['icon_position']);
+            $settings['icon_position'] = in_array($iconPosition, ['left', 'right']) ? $iconPosition : 'left';
+        } else {
+            $settings['icon_position'] = 'left';
         }
         
         if (isset($_POST['settings']['custom_class'])) {
-            $settings['custom_class'] = trim($_POST['settings']['custom_class']);
+            $customClass = trim($_POST['settings']['custom_class']);
+            $settings['custom_class'] = preg_replace('/[^a-zA-Z0-9-_ ]/', '', $customClass);
+        } else {
+            $settings['custom_class'] = '';
         }
 
         return $settings;
@@ -451,28 +452,14 @@ class SpoilerBlock extends BasePostBlock {
         $title = $content['title'] ?? LANG_POSTBLOCK_SPOILER_DEFAULT_TITLE;
         $contentText = $content['content'] ?? LANG_POSTBLOCK_SPOILER_DEFAULT_CONTENT;
         $showDefault = $settings['show_default'] ?? '';
-        $iconBefore = $settings['icon_before'] ?? 'chevron-down';
-        $iconAfter = $settings['icon_after'] ?? '';
-        $iconPosition = $settings['icon_position'] ?? 'icon-after';
+        $iconPosition = $settings['icon_position'] ?? 'left';
         $customClass = $settings['custom_class'] ?? '';
         $animation = $settings['animation'] ?? true;
         
         $isOpen = $showDefault === 'show';
         $contentLength = strlen($contentText);
         
-        $previewIcon = 'chevron-down';
-        if (!empty($iconBefore) && $iconBefore !== '' && $iconBefore !== 'null') {
-            $previewIcon = $iconBefore;
-        } elseif (!empty($iconAfter) && $iconAfter !== '' && $iconAfter !== 'null') {
-            $previewIcon = $iconAfter;
-        }
-        
-        $iconPositionText = match($iconPosition) {
-            'icon-before' => LANG_POSTBLOCK_SPOILER_POSITION_BEFORE,
-            'icon-after' => LANG_POSTBLOCK_SPOILER_POSITION_AFTER,
-            'icon-both' => LANG_POSTBLOCK_SPOILER_POSITION_BOTH,
-            default => LANG_POSTBLOCK_SPOILER_POSITION_AFTER
-        };
+        $iconPositionText = $iconPosition === 'left' ? LANG_POSTBLOCK_SPOILER_POSITION_LEFT : LANG_POSTBLOCK_SPOILER_POSITION_RIGHT;
         
         ob_start();
         ?>
@@ -513,8 +500,8 @@ class SpoilerBlock extends BasePostBlock {
                                 <div class="d-flex align-items-center justify-content-between">
                                     <div class="flex-grow-1">
                                         <div class="d-flex align-items-center">
-                                            <?php if (($iconPosition === 'icon-before' || $iconPosition === 'icon-both') && !empty($previewIcon)) { ?>
-                                                <?= bloggy_icon('bs', $previewIcon, '16 16', null, 'me-2 text-primary') ?>
+                                            <?php if ($iconPosition === 'left') { ?>
+                                                <?= bloggy_icon('bs', $isOpen ? 'chevron-up' : 'chevron-down', '16 16', null, 'me-2') ?>
                                             <?php } ?>
                                             
                                             <span class="fw-semibold" style="color: #374151;">
@@ -522,8 +509,8 @@ class SpoilerBlock extends BasePostBlock {
                                                 <?php if (mb_strlen($title) > 40) { ?>...<?php } ?>
                                             </span>
                                             
-                                            <?php if (($iconPosition === 'icon-after' || $iconPosition === 'icon-both') && !empty($previewIcon)) { ?>
-                                                <?= bloggy_icon('bs', $previewIcon, '16 16', null, 'ms-2 text-primary') ?>
+                                            <?php if ($iconPosition === 'right') { ?>
+                                                <?= bloggy_icon('bs', $isOpen ? 'chevron-up' : 'chevron-down', '16 16', null, 'ms-2') ?>
                                             <?php } ?>
                                         </div>
                                     </div>
@@ -558,7 +545,7 @@ class SpoilerBlock extends BasePostBlock {
                                 <div class="row">
                                     <div class="col-6">
                                         <div><?= bloggy_icon('bs', $isOpen ? 'unlock' : 'lock', '12 12', null, 'me-1') ?><?php echo LANG_POSTBLOCK_SPOILER_PREVIEW_INFO_DEFAULT; ?> <strong><?= $isOpen ? LANG_POSTBLOCK_SPOILER_PREVIEW_OPEN : LANG_POSTBLOCK_SPOILER_PREVIEW_CLOSED ?></strong></div>
-                                        <div><?= bloggy_icon('bs', 'gear', '12 12', null, 'me-1') ?><?php echo LANG_POSTBLOCK_SPOILER_PREVIEW_INFO_ICONS; ?> <strong><?= html($iconPositionText) ?></strong></div>
+                                        <div><?= bloggy_icon('bs', 'gear', '12 12', null, 'me-1') ?><?php echo LANG_POSTBLOCK_SPOILER_PREVIEW_INFO_ICON; ?> <strong><?= html($iconPositionText) ?></strong></div>
                                     </div>
                                     <div class="col-6">
                                         <?php if ($customClass) { ?>

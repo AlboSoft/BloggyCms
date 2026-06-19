@@ -235,16 +235,41 @@ class Show extends PostAction {
         
         if (is_string($content)) {
             $decoded = json_decode($content, true);
-            $content = (json_last_error() === JSON_ERROR_NONE) ? $decoded : $content;
+            if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
+                $content = $decoded;
+            } else {
+                $decoded = json_decode(stripslashes($content), true);
+                if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
+                    $content = $decoded;
+                }
+            }
+        }
+        
+        if (!is_array($content)) {
+            $content = ['text' => (string)$content];
         }
         
         if (is_string($settings)) {
             $decodedSettings = json_decode($settings, true);
-            $settings = (json_last_error() === JSON_ERROR_NONE) ? $decodedSettings : [];
+            if (json_last_error() === JSON_ERROR_NONE && is_array($decodedSettings)) {
+                $settings = $decodedSettings;
+            } else {
+                $decodedSettings = json_decode(stripslashes($settings), true);
+                if (json_last_error() === JSON_ERROR_NONE && is_array($decodedSettings)) {
+                    $settings = $decodedSettings;
+                }
+            }
+        }
+        
+        if (!is_array($settings)) {
+            $settings = [];
         }
         
         $dbSettings = $this->postBlockModel->getBlockSettings($block['type']);
-        $mergedSettings = array_merge($dbSettings, $settings);
+        $blockInstance = $this->postBlockManager->getBlockInstance($block['type']);
+        $defaultSettings = $blockInstance ? $blockInstance->getDefaultSettings() : [];
+        $mergedSettings = array_merge($defaultSettings, $dbSettings, $settings);
+        
         $processedContent = $this->postBlockManager->processPostBlockContent(
             $content, 
             $block['type'], 

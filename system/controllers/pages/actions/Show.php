@@ -122,20 +122,23 @@ class Show extends PageAction {
     * @return mixed Декодированные данные
     */
     private function decodeJsonIfNeeded($data, $defaultArray = false) {
-
-        if (is_string($data)) {
-            
-            $cleaned = stripslashes($data);
-            $decoded = json_decode($cleaned, true);
-
-            if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
-                return $decoded;
-            } else {
-                $decoded = json_decode($data, true);
-                if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
-                    return $decoded;
-                }
-            }
+        if (is_array($data)) {
+            return $data;
+        }
+        
+        if (!is_string($data)) {
+            return $defaultArray ? [] : $data;
+        }
+        
+        $cleaned = stripslashes($data);
+        $decoded = json_decode($cleaned, true);
+        if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
+            return $decoded;
+        }
+        
+        $decoded = json_decode($data, true);
+        if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
+            return $decoded;
         }
         
         return $defaultArray ? [] : $data;

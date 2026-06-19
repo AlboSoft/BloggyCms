@@ -75,17 +75,16 @@ class PostBlockModel {
             }
             
             if (is_string($block['content'])) {
-    $decoded = json_decode($block['content'], true);
-    if (json_last_error() === JSON_ERROR_NONE) {
-        $block['content'] = $decoded;
-    } else {
-        // Fallback only if the first decode fails
-        $decoded = json_decode(stripslashes($block['content']), true);
-        if (json_last_error() === JSON_ERROR_NONE) {
-            $block['content'] = $decoded;
-        }
-    }
-}
+                $decoded = json_decode($block['content'], true);
+                if (json_last_error() === JSON_ERROR_NONE) {
+                    $block['content'] = $decoded;
+                } else {
+                    $decoded = json_decode(stripslashes($block['content']), true);
+                    if (json_last_error() === JSON_ERROR_NONE) {
+                        $block['content'] = $decoded;
+                    }
+                }
+            }
         }
         
         return $blocks;
