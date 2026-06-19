@@ -4,7 +4,7 @@
 
 [![PHP Version](https://img.shields.io/badge/PHP-8.0+-blue.svg)](https://php.net)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Скачать v1.0.0-RC.5](https://img.shields.io/badge/Скачать-v1.0.0--RC-orange)](https://github.com/pechoradev/BloggyCms/releases/tag/v1.0.0-rc.6)
+[![Скачать v1.0.0-RC.5](https://img.shields.io/badge/Скачать-v1.0.0--RC-orange)](https://github.com/albosoft/BloggyCms/releases/tag/v1.0.0-rc.6)
 
 BloggyCMS — это гибкая и расширяемая платформа, где каждый компонент можно адаптировать под свои нужды без изменения ядра. Всё построено на модульной архитектуре, системе событий и функциональном API.
 
@@ -82,9 +82,9 @@ BloggyCMS — это гибкая и расширяемая платформа, 
 ## Ссылки
 
 - [Официальный сайт проекта](https://bloggy.su)
-- [Документация](https://github.com/pechoradev/BloggyCms/wiki)
+- [Документация](https://github.com/albosift/BloggyCms/wiki)
 - [Сообщить об ошибке](https://github.com/pechoradev/BloggyCms/discussions/categories/bug-reports)
-- [Скачать последнюю версию](https://github.com/pechoradev/BloggyCms/releases/tag/v1.0.0-rc.6)
+- [Скачать последнюю версию](https://github.com/albosoft/BloggyCms/releases/tag/v1.0.0-rc.6)
 
 ---
 
