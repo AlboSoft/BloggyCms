@@ -347,4 +347,14 @@ class NotificationModel implements ModelAPI {
         }
     }
 
+    /**
+    * Получение уведомления по ID
+    * @param int $id ID уведомления
+    * @return array|null Данные уведомления или null
+    */
+    public function getNotificationById($id) {
+        $sql = "SELECT * FROM notifications WHERE id = ?";
+        return $this->db->fetch($sql, [$id]);
+    }
+
 }
