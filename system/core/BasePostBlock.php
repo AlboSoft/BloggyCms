@@ -86,8 +86,14 @@ abstract class BasePostBlock {
     public function processFrontend($content, $settings = []): string {
         $content = $this->validateAndNormalizeContent($content);
         $settings = $this->validateAndNormalizeSettings($settings);
-        $blockSettings = $this->getBlockSettings();
-        $template = $blockSettings['template'] ?? $this->getTemplateWithShortcodes();
+        
+        $template = $settings['template'] ?? null;
+        
+        if ($template === null) {
+            $blockSettings = $this->getBlockSettings();
+            $template = $blockSettings['template'] ?? $this->getTemplateWithShortcodes();
+        }
+        
         return $this->renderWithTemplate($content, $settings, $template);
     }
 

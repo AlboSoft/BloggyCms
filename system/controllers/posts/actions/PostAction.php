@@ -189,8 +189,6 @@ abstract class PostAction {
             if (!$isValid) {
                 throw new \Exception('Ошибки в настройках блока "' . $postBlock['name'] . '": ' . implode(', ', $errors));
             }
-            
-            $settings = $postBlock['class']->prepareSettings($settings);
         }
 
         $this->postBlockModel->createForPost(
