@@ -324,8 +324,9 @@ class FormModel implements ModelAPI {
     /**
     * Сохранение файлов отправки (с поддержкой multiple)
     */
-    private function saveSubmissionFiles($submissionId, $files) {
-        $uploadPath = ROOT_PATH . '/uploads/forms';
+        private function saveSubmissionFiles($submissionId, $files) {
+        $uploadPath = ROOT_PATH . '/storage/uploads/forms';
+        
         if (!is_dir($uploadPath)) {
             mkdir($uploadPath, 0755, true);
         }
@@ -335,6 +336,8 @@ class FormModel implements ModelAPI {
         if (!is_dir($fullPath)) {
             mkdir($fullPath, 0755, true);
         }
+
+        $this->protectUploadDirectory($uploadPath);
 
         foreach ($files as $fieldName => $fileData) {
             if (is_array($fileData['name']) && isset($fileData['name'][0])) {
@@ -349,34 +352,226 @@ class FormModel implements ModelAPI {
                         'type' => $fileData['type'][$i],
                         'error' => $fileData['error'][$i]
                     ];
-                    $this->saveSingleFile($submissionId, $fieldName, $file, $fullPath, $monthDir);
+                    
+                    if ($this->validateUploadedFile($file, $fieldName)) {
+                        $this->saveSingleFile($submissionId, $fieldName, $file, $fullPath, $monthDir);
+                    }
                 }
             } else {
                 if ($fileData['error'] !== UPLOAD_ERR_OK) continue;
-                $this->saveSingleFile($submissionId, $fieldName, $fileData, $fullPath, $monthDir);
+                
+                if ($this->validateUploadedFile($fileData, $fieldName)) {
+                    $this->saveSingleFile($submissionId, $fieldName, $fileData, $fullPath, $monthDir);
+                }
             }
         }
+    }
+
+    /**
+    * Защита директории загрузок от выполнения PHP
+    */
+    private function protectUploadDirectory($uploadPath) {
+        $htaccessPath = $uploadPath . '/.htaccess';
+        if (!file_exists($htaccessPath)) {
+            $htaccessContent = "# Запрет выполнения PHP в директории загрузок\n";
+            $htaccessContent .= "<FilesMatch \"\.(php|phtml|php[0-9]|phar|cgi|pl|sh|shtml|html|htm)$\">\n";
+            $htaccessContent .= "    Order Deny,Allow\n";
+            $htaccessContent .= "    Deny from all\n";
+            $htaccessContent .= "</FilesMatch>\n\n";
+            $htaccessContent .= "# Запрет доступа к скрытым файлам\n";
+            $htaccessContent .= "RedirectMatch 403 /\..*$\n";
+            
+            file_put_contents($htaccessPath, $htaccessContent);
+        }
+    }
+
+    /**
+    * Валидация загружаемого файла
+    * @param array $file Данные файла
+    * @param string $fieldName Имя поля
+    * @return bool true если файл валиден
+    * @throws Exception Если файл не прошел валидацию
+    */
+    private function validateUploadedFile($file, $fieldName) {
+        $maxFileSize = 10 * 1024 * 1024;
+        if ($file['size'] > $maxFileSize) {
+            throw new Exception("Файл '{$file['name']}' превышает максимальный размер (10MB)");
+        }
+
+        if (function_exists('finfo_open')) {
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $realMimeType = finfo_file($finfo, $file['tmp_name']);
+            finfo_close($finfo);
+        } else {
+            $realMimeType = mime_content_type($file['tmp_name']);
+        }
+
+        $allowedMimeTypes = [
+            'image/jpeg',
+            'image/png', 
+            'image/gif',
+            'image/webp',
+            'application/pdf',
+            'application/msword',
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'application/vnd.ms-excel',
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'text/plain',
+            'application/zip',
+            'application/x-rar-compressed'
+        ];
+
+        if (!in_array($realMimeType, $allowedMimeTypes)) {
+            throw new Exception("Недопустимый тип файла '{$file['name']}'. Разрешены: " . implode(', ', $allowedMimeTypes));
+        }
+
+        $allowedExtensions = [
+            'jpg', 'jpeg', 'png', 'gif', 'webp',
+            'pdf', 'doc', 'docx', 'xls', 'xlsx',
+            'txt', 'zip', 'rar'
+        ];
+        
+        $extension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+        
+        if (empty($extension)) {
+            throw new Exception("Файл '{$file['name']}' не имеет расширения");
+        }
+
+        if (!in_array($extension, $allowedExtensions)) {
+            throw new Exception("Недопустимое расширение файла '{$file['name']}'. Разрешены: " . implode(', ', $allowedExtensions));
+        }
+
+        $mimeToExtensionMap = [
+            'image/jpeg' => ['jpg', 'jpeg'],
+            'image/png' => ['png'],
+            'image/gif' => ['gif'],
+            'image/webp' => ['webp'],
+            'application/pdf' => ['pdf'],
+            'application/msword' => ['doc'],
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => ['docx'],
+            'application/vnd.ms-excel' => ['xls'],
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => ['xlsx'],
+            'text/plain' => ['txt'],
+            'application/zip' => ['zip'],
+            'application/x-rar-compressed' => ['rar']
+        ];
+
+        if (isset($mimeToExtensionMap[$realMimeType])) {
+            if (!in_array($extension, $mimeToExtensionMap[$realMimeType])) {
+                throw new Exception("Расширение файла '{$extension}' не соответствует типу '{$realMimeType}'");
+            }
+        }
+
+        if (preg_match('/\.[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/', $file['name'])) {
+            throw new Exception("Файл '{$file['name']}' имеет подозрительное двойное расширение");
+        }
+
+        $dangerousExtensions = ['php', 'phtml', 'php3', 'php4', 'php5', 'phar', 'cgi', 'pl', 'sh'];
+        if (in_array($extension, $dangerousExtensions)) {
+            throw new Exception("Загрузка PHP-файлов запрещена");
+        }
+
+        if (strpos($realMimeType, 'image/') === 0) {
+            $imageInfo = @getimagesize($file['tmp_name']);
+            if ($imageInfo === false) {
+                throw new Exception("Файл '{$file['name']}' не является корректным изображением");
+            }
+            
+            $content = file_get_contents($file['tmp_name']);
+            if (strpos($content, '<?php') !== false || strpos($content, '<?=') !== false) {
+                throw new Exception("Файл '{$file['name']}' содержит подозрительный код");
+            }
+        }
+
+        $content = file_get_contents($file['tmp_name']);
+        $dangerousPatterns = [
+            '/<\?php/i',
+            '/<\?=/i',
+            '/<\?xml/i',
+            '/<script/i',
+            '/eval\s*\(/i',
+            '/base64_decode\s*\(/i',
+            '/system\s*\(/i',
+            '/exec\s*\(/i',
+            '/passthru\s*\(/i',
+            '/shell_exec\s*\(/i',
+            '/popen\s*\(/i',
+            '/proc_open\s*\(/i',
+            '/assert\s*\(/i',
+            '/create_function\s*\(/i',
+            '/GIF89a.*<\?php/i'
+        ];
+
+        foreach ($dangerousPatterns as $pattern) {
+            if (preg_match($pattern, $content)) {
+                throw new Exception("Файл '{$file['name']}' содержит потенциально опасный код");
+            }
+        }
+
+        return true;
     }
 
     /**
     * Вспомогательный метод для сохранения одного файла
     */
     private function saveSingleFile($submissionId, $fieldName, $file, $fullPath, $monthDir) {
-        $fileName = time() . '_' . uniqid() . '_' . $this->sanitizeFileName($file['name']);
+        $safeName = $this->generateSafeFileName($file['name']);
+        $fileName = time() . '_' . uniqid() . '_' . $safeName;
         $filePath = $fullPath . '/' . $fileName;
         
+        if (file_exists($filePath)) {
+            $fileName = time() . '_' . uniqid() . '_' . $safeName;
+            $filePath = $fullPath . '/' . $fileName;
+        }
+        
         if (move_uploaded_file($file['tmp_name'], $filePath)) {
+            chmod($filePath, 0644);
+            
             $fileData = [
                 'submission_id' => $submissionId,
                 'field_name' => $fieldName,
                 'file_name' => $file['name'],
-                'file_path' => 'uploads/forms/' . $monthDir . '/' . $fileName,
+                'file_path' => 'storage/uploads/forms/' . $monthDir . '/' . $fileName,
                 'file_size' => $file['size'],
                 'mime_type' => $file['type'],
+                'real_mime_type' => $this->getRealMimeType($filePath),
                 'created_at' => date('Y-m-d H:i:s')
             ];
             $this->db->insert('form_files', $fileData);
         }
+    }
+
+    /**
+    * Генерация безопасного имени файла
+    */
+    private function generateSafeFileName($filename) {
+        $extension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+        
+        $name = pathinfo($filename, PATHINFO_FILENAME);
+        $name = preg_replace('/[^a-zA-Z0-9_\-]/', '_', $name);
+        $name = preg_replace('/_+/', '_', $name);
+        $name = trim($name, '_');
+        
+        if (empty($name)) {
+            $name = 'file';
+        }
+        
+        $name = mb_substr($name, 0, 50);
+        
+        return $name . '.' . $extension;
+    }
+
+    /**
+    * Получение реального MIME-типа файла
+    */
+    private function getRealMimeType($filePath) {
+        if (function_exists('finfo_open')) {
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $mimeType = finfo_file($finfo, $filePath);
+            finfo_close($finfo);
+            return $mimeType;
+        }
+        return mime_content_type($filePath);
     }
     
     /**

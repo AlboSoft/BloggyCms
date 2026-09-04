@@ -65,7 +65,6 @@ class FormSubmit extends FormAction {
             
             if (!empty($settings['spam_protection'])) {
                 if ($this->checkSpamKeywords($postData, $settings)) {
-
                     $submissionId = $this->formModel->saveSubmission($form['id'], $postData, $filesData);
                     $this->formModel->updateSubmissionStatus($submissionId, 'spam');
                     
@@ -78,7 +77,8 @@ class FormSubmit extends FormAction {
                 }
             }
             
-            $errors = \FormRenderer::validateSubmission($form, $postData, $filesData);
+            $errors = $this->validateSubmissionSecure($form, $postData, $filesData);
+            
             if (!empty($errors)) {
                 $errorMessage = is_array($errors) ? implode("\n", $errors) : $errors;
                 throw new \Exception($errorMessage);
@@ -120,6 +120,149 @@ class FormSubmit extends FormAction {
                 'message' => $e->getMessage()
             ]);
         }
+    }
+
+    private function validateSubmissionSecure($form, $data, $files) {
+        $errors = [];
+        $structure = $form['structure'] ?? [];
+        $fieldLabels = [];
+        
+        foreach ($structure as $field) {
+            if (!empty($field['name'])) {
+                $fieldLabels[$field['name']] = $field['label'] ?? $field['name'];
+            }
+        }
+        
+        foreach ($structure as $field) {
+            $fieldName = $field['name'] ?? '';
+            $fieldType = $field['type'] ?? '';
+            $fieldLabel = $field['label'] ?? $fieldName;
+            $required = !empty($field['required']);
+            $validation = $field['validation'] ?? [];
+            
+            if ($fieldType === 'submit' || $fieldType === 'hidden') {
+                continue;
+            }
+            
+            $value = $data[$fieldName] ?? '';
+            $file = $files[$fieldName] ?? null;
+            
+            if ($required) {
+                if ($fieldType === 'file') {
+                    if (!$file || $file['error'] === UPLOAD_ERR_NO_FILE) {
+                        $errors[] = "Поле '{$fieldLabel}' обязательно для заполнения";
+                        continue;
+                    }
+                } elseif (empty($value) && $value !== '0') {
+                    $errors[] = "Поле '{$fieldLabel}' обязательно для заполнения";
+                    continue;
+                }
+            }
+            
+            if (!$required && empty($value) && $value !== '0' && (!$file || $file['error'] === UPLOAD_ERR_NO_FILE)) {
+                continue;
+            }
+            
+            foreach ($validation as $rule => $params) {
+                $error = $this->validateRule($rule, $params, $value, $fieldLabel, $fieldType);
+                if ($error) {
+                    $errors[] = $error;
+                    break;
+                }
+            }
+            
+            $typeError = $this->validateFieldType($fieldType, $value, $fieldLabel);
+            if ($typeError) {
+                $errors[] = $typeError;
+            }
+            
+            if ($fieldType === 'file' && $file && $file['error'] === UPLOAD_ERR_OK) {
+                $fileError = $this->validateFileSecure($file, $field);
+                if ($fileError) {
+                    $errors[] = $fileError;
+                }
+            }
+        }
+        
+        return $errors;
+    }
+
+    private function validateFileSecure($file, $field) {
+        $maxSize = $field['max_size'] ?? 10 * 1024 * 1024;
+        if ($file['size'] > $maxSize) {
+            $maxSizeMB = round($maxSize / 1024 / 1024, 1);
+            return "Размер файла не должен превышать {$maxSizeMB}MB";
+        }
+
+        if (function_exists('finfo_open')) {
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $realMimeType = finfo_file($finfo, $file['tmp_name']);
+            finfo_close($finfo);
+        } else {
+            $realMimeType = mime_content_type($file['tmp_name']);
+        }
+
+        $allowedMimeTypes = [
+            'image/jpeg', 'image/png', 'image/gif', 'image/webp',
+            'application/pdf', 'application/msword',
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'application/vnd.ms-excel',
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'text/plain', 'application/zip', 'application/x-rar-compressed'
+        ];
+
+        if (!empty($field['allowed_types'])) {
+            $allowedTypes = array_map('strtolower', $field['allowed_types']);
+            $allowedMimeTypes = array_intersect($allowedMimeTypes, $allowedTypes);
+        }
+
+        if (!in_array($realMimeType, $allowedMimeTypes)) {
+            return "Недопустимый тип файла. Разрешены: " . implode(', ', $allowedMimeTypes);
+        }
+
+        $extension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+        $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'pdf', 'doc', 'docx', 'xls', 'xlsx', 'txt', 'zip', 'rar'];
+        
+        if (empty($extension) || !in_array($extension, $allowedExtensions)) {
+            return "Недопустимое расширение файла. Разрешены: " . implode(', ', $allowedExtensions);
+        }
+
+        $dangerousExtensions = ['php', 'phtml', 'php3', 'php4', 'php5', 'phar', 'cgi', 'pl', 'sh'];
+        if (in_array($extension, $dangerousExtensions)) {
+            return "Загрузка исполняемых файлов запрещена";
+        }
+
+        if (preg_match('/\.[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/', $file['name'])) {
+            return "Файл имеет подозрительное двойное расширение";
+        }
+
+        if (strpos($realMimeType, 'image/') === 0) {
+            $imageInfo = @getimagesize($file['tmp_name']);
+            if ($imageInfo === false) {
+                return "Файл не является корректным изображением";
+            }
+            
+            $content = file_get_contents($file['tmp_name']);
+            if (preg_match('/<\?php|<\?=/i', $content)) {
+                return "Обнаружен подозрительный код в файле";
+            }
+        }
+
+        $content = file_get_contents($file['tmp_name']);
+        $dangerousPatterns = [
+            '/<\?php/i', '/<\?=/i', '/<\?xml/i',
+            '/eval\s*\(/i', '/base64_decode\s*\(/i',
+            '/system\s*\(/i', '/exec\s*\(/i',
+            '/passthru\s*\(/i', '/shell_exec\s*\(/i'
+        ];
+
+        foreach ($dangerousPatterns as $pattern) {
+            if (preg_match($pattern, $content)) {
+                return "Файл содержит потенциально опасный код";
+            }
+        }
+
+        return null;
     }
     
     /**

@@ -75,7 +75,6 @@ class ProcessForm extends FormAction {
             if (!empty($settings['spam_protection'])) {
                 if ($this->checkSpamKeywords($postData, $settings)) {
                     $submissionId = $this->formModel->saveSubmission($form['id'], $postData, $filesData);
-                    
                     $this->formModel->updateSubmissionStatus($submissionId, 'spam');
                     
                     $this->jsonResponse([
@@ -93,7 +92,7 @@ class ProcessForm extends FormAction {
                 }
             }
             
-            $errors = $this->validateSubmission($form, $postData, $filesData);
+            $errors = $this->validateSubmissionSecure($form, $postData, $filesData);
             
             if (!empty($errors)) {
                 $errorMessage = is_array($errors) ? implode("\n", array_values($errors)) : $errors;
@@ -101,7 +100,6 @@ class ProcessForm extends FormAction {
             }
             
             $submissionId = null;
-            
             $storeSubmissions = $settings['store_submissions'] ?? true;
             if ($storeSubmissions) {
                 $submissionId = $this->formModel->saveSubmission($form['id'], $postData, $filesData);
@@ -116,8 +114,8 @@ class ProcessForm extends FormAction {
             }
             
             $successMessage = $form['success_message'] ?? LANG_ACTION_FORMS_PROCESSFORM_DEFAULT_SUCCESS;
-            
             $redirectUrl = null;
+            
             foreach ($form['actions'] ?? [] as $action) {
                 if ($action['enabled'] && $action['type'] === 'redirect') {
                     $redirectUrl = $action['url'] ?? null;
@@ -163,6 +161,151 @@ class ProcessForm extends FormAction {
                 $this->redirect(BASE_URL . '/form/' . $slug);
             }
         }
+    }
+
+    private function validateSubmissionSecure($form, $data, $files) {
+        $errors = [];
+        $structure = $form['structure'] ?? [];
+        
+        foreach ($structure as $field) {
+            $fieldName = $field['name'] ?? '';
+            $fieldType = $field['type'] ?? '';
+            $fieldLabel = $field['label'] ?? $fieldName;
+            $required = !empty($field['required']);
+            
+            if ($fieldType === 'submit' || $fieldType === 'hidden') {
+                continue;
+            }
+            
+            $value = $data[$fieldName] ?? '';
+            $file = $files[$fieldName] ?? null;
+            
+            if ($required) {
+                if ($fieldType === 'file') {
+                    if (!$file || $file['error'] === UPLOAD_ERR_NO_FILE) {
+                        $errors[$fieldName] = sprintf(LANG_ACTION_FORMS_PROCESSFORM_FIELD_REQUIRED, $fieldLabel);
+                        continue;
+                    }
+                } elseif (empty($value) && $value !== '0') {
+                    $errors[$fieldName] = sprintf(LANG_ACTION_FORMS_PROCESSFORM_FIELD_REQUIRED, $fieldLabel);
+                    continue;
+                }
+            }
+            
+            if (!$required && empty($value) && $value !== '0' && (!$file || $file['error'] === UPLOAD_ERR_NO_FILE)) {
+                continue;
+            }
+            
+            if (!empty($value)) {
+                switch ($fieldType) {
+                    case 'email':
+                        if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
+                            $errors[$fieldName] = sprintf(LANG_ACTION_FORMS_PROCESSFORM_FIELD_EMAIL, $fieldLabel);
+                        }
+                        break;
+                    case 'number':
+                        if (!is_numeric($value)) {
+                            $errors[$fieldName] = sprintf(LANG_ACTION_FORMS_PROCESSFORM_FIELD_NUMBER, $fieldLabel);
+                        }
+                        break;
+                    case 'tel':
+                        if (!preg_match('/^[\d\s\-\+\(\)]+$/', $value)) {
+                            $errors[$fieldName] = sprintf(LANG_ACTION_FORMS_PROCESSFORM_FIELD_TEL, $fieldLabel);
+                        }
+                        break;
+                }
+            }
+            
+            if ($fieldType === 'file' && $file && $file['error'] === UPLOAD_ERR_OK) {
+                $fileError = $this->validateFileSecure($file, $field);
+                if ($fileError) {
+                    $errors[$fieldName] = $fileError;
+                }
+            }
+        }
+        
+        return $errors;
+    }
+
+    private function validateFileSecure($file, $field) {
+        $maxSize = $field['max_size'] ?? 10 * 1024 * 1024;
+        if ($file['size'] > $maxSize) {
+            $maxSizeMB = round($maxSize / 1024 / 1024, 1);
+            return "Размер файла не должен превышать {$maxSizeMB}MB";
+        }
+
+        if (function_exists('finfo_open')) {
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $realMimeType = finfo_file($finfo, $file['tmp_name']);
+            finfo_close($finfo);
+        } else {
+            $realMimeType = mime_content_type($file['tmp_name']);
+        }
+
+        $allowedMimeTypes = [
+            'image/jpeg', 'image/png', 'image/gif', 'image/webp',
+            'application/pdf', 'application/msword',
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'application/vnd.ms-excel',
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'text/plain', 'application/zip', 'application/x-rar-compressed'
+        ];
+
+        if (!empty($field['allowed_types'])) {
+            $allowedTypes = array_map('strtolower', $field['allowed_types']);
+            $allowedMimeTypes = array_intersect($allowedMimeTypes, $allowedTypes);
+        }
+
+        if (!in_array($realMimeType, $allowedMimeTypes)) {
+            return "Недопустимый тип файла. Разрешены: " . implode(', ', $allowedMimeTypes);
+        }
+
+        $extension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+        
+        $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'pdf', 'doc', 'docx', 'xls', 'xlsx', 'txt', 'zip', 'rar'];
+        
+        if (empty($extension) || !in_array($extension, $allowedExtensions)) {
+            return "Недопустимое расширение файла. Разрешены: " . implode(', ', $allowedExtensions);
+        }
+
+        $dangerousExtensions = ['php', 'phtml', 'php3', 'php4', 'php5', 'phar', 'cgi', 'pl', 'sh'];
+        if (in_array($extension, $dangerousExtensions)) {
+            return "Загрузка PHP-файлов запрещена";
+        }
+
+        if (preg_match('/\.[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/', $file['name'])) {
+            return "Файл имеет подозрительное двойное расширение";
+        }
+
+        if (strpos($realMimeType, 'image/') === 0) {
+            $imageInfo = @getimagesize($file['tmp_name']);
+            if ($imageInfo === false) {
+                return "Файл не является корректным изображением";
+            }
+            
+            $content = file_get_contents($file['tmp_name']);
+            if (preg_match('/<\?php|<\?=/i', $content)) {
+                return "Обнаружен подозрительный код в файле";
+            }
+        }
+
+        $content = file_get_contents($file['tmp_name']);
+        $dangerousPatterns = [
+            '/<\?php/i', '/<\?=/i', '/<\?xml/i',
+            '/eval\s*\(/i', '/base64_decode\s*\(/i',
+            '/system\s*\(/i', '/exec\s*\(/i',
+            '/passthru\s*\(/i', '/shell_exec\s*\(/i',
+            '/popen\s*\(/i', '/proc_open\s*\(/i',
+            '/assert\s*\(/i', '/create_function\s*\(/i'
+        ];
+
+        foreach ($dangerousPatterns as $pattern) {
+            if (preg_match($pattern, $content)) {
+                return "Файл содержит потенциально опасный код";
+            }
+        }
+
+        return null;
     }
     
     private function verifyCsrfToken($token, $formSlug) {

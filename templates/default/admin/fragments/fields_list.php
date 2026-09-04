@@ -35,7 +35,7 @@
             <div class="card-body">
                 <div class="alert alert-info mb-4">
                     <?php echo bloggy_icon('bs', 'info-circle', '16', '#5AAFC9', 'me-2'); ?>
-                    <strong><?php echo LANG_TEMPLATE_FRAGMENTS_FIELDS_LIST_HINT_TITLE; ?></strong> <?php echo LANG_TEMPLATE_FRAGMENTS_FIELDS_LIST_HINT_TEXT; ?> <?php echo bloggy_icon('bs', 'grip-vertical', '16', '#2c2c2c', 'me-2'); ?> <?php echo LANG_TEMPLATE_FRAGMENTS_FIELDS_LIST_HINT_SUFFIX; ?>
+                    <strong><?php echo LANG_TEMPLATE_FRAGMENTS_FIELDS_LIST_HINT_TITLE; ?></strong> <?php echo LANG_TEMPLATE_FRAGMENTS_FIELDS_LIST_HINT_TEXT; ?> <?php echo bloggy_icon('bs', 'grip-vertical', '16', '#2c2c2c'); ?> <?php echo LANG_TEMPLATE_FRAGMENTS_FIELDS_LIST_HINT_SUFFIX; ?>
                 </div>
                 
                 <div class="table-responsive">
