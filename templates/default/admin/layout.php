@@ -75,10 +75,9 @@
                         ['section' => 'fragments', 'url' => ADMIN_URL . '/fragments', 'icon' => 'puzzle', 'title' => LANG_ADMIN_FRAGMENTS, 'priority' => 90],
                         ['section' => 'fields', 'url' => ADMIN_URL . '/fields', 'icon' => 'input-cursor-text', 'title' => LANG_ADMIN_FIELDS, 'priority' => 100],
                         ['section' => 'menu', 'url' => ADMIN_URL . '/menu', 'icon' => 'view-list', 'title' => LANG_ADMIN_MENU_BUILDER, 'priority' => 110],
-                        ['section' => 'forms', 'url' => ADMIN_URL . '/forms', 'icon' => 'mailbox', 'title' => LANG_ADMIN_FORM_BUILDER, 'priority' => 120],
-                        ['section' => 'icons', 'url' => ADMIN_URL . '/icons', 'icon' => 'emoji-heart-eyes', 'title' => LANG_ADMIN_ICONS, 'priority' => 130],
-                        ['section' => 'seo', 'url' => ADMIN_URL . '/seo', 'icon' => 'rss', 'title' => LANG_ADMIN_SEO, 'priority' => 140],
-                        ['section' => 'debug', 'url' => ADMIN_URL . '/debug', 'icon' => 'bug', 'title' => LANG_ADMIN_DEBUG, 'priority' => 145],
+                        ['section' => 'icons', 'url' => ADMIN_URL . '/icons', 'icon' => 'emoji-heart-eyes', 'title' => LANG_ADMIN_ICONS, 'priority' => 120],
+                        ['section' => 'seo', 'url' => ADMIN_URL . '/seo', 'icon' => 'rss', 'title' => LANG_ADMIN_SEO, 'priority' => 130],
+                        ['section' => 'debug', 'url' => ADMIN_URL . '/debug', 'icon' => 'bug', 'title' => LANG_ADMIN_DEBUG, 'priority' => 140],
                         ['section' => 'settings', 'url' => ADMIN_URL . '/settings', 'icon' => 'gear', 'title' => LANG_ADMIN_SETTINGS, 'priority' => 150],
                         ['section' => 'templates', 'url' => ADMIN_URL . '/templates', 'icon' => 'palette', 'title' => LANG_ADMIN_TEMPLATE, 'priority' => 160],
                     ];

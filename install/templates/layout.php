@@ -9,7 +9,6 @@ $current_lang = $_SESSION['install_lang'] ?? 'ru';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Установка BloggyCMS</title>
     <link rel="stylesheet" href="assets/css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body class="install-page">
     <div class="install-wrapper">
@@ -23,7 +22,7 @@ $current_lang = $_SESSION['install_lang'] ?? 'ru';
                     <h1 class="logo-title">
                         Bloggy<span class="logo-highlight">CMS</span>
                     </h1>
-                    <p class="logo-subtitle">Installer</p>
+                    <p class="logo-subtitle"><?php echo $current_lang == 'ru' ? 'Установщик' : 'Installer'; ?></p>
                 </div>
                 
                 <div class="welcome-text">
@@ -92,8 +91,8 @@ $current_lang = $_SESSION['install_lang'] ?? 'ru';
                 </div>
                 
                 <div class="sidebar-footer">
-                    <p>© <?php echo date('Y'); ?> BloggyCMS</p>
-                    <a href="https://github.com/pechoradev/BloggyCms" target="_blank" class="btn-github">
+                    <p>© <?php echo date('Y'); ?> BloggyCMS. <?php echo $current_lang == 'ru' ? 'Сделано в Сыктывкаре.' : 'Made in Syktivkar, Russia'; ?></p>
+                    <a href="https://github.com/AlboSoft/BloggyCms" target="_blank" class="btn-github">
                         <?php echo icon('brands', 'github', '18'); ?>
                         <span>GitHub</span>
                     </a>

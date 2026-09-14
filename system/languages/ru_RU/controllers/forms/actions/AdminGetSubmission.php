@@ -1,3 +1,0 @@
-<?php
-define('LANG_ACTION_FORMS_ADMINGETSUBMISSION_ID_NOT_SPECIFIED', 'ID отправки не указан');
-define('LANG_ACTION_FORMS_ADMINGETSUBMISSION_NOT_FOUND', 'Отправка не найдена');

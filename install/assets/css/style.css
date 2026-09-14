@@ -26,7 +26,7 @@
 }
 
 body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
     background: var(--bg-primary);
     color: var(--text-primary);
     line-height: 1.5;
@@ -309,8 +309,8 @@ h3 i {
 }
 
 .alert-success {
-    background: #f0fdf4;
-    color: #166534;
+    background: #1ba545;
+    color: #fff;
     border: 1px solid #bbf7d0;
 }
 
@@ -319,8 +319,8 @@ h3 i {
 }
 
 .alert-error {
-    background: #fef2f2;
-    color: #991b1b;
+    background: #ff4343;
+    color: #fff;
     border: 1px solid #fecaca;
 }
 
@@ -486,20 +486,6 @@ h3 i {
 
 .password-wrapper {
     position: relative;
-}
-
-.password-toggle {
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    color: var(--text-muted);
-    cursor: pointer;
-    padding: 4px 8px;
-    border-radius: 6px;
-    transition: all 0.2s;
 }
 
 .password-toggle:hover {
@@ -776,25 +762,10 @@ h3 i {
     }
 }
 
-.password-wrapper {
-    position: relative;
-}
 .password-wrapper input {
     padding-right: 40px !important;
 }
-.password-toggle {
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    color: var(--tg-gray);
-    cursor: pointer;
-    padding: 4px;
-    font-size: 1rem;
-    transition: color 0.2s;
-}
+
 .password-toggle:hover {
     color: var(--tg-blue);
 }

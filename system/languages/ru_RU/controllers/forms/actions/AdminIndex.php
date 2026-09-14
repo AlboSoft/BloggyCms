@@ -1,4 +1,0 @@
-<?php
-define('LANG_ACTION_FORMS_ADMININDEX_BREADCRUMB_DASHBOARD', 'Панель управления');
-define('LANG_ACTION_FORMS_ADMININDEX_BREADCRUMB_FORMS', 'Формы');
-define('LANG_ACTION_FORMS_ADMININDEX_PAGE_TITLE', 'Управление формами');

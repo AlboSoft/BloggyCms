@@ -12,7 +12,6 @@ define('LANG_ADMIN_POST_BLOCKS', 'Post Blocks');
 define('LANG_ADMIN_FRAGMENTS', 'Fragments');
 define('LANG_ADMIN_FIELDS', 'Fields');
 define('LANG_ADMIN_MENU_BUILDER', 'Menu Builder');
-define('LANG_ADMIN_FORM_BUILDER', 'Form Builder');
 define('LANG_ADMIN_ICONS', 'Icons');
 define('LANG_ADMIN_SEO', 'SEO');
 define('LANG_ADMIN_DEBUG', 'Debug');

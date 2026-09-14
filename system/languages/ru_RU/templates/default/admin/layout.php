@@ -12,7 +12,6 @@ define('LANG_ADMIN_POST_BLOCKS', 'Постблоки');
 define('LANG_ADMIN_FRAGMENTS', 'Фрагменты');
 define('LANG_ADMIN_FIELDS', 'Поля');
 define('LANG_ADMIN_MENU_BUILDER', 'Конструктор меню');
-define('LANG_ADMIN_FORM_BUILDER', 'Конструктор форм');
 define('LANG_ADMIN_ICONS', 'Иконки');
 define('LANG_ADMIN_SEO', 'SEO');
 define('LANG_ADMIN_DEBUG', 'Отладка');

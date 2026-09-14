@@ -15,7 +15,6 @@ $lang = [
         'email' => 'Email',
         'security_warning' => 'Важно для безопасности!',
         'delete_install_folder' => 'Удалите папку /install с сервера после завершения настройки',
-        'restart' => 'Начать заново',
         'go_to_site' => 'На сайт',
         'go_to_admin' => 'В админку'
     ],
@@ -30,7 +29,6 @@ $lang = [
         'email' => 'Email',
         'security_warning' => 'Security Important!',
         'delete_install_folder' => 'Delete the /install folder from the server after completing the setup',
-        'restart' => 'Restart',
         'go_to_site' => 'Go to Site',
         'go_to_admin' => 'Go to Admin'
     ]
@@ -50,7 +48,7 @@ $dbConfig = $_SESSION['db_config'];
 <h2><?php echo icon('bs', 'flag', '24', 'var(--accent)', '', 'style="margin-right: 8px;"'); ?> <?php echo $t['title']; ?></h2>
 
 <div class="alert alert-success" style="margin-bottom: 28px;">
-    <?php echo icon('bs', 'check-circle-fill', '20', '#27ae60'); ?>
+    <?php echo icon('bs', 'check-circle-fill', '20', '#f6f6f6'); ?>
     <div>
         <strong><?php echo $t['congrats']; ?></strong>
     </div>
@@ -96,9 +94,6 @@ $dbConfig = $_SESSION['db_config'];
 </div>
 
 <div class="mt-4 flex-between">
-    <a href="?restart=1" class="btn btn-outline">
-        <?php echo icon('bs', 'arrow-repeat', '16'); ?> <?php echo $t['restart']; ?>
-    </a>
     <div class="flex">
         <a href="<?php echo htmlspecialchars($siteConfig['site_url']); ?>" class="btn btn-secondary" target="_blank">
             <?php echo icon('bs', 'house-door', '16'); ?> <?php echo $t['go_to_site']; ?>
