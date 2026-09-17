@@ -14,9 +14,9 @@ ob_start();
 if (isset($_SESSION['install_complete']) && $_SESSION['install_complete'] === true &&
     isset($_SESSION['install_step']) && $_SESSION['install_step'] >= 4 &&
     isset($_SESSION['viewed_step4']) && $_SESSION['viewed_step4'] === true &&
-    file_exists('../system/config/config.php') && 
+    file_exists('../system/config/config.php') &&
     file_exists('../system/config/database.php')) {
-    
+
     try {
         include '../system/config/database.php';
         $testDb = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS);
@@ -30,13 +30,9 @@ if (isset($_SESSION['install_complete']) && $_SESSION['install_complete'] === tr
 
 $configsExistButNotComplete = false;
 if ((!isset($_SESSION['install_complete']) || $_SESSION['install_complete'] !== true) &&
-    file_exists('../system/config/config.php') && 
+    file_exists('../system/config/config.php') &&
     file_exists('../system/config/database.php')) {
     $configsExistButNotComplete = true;
-}
-
-if (!isset($_SESSION['install_step'])) {
-    $_SESSION['install_step'] = 1;
 }
 
 if (isset($_GET['restart'])) {
@@ -45,7 +41,17 @@ if (isset($_GET['restart'])) {
     exit;
 }
 
+if (!isset($_SESSION['install_step'])) {
+    $_SESSION['install_step'] = 0;
+}
+
 $step = $_SESSION['install_step'];
+
+if ($step === 0) {
+    include 'step0.php';
+    exit;
+}
+
 $stepFile = "step{$step}.php";
 
 if (!file_exists($stepFile)) {
@@ -54,4 +60,3 @@ if (!file_exists($stepFile)) {
 }
 
 include 'templates/layout.php';
-?>
