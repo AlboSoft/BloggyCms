@@ -116,7 +116,8 @@ class AdminController extends Controller {
                 'draftPosts' => $draftPosts,
                 'recentSearches' => $recentSearches,
                 'popularSearches' => $popularSearches,
-                'hasQuickActions' => $this->hasQuickActions()
+                'hasQuickActions' => $this->hasQuickActions(),
+                'menuCounters' => $this->getMenuCounters()
             ]);
             
         } catch (Exception $e) {
@@ -765,6 +766,59 @@ class AdminController extends Controller {
             'current_build' => VersionHelper::getBuild(),
             'pageTitle' => LANG_CONTROLLER_ADMIN_UPDATES_TITLE
         ]);
+    }
+
+    /**
+    * Получает счетчики для отображения в главном меню
+    * @return array
+    */
+    private function getMenuCounters() {
+        $counters = [];
+        
+        if (SettingsHelper::get('controller_admin', 'show_menu_counters', false)) {
+            try {
+                $counters = [
+                    'posts' => $this->db->fetchValue("SELECT COUNT(*) FROM posts") ?? 0,
+                    'categories' => $this->db->fetchValue("SELECT COUNT(*) FROM categories") ?? 0,
+                    'tags' => $this->db->fetchValue("SELECT COUNT(*) FROM tags") ?? 0,
+                    'comments' => $this->db->fetchValue("SELECT COUNT(*) FROM comments") ?? 0,
+                    'users' => $this->db->fetchValue("SELECT COUNT(*) FROM users") ?? 0,
+                    'pages' => $this->db->fetchValue("SELECT COUNT(*) FROM pages") ?? 0,
+                    'html-blocks' => $this->db->fetchValue("SELECT COUNT(*) FROM html_blocks") ?? 0,
+                ];
+            } catch (Exception $e) {
+                return [];
+            }
+        }
+        
+        return $counters;
+    }
+
+    /**
+    * Статический метод для получения счетчиков меню (для использования в layout)
+    * @param Database $db
+    * @return array
+    */
+    public static function getMenuCountersStatic($db) {
+        $counters = [];
+        
+        if (SettingsHelper::get('controller_admin', 'show_menu_counters', false)) {
+            try {
+                $counters = [
+                    'posts' => $db->fetchValue("SELECT COUNT(*) FROM posts") ?? 0,
+                    'categories' => $db->fetchValue("SELECT COUNT(*) FROM categories") ?? 0,
+                    'tags' => $db->fetchValue("SELECT COUNT(*) FROM tags") ?? 0,
+                    'comments' => $db->fetchValue("SELECT COUNT(*) FROM comments") ?? 0,
+                    'users' => $db->fetchValue("SELECT COUNT(*) FROM users") ?? 0,
+                    'pages' => $db->fetchValue("SELECT COUNT(*) FROM pages") ?? 0,
+                    'html-blocks' => $db->fetchValue("SELECT COUNT(*) FROM html_blocks") ?? 0,
+                ];
+            } catch (Exception $e) {
+                return [];
+            }
+        }
+        
+        return $counters;
     }
 
 }

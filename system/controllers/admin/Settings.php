@@ -49,6 +49,12 @@ class AdminSettings {
                         'default' => false,
                         'switch' => true
                     ]),
+                    \FieldFactory::checkbox('show_menu_counters', [
+                        'title' => LANG_CONTROLLER_ADMINSETTINGS_FIELD_SHOW_MENU_COUNTERS,
+                        'hint' => LANG_CONTROLLER_ADMINSETTINGS_HINT_SHOW_MENU_COUNTERS,
+                        'default' => false,
+                        'switch' => true
+                    ]),
                 ]
             ]),
 

@@ -64,3 +64,5 @@ define('LANG_CONTROLLER_ADMINSETTINGS_FIELD_LOGO_IMAGE', 'Иконка (изоб
 define('LANG_CONTROLLER_ADMINSETTINGS_FIELD_CUSTOM_SITE_NAME', 'Название сайта в шапке');
 define('LANG_CONTROLLER_ADMINSETTINGS_HINT_CUSTOM_SITE_NAME', 'Если не заполнено, будет использоваться общее название сайта из настроек');
 define('LANG_CONTROLLER_ADMINSETTINGS_PLACEHOLDER_CUSTOM_SITE_NAME', 'Мой сайт');
+define('LANG_CONTROLLER_ADMINSETTINGS_FIELD_SHOW_MENU_COUNTERS', 'Показывать счетчики записей в главном меню');
+define('LANG_CONTROLLER_ADMINSETTINGS_HINT_SHOW_MENU_COUNTERS', 'Отображать количество записей (постов, страниц, комментариев и т.д.) рядом с пунктами меню в админ-панели');

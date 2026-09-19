@@ -63,14 +63,20 @@
                     </div>
                 <nav class="nav flex-column">
                     <?php
+
+                    $menuCounters = [];
+                    if (class_exists('AdminController') && method_exists('AdminController', 'getMenuCountersStatic')) {
+                        $menuCounters = AdminController::getMenuCountersStatic($db);
+                    }
+
                     $menuItems = [
-                        ['section' => 'posts', 'url' => ADMIN_URL . '/posts', 'icon' => 'file-text', 'title' => LANG_ADMIN_POSTS, 'priority' => 10],
-                        ['section' => 'categories', 'url' => ADMIN_URL . '/categories', 'icon' => 'folder', 'title' => LANG_ADMIN_CATEGORIES, 'priority' => 20],
-                        ['section' => 'tags', 'url' => ADMIN_URL . '/tags', 'icon' => 'tags', 'title' => LANG_ADMIN_TAGS, 'priority' => 30],
-                        ['section' => 'comments', 'url' => ADMIN_URL . '/comments', 'icon' => 'chat-dots', 'title' => LANG_ADMIN_COMMENTS, 'priority' => 40],
-                        ['section' => 'users', 'url' => ADMIN_URL . '/users', 'icon' => 'people', 'title' => LANG_ADMIN_USERS, 'priority' => 50],
-                        ['section' => 'pages', 'url' => ADMIN_URL . '/pages', 'icon' => 'file-earmark', 'title' => LANG_ADMIN_PAGES, 'priority' => 60],
-                        ['section' => 'html-blocks', 'url' => ADMIN_URL . '/html-blocks', 'icon' => 'grid-1x2', 'title' => LANG_ADMIN_CONTENT_BLOCKS, 'priority' => 70],
+                        ['section' => 'posts', 'url' => ADMIN_URL . '/posts', 'icon' => 'file-text', 'title' => LANG_ADMIN_POSTS, 'priority' => 10, 'counter' => $menuCounters['posts'] ?? null],
+                        ['section' => 'categories', 'url' => ADMIN_URL . '/categories', 'icon' => 'folder', 'title' => LANG_ADMIN_CATEGORIES, 'priority' => 20, 'counter' => $menuCounters['categories'] ?? null],
+                        ['section' => 'tags', 'url' => ADMIN_URL . '/tags', 'icon' => 'tags', 'title' => LANG_ADMIN_TAGS, 'priority' => 30, 'counter' => $menuCounters['tags'] ?? null],
+                        ['section' => 'comments', 'url' => ADMIN_URL . '/comments', 'icon' => 'chat-dots', 'title' => LANG_ADMIN_COMMENTS, 'priority' => 40, 'counter' => $menuCounters['comments'] ?? null],
+                        ['section' => 'users', 'url' => ADMIN_URL . '/users', 'icon' => 'people', 'title' => LANG_ADMIN_USERS, 'priority' => 50, 'counter' => $menuCounters['users'] ?? null],
+                        ['section' => 'pages', 'url' => ADMIN_URL . '/pages', 'icon' => 'file-earmark', 'title' => LANG_ADMIN_PAGES, 'priority' => 60, 'counter' => $menuCounters['pages'] ?? null],
+                        ['section' => 'html-blocks', 'url' => ADMIN_URL . '/html-blocks', 'icon' => 'grid-1x2', 'title' => LANG_ADMIN_CONTENT_BLOCKS, 'priority' => 70, 'counter' => $menuCounters['html-blocks'] ?? null],
                         ['section' => 'post-blocks', 'url' => ADMIN_URL . '/post-blocks', 'icon' => 'bricks', 'title' => LANG_ADMIN_POST_BLOCKS, 'priority' => 80],
                         ['section' => 'fragments', 'url' => ADMIN_URL . '/fragments', 'icon' => 'puzzle', 'title' => LANG_ADMIN_FRAGMENTS, 'priority' => 90],
                         ['section' => 'fields', 'url' => ADMIN_URL . '/fields', 'icon' => 'input-cursor-text', 'title' => LANG_ADMIN_FIELDS, 'priority' => 100],
@@ -95,7 +101,8 @@
                             $item['section'],
                             $item['url'],
                             $item['icon'],
-                            $item['title']
+                            $item['title'],
+                            $item['counter'] ?? null
                         );
                     }
                     ?>

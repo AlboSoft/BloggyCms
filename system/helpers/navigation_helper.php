@@ -53,20 +53,26 @@ function get_admin_menu_class($section, $additionalClass = '') {
 }
 
 /**
-* Создает пункт меню админки с автоматическим определением активности 
+* Создает пункт меню админки с автоматическим определением активности
 * @param string $section Название раздела (для определения активности)
 * @param string $url URL ссылки
 * @param string $icon Название иконки Bootstrap Icons
 * @param string $title Текст пункта меню
+* @param int|null $counter Количество записей для отображения (null - не показывать)
 * @return string HTML-код пункта меню
 */
-function admin_menu_item($section, $url, $icon, $title) {
+function admin_menu_item($section, $url, $icon, $title, $counter = null) {
     $class = get_admin_menu_class($section, 'nav-link d-flex align-items-center');
     $iconHtml = bloggy_icon('bs', $icon, '20 20', '#fff; margin-right:10px');
     
+    $counterHtml = '';
+    if ($counter !== null && SettingsHelper::get('controller_admin', 'show_menu_counters', false)) {
+        $counterHtml = '<span class="menu-counter">' . html($counter) . '</span>';
+    }
+    
     return <<<HTML
     <a class="$class" href="$url">
-        $iconHtml $title
+        $iconHtml $title $counterHtml
     </a>
 HTML;
 }

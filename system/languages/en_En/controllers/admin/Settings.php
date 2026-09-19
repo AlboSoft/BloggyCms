@@ -64,3 +64,5 @@ define('LANG_CONTROLLER_ADMINSETTINGS_FIELD_LOGO_IMAGE', 'Logo Image');
 define('LANG_CONTROLLER_ADMINSETTINGS_FIELD_CUSTOM_SITE_NAME', 'Site name in header');
 define('LANG_CONTROLLER_ADMINSETTINGS_HINT_CUSTOM_SITE_NAME', 'If empty, the general site name from settings will be used');
 define('LANG_CONTROLLER_ADMINSETTINGS_PLACEHOLDER_CUSTOM_SITE_NAME', 'My Site');
+define('LANG_CONTROLLER_ADMINSETTINGS_FIELD_SHOW_MENU_COUNTERS', 'Show entry counters in main menu');
+define('LANG_CONTROLLER_ADMINSETTINGS_HINT_SHOW_MENU_COUNTERS', 'Display the number of entries (posts, pages, comments, etc.) next to menu items in the admin panel');
