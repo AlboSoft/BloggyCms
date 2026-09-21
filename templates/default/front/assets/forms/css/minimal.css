@@ -1,75 +1,15 @@
-.form-minimal {
-    max-width: 500px;
-    margin: 0 auto;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+/* Form Minimal - Habr Pro - no radius */
+.form-minimal{max-width:480px;margin:0 auto;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+.form-title{font-size:22px;font-weight:800;margin-bottom:6px;color:#000;letter-spacing:-.02em}
+.form-description{color:#6c6c6c;margin-bottom:20px;line-height:1.5;font-size:13px}
+.minimal-form{display:flex;flex-direction:column;gap:14px}
+.minimal-field{display:flex;flex-direction:column;gap:4px}
+.minimal-field label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#000}
+.minimal-field label span{color:#c62828}
+.minimal-field input[type="text"],.minimal-field input[type="email"],.minimal-field input[type="tel"],.minimal-field input[type="number"],.minimal-field input[type="password"],.minimal-field input[type="date"],.minimal-field textarea,.minimal-field select{
+  padding:8px 10px;border:1px solid #e8e8e8;font-size:13px;background:#fff;transition:border-color .15s;border-radius:0;
 }
-.form-title {
-    font-size: 28px;
-    font-weight: 300;
-    margin-bottom: 10px;
-    color: #111;
-}
-.form-description {
-    color: #666;
-    margin-bottom: 30px;
-    line-height: 1.6;
-}
-.minimal-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-.minimal-field {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-.minimal-field label {
-    font-size: 13px;
-    font-weight: 500;
-    color: #333;
-}
-.minimal-field label span {
-    color: #e74c3c;
-}
-.minimal-field input[type="text"],
-.minimal-field input[type="email"],
-.minimal-field input[type="tel"],
-.minimal-field input[type="number"],
-.minimal-field input[type="password"],
-.minimal-field input[type="date"],
-.minimal-field textarea,
-.minimal-field select {
-    padding: 10px 0;
-    border: none;
-    border-bottom: 1px solid #ddd;
-    font-size: 15px;
-    background: transparent;
-    transition: border-color 0.2s;
-}
-.minimal-field input:focus,
-.minimal-field textarea:focus,
-.minimal-field select:focus {
-    outline: none;
-    border-bottom-color: #111;
-}
-.checkbox-inline {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 14px;
-    cursor: pointer;
-}
-.minimal-btn {
-    padding: 12px 40px;
-    background: #111;
-    color: white;
-    border: none;
-    font-size: 14px;
-    cursor: pointer;
-    transition: opacity 0.2s;
-    align-self: flex-start;
-}
-.minimal-btn:hover {
-    opacity: 0.8;
-}
+.minimal-field input:focus,.minimal-field textarea:focus,.minimal-field select:focus{border-color:#000;outline:none;box-shadow:none}
+.minimal-field textarea{min-height:80px;resize:vertical}
+.minimal-field .btn,.minimal-form button{padding:8px 16px;background:#000;color:#fff;border:1px solid #000;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;cursor:pointer}
+.minimal-field .btn:hover,.minimal-form button:hover{background:#fff;color:#000}

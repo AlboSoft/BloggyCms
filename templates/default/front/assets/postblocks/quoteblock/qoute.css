@@ -1,113 +1,28 @@
-.post-block-quote {
-    margin: 2rem 0;
-    padding: 1.5rem 2rem;
-    background: #f8f9fa;
-    border-left: 4px solid #2939AF;
-    font-style: normal;
-    transition: all 0.2s ease;
+/* Quote Block - Habr Pro - no radius */
+.post-block-quote{
+  margin:20px 0;
+  padding:14px 18px;
+  background:#f5f5f5;
+  border-left:3px solid #000;
+  border-right:1px solid #e8e8e8;
+  border-top:1px solid #e8e8e8;
+  border-bottom:1px solid #e8e8e8;
+  font-style:normal;
 }
-
-.post-block-quote.align-left {
-    text-align: left;
+.post-block-quote.align-left{text-align:left}
+.post-block-quote.align-center{text-align:left;border-left:3px solid #000;border-bottom:1px solid #e8e8e8}
+.post-block-quote.align-right{text-align:left;border-left:3px solid #000;border-right:1px solid #e8e8e8}
+.post-block-quote .quote-text{
+  font-size:15px;line-height:1.6;color:#212121;
+  margin-bottom:10px;font-weight:400;font-style:italic;
 }
-
-.post-block-quote.align-center {
-    text-align: center;
-    border-left: none;
-    border-bottom: 4px solid #2939AF;
+.post-block-quote .quote-footer{
+  display:flex;justify-content:flex-start;align-items:center;flex-wrap:wrap;gap:8px;
+  font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#6c6c6c;
 }
-
-.post-block-quote.align-right {
-    text-align: right;
-    border-left: none;
-    border-right: 4px solid #2939AF;
-}
-
-.post-block-quote .quote-text {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: #1a1a2e;
-    margin-bottom: 1.25rem;
-    font-weight: 400;
-}
-
-.post-block-quote .quote-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.5rem 1rem;
-    font-size: 0.85rem;
-}
-
-.post-block-quote.align-center .quote-footer {
-    justify-content: center;
-}
-
-.post-block-quote.align-right .quote-footer {
-    justify-content: flex-end;
-}
-
-.post-block-quote .quote-author {
-    font-weight: 600;
-    color: #2939AF;
-    font-style: normal;
-}
-
-.post-block-quote .quote-source {
-    color: #666;
-    font-style: normal;
-    margin-left: auto;
-}
-
-.post-block-quote.align-center .quote-source {
-    margin-left: 0;
-}
-
-.post-block-quote.align-right .quote-author {
-    order: 2;
-}
-
-.post-block-quote.align-right .quote-source {
-    order: 1;
-    margin-left: 0;
-    margin-right: auto;
-}
-
-@media (max-width: 768px) {
-    .post-block-quote {
-        padding: 1rem 1.25rem;
-        margin: 1.5rem 0;
-    }
-    
-    .post-block-quote .quote-text {
-        font-size: 1rem;
-    }
-    
-    .post-block-quote .quote-footer {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.25rem;
-    }
-    
-    .post-block-quote.align-center .quote-footer {
-        align-items: center;
-    }
-    
-    .post-block-quote.align-right .quote-footer {
-        align-items: flex-end;
-    }
-    
-    .post-block-quote .quote-source {
-        margin-left: 0;
-    }
-    
-    .post-block-quote.align-right .quote-author {
-        order: 1;
-    }
-    
-    .post-block-quote.align-right .quote-source {
-        order: 2;
-        margin-right: 0;
-    }
+.post-block-quote .quote-author{font-weight:700;color:#000;font-style:normal}
+.post-block-quote .quote-source{color:#6c6c6c;font-style:normal}
+@media(max-width:768px){
+  .post-block-quote{padding:12px 14px;margin:16px 0}
+  .post-block-quote .quote-text{font-size:14px}
 }

@@ -1,181 +1,45 @@
-<?php
-/**
- * Template Name: Страница закладок
- */
-?>
-
-<div class="tg-bookmarks-page">
-    <div class="tg-container">
-        
-        <div class="tg-bookmarks-header tg-mb-4">
-            <div class="tg-bookmarks-header-left">
-                <div class="tg-bookmarks-icon">
-                    <?php echo bloggy_icon('bs', 'bookmark-star', '24', 'var(--tg-primary)'); ?>
-                </div>
-                <div class="tg-bookmarks-info">
-                    <h1 class="tg-bookmarks-title"><?php echo LANG_TEMPLATE_BOOKMARKS_TITLE; ?></h1>
-                    <p class="tg-bookmarks-subtitle tg-text-muted">
-                        <?php echo bloggy_icon('bs', 'bookmark', '14', 'currentColor', 'tg-mr-1'); ?>
-                        <?php echo ($total = (int)($bookmarks_count ?? 0)) . ' ' . plural($total, [LANG_TEMPLATE_BOOKMARKS_POST_1, LANG_TEMPLATE_BOOKMARKS_POST_2, LANG_TEMPLATE_BOOKMARKS_POST_3]); ?>
-                    </p>
-                </div>
-            </div>
-            
-            <?php if (!empty($posts)) { ?>
-            <a href="<?php echo BASE_URL; ?>/posts" class="tg-btn tg-btn-outline tg-btn-sm">
-                <?php echo bloggy_icon('bs', 'compass', '14', 'currentColor', 'tg-mr-1'); ?>
-                <?php echo LANG_TEMPLATE_BOOKMARKS_ALL_POSTS_BTN; ?>
-            </a>
-            <?php } ?>
+<?php /** Habr Pro - Bookmarks - flat */ ?>
+<div style="max-width:1220px;margin:0 auto;padding:20px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif">
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid #000">
+    <div><div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#8a8a8a;margin-bottom:6px">bookmarks / <?= (int)($bookmarks_count??0) ?></div><h1 style="font-size:22px;font-weight:800;letter-spacing:-.02em;margin:0"><?= LANG_TEMPLATE_BOOKMARKS_TITLE ?></h1><p style="font-size:12px;color:#6c6c6c;margin:6px 0 0"><?= (int)($bookmarks_count??0) ?> <?= plural((int)($bookmarks_count??0),[LANG_TEMPLATE_BOOKMARKS_POST_1,LANG_TEMPLATE_BOOKMARKS_POST_2,LANG_TEMPLATE_BOOKMARKS_POST_3]) ?></p></div>
+    <?php if(!empty($posts)){ ?><a href="<?= BASE_URL ?>/posts" style="padding:6px 12px;background:#fff;color:#000;border:1px solid #e8e8e8;font-size:11px;font-weight:700;text-transform:uppercase;text-decoration:none">all posts</a><?php } ?>
+  </div>
+  <?php if(empty($posts)){ ?>
+    <div style="border:1px solid #e8e8e8;padding:32px;text-align:center"><div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px"><?= LANG_TEMPLATE_BOOKMARKS_EMPTY_TITLE ?></div><p style="font-size:13px;color:#6c6c6c"><?= LANG_TEMPLATE_BOOKMARKS_EMPTY_TEXT ?></p><a href="<?= BASE_URL ?>/posts" style="display:inline-block;margin-top:12px;padding:6px 12px;background:#000;color:#fff;border:1px solid #000;font-size:11px;font-weight:700;text-transform:uppercase;text-decoration:none"><?= LANG_TEMPLATE_BOOKMARKS_FIND_POSTS_BTN ?></a></div>
+  <?php }else{ ?>
+    <div style="display:grid;gap:0;border:1px solid #e8e8e8">
+      <?php foreach($posts as $post){
+        $showCoverInList=!isset($post['show_cover_in_list'])||(int)$post['show_cover_in_list']===1;
+        $featuredImage=($post['featured_image']&&$showCoverInList)?BASE_URL.'/uploads/images/'.html($post['featured_image']):null;
+      ?>
+      <div style="display:flex;gap:12px;padding:12px;border-bottom:1px solid #f0f0f0;background:#fff" class="tg-bookmark-item" data-post-id="<?= $post['id'] ?>">
+        <?php if($featuredImage){ ?><a href="<?= BASE_URL.'/post/'.html($post['slug']) ?>" style="flex:0 0 80px;height:48px;border:1px solid #e8e8e8;overflow:hidden;display:block"><img src="<?= $featuredImage ?>" alt="<?= html($post['title']) ?>" loading="lazy" style="width:100%;height:100%;object-fit:cover"></a><?php } ?>
+        <div style="flex:1;min-width:0">
+          <?php if(!empty($post['category_name'])){ ?><a href="<?= BASE_URL ?>/category/<?= html($post['category_slug']) ?>" style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#6c6c6c;text-decoration:none"><?= html($post['category_name']) ?></a><?php } ?>
+          <h3 style="font-size:13px;font-weight:700;margin:4px 0;line-height:1.3"><a href="<?= BASE_URL.'/post/'.html($post['slug']) ?>" style="color:#000;text-decoration:none"><?= html($post['title']) ?></a></h3>
+          <div style="font-size:11px;color:#8a8a8a"><?= sprintf(LANG_TEMPLATE_BOOKMARKS_SAVED_AT,time_ago($post['bookmarked_at'])) ?> · <?= $post['views']??0 ?> views</div>
         </div>
-        
-        <?php if (empty($posts)) { ?>
-            <div class="tg-empty-state">
-                <div class="tg-empty-state-icon">
-                    <?php echo bloggy_icon('bs', 'bookmark', '48', 'var(--tg-text-secondary)'); ?>
-                </div>
-                <h3 class="tg-empty-state-title"><?php echo LANG_TEMPLATE_BOOKMARKS_EMPTY_TITLE; ?></h3>
-                <p class="tg-empty-state-text tg-text-muted">
-                    <?php echo LANG_TEMPLATE_BOOKMARKS_EMPTY_TEXT; ?>
-                </p>
-                <a href="<?php echo BASE_URL; ?>/posts" class="tg-btn tg-btn-primary">
-                    <?php echo bloggy_icon('bs', 'compass', '16', 'currentColor', 'tg-mr-1'); ?>
-                    <?php echo LANG_TEMPLATE_BOOKMARKS_FIND_POSTS_BTN; ?>
-                </a>
-            </div>
-            
-        <?php } else { ?>
-            
-            <div class="tg-bookmarks-grid">
-                <?php foreach ($posts as $post) { 
-                    $showCoverInList = !isset($post['show_cover_in_list']) || (int)$post['show_cover_in_list'] === 1;
-                    $featuredImage = ($post['featured_image'] && $showCoverInList)
-                        ? BASE_URL . '/uploads/images/' . html($post['featured_image']) 
-                        : null;
-                ?>
-                <div class="tg-bookmark-item" data-post-id="<?php echo $post['id']; ?>">
-                    
-                    <?php if ($featuredImage) { ?>
-                    <a href="<?php echo BASE_URL . '/post/' . html($post['slug']); ?>" class="tg-bookmark-image">
-                        <img src="<?php echo $featuredImage; ?>" 
-                             alt="<?php echo html($post['title']); ?>"
-                             loading="lazy">
-                    </a>
-                    <?php } ?>
-                    
-                    <div class="tg-bookmark-content">
-                        <?php if (!empty($post['category_name'])) { ?>
-                        <a href="<?php echo BASE_URL; ?>/category/<?php echo html($post['category_slug']); ?>" 
-                           class="tg-bookmark-category">
-                            <?php echo html($post['category_name']); ?>
-                        </a>
-                        <?php } ?>
-                        
-                        <h3 class="tg-bookmark-title">
-                            <a href="<?php echo BASE_URL . '/post/' . html($post['slug']); ?>">
-                                <?php echo html($post['title']); ?>
-                            </a>
-                        </h3>
-                        
-                        <div class="tg-bookmark-meta">
-                            <span class="tg-bookmark-date">
-                                <?php echo bloggy_icon('bs', 'bookmark', '12', 'currentColor', 'tg-mr-1'); ?>
-                                <?php echo sprintf(LANG_TEMPLATE_BOOKMARKS_SAVED_AT, time_ago($post['bookmarked_at'])); ?>
-                            </span>
-                            
-                            <?php if ($post['views'] > 0) { ?>
-                            <span class="tg-bookmark-views">
-                                <?php echo bloggy_icon('bs', 'eye', '12', 'currentColor', 'tg-mr-1'); ?>
-                                <?php echo $post['views'] . ' ' . plural($post['views'], [LANG_TEMPLATE_BOOKMARKS_VIEW_1, LANG_TEMPLATE_BOOKMARKS_VIEW_2, LANG_TEMPLATE_BOOKMARKS_VIEW_3]); ?>
-                            </span>
-                            <?php } ?>
-                        </div>
-                    </div>
-
-                    <button class="tg-bookmark-remove" 
-                            data-post-id="<?php echo $post['id']; ?>"
-                            title="<?php echo LANG_TEMPLATE_BOOKMARKS_REMOVE_TITLE; ?>">
-                        <?php echo bloggy_icon('bs', 'x', '16', 'currentColor'); ?>
-                    </button>
-                </div>
-                <?php } ?>
-            </div>
-            
-        <?php } ?>
-        
+        <button class="tg-bookmark-remove" data-post-id="<?= $post['id'] ?>" title="<?= LANG_TEMPLATE_BOOKMARKS_REMOVE_TITLE ?>" style="flex:0 0 28px;height:28px;border:1px solid #e8e8e8;background:#fff;cursor:pointer;font-size:14px">×</button>
+      </div>
+      <?php } ?>
     </div>
+  <?php } ?>
 </div>
-
-<?php 
-ob_start();
-?>
+<?php ob_start(); ?>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const removeButtons = document.querySelectorAll('.tg-bookmark-remove');
-    
-    removeButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const postId = this.dataset.postId;
-            const bookmarkItem = this.closest('.tg-bookmark-item');
-            
-            if (!confirm('<?php echo LANG_TEMPLATE_BOOKMARKS_REMOVE_CONFIRM; ?>')) {
-                return;
-            }
-            
-            bookmarkItem.style.opacity = '0.5';
-            bookmarkItem.style.pointerEvents = 'none';
-            
-            fetch(`<?php echo BASE_URL; ?>/post/bookmark/${postId}`, {
-                method: 'POST',
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    bookmarkItem.style.transition = 'all 0.3s ease';
-                    bookmarkItem.style.transform = 'translateX(100%)';
-                    bookmarkItem.style.opacity = '0';
-                    
-                    setTimeout(() => {
-                        bookmarkItem.remove();
-                        const remainingItems = document.querySelectorAll('.tg-bookmark-item');
-                        if (remainingItems.length === 0) {
-                            location.reload();
-                        }
-                        
-                        const countElement = document.querySelector('.tg-bookmarks-subtitle');
-                        if (countElement) {
-                            const currentCount = parseInt(countElement.textContent) || 0;
-                            countElement.innerHTML = `<?php echo bloggy_icon('bs', 'bookmark', '14', 'currentColor', 'tg-mr-1'); ?> ${currentCount - 1} <?php echo LANG_TEMPLATE_BOOKMARKS_POSTS_COUNT_TEXT; ?>`;
-                        }
-                    }, 300);
-                } else {
-                    bookmarkItem.style.opacity = '1';
-                    bookmarkItem.style.pointerEvents = 'auto';
-                    alert('<?php echo LANG_TEMPLATE_BOOKMARKS_REMOVE_ERROR; ?>');
-                }
-            })
-            .catch(() => {
-                bookmarkItem.style.opacity = '1';
-                bookmarkItem.style.pointerEvents = 'auto';
-                alert('<?php echo LANG_TEMPLATE_BOOKMARKS_REMOVE_ERROR; ?>');
-            });
-        });
+document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('.tg-bookmark-remove').forEach(btn=>{
+    btn.addEventListener('click',function(){
+      var postId=this.dataset.postId, item=this.closest('.tg-bookmark-item');
+      if(!confirm('<?= LANG_TEMPLATE_BOOKMARKS_REMOVE_CONFIRM ?>')) return;
+      item.style.opacity='0.5'; item.style.pointerEvents='none';
+      fetch(`<?= BASE_URL ?>/post/bookmark/${postId}`,{method:'POST',headers:{'X-Requested-With':'XMLHttpRequest'}})
+      .then(r=>r.json()).then(data=>{
+        if(data.success){item.style.transition='all .3s';item.style.transform='translateX(100%)';item.style.opacity='0';setTimeout(()=>{item.remove();if(!document.querySelectorAll('.tg-bookmark-item').length) location.reload();},300);}
+        else{item.style.opacity='1';item.style.pointerEvents='auto';alert('<?= LANG_TEMPLATE_BOOKMARKS_REMOVE_ERROR ?>');}
+      }).catch(()=>{item.style.opacity='1';item.style.pointerEvents='auto';alert('<?= LANG_TEMPLATE_BOOKMARKS_REMOVE_ERROR ?>');});
     });
+  });
 });
 </script>
 <?php front_bottom_js(ob_get_clean()); ?>
-
-<?php 
-ob_start();
-?>
-<script>
-window.baseUrl = '<?= BASE_URL ?>';
-window.userLoggedIn = <?= isset($_SESSION['user_id']) ? 'true' : 'false' ?>;
-</script>
-
-<?php front_bottom_js(ob_get_clean()); ?>
-
-<?php echo add_frontend_js('/templates/default/front/assets/js/bookmarks.js'); ?>

@@ -1,105 +1,14 @@
-<?php
-/**
- * Template Name: Восстановление пароля
- */
-
-$success = $success ?? false;
-$error = $error ?? '';
-$email = $email ?? '';
-?>
-
-<div class="tg-forgot-page">
-    <div class="tg-container tg-container-sm" style = "max-width: 760px;">
-        
-        <div class="tg-forgot-header">
-            <h1 class="tg-forgot-title"><?php echo LANG_TEMPLATE_AUTH_FORGOT_TITLE; ?></h1>
-            <p class="tg-forgot-subtitle"><?php echo LANG_TEMPLATE_AUTH_FORGOT_SUBTITLE; ?></p>
-        </div>
-        
-        <div class="tg-card">
-            <div class="tg-card-body">
-                
-                <?php if ($success) { ?>
-                <div class="tg-alert tg-alert-success tg-mb-4">
-                    <div class="tg-alert-icon">
-                        <?php echo bloggy_icon('bs', 'check-circle', '18', 'currentColor'); ?>
-                    </div>
-                    <div class="tg-alert-content">
-                        <strong><?php echo LANG_TEMPLATE_AUTH_FORGOT_SUCCESS_TITLE; ?></strong>
-                        <p><?php echo LANG_TEMPLATE_AUTH_FORGOT_SUCCESS_TEXT; ?></p>
-                        <div class="tg-alert-small"><?php echo LANG_TEMPLATE_AUTH_FORGOT_SUCCESS_HINT; ?></div>
-                    </div>
-                </div>
-                <?php } elseif ($error) { ?>
-                <div class="tg-alert tg-alert-error tg-mb-4">
-                    <div class="tg-alert-icon">
-                        <?php echo bloggy_icon('bs', 'exclamation-triangle', '18', 'currentColor'); ?>
-                    </div>
-                    <div class="tg-alert-content">
-                        <strong><?php echo LANG_TEMPLATE_AUTH_ERROR; ?></strong> <?php echo html($error); ?>
-                    </div>
-                </div>
-                <?php } ?>
-                
-                <form method="post" action="">
-                    <input type="hidden" name="csrf_token" value="<?php echo $csrf_token; ?>">
-                    
-                    <div class="tg-field">
-                        <label for="email" class="tg-label">
-                            <?php echo LANG_TEMPLATE_AUTH_EMAIL_LABEL; ?> <span class="tg-text-muted">*</span>
-                        </label>
-                        <div class="tg-input-wrapper">
-                            <span class="tg-input-icon">
-                                <?php echo bloggy_icon('bs', 'envelope', '16', 'currentColor'); ?>
-                            </span>
-                            <input type="email" 
-                                   id="email"
-                                   name="email" 
-                                   class="tg-input" 
-                                   placeholder="<?php echo LANG_TEMPLATE_AUTH_EMAIL_PLACEHOLDER; ?>" 
-                                   required 
-                                   value="<?php echo html($email); ?>" 
-                                   autofocus>
-                        </div>
-                        <div class="tg-field-hint">
-                            <?php echo bloggy_icon('bs', 'info-circle', '12', 'var(--tg-text-muted)', 'tg-mr-1'); ?>
-                            <?php echo LANG_TEMPLATE_AUTH_FORGOT_EMAIL_HINT; ?>
-                        </div>
-                    </div>
-                    
-                    <div class="tg-info-box tg-mb-4">
-                        <div class="tg-info-box-icon">
-                            <?php echo bloggy_icon('bs', 'shield-exclamation', '16', 'var(--tg-primary)'); ?>
-                        </div>
-                        <div class="tg-info-box-content">
-                            <strong><?php echo LANG_TEMPLATE_AUTH_FORGOT_SECURITY_TITLE; ?></strong>
-                            <span><?php echo LANG_TEMPLATE_AUTH_FORGOT_SECURITY_TEXT; ?></span>
-                            <small class="tg-text-muted"><?php echo LANG_TEMPLATE_AUTH_FORGOT_SECURITY_HINT; ?></small>
-                        </div>
-                    </div>
-                    
-                    <button type="submit" class="tg-btn tg-btn-primary tg-btn-block">
-                        <?php echo bloggy_icon('bs', 'send', '16', 'currentColor', 'tg-mr-1'); ?>
-                        <?php echo LANG_TEMPLATE_AUTH_FORGOT_SUBMIT_BTN; ?>
-                    </button>
-                </form>
-                
-                <div class="tg-forgot-footer tg-mt-4">
-                    <div class="tg-login-links">
-                        <a href="<?php echo BASE_URL; ?>/login" class="tg-link">
-                            <?php echo bloggy_icon('bs', 'box-arrow-in-right', '14', 'currentColor', 'tg-mr-1'); ?>
-                            <?php echo LANG_TEMPLATE_AUTH_LOGIN_LINK; ?>
-                        </a>
-                        
-                        <span class="tg-link-sep">•</span>
-                        
-                        <a href="<?php echo BASE_URL; ?>/register" class="tg-link">
-                            <?php echo bloggy_icon('bs', 'person-plus', '14', 'currentColor', 'tg-mr-1'); ?>
-                            <?php echo LANG_TEMPLATE_AUTH_REGISTER_LINK; ?>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<?php /** Habr Pro - Forgot Password - flat */ $success=$success??false; $error=$error??''; $email=$email??''; ?>
+<div style="max-width:400px;margin:40px auto;padding:0 20px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif">
+  <div style="border:1px solid #000;background:#fff;padding:20px">
+    <div style="margin-bottom:16px"><div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#8a8a8a;margin-bottom:6px">auth / restore</div><h1 style="font-size:18px;font-weight:800;margin:0;letter-spacing:-.02em"><?= LANG_TEMPLATE_AUTH_FORGOT_TITLE ?></h1><p style="font-size:12px;color:#6c6c6c;margin:6px 0 0"><?= LANG_TEMPLATE_AUTH_FORGOT_SUBTITLE ?></p></div>
+    <?php if($success){ ?><div style="border:1px solid #000;background:#f5f5f5;padding:10px;font-size:11px;margin-bottom:12px"><strong><?= LANG_TEMPLATE_AUTH_FORGOT_SUCCESS_TITLE ?></strong><p style="margin:4px 0"><?= LANG_TEMPLATE_AUTH_FORGOT_SUCCESS_TEXT ?></p><div style="color:#8a8a8a;font-size:10px"><?= LANG_TEMPLATE_AUTH_FORGOT_SUCCESS_HINT ?></div></div><?php }elseif($error){ ?><div style="border:1px solid #000;border-left:3px solid #000;background:#f5f5f5;padding:8px 10px;font-size:11px;margin-bottom:12px"><strong><?= LANG_TEMPLATE_AUTH_ERROR ?></strong> <?= html($error) ?></div><?php } ?>
+    <form method="post" action="" style="display:flex;flex-direction:column;gap:10px">
+      <input type="hidden" name="csrf_token" value="<?= $csrf_token ?>">
+      <div><label for="email" style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:4px"><?= LANG_TEMPLATE_AUTH_EMAIL_LABEL ?> *</label><input type="email" id="email" name="email" placeholder="<?= LANG_TEMPLATE_AUTH_EMAIL_PLACEHOLDER ?>" required value="<?= html($email) ?>" autofocus style="width:100%;padding:8px 10px;border:1px solid #e8e8e8;font-size:13px;border-radius:0"><div style="font-size:10px;color:#8a8a8a;margin-top:4px"><?= LANG_TEMPLATE_AUTH_FORGOT_EMAIL_HINT ?></div></div>
+      <div style="border:1px solid #e8e8e8;background:#f5f5f5;padding:8px 10px;font-size:11px"><strong style="font-size:10px;text-transform:uppercase;letter-spacing:.06em"><?= LANG_TEMPLATE_AUTH_FORGOT_SECURITY_TITLE ?></strong> <span style="color:#6c6c6c"><?= LANG_TEMPLATE_AUTH_FORGOT_SECURITY_TEXT ?></span></div>
+      <button type="submit" style="padding:8px 16px;background:#000;color:#fff;border:1px solid #000;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.04em;cursor:pointer;width:100%"><?= LANG_TEMPLATE_AUTH_FORGOT_SUBMIT_BTN ?></button>
+    </form>
+    <div style="margin-top:16px;padding-top:12px;border-top:1px solid #e8e8e8;display:flex;gap:12px;font-size:11px"><a href="<?= BASE_URL ?>/login" style="color:#000;text-decoration:none;font-weight:700;text-transform:uppercase"><?= LANG_TEMPLATE_AUTH_LOGIN_LINK ?></a><span style="color:#d4d4d4">/</span><a href="<?= BASE_URL ?>/register" style="color:#6c6c6c;text-decoration:none"><?= LANG_TEMPLATE_AUTH_REGISTER_LINK ?></a></div>
+  </div>
 </div>

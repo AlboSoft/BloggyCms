@@ -1,8 +1,7 @@
 <?php
 /**
- * Шаблон блока "Согласие с cookies"
+ * Habr Pro - Cookie Consent - flat 0 radius
  */
-
 $message = nl2br(html($settings['message'] ?? ''));
 $acceptText = html($settings['accept_button_text'] ?? 'Принять');
 $declineText = html($settings['decline_button_text'] ?? 'Отклонить');
@@ -10,53 +9,35 @@ $policyLinkText = html($settings['policy_link_text'] ?? 'Политика кон
 $policyUrl = html($settings['policy_url'] ?? '/privacy');
 $showPolicyLink = !empty($settings['show_policy_link']);
 $position = $settings['position'] ?? 'bottom';
-$theme = $settings['theme'] ?? 'light';
-$bgColor = $settings['background_color'] ?? ($theme === 'dark' ? '#1f2937' : '#ffffff');
-$textColor = $settings['text_color'] ?? ($theme === 'dark' ? '#f9fafb' : '#111827');
-$accentColor = $settings['accent_color'] ?? '#2563eb';
-$showShadow = !empty($settings['show_shadow']);
 $cookieName = $settings['cookie_name'] ?? 'cookie_consent';
 $autoShow = !empty($settings['auto_show']);
 $cookieExpiryDays = (int)($settings['cookie_expiry_days'] ?? 365);
 $customId = !empty($settings['custom_id']) ? html($settings['custom_id']) : 'cookie-consent';
-$customClass = !empty($settings['custom_css_class']) ? ' ' . html($settings['custom_css_class']) : '';
-
-$style = "position: fixed; z-index: 10000; left: 0; right: 0; display: flex; justify-content: center; padding: 16px 24px; background-color: {$bgColor}; color: {$textColor}; font-family: inherit; font-size: 14px; line-height: 1.5; transition: transform 0.3s ease, opacity 0.3s ease;";
-
-if ($position === 'bottom') {
-    $style .= " bottom: 0; transform: translateY(100%);";
-} else {
-    $style .= " top: 0; transform: translateY(-100%);";
-}
-
-if ($showShadow) {
-    $style .= " box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);";
-}
-
-if ($theme === 'custom') {
-    $style .= " background-color: {$bgColor}; color: {$textColor};";
-}
-
-$containerStyle = "display: flex; align-items: center; justify-content: space-between; gap: 20px; max-width: 1200px; width: 100%; flex-wrap: wrap;";
-$messageStyle = "flex: 1; margin: 0;";
-$buttonsStyle = "display: flex; gap: 12px; flex-shrink: 0;";
-$btnStyle = "padding: 8px 20px; border-radius: 30px; border: none; cursor: pointer; font-weight: 500; font-size: 14px; transition: all 0.2s ease;";
-$acceptBtnStyle = $btnStyle . " background-color: {$accentColor}; color: #ffffff;";
-$declineBtnStyle = $btnStyle . " background-color: transparent; color: {$textColor}; border: 1px solid currentColor;";
-$linkStyle = " color: {$accentColor}; text-decoration: underline; margin-left: 8px;";
+$customClass = !empty($settings['custom_css_class']) ? ' '.html($settings['custom_css_class']) : '';
 ?>
-
-<div id="<?php echo $customId; ?>" class="cookie-consent-container<?php echo $customClass; ?>" style="<?php echo $style; ?>" data-cookie-name="<?php echo $cookieName; ?>" data-cookie-expiry="<?php echo $cookieExpiryDays; ?>" data-auto-show="<?php echo $autoShow ? '1' : '0'; ?>" data-position="<?php echo $position; ?>">
-    <div class="cookie-consent-inner" style="<?php echo $containerStyle; ?>">
-        <div class="cookie-message" style="<?php echo $messageStyle; ?>">
-            <?php echo $message; ?>
-            <?php if ($showPolicyLink && $policyUrl && $policyLinkText) { ?>
-                <a href="<?php echo $policyUrl; ?>" target="_blank" style="<?php echo $linkStyle; ?>"><?php echo $policyLinkText; ?></a>
-            <?php } ?>
-        </div>
-        <div class="cookie-buttons" style="<?php echo $buttonsStyle; ?>">
-            <button type="button" class="cookie-accept-btn" style="<?php echo $acceptBtnStyle; ?>"><?php echo $acceptText; ?></button>
-            <button type="button" class="cookie-decline-btn" style="<?php echo $declineBtnStyle; ?>"><?php echo $declineText; ?></button>
-        </div>
+<div id="<?= $customId ?>" class="cookie-consent-container<?= $customClass ?>" style="position:fixed;z-index:10000;left:0;right:0;display:flex;justify-content:center;padding:12px 20px;background:#000;color:#fff;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:12px;line-height:1.5;transform:translateY(100%);transition:transform .2s;<?= $position==='bottom'?'bottom:0':'top:0;bottom:auto;transform:translateY(-100%)' ?>" data-cookie-name="<?= $cookieName ?>" data-cookie-expiry="<?= $cookieExpiryDays ?>" data-auto-show="<?= $autoShow?'1':'0' ?>" data-position="<?= $position ?>">
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:1220px;width:100%;flex-wrap:wrap">
+    <div style="flex:1;min-width:200px">
+      <?= $message ?>
+      <?php if($showPolicyLink && $policyUrl && $policyLinkText){ ?><a href="<?= $policyUrl ?>" target="_blank" style="color:#fff;text-decoration:underline;margin-left:8px;font-weight:700"><?= $policyLinkText ?></a><?php } ?>
     </div>
+    <div style="display:flex;gap:8px;flex-shrink:0">
+      <button type="button" class="cookie-accept-btn" style="padding:6px 14px;background:#fff;color:#000;border:1px solid #fff;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.04em;cursor:pointer"><?= $acceptText ?></button>
+      <button type="button" class="cookie-decline-btn" style="padding:6px 14px;background:transparent;color:#fff;border:1px solid #555;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.04em;cursor:pointer"><?= $declineText ?></button>
+    </div>
+  </div>
 </div>
+<script>
+(function(){
+  var el=document.getElementById('<?= $customId ?>');
+  if(!el) return;
+  var name=el.dataset.cookieName, exp=parseInt(el.dataset.cookieExpiry)||365, auto=el.dataset.autoShow==='1', pos=el.dataset.position||'bottom';
+  function getC(n){var m=document.cookie.match(new RegExp('(?:^|; )'+n.replace(/([.$?*|{}()\[\]\\\/\+^])/g,'\\$1')+'=([^;]*)'));return m?decodeURIComponent(m[1]):null}
+  function setC(n,v,d){var e=new Date();e.setDate(e.getDate()+d);document.cookie=n+'='+encodeURIComponent(v)+'; expires='+e.toUTCString()+'; path=/';}
+  if(getC(name)) return;
+  function show(){el.style.transform='translateY(0)';}
+  if(auto) setTimeout(show,500); else show();
+  el.querySelector('.cookie-accept-btn').addEventListener('click',function(){setC(name,'accepted',exp);el.style.transform=pos==='bottom'?'translateY(100%)':'translateY(-100%)';});
+  el.querySelector('.cookie-decline-btn').addEventListener('click',function(){setC(name,'declined',exp);el.style.transform=pos==='bottom'?'translateY(100%)':'translateY(-100%)';});
+})();
+</script>

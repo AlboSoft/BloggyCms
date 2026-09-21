@@ -1,58 +1,25 @@
 <?php
 /**
- * Tags Sidebar Compact
+ * Tags Sidebar - Habr Pro - компактный
  */
-
 $theme = $settings['theme'] ?? 'light';
-$displayStyle = $settings['display_style'] ?? 'compact';
 $showPostCount = !empty($settings['show_post_count']);
-$showIcon = !empty($settings['show_icon']);
-$accentColor = $settings['accent_color'] ?? '#2b5278';
-
 $tags = $this->tags ?? [];
-
-$tagIcon = '';
-if(function_exists('bloggy_icon')) {
-    $tagIcon = bloggy_icon('bs', 'tag', '10', 'currentColor', '');
-} else {
-    $tagIcon = '<svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M2 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 2 6.586V2z"/><path d="M5.5 5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/></svg>';
-}
 ?>
-
 <div class="tg-sidebar-tags">
-    
     <?php if(!empty($settings['title'])) { ?>
-        <div class="tg-sidebar-tags-header">
-            <h3 class="tg-sidebar-tags-title">
-                <?php if($showIcon) { ?>
-                    <span class="tg-sidebar-tags-title-icon">
-                        <?php echo bloggy_icon('bs', 'tags', '18', $accentColor, ''); ?>
-                    </span>
-                <?php } ?>
-                <?php echo html($settings['title']); ?>
-            </h3>
-            <?php if(!empty($settings['description'])) { ?>
-                <p class="tg-sidebar-tags-description"><?php echo html($settings['description']); ?></p>
-            <?php } ?>
+        <div class="tg-sidebar-tags-header" style="margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid #e8e8e8">
+            <h3 class="tg-sidebar-tags-title" style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin:0;color:#000"><?php echo html($settings['title']); ?></h3>
+            <?php if(!empty($settings['description'])) { ?><p style="font-size:11px;color:#6c6c6c;margin:4px 0 0"><?php echo html($settings['description']); ?></p><?php } ?>
         </div>
     <?php } ?>
-    
     <?php if(!empty($tags)) { ?>
-        <div class="tg-sidebar-tags-list">
+        <div class="tg-sidebar-tags-list" style="display:flex;flex-wrap:wrap;gap:4px">
             <?php foreach($tags as $tag) { ?>
-                <a href="/tag/<?php echo html($tag['slug']); ?>" class="tg-sidebar-tag">
-                    <span class="tg-sidebar-tag-hash">#</span>
-                    <span class="tg-sidebar-tag-name"><?php echo html($tag['name']); ?></span>
-                    <?php if($showPostCount && ($tag['posts_count'] ?? 0) > 0) { ?>
-                        <span class="tg-sidebar-tag-count"><?php echo $tag['posts_count'] ?? 0; ?></span>
-                    <?php } ?>
+                <a href="/tag/<?php echo html($tag['slug']); ?>" class="tg-sidebar-tag" style="display:inline-block;padding:2px 6px;background:#fff;border:1px solid #e8e8e8;font-size:11px;color:#000;text-decoration:none">
+                    #<?php echo html($tag['name']); ?><?php if($showPostCount && ($tag['posts_count'] ?? 0) > 0) { ?><span style="opacity:.6;margin-left:3px"><?php echo $tag['posts_count']; ?></span><?php } ?>
                 </a>
             <?php } ?>
         </div>
-    <?php } else { ?>
-        <div class="tg-sidebar-tags-empty">
-            <p>Теги не найдены</p>
-        </div>
-    <?php } ?>
-    
+    <?php } else { ?><p style="font-size:11px;color:#8a8a8a">нет тегов</p><?php } ?>
 </div>

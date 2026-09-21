@@ -1,70 +1,20 @@
-.post-block-button {
-    margin: 20px 0;
+/* Button Block - Habr Pro - no radius */
+.post-block-button{margin:16px 0}
+.post-block-button .btn{
+  display:inline-block;padding:8px 16px;
+  font-size:13px;font-weight:700;text-align:center;
+  text-decoration:none;cursor:pointer;
+  border:1px solid #000;background:#000;color:#fff;
+  transition:all .15s;text-transform:lowercase;letter-spacing:-.01em;
 }
-
-.post-block-button .btn {
-    display: inline-block;
-    padding: 8px 20px;
-    font-size: 1rem;
-    font-weight: 500;
-    text-align: center;
-    text-decoration: none;
-    cursor: pointer;
-    border: 1px solid transparent;
-    border-radius: 6px;
-    transition: all 0.3s ease;
-}
-
-.post-block-button .btn-sm {
-    padding: 5px 12px;
-    font-size: 0.875rem;
-}
-
-.post-block-button .btn-lg {
-    padding: 12px 28px;
-    font-size: 1.125rem;
-}
-
-.post-block-button .btn-block {
-    display: block;
-    width: 100%;
-}
-
-.post-block-button .btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
-
-.post-block-button .btn:active {
-    transform: translateY(0);
-}
-
-.post-block-button.text-start {
-    text-align: left;
-}
-
-.post-block-button.text-center {
-    text-align: center;
-}
-
-.post-block-button.text-end {
-    text-align: right;
-}
-
-.post-block-button .icon {
-    vertical-align: middle;
-    display: inline-block;
-}
-
-@media (max-width: 576px) {
-    .post-block-button .btn {
-        width: 100%;
-        text-align: center;
-    }
-    
-    .post-block-button.text-start,
-    .post-block-button.text-center,
-    .post-block-button.text-end {
-        text-align: center !important;
-    }
+.post-block-button .btn:hover{background:#fff;color:#000;text-decoration:none}
+.post-block-button .btn-sm{padding:5px 10px;font-size:11px}
+.post-block-button .btn-lg{padding:10px 20px;font-size:14px}
+.post-block-button .btn-block{display:block;width:100%}
+.post-block-button.text-start{text-align:left}
+.post-block-button.text-center{text-align:left}
+.post-block-button.text-end{text-align:left}
+.post-block-button .icon{vertical-align:middle;display:inline-block;width:14px;height:14px}
+@media(max-width:576px){
+  .post-block-button .btn{width:auto}
 }

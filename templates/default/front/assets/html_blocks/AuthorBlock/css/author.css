@@ -1,193 +1,22 @@
-.tg-author-card {
-    width: 100%;
-}
-
-.tg-author-card-inner {
-    padding: 24px 20px;
-    border-radius: 20px;
-    background: var(--tg-surface, #fff);
-    transition: all 0.2s ease;
-    text-align: center;
-}
-
-.tg-author-card-inner:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-}
-
-.tg-author-avatar {
-    width: 80px;
-    height: 80px;
-    margin: 0 auto 16px;
-    overflow: hidden;
-}
-
-.tg-author-avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.tg-avatar-circle {
-    border-radius: 50%;
-}
-
-.tg-avatar-square {
-    border-radius: 12px;
-}
-
-.tg-avatar-rounded {
-    border-radius: 20px;
-}
-
-.tg-author-name {
-    font-size: 18px;
-    font-weight: 600;
-    margin: 0 0 4px 0;
-    color: var(--tg-text, #1a1a1a);
-}
-
-.tg-author-role {
-    font-size: 11px;
-    color: var(--accent-color, #2563eb);
-    margin-bottom: 12px;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.tg-author-description {
-    font-size: 13px;
-    line-height: 1.5;
-    color: var(--tg-text-secondary, #6c757d);
-    margin-bottom: 16px;
-}
-
-.tg-author-social {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 16px;
-    flex-wrap: wrap;
-}
-
-.tg-social-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: var(--tg-bg, #f5f5f5);
-    color: var(--tg-text-secondary, #666);
-    transition: all 0.2s ease;
-}
-
-.tg-social-link:hover {
-    background: var(--accent-color, #2563eb);
-    color: white;
-    transform: translateY(-2px);
-}
-
-.tg-author-contacts {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-bottom: 16px;
-}
-
-.tg-contact-link {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    font-size: 11px;
-    color: var(--tg-text-secondary, #6c757d);
-    text-decoration: none;
-    transition: color 0.2s ease;
-    padding: 4px 8px;
-    border-radius: 20px;
-    background: var(--tg-bg, #f5f5f5);
-}
-
-.tg-contact-link:hover {
-    color: var(--accent-color, #2563eb);
-    background: rgba(37, 99, 235, 0.08);
-}
-
-.tg-author-button .tg-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    padding: 8px 20px;
-    background: var(--accent-color, #2563eb);
-    color: white;
-    border-radius: 30px;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 12px;
-    transition: all 0.2s ease;
-    width: 100%;
-}
-
-.tg-author-button .tg-btn:hover {
-    opacity: 0.9;
-    transform: translateY(-1px);
-}
-
-.tg-author-card.theme-dark .tg-author-card-inner {
-    background: var(--tg-surface-dark, #1f2937);
-}
-
-.tg-author-card.theme-dark .tg-author-name {
-    color: var(--tg-text-dark, #f9fafb);
-}
-
-.tg-author-card.theme-dark .tg-author-description {
-    color: var(--tg-text-secondary-dark, #9ca3af);
-}
-
-.tg-author-card.theme-dark .tg-social-link {
-    background: rgba(255, 255, 255, 0.1);
-    color: #9ca3af;
-}
-
-.tg-author-card.theme-dark .tg-contact-link {
-    background: rgba(255, 255, 255, 0.05);
-    color: #9ca3af;
-}
-
-.tg-author-card.theme-dark .tg-contact-link:hover {
-    background: rgba(37, 99, 235, 0.2);
-    color: var(--accent-color, #2563eb);
-}
-
-@media (max-width: 768px) {
-    .tg-author-card-inner {
-        padding: 20px 16px;
-    }
-    
-    .tg-author-avatar {
-        width: 70px;
-        height: 70px;
-    }
-    
-    .tg-author-name {
-        font-size: 16px;
-    }
-    
-    .tg-author-description {
-        font-size: 12px;
-    }
-    
-    .tg-social-link {
-        width: 28px;
-        height: 28px;
-    }
-    
-    .tg-contact-link {
-        font-size: 10px;
-        padding: 3px 6px;
-    }
+/* Author Block - Habr Pro - no radius */
+.tg-author-card{width:100%;border:1px solid #e8e8e8;background:#fff}
+.tg-author-card-inner{padding:20px;text-align:left;transition:none}
+.tg-author-avatar{width:64px;height:64px;margin:0 0 12px;overflow:hidden;border:1px solid #e8e8e8;background:#f5f5f5}
+.tg-author-avatar img{width:100%;height:100%;object-fit:cover}
+.tg-avatar-circle,.tg-avatar-square,.tg-avatar-rounded{border-radius:0}
+.tg-author-name{font-size:16px;font-weight:800;margin:0 0 4px;color:#000;letter-spacing:-.01em}
+.tg-author-role{font-size:10px;color:#6c6c6c;margin-bottom:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+.tg-author-description{font-size:13px;line-height:1.5;color:#6c6c6c;margin-bottom:12px}
+.tg-author-social{display:flex;justify-content:flex-start;gap:4px;margin-bottom:12px;flex-wrap:wrap}
+.tg-social-link{display:flex;align-items:center;justify-content:center;width:28px;height:28px;background:#fff;border:1px solid #e8e8e8;color:#6c6c6c;transition:all .15s}
+.tg-social-link:hover{background:#000;color:#fff;border-color:#000;text-decoration:none}
+.tg-author-contacts{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+.tg-contact-link{display:inline-flex;align-items:center;gap:4px;font-size:11px;color:#6c6c6c;text-decoration:none;padding:4px 8px;background:#f5f5f5;border:1px solid #e8e8e8}
+.tg-contact-link:hover{color:#000;background:#fff;border-color:#000}
+.tg-author-button .tg-btn{display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:6px 12px;background:#000;color:#fff;border:1px solid #000;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.04em;width:100%;text-decoration:none}
+.tg-author-button .tg-btn:hover{background:#fff;color:#000;text-decoration:none}
+@media(max-width:768px){
+  .tg-author-card-inner{padding:16px}
+  .tg-author-avatar{width:56px;height:56px}
+  .tg-author-name{font-size:14px}
 }
