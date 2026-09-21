@@ -203,7 +203,8 @@
                 <?php foreach ($results as $item) { 
                     $contentType = $item['content_type'] ?? $item['type'] ?? 'post';
                     $featuredImage = null;
-                    if ($contentType == 'post' && !empty($item['featured_image'])) {
+                    $showCoverInList = !isset($item['show_cover_in_list']) || (int)$item['show_cover_in_list'] === 1;
+                    if ($contentType == 'post' && !empty($item['featured_image']) && $showCoverInList) {
                         $featuredImage = BASE_URL . '/uploads/images/' . html($item['featured_image']);
                     }
                     

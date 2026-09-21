@@ -460,6 +460,8 @@ CREATE TABLE IF NOT EXISTS `{#}posts` (
   `status` enum('draft','published') DEFAULT 'draft',
   `allow_comments` tinyint(1) DEFAULT '1',
   `featured_image` varchar(255) DEFAULT NULL,
+  `show_cover_in_list` tinyint(1) NOT NULL DEFAULT '1',
+  `show_cover_in_post` tinyint(1) NOT NULL DEFAULT '1',
   `meta_description` text,
   `seo_title` varchar(255) DEFAULT NULL,
   `meta_keywords` varchar(255) DEFAULT NULL,

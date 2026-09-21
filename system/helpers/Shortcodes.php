@@ -307,7 +307,8 @@ function process_shortcodes(string $content, array $posts = [], array $blocks = 
             
             $postUrl = BASE_URL . '/post/' . ($post['slug'] ?? '');
             $categoryUrl = BASE_URL . '/category/' . ($post['category_slug'] ?? '');
-            $imageUrl = isset($post['featured_image']) 
+            $showCoverInList = !isset($post['show_cover_in_list']) || (int)$post['show_cover_in_list'] === 1;
+            $imageUrl = (!empty($post['featured_image']) && $showCoverInList)
                 ? BASE_URL . '/uploads/images/' . $post['featured_image']
                 : '';
             

@@ -212,7 +212,8 @@ $fieldModel = new FieldModel($this->db);
                             <?php if (!empty($posts)) { ?>
                                 <div class="tg-posts-list">
                                     <?php foreach ($posts as $post) { 
-                                        $featuredImage = $post['featured_image'] 
+                                        $showCoverInList = !isset($post['show_cover_in_list']) || (int)$post['show_cover_in_list'] === 1;
+                                        $featuredImage = ($post['featured_image'] && $showCoverInList) 
                                             ? BASE_URL . '/uploads/images/' . html($post['featured_image']) 
                                             : null;
                                     ?>
@@ -284,7 +285,8 @@ $fieldModel = new FieldModel($this->db);
                             <?php if (!empty($bookmarks)) { ?>
                                 <div class="tg-bookmarks-list">
                                     <?php foreach ($bookmarks as $post) { 
-                                        $featuredImage = $post['featured_image'] 
+                                        $showCoverInList = !isset($post['show_cover_in_list']) || (int)$post['show_cover_in_list'] === 1;
+                                        $featuredImage = ($post['featured_image'] && $showCoverInList) 
                                             ? BASE_URL . '/uploads/images/' . html($post['featured_image']) 
                                             : null;
                                         $userLiked = isset($post['userLiked']) && $post['userLiked'];

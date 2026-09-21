@@ -81,7 +81,8 @@ $eyeIcon = bloggy_icon('bs', 'eye', '16 16', 'currentColor', 'me-1');
                     $views = (int)($post['views'] ?? 0);
                 ?>
                 <article class="post-card">
-                    <?php if(!empty($settings['show_featured_image']) && !empty($post['featured_image'])) {
+                    <?php if(!empty($settings['show_featured_image']) && !empty($post['featured_image'])
+                        && (!isset($post['show_cover_in_list']) || (int)$post['show_cover_in_list'] === 1)) {
                         $imageUrl = $this->getPostImageUrl($post);
                         $readTime = !empty($post['content']) ? $this->calculateReadTime($post['content']) : 1;
                     ?>

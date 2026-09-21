@@ -150,6 +150,8 @@ class PostModel implements ModelAPI {
                 user_id, 
                 status, 
                 featured_image,
+                show_cover_in_list,
+                show_cover_in_post,
                 meta_description,
                 seo_title,
                 meta_keywords,
@@ -160,7 +162,7 @@ class PostModel implements ModelAPI {
                 allow_comments,
                 is_adult,
                 created_at
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             $this->db->query($sql, [
                 $data['title'],
@@ -170,6 +172,8 @@ class PostModel implements ModelAPI {
                 $data['user_id'],
                 $data['status'] ?? 'draft',
                 $data['featured_image'] ?? null,
+                $data['show_cover_in_list'] ?? 1,
+                $data['show_cover_in_post'] ?? 1,
                 $data['meta_description'] ?? null,
                 $data['seo_title'] ?? null,
                 $data['meta_keywords'] ?? null,
@@ -215,7 +219,8 @@ class PostModel implements ModelAPI {
             $params = [];
             
             $allowedFields = [
-                'title', 'short_description', 'slug', 'category_id', 'status', 'featured_image', 
+                'title', 'short_description', 'slug', 'category_id', 'status', 'featured_image',
+                'show_cover_in_list', 'show_cover_in_post',
                 'meta_description', 'seo_title', 'password_protected', 'password',
                 'show_to_groups', 'hide_from_groups', 'allow_comments', 'is_adult', 'created_at'
             ];

@@ -186,6 +186,8 @@ class Edit extends PostAction {
             'password_protected' => isset($_POST['password_protected']) ? 1 : 0,
             'password' => $_POST['password'] ?? null,
             'is_adult' => isset($_POST['is_adult']) ? 1 : 0,
+            'show_cover_in_list' => isset($_POST['show_cover_in_list']) ? 1 : 0,
+            'show_cover_in_post' => isset($_POST['show_cover_in_post']) ? 1 : 0,
             'show_to_groups' => !empty($_POST['show_to_groups']) ? json_encode($_POST['show_to_groups']) : null,
             'hide_from_groups' => !empty($_POST['hide_from_groups']) ? json_encode($_POST['hide_from_groups']) : null
         ];

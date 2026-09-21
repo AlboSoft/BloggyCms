@@ -144,6 +144,7 @@ class SearchModel implements ModelAPI {
                     p.slug,
                     p.short_description as description,
                     p.featured_image as image,
+                    p.show_cover_in_list,
                     p.created_at,
                     p.views,
                     c.name as category_name,

@@ -164,7 +164,8 @@ class PostBlockPostBlock extends BasePostBlock {
 
         $postUrl = BASE_URL . '/post/' . ($postData['slug'] ?? $postData['id']);
         $categoryUrl = !empty($postData['category_slug']) ? BASE_URL . '/category/' . $postData['category_slug'] : '';
-        $hasImage = !empty($postData['featured_image']);
+        $showCoverInList = !isset($postData['show_cover_in_list']) || (int)$postData['show_cover_in_list'] === 1;
+        $hasImage = !empty($postData['featured_image']) && $showCoverInList;
         $imageUrl = $hasImage ? BASE_URL . '/uploads/images/' . $postData['featured_image'] : '';
         $defaultImage = BASE_URL . '/assets/images/default-post-image.jpg';
         $replacements = [

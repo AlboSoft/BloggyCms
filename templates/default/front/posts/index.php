@@ -17,7 +17,8 @@
                     <div class="tg-posts-list">
                         <?php if (!empty($posts)) { ?>
                             <?php foreach ($posts as $post) {
-                                $featuredImage = $post['featured_image']
+                                $showCoverInList = !isset($post['show_cover_in_list']) || (int)$post['show_cover_in_list'] === 1;
+                                $featuredImage = ($post['featured_image'] && $showCoverInList)
                                     ? BASE_URL . '/uploads/images/' . html($post['featured_image'])
                                     : null;
                                 $isPasswordProtected = isset($post['password_protected']) && $post['password_protected'] == 1;

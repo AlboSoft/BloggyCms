@@ -175,6 +175,26 @@ add_admin_css('templates/default/admin/assets/css/controllers/post-blocks.css');
                             
                             <input type="hidden" name="remove_featured_image" id="removeFeaturedImage" value="0">
                         </div>
+
+                        <div class="border-top mt-3 pt-3 text-start">
+                            <div class="form-check form-switch mb-2">
+                                <input class="form-check-input" type="checkbox" id="show_cover_in_list" name="show_cover_in_list" value="1"
+                                    <?php echo !isset($post['show_cover_in_list']) || (int)$post['show_cover_in_list'] === 1 ? 'checked' : ''; ?>>
+                                <label class="form-check-label" for="show_cover_in_list">
+                                    <?php echo LANG_TEMPLATE_POSTS_EDIT_COVER_SHOW_IN_LIST; ?>
+                                </label>
+                                <div class="form-text"><?php echo LANG_TEMPLATE_POSTS_EDIT_COVER_SHOW_IN_LIST_HINT; ?></div>
+                            </div>
+                            <div class="form-check form-switch mb-0">
+                                <input class="form-check-input" type="checkbox" id="show_cover_in_post" name="show_cover_in_post" value="1"
+                                    <?php echo !isset($post['show_cover_in_post']) || (int)$post['show_cover_in_post'] === 1 ? 'checked' : ''; ?>>
+                                <label class="form-check-label" for="show_cover_in_post">
+                                    <?php echo LANG_TEMPLATE_POSTS_EDIT_COVER_SHOW_IN_POST; ?>
+                                </label>
+                                <div class="form-text"><?php echo LANG_TEMPLATE_POSTS_EDIT_COVER_SHOW_IN_POST_HINT; ?></div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 

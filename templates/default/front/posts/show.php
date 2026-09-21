@@ -92,12 +92,12 @@ $totalComments = $totalComments ?? ($post['comments_count'] ?? 0);
             </div>
         </div>
         
-        <?php if ($post['featured_image']) { ?>
-        <div class="tg-post-image-full tg-mb-4">
-            <img src="<?php echo BASE_URL; ?>/uploads/images/<?php echo html($post['featured_image']); ?>" 
-                 alt="<?php echo html($post['title']); ?>"
-                 loading="lazy">
-        </div>
+        <?php if ($post['featured_image'] && (!isset($post['show_cover_in_post']) || (int)$post['show_cover_in_post'] === 1)) { ?>
+            <div class="tg-post-image-full tg-mb-4">
+                <img src="<?php echo BASE_URL; ?>/uploads/images/<?php echo html($post['featured_image']); ?>" 
+                    alt="<?php echo html($post['title']); ?>"
+                    loading="lazy">
+            </div>
         <?php } ?>
         
         <div class="tg-post-content tg-mb-5">
