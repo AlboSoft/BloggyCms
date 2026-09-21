@@ -35,11 +35,16 @@ class TagModel implements ModelAPI {
     public function getAllPaginated($page = 1, $perPage = 12, $orderBy = 'name') {
         $offset = ($page - 1) * $perPage;
         
-        $orderClause = match($orderBy) {
-            'posts_count' => 'ORDER BY posts_count DESC, t.name ASC',
-            'created_at' => 'ORDER BY t.created_at DESC, t.name ASC', 
-            default => 'ORDER BY t.name ASC'
-        };
+        switch ($orderBy) {
+            case 'posts_count':
+                $orderClause = 'ORDER BY posts_count DESC, t.name ASC';
+                break;
+            case 'created_at':
+                $orderClause = 'ORDER BY t.created_at DESC, t.name ASC';
+                break;
+            default:
+                $orderClause = 'ORDER BY t.name ASC';
+        }
         
         $sql = "SELECT t.*, COUNT(pt.post_id) as posts_count 
                 FROM tags t 
@@ -71,11 +76,16 @@ class TagModel implements ModelAPI {
     * @return array Массив всех тегов
     */
     public function getAll($orderBy = 'name') {
-        $orderClause = match($orderBy) {
-            'posts_count' => 'ORDER BY posts_count DESC, t.name ASC',
-            'created_at' => 'ORDER BY t.created_at DESC, t.name ASC', 
-            default => 'ORDER BY t.name ASC'
-        };
+        switch ($orderBy) {
+            case 'posts_count':
+                $orderClause = 'ORDER BY posts_count DESC, t.name ASC';
+                break;
+            case 'created_at':
+                $orderClause = 'ORDER BY t.created_at DESC, t.name ASC';
+                break;
+            default:
+                $orderClause = 'ORDER BY t.name ASC';
+        }
         
         $sql = "SELECT t.*, COUNT(pt.post_id) as posts_count 
                 FROM tags t 
@@ -92,11 +102,16 @@ class TagModel implements ModelAPI {
     public function getFilteredTags($minPosts = 1, $page = 1, $perPage = 12, $orderBy = 'name') {
         $offset = ($page - 1) * $perPage;
         
-        $orderClause = match($orderBy) {
-            'posts_count' => 'ORDER BY posts_count DESC, t.name ASC',
-            'created_at' => 'ORDER BY t.created_at DESC, t.name ASC', 
-            default => 'ORDER BY t.name ASC'
-        };
+        switch ($orderBy) {
+            case 'posts_count':
+                $orderClause = 'ORDER BY posts_count DESC, t.name ASC';
+                break;
+            case 'created_at':
+                $orderClause = 'ORDER BY t.created_at DESC, t.name ASC';
+                break;
+            default:
+                $orderClause = 'ORDER BY t.name ASC';
+        }
         
         $sql = "SELECT t.*, COUNT(pt.post_id) as posts_count 
                 FROM tags t 

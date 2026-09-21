@@ -4,6 +4,7 @@ define('LANG_ACTION_TAGS_EDIT_TAG_NOT_FOUND', 'Тег не найден');
 define('LANG_ACTION_TAGS_EDIT_BREADCRUMB_DASHBOARD', 'Панель управления');
 define('LANG_ACTION_TAGS_EDIT_BREADCRUMB_TAGS', 'Теги');
 define('LANG_ACTION_TAGS_EDIT_BREADCRUMB_EDIT', 'Редактирование: %s');
+define('LANG_ACTION_TAGS_EDIT_ERROR', 'Ошибка при обновлении тега: ');
 define('LANG_ACTION_TAGS_EDIT_ERROR_EMPTY_NAME', 'Название тега не может быть пустым');
 define('LANG_ACTION_TAGS_EDIT_ERROR_NAME_EXISTS', 'Тег с таким названием уже существует');
 define('LANG_ACTION_TAGS_EDIT_SUCCESS', 'Тег успешно обновлен');
