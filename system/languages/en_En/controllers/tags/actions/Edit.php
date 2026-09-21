@@ -4,6 +4,7 @@ define('LANG_ACTION_TAGS_EDIT_TAG_NOT_FOUND', 'Tag not found');
 define('LANG_ACTION_TAGS_EDIT_BREADCRUMB_DASHBOARD', 'Dashboard');
 define('LANG_ACTION_TAGS_EDIT_BREADCRUMB_TAGS', 'Tags');
 define('LANG_ACTION_TAGS_EDIT_BREADCRUMB_EDIT', 'Editing: %s');
+define('LANG_ACTION_TAGS_EDIT_ERROR', 'Error updating tag: ');
 define('LANG_ACTION_TAGS_EDIT_ERROR_EMPTY_NAME', 'Tag name cannot be empty');
 define('LANG_ACTION_TAGS_EDIT_ERROR_NAME_EXISTS', 'A tag with this name already exists');
 define('LANG_ACTION_TAGS_EDIT_SUCCESS', 'Tag successfully updated');

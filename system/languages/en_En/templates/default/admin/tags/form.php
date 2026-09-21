@@ -4,3 +4,4 @@ define('LANG_TEMPLATE_TAGS_FORM_CREATE_TITLE', 'Create Tag');
 define('LANG_TEMPLATE_TAGS_FORM_BACK_BTN', 'Back to Tags');
 define('LANG_TEMPLATE_TAGS_FORM_SAVE_BTN', 'Save');
 define('LANG_TEMPLATE_TAGS_FORM_CANCEL_BTN', 'Cancel');
+define('LANG_TEMPLATE_TAGS_FORM_DELETE_IMAGE', 'Delete image');

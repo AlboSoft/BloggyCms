@@ -8,102 +8,63 @@ namespace tags\actions;
 */
 class Create extends TagAction {
     
+    protected $pageTitle;
+    
     /**
     * Метод выполнения создания тега
     * @return void
     */
     public function execute() {
 
+        $this->pageTitle = LANG_ACTION_TAGS_CREATE_PAGE_TITLE;
         $this->addBreadcrumb(LANG_ACTION_TAGS_CREATE_BREADCRUMB_DASHBOARD, ADMIN_URL);
         $this->addBreadcrumb(LANG_ACTION_TAGS_CREATE_BREADCRUMB_TAGS, ADMIN_URL . '/tags');
         $this->addBreadcrumb(LANG_ACTION_TAGS_CREATE_BREADCRUMB_CREATE);
         
-        $form = new \TagForm($this->db);
-        
-        try {
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $this->handlePostRequest($form);
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            try {
+                $data = [
+                    'name' => trim($_POST['name'] ?? ''),
+                    'description' => trim($_POST['description'] ?? ''),
+                ];
+                
+                if (empty($data['name'])) {
+                    throw new \Exception(LANG_ACTION_TAGS_CREATE_ERROR_EMPTY_NAME);
+                }
+                
+                if ($this->tagModel->isNameExists($data['name'])) {
+                    throw new \Exception(LANG_ACTION_TAGS_CREATE_ERROR_NAME_EXISTS);
+                }
+                
+                if (!empty($_FILES['image']['name'])) {
+                    $uploadDir = UPLOADS_PATH . '/tags';
+                    $allowedTypes = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+                    $maxSize = 2048;
+                    $fileName = \FileUpload::upload($_FILES['image'], $uploadDir, $allowedTypes, $maxSize);
+                    $data['image'] = $fileName;
+                } else {
+                    $data['image'] = null;
+                }
+                
+                $this->tagModel->create($data);
+                
+                \Notification::success(LANG_ACTION_TAGS_CREATE_SUCCESS);
+                $this->redirect(ADMIN_URL . '/tags');
+                return;
+                
+            } catch (\Exception $e) {
+                \Notification::error($e->getMessage());
+
+                $this->render('admin/tags/form', [
+                    'data' => $_POST,
+                    'pageTitle' => $this->pageTitle
+                ]);
                 return;
             }
-            
-            $this->renderCreateForm($form);
-            
-        } catch (\Exception $e) {
-            $this->handleError($e, $form);
-        }
-    }
-    
-    /**
-    * Обрабатывает POST-запрос на создание тега
-    * @param \TagForm $form Объект формы
-    * @return void
-    * @throws \Exception При ошибках валидации
-    */
-    private function handlePostRequest($form) {
-
-        $csrfToken = $_POST['simple_csrf'] ?? '';
-        if ($csrfToken !== md5(session_id())) {
-            throw new \Exception(LANG_ACTION_TAGS_CREATE_ERROR_INVALID_CSRF);
         }
         
-        $form->handleRequest($_POST, $_FILES);
-        
-        if (!$form->isValid()) {
-            foreach ($form->getErrors() as $field => $errors) {
-                foreach ($errors as $error) {
-                    \Notification::error($error);
-                }
-            }
-            $this->renderCreateForm($form);
-            return;
-        }
-        
-        $data = $form->getFieldsData();
-        $name = trim($data['name'] ?? '');
-        
-        $existingTags = $this->tagModel->searchByName($name, 1);
-        if (!empty($existingTags)) {
-            throw new \Exception(LANG_ACTION_TAGS_CREATE_ERROR_NAME_EXISTS);
-        }
-        
-        $slug = $this->tagModel->createSlugFromName($name);
-        
-        $tagData = [
-            'name' => $name,
-            'slug' => $slug,
-            'description' => $data['description'] ?? null,
-            'image' => $data['image'] ?? null
-        ];
-
-        $this->tagModel->create($tagData);
-        
-        \Notification::success(LANG_ACTION_TAGS_CREATE_SUCCESS);
-        $this->redirect(ADMIN_URL . '/tags');
-    }
-    
-    /**
-    * Отображает форму создания тега
-    * @param \TagForm $form Объект формы
-    * @param array $currentData Данные для заполнения формы (при ошибке)
-    * @return void
-    */
-    private function renderCreateForm($form, $currentData = []) {
         $this->render('admin/tags/form', [
-            'form' => $form,
-            'tag' => null,
-            'currentData' => $currentData,
-            'pageTitle' => LANG_ACTION_TAGS_CREATE_PAGE_TITLE
+            'pageTitle' => $this->pageTitle
         ]);
-    }
-    
-    /**
-    * Обрабатывает ошибку при создании тега
-    * @param \Exception $e Исключение
-    * @param \TagForm $form Объект формы
-    * @return void
-    */
-    private function handleError($e, $form) {
-        \Notification::error($e->getMessage());
-        $this->renderCreateForm($form);
     }
 }
