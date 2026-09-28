@@ -159,14 +159,41 @@ abstract class PostAction {
     * @return void
     */
     protected function processPostBlocks($postId, $blocksData) {
+        $this->validatePostBlocks($blocksData);
+
+        $this->db->beginTransaction();
         try {
             $this->postBlockModel->deleteByPost($postId);
 
             foreach ($blocksData as $index => $block) {
                 $this->processSingleBlock($postId, $block, $index);
             }
-        } catch (\Exception $e) {
+            $this->db->commit();
+        } catch (\Throwable $e) {
+            $this->db->rollBack();
             throw $e;
+        }
+    }
+
+    /**
+    * Проверяет все блоки до записи поста, чтобы некорректные настройки
+    * не приводили к частично созданной/обновлённой записи.
+    */
+    protected function validatePostBlocks($blocksData) {
+        foreach ($blocksData as $block) {
+            if (!is_array($block) || empty($block['type'])) {
+                throw new \Exception(LANG_ACTION_POSTS_BLOCK_INVALID);
+            }
+
+            $postBlock = $this->postBlockManager->getPostBlock($block['type']);
+            // Если плагин блока сейчас не установлен, сохраняем существующий
+            // контент без валидации, как и в прежнем редакторе.
+            if ($postBlock && $postBlock['class']) {
+                list($isValid, $errors) = $postBlock['class']->validateSettings($block['settings'] ?? []);
+                if (!$isValid) {
+                    throw new \Exception(sprintf(LANG_ACTION_POSTS_BLOCK_SETTINGS_ERRORS, $postBlock['name'], implode(', ', $errors)));
+                }
+            }
         }
     }
 
@@ -182,14 +209,6 @@ abstract class PostAction {
         $blockType = $block['type'];
         $content = $block['content'] ?? [];
         $settings = $block['settings'] ?? [];
-
-        $postBlock = $this->postBlockManager->getPostBlock($blockType);
-        if ($postBlock && $postBlock['class']) {
-            list($isValid, $errors) = $postBlock['class']->validateSettings($settings);
-            if (!$isValid) {
-                throw new \Exception('Ошибки в настройках блока "' . $postBlock['name'] . '": ' . implode(', ', $errors));
-            }
-        }
 
         $this->postBlockModel->createForPost(
             $postId,

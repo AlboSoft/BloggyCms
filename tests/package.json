@@ -1,0 +1,10 @@
+{
+  "name": "bloggycms-post-builder-tests",
+  "private": true,
+  "scripts": {
+    "test": "node post-builder.test.cjs"
+  },
+  "devDependencies": {
+    "jsdom": "^26.1.0"
+  }
+}

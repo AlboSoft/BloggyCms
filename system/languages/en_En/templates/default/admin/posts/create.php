@@ -60,3 +60,5 @@ define('LANG_TEMPLATE_POSTS_CREATE_SEO_TITLE_PLACEHOLDER', 'SEO title (if differ
 define('LANG_TEMPLATE_POSTS_CREATE_SEO_TITLE_HINT', 'If left empty, the post title will be used.');
 define('LANG_TEMPLATE_POSTS_CREATE_META_DESC_LABEL', 'Meta Description');
 define('LANG_TEMPLATE_POSTS_CREATE_SUBMIT_BTN', 'Create Post');
+define('LANG_TEMPLATE_POSTS_CREATE_CONTENT_TITLE', 'Content builder');
+define('LANG_TEMPLATE_POSTS_CREATE_CONTENT_HINT', 'Drag blocks to reorder, insert them between blocks or edit them in place');

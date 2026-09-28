@@ -116,6 +116,13 @@ class Edit extends PostAction {
     */
     private function handlePostRequest($id, $post, $categories, $tags, $postTags, $preparedBlocks, $hasCategories) {
         $this->validateRequiredFields($hasCategories);
+        if (isset($_POST['post_blocks'])) {
+            $submittedBlocks = json_decode($_POST['post_blocks'], true);
+            if (!is_array($submittedBlocks)) {
+                throw new \Exception(LANG_ACTION_POSTS_BLOCKS_INVALID);
+            }
+            $this->validatePostBlocks($submittedBlocks);
+        }
         $data = $this->preparePostData($id, $post, $hasCategories);
         $this->postModel->update($id, $data);
         $this->updatePostBlocks($id);
@@ -439,6 +446,14 @@ class Edit extends PostAction {
     * @return void
     */
     private function handleError($e, $post, $categories, $tags, $postTags, $preparedBlocks, $hasCategories) {
+        // При неудачной валидации возвращаем редактору отправленные, а не
+        // сохранённые в БД блоки, чтобы пользователь не потерял правки.
+        if (isset($_POST['post_blocks'])) {
+            $submittedBlocks = json_decode($_POST['post_blocks'], true);
+            if (is_array($submittedBlocks)) {
+                $preparedBlocks = $submittedBlocks;
+            }
+        }
         if ($this->isAjaxRequest()) {
             header('Content-Type: application/json');
             echo json_encode([

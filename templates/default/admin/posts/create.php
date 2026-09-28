@@ -1,9 +1,10 @@
 <?php
-add_admin_js('templates/default/admin/assets/js/controllers/post-blocks.js');
+add_admin_js('templates/default/admin/assets/js/controllers/post-builder.js');
 add_admin_js('templates/default/admin/assets/js/controllers/tags-autocomplete.js');
 add_admin_js('templates/default/admin/assets/js/controllers/posts-management.js');
 add_admin_js('templates/default/admin/assets/js/controllers/image-upload.js');
 add_admin_css('templates/default/admin/assets/css/controllers/post-blocks.css');
+add_admin_css('templates/default/admin/assets/css/controllers/post-builder.css');
 ?>
 
 <div class="container-fluid p-0">
@@ -19,11 +20,8 @@ add_admin_css('templates/default/admin/assets/css/controllers/post-blocks.css');
     </div>
 
     <form method="post" id="post-form" enctype="multipart/form-data">
-        <input type="hidden" name="blocks" id="blocks-input" value="<?php echo html(json_encode(array()), ENT_QUOTES); ?>">
         <input type="hidden" name="uploaded_image_path" id="uploaded-image-path" value="">
         <input type="hidden" name="uploaded_image_url" id="uploaded-image-url" value="">
-        
-        <div id="blocks-files-container" style="display: none;"></div>
         
         <div class="row">
             <div class="col-lg-9">
@@ -31,57 +29,25 @@ add_admin_css('templates/default/admin/assets/css/controllers/post-blocks.css');
                     <div class="card-body">
                         <div class="mb-4">
                             <label class="form-label"><?php echo LANG_TEMPLATE_POSTS_CREATE_TITLE_LABEL; ?></label>
-                            <input type="text" class="form-control form-control-lg" name="title" required>
+                            <input type="text" class="form-control form-control-lg" name="title" value="<?php echo html($post['title'] ?? ''); ?>" required>
                         </div>
 
                         <div class="mb-4">
                             <label class="form-label"><?php echo LANG_TEMPLATE_POSTS_CREATE_SHORT_DESC_LABEL; ?></label>
                             <textarea class="form-control" name="short_description" rows="3" 
-                                    placeholder="<?php echo LANG_TEMPLATE_POSTS_CREATE_SHORT_DESC_PLACEHOLDER; ?>"></textarea>
+                                    placeholder="<?php echo LANG_TEMPLATE_POSTS_CREATE_SHORT_DESC_PLACEHOLDER; ?>"><?php echo html($post['short_description'] ?? ''); ?></textarea>
                             <div class="form-text"><?php echo LANG_TEMPLATE_POSTS_CREATE_SHORT_DESC_HINT; ?></div>
                         </div>
                         
-                        <div class="card mb-4 sticky-top" style="top: 20px; z-index: 1000;">
-                            <div class="card-header bg-white py-2">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <h6 class="mb-0 text-muted small"><?php echo LANG_TEMPLATE_POSTS_CREATE_AVAILABLE_BLOCKS; ?></h6>
-                                    <div class="d-flex align-items-center">
-                                        <select class="form-select form-select-sm me-2" id="block-category-filter" style="width: auto;">
-                                            <option value="all"><?php echo LANG_TEMPLATE_POSTS_CREATE_FILTER_ALL; ?></option>
-                                            <option value="text">🖊️ <?php echo LANG_TEMPLATE_POSTS_CREATE_FILTER_TEXT; ?></option>
-                                            <option value="media">🎞️ <?php echo LANG_TEMPLATE_POSTS_CREATE_FILTER_MEDIA; ?></option>
-                                            <option value="layout">🔩 <?php echo LANG_TEMPLATE_POSTS_CREATE_FILTER_LAYOUT; ?></option>
-                                            <option value="advanced">🧲 <?php echo LANG_TEMPLATE_POSTS_CREATE_FILTER_ADVANCED; ?></option>
-                                            <option value="basic">✔️ <?php echo LANG_TEMPLATE_POSTS_CREATE_FILTER_BASIC; ?></option>
-                                        </select>
-                                        
-                                        <div class="input-group input-group-sm" style="width: 200px;">
-                                            <input type="text" class="form-control" id="block-search" placeholder="<?php echo LANG_TEMPLATE_POSTS_CREATE_SEARCH_PLACEHOLDER; ?>">
-                                            <button class="btn btn-outline-secondary" type="button" id="clear-search">
-                                                <?php echo bloggy_icon('bs', 'x', '16', '#000'); ?>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
+                        <div class="mb-0">
+                            <div class="d-flex align-items-end justify-content-between mb-2">
+                                <label class="form-label mb-0"><?php echo LANG_TEMPLATE_POSTS_CREATE_CONTENT_TITLE; ?></label>
+                                <small class="text-muted"><?php echo LANG_TEMPLATE_POSTS_CREATE_CONTENT_HINT; ?></small>
                             </div>
-                            <div class="card-body py-2">
-                                <div id="post-block-buttons" class="d-flex flex-wrap gap-1"></div>
-                            </div>
+                            <div id="post-builder" class="post-builder" data-storage-key="post-create"></div>
                         </div>
 
-                        <div class="card">
-                            <div class="card-body p-0">
-                                <div id="post-blocks-container" class="min-h-100" style="min-height: 400px;">
-                                    <div class="text-center text-muted py-5 empty-state">
-                                        <?php echo bloggy_icon('bs', 'inbox', '48', '#6C6C6C', 'mb-3'); ?>
-                                        <p class="mb-1"><?php echo LANG_TEMPLATE_POSTS_CREATE_NO_BLOCKS_TITLE; ?></p>
-                                        <small class="text-muted"><?php echo LANG_TEMPLATE_POSTS_CREATE_NO_BLOCKS_HINT; ?></small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <input type="hidden" name="post_blocks" id="post_blocks_data" value="">
+                        <input type="hidden" name="post_blocks" id="post_blocks_data" value="<?php echo html(json_encode($preparedBlocks ?? array()), ENT_QUOTES); ?>">
                     </div>
                 </div>
                 
@@ -406,8 +372,8 @@ add_admin_css('templates/default/admin/assets/css/controllers/post-blocks.css');
 
 <?php ob_start(); ?>
 <script>
-    window.availablePostBlocks = <?php echo json_encode($postBlockManager->getPostBlocksForJS()); ?>;
-    window.initialPostBlocks = <?php echo json_encode(array()); ?>;
+    window.availablePostBlocks = <?php echo json_encode($postBlockManager->getPostBlocksForJS(), JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>;
+    window.initialPostBlocks = <?php echo json_encode($preparedBlocks ?? array(), JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>;
     window.MAX_TAGS_PER_POST = <?php echo $maxTags; ?>;
 </script>
 <?php admin_bottom_js(ob_get_clean()); ?>

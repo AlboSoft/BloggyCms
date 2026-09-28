@@ -147,4 +147,24 @@ class AdminPostBlockController extends Controller {
         $action->setController($this);
         return $action->execute();
     }
+
+    /**
+    * Пакетно получает HTML-предпросмотр нескольких постблоков
+    * @return void
+    */
+    public function adminGetPreviewsAction() {
+        $action = new \postblocks\actions\AdminGetPreviews($this->db);
+        $action->setController($this);
+        return $action->execute();
+    }
+
+    /**
+    * Получает контент и настройки по умолчанию для постблока одним запросом
+    * @return void
+    */
+    public function getBlockBlueprintAction() {
+        $action = new \postblocks\actions\AdminGetBlockBlueprint($this->db);
+        $action->setController($this);
+        return $action->execute();
+    }
 }

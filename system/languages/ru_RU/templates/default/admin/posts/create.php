@@ -60,3 +60,5 @@ define('LANG_TEMPLATE_POSTS_CREATE_SEO_TITLE_PLACEHOLDER', 'SEO заголово
 define('LANG_TEMPLATE_POSTS_CREATE_SEO_TITLE_HINT', 'Если оставить пустым, будет использоваться заголовок поста.');
 define('LANG_TEMPLATE_POSTS_CREATE_META_DESC_LABEL', 'Meta Description');
 define('LANG_TEMPLATE_POSTS_CREATE_SUBMIT_BTN', 'Создать пост');
+define('LANG_TEMPLATE_POSTS_CREATE_CONTENT_TITLE', 'Конструктор контента');
+define('LANG_TEMPLATE_POSTS_CREATE_CONTENT_HINT', 'Блоки можно перетаскивать, вставлять между блоками и редактировать на месте');
