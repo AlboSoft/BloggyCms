@@ -2,8 +2,9 @@
 add_admin_js('templates/default/admin/assets/js/controllers/tags-autocomplete.js');
 add_admin_js('templates/default/admin/assets/js/controllers/posts-management.js');
 add_admin_js('templates/default/admin/assets/js/controllers/image-upload.js');
-add_admin_js('templates/default/admin/assets/js/controllers/post-blocks.js');
+add_admin_js('templates/default/admin/assets/js/controllers/post-builder.js');
 add_admin_css('templates/default/admin/assets/css/controllers/post-blocks.css');
+add_admin_css('templates/default/admin/assets/css/controllers/post-builder.css');
 ?>
 <div class="container-fluid p-0">
     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -39,45 +40,12 @@ add_admin_css('templates/default/admin/assets/css/controllers/post-blocks.css');
                             <div class="form-text"><?php echo LANG_TEMPLATE_POSTS_EDIT_SHORT_DESC_HINT; ?></div>
                         </div>
                         
-                        <div class="card mb-4 sticky-top" style="top: 20px; z-index: 1000;">
-                            <div class="card-header bg-white py-2">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <h6 class="mb-0 text-muted small"><?php echo LANG_TEMPLATE_POSTS_EDIT_AVAILABLE_BLOCKS; ?></h6>
-                                    <div class="d-flex align-items-center">
-                                        <select class="form-select form-select-sm me-2" id="block-category-filter" style="width: auto;">
-                                            <option value="all"><?php echo LANG_TEMPLATE_POSTS_EDIT_FILTER_ALL; ?></option>
-                                            <option value="text">🖊️ <?php echo LANG_TEMPLATE_POSTS_EDIT_FILTER_TEXT; ?></option>
-                                            <option value="media">🎞️ <?php echo LANG_TEMPLATE_POSTS_EDIT_FILTER_MEDIA; ?></option>
-                                            <option value="layout">🔩 <?php echo LANG_TEMPLATE_POSTS_EDIT_FILTER_LAYOUT; ?></option>
-                                            <option value="advanced">🧲 <?php echo LANG_TEMPLATE_POSTS_EDIT_FILTER_ADVANCED; ?></option>
-                                            <option value="basic">✔️ <?php echo LANG_TEMPLATE_POSTS_EDIT_FILTER_BASIC; ?></option>
-                                        </select>
-                                        
-                                        <div class="input-group input-group-sm" style="width: 200px;">
-                                            <input type="text" class="form-control" id="block-search" placeholder="<?php echo LANG_TEMPLATE_POSTS_EDIT_SEARCH_PLACEHOLDER; ?>">
-                                            <button class="btn btn-outline-secondary" type="button" id="clear-search">
-                                                <?php echo bloggy_icon('bs', 'x', '16', '#000'); ?>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
+                        <div class="mb-0">
+                            <div class="d-flex align-items-end justify-content-between mb-2">
+                                <label class="form-label mb-0"><?php echo LANG_TEMPLATE_POSTS_EDIT_CONTENT_TITLE; ?></label>
+                                <small class="text-muted"><?php echo LANG_TEMPLATE_POSTS_EDIT_CONTENT_HINT; ?></small>
                             </div>
-                            <div class="card-body py-2">
-                                <div id="post-block-buttons" class="d-flex flex-wrap gap-1">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <div class="card-body p-0">
-                                <div id="post-blocks-container" class="min-h-100" style="min-height: 400px;">
-                                    <div class="text-center text-muted py-5 empty-state">
-                                        <?php echo bloggy_icon('bs', 'inbox', '48', '#6C6C6C', 'mb-3'); ?>
-                                        <p class="mb-1"><?php echo LANG_TEMPLATE_POSTS_EDIT_NO_BLOCKS_TITLE; ?></p>
-                                        <small class="text-muted"><?php echo LANG_TEMPLATE_POSTS_EDIT_NO_BLOCKS_HINT; ?></small>
-                                    </div>
-                                </div>
-                            </div>
+                            <div id="post-builder" class="post-builder" data-storage-key="post-<?php echo (int)$post['id']; ?>"></div>
                         </div>
                     </div>
                 </div>
@@ -470,8 +438,8 @@ add_admin_css('templates/default/admin/assets/css/controllers/post-blocks.css');
 
 <?php ob_start(); ?>
 <script>
-    window.availablePostBlocks = <?php echo json_encode($postBlockManager->getPostBlocksForJS()); ?>;
-    window.initialPostBlocks = <?php echo json_encode($preparedBlocks ?? array()); ?>;
+    window.availablePostBlocks = <?php echo json_encode($postBlockManager->getPostBlocksForJS(), JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>;
+    window.initialPostBlocks = <?php echo json_encode($preparedBlocks ?? array(), JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>;
     window.isEditMode = true;
     window.MAX_TAGS_PER_POST = <?php echo \SettingsHelper::get('controller_tags', 'max_tags_per_post', 10); ?>;
 </script>

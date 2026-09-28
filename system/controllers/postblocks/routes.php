@@ -4,6 +4,8 @@ return [
     'admin/post-blocks/edit/{system_name}' => ['controller' => 'AdminPostBlock', 'action' => 'edit', 'admin' => true],
     'admin/post-blocks/edit' => ['controller' => 'AdminPostBlock', 'action' => 'edit', 'admin' => true],
     'admin/post-blocks/get-preview' => ['controller' => 'AdminPostBlock', 'action' => 'adminGetPreview', 'admin' => true],
+    'admin/post-blocks/get-previews' => ['controller' => 'AdminPostBlock', 'action' => 'adminGetPreviews', 'admin' => true],
+    'admin/post-blocks/get-block-blueprint' => ['controller' => 'AdminPostBlock', 'action' => 'getBlockBlueprint', 'admin' => true],
     'admin/post-blocks/get-settings-form' => ['controller' => 'AdminPostBlock', 'action' => 'getSettingsForm', 'admin' => true],
     'admin/post-blocks/save-block' => ['controller' => 'AdminPostBlock', 'action' => 'saveBlock', 'admin' => true],
     'admin/post-blocks/upload-block-files' => ['controller' => 'AdminPostBlock', 'action' => 'uploadBlockFiles', 'admin' => true],

@@ -48,9 +48,11 @@ class Create extends PostAction {
     */
     private function handlePostRequest($categories, $tags, $maxTags, $hasCategories) {
         $this->validateRequiredFields($maxTags, $hasCategories);
+        $submittedBlocks = $this->getSubmittedBlocks();
+        $this->validatePostBlocks($submittedBlocks);
         $postData = $this->preparePostData();
         $postId = $this->postModel->create($postData);
-        $this->processPostBlocks($postId);
+        $this->processPostBlocks($postId, $submittedBlocks);
         $this->processPostTags($postId);
         $this->processCustomFields($postId);
         
@@ -288,6 +290,18 @@ class Create extends PostAction {
     }
 
     /**
+    * Извлекает блоки из отправленной формы до создания записи.
+    * @return array
+    */
+    private function getSubmittedBlocks() {
+        $blocks = json_decode($_POST['post_blocks'] ?? '[]', true);
+        if (!is_array($blocks)) {
+            throw new \Exception(LANG_ACTION_POSTS_BLOCKS_INVALID);
+        }
+        return $blocks;
+    }
+
+    /**
     * Обрабатывает ошибку при создании поста
     * @param \Exception $e Исключение
     * @param array $categories Список категорий
@@ -299,10 +313,12 @@ class Create extends PostAction {
     private function handleError($e, $categories, $tags, $maxTags, $hasCategories) {
         \Notification::error($e->getMessage());
         
+        $submittedBlocks = json_decode($_POST['post_blocks'] ?? '[]', true);
         $this->render('admin/posts/create', [
             'categories' => $categories,
             'tags' => $tags,
             'post' => $_POST,
+            'preparedBlocks' => is_array($submittedBlocks) ? $submittedBlocks : [],
             'postBlockManager' => $this->postBlockManager,
             'maxTags' => $maxTags,
             'hasCategories' => $hasCategories

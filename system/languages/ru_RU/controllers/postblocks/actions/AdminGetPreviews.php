@@ -1,0 +1,2 @@
+<?php
+define('LANG_ACTION_POSTBLOCKS_ADMINGETPREVIEWS_BLOCKS_NOT_SPECIFIED', 'Список блоков не передан');
