@@ -1,27 +1,5 @@
-/**
- * BloggyCMS — конструктор контента поста (Post Blocks Builder).
- *
- * Полноценный блочный редактор вместо «клик по кнопке → модальное окно»:
- *  - полотно с точками вставки «+» между блоками;
- *  - палитра блоков с поиском, категориями, горячими клавишами и шаблонами;
- *  - боковой инспектор с живым превью (без модальных окон);
- *  - инлайн-редактирование текста двойным кликом;
- *  - перетаскивание, дублирование, перемещение, буфер обмена блоками;
- *  - история (undo/redo), автосохранение черновика, поиск по контенту,
- *    режим «Структура», счётчики слов и времени чтения.
- *
- * Совместимость:
- *  - данные по-прежнему пишутся в скрытое поле #post_blocks_data
- *    (массив {id, type, content, settings, order});
- *  - глобальный window.postBlocksManager.editBlock(id) используется
- *    кнопками внутри серверных превью блоков.
- */
 (function () {
     'use strict';
-
-    /* ======================================================================
-       Локализация интерфейса
-       ====================================================================== */
 
     var LOCALE = (function () {
         try {
@@ -196,10 +174,6 @@
         return t(key).replace(/%s/g, function () { return args.shift(); });
     }
 
-    /* ======================================================================
-       Категории блоков и готовые наборы
-       ====================================================================== */
-
     var CATEGORY_ORDER = ['basic', 'text', 'media', 'layout', 'advanced', 'other'];
 
     var CATEGORY_LABELS = {
@@ -220,7 +194,6 @@
         { id: 'faq', icon: 'bi-question-circle', ru: 'FAQ', en: 'FAQ', types: ['HeaderBlock', 'SpoilerBlock', 'SpoilerBlock'] }
     ];
 
-    /** Блоки, текст которых можно править двойным кликом прямо на полотне. */
     var INLINE_EDITABLE = {
         TextBlock: { field: 'content', rich: true },
         HeaderBlock: { field: 'text', tag: 'h2' },
@@ -233,10 +206,6 @@
     };
 
     var STORE_PREFIX = 'bloggy.builder.';
-
-    /* ======================================================================
-       Утилиты
-       ====================================================================== */
 
     function uid() {
         return 'block_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 9);
@@ -315,7 +284,6 @@
         return tag === 'input' || tag === 'textarea' || tag === 'select' || target.isContentEditable === true;
     }
 
-    /** Собирает весь текст из произвольной структуры content/settings. */
     function collectText(value) {
         if (value === null || value === undefined) return '';
         if (typeof value === 'string' || typeof value === 'number') return stripTags(value);
@@ -328,10 +296,6 @@
         var words = String(text).trim().split(/\s+/).filter(Boolean);
         return words.length;
     }
-
-    /* ======================================================================
-       Конструктор
-       ====================================================================== */
 
     class PostBlocksManager {
         constructor(options) {
@@ -379,10 +343,6 @@
             this.checkDraft();
             this.startAutosave();
         }
-
-        /* ------------------------------------------------------------------
-           Инициализация
-           ------------------------------------------------------------------ */
 
         ensureAdminUrl() {
             if (typeof window.ADMIN_URL === 'undefined' || !window.ADMIN_URL) {
@@ -514,10 +474,6 @@
                 order: Number.isFinite(Number(block.order)) ? Number(block.order) : 0
             };
         }
-
-        /* ------------------------------------------------------------------
-           Рендер
-           ------------------------------------------------------------------ */
 
         render(options) {
             options = options || {};
@@ -730,10 +686,6 @@
             return block.type + ':' + hashOf(block.content) + ':' + hashOf(block.settings);
         }
 
-        /* ------------------------------------------------------------------
-           История изменений
-           ------------------------------------------------------------------ */
-
         pushHistory() {
             this.history.past.push(JSON.stringify(this.blocks));
             if (this.history.past.length > 60) this.history.past.shift();
@@ -776,10 +728,6 @@
             this.blocks.forEach(function (block, index) { block.order = index; });
             this.hiddenField.value = JSON.stringify(this.blocks);
         }
-
-        /* ------------------------------------------------------------------
-           Операции над блоками
-           ------------------------------------------------------------------ */
 
         findBlock(id) {
             for (var i = 0; i < this.blocks.length; i++) {
@@ -934,10 +882,6 @@
             }
         }
 
-        /* ------------------------------------------------------------------
-           Серверное взаимодействие
-           ------------------------------------------------------------------ */
-
         async api(action, payload) {
             var response = await fetch(window.ADMIN_URL + '/post-blocks/' + action, {
                 method: 'POST',
@@ -990,15 +934,11 @@
             return presets;
         }
 
-        /** Совместимость со старым API (используется сторонним кодом блоков). */
+        /** Совместимость со старым API */
         editBlock(blockId) {
             this.select(blockId, { openInspector: true });
             this.scrollToBlock(blockId);
         }
-
-        /* ------------------------------------------------------------------
-           Превью
-           ------------------------------------------------------------------ */
 
         normalizeContentData(type, content) {
             if (!content) return {};
@@ -1038,9 +978,6 @@
                 }.bind(this));
                 if (!batch.length) continue;
 
-                // Ключи фиксируются до отправки запроса: ответ не должен
-                // затереть более свежий инлайн-контент, отредактированный
-                // пока грузилось превью.
                 var signatures = {};
                 batch.forEach(function (block) { signatures[block.id] = this.cacheKey(block); }.bind(this));
 
@@ -1063,9 +1000,6 @@
                     }
                 }
                 batchIds.forEach(function (id) { this.pendingPreviewIds.delete(id); }.bind(this));
-                // При изменении блока во время запроса перерисовываем его
-                // по актуальным данным: иначе после undo может остаться
-                // бесконечный скелетон.
                 batch.forEach(function (block) {
                     var current = this.findBlock(block.id);
                     if (current && this.cacheKey(current) !== signatures[block.id]) {
@@ -1134,10 +1068,6 @@
             this.previewCache.delete(this.cacheKey(block));
             await this.fetchSinglePreview(block);
         }
-
-        /* ------------------------------------------------------------------
-           Инспектор
-           ------------------------------------------------------------------ */
 
         async openInspector(blockId) {
             var block = this.findBlock(blockId);
@@ -1425,8 +1355,6 @@
                     var selected = presetSelect.options[presetSelect.selectedIndex];
                     settings.preset_name = selected ? selected.getAttribute('data-name') : '';
                 } else {
-                    // Пустые значения явно перекрывают прежний пресет при
-                    // Object.assign (иначе «Без пресета» не снимает выбор).
                     settings.preset_id = '';
                     settings.preset_name = '';
                 }
@@ -1523,10 +1451,6 @@
             if (body) body.innerHTML = '';
         }
 
-        /* ------------------------------------------------------------------
-           Инлайн-редактирование
-           ------------------------------------------------------------------ */
-
         startInlineEdit(blockId) {
             var block = this.findBlock(blockId);
             if (!block) return;
@@ -1536,8 +1460,6 @@
                 return;
             }
 
-            // Инлайн-редактирование и инспектор не должны одновременно
-            // править один и тот же блок.
             this.closeInspector();
             this.select(blockId, { openInspector: false });
 
@@ -1613,10 +1535,6 @@
                 event.stopPropagation();
             });
         }
-
-        /* ------------------------------------------------------------------
-           Палитра блоков
-           ------------------------------------------------------------------ */
 
         openPicker(index, anchor) {
             if (!this.hasBlocks) {
@@ -1871,10 +1789,6 @@
             storeSet('recent', recent.slice(0, 6));
         }
 
-        /* ------------------------------------------------------------------
-           Поиск по контенту
-           ------------------------------------------------------------------ */
-
         applySearch(query) {
             this.search = (query || '').trim().toLowerCase();
             if (this.searchWrap) this.searchWrap.classList.toggle('has-value', !!this.search);
@@ -1890,10 +1804,6 @@
             }
             this.render();
         }
-
-        /* ------------------------------------------------------------------
-           Черновик и автосохранение
-           ------------------------------------------------------------------ */
 
         signature(blocks) {
             return hashOf((blocks || []).map(function (block) {
@@ -1964,10 +1874,6 @@
             setTimeout(function () { this.updateSavedBadge(); }.bind(this), 1800);
         }
 
-        /* ------------------------------------------------------------------
-           Уведомления
-           ------------------------------------------------------------------ */
-
         toast(message, type) {
             var existing = document.querySelector('.pbe-toast');
             if (existing) existing.remove();
@@ -1985,10 +1891,6 @@
                 setTimeout(function () { el.remove(); }, 220);
             }, 2600);
         }
-
-        /* ------------------------------------------------------------------
-           События
-           ------------------------------------------------------------------ */
 
         bindEvents() {
             var self = this;
@@ -2147,8 +2049,6 @@
             var form = document.getElementById('post-form');
             if (form) {
                 form.addEventListener('submit', function (event) {
-                    // Сохраняем текущий блок до поста: это необходимо для
-                    // загрузки файлов и нормализации вложенных полей.
                     if (self.inspectorBlockId) {
                         event.preventDefault();
                         self.applyInspector().then(function (ok) {
@@ -2160,8 +2060,6 @@
                         return;
                     }
                     self.syncHiddenField();
-                    // Серверные ошибки повторно показывают форму с отправленными блоками.
-                    // После успешной отправки старый черновик не должен всплывать снова.
                     storeRemove('draft:' + self.storageKey);
                     self.dirty = false;
                 });
@@ -2321,10 +2219,6 @@
             this.render({ scrollTo: this.selectedId });
         }
 
-        /* ------------------------------------------------------------------
-           Публичные хелперы (используются кодом блоков)
-           ------------------------------------------------------------------ */
-
         reinitializeAllBlocks() {
             if (window.ListBlockAdmin && typeof window.ListBlockAdmin.reinitializeAll === 'function') {
                 window.ListBlockAdmin.reinitializeAll();
@@ -2339,10 +2233,6 @@
             return this.blocks;
         }
     }
-
-    /* ======================================================================
-       Запуск
-       ====================================================================== */
 
     function boot() {
         if (!document.getElementById('post-builder') || window.postBlocksManager) return;
