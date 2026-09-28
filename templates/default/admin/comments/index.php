@@ -68,26 +68,13 @@
                                         </small>
                                     </td>
                                     <td>
-                                        <div class="d-flex justify-content-end gap-2">
-                                            <a href="<?php echo ADMIN_URL; ?>/comments/edit/<?php echo $comment['id']; ?>" 
-                                               class="btn btn-sm btn-outline-primary"
-                                               title="<?php echo LANG_TEMPLATE_COMMENTS_INDEX_ACTION_EDIT; ?>">
-                                                <?php echo bloggy_icon('bs', 'pencil', '16', '#000'); ?>
-                                            </a>
-                                            <?php if ($comment['status'] === 'pending') { ?>
-                                                <a href="<?php echo ADMIN_URL; ?>/comments/approve/<?php echo $comment['id']; ?>" 
-                                                   class="btn btn-sm btn-outline-success"
-                                                   title="<?php echo LANG_TEMPLATE_COMMENTS_INDEX_ACTION_APPROVE; ?>">
-                                                    <?php echo bloggy_icon('bs', 'check-lg', '16', '#000'); ?>
-                                                </a>
-                                            <?php } ?>
-                                            <a href="<?php echo ADMIN_URL; ?>/comments/delete/<?php echo $comment['id']; ?>" 
-                                               class="btn btn-sm btn-outline-danger"
-                                               onclick="return confirm('<?php echo LANG_TEMPLATE_COMMENTS_INDEX_CONFIRM_DELETE; ?>')"
-                                               title="<?php echo LANG_TEMPLATE_COMMENTS_INDEX_ACTION_DELETE; ?>">
-                                                <?php echo bloggy_icon('bs', 'trash', '16', '#000'); ?>
-                                            </a>
-                                        </div>
+                                        <?php echo admin_action_group([
+                                            ['type' => 'edit', 'url' => ADMIN_URL . '/comments/edit/' . $comment['id'], 'title' => LANG_TEMPLATE_COMMENTS_INDEX_ACTION_EDIT],
+                                            $comment['status'] === 'pending'
+                                                ? ['type' => 'approve', 'url' => ADMIN_URL . '/comments/approve/' . $comment['id'], 'title' => LANG_TEMPLATE_COMMENTS_INDEX_ACTION_APPROVE]
+                                                : null,
+                                            ['type' => 'delete', 'url' => ADMIN_URL . '/comments/delete/' . $comment['id'], 'title' => LANG_TEMPLATE_COMMENTS_INDEX_ACTION_DELETE, 'confirm' => LANG_TEMPLATE_COMMENTS_INDEX_CONFIRM_DELETE],
+                                        ]); ?>
                                      </td>
                                 </tr>
                             <?php } ?>

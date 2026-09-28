@@ -138,26 +138,11 @@
                                         </span>
                                     </td>
                                     <td>
-                                        <div class="d-flex justify-content-end gap-1">
-                                            <a href="<?php echo ADMIN_URL; ?>/user-achievements/toggle/<?php echo $achievement['id']; ?>" 
-                                               class="btn btn-sm btn-outline-<?php echo $achievement['is_active'] ? 'warning' : 'success'; ?>"
-                                               title="<?php echo $achievement['is_active'] ? LANG_TEMPLATE_USERS_ACHIEVEMENT_INDEX_DEACTIVATE_TITLE : LANG_TEMPLATE_USERS_ACHIEVEMENT_INDEX_ACTIVATE_TITLE; ?>">
-                                                <?php echo bloggy_icon('bs', $achievement['is_active'] ? 'pause' : 'play', '16', '#000'); ?>
-                                            </a>
-                                            
-                                            <a href="<?php echo ADMIN_URL; ?>/user-achievements/edit/<?php echo $achievement['id']; ?>" 
-                                               class="btn btn-sm btn-outline-primary"
-                                               title="<?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_INDEX_EDIT_TITLE; ?>">
-                                                <?php echo bloggy_icon('bs', 'pencil', '16', '#000'); ?>
-                                            </a>
-                                            
-                                            <a href="<?php echo ADMIN_URL; ?>/user-achievements/delete/<?php echo $achievement['id']; ?>" 
-                                               class="btn btn-sm btn-outline-danger"
-                                               onclick="return confirm('<?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_INDEX_DELETE_CONFIRM; ?>')"
-                                               title="<?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_INDEX_DELETE_TITLE; ?>">
-                                                <?php echo bloggy_icon('bs', 'trash', '16', '#000'); ?>
-                                            </a>
-                                        </div>
+                                        <?php echo admin_action_group([
+                                            ['type' => 'toggle', 'url' => ADMIN_URL . '/user-achievements/toggle/' . $achievement['id'], 'icon' => $achievement['is_active'] ? 'pause' : 'play', 'title' => $achievement['is_active'] ? LANG_TEMPLATE_USERS_ACHIEVEMENT_INDEX_DEACTIVATE_TITLE : LANG_TEMPLATE_USERS_ACHIEVEMENT_INDEX_ACTIVATE_TITLE],
+                                            ['type' => 'edit', 'url' => ADMIN_URL . '/user-achievements/edit/' . $achievement['id'], 'title' => LANG_TEMPLATE_USERS_ACHIEVEMENT_INDEX_EDIT_TITLE],
+                                            ['type' => 'delete', 'url' => ADMIN_URL . '/user-achievements/delete/' . $achievement['id'], 'title' => LANG_TEMPLATE_USERS_ACHIEVEMENT_INDEX_DELETE_TITLE, 'confirm' => LANG_TEMPLATE_USERS_ACHIEVEMENT_INDEX_DELETE_CONFIRM],
+                                        ]); ?>
                                     </td>
                                 </tr>
                             <?php } ?>

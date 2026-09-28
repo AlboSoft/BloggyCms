@@ -176,46 +176,19 @@
                                         </small>
                                     </td>
                                     <td>
-                                        <div class="d-flex justify-content-end gap-1">
-                                            <?php if ($user['id'] != 1) { ?>
-                                                <?php if ($user['status'] === 'active' && $user['id'] != $_SESSION['user_id']) { ?>
-                                                    <a href="<?php echo ADMIN_URL; ?>/users/toggle-status/<?php echo $user['id']; ?>" 
-                                                    class="btn btn-sm btn-outline-warning"
-                                                    title="<?php echo LANG_TEMPLATE_USERS_INDEX_BAN_TITLE; ?>"
-                                                    onclick="return confirm('<?php echo LANG_TEMPLATE_USERS_INDEX_BAN_CONFIRM; ?>')">
-                                                        <?php echo bloggy_icon('bs', 'lock', '16', '#000'); ?>
-                                                    </a>
-                                                <?php } elseif ($user['status'] === 'banned' && $user['id'] != $_SESSION['user_id']) { ?>
-                                                    <a href="<?php echo ADMIN_URL; ?>/users/toggle-status/<?php echo $user['id']; ?>" 
-                                                    class="btn btn-sm btn-outline-success"
-                                                    title="<?php echo LANG_TEMPLATE_USERS_INDEX_UNBAN_TITLE; ?>"
-                                                    onclick="return confirm('<?php echo LANG_TEMPLATE_USERS_INDEX_UNBAN_CONFIRM; ?>')">
-                                                        <?php echo bloggy_icon('bs', 'unlock', '16', '#000'); ?>
-                                                    </a>
-                                                <?php } ?>
-                                            <?php } ?>
-                                            
-                                            <a href="<?php echo ADMIN_URL; ?>/users/edit/<?php echo $user['id']; ?>" 
-                                                class="btn btn-sm btn-outline-primary"
-                                                title="<?php echo LANG_TEMPLATE_USERS_INDEX_EDIT_TITLE; ?>">
-                                                <?php echo bloggy_icon('bs', 'pencil', '16', '#000'); ?>
-                                            </a>
-
-                                            <a href="<?php echo ADMIN_URL; ?>/users/quick-assign-achievement/<?php echo $user['id']; ?>" 
-                                                class="btn btn-sm btn-outline-info"
-                                                title="<?php echo LANG_TEMPLATE_USERS_INDEX_ASSIGN_ACHIEVEMENT_TITLE; ?>">
-                                                <?php echo bloggy_icon('bs', 'trophy', '16', '#000'); ?>
-                                            </a>
-
-                                            <?php if ($user['id'] != $_SESSION['user_id'] && $user['id'] != 1) { ?>
-                                                <a href="<?php echo ADMIN_URL; ?>/users/delete/<?php echo $user['id']; ?>" 
-                                                    class="btn btn-sm btn-outline-danger"
-                                                    onclick="return confirm('<?php echo LANG_TEMPLATE_USERS_INDEX_DELETE_CONFIRM; ?>')"
-                                                    title="<?php echo LANG_TEMPLATE_USERS_INDEX_DELETE_TITLE; ?>">
-                                                    <?php echo bloggy_icon('bs', 'trash', '16', '#000'); ?>
-                                                </a>
-                                            <?php } ?>
-                                        </div>
+                                        <?php echo admin_action_group([
+                                            ($user['id'] != 1 && $user['status'] === 'active' && $user['id'] != $_SESSION['user_id'])
+                                                ? ['type' => 'ban', 'url' => ADMIN_URL . '/users/toggle-status/' . $user['id'], 'title' => LANG_TEMPLATE_USERS_INDEX_BAN_TITLE, 'confirm' => LANG_TEMPLATE_USERS_INDEX_BAN_CONFIRM]
+                                                : null,
+                                            ($user['id'] != 1 && $user['status'] === 'banned' && $user['id'] != $_SESSION['user_id'])
+                                                ? ['type' => 'unban', 'url' => ADMIN_URL . '/users/toggle-status/' . $user['id'], 'title' => LANG_TEMPLATE_USERS_INDEX_UNBAN_TITLE, 'confirm' => LANG_TEMPLATE_USERS_INDEX_UNBAN_CONFIRM]
+                                                : null,
+                                            ['type' => 'edit', 'url' => ADMIN_URL . '/users/edit/' . $user['id'], 'title' => LANG_TEMPLATE_USERS_INDEX_EDIT_TITLE],
+                                            ['type' => 'assign', 'url' => ADMIN_URL . '/users/quick-assign-achievement/' . $user['id'], 'title' => LANG_TEMPLATE_USERS_INDEX_ASSIGN_ACHIEVEMENT_TITLE],
+                                            ($user['id'] != $_SESSION['user_id'] && $user['id'] != 1)
+                                                ? ['type' => 'delete', 'url' => ADMIN_URL . '/users/delete/' . $user['id'], 'title' => LANG_TEMPLATE_USERS_INDEX_DELETE_TITLE, 'confirm' => LANG_TEMPLATE_USERS_INDEX_DELETE_CONFIRM]
+                                                : null,
+                                        ]); ?>
                                     </td>
                                 </tr>
                             <?php } ?>

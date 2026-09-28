@@ -98,36 +98,24 @@
                         </div>
                     </div>
                     <td>
-                        <div class="d-flex justify-content-end gap-1">
-                            <?php if($controller['has_settings']) { ?>
-                                <a href="<?= ADMIN_URL ?>/settings?tab=components&controller=<?= $controller['path'] ?>"
-                                   class="btn btn-sm btn-outline-primary border"
-                                   title="<?php echo LANG_TEMPLATE_CONTROLLERS_INDEX_SETTINGS_BTN_TITLE; ?>"
-                                   data-bs-toggle="tooltip">
-                                    <?php echo bloggy_icon('bs', 'gear-fill', '16'); ?>
-                                </a>
-                            <?php } ?>
-                            
-                            <button type="button" 
-                                    class="btn btn-sm btn-outline-secondary border controller-info-btn"
-                                    title="<?php echo LANG_TEMPLATE_CONTROLLERS_INDEX_INFO_BTN_TITLE; ?>"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#controllerInfoModal"
-                                    data-controller='<?= html(json_encode([
-                                        'name' => $controller['name'],
-                                        'path' => $controller['path'],
-                                        'author' => $controller['author'],
-                                        'version' => $controller['version'],
-                                        'description' => $controller['description'],
-                                        'is_system' => $controller['is_system'],
-                                        'has_settings' => $controller['has_settings'],
-                                        'has_routing' => $controller['has_routing'],
-                                        'actions_count' => $controller['actions_count']
-                                    ]), ENT_QUOTES) ?>'>
-                                <?php echo bloggy_icon('bs', 'info-circle', '16'); ?>
-                            </button>
-                        </div>
-                    </div>
+                        <?php echo admin_action_group([
+                            $controller['has_settings']
+                                ? ['type' => 'settings', 'url' => ADMIN_URL . '/settings?tab=components&controller=' . $controller['path'], 'title' => LANG_TEMPLATE_CONTROLLERS_INDEX_SETTINGS_BTN_TITLE]
+                                : null,
+                            ['type' => 'info', 'tag' => 'button', 'class' => 'controller-info-btn', 'title' => LANG_TEMPLATE_CONTROLLERS_INDEX_INFO_BTN_TITLE,
+                             'attrs' => 'data-bs-toggle="modal" data-bs-target="#controllerInfoModal" data-controller=\'' . html(json_encode([
+                                 'name' => $controller['name'],
+                                 'path' => $controller['path'],
+                                 'author' => $controller['author'],
+                                 'version' => $controller['version'],
+                                 'description' => $controller['description'],
+                                 'is_system' => $controller['is_system'],
+                                 'has_settings' => $controller['has_settings'],
+                                 'has_routing' => $controller['has_routing'],
+                                 'actions_count' => $controller['actions_count']
+                             ]), ENT_QUOTES) . '\''],
+                        ]); ?>
+                    </td>
                 </tr>
             <?php } ?>
         </tbody>

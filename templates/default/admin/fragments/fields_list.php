@@ -86,19 +86,10 @@
                                         <?php } ?>
                                      </td>
                                     <td class="text-end">
-                                        <div class="btn-group btn-group-sm">
-                                            <a href="<?php echo ADMIN_URL; ?>/fragments/field/edit/<?php echo $field['id']; ?>" 
-                                            class="btn btn-outline-primary"
-                                            title="<?php echo LANG_TEMPLATE_FRAGMENTS_FIELDS_LIST_EDIT_TITLE; ?>">
-                                                <?php echo bloggy_icon('bs', 'pencil', '16', '#000'); ?>
-                                            </a>
-                                            <a href="<?php echo ADMIN_URL; ?>/fragments/field/delete/<?php echo $field['id']; ?>" 
-                                            class="btn btn-outline-danger"
-                                            onclick="return confirm('<?php echo sprintf(LANG_TEMPLATE_FRAGMENTS_FIELDS_LIST_DELETE_CONFIRM, html($field['name'])); ?>')"
-                                            title="<?php echo LANG_TEMPLATE_FRAGMENTS_FIELDS_LIST_DELETE_TITLE; ?>">
-                                                <?php echo bloggy_icon('bs', 'trash', '16', '#000'); ?>
-                                            </a>
-                                        </div>
+                                        <?php echo admin_action_group([
+                                            ['type' => 'edit', 'url' => ADMIN_URL . '/fragments/field/edit/' . $field['id'], 'title' => LANG_TEMPLATE_FRAGMENTS_FIELDS_LIST_EDIT_TITLE],
+                                            ['type' => 'delete', 'url' => ADMIN_URL . '/fragments/field/delete/' . $field['id'], 'title' => LANG_TEMPLATE_FRAGMENTS_FIELDS_LIST_DELETE_TITLE, 'confirm' => sprintf(LANG_TEMPLATE_FRAGMENTS_FIELDS_LIST_DELETE_CONFIRM, $field['name'])],
+                                        ]); ?>
                                     </td>
                                 </tr>
                             <?php } ?>

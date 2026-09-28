@@ -84,28 +84,12 @@
                                     <?php } ?>
                                 </td>
                                 <td>
-                                    <div class="d-flex justify-content-end gap-2">
-                                        <?php if ($typeIsActive) { ?>
-                                            <a href="<?php echo ADMIN_URL; ?>/html-blocks/edit/<?php echo $block['id']; ?>" 
-                                               class="btn btn-sm btn-outline-primary"
-                                               title="<?php echo LANG_TEMPLATE_HTMLBLOCKS_INDEX_ACTION_EDIT; ?>">
-                                                <?php echo bloggy_icon('bs', 'pencil', '16', '#000'); ?>
-                                            </a>
-                                        <?php } else { ?>
-                                            <button class="btn btn-sm btn-outline-secondary" 
-                                                    disabled
-                                                    title="<?php echo LANG_TEMPLATE_HTMLBLOCKS_INDEX_ACTION_DISABLED_TITLE; ?>">
-                                                <?php echo bloggy_icon('bs', 'pencil', '16', '#6c757d'); ?>
-                                            </button>
-                                        <?php } ?>
-                                        
-                                        <a href="<?php echo ADMIN_URL; ?>/html-blocks/delete/<?php echo $block['id']; ?>" 
-                                           class="btn btn-sm btn-outline-danger"
-                                           onclick="return confirm('<?php echo LANG_TEMPLATE_HTMLBLOCKS_INDEX_DELETE_CONFIRM; ?>')"
-                                           title="<?php echo LANG_TEMPLATE_HTMLBLOCKS_INDEX_ACTION_DELETE; ?>">
-                                            <?php echo bloggy_icon('bs', 'trash', '16', '#000'); ?>
-                                        </a>
-                                    </div>
+                                    <?php echo admin_action_group([
+                                        $typeIsActive
+                                            ? ['type' => 'edit', 'url' => ADMIN_URL . '/html-blocks/edit/' . $block['id'], 'title' => LANG_TEMPLATE_HTMLBLOCKS_INDEX_ACTION_EDIT]
+                                            : ['type' => 'edit', 'title' => LANG_TEMPLATE_HTMLBLOCKS_INDEX_ACTION_DISABLED_TITLE, 'disabled' => true],
+                                        ['type' => 'delete', 'url' => ADMIN_URL . '/html-blocks/delete/' . $block['id'], 'title' => LANG_TEMPLATE_HTMLBLOCKS_INDEX_ACTION_DELETE, 'confirm' => LANG_TEMPLATE_HTMLBLOCKS_INDEX_DELETE_CONFIRM],
+                                    ]); ?>
                                 </td>
                             </tr>
                             <?php } ?>

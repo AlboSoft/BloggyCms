@@ -223,28 +223,11 @@
                                         <?php } ?>
                                     </td>
                                     <td class="text-end">
-                                        <div class="btn-group btn-group-sm">
-                                            <a href="<?php echo ADMIN_URL; ?>/menu/item/edit/<?php echo $item['id']; ?>"
-                                               class="btn btn-outline-primary"
-                                               title="<?php echo LANG_TEMPLATE_MENU_ITEMS_ACTION_EDIT; ?>"
-                                               data-bs-toggle="tooltip">
-                                                <?php echo bloggy_icon('bs', 'pencil', '16', '#000'); ?>
-                                            </a>
-                                            <a href="<?php echo ADMIN_URL; ?>/menu/item/create/<?php echo $menu['id']; ?>?parent_id=<?php echo $item['id']; ?>"
-                                               class="btn btn-outline-success"
-                                               title="<?php echo LANG_TEMPLATE_MENU_ITEMS_ACTION_ADD_CHILD; ?>"
-                                               data-bs-toggle="tooltip">
-                                                <?php echo bloggy_icon('bs', 'plus-circle', '16', '#000'); ?>
-                                            </a>
-                                            <button type="button"
-                                                    class="btn btn-outline-danger delete-item"
-                                                    data-id="<?php echo $item['id']; ?>"
-                                                    data-title="<?php echo html($item['title']); ?>"
-                                                    title="<?php echo LANG_TEMPLATE_MENU_ITEMS_ACTION_DELETE; ?>"
-                                                    data-bs-toggle="tooltip">
-                                                <?php echo bloggy_icon('bs', 'trash', '16', '#000'); ?>
-                                            </button>
-                                        </div>
+                                        <?php echo admin_action_group([
+                                            ['type' => 'edit', 'url' => ADMIN_URL . '/menu/item/edit/' . $item['id'], 'title' => LANG_TEMPLATE_MENU_ITEMS_ACTION_EDIT],
+                                            ['type' => 'add', 'url' => ADMIN_URL . '/menu/item/create/' . $menu['id'] . '?parent_id=' . $item['id'], 'title' => LANG_TEMPLATE_MENU_ITEMS_ACTION_ADD_CHILD],
+                                            ['type' => 'delete', 'tag' => 'button', 'class' => 'delete-item', 'title' => LANG_TEMPLATE_MENU_ITEMS_ACTION_DELETE, 'attrs' => 'data-id="' . (int)$item['id'] . '" data-title="' . html($item['title']) . '"'],
+                                        ]); ?>
                                     </td>
                                 </tr>
                             <?php } ?>

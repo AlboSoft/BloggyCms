@@ -99,20 +99,10 @@
                                     <?php } ?>
                                 </td>
                                 <td class="text-end">
-                                    <div class="btn-group btn-group-sm">
-                                        <button type="button" 
-                                                class="btn btn-outline-secondary info-addon"
-                                                data-id="<?php echo $addon['id']; ?>"
-                                                title="<?php echo LANG_TEMPLATE_ADDONS_INDEX_INFO_TITLE; ?>">
-                                            <?php echo bloggy_icon('bs', 'info-circle', '16', '#000'); ?>
-                                        </button>
-                                        <a href="<?php echo ADMIN_URL; ?>/addons/delete/<?php echo $addon['id']; ?>" 
-                                           class="btn btn-outline-danger"
-                                           onclick="return confirm('<?php echo sprintf(LANG_TEMPLATE_ADDONS_INDEX_DELETE_CONFIRM, html($addon['title'])); ?>')"
-                                           title="<?php echo LANG_TEMPLATE_ADDONS_INDEX_DELETE_TITLE; ?>">
-                                            <?php echo bloggy_icon('bs', 'trash', '16', '#000'); ?>
-                                        </a>
-                                    </div>
+                                    <?php echo admin_action_group([
+                                        ['type' => 'info', 'tag' => 'button', 'class' => 'info-addon', 'title' => LANG_TEMPLATE_ADDONS_INDEX_INFO_TITLE, 'attrs' => 'data-id="' . (int)$addon['id'] . '"'],
+                                        ['type' => 'delete', 'url' => ADMIN_URL . '/addons/delete/' . $addon['id'], 'title' => LANG_TEMPLATE_ADDONS_INDEX_DELETE_TITLE, 'confirm' => sprintf(LANG_TEMPLATE_ADDONS_INDEX_DELETE_CONFIRM, $addon['title'])],
+                                    ]); ?>
                                 </td>
                             </tr>
                             <?php } ?>

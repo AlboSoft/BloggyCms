@@ -1,4 +1,4 @@
-﻿﻿class PostBlocksManager {
+class PostBlocksManager {
     constructor() {
         this.blocksContainer = document.getElementById('post-blocks-container');
         this.blockButtons = document.getElementById('post-block-buttons');
@@ -541,10 +541,10 @@
                                 ${presetBadge}
                             </div>
                         </div>
-                        <div class="block-actions d-flex gap-1">
-                            <button type="button" class="btn btn-sm btn-light edit-post-block" title="${lang === 'ru' ? 'Редактировать' : 'Edit'}"><i class="bi bi-pencil"></i></button>
-                            <button type="button" class="btn btn-sm btn-light text-danger remove-post-block" title="${lang === 'ru' ? 'Удалить' : 'Delete'}"><i class="bi bi-trash"></i></button>
-                            <span class="drag-handle btn btn-sm btn-light" title="${lang === 'ru' ? 'Перетащить' : 'Drag'}"><i class="bi bi-grip-vertical"></i></span>
+                        <div class="block-actions act-group" role="group">
+                            <button type="button" class="act act--edit edit-post-block" aria-label="${lang === 'ru' ? 'Редактировать' : 'Edit'}" data-tip="${lang === 'ru' ? 'Редактировать' : 'Edit'}">${window.bloggyActIcon('pencil')}</button>
+                            <button type="button" class="act act--delete remove-post-block" aria-label="${lang === 'ru' ? 'Удалить' : 'Delete'}" data-tip="${lang === 'ru' ? 'Удалить' : 'Delete'}">${window.bloggyActIcon('trash')}</button>
+                            <span class="act act--custom drag-handle" role="button" aria-label="${lang === 'ru' ? 'Перетащить' : 'Drag'}" data-tip="${lang === 'ru' ? 'Перетащить' : 'Drag'}">${window.bloggyActIcon('grip-vertical')}</span>
                         </div>
                     </div>
                     <div class="block-preview-container p-3" id="preview-${block.id}">

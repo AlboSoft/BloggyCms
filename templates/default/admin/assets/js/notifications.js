@@ -1,4 +1,4 @@
-﻿class NotificationSystem {
+class NotificationSystem {
     constructor() {
         this.init();
     }
@@ -580,9 +580,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+/* Иконка из спрайта bs.svg в стиле Bloggy Action Deck */
+function adminActIcon(name) {
+    const base = (typeof window !== 'undefined' && window.BASE_URL) ? window.BASE_URL : '';
+    return '<svg class="icon icon-' + name + ' act-ic" width="16" height="16" style="fill: currentColor" aria-hidden="true">'
+        + '<use href="' + base + '/templates/default/admin/icons/bs.svg#' + name + '"></use></svg>';
+}
+
 function initNotificationsPage() {
     loadNotificationsPage();
-    
+
     document.addEventListener('click', async (e) => {
         if (e.target.classList.contains('mark-read-btn') || e.target.closest('.mark-read-btn')) {
             const btn = e.target.classList.contains('mark-read-btn') ? e.target : e.target.closest('.mark-read-btn');
@@ -700,24 +707,22 @@ function renderNotificationsPage(notifications) {
                     </div>
                     ` : ''}
                     
-                    <div class="mt-2 d-flex gap-2">
-                        ${!notification.is_read ? `
-                        <button class="btn btn-sm btn-outline-primary mark-read-btn" data-id="${notification.id}">
-                            <i class="bi bi-check me-1"></i> ${lang === 'ru' ? 'Прочитано' : 'Mark read'}
-                        </button>
-                        ` : ''}
-                        
-                        ${isComment && notification.data?.post_id ? `
-                        <a href="${ADMIN_URL || ''}/comments" 
-                        class="btn btn-sm btn-outline-info"
-                        target="_blank">
-                            <i class="bi bi-chat-dots me-1"></i> ${lang === 'ru' ? 'К комментариям' : 'To comments'}
-                        </a>
-                        ` : ''}
-                        
-                        <button class="btn btn-sm btn-outline-danger delete-btn" data-id="${notification.id}">
-                            <i class="bi bi-trash me-1"></i> ${lang === 'ru' ? 'Удалить' : 'Delete'}
-                        </button>
+                    <div class="mt-2">
+                        <div class="act-group" role="group">
+                            ${!notification.is_read ? `
+                            <button type="button" class="act act--publish mark-read-btn" data-id="${notification.id}" aria-label="${lang === 'ru' ? 'Прочитано' : 'Mark read'}" data-tip="${lang === 'ru' ? 'Прочитано' : 'Mark read'}">${adminActIcon('check-lg')}</button>
+                            ` : ''}
+
+                            ${isComment && notification.data?.post_id ? `
+                            <a href="${ADMIN_URL || ''}/comments"
+                            class="act act--chat"
+                            target="_blank"
+                            aria-label="${lang === 'ru' ? 'К комментариям' : 'To comments'}"
+                            data-tip="${lang === 'ru' ? 'К комментариям' : 'To comments'}">${adminActIcon('chat-dots')}</a>
+                            ` : ''}
+
+                            <button type="button" class="act act--delete delete-btn" data-id="${notification.id}" aria-label="${lang === 'ru' ? 'Удалить' : 'Delete'}" data-tip="${lang === 'ru' ? 'Удалить' : 'Delete'}">${adminActIcon('trash')}</button>
+                        </div>
                     </div>
                 </div>
             </div>

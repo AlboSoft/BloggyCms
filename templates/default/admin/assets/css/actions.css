@@ -1,0 +1,410 @@
+/* ============================================================================
+   BLOGGY ACTION DECK — единая система кнопок действий админ-панели.
+
+   Фишки, которых нет в коробочных CMS:
+   1. «Рельс» — recessed-дорожка, на которой сидят кнопки-кейпы; при
+      наведении на строку таблицы кейпы волной поднимаются с задержкой.
+   2. Семантическое свечение — каждое действие имеет свой цвет, который
+      проявляется при наведении (свечение снизу, как у физической клавиши).
+   3. Микро-анимации иконок — карандаш качается, корзина дрожит перед
+      «выбросом», глаз моргает, галочка подпрыгивает, шестерёнка крутится.
+   4. Блик по рельсе — light-sweep пробегает по группе при наведении.
+   5. Чип-подсказка — плавающая pill-плашка с точкой-цветом действия
+      вместо нативного title (рендерится в actions.js).
+   6. Рябь при нажатии — ink-ripple от точки касания.
+   7. «Армирование» удаления — красный импульс-кольцо и дрожь иконки.
+   ========================================================================== */
+
+/* --- Обёртки выравнивания ------------------------------------------------ */
+.act-cell {
+    display: flex;
+    align-items: center;
+}
+
+.act-cell--end    { justify-content: flex-end; }
+.act-cell--start  { justify-content: flex-start; }
+.act-cell--center { justify-content: center; }
+
+/* Защита от «перехвата» рельса legacy-правилами .block-actions
+   (post-blocks.css грузится после actions.css) */
+.act-group.block-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--act-gap, 4px);
+    padding: 4px;
+}
+
+/* Ручка перетаскивания внутри колоды — приоритет над .drag-handle
+   из main.css и контроллерных CSS */
+.act.drag-handle,
+.act.menu-item-handle {
+    display: inline-flex;
+    cursor: grab;
+    padding: 0;
+    border-radius: var(--act-cap-radius, 9px);
+    transition:
+        transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1),
+        box-shadow 0.18s ease,
+        background 0.18s ease,
+        color 0.18s ease,
+        border-color 0.18s ease;
+}
+
+.act.drag-handle:active,
+.act.menu-item-handle:active {
+    cursor: grabbing;
+}
+
+/* --- Рельс (группа кнопок) ---------------------------------------------- */
+.act-group {
+    --act-gap: 4px;
+    --act-cap: 28px;
+    --act-cap-radius: 9px;
+
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--act-gap);
+    padding: 4px;
+    background: linear-gradient(180deg, #eef1f5 0%, #e3e7ed 100%);
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    border-radius: calc(var(--act-cap-radius) + 4px);
+    box-shadow:
+        inset 0 1px 2px rgba(15, 23, 42, 0.10),
+        0 1px 0 rgba(255, 255, 255, 0.95);
+    isolation: isolate;
+}
+
+/* Блик, пробегающий по рельсе при наведении на группу или строку */
+.act-group::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    border-radius: inherit;
+    background: linear-gradient(
+        115deg,
+        transparent 32%,
+        rgba(255, 255, 255, 0.85) 50%,
+        transparent 68%
+    );
+    background-size: 250% 100%;
+    background-position: 130% 0;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.act-group:hover::before,
+:where(tr, .act-cell):hover .act-group::before {
+    animation: act-sweep 0.75s ease forwards;
+}
+
+@keyframes act-sweep {
+    0%   { opacity: 0;   background-position: 130% 0; }
+    12%  { opacity: 1; }
+    88%  { opacity: 1; }
+    100% { opacity: 0;   background-position: -50% 0; }
+}
+
+/* --- Кейп (кнопка) ------------------------------------------------------- */
+.act {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    width: var(--act-cap, 28px);
+    height: var(--act-cap, 28px);
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid rgba(15, 23, 42, 0.07);
+    border-radius: var(--act-cap-radius, 9px);
+    background: linear-gradient(180deg, #ffffff 0%, #f3f5f8 100%);
+    box-shadow:
+        0 1px 2px rgba(15, 23, 42, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    color: #5b6570;
+    text-decoration: none;
+    line-height: 1;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+        transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1),
+        box-shadow 0.18s ease,
+        background 0.18s ease,
+        color 0.18s ease,
+        border-color 0.18s ease;
+}
+
+.act svg,
+.act .act-ic {
+    display: block;
+    width: 15px;
+    height: 15px;
+    flex: 0 0 auto;
+    pointer-events: none;
+}
+
+/* Волна «пробуждения»: при наведении на строку/ячейку кейпы
+   поднимаются по очереди с задержкой 35ms каждый */
+.act-group .act:nth-child(1) { transition-delay: 0ms; }
+.act-group .act:nth-child(2) { transition-delay: 35ms; }
+.act-group .act:nth-child(3) { transition-delay: 70ms; }
+.act-group .act:nth-child(4) { transition-delay: 105ms; }
+.act-group .act:nth-child(5) { transition-delay: 140ms; }
+.act-group .act:nth-child(6) { transition-delay: 175ms; }
+
+:where(tr, .act-cell):hover .act-group .act,
+.act-group:hover .act {
+    transform: translateY(-1px);
+    color: #3d4752;
+    border-color: rgba(15, 23, 42, 0.11);
+}
+
+/* --- Семантические цвета ------------------------------------------------- */
+.act--view      { --act-c: #0284c7; --act-soft: rgba(2, 132, 199, 0.13); --act-line: rgba(2, 132, 199, 0.38); --act-glow: rgba(2, 132, 199, 0.45); }
+.act--edit      { --act-c: #2563eb; --act-soft: rgba(37, 99, 235, 0.13); --act-line: rgba(37, 99, 235, 0.38); --act-glow: rgba(37, 99, 235, 0.45); }
+.act--delete    { --act-c: #dc2626; --act-soft: rgba(220, 38, 38, 0.12); --act-line: rgba(220, 38, 38, 0.38); --act-glow: rgba(220, 38, 38, 0.45); }
+.act--publish   { --act-c: #16a34a; --act-soft: rgba(22, 163, 74, 0.13); --act-line: rgba(22, 163, 74, 0.38); --act-glow: rgba(22, 163, 74, 0.45); }
+.act--approve   { --act-c: #16a34a; --act-soft: rgba(22, 163, 74, 0.13); --act-line: rgba(22, 163, 74, 0.38); --act-glow: rgba(22, 163, 74, 0.45); }
+.act--unban     { --act-c: #16a34a; --act-soft: rgba(22, 163, 74, 0.13); --act-line: rgba(22, 163, 74, 0.38); --act-glow: rgba(22, 163, 74, 0.45); }
+.act--draft     { --act-c: #d97706; --act-soft: rgba(217, 119, 6, 0.14); --act-line: rgba(217, 119, 6, 0.40); --act-glow: rgba(217, 119, 6, 0.45); }
+.act--ban       { --act-c: #e11d48; --act-soft: rgba(225, 29, 72, 0.12); --act-line: rgba(225, 29, 72, 0.38); --act-glow: rgba(225, 29, 72, 0.45); }
+.act--add       { --act-c: #059669; --act-soft: rgba(5, 150, 105, 0.13); --act-line: rgba(5, 150, 105, 0.38); --act-glow: rgba(5, 150, 105, 0.45); }
+.act--info      { --act-c: #0891b2; --act-soft: rgba(8, 145, 178, 0.13); --act-line: rgba(8, 145, 178, 0.38); --act-glow: rgba(8, 145, 178, 0.45); }
+.act--chat      { --act-c: #0891b2; --act-soft: rgba(8, 145, 178, 0.13); --act-line: rgba(8, 145, 178, 0.38); --act-glow: rgba(8, 145, 178, 0.45); }
+.act--assign    { --act-c: #7c3aed; --act-soft: rgba(124, 58, 237, 0.13); --act-line: rgba(124, 58, 237, 0.38); --act-glow: rgba(124, 58, 237, 0.45); }
+.act--settings  { --act-c: #475569; --act-soft: rgba(71, 85, 105, 0.13); --act-line: rgba(71, 85, 105, 0.35); --act-glow: rgba(71, 85, 105, 0.40); }
+.act--permissions { --act-c: #ca8a04; --act-soft: rgba(202, 138, 4, 0.14); --act-line: rgba(202, 138, 4, 0.40); --act-glow: rgba(202, 138, 4, 0.45); }
+.act--list      { --act-c: #0d9488; --act-soft: rgba(13, 148, 136, 0.13); --act-line: rgba(13, 148, 136, 0.38); --act-glow: rgba(13, 148, 136, 0.45); }
+.act--fields    { --act-c: #9333ea; --act-soft: rgba(147, 51, 234, 0.12); --act-line: rgba(147, 51, 234, 0.36); --act-glow: rgba(147, 51, 234, 0.45); }
+.act--toggle    { --act-c: #ea580c; --act-soft: rgba(234, 88, 12, 0.13); --act-line: rgba(234, 88, 12, 0.38); --act-glow: rgba(234, 88, 12, 0.45); }
+.act--goto      { --act-c: #0f766e; --act-soft: rgba(15, 118, 110, 0.13); --act-line: rgba(15, 118, 110, 0.38); --act-glow: rgba(15, 118, 110, 0.45); }
+.act--custom    { --act-c: #64748b; --act-soft: rgba(100, 116, 139, 0.13); --act-line: rgba(100, 116, 139, 0.35); --act-glow: rgba(100, 116, 139, 0.40); }
+
+/* --- Наведение: кейп «вспыхивает» своим цветом --------------------------- */
+.act-group .act:hover,
+.act:hover,
+.act-group .act:focus-visible,
+.act:focus-visible {
+    transform: translateY(-2px);
+    color: var(--act-c, #2563eb);
+    background: linear-gradient(180deg, #ffffff 0%, var(--act-soft, rgba(37, 99, 235, 0.13)) 100%);
+    border-color: var(--act-line, rgba(37, 99, 235, 0.38));
+    box-shadow:
+        0 5px 12px -4px var(--act-glow, rgba(37, 99, 235, 0.45)),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95);
+    transition-delay: 0ms !important;
+    z-index: 1;
+}
+
+.act:focus-visible {
+    outline: 2px solid var(--act-c, #2563eb);
+    outline-offset: 2px;
+}
+
+/* Нажатие: кейп «утапливается» */
+.act:active {
+    transform: translateY(1px) scale(0.93);
+    box-shadow: inset 0 2px 4px rgba(15, 23, 42, 0.18);
+    transition-duration: 0.05s;
+    transition-delay: 0ms !important;
+}
+
+/* --- Неактивная кнопка --------------------------------------------------- */
+.act.is-off,
+.act:disabled {
+    color: #a6adb5;
+    background: linear-gradient(180deg, #f5f6f8 0%, #eceef1 100%);
+    border-color: rgba(15, 23, 42, 0.05);
+    box-shadow: none;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.act-group .act.is-off:hover,
+.act.is-off:hover,
+.act-group .act.is-off:focus-visible,
+.act.is-off:focus-visible,
+.act:disabled:hover {
+    color: #a6adb5;
+    background: linear-gradient(180deg, #f5f6f8 0%, #eceef1 100%);
+    border-color: rgba(15, 23, 42, 0.05);
+    box-shadow: none;
+    transform: none !important;
+    animation: none !important;
+    transition-delay: 0ms !important;
+    outline: none;
+}
+
+/* --- Микро-анимации иконок при наведении --------------------------------- */
+@keyframes act-wiggle {
+    0%, 100% { transform: rotate(0deg); }
+    25%      { transform: rotate(-14deg); }
+    75%      { transform: rotate(12deg); }
+}
+@keyframes act-blink {
+    0%, 84%, 100% { transform: scaleY(1); }
+    92%           { transform: scaleY(0.08); }
+}
+@keyframes act-pop {
+    0%, 100% { transform: translateY(0); }
+    45%      { transform: translateY(-3px); }
+}
+@keyframes act-shiver {
+    0%, 100% { transform: translateX(0); }
+    20%      { transform: translateX(-1.5px); }
+    40%      { transform: translateX(1.5px); }
+    60%      { transform: translateX(-1px); }
+    80%      { transform: translateX(1px); }
+}
+@keyframes act-lid {
+    0%, 100% { transform: translateY(0) scaleX(1); }
+    50%      { transform: translateY(-2.5px) scaleX(0.9); }
+}
+@keyframes act-spin {
+    to { transform: rotate(360deg); }
+}
+@keyframes act-nudge {
+    0%, 100% { transform: translateX(0); }
+    55%      { transform: translateX(3px); }
+}
+@keyframes act-tilt {
+    0%, 100% { transform: rotate(0deg); }
+    30%      { transform: rotate(-12deg); }
+    70%      { transform: rotate(12deg); }
+}
+
+/* Карандаш — качается, как будто пишет */
+.act--edit:hover svg { animation: act-wiggle 0.55s ease-in-out infinite; }
+
+/* Глаз — моргает */
+.act--view:hover svg { animation: act-blink 1.7s ease-in-out infinite; transform-origin: center; }
+
+/* Галочки и плюс — подпрыгивают */
+.act--publish:hover svg,
+.act--approve:hover svg,
+.act--unban:hover svg,
+.act--add:hover svg { animation: act-pop 0.7s ease-in-out infinite; }
+
+/* Корзина — дрожит перед «выбросом» */
+.act--delete:hover svg { animation: act-shiver 0.4s ease-in-out infinite; }
+
+/* Замок блокировки — трясётся */
+.act--ban:hover svg { animation: act-shiver 0.5s ease-in-out infinite; }
+
+/* Черновик — крышка архива поднимается */
+.act--draft:hover svg { animation: act-lid 1.1s ease-in-out infinite; }
+
+/* Шестерёнка — крутится */
+.act--settings:hover svg { animation: act-spin 2.2s linear infinite; }
+
+/* Стрелка — подмигивает вперёд */
+.act--goto:hover svg { animation: act-nudge 0.8s ease-in-out infinite; }
+
+/* Кубок — кренится */
+.act--assign:hover svg { animation: act-tilt 0.9s ease-in-out infinite; }
+
+/* Щит — кренится */
+.act--permissions:hover svg { animation: act-tilt 1s ease-in-out infinite; }
+
+/* Питание — короткий толчок */
+.act--toggle:hover svg { animation: act-pop 0.8s ease-in-out infinite; }
+
+/* «Армирование» удаления: красный импульс-кольцо вокруг кейпа */
+@keyframes act-danger-pulse {
+    0%   { box-shadow: 0 5px 12px -4px var(--act-glow), 0 0 0 0 var(--act-glow); }
+    70%  { box-shadow: 0 5px 12px -4px var(--act-glow), 0 0 0 6px rgba(220, 38, 38, 0); }
+    100% { box-shadow: 0 5px 12px -4px var(--act-glow), 0 0 0 0 rgba(220, 38, 38, 0); }
+}
+
+.act-group .act--delete:hover,
+.act--delete:hover {
+    animation: act-danger-pulse 1.15s ease-out infinite;
+}
+
+/* --- Рябь при нажатии (ink ripple) --------------------------------------- */
+.act-ripple {
+    position: absolute;
+    width: 44px;
+    height: 44px;
+    margin: -22px 0 0 -22px;
+    border-radius: 50%;
+    background: var(--act-c, #2563eb);
+    opacity: 0.35;
+    transform: scale(0);
+    pointer-events: none;
+    animation: act-ripple 0.5s ease-out forwards;
+}
+
+@keyframes act-ripple {
+    to { transform: scale(1); opacity: 0; }
+}
+
+/* --- Чип-подсказка (actions.js) ------------------------------------------ */
+.act-tip {
+    position: fixed;
+    z-index: 1090;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    max-width: 260px;
+    padding: 5px 10px 6px;
+    background: #101827;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 8px;
+    box-shadow: 0 10px 24px -8px rgba(15, 23, 42, 0.55);
+    color: #f4f6fa;
+    font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+    font-size: 10.5px;
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translate(-50%, -5px) scale(0.94);
+    transition:
+        opacity 0.13s ease,
+        transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    pointer-events: none;
+}
+
+.act-tip.is-above {
+    transform: translate(-50%, 5px) scale(0.94);
+}
+
+.act-tip.is-on {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+}
+
+/* Цветная точка действия внутри чипа */
+.act-tip::before {
+    content: '';
+    flex: 0 0 auto;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--act-c, #60a5fa);
+    box-shadow: 0 0 6px var(--act-c, #60a5fa);
+}
+
+/* --- Доступность: уважение к reduced-motion ------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+    .act,
+    .act svg,
+    .act-group::before,
+    .act-tip {
+        animation: none !important;
+        transition: none !important;
+    }
+
+    .act:hover,
+    .act:active,
+    :where(tr, .act-cell):hover .act-group .act {
+        transform: none !important;
+    }
+}
