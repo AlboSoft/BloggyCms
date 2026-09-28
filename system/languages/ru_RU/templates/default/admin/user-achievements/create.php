@@ -39,3 +39,4 @@ define('LANG_TEMPLATE_USERS_ACHIEVEMENT_CREATE_ONE_CONDITION_ALERT', 'Должн
 define('LANG_TEMPLATE_USERS_ACHIEVEMENT_CREATE_ALERT_NAME_REQUIRED', 'Пожалуйста, введите название ачивки');
 define('LANG_TEMPLATE_USERS_ACHIEVEMENT_CREATE_ALERT_IMAGE_REQUIRED', 'Пожалуйста, загрузите изображение для ачивки');
 define('LANG_TEMPLATE_USERS_ACHIEVEMENT_CREATE_ALERT_NO_CONDITIONS', 'Вы не указали условия для автоматической ачивки. Ачивку можно будет присвоить только вручную. Продолжить?');
+define('LANG_TEMPLATE_USERS_ACHIEVEMENT_REMOVE_CONDITION_TITLE', 'Удалить условие');

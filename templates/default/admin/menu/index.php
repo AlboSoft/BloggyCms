@@ -60,29 +60,12 @@
                                 </small>
                             </td>
                             <td class="end">
-                                <div class="btn-group btn-group-sm">
-                                    <a href="<?php echo ADMIN_URL; ?>/menu/items/<?php echo $menu['id']; ?>" 
-                                    class="btn btn-outline-info" 
-                                    title="<?php echo LANG_TEMPLATE_MENU_INDEX_ACTION_ITEMS; ?>">
-                                        <?php echo bloggy_icon('bs', 'list-ul', '16', '#000'); ?>
-                                    </a>
-                                    <a href="<?php echo ADMIN_URL; ?>/menu/preview/<?php echo $menu['id']; ?>" 
-                                    class="btn btn-outline-secondary" 
-                                    title="<?php echo LANG_TEMPLATE_MENU_INDEX_ACTION_PREVIEW; ?>">
-                                        <?php echo bloggy_icon('bs', 'eye', '16', '#000'); ?>
-                                    </a>
-                                    <a href="<?php echo ADMIN_URL; ?>/menu/edit/<?php echo $menu['id']; ?>" 
-                                    class="btn btn-outline-primary" 
-                                    title="<?php echo LANG_TEMPLATE_MENU_INDEX_ACTION_EDIT; ?>">
-                                        <?php echo bloggy_icon('bs', 'pencil', '16', '#000'); ?>
-                                    </a>
-                                    <button type="button" 
-                                            class="btn btn-outline-danger" 
-                                            title="<?php echo LANG_TEMPLATE_MENU_INDEX_ACTION_DELETE; ?>"
-                                            onclick="confirmDelete(<?php echo $menu['id']; ?>, '<?php echo html($menu['name']); ?>')">
-                                        <?php echo bloggy_icon('bs', 'trash', '16', '#000'); ?>
-                                    </button>
-                                </div>
+                                <?php echo admin_action_group([
+                                    ['type' => 'list', 'url' => ADMIN_URL . '/menu/items/' . $menu['id'], 'title' => LANG_TEMPLATE_MENU_INDEX_ACTION_ITEMS],
+                                    ['type' => 'view', 'url' => ADMIN_URL . '/menu/preview/' . $menu['id'], 'title' => LANG_TEMPLATE_MENU_INDEX_ACTION_PREVIEW],
+                                    ['type' => 'edit', 'url' => ADMIN_URL . '/menu/edit/' . $menu['id'], 'title' => LANG_TEMPLATE_MENU_INDEX_ACTION_EDIT],
+                                    ['type' => 'delete', 'tag' => 'button', 'title' => LANG_TEMPLATE_MENU_INDEX_ACTION_DELETE, 'onclick' => 'confirmDelete(' . (int)$menu['id'] . ', \'' . $menu['name'] . '\')'],
+                                ]); ?>
                             </td>
                         </tr>
                         <?php } ?>

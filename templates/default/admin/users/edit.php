@@ -274,14 +274,13 @@ $customFields = $fieldModel->getActiveByEntityType('user');
                                         </label>
                                         
                                         <?php if ($isManual && $isChecked) { ?>
-                                            <button type="button" 
-                                                class="unassign-btn"
-                                                data-user-id="<?php echo $user['id']; ?>"
-                                                data-achievement-id="<?php echo $achievement['id']; ?>"
-                                                data-achievement-name="<?php echo htmlspecialchars($achievement['name']); ?>"
-                                                title="<?php echo LANG_TEMPLATE_USERS_EDIT_ACHIEVEMENTS_UNASSIGN_TITLE; ?>">
-                                                <?php echo bloggy_icon('bs', 'trash', '14', '#dc3545'); ?>
-                                            </button>
+                                            <?php echo admin_action([
+                                                'type' => 'delete',
+                                                'tag' => 'button',
+                                                'class' => 'unassign-btn',
+                                                'title' => LANG_TEMPLATE_USERS_EDIT_ACHIEVEMENTS_UNASSIGN_TITLE,
+                                                'attrs' => 'data-user-id="' . (int)$user['id'] . '" data-achievement-id="' . (int)$achievement['id'] . '" data-achievement-name="' . htmlspecialchars($achievement['name'], ENT_QUOTES, 'UTF-8') . '"',
+                                            ]); ?>
                                         <?php } ?>
                                     </div>
                                 <?php } ?>

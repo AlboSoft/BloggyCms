@@ -10,7 +10,7 @@
     <meta name="application-name" content="BloggyCms">
     <meta name="admin-language" content="<?php echo html(substr(SettingsHelper::get('general', 'admin_language', 'ru_RU'), 0, 2)); ?>">
     <?php echo favicon(); ?>
-    <?php echo base_admin_css(['bootstrap', 'icons', 'main']); ?>
+    <?php echo base_admin_css(['bootstrap', 'icons', 'main', 'actions']); ?>
     <?php echo render_admin_css(); ?>
     <script>window.BASE_URL = '<?php echo BASE_URL ?>'; window.ADMIN_URL = '<?php echo ADMIN_URL ?>';</script>
 </head>
@@ -266,7 +266,7 @@
         <?php echo QuickActionsHelper::renderQuickActions() ?>
     <?php } ?>
 
-    <?php echo base_admin_js(['jquery-3.6.0.min', 'bootstrap', 'Sortable.min', 'main', 'jquery-ui.min', 'notifications']); ?>
+    <?php echo base_admin_js(['jquery-3.6.0.min', 'bootstrap', 'Sortable.min', 'main', 'jquery-ui.min', 'notifications', 'actions']); ?>
     <?php echo render_admin_js(); ?>
     <?php echo render_admin_bottom_js() ?>
     

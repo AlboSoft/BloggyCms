@@ -61,28 +61,15 @@
                                         <span class="badge bg-light text-dark"><?php echo LANG_TEMPLATE_USERS_GROUPS_INDEX_NO; ?></span>
                                     <?php } ?>
                                 </td>
-                                <td>
-                                    <div class="d-flex justify-content-end gap-1">
-                                        <a href="<?php echo ADMIN_URL; ?>/user-groups/permissions/<?php echo $group['id']; ?>" 
-                                           class="btn btn-sm btn-outline-warning"
-                                           title="<?php echo LANG_TEMPLATE_USERS_GROUPS_INDEX_PERMISSIONS_TITLE; ?>">
-                                            <?php echo bloggy_icon('bs', 'shield-lock', '16', '#000'); ?>
-                                        </a>
-                                        <a href="<?php echo ADMIN_URL; ?>/user-groups/edit/<?php echo $group['id']; ?>" 
-                                           class="btn btn-sm btn-outline-primary"
-                                           title="<?php echo LANG_TEMPLATE_USERS_GROUPS_INDEX_EDIT_TITLE; ?>">
-                                            <?php echo bloggy_icon('bs', 'pencil', '16', '#000'); ?>
-                                        </a>
-                                        <?php if (!$group['is_default']) { ?>
-                                        <a href="<?php echo ADMIN_URL; ?>/user-groups/delete/<?php echo $group['id']; ?>" 
-                                           class="btn btn-sm btn-outline-danger"
-                                           onclick="return confirm('<?php echo LANG_TEMPLATE_USERS_GROUPS_INDEX_DELETE_CONFIRM; ?>')"
-                                           title="<?php echo LANG_TEMPLATE_USERS_GROUPS_INDEX_DELETE_TITLE; ?>">
-                                            <?php echo bloggy_icon('bs', 'trash', '16', '#000'); ?>
-                                        </a>
-                                        <?php } ?>
-                                    </div>
-                                </td>
+                                    <td>
+                                        <?php echo admin_action_group([
+                                            ['type' => 'permissions', 'url' => ADMIN_URL . '/user-groups/permissions/' . $group['id'], 'title' => LANG_TEMPLATE_USERS_GROUPS_INDEX_PERMISSIONS_TITLE],
+                                            ['type' => 'edit', 'url' => ADMIN_URL . '/user-groups/edit/' . $group['id'], 'title' => LANG_TEMPLATE_USERS_GROUPS_INDEX_EDIT_TITLE],
+                                            !$group['is_default']
+                                                ? ['type' => 'delete', 'url' => ADMIN_URL . '/user-groups/delete/' . $group['id'], 'title' => LANG_TEMPLATE_USERS_GROUPS_INDEX_DELETE_TITLE, 'confirm' => LANG_TEMPLATE_USERS_GROUPS_INDEX_DELETE_CONFIRM]
+                                                : null,
+                                        ]); ?>
+                                    </td>
                             </tr>
                             <?php } ?>
                         </tbody>

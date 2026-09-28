@@ -314,15 +314,10 @@
                                         </div>
                                     </div>
                                     <div class="draft-actions">
-                                        <a href="<?= ADMIN_URL ?>/posts/edit/<?= $post['id'] ?>" class="action-btn" title="<?php echo LANG_DASHBOARD_EDIT; ?>">
-                                            <?php echo bloggy_icon('bs', 'pencil', '14', '#0088cc'); ?>
-                                        </a>
-                                        <a href="<?= ADMIN_URL ?>/posts/toggle-status/<?= $post['id'] ?>" 
-                                           class="action-btn" 
-                                           title="<?php echo LANG_DASHBOARD_PUBLISH; ?>"
-                                           onclick="return confirm('<?php echo LANG_DASHBOARD_PUBLISH_CONFIRM; ?>')">
-                                            <?php echo bloggy_icon('bs', 'check-lg', '14', '#10b981'); ?>
-                                        </a>
+                                        <?php echo admin_action_group([
+                                            ['type' => 'edit', 'url' => ADMIN_URL . '/posts/edit/' . $post['id'], 'title' => LANG_DASHBOARD_EDIT],
+                                            ['type' => 'publish', 'url' => ADMIN_URL . '/posts/toggle-status/' . $post['id'], 'title' => LANG_DASHBOARD_PUBLISH, 'confirm' => LANG_DASHBOARD_PUBLISH_CONFIRM],
+                                        ], ['wrap' => false]); ?>
                                     </div>
                                 </div>
                             <?php } ?>

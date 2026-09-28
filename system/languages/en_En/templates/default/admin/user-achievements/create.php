@@ -39,3 +39,4 @@ define('LANG_TEMPLATE_USERS_ACHIEVEMENT_CREATE_ONE_CONDITION_ALERT', 'At least o
 define('LANG_TEMPLATE_USERS_ACHIEVEMENT_CREATE_ALERT_NAME_REQUIRED', 'Please enter the achievement name');
 define('LANG_TEMPLATE_USERS_ACHIEVEMENT_CREATE_ALERT_IMAGE_REQUIRED', 'Please upload an image for the achievement');
 define('LANG_TEMPLATE_USERS_ACHIEVEMENT_CREATE_ALERT_NO_CONDITIONS', 'You haven\'t specified conditions for an automatic achievement. The achievement can only be assigned manually. Continue?');
+define('LANG_TEMPLATE_USERS_ACHIEVEMENT_REMOVE_CONDITION_TITLE', 'Remove condition');

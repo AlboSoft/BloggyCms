@@ -61,14 +61,9 @@
                                         </small>
                                     </td>
                                     <td>
-                                        <div class="d-flex justify-content-end">
-                                            <a href="<?php echo ADMIN_URL; ?>/search-history/delete/<?php echo $query['id']; ?>" 
-                                               class="btn btn-sm btn-outline-danger"
-                                               onclick="return confirm('<?php echo LANG_TEMPLATE_SEARCH_ADMININDEX_DELETE_CONFIRM; ?>')"
-                                               title="<?php echo LANG_TEMPLATE_SEARCH_ADMININDEX_DELETE_TITLE; ?>">
-                                                <?php echo bloggy_icon('bs', 'trash', '14', '#000'); ?>
-                                            </a>
-                                        </div>
+                                        <?php echo admin_action_group([
+                                            ['type' => 'delete', 'url' => ADMIN_URL . '/search-history/delete/' . $query['id'], 'title' => LANG_TEMPLATE_SEARCH_ADMININDEX_DELETE_TITLE, 'confirm' => LANG_TEMPLATE_SEARCH_ADMININDEX_DELETE_CONFIRM],
+                                        ]); ?>
                                     </td>
                                 </tr>
                             <?php } ?>

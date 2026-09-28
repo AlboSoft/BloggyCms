@@ -102,17 +102,17 @@
                         <small class="text-muted">${log.created_formatted}</small>
                     </td>
                     <td class="text-end">
-                        <div class="btn-group btn-group-sm">
-                            <button class="btn btn-outline-secondary view-log" data-id="${log.id}" title="${lang === 'ru' ? 'Просмотр' : 'View'}">
-                                <i class="bi bi-eye"></i>
+                        <div class="act-group" role="group">
+                            <button type="button" class="act act--view view-log" data-id="${log.id}" aria-label="${lang === 'ru' ? 'Просмотр' : 'View'}" data-tip="${lang === 'ru' ? 'Просмотр' : 'View'}">
+                                ${window.bloggyActIcon('eye')}
                             </button>
                             ${!isFixed ? `
-                            <button class="btn btn-outline-success mark-fixed" data-id="${log.id}" title="${lang === 'ru' ? 'Отметить как исправленную' : 'Mark as fixed'}">
-                                <i class="bi bi-check-lg"></i>
+                            <button type="button" class="act act--publish mark-fixed" data-id="${log.id}" aria-label="${lang === 'ru' ? 'Отметить как исправленную' : 'Mark as fixed'}" data-tip="${lang === 'ru' ? 'Отметить как исправленную' : 'Mark as fixed'}">
+                                ${window.bloggyActIcon('check-lg')}
                             </button>
                             ` : ''}
-                            <button class="btn btn-outline-danger delete-log" data-id="${log.id}" title="${lang === 'ru' ? 'Удалить' : 'Delete'}">
-                                <i class="bi bi-trash"></i>
+                            <button type="button" class="act act--delete delete-log" data-id="${log.id}" aria-label="${lang === 'ru' ? 'Удалить' : 'Delete'}" data-tip="${lang === 'ru' ? 'Удалить' : 'Delete'}">
+                                ${window.bloggyActIcon('trash')}
                             </button>
                         </div>
                     </td>

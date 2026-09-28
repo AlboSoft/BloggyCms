@@ -97,26 +97,15 @@
                                         <?php } ?>
                                     </td>
                                     <td>
-                                        <div class="d-flex justify-content-end gap-2">
-                                            <?php if ($systemName !== 'DefaultBlock') { ?>
-                                                <?php $isActive = $type['is_active'] ?? true; ?>
-                                                <a href="<?php echo ADMIN_URL; ?>/html-blocks/types/toggle/<?php echo $systemName; ?>" 
-                                                   class="btn btn-sm <?php echo $isActive ? 'btn-warning' : 'btn-success'; ?>"
-                                                   title="<?php echo $isActive ? LANG_TEMPLATE_HTMLBLOCKS_TYPES_INDEX_DISABLE_TITLE : LANG_TEMPLATE_HTMLBLOCKS_TYPES_INDEX_ENABLE_TITLE; ?>">
-                                                    <?php echo bloggy_icon('bs', 'power', '16', $isActive ? '#000' : '#fff'); ?>
-                                                    <?php echo $isActive ? '' : ' ' . LANG_TEMPLATE_HTMLBLOCKS_TYPES_INDEX_ENABLE_SHORT; ?>
-                                                </a>
-                                                <a href="<?php echo ADMIN_URL; ?>/html-blocks/types/delete/<?php echo $systemName; ?>" 
-                                                   class="btn btn-sm btn-outline-danger"
-                                                   onclick="return confirm('<?php echo sprintf(LANG_TEMPLATE_HTMLBLOCKS_TYPES_INDEX_DELETE_CONFIRM, $systemName); ?>')"
-                                                   title="<?php echo LANG_TEMPLATE_HTMLBLOCKS_TYPES_INDEX_DELETE_TITLE; ?>">
-                                                    <?php echo bloggy_icon('bs', 'trash', '16', '#000', 'me-1'); ?>
-                                                    <?php echo LANG_TEMPLATE_HTMLBLOCKS_TYPES_INDEX_DELETE_BTN; ?>
-                                                </a>
-                                            <?php } else { ?>
-                                                <span class="text-muted small"><?php echo LANG_TEMPLATE_HTMLBLOCKS_TYPES_INDEX_SYSTEM_BADGE; ?></span>
-                                            <?php } ?>
-                                        </div>
+                                        <?php if ($systemName !== 'DefaultBlock') { ?>
+                                            <?php $isActive = $type['is_active'] ?? true; ?>
+                                            <?php echo admin_action_group([
+                                                ['type' => 'toggle', 'url' => ADMIN_URL . '/html-blocks/types/toggle/' . $systemName, 'title' => $isActive ? LANG_TEMPLATE_HTMLBLOCKS_TYPES_INDEX_DISABLE_TITLE : LANG_TEMPLATE_HTMLBLOCKS_TYPES_INDEX_ENABLE_TITLE],
+                                                ['type' => 'delete', 'url' => ADMIN_URL . '/html-blocks/types/delete/' . $systemName, 'title' => LANG_TEMPLATE_HTMLBLOCKS_TYPES_INDEX_DELETE_TITLE, 'confirm' => sprintf(LANG_TEMPLATE_HTMLBLOCKS_TYPES_INDEX_DELETE_CONFIRM, $systemName)],
+                                            ]); ?>
+                                        <?php } else { ?>
+                                            <span class="text-muted small"><?php echo LANG_TEMPLATE_HTMLBLOCKS_TYPES_INDEX_SYSTEM_BADGE; ?></span>
+                                        <?php } ?>
                                     </td>
                                 </tr>
                             <?php } ?>

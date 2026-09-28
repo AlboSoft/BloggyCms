@@ -74,25 +74,11 @@
                                                 <small class="text-muted"><?php echo date('d.m.Y', strtotime($page['created_at'])); ?></small>
                                             </td>
                                             <td>
-                                                <div class="d-flex justify-content-end gap-2">
-                                                    <a href="<?php echo BASE_URL; ?>/page/<?php echo $page['slug']; ?>"
-                                                    class="btn btn-sm btn-outline-secondary"
-                                                    target="_blank"
-                                                    title="<?php echo LANG_TEMPLATE_PAGES_INDEX_ACTION_VIEW; ?>">
-                                                        <?php echo bloggy_icon('bs', 'eye', '16', '#000'); ?>
-                                                    </a>
-                                                    <a href="<?php echo ADMIN_URL; ?>/pages/edit/<?php echo $page['id']; ?>"
-                                                    class="btn btn-sm btn-outline-primary"
-                                                    title="<?php echo LANG_TEMPLATE_PAGES_INDEX_ACTION_EDIT; ?>">
-                                                        <?php echo bloggy_icon('bs', 'pencil', '16', '#000'); ?>
-                                                    </a>
-                                                    <a href="<?php echo ADMIN_URL; ?>/pages/delete/<?php echo $page['id']; ?>"
-                                                    class="btn btn-sm btn-outline-danger"
-                                                    title="<?php echo LANG_TEMPLATE_PAGES_INDEX_ACTION_DELETE; ?>"
-                                                    onclick="return confirm('<?php echo LANG_TEMPLATE_PAGES_INDEX_DELETE_CONFIRM; ?>')">
-                                                        <?php echo bloggy_icon('bs', 'trash', '16', '#000'); ?>
-                                                    </a>
-                                                </div>
+                                                <?php echo admin_action_group([
+                                                    ['type' => 'view', 'url' => BASE_URL . '/page/' . $page['slug'], 'target' => '_blank', 'title' => LANG_TEMPLATE_PAGES_INDEX_ACTION_VIEW],
+                                                    ['type' => 'edit', 'url' => ADMIN_URL . '/pages/edit/' . $page['id'], 'title' => LANG_TEMPLATE_PAGES_INDEX_ACTION_EDIT],
+                                                    ['type' => 'delete', 'url' => ADMIN_URL . '/pages/delete/' . $page['id'], 'title' => LANG_TEMPLATE_PAGES_INDEX_ACTION_DELETE, 'confirm' => LANG_TEMPLATE_PAGES_INDEX_DELETE_CONFIRM],
+                                                ]); ?>
                                             </td>
                                         </tr>
                                         <?php

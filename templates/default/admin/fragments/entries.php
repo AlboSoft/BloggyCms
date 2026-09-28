@@ -133,19 +133,10 @@
                                                 </div>
                                             <?php } ?>
                                         </div>
-                                        <div class="btn-group btn-group-sm">
-                                            <a href="<?php echo ADMIN_URL; ?>/fragments/entry/edit/<?php echo $entry['id']; ?>" 
-                                               class="btn btn-outline-primary"
-                                               title="<?php echo LANG_TEMPLATE_FRAGMENTS_ENTRIES_EDIT_TITLE; ?>">
-                                                <?php echo bloggy_icon('bs', 'pencil', '16', '#000'); ?>
-                                            </a>
-                                            <a href="<?php echo ADMIN_URL; ?>/fragments/entry/delete/<?php echo $entry['id']; ?>" 
-                                               class="btn btn-outline-danger"
-                                               onclick="return confirm('<?php echo LANG_TEMPLATE_FRAGMENTS_ENTRIES_DELETE_CONFIRM; ?>')"
-                                               title="<?php echo LANG_TEMPLATE_FRAGMENTS_ENTRIES_DELETE_TITLE; ?>">
-                                                <?php echo bloggy_icon('bs', 'trash', '16', '#000'); ?>
-                                            </a>
-                                        </div>
+                                        <?php echo admin_action_group([
+                                            ['type' => 'edit', 'url' => ADMIN_URL . '/fragments/entry/edit/' . $entry['id'], 'title' => LANG_TEMPLATE_FRAGMENTS_ENTRIES_EDIT_TITLE],
+                                            ['type' => 'delete', 'url' => ADMIN_URL . '/fragments/entry/delete/' . $entry['id'], 'title' => LANG_TEMPLATE_FRAGMENTS_ENTRIES_DELETE_TITLE, 'confirm' => LANG_TEMPLATE_FRAGMENTS_ENTRIES_DELETE_CONFIRM],
+                                        ]); ?>
                                     </div>
                                     
                                     <div class="small text-muted mt-2">

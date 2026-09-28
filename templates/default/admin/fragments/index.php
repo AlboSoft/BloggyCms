@@ -73,29 +73,12 @@
                                         </span>
                                     </td>
                                     <td class="text-end">
-                                        <div class="btn-group btn-group-sm">
-                                            <a href="<?php echo ADMIN_URL; ?>/fragments/entries/<?php echo $fragment['id']; ?>" 
-                                               class="btn btn-outline-secondary"
-                                               title="<?php echo LANG_TEMPLATE_FRAGMENTS_INDEX_ACTION_ENTRIES; ?>">
-                                                <?php echo bloggy_icon('bs', 'list-ul', '16', '#000'); ?>
-                                            </a>
-                                            <a href="<?php echo ADMIN_URL; ?>/fragments/fields/<?php echo $fragment['id']; ?>" 
-                                               class="btn btn-outline-info"
-                                               title="<?php echo LANG_TEMPLATE_FRAGMENTS_INDEX_ACTION_FIELDS; ?>">
-                                                <?php echo bloggy_icon('bs', 'input-cursor-text', '16', '#000'); ?>
-                                            </a>
-                                            <a href="<?php echo ADMIN_URL; ?>/fragments/edit/<?php echo $fragment['id']; ?>" 
-                                               class="btn btn-outline-primary"
-                                               title="<?php echo LANG_TEMPLATE_FRAGMENTS_INDEX_ACTION_EDIT; ?>">
-                                                <?php echo bloggy_icon('bs', 'pencil', '16', '#000'); ?>
-                                            </a>
-                                            <a href="<?php echo ADMIN_URL; ?>/fragments/delete/<?php echo $fragment['id']; ?>" 
-                                               class="btn btn-outline-danger"
-                                               onclick="return confirm('<?php echo LANG_TEMPLATE_FRAGMENTS_INDEX_DELETE_CONFIRM; ?>')"
-                                               title="<?php echo LANG_TEMPLATE_FRAGMENTS_INDEX_ACTION_DELETE; ?>">
-                                                <?php echo bloggy_icon('bs', 'trash', '16', '#000'); ?>
-                                            </a>
-                                        </div>
+                                        <?php echo admin_action_group([
+                                            ['type' => 'list', 'url' => ADMIN_URL . '/fragments/entries/' . $fragment['id'], 'title' => LANG_TEMPLATE_FRAGMENTS_INDEX_ACTION_ENTRIES],
+                                            ['type' => 'fields', 'url' => ADMIN_URL . '/fragments/fields/' . $fragment['id'], 'title' => LANG_TEMPLATE_FRAGMENTS_INDEX_ACTION_FIELDS],
+                                            ['type' => 'edit', 'url' => ADMIN_URL . '/fragments/edit/' . $fragment['id'], 'title' => LANG_TEMPLATE_FRAGMENTS_INDEX_ACTION_EDIT],
+                                            ['type' => 'delete', 'url' => ADMIN_URL . '/fragments/delete/' . $fragment['id'], 'title' => LANG_TEMPLATE_FRAGMENTS_INDEX_ACTION_DELETE, 'confirm' => LANG_TEMPLATE_FRAGMENTS_INDEX_DELETE_CONFIRM],
+                                        ]); ?>
                                     </td>
                                  </tr>
                             <?php } ?>

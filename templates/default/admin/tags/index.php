@@ -153,11 +153,11 @@
                                         </span>
                                     </td>
                                     <td>
-                                        <div class="d-flex justify-content-end gap-2">
-                                            <a href="<?php echo BASE_URL; ?>/tag/<?php echo $tag['slug']; ?>" class="btn btn-sm btn-secondary" target="_blank" title="<?php echo LANG_TEMPLATE_TAGS_ADMININDEX_VIEW_TITLE; ?>"><?php echo bloggy_icon('bs', 'eye', '16', '#000'); ?></a>
-                                            <a href="<?php echo ADMIN_URL; ?>/tags/edit/<?php echo $tag['id']; ?>" class="btn btn-sm btn-success" title="<?php echo LANG_TEMPLATE_TAGS_ADMININDEX_EDIT_TITLE; ?>"><?php echo bloggy_icon('bs', 'pencil', '16', '#fff'); ?></a>
-                                            <a href="<?php echo ADMIN_URL; ?>/tags/delete/<?php echo $tag['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('<?php echo LANG_TEMPLATE_TAGS_ADMININDEX_DELETE_CONFIRM; ?>')" title="<?php echo LANG_TEMPLATE_TAGS_ADMININDEX_DELETE_TITLE; ?>"><?php echo bloggy_icon('bs', 'trash', '16', '#fff'); ?></a>
-                                        </div>
+                                        <?php echo admin_action_group([
+                                            ['type' => 'view', 'url' => BASE_URL . '/tag/' . $tag['slug'], 'target' => '_blank', 'title' => LANG_TEMPLATE_TAGS_ADMININDEX_VIEW_TITLE],
+                                            ['type' => 'edit', 'url' => ADMIN_URL . '/tags/edit/' . $tag['id'], 'title' => LANG_TEMPLATE_TAGS_ADMININDEX_EDIT_TITLE],
+                                            ['type' => 'delete', 'url' => ADMIN_URL . '/tags/delete/' . $tag['id'], 'title' => LANG_TEMPLATE_TAGS_ADMININDEX_DELETE_TITLE, 'confirm' => LANG_TEMPLATE_TAGS_ADMININDEX_DELETE_CONFIRM],
+                                        ]); ?>
                                     </td>
                                 </tr>
                             <?php } ?>

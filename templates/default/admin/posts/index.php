@@ -190,40 +190,14 @@
                                     </small>
                                 </td>
                                 <td>
-                                    <div class="d-flex justify-content-end gap-1">
-                                        <a href="<?php echo BASE_URL; ?>/post/<?php echo $post['slug']; ?>" 
-                                           class="btn btn-sm btn-outline-secondary" 
-                                           target="_blank"
-                                           title="<?php echo LANG_TEMPLATE_POSTS_INDEX_ACTION_VIEW_TITLE; ?>">
-                                            <?php echo bloggy_icon('bs', 'eye', '14', '#000'); ?>
-                                        </a>
-                                        <?php if ($post['status'] === 'published') { ?>
-                                            <a href="<?php echo ADMIN_URL; ?>/posts/toggle-status/<?php echo $post['id']; ?>" 
-                                               class="btn btn-sm btn-outline-warning"
-                                               title="<?php echo LANG_TEMPLATE_POSTS_INDEX_ACTION_MOVE_TO_DRAFT_TITLE; ?>"
-                                               onclick="return confirm('<?php echo LANG_TEMPLATE_POSTS_INDEX_CONFIRM_MOVE_TO_DRAFT; ?>')">
-                                                <?php echo bloggy_icon('bs', 'archive', '14', '#000'); ?>
-                                            </a>
-                                        <?php } else { ?>
-                                            <a href="<?php echo ADMIN_URL; ?>/posts/toggle-status/<?php echo $post['id']; ?>" 
-                                               class="btn btn-sm btn-outline-success"
-                                               title="<?php echo LANG_TEMPLATE_POSTS_INDEX_ACTION_PUBLISH_TITLE; ?>"
-                                               onclick="return confirm('<?php echo LANG_TEMPLATE_POSTS_INDEX_CONFIRM_PUBLISH; ?>')">
-                                                <?php echo bloggy_icon('bs', 'check-lg', '14', '#000'); ?>
-                                            </a>
-                                        <?php } ?>
-                                        <a href="<?php echo ADMIN_URL; ?>/posts/edit/<?php echo $post['id']; ?>" 
-                                           class="btn btn-sm btn-outline-primary"
-                                           title="<?php echo LANG_TEMPLATE_POSTS_INDEX_ACTION_EDIT_TITLE; ?>">
-                                            <?php echo bloggy_icon('bs', 'pencil', '14', '#000'); ?>
-                                        </a>
-                                        <a href="<?php echo ADMIN_URL; ?>/posts/delete/<?php echo $post['id']; ?>" 
-                                           class="btn btn-sm btn-outline-danger"
-                                           onclick="return confirm('<?php echo LANG_TEMPLATE_POSTS_INDEX_CONFIRM_DELETE; ?>')"
-                                           title="<?php echo LANG_TEMPLATE_POSTS_INDEX_ACTION_DELETE_TITLE; ?>">
-                                            <?php echo bloggy_icon('bs', 'trash', '14', '#000'); ?>
-                                        </a>
-                                    </div>
+                                    <?php echo admin_action_group([
+                                        ['type' => 'view', 'url' => BASE_URL . '/post/' . $post['slug'], 'target' => '_blank', 'title' => LANG_TEMPLATE_POSTS_INDEX_ACTION_VIEW_TITLE],
+                                        $post['status'] === 'published'
+                                            ? ['type' => 'draft', 'url' => ADMIN_URL . '/posts/toggle-status/' . $post['id'], 'title' => LANG_TEMPLATE_POSTS_INDEX_ACTION_MOVE_TO_DRAFT_TITLE, 'confirm' => LANG_TEMPLATE_POSTS_INDEX_CONFIRM_MOVE_TO_DRAFT]
+                                            : ['type' => 'publish', 'url' => ADMIN_URL . '/posts/toggle-status/' . $post['id'], 'title' => LANG_TEMPLATE_POSTS_INDEX_ACTION_PUBLISH_TITLE, 'confirm' => LANG_TEMPLATE_POSTS_INDEX_CONFIRM_PUBLISH],
+                                        ['type' => 'edit', 'url' => ADMIN_URL . '/posts/edit/' . $post['id'], 'title' => LANG_TEMPLATE_POSTS_INDEX_ACTION_EDIT_TITLE],
+                                        ['type' => 'delete', 'url' => ADMIN_URL . '/posts/delete/' . $post['id'], 'title' => LANG_TEMPLATE_POSTS_INDEX_ACTION_DELETE_TITLE, 'confirm' => LANG_TEMPLATE_POSTS_INDEX_CONFIRM_DELETE],
+                                    ]); ?>
                                 </td>
                             </tr>
                             <?php } ?>

@@ -67,24 +67,11 @@
                                     </span>
                                 </td>
                                 <td>
-                                    <div class="d-flex justify-content-end gap-2">
-                                        <a href="<?php echo ADMIN_URL; ?>/fields/toggle/<?php echo $field['id']; ?>" 
-                                           class="btn btn-sm btn-<?php echo $field['is_active'] ? 'warning' : 'success'; ?>"
-                                           title="<?php echo $field['is_active'] ? LANG_TEMPLATE_FIELDS_ENTITY_DISABLE_TITLE : LANG_TEMPLATE_FIELDS_ENTITY_ENABLE_TITLE; ?>">
-                                            <?php echo bloggy_icon('bs', 'power', '16', '#000'); ?>
-                                        </a>
-                                        <a href="<?php echo ADMIN_URL; ?>/fields/edit/<?php echo $field['id']; ?>" 
-                                           class="btn btn-sm btn-outline-primary"
-                                           title="<?php echo LANG_TEMPLATE_FIELDS_ENTITY_EDIT_TITLE; ?>">
-                                            <?php echo bloggy_icon('bs', 'pencil', '16', '#000'); ?>
-                                        </a>
-                                        <a href="<?php echo ADMIN_URL; ?>/fields/delete/<?php echo $field['id']; ?>" 
-                                           class="btn btn-sm btn-outline-danger"
-                                           onclick="return confirm('<?php echo LANG_TEMPLATE_FIELDS_ENTITY_DELETE_CONFIRM; ?>')"
-                                           title="<?php echo LANG_TEMPLATE_FIELDS_ENTITY_DELETE_TITLE; ?>">
-                                            <?php echo bloggy_icon('bs', 'trash', '16', '#000'); ?>
-                                        </a>
-                                    </div>
+                                    <?php echo admin_action_group([
+                                        ['type' => 'toggle', 'url' => ADMIN_URL . '/fields/toggle/' . $field['id'], 'title' => $field['is_active'] ? LANG_TEMPLATE_FIELDS_ENTITY_DISABLE_TITLE : LANG_TEMPLATE_FIELDS_ENTITY_ENABLE_TITLE],
+                                        ['type' => 'edit', 'url' => ADMIN_URL . '/fields/edit/' . $field['id'], 'title' => LANG_TEMPLATE_FIELDS_ENTITY_EDIT_TITLE],
+                                        ['type' => 'delete', 'url' => ADMIN_URL . '/fields/delete/' . $field['id'], 'title' => LANG_TEMPLATE_FIELDS_ENTITY_DELETE_TITLE, 'confirm' => LANG_TEMPLATE_FIELDS_ENTITY_DELETE_CONFIRM],
+                                    ]); ?>
                                 </td>
                             </tr>
                             <?php } ?>

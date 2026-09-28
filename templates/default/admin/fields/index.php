@@ -172,13 +172,9 @@
                                             </span>
                                         </td>
                                         <td>
-                                            <div class="d-flex justify-content-end gap-2">
-                                                <a href="<?php echo ADMIN_URL; ?>/fields/entity/<?php echo $field['entity_type']; ?>" 
-                                                   class="btn btn-sm btn-outline-secondary"
-                                                   title="<?php echo LANG_TEMPLATE_FIELDS_INDEX_TO_ENTITY_TITLE; ?>">
-                                                    <?php echo bloggy_icon('bs', 'arrow-right', '16', '#000'); ?>
-                                                </a>
-                                            </div>
+                                            <?php echo admin_action_group([
+                                                ['type' => 'goto', 'url' => ADMIN_URL . '/fields/entity/' . $field['entity_type'], 'title' => LANG_TEMPLATE_FIELDS_INDEX_TO_ENTITY_TITLE],
+                                            ]); ?>
                                         </td>
                                     </tr>
                                     <?php } ?>

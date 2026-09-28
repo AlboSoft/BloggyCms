@@ -220,28 +220,11 @@
                                     </td>
                                     
                                     <td>
-                                        <div class="d-flex justify-content-end gap-1">
-                                            <a href="<?php echo BASE_URL; ?>/category/<?php echo $category['slug']; ?>" 
-                                               class="btn btn-sm btn-outline-secondary" 
-                                               target="_blank" 
-                                               title="<?php echo LANG_TEMPLATE_CATEGORIES_INDEX_VIEW_TITLE; ?>"
-                                               data-bs-toggle="tooltip">
-                                                <?php echo bloggy_icon('bs', 'eye', '16', '#000'); ?>
-                                            </a>
-                                            <a href="<?php echo ADMIN_URL; ?>/categories/edit/<?php echo $category['id']; ?>" 
-                                               class="btn btn-sm btn-outline-primary"
-                                               title="<?php echo LANG_TEMPLATE_CATEGORIES_INDEX_EDIT_TITLE; ?>"
-                                               data-bs-toggle="tooltip">
-                                                <?php echo bloggy_icon('bs', 'pencil', '16', '#000'); ?>
-                                            </a>
-                                            <a href="<?php echo ADMIN_URL; ?>/categories/delete/<?php echo $category['id']; ?>" 
-                                               class="btn btn-sm btn-outline-danger"
-                                               onclick="return confirm('<?php echo sprintf(LANG_TEMPLATE_CATEGORIES_INDEX_DELETE_CONFIRM, addslashes($category['name'])); ?>')"
-                                               title="<?php echo LANG_TEMPLATE_CATEGORIES_INDEX_DELETE_TITLE; ?>"
-                                               data-bs-toggle="tooltip">
-                                                <?php echo bloggy_icon('bs', 'trash', '16', '#000'); ?>
-                                            </a>
-                                        </div>
+                                        <?php echo admin_action_group([
+                                            ['type' => 'view', 'url' => BASE_URL . '/category/' . $category['slug'], 'target' => '_blank', 'title' => LANG_TEMPLATE_CATEGORIES_INDEX_VIEW_TITLE],
+                                            ['type' => 'edit', 'url' => ADMIN_URL . '/categories/edit/' . $category['id'], 'title' => LANG_TEMPLATE_CATEGORIES_INDEX_EDIT_TITLE],
+                                            ['type' => 'delete', 'url' => ADMIN_URL . '/categories/delete/' . $category['id'], 'title' => LANG_TEMPLATE_CATEGORIES_INDEX_DELETE_TITLE, 'confirm' => sprintf(LANG_TEMPLATE_CATEGORIES_INDEX_DELETE_CONFIRM, $category['name'])],
+                                        ]); ?>
                                     </td>
                                 </tr>
                             <?php } ?>

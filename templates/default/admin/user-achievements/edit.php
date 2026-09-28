@@ -79,10 +79,13 @@
                                                         value="<?php echo html($condition['value']); ?>">
                                                 </div>
                                                 <div class="col-md-1 d-flex align-items-end">
-                                                    <button type="button" class="btn btn-sm btn-outline-danger remove-condition" 
-                                                        style="margin-bottom: 8px;">
-                                                        <?php echo bloggy_icon('bs', 'trash', '16', '#000'); ?>
-                                                    </button>
+                                                    <?php echo admin_action([
+    'type' => 'delete',
+    'tag' => 'button',
+    'class' => 'remove-condition',
+    'title' => LANG_TEMPLATE_USERS_ACHIEVEMENT_REMOVE_CONDITION_TITLE,
+    'attrs' => 'style="margin-bottom: 8px;"',
+]); ?>
                                                 </div>
                                             </div>
                                             <div class="condition-description mt-2 small text-muted">
@@ -133,10 +136,13 @@
                                                     name="conditions[0][value]" min="0" value="1">
                                             </div>
                                             <div class="col-md-1 d-flex align-items-end">
-                                                <button type="button" class="btn btn-sm btn-outline-danger remove-condition" 
-                                                    style="margin-bottom: 8px;">
-                                                    <?php echo bloggy_icon('bs', 'trash', '16', '#000'); ?>
-                                                </button>
+                                                <?php echo admin_action([
+    'type' => 'delete',
+    'tag' => 'button',
+    'class' => 'remove-condition',
+    'title' => LANG_TEMPLATE_USERS_ACHIEVEMENT_REMOVE_CONDITION_TITLE,
+    'attrs' => 'style="margin-bottom: 8px;"',
+]); ?>
                                             </div>
                                         </div>
                                         <div class="condition-description mt-2 small text-muted"></div>
@@ -300,10 +306,13 @@ document.addEventListener('DOMContentLoaded', function() {
                             name="conditions[${conditionIndex}][value]" min="0" value="1">
                     </div>
                     <div class="col-md-1 d-flex align-items-end">
-                        <button type="button" class="btn btn-sm btn-outline-danger remove-condition" 
-                            style="margin-bottom: 8px;">
-                            <?php echo bloggy_icon('bs', 'trash', '16', '#000'); ?>
-                        </button>
+                        <?php echo admin_action([
+    'type' => 'delete',
+    'tag' => 'button',
+    'class' => 'remove-condition',
+    'title' => LANG_TEMPLATE_USERS_ACHIEVEMENT_REMOVE_CONDITION_TITLE,
+    'attrs' => 'style="margin-bottom: 8px;"',
+]); ?>
                     </div>
                 </div>
                 <div class="condition-description mt-2 small text-muted"></div>
