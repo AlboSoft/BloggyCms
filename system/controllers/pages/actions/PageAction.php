@@ -151,6 +151,9 @@ abstract class PageAction {
     * @return void
     */
     protected function processPageBlocks($pageId, $blocksData) {
+        $this->validatePageBlocks($blocksData);
+
+        $this->db->beginTransaction();
         try {
             $this->postBlockModel->deleteByPage($pageId);
             
@@ -158,8 +161,33 @@ abstract class PageAction {
                 $this->processSingleBlock($pageId, $block, $index);
             }
             
-        } catch (\Exception $e) {
+            $this->db->commit();
+        } catch (\Throwable $e) {
+            $this->db->rollBack();
             throw $e;
+        }
+    }
+
+    /**
+    * Валидирует настройки блоков страницы до записи, чтобы некорректные
+    * данные не привели к частично сохранённому контенту.
+    * @param array $blocksData Массив данных блоков
+    * @throws \Exception При некорректном типе или настройках блока
+    * @return void
+    */
+    protected function validatePageBlocks($blocksData) {
+        foreach ($blocksData as $block) {
+            if (!is_array($block) || empty($block['type'])) {
+                throw new \Exception(LANG_ACTION_PAGES_BLOCK_INVALID);
+            }
+
+            $postBlock = $this->postBlockManager->getPostBlock($block['type']);
+            if ($postBlock && $postBlock['class']) {
+                list($isValid, $errors) = $postBlock['class']->validateSettings($block['settings'] ?? []);
+                if (!$isValid) {
+                    throw new \Exception(sprintf(LANG_ACTION_PAGES_BLOCK_SETTINGS_ERRORS, $postBlock['name'], implode(', ', $errors)));
+                }
+            }
         }
     }
     

@@ -87,12 +87,7 @@ abstract class BasePostBlock {
         $content = $this->validateAndNormalizeContent($content);
         $settings = $this->validateAndNormalizeSettings($settings);
         
-        $template = $settings['template'] ?? null;
-        
-        if ($template === null) {
-            $blockSettings = $this->getBlockSettings();
-            $template = $blockSettings['template'] ?? $this->getTemplateWithShortcodes();
-        }
+        $template = $this->getTemplateForRendering($settings);
         
         return $this->renderWithTemplate($content, $settings, $template);
     }
@@ -128,14 +123,79 @@ abstract class BasePostBlock {
     protected function getTemplateForRendering($settings): string {
         $presetId = $settings['preset_id'] ?? null;
         
-        if ($presetId) {
-            $preset = $this->getPreset($presetId);
-            if ($preset && !empty($preset['preset_template'])) {
-                return $preset['preset_template'];
+        if ($presetId !== null && $presetId !== '' && (int)$presetId > 0) {
+            $preset = $this->getPresetCached((int)$presetId);
+            if ($preset) {
+                $normalized = $this->normalizeTemplateMarkup($preset['preset_template'] ?? '');
+                if ($normalized !== '') {
+                    return $normalized;
+                }
             }
         }
         
-        return $settings['template'] ?? $this->getTemplateWithShortcodes();
+        if (!empty($settings['template']) && is_string($settings['template'])) {
+            $normalized = $this->normalizeTemplateMarkup($settings['template']);
+            if ($normalized !== '') {
+                return $normalized;
+            }
+        }
+        
+        $blockSettings = $this->getBlockSettings();
+        
+        if (!empty($blockSettings['template']) && is_string($blockSettings['template'])) {
+            $normalized = $this->normalizeTemplateMarkup($blockSettings['template']);
+            if ($normalized !== '') {
+                return $normalized;
+            }
+        }
+        
+        return $this->getTemplateWithShortcodes();
+    }
+
+    /**
+    * Нормализует разметку шаблона: снимает лишнее экранирование и кавычки, которые могли появиться при сохранении через ACE-редактор или json_encode.
+    * @param mixed $template Исходный шаблон
+    * @return string Чистый шаблон ('' если шаблон пустой)
+    */
+    public function normalizeTemplateMarkup($template): string {
+        if (!is_string($template)) {
+            return '';
+        }
+        
+        $template = trim($template);
+        
+        if ($template === '') {
+            return '';
+        }
+        
+        if (strlen($template) > 1 && $template[0] === '"' && substr($template, -1) === '"') {
+            $decoded = json_decode($template, true);
+            if (is_string($decoded)) {
+                $template = trim($decoded);
+            }
+        }
+        
+        if (preg_match('/\\\\[rnt\"\\\\]/', $template)) {
+            $template = stripslashes($template);
+        }
+        
+        return trim($template);
+    }
+
+    /**
+    * Кэшированный запрос пресета по ID (за одну загрузку страницы).
+    * @param int $presetId ID пресета
+    * @return array|null Данные пресета или null
+    */
+    protected function getPresetCached(int $presetId): ?array {
+        static $cache = [];
+        
+        if (!isset($cache[$presetId])) {
+            $preset = $this->getPreset($presetId);
+            $cache[$presetId] = is_array($preset) ? $preset : null;
+        }
+        
+        return $cache[$presetId];
     }
 
     /**

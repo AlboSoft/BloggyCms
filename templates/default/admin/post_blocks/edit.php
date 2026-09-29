@@ -1,4 +1,5 @@
 <?php
+    add_admin_css('templates/default/admin/assets/css/controllers/postblocks-manager.css');
     add_admin_js('templates/default/admin/assets/js/controllers/ace.js');
     add_admin_js('templates/default/admin/assets/js/controllers/mode-html.js');
     add_admin_js('templates/default/admin/assets/js/controllers/theme-monokai.js');

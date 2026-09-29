@@ -28,3 +28,5 @@ define('LANG_TEMPLATE_PAGES_CREATE_CANCEL_BTN', 'Cancel');
 define('LANG_TEMPLATE_PAGES_CREATE_PARENT_LABEL', 'Parent Page');
 define('LANG_TEMPLATE_PAGES_CREATE_PARENT_NONE', '— No parent —');
 define('LANG_TEMPLATE_PAGES_CREATE_PARENT_HINT', 'Select the page to which this one will be attached');
+define('LANG_TEMPLATE_PAGES_CREATE_CONTENT_TITLE', 'Page content');
+define('LANG_TEMPLATE_PAGES_CREATE_CONTENT_HINT', 'Blocks are assembled like a builder — no HTML editor');

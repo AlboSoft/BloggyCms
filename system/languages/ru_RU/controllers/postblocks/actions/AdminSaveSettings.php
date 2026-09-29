@@ -1,0 +1,5 @@
+<?php
+define('LANG_ACTION_POSTBLOCKS_ADMINSAVESETTINGS_SYSTEM_NAME_NOT_SPECIFIED', 'Не указано системное имя блока');
+define('LANG_ACTION_POSTBLOCKS_ADMINSAVESETTINGS_BLOCK_NOT_FOUND', 'Постблок не найден');
+define('LANG_ACTION_POSTBLOCKS_ADMINSAVESETTINGS_SAVE_ERROR', 'Не удалось сохранить настройки');
+define('LANG_ACTION_POSTBLOCKS_ADMINSAVESETTINGS_SUCCESS', 'Настройки обновлены');

@@ -109,6 +109,26 @@ class AdminPostBlockController extends Controller {
     }
     
     /**
+    * Сохраняет базовые настройки постблока (включение для постов/страниц)
+    * @return void
+    */
+    public function saveSettingsAction() {
+        $action = new \postblocks\actions\AdminSaveSettings($this->db);
+        $action->setController($this);
+        return $action->execute();
+    }
+
+    /**
+    * Рендерит демо-образец блока с учётом шаблонов и пресетов
+    * @return void
+    */
+    public function renderSampleAction() {
+        $action = new \postblocks\actions\AdminRenderSample($this->db);
+        $action->setController($this);
+        return $action->execute();
+    }
+
+    /**
     * Создает новый пресет для постблока
     * @return void
     */

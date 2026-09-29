@@ -71,6 +71,11 @@
             presetHint: 'Оформление блока применяется только к этой записи.',
             presetNone: '— Без пресета —',
             presetApplied: 'Пресет применён',
+            presetSampleTitle: 'Так блок будет выглядеть на сайте',
+            presetSampleEmpty: 'Выберите пресет, чтобы увидеть предпросмотр',
+            presetSampleNoSelection: 'Без пресета блок использует основной шаблон',
+            presetSampleMain: 'Основной шаблон',
+            presetAppliedToSample: 'Пресет «%s» применён',
             draftTitle: 'Найден несохранённый черновик',
             draftText: 'Контент был изменён, но не сохранён. Восстановить его?',
             draftRestore: 'Восстановить',
@@ -147,6 +152,11 @@
             presetHint: 'The design preset applies to this post only.',
             presetNone: '— No preset —',
             presetApplied: 'Preset applied',
+            presetSampleTitle: 'How the block will look on the site',
+            presetSampleEmpty: 'Pick a preset to see the preview',
+            presetSampleNoSelection: 'Without a preset the block uses the main template',
+            presetSampleMain: 'Main template',
+            presetAppliedToSample: 'Preset “%s” applied',
             draftTitle: 'Unsaved draft found',
             draftText: 'The content was changed but never saved. Restore it?',
             draftRestore: 'Restore',
@@ -1141,6 +1151,15 @@
                 presetPane.innerHTML = this.renderPresetSelector(presets, block);
                 (body.querySelector('.tab-content') || body).appendChild(presetPane);
                 tabs.push({ id: 'presets', pane: presetPane, label: t('presetsTab'), icon: 'bi-stars' });
+
+                var self = this;
+                var presetSelect = presetPane.querySelector('#block-preset-select');
+                if (presetSelect) {
+                    presetSelect.addEventListener('change', function () {
+                        self.renderPresetSample(block, presetSelect.value);
+                    });
+                }
+                this.renderPresetSample(block);
             }
 
             this.inspectorTabs = tabs;
@@ -1179,7 +1198,50 @@
             });
             return '<div class="mb-3"><label class="form-label">' + escapeHtml(t('preset')) + '</label>' +
                 '<select class="form-select form-select-sm" id="block-preset-select">' + options + '</select>' +
-                '<div class="form-text">' + escapeHtml(t('presetHint')) + '</div></div>';
+                '<div class="form-text">' + escapeHtml(t('presetHint')) + '</div></div>' +
+                '<div class="pbe-preset-sample-wrap">' +
+                    '<div class="pbe-preset-sample-title"><i class="bi bi-tv"></i>' + escapeHtml(t('presetSampleTitle')) + '</div>' +
+                    '<div class="pbe-preset-sample" id="pbe-preset-sample">' +
+                        '<div class="pbe-preset-sample-hint">' + escapeHtml(t('presetSampleEmpty')) + '</div>' +
+                    '</div>' +
+                '</div>';
+        }
+
+        async renderPresetSample(block, presetId) {
+            var box = this.inspector.querySelector('#pbe-preset-sample');
+            if (!box) return;
+
+            var current = this.findBlock(block.id) || block;
+            if (typeof presetId === 'undefined') {
+                presetId = (current.settings && current.settings.preset_id) || '';
+            }
+
+            if (!presetId) {
+                box.innerHTML = '<div class="pbe-preset-sample-hint">' + escapeHtml(t('presetSampleNoSelection')) + '</div>';
+                return;
+            }
+
+            box.innerHTML = '<div class="pbe-preset-sample-loading"><span class="spinner-border spinner-border-sm text-primary me-2"></span>' +
+                escapeHtml(t('loading')) + '</div>';
+
+            try {
+                var data = await this.api('render-sample', {
+                    system_name: current.type,
+                    preset_id: presetId,
+                    content: this.normalizeContentData(current.type, current.content) || {},
+                    settings: current.settings || {}
+                });
+                if (!data || !data.success) throw new Error((data && data.message) || 'render error');
+                if (this.inspectorBlockId !== current.id) return;
+
+                var label = data.preset_name ? tf('presetAppliedToSample', data.preset_name) : t('presetSampleMain');
+                box.innerHTML = '<div class="pbe-preset-sample-label"><i class="bi bi-stars me-1"></i>' + escapeHtml(label) + '</div>' +
+                    '<div class="pbe-preset-sample-stage">' + (data.html || '') + '</div>';
+            } catch (error) {
+                if (this.inspectorBlockId !== current.id) return;
+                box.innerHTML = '<div class="pbe-block-error">' +
+                    escapeHtml(t('previewError') + ': ' + error.message) + '</div>';
+            }
         }
 
         applySavedValues(form, block) {
@@ -2046,7 +2108,8 @@
 
             document.addEventListener('keydown', function (event) { self.handleGlobalKeydown(event); });
 
-            var form = document.getElementById('post-form');
+            var form = document.getElementById('post-form') ||
+                (this.root ? this.root.closest('form') : null);
             if (form) {
                 form.addEventListener('submit', function (event) {
                     if (self.inspectorBlockId) {

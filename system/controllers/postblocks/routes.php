@@ -14,6 +14,8 @@ return [
     'admin/post-blocks/get-template' => ['controller' => 'AdminPostBlock', 'action' => 'getTemplate', 'admin' => true],
     'admin/post-blocks/save-block-data' => ['controller' => 'AdminPostBlock', 'action' => 'saveBlockData', 'admin' => true],
     'admin/post-blocks/get-presets' => ['controller' => 'AdminPostBlock', 'action' => 'getPresets', 'admin' => true],
+    'admin/post-blocks/save-settings' => ['controller' => 'AdminPostBlock', 'action' => 'saveSettings', 'admin' => true],
+    'admin/post-blocks/render-sample' => ['controller' => 'AdminPostBlock', 'action' => 'renderSample', 'admin' => true],
     'admin/post-blocks/create-preset' => ['controller' => 'AdminPostBlock', 'action' => 'createPreset', 'admin' => true],
     'admin/post-blocks/update-preset' => ['controller' => 'AdminPostBlock', 'action' => 'updatePreset', 'admin' => true],
     'admin/post-blocks/delete-preset' => ['controller' => 'AdminPostBlock', 'action' => 'deletePreset', 'admin' => true]

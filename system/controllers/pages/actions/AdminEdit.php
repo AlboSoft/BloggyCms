@@ -300,7 +300,7 @@ class AdminEdit extends PageAction {
     }
     
     /**
-    * Обрабатывает ошибку при обновлении страницы
+    * Обрабатывает ошибку при обновлении страницы.
     * @param \Exception $e Исключение
     */
     private function handleUpdateError($e) {
@@ -310,6 +310,42 @@ class AdminEdit extends PageAction {
         }
         
         \Notification::error(LANG_ACTION_PAGES_ADMINEDIT_UPDATE_ERROR . $e->getMessage());
+        
+        try {
+            $page = $this->loadPage();
+            $this->renderEditForm($page, $this->prepareBlocksFromPost());
+        } catch (\Exception $inner) {
+            $this->redirect(ADMIN_URL . '/pages');
+        }
+    }
+    
+    /**
+    * Подготавливает данные блоков из POST-запроса для повторного отображения формы
+    * @return array Массив подготовленных блоков
+    */
+    private function prepareBlocksFromPost() {
+        $preparedBlocks = [];
+        
+        if (!empty($_POST['post_blocks'])) {
+            $blocksData = json_decode($_POST['post_blocks'], true);
+            
+            if (json_last_error() === JSON_ERROR_NONE && is_array($blocksData)) {
+                foreach ($blocksData as $index => $block) {
+                    if (!is_array($block)) {
+                        continue;
+                    }
+                    $preparedBlocks[] = [
+                        'id' => $block['id'] ?? 'block_' . $index,
+                        'type' => $block['type'] ?? '',
+                        'content' => $block['content'] ?? [],
+                        'settings' => $block['settings'] ?? [],
+                        'order' => (int)($block['order'] ?? $index)
+                    ];
+                }
+            }
+        }
+        
+        return $preparedBlocks;
     }
     
     /**

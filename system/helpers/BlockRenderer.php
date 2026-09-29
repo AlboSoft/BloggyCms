@@ -9,7 +9,7 @@ class BlockRenderer {
     /** @var PostBlockManager|null Менеджер пост-блоков */
     private static $postBlockManager;
     
-    /** @var PostBlock|null Модель пост-блоков */
+    /** @var PostBlockModel|null Модель пост-блоков */
     private static $postBlockModel;
     
     /** @var bool Флаг инициализации */
@@ -24,7 +24,7 @@ class BlockRenderer {
         if (!self::$initialized) {
             $db = Database::getInstance();
             self::$postBlockManager = new PostBlockManager($db);
-            self::$postBlockModel = new PostBlock($db);
+            self::$postBlockModel = new PostBlockModel($db);
             self::$initialized = true;
         }
     }
@@ -78,11 +78,7 @@ class BlockRenderer {
 
             $dbSettings = self::$postBlockModel->getBlockSettings($type);
             
-            $mergedSettings = array_merge($settings, $dbSettings);
-            
-            if (!empty($dbSettings['template'])) {
-                $mergedSettings['template'] = $dbSettings['template'];
-            }
+            $mergedSettings = array_merge($dbSettings, $settings);
 
             $result = self::$postBlockManager->processPostBlockContent($content, $type, $mergedSettings);
             

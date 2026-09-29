@@ -27,3 +27,6 @@ define('LANG_TEMPLATE_PAGES_EDIT_CANCEL_BTN', 'Cancel');
 define('LANG_TEMPLATE_PAGES_EDIT_PARENT_LABEL', 'Parent Page');
 define('LANG_TEMPLATE_PAGES_EDIT_PARENT_NONE', '— No parent —');
 define('LANG_TEMPLATE_PAGES_EDIT_PARENT_HINT', 'Select the page to which this one will be attached');
+define('LANG_TEMPLATE_PAGES_EDIT_CONTENT_TITLE', 'Page content');
+define('LANG_TEMPLATE_PAGES_EDIT_CONTENT_HINT', 'Blocks are assembled like a builder — no HTML editor');
+define('LANG_TEMPLATE_PAGES_EDIT_VIEW_BTN', 'Open page');

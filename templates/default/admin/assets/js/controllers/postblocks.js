@@ -218,11 +218,18 @@
                         </p>
                         <div class="d-flex justify-content-between align-items-center">
                             <small class="text-muted">${lang === 'ru' ? 'Обновлен: ' : 'Updated: '}${date}</small>
-                            <button type="button" class="btn btn-sm btn-outline-primary use-preset" 
-                                    data-id="${preset.id}" 
-                                    data-template-encoded="${templateForData}">
-                                ${lang === 'ru' ? 'Использовать' : 'Use'}
-                            </button>
+                            <span class="d-flex gap-1">
+                                <button type="button" class="btn btn-sm btn-outline-secondary preview-preset" 
+                                        data-id="${preset.id}" data-name="${escapeHtml(preset.preset_name)}"
+                                        title="${lang === 'ru' ? 'Как выглядит блок с этим пресетом' : 'How the block looks with this preset'}">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-primary use-preset" 
+                                        data-id="${preset.id}" 
+                                        data-template-encoded="${templateForData}">
+                                    ${lang === 'ru' ? 'Использовать' : 'Use'}
+                                </button>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -264,6 +271,78 @@
                 }
             });
         });
+        
+        container.querySelectorAll('.preview-preset').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                previewPreset(this.getAttribute('data-id'), this.getAttribute('data-name'));
+            });
+        });
+    }
+    
+    function ensureRenderModal() {
+        let modalEl = document.getElementById('pbm-render-modal');
+        if (modalEl) return modalEl;
+        
+        modalEl = document.createElement('div');
+        modalEl.className = 'modal fade';
+        modalEl.id = 'pbm-render-modal';
+        modalEl.tabIndex = -1;
+        modalEl.innerHTML = `
+            <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">
+                            <i class="bi bi-stars me-2"></i><span id="pbm-render-modal-title"></span>
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="pbm-render-modal-body" class="text-center py-4 text-muted">
+                            <span class="spinner-border spinner-border-sm text-primary me-2"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+        document.body.appendChild(modalEl);
+        return modalEl;
+    }
+    
+    function previewPreset(presetId, presetName) {
+        if (!adminUrl || !systemName || !presetId) return;
+        
+        const modalEl = ensureRenderModal();
+        const titleEl = modalEl.querySelector('#pbm-render-modal-title');
+        const bodyEl = modalEl.querySelector('#pbm-render-modal-body');
+        
+        if (titleEl) titleEl.textContent = (lang === 'ru' ? 'Пресет: ' : 'Preset: ') + (presetName || '#' + presetId);
+        if (bodyEl) bodyEl.innerHTML = '<span class="spinner-border spinner-border-sm text-primary me-2"></span>';
+        
+        const modal = new bootstrap.Modal(modalEl);
+        modal.show();
+        
+        fetch(adminUrl + '/post-blocks/render-sample', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ system_name: systemName, preset_id: Number(presetId) })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data && data.success) {
+                    if (bodyEl) {
+                        bodyEl.className = 'pbm-preview-stage';
+                        bodyEl.innerHTML = data.html || '<span class="text-muted small">—</span>';
+                    }
+                } else {
+                    throw new Error((data && data.message) || 'render error');
+                }
+            })
+            .catch(error => {
+                if (bodyEl) {
+                    bodyEl.className = '';
+                    bodyEl.innerHTML = `<div class="alert alert-danger small mb-0">${escapeHtml((lang === 'ru' ? 'Ошибка предпросмотра: ' : 'Preview error: ') + error.message)}</div>`;
+                }
+            });
     }
     
     function openPresetModal(presetId = null) {

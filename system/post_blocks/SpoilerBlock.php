@@ -166,8 +166,7 @@ class SpoilerBlock extends BasePostBlock {
         $mergedSettings = array_merge($dbSettings, $settings);
         $settings = $this->validateAndNormalizeSettings($mergedSettings);
         
-        $blockSettings = $this->getBlockSettings();
-        $template = $blockSettings['template'] ?? $this->getTemplateWithShortcodes();
+        $template = $this->getTemplateForRendering($settings);
         
         return $this->renderWithTemplate($content, $settings, $template);
     }

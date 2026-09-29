@@ -27,3 +27,6 @@ define('LANG_TEMPLATE_PAGES_EDIT_CANCEL_BTN', 'Отмена');
 define('LANG_TEMPLATE_PAGES_EDIT_PARENT_LABEL', 'Родительская страница');
 define('LANG_TEMPLATE_PAGES_EDIT_PARENT_NONE', '— Без родителя —');
 define('LANG_TEMPLATE_PAGES_EDIT_PARENT_HINT', 'Выберите страницу, к которой будет привязана текущая');
+define('LANG_TEMPLATE_PAGES_EDIT_CONTENT_TITLE', 'Контент страницы');
+define('LANG_TEMPLATE_PAGES_EDIT_CONTENT_HINT', 'Блоки собираются как конструктор — без HTML-редактора');
+define('LANG_TEMPLATE_PAGES_EDIT_VIEW_BTN', 'Открыть страницу');

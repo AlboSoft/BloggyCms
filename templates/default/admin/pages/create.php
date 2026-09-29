@@ -1,7 +1,7 @@
 <?php
-    add_admin_js('templates/default/admin/assets/js/controllers/image-upload.js');
-    add_admin_js('templates/default/admin/assets/js/controllers/post-blocks.js');
-    add_admin_css('templates/default/admin/assets/css/controllers/post-blocks.css');
+add_admin_js('templates/default/admin/assets/js/controllers/post-builder.js');
+add_admin_css('templates/default/admin/assets/css/controllers/post-blocks.css');
+add_admin_css('templates/default/admin/assets/css/controllers/post-builder.css');
 ?>
 
 <div class="container-fluid p-0">
@@ -56,44 +56,12 @@
                             </div>
                         </div>
                         
-                        <div class="card mb-4 sticky-top" style="top: 20px; z-index: 1000;">
-                            <div class="card-header bg-white py-2">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <h6 class="mb-0 text-muted small"><?php echo LANG_TEMPLATE_PAGES_CREATE_AVAILABLE_BLOCKS; ?></h6>
-                                    <div class="d-flex align-items-center">
-                                        <select class="form-select form-select-sm me-2" id="block-category-filter" style="width: auto;">
-                                            <option value="all"><?php echo LANG_TEMPLATE_PAGES_CREATE_FILTER_ALL; ?></option>
-                                            <option value="text">🖊️ <?php echo LANG_TEMPLATE_PAGES_CREATE_FILTER_TEXT; ?></option>
-                                            <option value="media">🎞️ <?php echo LANG_TEMPLATE_PAGES_CREATE_FILTER_MEDIA; ?></option>
-                                            <option value="layout">🔩 <?php echo LANG_TEMPLATE_PAGES_CREATE_FILTER_LAYOUT; ?></option>
-                                            <option value="advanced">🧲 <?php echo LANG_TEMPLATE_PAGES_CREATE_FILTER_ADVANCED; ?></option>
-                                            <option value="basic">✔️ <?php echo LANG_TEMPLATE_PAGES_CREATE_FILTER_BASIC; ?></option>
-                                        </select>
-                                        
-                                        <div class="input-group input-group-sm" style="width: 200px;">
-                                            <input type="text" class="form-control" id="block-search" placeholder="<?php echo LANG_TEMPLATE_PAGES_CREATE_SEARCH_PLACEHOLDER; ?>">
-                                            <button class="btn btn-outline-secondary" type="button" id="clear-search">
-                                                <?php echo bloggy_icon('bs', 'x', '16', '#000'); ?>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
+                        <div class="mb-0">
+                            <div class="d-flex align-items-end justify-content-between mb-2">
+                                <label class="form-label mb-0"><?php echo LANG_TEMPLATE_PAGES_CREATE_CONTENT_TITLE; ?></label>
+                                <small class="text-muted"><?php echo LANG_TEMPLATE_PAGES_CREATE_CONTENT_HINT; ?></small>
                             </div>
-                            <div class="card-body py-2">
-                                <div id="post-block-buttons" class="d-flex flex-wrap gap-1"></div>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <div class="card-body p-0">
-                                <div id="post-blocks-container" class="min-h-100" style="min-height: 400px;">
-                                    <div class="text-center text-muted py-5 empty-state">
-                                        <?php echo bloggy_icon('bs', 'inbox', '48', '#6C6C6C', 'mb-3'); ?>
-                                        <p class="mb-1"><?php echo LANG_TEMPLATE_PAGES_CREATE_NO_BLOCKS_TITLE; ?></p>
-                                        <small class="text-muted"><?php echo LANG_TEMPLATE_PAGES_CREATE_NO_BLOCKS_HINT; ?></small>
-                                    </div>
-                                </div>
-                            </div>
+                            <div id="post-builder" class="post-builder" data-storage-key="page-create"></div>
                         </div>
 
                         <?php
@@ -102,7 +70,7 @@
                         ?>
 
                         <?php if (!empty($customFields)) { ?>
-                            <div class="card border-0 shadow-sm mb-4">
+                            <div class="card border-0 shadow-sm mb-4 mt-4">
                                 <div class="card-header bg-white border-0">
                                     <h5 class="card-title mb-0"><?php echo LANG_TEMPLATE_PAGES_CREATE_CUSTOM_FIELDS_TITLE; ?></h5>
                                 </div>
@@ -193,7 +161,7 @@
 
 <?php ob_start(); ?>
 <script>
-    window.availablePostBlocks = <?php echo json_encode($postBlockManager->getPostBlocksForJS('page')); ?>;
-    window.initialPostBlocks = [];
+    window.availablePostBlocks = <?php echo json_encode($postBlockManager->getPostBlocksForJS('page'), JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>;
+    window.initialPostBlocks = <?php echo json_encode($preparedBlocks ?? [], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>;
 </script>
 <?php admin_bottom_js(ob_get_clean()); ?>

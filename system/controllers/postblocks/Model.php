@@ -450,4 +450,39 @@ class PostBlockModel {
             WHERE block_system_name = ? AND preset_name = ?
         ", [$systemName, $presetName]);
     }
+
+    /**
+    * Количество пресетов для каждого типа блока
+    * @return array Массив вида system_name => count
+    */
+    public function getPresetCounts(): array {
+        $rows = $this->db->fetchAll(
+            "SELECT block_system_name, COUNT(*) AS cnt FROM post_block_presets GROUP BY block_system_name"
+        );
+
+        $counts = [];
+        foreach ($rows as $row) {
+            $counts[$row['block_system_name']] = (int)$row['cnt'];
+        }
+
+        return $counts;
+    }
+
+    /**
+    * Статистика использования блоков: сколько записей используют каждый тип
+    * @return array Массив вида system_name => ['posts' => int, 'pages' => int]
+    */
+    public function getUsageCounts(): array {
+        $usage = [];
+
+        foreach ($this->db->fetchAll("SELECT type, COUNT(*) AS cnt FROM post_blocks GROUP BY type") as $row) {
+            $usage[$row['type']]['posts'] = (int)$row['cnt'];
+        }
+
+        foreach ($this->db->fetchAll("SELECT type, COUNT(*) AS cnt FROM page_blocks GROUP BY type") as $row) {
+            $usage[$row['type']]['pages'] = (int)$row['cnt'];
+        }
+
+        return $usage;
+    }
 }

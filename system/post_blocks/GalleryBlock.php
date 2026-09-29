@@ -441,7 +441,9 @@ class GalleryBlock extends BasePostBlock {
             return LANG_POSTBLOCK_GALLERY_EMPTY_COMMENT;
         }
 
-        $template = $settings['template'] ?? $this->getTemplateWithShortcodes();
+        if (empty($template)) {
+            $template = $this->getTemplateForRendering($settings);
+        }
         
         $template = str_replace('{custom_class}', html($customClass), $template);
         
