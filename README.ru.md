@@ -29,7 +29,7 @@
   <a href="https://github.com/albosoft/BloggyCms/wiki">Документация</a> ·
   <a href="https://github.com/albosoft/BloggyCms/releases">Релизы</a> ·
   <a href="https://github.com/albosoft/BloggyCms/discussions">Обсуждения</a> ·
-  <a href="https://github.com/AlboSoft/BloggyOfficial/issues/new/choose">Сообщить об ошибке</a>
+  <a href="https://github.com/AlboSoft/BloggyCms/issues/new/choose">Сообщить об ошибке</a>
 </p>
 
 <p align="center">
@@ -141,7 +141,7 @@
 ### 1. Получите код
 
 ```bash
-git clone https://github.com/AlboSoft/BloggyOfficial.git bloggycms
+git clone https://github.com/AlboSoft/BloggyCms.git bloggycms
 ```
 
 …либо скачайте архив со [страницы релизов](https://github.com/albosoft/BloggyCms/releases) и загрузите его в корень сайта.
@@ -358,7 +358,7 @@ Shortcodes::add('year', function ($attrs) {
 
 1. **Сначала обсудите** идею, если это не просто исправление бага — всё для этого есть в [GitHub Discussions](https://github.com/albosoft/BloggyCms/discussions).
 2. **Сделайте форк**, ветвитесь от `main` и держите коммиты сфокусированными.
-3. **Используйте шаблоны issue**: [баг-репорт](https://github.com/AlboSoft/BloggyOfficial/issues/new/choose) или [запрос функциональности](https://github.com/AlboSoft/BloggyOfficial/issues/new/choose).
+3. **Используйте шаблоны issue**: [баг-репорт](https://github.com/AlboSoft/BloggyCms/issues/new/choose) или [запрос функциональности](https://github.com/AlboSoft/BloggyCms/issues/new/choose).
 4. **Соблюдайте стиль проекта**: синтаксис PHP 8, форматирование в духе PSR-12, никаких сторонних runtime-зависимостей и шага сборки, а все строки интерфейса — в языковых файлах (никакого текста «в лоб» в шаблонах).
 
 Самый дружелюбный способ помочь — добавить модуль: он целиком живёт в своей папке в `system/controllers/` или `system/post_blocks/`, поэтому ревью проходит быстро.

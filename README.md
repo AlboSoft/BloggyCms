@@ -29,7 +29,7 @@
   <a href="https://github.com/albosoft/BloggyCms/wiki">Documentation</a> ·
   <a href="https://github.com/albosoft/BloggyCms/releases">Releases</a> ·
   <a href="https://github.com/albosoft/BloggyCms/discussions">Discussions</a> ·
-  <a href="https://github.com/AlboSoft/BloggyOfficial/issues/new/choose">Report a bug</a>
+  <a href="https://github.com/AlboSoft/BloggyCms/issues/new/choose">Report a bug</a>
 </p>
 
 <p align="center">
@@ -141,7 +141,7 @@ The core is intentionally small and readable — 24 core classes, 40 helpers, no
 ### 1. Get the code
 
 ```bash
-git clone https://github.com/AlboSoft/BloggyOfficial.git bloggycms
+git clone https://github.com/AlboSoft/BloggyCms.git bloggycms
 ```
 
 …or download the archive from the [releases page](https://github.com/albosoft/BloggyCms/releases) and upload it to your web root.
@@ -358,7 +358,7 @@ Yes — use the Nginx snippet above. The bundled <code>.htaccess</code> only app
 
 1. **Discuss first** for anything bigger than a bugfix — [GitHub Discussions](https://github.com/albosoft/BloggyCms/discussions) is the place.
 2. **Fork**, branch from `main` and keep commits focused.
-3. **Use the issue templates**: [bug report](https://github.com/AlboSoft/BloggyOfficial/issues/new/choose) or [feature request](https://github.com/AlboSoft/BloggyOfficial/issues/new/choose).
+3. **Use the issue templates**: [bug report](https://github.com/AlboSoft/BloggyCms/issues/new/choose) or [feature request](https://github.com/AlboSoft/BloggyCms/issues/new/choose).
 4. **Respect the house style**: PHP 8 syntax, PSR-12-ish formatting, no third-party runtime dependencies, no build step, and every user-facing string goes into a language file (never hard-code text in a template).
 
 Adding a module is the friendliest way to contribute: it lives entirely in its own folder under `system/controllers/` or `system/post_blocks/`, so review is quick.
