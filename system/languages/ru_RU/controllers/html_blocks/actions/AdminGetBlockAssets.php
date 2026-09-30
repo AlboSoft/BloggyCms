@@ -1,3 +1,4 @@
 <?php
 define('LANG_ACTION_HTMLBLOCKS_ADMINGETBLOCKASSETS_BLOCK_TYPE_REQUIRED', 'Не указан тип блока');
 define('LANG_ACTION_HTMLBLOCKS_ADMINGETBLOCKASSETS_INVALID_ASSET_TYPE', 'Недопустимый тип ассета');
+define('LANG_ACTION_HTMLBLOCKS_ADMINGETBLOCKASSETS_TYPE_UNAVAILABLE', 'Тип блока недоступен в активной теме или отключен.');

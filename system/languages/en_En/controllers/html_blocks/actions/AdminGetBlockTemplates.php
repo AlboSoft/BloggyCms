@@ -2,3 +2,4 @@
 define('LANG_ACTION_HTMLBLOCKS_ADMINGETBLOCKTEMPLATES_DEFAULT_TEMPLATE', 'Default template');
 define('LANG_ACTION_HTMLBLOCKS_ADMINGETBLOCKTEMPLATES_NOT_FOUND', 'Block type not found');
 define('LANG_ACTION_HTMLBLOCKS_ADMINGETBLOCKTEMPLATES_ERROR', 'Error getting templates: ');
+define('LANG_ACTION_HTMLBLOCKS_ADMINGETBLOCKTEMPLATES_UNAVAILABLE', 'The block type is disabled or unavailable in the active theme.');

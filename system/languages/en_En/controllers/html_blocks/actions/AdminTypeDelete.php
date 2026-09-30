@@ -11,3 +11,4 @@ define('LANG_ACTION_HTMLBLOCKS_ADMINTYPEDELETE_FILE_DELETED', 'Block file succes
 define('LANG_ACTION_HTMLBLOCKS_ADMINTYPEDELETE_FILE_NOT_FOUND', 'Block file not found, but record will be removed from database');
 define('LANG_ACTION_HTMLBLOCKS_ADMINTYPEDELETE_SUCCESS', 'Block type successfully removed from system');
 define('LANG_ACTION_HTMLBLOCKS_ADMINTYPEDELETE_ERROR', 'Error deleting block type: ');
+define('LANG_ACTION_HTMLBLOCKS_ADMINTYPEDELETE_THEME_PROVIDED', 'This type is provided by a theme. Remove it from the theme manifest to unregister it.');

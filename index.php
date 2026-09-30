@@ -404,6 +404,25 @@ if (is_dir($languagePath)) {
 
 define('CURRENT_LOCALE', $currentLocale);
 
+$templatesLanguageRoot = ROOT_PATH . '/templates';
+if (is_dir($templatesLanguageRoot)) {
+    foreach (scandir($templatesLanguageRoot) as $themeDirectory) {
+        if ($themeDirectory === '.' || $themeDirectory === '..') {
+            continue;
+        }
+
+        $themePath = realpath($templatesLanguageRoot . '/' . $themeDirectory);
+        if ($themePath === false || !is_dir($themePath)) {
+            continue;
+        }
+
+        $themeLanguagePath = $themePath . '/languages/' . $currentLocale;
+        if (is_dir($themeLanguagePath)) {
+            loadLanguageFiles($themeLanguagePath, $loadedLanguageFiles, $loadedLanguageConstants);
+        }
+    }
+}
+
 require_once SYSTEM_PATH . '/helpers/ConstantHelper.php';
 
 function loadAllHelpers($dir) {

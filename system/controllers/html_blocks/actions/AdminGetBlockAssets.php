@@ -26,6 +26,10 @@ class AdminGetBlockAssets extends HtmlBlockAction {
             if (!in_array($assetType, ['css', 'js'])) {
                 throw new \Exception(LANG_ACTION_HTMLBLOCKS_ADMINGETBLOCKASSETS_INVALID_ASSET_TYPE);
             }
+
+            if ($blockType !== 'DefaultBlock' && !$this->blockTypeManager->isBlockTypeAvailable($blockType)) {
+                throw new \Exception(LANG_ACTION_HTMLBLOCKS_ADMINGETBLOCKASSETS_TYPE_UNAVAILABLE);
+            }
             
             $files = $this->scanBlockAssets($blockType, $assetType);
             
@@ -54,13 +58,18 @@ class AdminGetBlockAssets extends HtmlBlockAction {
     */
     private function scanBlockAssets($blockType, $assetType) {
         $files = [];
-        $currentTemplate = get_current_template();
-        
-        $paths = [
-            ROOT_PATH . "/templates/{$currentTemplate}/front/assets/html_blocks/{$blockType}/{$assetType}/",
-            ROOT_PATH . "/templates/{$currentTemplate}/front/assets/html_blocks/{$assetType}/",
-            ROOT_PATH . "/system/html_blocks/{$blockType}/assets/{$assetType}/",
-        ];
+        $themeNames = [get_current_template()];
+        $type = $blockType === 'DefaultBlock' ? null : $this->blockTypeManager->getBlockType($blockType);
+        if ($type && ($type['source'] ?? '') === 'theme' && !empty($type['source_template'])) {
+            $themeNames[] = $type['source_template'];
+        }
+
+        $paths = [];
+        foreach (array_values(array_unique($themeNames)) as $themeName) {
+            $paths[] = ROOT_PATH . "/templates/{$themeName}/front/assets/html_blocks/{$blockType}/{$assetType}/";
+            $paths[] = ROOT_PATH . "/templates/{$themeName}/front/assets/html_blocks/{$assetType}/";
+        }
+        $paths[] = ROOT_PATH . "/system/html_blocks/{$blockType}/assets/{$assetType}/";
         
         foreach ($paths as $basePath) {
             if (!is_dir($basePath)) {

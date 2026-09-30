@@ -9,3 +9,4 @@ define('LANG_ACTION_HTMLBLOCKS_ADMINEDIT_SETTINGS_ERROR', 'Settings errors: ');
 define('LANG_ACTION_HTMLBLOCKS_ADMINEDIT_SUCCESS', 'HTML block successfully updated');
 define('LANG_ACTION_HTMLBLOCKS_ADMINEDIT_ERROR', 'Error updating HTML block: ');
 define('LANG_ACTION_HTMLBLOCKS_ADMINEDIT_LOAD_ERROR', 'Error loading HTML block');
+define('LANG_ACTION_HTMLBLOCKS_ADMINEDIT_BLOCK_TYPE_TEMPLATE_MISMATCH', 'This block type belongs to another theme. Switch themes to edit this block.');

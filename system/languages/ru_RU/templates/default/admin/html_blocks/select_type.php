@@ -3,7 +3,12 @@ define('LANG_TEMPLATE_HTMLBLOCKS_SELECT_TYPE_TITLE', 'Выберите тип к
 define('LANG_TEMPLATE_HTMLBLOCKS_SELECT_TYPE_BACK_BTN', 'Назад к контент-блокам');
 define('LANG_TEMPLATE_HTMLBLOCKS_SELECT_TYPE_FILTER_LABEL', 'Фильтр по шаблону:');
 define('LANG_TEMPLATE_HTMLBLOCKS_SELECT_TYPE_FILTER_HINT', 'Отображаются все блоки независимо от шаблона');
-define('LANG_TEMPLATE_HTMLBLOCKS_SELECT_TYPE_TEMPLATE_LABEL', 'Шаблон:');
+define('LANG_TEMPLATE_HTMLBLOCKS_SELECT_TYPE_TEMPLATE_LABEL', 'Тема:');
 define('LANG_TEMPLATE_HTMLBLOCKS_SELECT_TYPE_AUTHOR_LABEL', 'Автор:');
 define('LANG_TEMPLATE_HTMLBLOCKS_SELECT_TYPE_VERSION_LABEL', 'Версия:');
 define('LANG_TEMPLATE_HTMLBLOCKS_SELECT_TYPE_CREATE_BTN', 'Создать');
+define('LANG_TEMPLATE_HTMLBLOCKS_SELECT_TYPE_ACTIVE_TEMPLATE', 'Активный шаблон сайта:');
+define('LANG_TEMPLATE_HTMLBLOCKS_SELECT_TYPE_COMPATIBILITY_HINT', 'Показаны универсальные типы и типы, предназначенные для выбранного шаблона.');
+define('LANG_TEMPLATE_HTMLBLOCKS_SELECT_TYPE_NO_TYPES', 'Для выбранного шаблона пока нет доступных типов блоков.');
+define('LANG_TEMPLATE_HTMLBLOCKS_SELECT_TYPE_ALL_TEMPLATES', 'Все шаблоны');
+define('LANG_TEMPLATE_HTMLBLOCKS_SELECT_TYPE_PROVIDED_BY_THEME', 'Из темы:');

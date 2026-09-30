@@ -21,7 +21,8 @@
             <?php echo bloggy_icon('bs', 'info-circle-fill', '16', '#000', 'me-2 mt-1'); ?>
             <div>
                 <strong><?php echo LANG_TEMPLATE_HTMLBLOCKS_TYPES_INDEX_ALERT_TITLE; ?></strong><br>
-                <?php echo LANG_TEMPLATE_HTMLBLOCKS_TYPES_INDEX_ALERT_TEXT; ?>
+                <?php echo LANG_TEMPLATE_HTMLBLOCKS_TYPES_INDEX_ALERT_TEXT; ?><br>
+                <span class="small"><?php echo LANG_TEMPLATE_HTMLBLOCKS_TYPES_INDEX_CURRENT_TEMPLATE; ?> <strong><?php echo html($currentTemplate); ?></strong></span>
             </div>
         </div>
     </div>
@@ -51,59 +52,68 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($blockTypes as $systemName => $type) { ?>
-                                <tr class="<?php echo (!$type['is_active'] && $systemName !== 'DefaultBlock') ? 'table-warning' : ''; ?>">
+                            <?php foreach ($blockTypes as $systemName => $type) {
+                                $isActive = $type['is_active'] ?? false;
+                                $isCompatible = $type['is_template_compatible'] ?? false;
+                                $isThemeProvided = ($type['source'] ?? '') === 'theme';
+                            ?>
+                                <tr class="<?php echo (!$isActive || !$isCompatible) ? 'table-warning' : ''; ?>">
                                     <td>
-                                        <div class="d-flex align-items-center">
-                                            <div>
-                                                <strong><?php echo html($type['name']); ?></strong>
-                                                <div class="text-muted small">
-                                                    <?php echo html($type['description']); ?>
-                                                </div>
-                                                <?php if (!$type['is_visible_in_creation'] && $systemName !== 'DefaultBlock') { ?>
-                                                    <div class="text-warning small mt-1">
-                                                        <?php echo bloggy_icon('bs', 'eye-slash', '16', '#ffc107', 'me-1'); ?>
-                                                        <?php echo LANG_TEMPLATE_HTMLBLOCKS_TYPES_INDEX_HIDDEN_ON_CREATE; ?>
-                                                    </div>
-                                                <?php } ?>
+                                        <strong><?php echo html($type['name']); ?></strong>
+                                        <div class="text-muted small"><?php echo html($type['description']); ?></div>
+                                        <?php if ($isThemeProvided) { ?>
+                                            <span class="badge bg-secondary mt-1">
+                                                <?php echo LANG_TEMPLATE_HTMLBLOCKS_TYPES_INDEX_PROVIDED_BY_THEME; ?> <?php echo html($type['source_template']); ?>
+                                            </span>
+                                        <?php } ?>
+                                        <?php if (!$isCompatible && $systemName !== 'DefaultBlock') { ?>
+                                            <div class="text-warning small mt-1">
+                                                <?php echo bloggy_icon('bs', 'palette', '14', '#ffc107', 'me-1'); ?>
+                                                <?php echo sprintf(LANG_TEMPLATE_HTMLBLOCKS_TYPES_INDEX_ONLY_FOR_TEMPLATE, html($type['template'] ?? '')); ?>
                                             </div>
-                                        </div>
+                                        <?php } elseif (!$isActive && $systemName !== 'DefaultBlock') { ?>
+                                            <div class="text-warning small mt-1">
+                                                <?php echo bloggy_icon('bs', 'eye-slash', '14', '#ffc107', 'me-1'); ?>
+                                                <?php echo LANG_TEMPLATE_HTMLBLOCKS_TYPES_INDEX_HIDDEN_ON_CREATE; ?>
+                                            </div>
+                                        <?php } ?>
                                     </td>
+                                    <td><code class="text-muted"><?php echo html($systemName); ?></code></td>
                                     <td>
-                                        <code class="text-muted"><?php echo html($systemName); ?></code>
-                                    </td>
-                                    <td>
-                                        <?php if (!empty($type['template']) && $type['template'] !== 'all') { ?>
+                                        <?php if (!empty($type['template']) && strcasecmp($type['template'], 'all') !== 0) { ?>
                                             <span class="badge bg-info"><?php echo html($type['template']); ?></span>
                                         <?php } else { ?>
                                             <span class="badge bg-light text-dark">all</span>
                                         <?php } ?>
                                     </td>
+                                    <td><small><?php echo html($type['author'] ?? 'BloggyCMS'); ?></small></td>
+                                    <td><span class="badge bg-secondary"><?php echo html($type['version'] ?? '1.0.0'); ?></span></td>
                                     <td>
-                                        <small><?php echo html($type['author'] ?? 'BloggyCMS'); ?></small>
-                                    </td>
-                                    <td>
-                                        <span class="badge bg-secondary"><?php echo html($type['version'] ?? '1.0.0'); ?></span>
-                                    </td>
-                                    <td>
-                                        <?php if ($systemName === 'DefaultBlock') { ?>
-                                            <span class="badge bg-success"><?php echo LANG_TEMPLATE_HTMLBLOCKS_TYPES_INDEX_STATUS_ACTIVE; ?></span>
+                                        <?php if (!$isActive) { ?>
+                                            <span class="badge bg-warning"><?php echo LANG_TEMPLATE_HTMLBLOCKS_TYPES_INDEX_STATUS_DISABLED; ?></span>
+                                        <?php } elseif (!$isCompatible) { ?>
+                                            <span class="badge bg-warning"><?php echo LANG_TEMPLATE_HTMLBLOCKS_TYPES_INDEX_STATUS_TEMPLATE_MISMATCH; ?></span>
                                         <?php } else { ?>
-                                            <?php if ($type['is_active']) { ?>
-                                                <span class="badge bg-success"><?php echo LANG_TEMPLATE_HTMLBLOCKS_TYPES_INDEX_STATUS_ACTIVE; ?></span>
-                                            <?php } else { ?>
-                                                <span class="badge bg-warning"><?php echo LANG_TEMPLATE_HTMLBLOCKS_TYPES_INDEX_STATUS_DISABLED; ?></span>
-                                            <?php } ?>
+                                            <span class="badge bg-success"><?php echo LANG_TEMPLATE_HTMLBLOCKS_TYPES_INDEX_STATUS_ACTIVE; ?></span>
                                         <?php } ?>
                                     </td>
                                     <td>
-                                        <?php if ($systemName !== 'DefaultBlock') { ?>
-                                            <?php $isActive = $type['is_active'] ?? true; ?>
-                                            <?php echo admin_action_group([
-                                                ['type' => 'toggle', 'url' => ADMIN_URL . '/html-blocks/types/toggle/' . $systemName, 'title' => $isActive ? LANG_TEMPLATE_HTMLBLOCKS_TYPES_INDEX_DISABLE_TITLE : LANG_TEMPLATE_HTMLBLOCKS_TYPES_INDEX_ENABLE_TITLE],
-                                                ['type' => 'delete', 'url' => ADMIN_URL . '/html-blocks/types/delete/' . $systemName, 'title' => LANG_TEMPLATE_HTMLBLOCKS_TYPES_INDEX_DELETE_TITLE, 'confirm' => sprintf(LANG_TEMPLATE_HTMLBLOCKS_TYPES_INDEX_DELETE_CONFIRM, $systemName)],
-                                            ]); ?>
-                                        <?php } else { ?>
+                                        <?php if ($systemName !== 'DefaultBlock') {
+                                            $actions = [[
+                                                'type' => 'toggle',
+                                                'url' => ADMIN_URL . '/html-blocks/types/toggle/' . rawurlencode($systemName),
+                                                'title' => $isActive ? LANG_TEMPLATE_HTMLBLOCKS_TYPES_INDEX_DISABLE_TITLE : LANG_TEMPLATE_HTMLBLOCKS_TYPES_INDEX_ENABLE_TITLE
+                                            ]];
+                                            if (!$isThemeProvided) {
+                                                $actions[] = [
+                                                    'type' => 'delete',
+                                                    'url' => ADMIN_URL . '/html-blocks/types/delete/' . rawurlencode($systemName),
+                                                    'title' => LANG_TEMPLATE_HTMLBLOCKS_TYPES_INDEX_DELETE_TITLE,
+                                                    'confirm' => sprintf(LANG_TEMPLATE_HTMLBLOCKS_TYPES_INDEX_DELETE_CONFIRM, $systemName)
+                                                ];
+                                            }
+                                            echo admin_action_group($actions);
+                                        } else { ?>
                                             <span class="text-muted small"><?php echo LANG_TEMPLATE_HTMLBLOCKS_TYPES_INDEX_SYSTEM_BADGE; ?></span>
                                         <?php } ?>
                                     </td>

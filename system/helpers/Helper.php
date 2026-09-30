@@ -30,7 +30,8 @@ function front_image(string $file, string $subpath = ''): string {
         $subpath .= '/';
     }
     
-    return BASE_URL . '/templates/' . DEFAULT_TEMPLATE . '/front/assets/img/' . $subpath . $file;
+    $template = function_exists('get_current_template') ? get_current_template() : (defined('DEFAULT_TEMPLATE') ? DEFAULT_TEMPLATE : 'default');
+    return BASE_URL . '/templates/' . $template . '/front/assets/img/' . $subpath . $file;
 }
 
 /**
@@ -39,100 +40,129 @@ function front_image(string $file, string $subpath = ''): string {
 $GLOBALS['_registered_blocks_slugs'] = [];
 
 /**
+* Возвращает общий для запроса менеджер типов HTML-блоков.
+*/
+function get_html_block_type_manager($db = null) {
+    static $manager = null;
+    if ($manager === null) {
+        $manager = new HtmlBlockTypeManager($db ?: Database::getInstance());
+    }
+    return $manager;
+}
+
+/**
 * Выводит содержимое HTML-блока по его slug.
 * @param string $slug Уникальный идентификатор блока.
 * @return void
 */
 function render_html_block(string $slug): void {
-    if (!in_array($slug, $GLOBALS['_registered_blocks_slugs'])) {
+    if (!in_array($slug, $GLOBALS['_registered_blocks_slugs'], true)) {
         $GLOBALS['_registered_blocks_slugs'][] = $slug;
     }
-    
+
     static $loaded_blocks = [];
-    
     $db = Database::getInstance();
-    
+
     $block = $db->fetch("
-        SELECT 
-            hb.*, 
+        SELECT
+            hb.*,
             COALESCE(hbt.system_name, 'DefaultBlock') as block_type,
+            hbt.template as block_type_template,
             hb.template as block_template
-        FROM html_blocks hb 
-        LEFT JOIN html_block_types hbt ON hb.type_id = hbt.id 
+        FROM html_blocks hb
+        LEFT JOIN html_block_types hbt ON hb.type_id = hbt.id
         WHERE hb.slug = ?
     ", [$slug]);
 
-    if ($block) {
-        if (!isset($loaded_blocks[$slug])) {
-            load_block_js_assets($block);
-            $loaded_blocks[$slug] = true;
-        }
-        
-        $content = '';
-        
-        $settings = [];
-        if (!empty($block['settings'])) {
-            $settings = json_decode($block['settings'], true);
-        }
-        
-        $blockType = $block['block_type'] ?? 'DefaultBlock';
-        
-        if ($blockType === 'DefaultBlock') {
-            $content = $settings['html'] ?? '';
-            
-            if (function_exists('process_shortcodes')) {
-                $content = process_shortcodes($content);
-            }
-            
-            if (empty(trim($content))) {
-                $content = sprintf(LANG_HELPER_FUNCTIONS_BLOCK_EMPTY, htmlspecialchars($block['name'] ?? ''));
-            }
-        } elseif (!empty($blockType)) {
-            $blockTypeManager = new HtmlBlockTypeManager($db);
-            $templateToUse = $block['block_template'] ?? 'default';
-            $content = $blockTypeManager->renderBlockFront($blockType, $settings, $templateToUse);
-        } else {
-            $content = sprintf(LANG_HELPER_FUNCTIONS_BLOCK_UNDEFINED, htmlspecialchars($block['name'] ?? ''));
-        }
-        
-        echo $content;
-    } else {
-        echo '<!-- ' . sprintf(LANG_HELPER_FUNCTIONS_BLOCK_NOT_FOUND, htmlspecialchars($slug)) . ' -->';
+    if (!$block) {
+        echo '<!-- ' . sprintf(LANG_HELPER_FUNCTIONS_BLOCK_NOT_FOUND, htmlspecialchars($slug, ENT_QUOTES, 'UTF-8')) . ' -->';
+        return;
     }
+
+    $blockType = $block['block_type'] ?? 'DefaultBlock';
+    $blockTypeManager = get_html_block_type_manager($db);
+    if (!$blockTypeManager->isBlockTypeAvailable($blockType)) {
+        return;
+    }
+
+    if (!isset($loaded_blocks[$slug])) {
+        load_block_js_assets($block);
+        $loaded_blocks[$slug] = true;
+    }
+
+    $settings = [];
+    if (!empty($block['settings'])) {
+        $decodedSettings = json_decode($block['settings'], true);
+        $settings = is_array($decodedSettings) ? $decodedSettings : [];
+    }
+
+    if ($blockType === 'DefaultBlock') {
+        $content = $settings['html'] ?? '';
+        if (function_exists('process_shortcodes')) {
+            $content = process_shortcodes($content);
+        }
+        if (empty(trim((string)$content))) {
+            $content = sprintf(LANG_HELPER_FUNCTIONS_BLOCK_EMPTY, htmlspecialchars($block['name'] ?? '', ENT_QUOTES, 'UTF-8'));
+        }
+        echo $content;
+        return;
+    }
+
+    $templateToUse = $block['block_template'] ?? 'default';
+    echo $blockTypeManager->renderBlockFront($blockType, $settings, $templateToUse);
 }
 
 /**
-* Получает ассеты всех HTML-блоков с кешированием
+* Строит путь кеша для ресурсов текущей темы.
+*/
+function get_blocks_assets_cache_file(string $extension): string {
+    $theme = get_current_template();
+    $safeTheme = preg_replace('/[^A-Za-z0-9_-]/', '_', $theme);
+    return CACHE_DIR . '/blocks_assets_' . $safeTheme . '.' . ltrim($extension, '.');
+}
+
+/**
+* Строит путь к общему CSS-файлу ресурсов текущей темы.
+*/
+function get_blocks_css_cache_file(): string {
+    $theme = get_current_template();
+    $safeTheme = preg_replace('/[^A-Za-z0-9_-]/', '_', $theme);
+    return CACHE_DIR . '/blocks_' . $safeTheme . '.css';
+}
+
+/**
+* Получает ассеты HTML-блоков, совместимых с активной темой, с кешированием.
 * @param bool $forceRefresh Принудительно обновить кеш
-* @return array Массив с ассетами всех блоков
+* @return array Массив с ассетами блоков текущей темы
 */
 function get_all_blocks_assets_cached($forceRefresh = false): array {
-    $cacheFile = CACHE_DIR . '/blocks_assets.cache';
+    $cacheFile = get_blocks_assets_cache_file('cache');
     $cacheTime = 3600;
-    
-    if (!$forceRefresh && file_exists($cacheFile) && (time() - filemtime($cacheFile)) < $cacheTime) {
-        $cached = unserialize(file_get_contents($cacheFile));
-        if ($cached && is_array($cached)) {
+
+    if (!$forceRefresh && is_file($cacheFile) && (time() - filemtime($cacheFile)) < $cacheTime) {
+        $cached = @unserialize((string)file_get_contents($cacheFile), ['allowed_classes' => false]);
+        if (is_array($cached)) {
             return $cached;
         }
     }
-    
+
     $db = Database::getInstance();
-    
+    $blockTypeManager = get_html_block_type_manager($db);
     $blocks = $db->fetchAll("
-        SELECT 
-            hb.id, 
-            hb.slug, 
-            hb.css_files, 
-            hb.js_files, 
-            hb.inline_css, 
+        SELECT
+            hb.id,
+            hb.slug,
+            hb.css_files,
+            hb.js_files,
+            hb.inline_css,
             hb.inline_js,
             COALESCE(hbt.system_name, 'DefaultBlock') as block_type
-        FROM html_blocks hb 
+        FROM html_blocks hb
         LEFT JOIN html_block_types hbt ON hb.type_id = hbt.id
     ");
-    
+
     $allAssets = [
+        'template' => get_current_template(),
         'css' => [],
         'js' => [],
         'inline_css' => [],
@@ -140,128 +170,129 @@ function get_all_blocks_assets_cached($forceRefresh = false): array {
         'blocks_map' => [],
         'last_update' => time()
     ];
-    
+
     foreach ($blocks as $block) {
-        $allAssets['blocks_map'][$block['slug']] = [
+        $blockType = $block['block_type'] ?? 'DefaultBlock';
+        if (!$blockTypeManager->isBlockTypeAvailable($blockType)) {
+            continue;
+        }
+
+        $slug = $block['slug'];
+        $allAssets['blocks_map'][$slug] = [
             'css' => [],
             'js' => [],
             'inline_css' => [],
             'inline_js' => []
         ];
-        
+
         if (!empty($block['css_files'])) {
             $cssFiles = json_decode($block['css_files'], true);
             if (is_array($cssFiles)) {
                 $allAssets['css'] = array_merge($allAssets['css'], $cssFiles);
-                $allAssets['blocks_map'][$block['slug']]['css'] = $cssFiles;
+                $allAssets['blocks_map'][$slug]['css'] = $cssFiles;
             }
         }
-        
+
         if (!empty($block['js_files'])) {
             $jsFiles = json_decode($block['js_files'], true);
             if (is_array($jsFiles)) {
                 $allAssets['js'] = array_merge($allAssets['js'], $jsFiles);
-                $allAssets['blocks_map'][$block['slug']]['js'] = $jsFiles;
+                $allAssets['blocks_map'][$slug]['js'] = $jsFiles;
             }
         }
-        
+
         if (!empty($block['inline_css'])) {
             $allAssets['inline_css'][] = $block['inline_css'];
-            $allAssets['blocks_map'][$block['slug']]['inline_css'][] = $block['inline_css'];
+            $allAssets['blocks_map'][$slug]['inline_css'][] = $block['inline_css'];
         }
         if (!empty($block['inline_js'])) {
             $allAssets['inline_js'][] = $block['inline_js'];
-            $allAssets['blocks_map'][$block['slug']]['inline_js'][] = $block['inline_js'];
+            $allAssets['blocks_map'][$slug]['inline_js'][] = $block['inline_js'];
         }
-        
-        if (!empty($block['block_type']) && $block['block_type'] !== 'DefaultBlock') {
-            $blockTypeManager = new HtmlBlockTypeManager($db);
-            $blockTypeData = $blockTypeManager->getBlockType($block['block_type']);
-            if ($blockTypeData && $blockTypeData['class']) {
-                $blockInstance = $blockTypeData['class'];
-                
-                $systemCss = $blockInstance->getSystemCss();
-                $frontendCss = $blockInstance->getFrontendCss();
-                $allAssets['css'] = array_merge($allAssets['css'], $systemCss, $frontendCss);
-                $allAssets['blocks_map'][$block['slug']]['css'] = array_merge(
-                    $allAssets['blocks_map'][$block['slug']]['css'],
-                    $systemCss,
-                    $frontendCss
-                );
-                
-                $systemJs = $blockInstance->getSystemJs();
-                $frontendJs = $blockInstance->getFrontendJs();
-                $allAssets['js'] = array_merge($allAssets['js'], $systemJs, $frontendJs);
-                $allAssets['blocks_map'][$block['slug']]['js'] = array_merge(
-                    $allAssets['blocks_map'][$block['slug']]['js'],
-                    $systemJs,
-                    $frontendJs
-                );
-                
-                if ($blockInstance->getFrontendInlineCss()) {
-                    $allAssets['inline_css'][] = $blockInstance->getFrontendInlineCss();
-                    $allAssets['blocks_map'][$block['slug']]['inline_css'][] = $blockInstance->getFrontendInlineCss();
-                }
-                if ($blockInstance->getFrontendInlineJs()) {
-                    $allAssets['inline_js'][] = $blockInstance->getFrontendInlineJs();
-                    $allAssets['blocks_map'][$block['slug']]['inline_js'][] = $blockInstance->getFrontendInlineJs();
-                }
-            }
+
+        if ($blockType === 'DefaultBlock') {
+            continue;
+        }
+
+        $blockTypeData = $blockTypeManager->getBlockType($blockType);
+        if (!$blockTypeData || empty($blockTypeData['class'])) {
+            continue;
+        }
+
+        $blockInstance = $blockTypeData['class'];
+        $systemCss = $blockInstance->getSystemCss();
+        $frontendCss = $blockInstance->getFrontendCss();
+        $allAssets['css'] = array_merge($allAssets['css'], $systemCss, $frontendCss);
+        $allAssets['blocks_map'][$slug]['css'] = array_merge(
+            $allAssets['blocks_map'][$slug]['css'],
+            $systemCss,
+            $frontendCss
+        );
+
+        $systemJs = $blockInstance->getSystemJs();
+        $frontendJs = $blockInstance->getFrontendJs();
+        $allAssets['js'] = array_merge($allAssets['js'], $systemJs, $frontendJs);
+        $allAssets['blocks_map'][$slug]['js'] = array_merge(
+            $allAssets['blocks_map'][$slug]['js'],
+            $systemJs,
+            $frontendJs
+        );
+
+        if ($blockInstance->getFrontendInlineCss()) {
+            $allAssets['inline_css'][] = $blockInstance->getFrontendInlineCss();
+            $allAssets['blocks_map'][$slug]['inline_css'][] = $blockInstance->getFrontendInlineCss();
+        }
+        if ($blockInstance->getFrontendInlineJs()) {
+            $allAssets['inline_js'][] = $blockInstance->getFrontendInlineJs();
+            $allAssets['blocks_map'][$slug]['inline_js'][] = $blockInstance->getFrontendInlineJs();
         }
     }
-    
+
     $allAssets['css'] = array_values(array_unique($allAssets['css']));
     $allAssets['js'] = array_values(array_unique($allAssets['js']));
     $allAssets['inline_css'] = array_values(array_unique($allAssets['inline_css']));
     $allAssets['inline_js'] = array_values(array_unique($allAssets['inline_js']));
-    
-    file_put_contents($cacheFile, serialize($allAssets));
-    
+
+    file_put_contents($cacheFile, serialize($allAssets), LOCK_EX);
     return $allAssets;
 }
 
 /**
-* Генерирует общий CSS файл для всех блоков
-* @return string Путь к сгенерированному CSS файлу
+* Генерирует общий CSS-файл для совместимых с активной темой HTML-блоков.
 */
 function regenerate_blocks_css(): string {
-    $cacheFile = CACHE_DIR . '/blocks.css';
+    $cacheFile = get_blocks_css_cache_file();
     $allAssets = get_all_blocks_assets_cached(true);
-    
     $css = '';
-    
+
     if (!empty($allAssets['css'])) {
         foreach ($allAssets['css'] as $cssFile) {
-            $fullPath = BASE_PATH . '/' . $cssFile;
-            if (file_exists($fullPath)) {
+            $fullPath = BASE_PATH . '/' . ltrim($cssFile, '/');
+            if (is_file($fullPath)) {
                 $css .= "/* === " . $cssFile . " === */\n";
-                $css .= file_get_contents($fullPath);
-                $css .= "\n\n";
+                $css .= file_get_contents($fullPath) . "\n\n";
             } else {
                 error_log("CSS file not found: " . $fullPath);
             }
         }
     }
-    
+
     if (!empty($allAssets['inline_css'])) {
         $css .= "/* === " . LANG_HELPER_FUNCTIONS_INLINE_CSS_COMMENT . " === */\n";
         foreach ($allAssets['inline_css'] as $inlineCss) {
-            $css .= $inlineCss;
-            $css .= "\n";
+            $css .= $inlineCss . "\n\n";
         }
-        $css .= "\n";
     }
-    
+
     $css = minify_css($css);
-    
-    file_put_contents($cacheFile, $css);
-    chmod($cacheFile, 0644);
-    
+    file_put_contents($cacheFile, $css, LOCK_EX);
+    @chmod($cacheFile, 0644);
     return $cacheFile;
 }
 
 /**
-* Загружает JS ассеты блока
+* Загружает JavaScript ассеты конкретного экземпляра блока.
+* Системные ресурсы типа загружает HtmlBlockTypeManager.
 * @param array $block Данные блока
 */
 function load_block_js_assets($block): void {
@@ -269,35 +300,15 @@ function load_block_js_assets($block): void {
         $jsFiles = json_decode($block['js_files'], true);
         if (is_array($jsFiles)) {
             foreach ($jsFiles as $jsFile) {
-                if (!empty(trim($jsFile))) {
+                if (is_string($jsFile) && trim($jsFile) !== '') {
                     front_js($jsFile);
                 }
             }
         }
     }
-    
+
     if (!empty($block['inline_js'])) {
         front_inline_js($block['inline_js']);
-    }
-    
-    if (!empty($block['block_type']) && $block['block_type'] !== 'DefaultBlock') {
-        $db = Database::getInstance();
-        $blockTypeManager = new HtmlBlockTypeManager($db);
-        $blockTypeData = $blockTypeManager->getBlockType($block['block_type']);
-        if ($blockTypeData && $blockTypeData['class']) {
-            $blockInstance = $blockTypeData['class'];
-            
-            foreach ($blockInstance->getSystemJs() as $jsFile) {
-                front_js($jsFile);
-            }
-            foreach ($blockInstance->getFrontendJs() as $jsFile) {
-                front_js($jsFile);
-            }
-            
-            if ($blockInstance->getFrontendInlineJs()) {
-                front_inline_js($blockInstance->getFrontendInlineJs());
-            }
-        }
     }
 }
 
@@ -321,34 +332,45 @@ function minify_css(string $css): string {
 * @return string URL для подключения
 */
 function get_blocks_css_url(): string {
-    $cacheFile = CACHE_DIR . '/blocks.css';
-    
-    if (!file_exists($cacheFile)) {
+    $cacheFile = get_blocks_css_cache_file();
+
+    if (!is_file($cacheFile)) {
         regenerate_blocks_css();
     }
-    
-    $version = filemtime($cacheFile);
-    return BASE_URL . '/cache/blocks.css?v=' . $version;
+
+    $version = is_file($cacheFile) ? filemtime($cacheFile) : time();
+    $theme = rawurlencode(get_current_template());
+    return BASE_URL . '/cache/' . rawurlencode(basename($cacheFile)) . '?v=' . $version . '&theme=' . $theme;
 }
 
 /**
-* Инициализация системы кеширования блоков
+* Инициализация системы кеширования ресурсов активной темы.
 */
 function init_blocks_cache(): void {
-    $cacheFile = CACHE_DIR . '/blocks.css';
-    
-    if (!file_exists($cacheFile) || filesize($cacheFile) === 0) {
+    $cacheFile = get_blocks_css_cache_file();
+
+    if (!is_file($cacheFile) || filesize($cacheFile) === 0) {
         regenerate_blocks_css();
     }
 }
 
 /**
-* Очищает кеш ассетов блоков
+* Очищает старый общий кеш и все тематические кеши HTML-блоков.
 */
 function clear_blocks_assets_cache(): void {
-    $cacheFile = CACHE_DIR . '/blocks_assets.cache';
-    if (file_exists($cacheFile)) {
-        unlink($cacheFile);
+    $patterns = [
+        CACHE_DIR . '/blocks_assets.cache',
+        CACHE_DIR . '/blocks.css',
+        CACHE_DIR . '/blocks_assets_*.cache',
+        CACHE_DIR . '/blocks_*.css'
+    ];
+
+    foreach ($patterns as $pattern) {
+        foreach (glob($pattern) ?: [] as $cacheFile) {
+            if (is_file($cacheFile)) {
+                @unlink($cacheFile);
+            }
+        }
     }
 }
 
@@ -490,16 +512,40 @@ function favicon($path = null) {
 * @return string Название шаблона
 */
 function get_current_template(): string {
-    return defined('CURRENT_TEMPLATE') ? CURRENT_TEMPLATE : 'default';
+    try {
+        if (class_exists('SettingsHelper')) {
+            $template = SettingsHelper::get('site', 'site_template');
+            if (!is_string($template) || $template === '') {
+                $template = SettingsHelper::getCurrentTemplate();
+            }
+            if (is_string($template) && preg_match('/^[A-Za-z0-9_-]+$/', $template) &&
+                (!defined('TEMPLATES_PATH') || is_dir(TEMPLATES_PATH . '/' . $template))) {
+                return $template;
+            }
+        }
+    } catch (\Throwable $e) {}
+
+    if (defined('CURRENT_TEMPLATE') && preg_match('/^[A-Za-z0-9_-]+$/', CURRENT_TEMPLATE) &&
+        (!defined('TEMPLATES_PATH') || is_dir(TEMPLATES_PATH . '/' . CURRENT_TEMPLATE))) {
+        return CURRENT_TEMPLATE;
+    }
+    if (defined('DEFAULT_TEMPLATE') && preg_match('/^[A-Za-z0-9_-]+$/', DEFAULT_TEMPLATE) &&
+        (!defined('TEMPLATES_PATH') || is_dir(TEMPLATES_PATH . '/' . DEFAULT_TEMPLATE))) {
+        return DEFAULT_TEMPLATE;
+    }
+    return 'default';
 }
 
 /**
-* Проверяет, доступен ли блок для текущего шаблона
-* @param mixed $blockTemplate Шаблон блока
-* @return bool Всегда true (заглушка)
+* Проверяет, совместим ли тип HTML-блока с активной темой.
+* Значения all и пустая область означают доступность для всех тем.
 */
 function is_block_available_for_template($blockTemplate): bool {
-    return true;
+    if (!is_string($blockTemplate) || trim($blockTemplate) === '' || strcasecmp(trim($blockTemplate), 'all') === 0) {
+        return true;
+    }
+
+    return strcasecmp(trim($blockTemplate), get_current_template()) === 0;
 }
 
 /**

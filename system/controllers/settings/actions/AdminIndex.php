@@ -61,6 +61,9 @@ class AdminIndex extends SettingsAction {
                         if ($activeTab === 'site') {
                             if (isset($postSettings['site_template'])) {
                                 $this->updateConfigTemplate($postSettings['site_template']);
+                                if (function_exists('clear_blocks_assets_cache')) {
+                                    clear_blocks_assets_cache();
+                                }
                             }
                             if (isset($postSettings['base_url'])) {
                                 $this->updateConfigBaseUrl($postSettings['base_url']);

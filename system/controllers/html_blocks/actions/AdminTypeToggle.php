@@ -36,12 +36,23 @@ class AdminTypeToggle extends HtmlBlockAction {
         }
         
         try {
+            if (!$this->blockTypeManager->getBlockType($this->systemName)) {
+                \Notification::error(LANG_ACTION_HTMLBLOCKS_ADMINTYPETOGGLE_TYPE_NOT_FOUND);
+                $this->redirect(ADMIN_URL . '/html-blocks/types');
+                return;
+            }
+
             $isActive = $this->blockTypeManager->isBlockTypeActive($this->systemName);
-            
             $newStatus = $isActive ? 0 : 1;
-            
             $this->blockTypeManager->toggleBlockTypeStatus($this->systemName, $newStatus);
-            
+
+            if (function_exists('clear_blocks_assets_cache')) {
+                clear_blocks_assets_cache();
+            }
+            if (function_exists('regenerate_blocks_css')) {
+                regenerate_blocks_css();
+            }
+
             $statusText = $newStatus ? LANG_ACTION_HTMLBLOCKS_ADMINTYPETOGGLE_ENABLED : LANG_ACTION_HTMLBLOCKS_ADMINTYPETOGGLE_DISABLED;
             \Notification::success(sprintf(LANG_ACTION_HTMLBLOCKS_ADMINTYPETOGGLE_SUCCESS, $statusText));
             

@@ -11,3 +11,4 @@ define('LANG_ACTION_HTMLBLOCKS_ADMINTYPEDELETE_FILE_DELETED', 'Файл блок
 define('LANG_ACTION_HTMLBLOCKS_ADMINTYPEDELETE_FILE_NOT_FOUND', 'Файл блока не найден, но запись будет удалена из базы');
 define('LANG_ACTION_HTMLBLOCKS_ADMINTYPEDELETE_SUCCESS', 'Тип блока успешно удален из системы');
 define('LANG_ACTION_HTMLBLOCKS_ADMINTYPEDELETE_ERROR', 'Ошибка при удалении типа блока: ');
+define('LANG_ACTION_HTMLBLOCKS_ADMINTYPEDELETE_THEME_PROVIDED', 'Этот тип поставляется темой. Удалите его из манифеста темы, чтобы убрать регистрацию.');

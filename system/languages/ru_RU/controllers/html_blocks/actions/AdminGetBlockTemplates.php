@@ -2,3 +2,4 @@
 define('LANG_ACTION_HTMLBLOCKS_ADMINGETBLOCKTEMPLATES_DEFAULT_TEMPLATE', 'Стандартный шаблон');
 define('LANG_ACTION_HTMLBLOCKS_ADMINGETBLOCKTEMPLATES_NOT_FOUND', 'Тип блока не найден');
 define('LANG_ACTION_HTMLBLOCKS_ADMINGETBLOCKTEMPLATES_ERROR', 'Ошибка при получении шаблонов: ');
+define('LANG_ACTION_HTMLBLOCKS_ADMINGETBLOCKTEMPLATES_UNAVAILABLE', 'Тип блока недоступен в активной теме или отключен.');

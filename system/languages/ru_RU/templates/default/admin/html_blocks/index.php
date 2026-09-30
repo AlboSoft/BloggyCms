@@ -20,3 +20,7 @@ define('LANG_TEMPLATE_HTMLBLOCKS_INDEX_ACTION_EDIT', 'Редактировать
 define('LANG_TEMPLATE_HTMLBLOCKS_INDEX_ACTION_DISABLED_TITLE', 'Сначала активируйте тип блока');
 define('LANG_TEMPLATE_HTMLBLOCKS_INDEX_DELETE_CONFIRM', 'Вы уверены, что хотите удалить этот блок?');
 define('LANG_TEMPLATE_HTMLBLOCKS_INDEX_ACTION_DELETE', 'Удалить');
+define('LANG_TEMPLATE_HTMLBLOCKS_INDEX_ACTIVE_TEMPLATE', 'Активный шаблон:');
+define('LANG_TEMPLATE_HTMLBLOCKS_INDEX_TYPE_TEMPLATE_MISMATCH', 'Тип доступен только для шаблона «%s»');
+define('LANG_TEMPLATE_HTMLBLOCKS_INDEX_STATUS_TEMPLATE_MISMATCH', 'Другая тема');
+define('LANG_TEMPLATE_HTMLBLOCKS_INDEX_ACTION_TEMPLATE_MISMATCH_TITLE', 'Переключите тему, для которой предназначен этот тип блока');

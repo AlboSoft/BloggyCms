@@ -23,7 +23,7 @@ class TagsBlock extends BaseHtmlBlock {
     }
 
     public function getTemplate(): string {
-        return 'default';
+        return 'all';
     }
 
     public $tags = [];

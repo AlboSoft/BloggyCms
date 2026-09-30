@@ -22,19 +22,17 @@ class AdminTypeIndex extends HtmlBlockAction {
             $allBlockTypes = $this->blockTypeManager->getAllBlockTypes();
             
             $activeBlockTypes = $this->blockTypeManager->getBlockTypes();
+            $currentTemplate = get_current_template();
             
             foreach ($allBlockTypes as $systemName => &$type) {
-                if ($systemName !== 'DefaultBlock') {
-                    $type['is_active'] = $this->blockTypeManager->isBlockTypeActive($systemName);
-                } else {
-                    $type['is_active'] = true;
-                }
-                
+                $type['is_active'] = $this->blockTypeManager->isBlockTypeActive($systemName);
+                $type['is_template_compatible'] = $this->blockTypeManager->isBlockTypeCompatibleWithCurrentTemplate($systemName);
                 $type['is_visible_in_creation'] = isset($activeBlockTypes[$systemName]);
             }
             
             $this->render('admin/html_blocks/types_index', [
                 'blockTypes' => $allBlockTypes,
+                'currentTemplate' => $currentTemplate,
                 'pageTitle' => LANG_ACTION_HTMLBLOCKS_ADMINTYPEINDEX_PAGE_TITLE
             ]);
             

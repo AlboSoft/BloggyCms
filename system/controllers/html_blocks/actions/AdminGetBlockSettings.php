@@ -28,6 +28,11 @@ class AdminGetBlockSettings extends HtmlBlockAction {
             echo $this->getDefaultBlockSettingsForm($currentSettings);
             return;
         }
+
+        if (!$this->blockTypeManager->isBlockTypeAvailable($systemName)) {
+            echo '<div class="alert alert-warning">' . html(LANG_ACTION_HTMLBLOCKS_ADMINGETBLOCKSETTINGS_UNAVAILABLE) . '</div>';
+            return;
+        }
         
         $blockType = $this->blockTypeManager->getBlockType($systemName);
         

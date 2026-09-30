@@ -30,6 +30,10 @@ class PageTreeBlock extends BaseHtmlBlock {
         return '1.0.0';
     }
 
+    public function getTemplate(): string {
+        return 'all';
+    }
+
     public function getSettingsForm($currentSettings = []): string {
         $settings = array_merge($this->getDefaultSettings(), $currentSettings);
         

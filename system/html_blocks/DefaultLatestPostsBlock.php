@@ -21,7 +21,7 @@ class DefaultLatestPostsBlock extends BaseHtmlBlock {
     }
     
     public function getTemplate(): string {
-        return 'default';
+        return 'all';
     }
 
     public $posts = [];

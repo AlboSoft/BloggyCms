@@ -16,6 +16,12 @@ class AdminCreate extends HtmlBlockAction {
         
         $blockTypeName = $_GET['type'] ?? 'DefaultBlock';
 
+        if ($blockTypeName !== 'DefaultBlock' && !$this->blockTypeManager->isBlockTypeAvailable($blockTypeName)) {
+            \Notification::error(LANG_ACTION_HTMLBLOCKS_ADMINCREATE_TYPE_UNAVAILABLE);
+            $this->redirect(ADMIN_URL . '/html-blocks/select-type');
+            return;
+        }
+
         $this->addBreadcrumb(LANG_ACTION_HTMLBLOCKS_ADMINCREATE_BREADCRUMB_DASHBOARD, ADMIN_URL);
         $this->addBreadcrumb(LANG_ACTION_HTMLBLOCKS_ADMINCREATE_BREADCRUMB_BLOCKS, ADMIN_URL . '/html-blocks');
     

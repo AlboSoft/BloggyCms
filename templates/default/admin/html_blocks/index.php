@@ -5,9 +5,9 @@
             <?php echo LANG_TEMPLATE_HTMLBLOCKS_INDEX_TITLE; ?>
         </h4>
         <div>
-            <a href="<?php echo ADMIN_URL; ?>/html-blocks/clear-cache" 
-            class="btn btn-warning me-2"
-            onclick="return confirm('<?php echo LANG_TEMPLATE_HTMLBLOCKS_INDEX_CLEAR_CACHE_CONFIRM; ?>')">
+            <a href="<?php echo ADMIN_URL; ?>/html-blocks/clear-cache"
+               class="btn btn-warning me-2"
+               onclick="return confirm('<?php echo LANG_TEMPLATE_HTMLBLOCKS_INDEX_CLEAR_CACHE_CONFIRM; ?>')">
                 <?php echo bloggy_icon('bs', 'arrow-repeat', '16', '#000', 'me-2'); ?>
                 <?php echo LANG_TEMPLATE_HTMLBLOCKS_INDEX_CLEAR_CACHE_BTN; ?>
             </a>
@@ -20,6 +20,11 @@
                 <?php echo LANG_TEMPLATE_HTMLBLOCKS_INDEX_CREATE_BTN; ?>
             </a>
         </div>
+    </div>
+
+    <div class="text-muted small mb-3">
+        <?php echo bloggy_icon('bs', 'palette', '14', '#6c757d', 'me-1'); ?>
+        <?php echo LANG_TEMPLATE_HTMLBLOCKS_INDEX_ACTIVE_TEMPLATE; ?> <strong><?php echo html($currentTemplate); ?></strong>
     </div>
 
     <div class="card border-0 shadow-sm">
@@ -50,17 +55,24 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($blocks as $block) { 
-                                $typeIsActive = $block['type_is_active'] ?? true;
+                            <?php foreach ($blocks as $block) {
+                                $typeIsActive = $block['type_is_active'] ?? false;
+                                $typeIsCompatible = $block['type_is_compatible'] ?? false;
+                                $typeIsAvailable = $block['type_is_available'] ?? false;
                             ?>
-                            <tr class="<?php echo (!$typeIsActive) ? 'table-warning' : ''; ?>">
+                            <tr class="<?php echo !$typeIsAvailable ? 'table-warning' : ''; ?>">
                                 <td>
                                     <strong><?php echo html($block['name']); ?></strong>
                                     <?php if (!$typeIsActive) { ?>
-                                    <div class="text-warning small mt-1">
-                                        <?php echo bloggy_icon('bs', 'exclamation-triangle', '16', '#ffc107', 'me-1'); ?>
-                                        <?php echo LANG_TEMPLATE_HTMLBLOCKS_INDEX_TYPE_DISABLED; ?>
-                                    </div>
+                                        <div class="text-warning small mt-1">
+                                            <?php echo bloggy_icon('bs', 'exclamation-triangle', '16', '#ffc107', 'me-1'); ?>
+                                            <?php echo LANG_TEMPLATE_HTMLBLOCKS_INDEX_TYPE_DISABLED; ?>
+                                        </div>
+                                    <?php } elseif (!$typeIsCompatible) { ?>
+                                        <div class="text-warning small mt-1">
+                                            <?php echo bloggy_icon('bs', 'palette', '16', '#ffc107', 'me-1'); ?>
+                                            <?php echo sprintf(LANG_TEMPLATE_HTMLBLOCKS_INDEX_TYPE_TEMPLATE_MISMATCH, html($block['block_type_template'] ?? '')); ?>
+                                        </div>
                                     <?php } ?>
                                 </td>
                                 <td>
@@ -68,26 +80,26 @@
                                 </td>
                                 <td>
                                     <?php if (!empty($block['template']) && $block['template'] !== 'all') { ?>
-                                    <span class="badge bg-info"><?php echo html($block['template']); ?></span>
+                                        <span class="badge bg-info"><?php echo html($block['template']); ?></span>
                                     <?php } else { ?>
-                                    <span class="badge bg-light text-dark">all</span>
+                                        <span class="badge bg-light text-dark">default</span>
                                     <?php } ?>
                                 </td>
+                                <td><code class="text-muted"><?php echo html($block['slug']); ?></code></td>
                                 <td>
-                                    <code class="text-muted"><?php echo html($block['slug']); ?></code>
-                                </td>
-                                <td>
-                                    <?php if ($typeIsActive) { ?>
+                                    <?php if ($typeIsAvailable) { ?>
                                         <span class="badge bg-success"><?php echo LANG_TEMPLATE_HTMLBLOCKS_INDEX_STATUS_ACTIVE; ?></span>
-                                    <?php } else { ?>
+                                    <?php } elseif (!$typeIsActive) { ?>
                                         <span class="badge bg-warning"><?php echo LANG_TEMPLATE_HTMLBLOCKS_INDEX_STATUS_TYPE_DISABLED; ?></span>
+                                    <?php } else { ?>
+                                        <span class="badge bg-warning"><?php echo LANG_TEMPLATE_HTMLBLOCKS_INDEX_STATUS_TEMPLATE_MISMATCH; ?></span>
                                     <?php } ?>
                                 </td>
                                 <td>
                                     <?php echo admin_action_group([
-                                        $typeIsActive
+                                        $typeIsAvailable
                                             ? ['type' => 'edit', 'url' => ADMIN_URL . '/html-blocks/edit/' . $block['id'], 'title' => LANG_TEMPLATE_HTMLBLOCKS_INDEX_ACTION_EDIT]
-                                            : ['type' => 'edit', 'title' => LANG_TEMPLATE_HTMLBLOCKS_INDEX_ACTION_DISABLED_TITLE, 'disabled' => true],
+                                            : ['type' => 'edit', 'title' => !$typeIsActive ? LANG_TEMPLATE_HTMLBLOCKS_INDEX_ACTION_DISABLED_TITLE : LANG_TEMPLATE_HTMLBLOCKS_INDEX_ACTION_TEMPLATE_MISMATCH_TITLE, 'disabled' => true],
                                         ['type' => 'delete', 'url' => ADMIN_URL . '/html-blocks/delete/' . $block['id'], 'title' => LANG_TEMPLATE_HTMLBLOCKS_INDEX_ACTION_DELETE, 'confirm' => LANG_TEMPLATE_HTMLBLOCKS_INDEX_DELETE_CONFIRM],
                                     ]); ?>
                                 </td>

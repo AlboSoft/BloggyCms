@@ -19,11 +19,11 @@ class DefaultHeaderBlock extends BaseHtmlBlock {
     }
 
     public function getVersion(): string {
-        return '2.0.0';
+        return '1.0.0';
     }
 
     public function getTemplate(): string {
-        return 'default';
+        return 'all';
     }
 
     public function getSettingsForm($currentSettings = []): string {

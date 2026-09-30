@@ -9,3 +9,4 @@ define('LANG_ACTION_HTMLBLOCKS_ADMINEDIT_SETTINGS_ERROR', 'Ошибки в на�
 define('LANG_ACTION_HTMLBLOCKS_ADMINEDIT_SUCCESS', 'HTML-блок успешно обновлен');
 define('LANG_ACTION_HTMLBLOCKS_ADMINEDIT_ERROR', 'Ошибка при обновлении HTML-блока: ');
 define('LANG_ACTION_HTMLBLOCKS_ADMINEDIT_LOAD_ERROR', 'Ошибка при загрузке HTML-блока');
+define('LANG_ACTION_HTMLBLOCKS_ADMINEDIT_BLOCK_TYPE_TEMPLATE_MISMATCH', 'Этот тип блока предназначен для другой темы. Переключите тему, чтобы редактировать блок.');

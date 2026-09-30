@@ -8,3 +8,4 @@ define('LANG_ACTION_HTMLBLOCKS_ADMINCREATE_NAME_SLUG_REQUIRED', 'Названи�
 define('LANG_ACTION_HTMLBLOCKS_ADMINCREATE_SETTINGS_ERROR', 'Ошибки в настройках: ');
 define('LANG_ACTION_HTMLBLOCKS_ADMINCREATE_SUCCESS', 'HTML-блок успешно создан');
 define('LANG_ACTION_HTMLBLOCKS_ADMINCREATE_ERROR', 'Ошибка при создании HTML-блока: ');
+define('LANG_ACTION_HTMLBLOCKS_ADMINCREATE_TYPE_UNAVAILABLE', 'Выбранный тип блока отключен или не поддерживается активной темой.');

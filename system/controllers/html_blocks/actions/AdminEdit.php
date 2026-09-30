@@ -35,6 +35,12 @@ class AdminEdit extends HtmlBlockAction {
                 return;
             }
 
+            if ($blockTypeName !== 'DefaultBlock' && !$this->blockTypeManager->isBlockTypeCompatibleWithCurrentTemplate($blockTypeName)) {
+                \Notification::error(LANG_ACTION_HTMLBLOCKS_ADMINEDIT_BLOCK_TYPE_TEMPLATE_MISMATCH);
+                $this->redirect(ADMIN_URL . '/html-blocks');
+                return;
+            }
+
             if ($blockTypeName !== 'DefaultBlock') {
                 $this->blockTypeManager->loadBlockAssets($blockTypeName);
             }

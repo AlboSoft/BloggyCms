@@ -28,7 +28,7 @@ class AdminTypeDelete extends HtmlBlockAction {
         $this->addBreadcrumb(LANG_ACTION_HTMLBLOCKS_ADMINTYPEDELETE_BREADCRUMB_TYPES, ADMIN_URL . '/html-blocks/types');
         $this->addBreadcrumb(LANG_ACTION_HTMLBLOCKS_ADMINTYPEDELETE_BREADCRUMB_DELETE . $this->systemName);
         
-        if (!$this->systemName) {
+        if (!$this->systemName || !preg_match('/^[A-Za-z][A-Za-z0-9_-]*$/', $this->systemName)) {
             \Notification::error(LANG_ACTION_HTMLBLOCKS_ADMINTYPEDELETE_SYSTEM_NAME_REQUIRED);
             $this->redirect(ADMIN_URL . '/html-blocks/types');
             return;
@@ -36,6 +36,13 @@ class AdminTypeDelete extends HtmlBlockAction {
         
         if ($this->systemName === 'DefaultBlock') {
             \Notification::error(LANG_ACTION_HTMLBLOCKS_ADMINTYPEDELETE_CANNOT_DELETE_DEFAULT);
+            $this->redirect(ADMIN_URL . '/html-blocks/types');
+            return;
+        }
+
+        $blockType = $this->blockTypeManager->getBlockType($this->systemName);
+        if ($blockType && ($blockType['source'] ?? '') === 'theme') {
+            \Notification::error(LANG_ACTION_HTMLBLOCKS_ADMINTYPEDELETE_THEME_PROVIDED);
             $this->redirect(ADMIN_URL . '/html-blocks/types');
             return;
         }

@@ -252,7 +252,8 @@ class App {
     private function show404() {
         header("HTTP/1.0 404 Not Found");
         
-        $template404 = TEMPLATES_PATH . '/' . DEFAULT_TEMPLATE . '/404.php';
+        $currentTemplate = function_exists('get_current_template') ? get_current_template() : DEFAULT_TEMPLATE;
+        $template404 = TEMPLATES_PATH . '/' . $currentTemplate . '/404.php';
         if (file_exists($template404)) {
             include $template404;
         } else {

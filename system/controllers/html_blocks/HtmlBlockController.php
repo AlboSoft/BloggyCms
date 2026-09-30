@@ -30,60 +30,59 @@ class HtmlBlockController extends Controller {
             $this->redirect(BASE_URL . '/404');
             return;
         }
-        
+
         try {
             $block = $this->htmlBlockModel->getBySlug($slug);
-        
             if (!$block) {
                 \Notification::error(LANG_CONTROLLER_HTMLBLOCK_NOT_FOUND);
                 $this->redirect(BASE_URL . '/404');
                 return;
             }
-            
-            $this->loadBlockAssetsFromDatabase($block);
-            
-            if (!empty($block['block_type']) && $block['block_type'] !== 'DefaultBlock') {
-                $this->blockTypeManager->loadBlockFrontendAssets($block['block_type']);
+
+            $blockTypeName = $block['block_type'] ?? 'DefaultBlock';
+            if (!$this->blockTypeManager->isBlockTypeAvailable($blockTypeName)) {
+                http_response_code(404);
+                \Notification::error(LANG_CONTROLLER_HTMLBLOCK_NOT_FOUND);
+                $this->redirect(BASE_URL . '/404');
+                return;
             }
-            
+
+            $this->loadBlockAssetsFromDatabase($block);
+
             $settings = [];
             if (!empty($block['settings'])) {
-                $settings = json_decode($block['settings'], true);
+                $decodedSettings = json_decode($block['settings'], true);
+                $settings = is_array($decodedSettings) ? $decodedSettings : [];
             }
-            
-                $blockContent = '';
-                if (!empty($block['block_type'])) {
-                    if ($block['block_type'] === 'DefaultBlock') {
-                        $blockContent = $settings['html'] ?? '';
-                        
-                        if (function_exists('process_shortcodes')) {
-                            $blockContent = process_shortcodes($blockContent);
-                        }
-                    } else {
-                        $blockContent = $this->blockTypeManager->renderBlockFront(
-                            $block['block_type'], 
-                            $settings,
-                            $block['template'] ?? null
-                        );
-                    }
+
+            if ($blockTypeName === 'DefaultBlock') {
+                $blockContent = $settings['html'] ?? '';
+                if (function_exists('process_shortcodes')) {
+                    $blockContent = process_shortcodes($blockContent);
                 }
-            
+            } else {
+                $blockContent = $this->blockTypeManager->renderBlockFront(
+                    $blockTypeName,
+                    $settings,
+                    $block['template'] ?? null
+                );
+            }
+
             if (empty($blockContent)) {
                 $blockContent = sprintf(LANG_CONTROLLER_HTMLBLOCK_NO_CONTENT, html($block['name'] ?? ''));
             }
-            
+
             $this->render('front/html_block', [
                 'block' => $block,
                 'content' => $blockContent,
                 'title' => $block['name']
             ]);
-            
         } catch (\Exception $e) {
             \Notification::error(LANG_CONTROLLER_HTMLBLOCK_LOAD_ERROR . $e->getMessage());
             $this->redirect(BASE_URL);
         }
     }
-    
+
     /**
     * Загрузка ресурсов блока из базы данных
     * @param array $block Данные HTML-блока

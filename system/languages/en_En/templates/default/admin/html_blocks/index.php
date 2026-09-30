@@ -20,3 +20,7 @@ define('LANG_TEMPLATE_HTMLBLOCKS_INDEX_ACTION_EDIT', 'Edit');
 define('LANG_TEMPLATE_HTMLBLOCKS_INDEX_ACTION_DISABLED_TITLE', 'Please enable the block type first');
 define('LANG_TEMPLATE_HTMLBLOCKS_INDEX_DELETE_CONFIRM', 'Are you sure you want to delete this block?');
 define('LANG_TEMPLATE_HTMLBLOCKS_INDEX_ACTION_DELETE', 'Delete');
+define('LANG_TEMPLATE_HTMLBLOCKS_INDEX_ACTIVE_TEMPLATE', 'Active theme:');
+define('LANG_TEMPLATE_HTMLBLOCKS_INDEX_TYPE_TEMPLATE_MISMATCH', 'This type is only available for the “%s” theme');
+define('LANG_TEMPLATE_HTMLBLOCKS_INDEX_STATUS_TEMPLATE_MISMATCH', 'Other theme');
+define('LANG_TEMPLATE_HTMLBLOCKS_INDEX_ACTION_TEMPLATE_MISMATCH_TITLE', 'Switch to the theme this block type belongs to');

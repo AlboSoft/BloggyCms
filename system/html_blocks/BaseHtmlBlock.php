@@ -7,7 +7,17 @@
 * @version 1.0.0
 */
 abstract class BaseHtmlBlock {
-    
+
+    /** @var string|null Каталог темы, поставляющей этот класс */
+    protected $sourceTemplate = null;
+
+    /**
+    * Устанавливает каталог темы-источника для fallback-шаблонов.
+    */
+    public function setSourceTemplate(?string $template): void {
+        $this->sourceTemplate = $template;
+    }
+
     /**
     * Возвращает название блока для отображения в админ-панели
     * @return string Название блока
@@ -125,43 +135,33 @@ abstract class BaseHtmlBlock {
     */
     protected function findTemplatePath($templateName = 'default'): ?string {
         $systemName = $this->getSystemName();
-        $currentTemplate = get_current_template();
         $preferredTemplate = $this->getTemplate();
-        
-        if ($preferredTemplate && $preferredTemplate !== 'all') {
-            $path = BASE_PATH . "/templates/{$preferredTemplate}/front/assets/html_blocks/{$systemName}/{$templateName}.php";
-            if (file_exists($path)) {
+        $templateCandidates = [];
+
+        if ($preferredTemplate && strcasecmp($preferredTemplate, 'all') !== 0) {
+            $templateCandidates[] = $preferredTemplate;
+        }
+        $templateCandidates[] = get_current_template();
+        if (!empty($this->sourceTemplate)) {
+            $templateCandidates[] = $this->sourceTemplate;
+        }
+        $templateCandidates[] = 'default';
+        $templateCandidates = array_values(array_unique($templateCandidates));
+
+        foreach ($templateCandidates as $templateDirectory) {
+            $path = BASE_PATH . "/templates/{$templateDirectory}/front/assets/html_blocks/{$systemName}/{$templateName}.php";
+            if (is_file($path)) {
                 return $path;
             }
         }
-        
-        $path = BASE_PATH . "/templates/{$currentTemplate}/front/assets/html_blocks/{$systemName}/{$templateName}.php";
-        if (file_exists($path)) {
-            return $path;
-        }
-        
-        $defaultPath = BASE_PATH . "/templates/default/front/assets/html_blocks/{$systemName}/{$templateName}.php";
-        if (file_exists($defaultPath)) {
-            return $defaultPath;
-        }
-        
-        if ($preferredTemplate && $preferredTemplate !== 'all') {
-            $legacyPath = BASE_PATH . "/templates/{$preferredTemplate}/front/html_blocks/{$systemName}.php";
-            if (file_exists($legacyPath)) {
+
+        foreach ($templateCandidates as $templateDirectory) {
+            $legacyPath = BASE_PATH . "/templates/{$templateDirectory}/front/html_blocks/{$systemName}.php";
+            if (is_file($legacyPath)) {
                 return $legacyPath;
             }
         }
-        
-        $legacyPath = BASE_PATH . "/templates/{$currentTemplate}/front/html_blocks/{$systemName}.php";
-        if (file_exists($legacyPath)) {
-            return $legacyPath;
-        }
-        
-        $legacyDefaultPath = BASE_PATH . "/templates/default/front/html_blocks/{$systemName}.php";
-        if (file_exists($legacyDefaultPath)) {
-            return $legacyDefaultPath;
-        }
-        
+
         return null;
     }
     
@@ -241,9 +241,10 @@ abstract class BaseHtmlBlock {
     }
 
     /**
-    * Возвращает название шаблона темы, для которой предназначен блок 
-    * Если возвращает 'all' или пустую строку - блок доступен для всех шаблонов.
-    * Используется при поиске предпочтительного шаблона для рендеринга.
+    * Возвращает область доступности блока: ID темы или 'all'.
+    * Пустая строка также означает доступность для всех тем.
+    * Для тематического типа менеджер проверяет, что область совпадает с темой-владельцем.
+    * Используется также как первый кандидат при поиске шаблона рендеринга.
     * @return string Название шаблона темы или 'all'
     */
     public function getTemplate(): string {
@@ -291,44 +292,40 @@ abstract class BaseHtmlBlock {
     }
 
     /**
-    * Возвращает список доступных шаблонов для этого блока 
-    * Ищет все PHP файлы в директориях шаблонов блока во всех установленных темах.
-    * Формат возвращаемого массива: ['имя_шаблона' => 'Описание шаблона [тема]']
-    * @return array Ассоциативный массив доступных шаблонов
+    * Возвращает варианты отображения, доступные в активной теме и системной теме fallback.
+    * Вариант отображения не является областью доступности типа.
+    * @return array Ассоциативный массив доступных вариантов
     */
     public function getAvailableTemplates(): array {
         $templates = [];
         $systemName = $this->getSystemName();
         $templatesDir = BASE_PATH . '/templates';
-        
-        if (is_dir($templatesDir)) {
-            $templateDirs = scandir($templatesDir);
-            
-            foreach ($templateDirs as $templateDir) {
-                if ($templateDir === '.' || $templateDir === '..') continue;
-                
-                $blockDir = $templatesDir . '/' . $templateDir . '/front/assets/html_blocks/' . $systemName;
-                if (is_dir($blockDir)) {
-                    $files = glob($blockDir . '/*.php');
-                    foreach ($files as $file) {
-                        $templateName = pathinfo($file, PATHINFO_FILENAME);
-                        $description = $this->getTemplateDescription($templateName, $file);
-                        $templates[$templateName] = $description;
-                    }
-                }
-                
-                $legacyFile = $templatesDir . '/' . $templateDir . '/front/html_blocks/' . $systemName . '.php';
-                if (file_exists($legacyFile)) {
-                    $description = $this->getTemplateDescription('default', $legacyFile);
-                    $templates['default'] = $description . ' [' . $templateDir . '] (legacy)';
+        $templateDirs = array_values(array_unique(array_filter([
+            get_current_template(),
+            $this->sourceTemplate,
+            'default'
+        ])));
+
+        foreach ($templateDirs as $templateDir) {
+            $blockDir = $templatesDir . '/' . $templateDir . '/front/assets/html_blocks/' . $systemName;
+            if (is_dir($blockDir)) {
+                foreach (glob($blockDir . '/*.php') ?: [] as $file) {
+                    $templateName = pathinfo($file, PATHINFO_FILENAME);
+                    $templates[$templateName] = $this->getTemplateDescription($templateName, $file);
                 }
             }
+
+            $legacyFile = $templatesDir . '/' . $templateDir . '/front/html_blocks/' . $systemName . '.php';
+            if (is_file($legacyFile)) {
+                $description = $this->getTemplateDescription('default', $legacyFile);
+                $templates['default'] = $description . ' [' . $templateDir . '] (legacy)';
+            }
         }
-        
+
         if (empty($templates)) {
             $templates['default'] = LANG_CORE_BASEHTMLBLOCK_DEFAULT_TEMPLATE;
         }
-        
+
         return $templates;
     }
 

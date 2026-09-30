@@ -27,6 +27,14 @@ class AdminGetBlockTemplates extends HtmlBlockAction {
                 return;
             }
             
+            if (!$this->blockTypeManager->isBlockTypeAvailable($blockTypeName)) {
+                echo json_encode([
+                    'success' => false,
+                    'message' => LANG_ACTION_HTMLBLOCKS_ADMINGETBLOCKTEMPLATES_UNAVAILABLE
+                ]);
+                return;
+            }
+
             $blockType = $this->blockTypeManager->getBlockType($blockTypeName);
             
             if ($blockType && $blockType['class']) {

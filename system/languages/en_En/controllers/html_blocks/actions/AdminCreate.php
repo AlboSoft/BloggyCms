@@ -8,3 +8,4 @@ define('LANG_ACTION_HTMLBLOCKS_ADMINCREATE_NAME_SLUG_REQUIRED', 'Block name and 
 define('LANG_ACTION_HTMLBLOCKS_ADMINCREATE_SETTINGS_ERROR', 'Settings errors: ');
 define('LANG_ACTION_HTMLBLOCKS_ADMINCREATE_SUCCESS', 'HTML block created successfully');
 define('LANG_ACTION_HTMLBLOCKS_ADMINCREATE_ERROR', 'Error creating HTML block: ');
+define('LANG_ACTION_HTMLBLOCKS_ADMINCREATE_TYPE_UNAVAILABLE', 'The selected block type is disabled or not supported by the active theme.');
