@@ -48,6 +48,14 @@ class DebugHandler {
         if (!self::$enabled || !self::$db) {
             return false;
         }
+
+        if (($errno === E_WARNING || $errno === E_NOTICE) && 
+            (strpos($errstr, 'Undefined constant') !== false || 
+             strpos($errstr, 'Use of undefined constant') !== false ||
+             (strpos($errstr, 'Constant LANG_') !== false && strpos($errstr, 'already defined') !== false))) {
+            error_log("[LANG WARNING] $errstr in $errfile on line $errline");
+            return true;
+        }
         
         $type = 'notice';
         if (in_array($errno, [E_ERROR, E_USER_ERROR, E_RECOVERABLE_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR])) {

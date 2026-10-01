@@ -75,7 +75,13 @@ class Event {
                 
                 $callbackArgs = [];
                 if (is_array($args) && $acceptedArgs > 0) {
-                    $callbackArgs = array_slice(array_values($args), 0, $acceptedArgs);
+                    if ($acceptedArgs === 1 && self::isAssoc($args)) {
+                        $callbackArgs = [$args];
+                    } else {
+                        $callbackArgs = array_slice(array_values($args), 0, $acceptedArgs);
+                    }
+                } elseif (!is_array($args) && $acceptedArgs > 0) {
+                    $callbackArgs = [$args];
                 }
                 
                 $callbackResult = call_user_func_array($callback, $callbackArgs);
@@ -116,8 +122,12 @@ class Event {
                 
                 $callbackArgs = [$result];
                 if (is_array($args) && $acceptedArgs > 1) {
-                    $additionalArgs = array_slice(array_values($args), 0, $acceptedArgs - 1);
-                    $callbackArgs = array_merge($callbackArgs, $additionalArgs);
+                    if ($acceptedArgs === 2 && self::isAssoc($args)) {
+                        $callbackArgs[] = $args;
+                    } else {
+                        $additionalArgs = array_slice(array_values($args), 0, $acceptedArgs - 1);
+                        $callbackArgs = array_merge($callbackArgs, $additionalArgs);
+                    }
                 }
                 
                 $callbackResult = call_user_func_array($callback, $callbackArgs);
@@ -207,5 +217,17 @@ class Event {
         self::$listeners = [];
         self::$pendingListeners = [];
         self::$initialized = false;
+    }
+
+    /**
+    * Проверяет, является ли массив ассоциативным
+    * @param array $arr
+    * @return bool
+    */
+    private static function isAssoc(array $arr) {
+        if ($arr === []) {
+            return false;
+        }
+        return array_keys($arr) !== range(0, count($arr) - 1);
     }
 }

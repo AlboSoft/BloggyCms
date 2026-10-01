@@ -91,8 +91,21 @@ class App {
                 $hookFiles = glob($hooksPath . '/*.php');
                 foreach ($hookFiles as $hookFile) {
                     try {
+                        if (class_exists('ConstantHelper')) {
+                            ConstantHelper::ensureFileConstants($hookFile);
+                        }
                         require_once $hookFile;
-                    } catch (Exception $e) {}
+                    } catch (Throwable $e) {
+                        if (class_exists('ConstantHelper') && ConstantHelper::handleUndefinedConstantError($e)) {
+                            try {
+                                require_once $hookFile;
+                            } catch (Throwable $retryError) {
+                                error_log("Ошибка загрузки хука {$hookFile}: " . $retryError->getMessage());
+                            }
+                        } else {
+                            error_log("Ошибка загрузки хука {$hookFile}: " . $e->getMessage());
+                        }
+                    }
                 }
             }
         }
@@ -108,10 +121,13 @@ class App {
         
         foreach ($hookFiles as $hookFile) {
             try {
+                if (class_exists('ConstantHelper')) {
+                    ConstantHelper::ensureFileConstants($hookFile);
+                }
                 require_once $hookFile;
                 $hookName = basename($hookFile, '.php');
                 $this->hooks[$controllerName][$hookName] = $hookFile;
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 error_log("Ошибка загрузки хука {$hookFile}: " . $e->getMessage());
             }
         }
@@ -223,7 +239,19 @@ class App {
                 throw new Exception("Controller class {$controllerName} not found");
             }
             
-            $controller = new $controllerName($this->db);
+            $initAttempts = 0;
+            while (true) {
+                try {
+                    $controller = new $controllerName($this->db);
+                    break;
+                } catch (\Throwable $e) {
+                    if ($initAttempts < 10 && class_exists('ConstantHelper') && ConstantHelper::handleUndefinedConstantError($e)) {
+                        $initAttempts++;
+                        continue;
+                    }
+                    throw $e;
+                }
+            }
             
             $systemName = $controller->getSystemName();
             $settingsKey = 'controller_' . $systemName;
@@ -293,7 +321,19 @@ class App {
             }
         }
     
-        call_user_func_array([$controller, $action], $args);
+        $actionAttempts = 0;
+        while (true) {
+            try {
+                call_user_func_array([$controller, $action], $args);
+                break;
+            } catch (\Throwable $e) {
+                if ($actionAttempts < 10 && class_exists('ConstantHelper') && ConstantHelper::handleUndefinedConstantError($e)) {
+                    $actionAttempts++;
+                    continue;
+                }
+                throw $e;
+            }
+        }
     }
 
     /**

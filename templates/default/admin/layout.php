@@ -11,6 +11,7 @@
     <meta name="admin-language" content="<?php echo html(substr(SettingsHelper::get('general', 'admin_language', 'ru_RU'), 0, 2)); ?>">
     <?php echo favicon(); ?>
     <?php echo base_admin_css(['bootstrap', 'icons', 'main', 'actions']); ?>
+    <link rel="stylesheet" href="/templates/default/admin/assets/css/controllers/docs.css">
     <?php echo render_admin_css(); ?>
     <script>window.BASE_URL = '<?php echo BASE_URL ?>'; window.ADMIN_URL = '<?php echo ADMIN_URL ?>';</script>
 </head>
@@ -183,6 +184,13 @@
                                 </div>
                                 <span class="btn-text"><?php echo LANG_ADMIN_CONTROLLERS; ?></span>
                             </a>
+
+                            <a href="<?php echo ADMIN_URL ?>/docs" class="admin-header-btn admin-btn-addons d-flex align-items-center" title="<?php echo LANG_DOCS_HEADER_BTN_TITLE; ?>">
+                                <div class="btn-icon-wrapper">
+                                    <?php echo bloggy_icon('bs', 'book-half', '16 16', '#0d6efd') ?>
+                                </div>
+                                <span class="btn-text"><?php echo LANG_DOCS_MENU_TITLE; ?></span>
+                            </a>
                         </div>
                         <div class="dropdown">
                             <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -264,9 +272,34 @@
 
     <?php if(isset($_SESSION['user_id'])) { ?>
         <?php echo QuickActionsHelper::renderQuickActions() ?>
+
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="docsOffcanvasDrawer" aria-labelledby="docsDrawerTitle">
+            <div class="offcanvas-header d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center gap-2">
+                    <?php echo bloggy_icon('bs', 'book-half', '20', '#0d6efd'); ?>
+                    <h5 class="offcanvas-title mb-0 fs-6 fw-bold" id="docsDrawerTitle"><?php echo LANG_DOCS_DRAWER_TITLE; ?></h5>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <a href="<?php echo ADMIN_URL; ?>/docs" id="docsDrawerFullLink" class="btn btn-sm btn-outline-primary py-1 px-2 d-flex align-items-center" title="<?php echo LANG_DOCS_DRAWER_OPEN_FULL; ?>">
+                        <?php echo bloggy_icon('bs', 'box-arrow-up-right', '14', null, 'me-1'); ?>
+                        <span class="small"><?php echo LANG_DOCS_DRAWER_OPEN_FULL; ?></span>
+                    </a>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="<?php echo LANG_DOCS_DRAWER_CLOSE; ?>"></button>
+                </div>
+            </div>
+            <div class="offcanvas-body" id="docsDrawerBody">
+                <div class="text-center py-5">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden"><?php echo LANG_DOCS_DRAWER_LOADING; ?></span>
+                    </div>
+                    <p class="text-muted mt-2 mb-0"><?php echo LANG_DOCS_DRAWER_LOADING; ?></p>
+                </div>
+            </div>
+        </div>
     <?php } ?>
 
     <?php echo base_admin_js(['jquery-3.6.0.min', 'bootstrap', 'Sortable.min', 'main', 'jquery-ui.min', 'notifications', 'actions']); ?>
+    <script src="/templates/default/admin/assets/js/controllers/docs-drawer.js"></script>
     <?php echo render_admin_js(); ?>
     <?php echo render_admin_bottom_js() ?>
     

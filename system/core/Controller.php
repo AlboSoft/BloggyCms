@@ -151,9 +151,26 @@ class Controller {
             }
         }
         
-        ob_start();
-        include $templateFile;
-        $content = ob_get_clean();
+        if (class_exists('ConstantHelper')) {
+            ConstantHelper::ensureFileConstants($templateFile);
+        }
+        
+        $templateAttempts = 0;
+        while (true) {
+            ob_start();
+            try {
+                include $templateFile;
+                $content = ob_get_clean();
+                break;
+            } catch (\Throwable $e) {
+                ob_end_clean();
+                if ($templateAttempts < 10 && class_exists('ConstantHelper') && ConstantHelper::handleUndefinedConstantError($e)) {
+                    $templateAttempts++;
+                    continue;
+                }
+                throw $e;
+            }
+        }
 
         $content = Event::filter('controller.render.content', $content, [
             'template' => $template,
@@ -179,7 +196,26 @@ class Controller {
             'data' => $data
         ]);
 
-        include $layoutFile;
+        if (class_exists('ConstantHelper')) {
+            ConstantHelper::ensureFileConstants($layoutFile);
+        }
+
+        $layoutAttempts = 0;
+        while (true) {
+            ob_start();
+            try {
+                include $layoutFile;
+                echo ob_get_clean();
+                break;
+            } catch (\Throwable $e) {
+                ob_end_clean();
+                if ($layoutAttempts < 10 && class_exists('ConstantHelper') && ConstantHelper::handleUndefinedConstantError($e)) {
+                    $layoutAttempts++;
+                    continue;
+                }
+                throw $e;
+            }
+        }
     }
     
     /**
@@ -304,7 +340,7 @@ class Controller {
     * @param string|null $url URL элемента
     * @return self
     */
-    protected function addBreadcrumb($title, $url = null) {
+    public function addBreadcrumb($title, $url = null) {
         if (!$this->breadcrumbs) {
             $this->breadcrumbs = new \BreadcrumbsManager($this->db);
             \BreadcrumbsHelper::setManager($this->breadcrumbs);
@@ -317,7 +353,7 @@ class Controller {
     * Очищает хлебные крошки 
     * @return self
     */
-    protected function clearBreadcrumbs() {
+    public function clearBreadcrumbs() {
         if ($this->breadcrumbs) {
             $this->breadcrumbs->clear();
         }

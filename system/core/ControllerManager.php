@@ -80,36 +80,58 @@ class ControllerManager {
 
         if (!file_exists($controllerFile)) return;
         
-        require_once $controllerFile;
+        try {
+            if (class_exists('ConstantHelper')) {
+                ConstantHelper::ensureFileConstants($controllerFile);
+            }
+            require_once $controllerFile;
+        } catch (\Throwable $e) {
+            if (class_exists('ConstantHelper') && ConstantHelper::handleUndefinedConstantError($e)) {
+                try {
+                    require_once $controllerFile;
+                } catch (\Throwable $retryError) {
+                    return;
+                }
+            } else {
+                return;
+            }
+        }
         
         $className = basename($controllerFile, '.php');
         
         if (class_exists($className)) {
-            try {
-                $controller = new $className($this->db);
-                
-                $info = [
-                    'name' => $this->getControllerDisplayName($controllerName),
-                    'author' => 'BloggyCMS',
-                    'version' => '1.0.0',
-                    'has_settings' => false,
-                    'description' => '',
-                    'class' => $className,
-                    'key' => strtolower($dirName),
-                    'directory' => $dirName
-                ];
-                
-                if (method_exists($controller, 'getControllerInfo')) {
-                    $controllerInfo = $controller->getControllerInfo();
-                    $info = array_merge($info, $controllerInfo);
+            $attempts = 0;
+            while (true) {
+                try {
+                    $controller = new $className($this->db);
+                    
+                    $info = [
+                        'name' => $this->getControllerDisplayName($controllerName),
+                        'author' => 'BloggyCMS',
+                        'version' => '1.0.0',
+                        'has_settings' => false,
+                        'description' => '',
+                        'class' => $className,
+                        'key' => strtolower($dirName),
+                        'directory' => $dirName
+                    ];
+                    
+                    if (method_exists($controller, 'getControllerInfo')) {
+                        $controllerInfo = $controller->getControllerInfo();
+                        $info = array_merge($info, $controllerInfo);
+                    }
+                    
+                    $info['has_settings'] = $this->checkControllerHasSettings($dirName, $controllerFile);
+                    
+                    $this->controllers[$info['key']] = $info;
+                    break;
+                } catch (\Throwable $e) {
+                    if ($attempts < 10 && class_exists('ConstantHelper') && ConstantHelper::handleUndefinedConstantError($e)) {
+                        $attempts++;
+                        continue;
+                    }
+                    break;
                 }
-                
-                $info['has_settings'] = $this->checkControllerHasSettings($dirName, $controllerFile);
-                
-                $this->controllers[$info['key']] = $info;
-                
-            } catch (Exception $e) {
-
             }
         }
     }
@@ -229,12 +251,32 @@ class ControllerManager {
             
             $fullClassName = $namespace . $className;
             
-            require_once $settingsFile;
+            if (class_exists('ConstantHelper')) {
+                ConstantHelper::ensureFileConstants($settingsFile);
+            }
+
+            try {
+                require_once $settingsFile;
+            } catch (\Throwable $e) {
+                if (class_exists('ConstantHelper') && ConstantHelper::handleUndefinedConstantError($e)) {
+                    require_once $settingsFile;
+                } else {
+                    return '';
+                }
+            }
             
             if (class_exists($fullClassName) && method_exists($fullClassName, 'getForm')) {
-                try {
-                    return $fullClassName::getForm($currentSettings);
-                } catch (Exception $e) {
+                $attempts = 0;
+                while (true) {
+                    try {
+                        return $fullClassName::getForm($currentSettings);
+                    } catch (\Throwable $e) {
+                        if ($attempts < 10 && class_exists('ConstantHelper') && ConstantHelper::handleUndefinedConstantError($e)) {
+                            $attempts++;
+                            continue;
+                        }
+                        break;
+                    }
                 }
             }
         }

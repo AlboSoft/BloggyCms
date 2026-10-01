@@ -190,12 +190,25 @@ class AdminIndex extends ControllersAction {
     * @return array|null Данные манифеста или null при ошибке
     */
     private function loadManifestFile($manifestFile) {
-        try {
-            $manifestData = include $manifestFile;
-            if (is_array($manifestData)) {
-                return $manifestData;
+        if (class_exists('ConstantHelper')) {
+            \ConstantHelper::ensureFileConstants($manifestFile);
+        }
+        $attempts = 0;
+        while (true) {
+            try {
+                $manifestData = include $manifestFile;
+                if (is_array($manifestData)) {
+                    return $manifestData;
+                }
+                break;
+            } catch (\Throwable $e) {
+                if ($attempts < 10 && class_exists('ConstantHelper') && \ConstantHelper::handleUndefinedConstantError($e)) {
+                    $attempts++;
+                    continue;
+                }
+                break;
             }
-        } catch (\Exception $e) {}
+        }
         
         return null;
     }

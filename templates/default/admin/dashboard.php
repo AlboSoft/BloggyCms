@@ -12,6 +12,12 @@
                     <p class="dashboard-subtitle mb-0"><?php echo LANG_DASHBOARD_WELCOME; ?></p>
                 </div>
                 <div class="header-actions">
+                    <?php if (SettingsHelper::get('controller_docs', 'show_button_on_dashboard', true)) { ?>
+                        <a href="<?php echo ADMIN_URL; ?>/docs" class="dashboard-docs-btn" title="<?php echo LANG_DOCS_HEADER_BTN_TITLE; ?>">
+                            <span class="docs-btn-icon"><?php echo bloggy_icon('bs', 'book-half', '18', '#ffffff'); ?></span>
+                            <span><?php echo LANG_DOCS_MENU_TITLE; ?></span>
+                        </a>
+                    <?php } ?>
                     <div class="debug-icon-wrapper" id="debugToggleBtn" title="<?php echo LANG_DASHBOARD_DEBUG_MODE; ?>">
                         <?php 
                         $debugEnabled = SettingsHelper::get('general', 'debug_mode', false);
