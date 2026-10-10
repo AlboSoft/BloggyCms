@@ -119,7 +119,7 @@
                 const itemId = btn.dataset.id;
                 const itemTitle = btn.dataset.title;
                 
-                const confirmMsg = (lang === 'ru' ? 'Вы уверены, что хотите удалить пункт' : 'Are you sure you want to delete item') + ' "' + itemTitle + '"?"';
+                const confirmMsg = (lang === 'ru' ? 'Вы уверены, что хотите удалить пункт' : 'Are you sure you want to delete item') + ' "' + itemTitle + '"?';
                 
                 if (confirm(confirmMsg)) {
                     deleteItem(itemId, btn);
@@ -131,7 +131,7 @@
     function deleteItem(itemId, button) {
         const row = button.closest('tr');
         
-        fetch(ADMIN_URL + '/menu/item/delete/' + itemId, {
+        fetch(ADMIN_URL + '/menu/item/delete/' + encodeURIComponent(itemId), {
             method: 'POST',
             headers: {
                 'X-Requested-With': 'XMLHttpRequest',
@@ -217,16 +217,13 @@
     }
 
     function showNotification(message, type) {
-        const notification = document.createElement('div');
-        notification.className = `alert alert-${type === 'success' ? 'success' : 'danger'} alert-dismissible fade show position-fixed`;
-        notification.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px; max-width: 400px;';
-        notification.innerHTML = `
-            ${message}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        `;
-        document.body.appendChild(notification);
-        setTimeout(() => {
-            if (notification.parentNode) notification.remove();
-        }, 3000);
+        const mapped = type === 'error' ? 'danger' : type;
+        if (window.notificationSystem && typeof window.notificationSystem.showNotification === 'function') {
+            window.notificationSystem.showNotification(message, mapped);
+            return;
+        }
+        if (typeof window.notify === 'function') {
+            window.notify(message, mapped);
+        }
     }
 })();

@@ -391,12 +391,69 @@ class MenuModel implements ModelAPI {
         }
         
         $structure = json_decode($menu['structure'], true) ?: [];
+        if ($this->ensureItemIdsInStructure($structure)) {
+            $this->update($menuId, ['structure' => json_encode($structure, JSON_UNESCAPED_UNICODE)]);
+        }
         $flat = [];
         $this->flattenStructure($structure, $flat);
         
         return $flat;
     }
+
+    /**
+    * Поиск меню по ID пункта
+    * @param string $itemId ID пункта
+    * @return array|null Данные меню или null
+    */
+    public function findMenuByItemId($itemId) {
+        $itemId = rawurldecode((string)$itemId);
+        if ($itemId === '') {
+            return null;
+        }
+
+        $menus = $this->getAll();
+        foreach ($menus as $menu) {
+            $flatItems = $this->getFlatStructure($menu['id']);
+            foreach ($flatItems as $item) {
+                if ((string)$item['id'] === $itemId) {
+                    return $menu;
+                }
+            }
+        }
+
+        return null;
+    }
     
+    /**
+    * Гарантирует наличие стабильного item_id у каждого пункта
+    * @param array $items Ссылка на массив пунктов
+    * @return bool Были ли внесены изменения
+    */
+    private function ensureItemIdsInStructure(&$items) {
+        $changed = false;
+        if (!is_array($items)) {
+            return false;
+        }
+
+        foreach ($items as &$item) {
+            if (!is_array($item)) {
+                continue;
+            }
+            if (empty($item['item_id'])) {
+                $item['item_id'] = uniqid('', false) . '_' . time() . '_' . mt_rand(1000, 9999);
+                $changed = true;
+            }
+            if (!empty($item['children']) && is_array($item['children'])) {
+                if ($this->ensureItemIdsInStructure($item['children'])) {
+                    $changed = true;
+                }
+            }
+        }
+        unset($item);
+
+        return $changed;
+    }
+
     /**
     * Рекурсивное преобразование вложенной структуры в плоскую
     * @param array $items Массив пунктов
@@ -485,13 +542,13 @@ class MenuModel implements ModelAPI {
             return false;
         }
         
-        foreach ($items as &$item) {
+        foreach ($items as $index => &$item) {
             if (!is_array($item)) {
                 continue;
             }
             
-            $currentId = $this->generateItemId($item, 0);
-            if ($currentId === $parentId) {
+            $currentId = $this->generateItemId($item, $index);
+            if ((string)$currentId === (string)$parentId) {
                 if (!isset($item['children'])) {
                     $item['children'] = [];
                 }
@@ -505,6 +562,7 @@ class MenuModel implements ModelAPI {
                 }
             }
         }
+        unset($item);
         return false;
     }
     
@@ -544,7 +602,7 @@ class MenuModel implements ModelAPI {
     private function updateItemInStructure(&$items, $itemId, $itemData) {
         foreach ($items as $key => &$item) {
             $currentId = $this->generateItemId($item, $key);
-            if ($currentId === $itemId) {
+            if ((string)$currentId === (string)$itemId) {
                 $children = isset($item['children']) ? $item['children'] : [];
                 
                 $newData = $this->prepareItemData($itemData);
@@ -599,7 +657,7 @@ class MenuModel implements ModelAPI {
     private function deleteItemFromStructure(&$items, $itemId) {
         foreach ($items as $key => &$item) {
             $currentId = $this->generateItemId($item, $key);
-            if ($currentId === $itemId) {
+            if ((string)$currentId === (string)$itemId) {
                 unset($items[$key]);
                 $items = array_values($items);
                 return true;

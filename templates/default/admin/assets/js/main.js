@@ -1,4 +1,4 @@
-﻿const lang = document.querySelector('meta[name="admin-language"]')?.content || 'ru';
+const lang = document.querySelector('meta[name="admin-language"]')?.content || 'ru';
 
 document.addEventListener('DOMContentLoaded', function() {
     initBootstrapComponents();
@@ -129,33 +129,14 @@ function initEventHandlers() {
 }
 
 function showToast(message, type = 'success') {
-    const toastContainer = document.querySelector('.toast-container');
-    const toastId = 'toast-' + Date.now();
-    
-    const toastHtml = `
-        <div id="${toastId}" class="toast align-items-center text-white bg-${type} border-0" role="alert">
-            <div class="d-flex">
-                <div class="toast-body">
-                    ${message}
-                </div>
-                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
-            </div>
-        </div>
-    `;
-    
-    toastContainer.insertAdjacentHTML('beforeend', toastHtml);
-    
-    const toastElement = document.getElementById(toastId);
-    const toast = new bootstrap.Toast(toastElement, {
-        autohide: true,
-        delay: 5000
-    });
-    
-    toast.show();
-    
-    toastElement.addEventListener('hidden.bs.toast', function() {
-        this.remove();
-    });
+    const mapped = type === 'error' ? 'danger' : type;
+    if (window.notificationSystem && typeof window.notificationSystem.showNotification === 'function') {
+        window.notificationSystem.showNotification(message, mapped);
+        return;
+    }
+    if (typeof window.notify === 'function') {
+        window.notify(message, mapped);
+    }
 }
 
 function loadContent(url, container) {

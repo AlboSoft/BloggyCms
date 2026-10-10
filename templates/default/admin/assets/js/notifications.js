@@ -1,230 +1,290 @@
 class NotificationSystem {
     constructor() {
+        this.config = this.readConfig();
+        this.stack = null;
+        this.items = [];
+        this.audioCtx = null;
         this.init();
     }
 
+    readConfig() {
+        const raw = window.ADMIN_NOTIFY_CONFIG || {};
+        const flag = (value, fallback) => {
+            if (value === undefined || value === null || value === '') return fallback;
+            return value === true || value === 1 || value === '1';
+        };
+        const durationSec = Math.max(1, parseInt(raw.duration, 10) || 4);
+        return {
+            position: raw.position || 'top-right',
+            style: raw.style || 'aurora',
+            animation: raw.animation || 'slide',
+            size: raw.size || 'normal',
+            duration: durationSec * 1000,
+            maxVisible: Math.max(1, parseInt(raw.maxVisible, 10) || 4),
+            showProgress: flag(raw.showProgress, true),
+            pauseOnHover: flag(raw.pauseOnHover, true),
+            showIcon: flag(raw.showIcon, true),
+            showTitle: flag(raw.showTitle, true),
+            sound: flag(raw.sound, false)
+        };
+    }
+
     init() {
+        this.ensureStack();
         const toastData = document.getElementById('notification-data');
         if (toastData) {
             this.showSessionNotification(toastData);
         }
-        
         this.initNotificationsSystem();
     }
 
+    ensureStack() {
+        if (this.stack && document.body.contains(this.stack)) {
+            this.applyStackPosition(this.stack, this.config.position);
+            return this.stack;
+        }
+        let stack = document.getElementById('admin-notify-root');
+        if (!stack) {
+            stack = document.createElement('div');
+            stack.id = 'admin-notify-root';
+            document.body.appendChild(stack);
+        }
+        stack.className = 'admin-notify-stack';
+        stack.setAttribute('aria-live', 'polite');
+        stack.setAttribute('aria-relevant', 'additions');
+        this.applyStackPosition(stack, this.config.position);
+        this.stack = stack;
+        return stack;
+    }
+
+    applyStackPosition(stack, position) {
+        const pos = position || 'top-right';
+        stack.classList.remove('is-top', 'is-bottom', 'is-left', 'is-right', 'is-center');
+        if (pos.indexOf('top') === 0) stack.classList.add('is-top');
+        if (pos.indexOf('bottom') === 0) stack.classList.add('is-bottom');
+        if (pos.indexOf('left') !== -1) stack.classList.add('is-left');
+        if (pos.indexOf('right') !== -1) stack.classList.add('is-right');
+        if (pos.indexOf('center') !== -1) stack.classList.add('is-center');
+        stack.dataset.position = pos;
+    }
+
+    normalizeType(type) {
+        const map = { error: 'danger', err: 'danger', ok: 'success', fail: 'danger', alert: 'warning' };
+        type = String(type || 'primary').toLowerCase();
+        return map[type] || type;
+    }
+
+    typeMeta(type) {
+        const ru = (typeof lang !== 'undefined' ? lang : 'ru') === 'ru';
+        const titles = {
+            success: ru ? 'Успешно' : 'Success',
+            danger: ru ? 'Ошибка' : 'Error',
+            warning: ru ? 'Внимание' : 'Warning',
+            info: ru ? 'Информация' : 'Info',
+            primary: ru ? 'Уведомление' : 'Notification'
+        };
+        return {
+            title: titles[type] || titles.primary
+        };
+    }
+
+    iconSvg(type) {
+        const icons = {
+            success: '<polyline points="20 6 9 17 4 12"></polyline>',
+            danger: '<circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line>',
+            warning: '<path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line>',
+            info: '<circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line>',
+            primary: '<path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path>'
+        };
+        return '<svg viewBox="0 0 24 24" aria-hidden="true">' + (icons[type] || icons.primary) + '</svg>';
+    }
+
+    closeSvg() {
+        return '<svg viewBox="0 0 24 24" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>';
+    }
+
     showSessionNotification(toastData) {
-        const message = toastData.dataset.message;
-        const type = toastData.dataset.type;
-        const position = toastData.dataset.position || 'top-right';
-        const delay = 3000;
-
-        let container = document.getElementById('toast-container');
-        if (!container) {
-            container = document.createElement('div');
-            container.id = 'toast-container';
-            container.className = 'toast-container';
-            
-            this.applyPositionStyles(container, position);
-            document.body.appendChild(container);
-        }
-        
-        const toastEl = document.createElement('div');
-        toastEl.className = 'toast';
-        toastEl.setAttribute('role', 'alert');
-        toastEl.setAttribute('aria-live', 'assertive');
-        toastEl.setAttribute('aria-atomic', 'true');
-        
-        toastEl.innerHTML = `
-            <div class="toast-header">
-                <strong class="me-auto">${lang === 'ru' ? 'Уведомление' : 'Notification'}</strong>
-                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="${lang === 'ru' ? 'Закрыть' : 'Close'}"></button>
-            </div>
-            <div class="toast-body">${message}</div>
-            <div class="toast-progress"></div>
-        `;
-        
-        container.appendChild(toastEl);
-        
-        const toast = new bootstrap.Toast(toastEl, {
-            animation: true,
-            autohide: true,
-            delay: delay
-        });
-        
-        this.applyToastStyles(toastEl, type);
-        setTimeout(() => {
-            toastEl.classList.add('show');
-        }, 100);
-
-        this.startProgressBar(toastEl, delay);
-        
-        toast.show();
-        
-        toastEl.addEventListener('hidden.bs.toast', () => {
-            toastEl.classList.remove('show');
-            setTimeout(() => {
-                toastEl.remove();
-                if (container.children.length === 0) {
-                    container.remove();
-                }
-            }, 400);
-        });
-
-        toastEl.addEventListener('mouseenter', () => {
-            this.pauseProgressBar(toastEl);
-        });
-
-        toastEl.addEventListener('mouseleave', () => {
-            this.resumeProgressBar(toastEl, toast);
-        });
-
+        const message = toastData.dataset.message || '';
+        const type = toastData.dataset.type || 'primary';
         toastData.remove();
+        this.showNotification(message, type);
     }
 
-    startProgressBar(toastEl, duration) {
-        const progressBar = toastEl.querySelector('.toast-progress');
-        if (!progressBar) return;
+    showNotification(message, type = 'primary', positionOrOptions, delay) {
+        if (message === undefined || message === null || message === '') return null;
 
-        progressBar.style.animation = 'none';
-        progressBar.offsetHeight;
+        const cfg = this.config;
+        let options = {};
+        if (positionOrOptions && typeof positionOrOptions === 'object') {
+            options = positionOrOptions;
+        } else if (typeof positionOrOptions === 'string') {
+            options.position = positionOrOptions;
+        }
+        if (typeof delay === 'number') {
+            options.duration = delay;
+        }
 
-        progressBar.style.animation = `progressBar ${duration}ms linear forwards`;
-        progressBar.style.animationPlayState = 'running';
-        toastEl._progressStartTime = Date.now();
-        toastEl._progressDuration = duration;
-        toastEl._progressRemaining = duration;
+        type = this.normalizeType(options.type || type);
+        const meta = this.typeMeta(type);
+        const duration = typeof options.duration === 'number' ? options.duration : cfg.duration;
+        const style = options.style || cfg.style;
+        const animation = options.animation || cfg.animation;
+        const size = options.size || cfg.size;
+        const showProgress = options.showProgress !== undefined ? !!options.showProgress : cfg.showProgress;
+        const pauseOnHover = options.pauseOnHover !== undefined ? !!options.pauseOnHover : cfg.pauseOnHover;
+        const showIcon = options.showIcon !== undefined ? !!options.showIcon : cfg.showIcon;
+        const showTitle = options.showTitle !== undefined ? !!options.showTitle : cfg.showTitle;
+        const sound = options.sound !== undefined ? !!options.sound : cfg.sound;
+        const animName = String(animation).replace('slide-fade', 'slide-fade');
+
+        const stack = this.ensureStack();
+        this.trimStack(cfg.maxVisible - 1);
+
+        const el = document.createElement('div');
+        el.className = [
+            'admin-notify',
+            'admin-notify--' + style,
+            'admin-notify--' + type,
+            'admin-notify--' + size,
+            'admin-notify--anim-' + animName
+        ].join(' ');
+        el.setAttribute('role', type === 'danger' ? 'alert' : 'status');
+
+        const iconHtml = showIcon ? '<div class="admin-notify__icon">' + this.iconSvg(type) + '</div>' : '';
+        const titleHtml = showTitle ? '<div class="admin-notify__title"></div>' : '';
+        const progressHtml = showProgress ? '<div class="admin-notify__progress"><span></span></div>' : '';
+
+        el.innerHTML =
+            '<div class="admin-notify__glow"></div>' +
+            '<div class="admin-notify__card">' +
+                iconHtml +
+                '<div class="admin-notify__body">' + titleHtml + '<div class="admin-notify__text"></div></div>' +
+                '<button type="button" class="admin-notify__close" aria-label="' + ((typeof lang !== 'undefined' && lang === 'ru') ? 'Закрыть' : 'Close') + '">' + this.closeSvg() + '</button>' +
+                progressHtml +
+            '</div>';
+
+        const titleNode = el.querySelector('.admin-notify__title');
+        const textNode = el.querySelector('.admin-notify__text');
+        if (titleNode) titleNode.textContent = meta.title;
+        if (textNode) textNode.textContent = String(message);
+
+        stack.appendChild(el);
+        this.items.push(el);
+
+        requestAnimationFrame(() => {
+            el.classList.add('is-in');
+        });
+
+        const state = {
+            duration: duration,
+            remaining: duration,
+            startedAt: Date.now(),
+            timer: null,
+            paused: false
+        };
+        el._notifyState = state;
+
+        const hide = () => this.hideNotification(el);
+        el.querySelector('.admin-notify__close').addEventListener('click', hide);
+
+        if (showProgress) {
+            const bar = el.querySelector('.admin-notify__progress > span');
+            if (bar) bar.style.animationDuration = duration + 'ms';
+        }
+
+        if (pauseOnHover) {
+            el.addEventListener('mouseenter', () => this.pauseNotification(el));
+            el.addEventListener('mouseleave', () => this.resumeNotification(el));
+        }
+
+        state.timer = setTimeout(hide, duration);
+        if (sound) this.playSound(type);
+        return el;
     }
 
-    pauseProgressBar(toastEl) {
-        const progressBar = toastEl.querySelector('.toast-progress');
-        if (!progressBar || !toastEl._progressStartTime) return;
-
-        const elapsed = Date.now() - toastEl._progressStartTime;
-        toastEl._progressRemaining = toastEl._progressDuration - elapsed;
-        
-        progressBar.style.animationPlayState = 'paused';
+    pauseNotification(el) {
+        const state = el._notifyState;
+        if (!state || state.paused) return;
+        state.paused = true;
+        state.remaining = Math.max(0, state.remaining - (Date.now() - state.startedAt));
+        if (state.timer) {
+            clearTimeout(state.timer);
+            state.timer = null;
+        }
+        el.classList.add('is-paused');
     }
 
-    resumeProgressBar(toastEl, toastInstance) {
-        const progressBar = toastEl.querySelector('.toast-progress');
-        if (!progressBar || !toastEl._progressRemaining) return;
-
-        progressBar.style.animation = 'none';
-        progressBar.offsetHeight;
-
-        progressBar.style.animation = `progressBar ${toastEl._progressRemaining}ms linear forwards`;
-        progressBar.style.animationPlayState = 'running';
-        
-        toastEl._progressStartTime = Date.now();
-        toastEl._progressDuration = toastEl._progressRemaining;
+    resumeNotification(el) {
+        const state = el._notifyState;
+        if (!state || !state.paused) return;
+        state.paused = false;
+        state.startedAt = Date.now();
+        el.classList.remove('is-paused');
+        const bar = el.querySelector('.admin-notify__progress > span');
+        if (bar) {
+            bar.style.animation = 'none';
+            bar.offsetHeight;
+            bar.style.animation = 'admin-notify-progress ' + state.remaining + 'ms linear forwards';
+        }
+        state.timer = setTimeout(() => this.hideNotification(el), state.remaining);
     }
 
-    applyPositionStyles(container, position) {
-        container.style.position = 'fixed';
-        container.style.zIndex = '9999';
-        container.style.padding = '1rem';
-        
-        switch(position) {
-            case 'top-left':
-                container.style.top = '0';
-                container.style.left = '0';
-                container.style.alignItems = 'flex-start';
-                break;
-            case 'top-right':
-                container.style.top = '0';
-                container.style.right = '0';
-                container.style.alignItems = 'flex-end';
-                break;
-            case 'bottom-left':
-                container.style.bottom = '0';
-                container.style.left = '0';
-                container.style.alignItems = 'flex-start';
-                break;
-            case 'bottom-right':
-                container.style.bottom = '0';
-                container.style.right = '0';
-                container.style.alignItems = 'flex-end';
-                break;
-            case 'top-center':
-                container.style.top = '0';
-                container.style.left = '50%';
-                container.style.transform = 'translateX(-50%)';
-                container.style.alignItems = 'center';
-                break;
-            case 'bottom-center':
-                container.style.bottom = '0';
-                container.style.left = '50%';
-                container.style.transform = 'translateX(-50%)';
-                container.style.alignItems = 'center';
-                break;
+    hideNotification(el) {
+        if (!el || el.classList.contains('is-out')) return;
+        const state = el._notifyState;
+        if (state && state.timer) {
+            clearTimeout(state.timer);
+            state.timer = null;
+        }
+        this.items = this.items.filter((item) => item !== el);
+        el.classList.remove('is-in');
+        el.classList.add('is-out');
+        let removed = false;
+        const done = () => {
+            if (removed) return;
+            removed = true;
+            if (el.parentNode) el.remove();
+        };
+        el.addEventListener('transitionend', done, { once: true });
+        setTimeout(done, 500);
+    }
+
+    trimStack(keep) {
+        while (this.items.length > keep) {
+            this.hideNotification(this.items[0]);
         }
     }
 
-    applyToastStyles(toastEl, type) {
-        const bgClass = `bg-${type}`;
-        toastEl.classList.add(bgClass);
-    }
-
-    showNotification(message, type = 'primary', position = 'top-right', delay = 5000) {
-        let container = document.getElementById('toast-container');
-        if (!container) {
-            container = document.createElement('div');
-            container.id = 'toast-container';
-            container.className = 'toast-container';
-            this.applyPositionStyles(container, position);
-            document.body.appendChild(container);
-        }
-        
-        const toastEl = document.createElement('div');
-        toastEl.className = 'toast';
-        toastEl.setAttribute('role', 'alert');
-        
-        toastEl.innerHTML = `
-            <div class="toast-header">
-                <strong class="me-auto">${lang === 'ru' ? 'Уведомление' : 'Notification'}</strong>
-                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="${lang === 'ru' ? 'Закрыть' : 'Close'}"></button>
-            </div>
-            <div class="toast-body">${message}</div>
-            <div class="toast-progress"></div>
-        `;
-        
-        container.appendChild(toastEl);
-        
-        const toast = new bootstrap.Toast(toastEl, {
-            animation: true,
-            autohide: true,
-            delay: delay
-        });
-        
-        this.applyToastStyles(toastEl, type);
-        
-        setTimeout(() => {
-            toastEl.classList.add('show');
-        }, 100);
-
-        this.startProgressBar(toastEl, delay);
-        
-        toast.show();
-        
-        toastEl.addEventListener('hidden.bs.toast', () => {
-            toastEl.classList.remove('show');
-            setTimeout(() => {
-                toastEl.remove();
-                if (container.children.length === 0) {
-                    container.remove();
-                }
-            }, 400);
-        });
-
-        toastEl.addEventListener('mouseenter', () => {
-            this.pauseProgressBar(toastEl);
-        });
-
-        toastEl.addEventListener('mouseleave', () => {
-            this.resumeProgressBar(toastEl, toast);
-        });
-        
-        return toast;
+    playSound(type) {
+        try {
+            const Ctx = window.AudioContext || window.webkitAudioContext;
+            if (!Ctx) return;
+            if (!this.audioCtx) this.audioCtx = new Ctx();
+            const ctx = this.audioCtx;
+            if (ctx.state === 'suspended') ctx.resume();
+            const now = ctx.currentTime;
+            const tones = {
+                success: [523.25, 783.99],
+                danger: [392, 277.18],
+                warning: [440, 554.37],
+                info: [523.25, 659.25],
+                primary: [493.88, 659.25]
+            };
+            const pair = tones[type] || tones.primary;
+            pair.forEach((freq, index) => {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.value = freq;
+                gain.gain.setValueAtTime(0.0001, now);
+                gain.gain.exponentialRampToValueAtTime(0.045, now + 0.02 + index * 0.07);
+                gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.22 + index * 0.1);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start(now + index * 0.07);
+                osc.stop(now + 0.28 + index * 0.1);
+            });
+        } catch (e) {}
     }
 
     initNotificationsSystem() {
@@ -812,6 +872,12 @@ function escapeHtml(text) {
     div.textContent = text;
     return div.innerHTML;
 }
+
+window.notify = function(message, type, options) {
+    if (window.notificationSystem && typeof window.notificationSystem.showNotification === 'function') {
+        return window.notificationSystem.showNotification(message, type, options);
+    }
+};
 
 window.AdminNotifications = {
     showNotification: (message, type = 'primary') => {

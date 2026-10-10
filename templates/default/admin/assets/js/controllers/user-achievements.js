@@ -145,12 +145,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        const toast = document.createElement('div');
-                        toast.className = 'alert alert-success alert-dismissible fade show position-fixed';
-                        toast.style.cssText = 'top: 20px; right: 20px; z-index: 9999;';
-                        toast.innerHTML = lang === 'ru' ? 'Ачивка успешно отозвана' : 'Achievement revoked successfully';
-                        document.body.appendChild(toast);
-                        setTimeout(() => toast.remove(), 3000);
+                        if (window.notificationSystem) {
+                            window.notificationSystem.showNotification(lang === 'ru' ? 'Ачивка успешно отозвана' : 'Achievement revoked successfully', 'success');
+                        }
                         
                         setTimeout(() => location.reload(), 1000);
                     } else {

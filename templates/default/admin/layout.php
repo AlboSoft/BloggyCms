@@ -10,10 +10,39 @@
     <meta name="application-name" content="BloggyCms">
     <meta name="admin-language" content="<?php echo html(substr(SettingsHelper::get('general', 'admin_language', 'ru_RU'), 0, 2)); ?>">
     <?php echo favicon(); ?>
-    <?php echo base_admin_css(['bootstrap', 'icons', 'main', 'actions']); ?>
+    <?php echo base_admin_css(['bootstrap', 'icons', 'main', 'actions', 'notifications']); ?>
     <link rel="stylesheet" href="/templates/default/admin/assets/css/controllers/docs.css">
     <?php echo render_admin_css(); ?>
-    <script>window.BASE_URL = '<?php echo BASE_URL ?>'; window.ADMIN_URL = '<?php echo ADMIN_URL ?>';</script>
+    <?php
+        $nOn = static function ($key, $default = true) {
+            $value = \SettingsHelper::get('controller_admin', $key, $default ? 1 : 0);
+            if ($value === true || $value === 1 || $value === '1') {
+                return true;
+            }
+            if ($value === false || $value === 0 || $value === '0' || $value === null || $value === '') {
+                return false;
+            }
+            return (bool) $default;
+        };
+        $adminNotifyConfig = [
+            'position'     => SettingsHelper::get('controller_admin', 'notification_position', 'top-right') ?: 'top-right',
+            'style'        => SettingsHelper::get('controller_admin', 'notification_style', 'aurora') ?: 'aurora',
+            'animation'    => SettingsHelper::get('controller_admin', 'notification_animation', 'slide') ?: 'slide',
+            'size'         => SettingsHelper::get('controller_admin', 'notification_size', 'normal') ?: 'normal',
+            'duration'     => max(1, (int) SettingsHelper::get('controller_admin', 'notification_duration', 4)),
+            'maxVisible'   => max(1, (int) SettingsHelper::get('controller_admin', 'notification_max_visible', 4)),
+            'showProgress' => $nOn('notification_show_progress', true),
+            'pauseOnHover' => $nOn('notification_pause_on_hover', true),
+            'showIcon'     => $nOn('notification_show_icon', true),
+            'showTitle'    => $nOn('notification_show_title', true),
+            'sound'        => $nOn('notification_sound', false),
+        ];
+    ?>
+    <script>
+        window.BASE_URL = '<?php echo BASE_URL ?>';
+        window.ADMIN_URL = '<?php echo ADMIN_URL ?>';
+        window.ADMIN_NOTIFY_CONFIG = <?php echo json_encode($adminNotifyConfig); ?>;
+    </script>
 </head>
 <body>
     <?php if(isset($_SESSION['user_id'])) { 
@@ -261,14 +290,7 @@
         <?php echo $content ?>
     <?php } ?>
 
-    <div class="toast-container position-fixed bottom-0 end-0 p-3">
-        <div id="toast" class="toast align-items-center border-0" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="d-flex">
-                <div class="toast-body"></div>
-                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="<?php echo LANG_ADMIN_TOAST_CLOSE; ?>"></button>
-            </div>
-        </div>
-    </div>
+    <div id="admin-notify-root" class="admin-notify-stack" aria-live="polite" aria-relevant="additions"></div>
 
     <?php if(isset($_SESSION['user_id'])) { ?>
         <?php echo QuickActionsHelper::renderQuickActions() ?>
@@ -304,7 +326,7 @@
     <?php echo render_admin_bottom_js() ?>
     
     <?php if(isset($_SESSION['toast'])) { ?>
-        <div id="notification-data" data-message="<?php echo html($_SESSION['toast']['message']) ?>" data-type="<?php echo html($_SESSION['toast']['type']) ?>" data-position="<?php echo SettingsHelper::get('controller_admin', 'notification_position', 'top-left') ?>" style="display: none;"></div>
+        <div id="notification-data" data-message="<?php echo html($_SESSION['toast']['message']) ?>" data-type="<?php echo html($_SESSION['toast']['type']) ?>" style="display: none;"></div>
         <?php unset($_SESSION['toast']); ?>
     <?php } ?>
 </body>

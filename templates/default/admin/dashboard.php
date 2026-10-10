@@ -433,32 +433,13 @@
         const currentState = <?php echo SettingsHelper::get('general', 'debug_mode', false) ? 'true' : 'false'; ?>;
         
         function showNotification(message, isError = false) {
-            const toast = document.createElement('div');
-            toast.className = 'custom-toast-debug';
-            
-            const iconSvg = isError 
-                ? '<?php echo bloggy_icon("bs", "exclamation-triangle-fill", "16", "#ffc107"); ?>'
-                : '<?php echo bloggy_icon("bs", "bug-fill", "16", "#ff7818"); ?>';
-            
-            const closeIconSvg = '<?php echo bloggy_icon("bs", "x-lg", "12", "#6c757d"); ?>';
-            
-            toast.innerHTML = `
-                <div class="toast-content">
-                    <div class="toast-icon">${iconSvg}</div>
-                    <span class="toast-message">${message}</span>
-                    <div class="toast-close">${closeIconSvg}</div>
-                </div>
-            `;
-            
-            document.body.appendChild(toast);
-            
-            toast.querySelector('.toast-close').addEventListener('click', () => {
-                toast.remove();
-            });
-            
-            setTimeout(() => {
-                if (toast.parentNode) toast.remove();
-            }, 3000);
+            if (window.notificationSystem) {
+                window.notificationSystem.showNotification(message, isError ? 'danger' : 'success');
+                return;
+            }
+            if (typeof window.notify === 'function') {
+                window.notify(message, isError ? 'danger' : 'success');
+            }
         }
         
         function updateIconState(enabled) {

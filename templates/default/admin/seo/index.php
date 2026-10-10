@@ -668,12 +668,11 @@ $indexnow_settings = array_merge([
             const input = btn.closest('.input-group').querySelector('input');
             input.value = key;
 
-            const toast = document.createElement('div');
-            toast.className = 'alert alert-success alert-dismissible fade show position-fixed';
-            toast.style.cssText = 'top: 20px; right: 20px; z-index: 9999;';
-            toast.innerHTML = '<?php echo LANG_TEMPLATE_SEO_ADMININDEX_KEY_GENERATED; ?>';
-            document.body.appendChild(toast);
-            setTimeout(() => toast.remove(), 3000);
+            if (window.notificationSystem) {
+                window.notificationSystem.showNotification('<?php echo addslashes(LANG_TEMPLATE_SEO_ADMININDEX_KEY_GENERATED); ?>', 'success');
+            } else if (typeof window.notify === 'function') {
+                window.notify('<?php echo addslashes(LANG_TEMPLATE_SEO_ADMININDEX_KEY_GENERATED); ?>', 'success');
+            }
         }
 
         document.addEventListener('DOMContentLoaded', function() {

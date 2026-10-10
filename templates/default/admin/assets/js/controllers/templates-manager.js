@@ -655,15 +655,12 @@ function uploadFile(event) {
 }
 
 function showToast(message, type) {
-    const toastEl = document.getElementById('toast');
-    if (toastEl) {
-        const toast = new bootstrap.Toast(toastEl);
-        const toastBody = toastEl.querySelector('.toast-body');
-        if (toastBody) toastBody.textContent = message;
-        toastEl.className = 'toast align-items-center border-0';
-        toastEl.classList.add(`bg-${type}`);
-        toast.show();
-    } else {
-        console.log(message);
+    const mapped = type === 'error' ? 'danger' : type;
+    if (window.notificationSystem && typeof window.notificationSystem.showNotification === 'function') {
+        window.notificationSystem.showNotification(message, mapped);
+        return;
+    }
+    if (typeof window.notify === 'function') {
+        window.notify(message, mapped);
     }
 }

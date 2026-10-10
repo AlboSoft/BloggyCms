@@ -290,16 +290,121 @@ class AdminSettings {
                         'show' => 'field:show_site_name_in_logo',
                         'column' => 6
                     ]),
+                ]
+            ]),
+
+            new \Fieldset(LANG_CONTROLLER_ADMINSETTINGS_FIELDSET_NOTIFICATIONS, [
+                'icon' => 'bi bi-bell',
+                'columns' => 'custom',
+                'fields' => [
+                    \FieldFactory::alert('notify_info', [
+                        'title' => LANG_CONTROLLER_ADMINSETTINGS_NOTIFY_ALERT_TITLE,
+                        'hint' => LANG_CONTROLLER_ADMINSETTINGS_NOTIFY_ALERT_HINT,
+                        'type' => 'info',
+                        'icon' => 'bell',
+                        'full_width' => true,
+                        'column' => 12
+                    ]),
                     \FieldFactory::select('notification_position', [
                         'title' => LANG_CONTROLLER_ADMINSETTINGS_FIELD_NOTIFICATION_POSITION,
+                        'hint' => LANG_CONTROLLER_ADMINSETTINGS_HINT_NOTIFICATION_POSITION,
                         'options' => [
                             'top-left' => LANG_CONTROLLER_ADMINSETTINGS_OPTION_TOP_LEFT,
+                            'top-center' => LANG_CONTROLLER_ADMINSETTINGS_OPTION_TOP_CENTER,
                             'top-right' => LANG_CONTROLLER_ADMINSETTINGS_OPTION_TOP_RIGHT,
                             'bottom-left' => LANG_CONTROLLER_ADMINSETTINGS_OPTION_BOTTOM_LEFT,
+                            'bottom-center' => LANG_CONTROLLER_ADMINSETTINGS_OPTION_BOTTOM_CENTER,
                             'bottom-right' => LANG_CONTROLLER_ADMINSETTINGS_OPTION_BOTTOM_RIGHT
                         ],
                         'default' => 'top-right',
-                        'column' => 12
+                        'column' => 6
+                    ]),
+                    \FieldFactory::select('notification_style', [
+                        'title' => LANG_CONTROLLER_ADMINSETTINGS_FIELD_NOTIFICATION_STYLE,
+                        'hint' => LANG_CONTROLLER_ADMINSETTINGS_HINT_NOTIFICATION_STYLE,
+                        'options' => [
+                            'aurora' => LANG_CONTROLLER_ADMINSETTINGS_OPTION_NOTIFY_AURORA,
+                            'glass' => LANG_CONTROLLER_ADMINSETTINGS_OPTION_NOTIFY_GLASS,
+                            'neon' => LANG_CONTROLLER_ADMINSETTINGS_OPTION_NOTIFY_NEON,
+                            'solid' => LANG_CONTROLLER_ADMINSETTINGS_OPTION_NOTIFY_SOLID,
+                            'minimal' => LANG_CONTROLLER_ADMINSETTINGS_OPTION_NOTIFY_MINIMAL
+                        ],
+                        'default' => 'aurora',
+                        'column' => 6
+                    ]),
+                    \FieldFactory::select('notification_animation', [
+                        'title' => LANG_CONTROLLER_ADMINSETTINGS_FIELD_NOTIFICATION_ANIMATION,
+                        'hint' => LANG_CONTROLLER_ADMINSETTINGS_HINT_NOTIFICATION_ANIMATION,
+                        'options' => [
+                            'slide' => LANG_CONTROLLER_ADMINSETTINGS_OPTION_NOTIFY_ANIM_SLIDE,
+                            'fade' => LANG_CONTROLLER_ADMINSETTINGS_OPTION_NOTIFY_ANIM_FADE,
+                            'bounce' => LANG_CONTROLLER_ADMINSETTINGS_OPTION_NOTIFY_ANIM_BOUNCE,
+                            'scale' => LANG_CONTROLLER_ADMINSETTINGS_OPTION_NOTIFY_ANIM_SCALE,
+                            'slide-fade' => LANG_CONTROLLER_ADMINSETTINGS_OPTION_NOTIFY_ANIM_SLIDEFADE
+                        ],
+                        'default' => 'slide',
+                        'column' => 6
+                    ]),
+                    \FieldFactory::select('notification_size', [
+                        'title' => LANG_CONTROLLER_ADMINSETTINGS_FIELD_NOTIFICATION_SIZE,
+                        'options' => [
+                            'compact' => LANG_CONTROLLER_ADMINSETTINGS_OPTION_NOTIFY_SIZE_COMPACT,
+                            'normal' => LANG_CONTROLLER_ADMINSETTINGS_OPTION_NOTIFY_SIZE_NORMAL,
+                            'large' => LANG_CONTROLLER_ADMINSETTINGS_OPTION_NOTIFY_SIZE_LARGE
+                        ],
+                        'default' => 'normal',
+                        'column' => 6
+                    ]),
+                    \FieldFactory::number('notification_duration', [
+                        'title' => LANG_CONTROLLER_ADMINSETTINGS_FIELD_NOTIFICATION_DURATION,
+                        'hint' => LANG_CONTROLLER_ADMINSETTINGS_HINT_NOTIFICATION_DURATION,
+                        'default' => 4,
+                        'min' => 1,
+                        'max' => 20,
+                        'column' => 6
+                    ]),
+                    \FieldFactory::number('notification_max_visible', [
+                        'title' => LANG_CONTROLLER_ADMINSETTINGS_FIELD_NOTIFICATION_MAX_VISIBLE,
+                        'hint' => LANG_CONTROLLER_ADMINSETTINGS_HINT_NOTIFICATION_MAX_VISIBLE,
+                        'default' => 4,
+                        'min' => 1,
+                        'max' => 8,
+                        'column' => 6
+                    ]),
+                    \FieldFactory::checkbox('notification_show_progress', [
+                        'title' => LANG_CONTROLLER_ADMINSETTINGS_FIELD_NOTIFICATION_PROGRESS,
+                        'hint' => LANG_CONTROLLER_ADMINSETTINGS_HINT_NOTIFICATION_PROGRESS,
+                        'default' => true,
+                        'switch' => true,
+                        'column' => 6
+                    ]),
+                    \FieldFactory::checkbox('notification_pause_on_hover', [
+                        'title' => LANG_CONTROLLER_ADMINSETTINGS_FIELD_NOTIFICATION_PAUSE,
+                        'hint' => LANG_CONTROLLER_ADMINSETTINGS_HINT_NOTIFICATION_PAUSE,
+                        'default' => true,
+                        'switch' => true,
+                        'column' => 6
+                    ]),
+                    \FieldFactory::checkbox('notification_show_icon', [
+                        'title' => LANG_CONTROLLER_ADMINSETTINGS_FIELD_NOTIFICATION_ICON,
+                        'hint' => LANG_CONTROLLER_ADMINSETTINGS_HINT_NOTIFICATION_ICON,
+                        'default' => true,
+                        'switch' => true,
+                        'column' => 6
+                    ]),
+                    \FieldFactory::checkbox('notification_show_title', [
+                        'title' => LANG_CONTROLLER_ADMINSETTINGS_FIELD_NOTIFICATION_TITLE,
+                        'hint' => LANG_CONTROLLER_ADMINSETTINGS_HINT_NOTIFICATION_TITLE,
+                        'default' => true,
+                        'switch' => true,
+                        'column' => 6
+                    ]),
+                    \FieldFactory::checkbox('notification_sound', [
+                        'title' => LANG_CONTROLLER_ADMINSETTINGS_FIELD_NOTIFICATION_SOUND,
+                        'hint' => LANG_CONTROLLER_ADMINSETTINGS_HINT_NOTIFICATION_SOUND,
+                        'default' => false,
+                        'switch' => true,
+                        'column' => 6
                     ]),
                 ]
             ]),

@@ -13,15 +13,15 @@ class AdminItemEdit extends MenuAction {
     * @return void
     */
     public function execute() {
-        $itemId = $this->params['id'] ?? null;
+        $itemId = rawurldecode((string)($this->params['id'] ?? ''));
         
-        if (!$itemId) {
+        if ($itemId === '') {
             \Notification::error(LANG_ACTION_MENU_ADMINITEMEDIT_ITEM_ID_NOT_SPECIFIED);
             $this->redirect(ADMIN_URL . '/menu');
             return;
         }
         
-        $menu = $this->findMenuByItemId($itemId);
+        $menu = $this->menuModel->findMenuByItemId($itemId);
         
         if (!$menu) {
             \Notification::error(LANG_ACTION_MENU_ADMINITEMEDIT_ITEM_NOT_FOUND);
@@ -53,26 +53,6 @@ class AdminItemEdit extends MenuAction {
     }
     
     /**
-    * Поиск меню по ID пункта
-    * @param string $itemId ID пункта
-    * @return array|null Данные меню или null
-    */
-    private function findMenuByItemId($itemId) {
-        $menus = $this->menuModel->getAll();
-        
-        foreach ($menus as $menu) {
-            $flatItems = $this->menuModel->getFlatStructure($menu['id']);
-            foreach ($flatItems as $item) {
-                if ($item['id'] === $itemId) {
-                    return $menu;
-                }
-            }
-        }
-        
-        return null;
-    }
-    
-    /**
     * Поиск данных пункта по ID
     * @param int $menuId ID меню
     * @param string $itemId ID пункта
@@ -82,7 +62,7 @@ class AdminItemEdit extends MenuAction {
         $flatItems = $this->menuModel->getFlatStructure($menuId);
         
         foreach ($flatItems as $item) {
-            if ($item['id'] === $itemId) {
+            if ((string)$item['id'] === (string)$itemId) {
                 return $item;
             }
         }

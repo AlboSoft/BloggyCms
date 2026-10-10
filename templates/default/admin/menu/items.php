@@ -138,9 +138,9 @@
                                     $iconHtml = bloggy_icon($iconSet, $iconId, "{$iconSize} {$iconSize}", $iconColor);
                                 }
                             ?>
-                                <tr data-id="<?php echo $item['id']; ?>"
-                                    data-parent-id="<?php echo $item['parent_id'] ?? ''; ?>"
-                                    data-level="<?php echo $item['level']; ?>">
+                                <tr data-id="<?php echo html($item['id']); ?>"
+                                    data-parent-id="<?php echo html($item['parent_id'] ?? ''); ?>"
+                                    data-level="<?php echo (int)$item['level']; ?>">
                                     <td class="text-center">
                                         <span class="drag-handle text-muted cursor-move">
                                             <?php echo bloggy_icon('bs', 'grip-vertical', '18', '#9ca3af'); ?>
@@ -226,7 +226,7 @@
                                         <?php echo admin_action_group([
                                             ['type' => 'edit', 'url' => ADMIN_URL . '/menu/item/edit/' . $item['id'], 'title' => LANG_TEMPLATE_MENU_ITEMS_ACTION_EDIT],
                                             ['type' => 'add', 'url' => ADMIN_URL . '/menu/item/create/' . $menu['id'] . '?parent_id=' . $item['id'], 'title' => LANG_TEMPLATE_MENU_ITEMS_ACTION_ADD_CHILD],
-                                            ['type' => 'delete', 'tag' => 'button', 'class' => 'delete-item', 'title' => LANG_TEMPLATE_MENU_ITEMS_ACTION_DELETE, 'attrs' => 'data-id="' . (int)$item['id'] . '" data-title="' . html($item['title']) . '"'],
+                                            ['type' => 'delete', 'tag' => 'button', 'class' => 'delete-item', 'title' => LANG_TEMPLATE_MENU_ITEMS_ACTION_DELETE, 'attrs' => 'data-id="' . html($item['id']) . '" data-title="' . html($item['title']) . '"'],
                                         ]); ?>
                                     </td>
                                 </tr>
