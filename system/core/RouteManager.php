@@ -21,8 +21,7 @@ class RouteManager {
      */
     private function loadAllRoutes() {
         $controllersDir = __DIR__ . '/../controllers/';
-        $controllerFolders = scandir($controllersDir);
-        
+        $controllerFolders = @scandir($controllersDir) ?: [];
         foreach ($controllerFolders as $folder) {
             if ($folder === '.' || $folder === '..' || !is_dir($controllersDir . $folder)) {
                 continue;

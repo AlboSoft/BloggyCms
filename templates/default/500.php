@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="<?php echo html(substr(SettingsHelper::get('general', 'site_language', 'ru_RU'), 0, 2)); ?>">
+<html lang="<?php echo html(substr((string)SettingsHelper::get('general', 'site_language', 'ru_RU'), 0, 2)); ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="site-language" content="<?php echo html(substr(SettingsHelper::get('general', 'site_language', 'ru_RU'), 0, 2)); ?>">
+    <meta name="site-language" content="<?php echo html(substr((string)SettingsHelper::get('general', 'site_language', 'ru_RU'), 0, 2)); ?>">
     <title><?php echo LANG_500_PAGE_TITLE; ?></title>
     <link href="/templates/default/front/assets/css/500.css" rel="stylesheet">
 </head>

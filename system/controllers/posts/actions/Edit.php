@@ -182,6 +182,8 @@ class Edit extends PostAction {
             $categoryId = (int)$_POST['category_id'];
         }
         
+        $commentsDisabled = !empty($_POST['disable_comments']) || !empty($_POST['allow_comments']);
+        
         $data = [
             'title' => trim($_POST['title']),
             'short_description' => $_POST['short_description'] ?? null,
@@ -193,6 +195,7 @@ class Edit extends PostAction {
             'password_protected' => isset($_POST['password_protected']) ? 1 : 0,
             'password' => $_POST['password'] ?? null,
             'is_adult' => isset($_POST['is_adult']) ? 1 : 0,
+            'allow_comments' => $commentsDisabled ? 0 : 1,
             'show_cover_in_list' => isset($_POST['show_cover_in_list']) ? 1 : 0,
             'show_cover_in_post' => isset($_POST['show_cover_in_post']) ? 1 : 0,
             'show_to_groups' => !empty($_POST['show_to_groups']) ? json_encode($_POST['show_to_groups']) : null,

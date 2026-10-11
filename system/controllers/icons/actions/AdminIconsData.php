@@ -72,7 +72,7 @@ class AdminIconsData {
                 continue;
             }
             
-            $files = glob($iconsDir . '*.svg');
+            $files = glob($iconsDir . '*.svg') ?: [];
             
             foreach ($files as $file) {
                 $set = basename($file, '.svg');
@@ -112,7 +112,7 @@ class AdminIconsData {
         
         $templatesDir = TEMPLATES_PATH;
         if (is_dir($templatesDir)) {
-            $items = scandir($templatesDir);
+            $items = @scandir($templatesDir) ?: [];
             foreach ($items as $item) {
                 if ($item !== '.' && $item !== '..' && is_dir($templatesDir . '/' . $item)) {
                     $templates[] = $item;

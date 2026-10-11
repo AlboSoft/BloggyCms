@@ -253,7 +253,10 @@ function get_all_blocks_assets_cached($forceRefresh = false): array {
     $allAssets['inline_css'] = array_values(array_unique($allAssets['inline_css']));
     $allAssets['inline_js'] = array_values(array_unique($allAssets['inline_js']));
 
-    file_put_contents($cacheFile, serialize($allAssets), LOCK_EX);
+    if (!is_dir(CACHE_DIR)) {
+        @mkdir(CACHE_DIR, 0755, true);
+    }
+    @file_put_contents($cacheFile, serialize($allAssets), LOCK_EX);
     return $allAssets;
 }
 
@@ -285,7 +288,10 @@ function regenerate_blocks_css(): string {
     }
 
     $css = minify_css($css);
-    file_put_contents($cacheFile, $css, LOCK_EX);
+    if (!is_dir(CACHE_DIR)) {
+        @mkdir(CACHE_DIR, 0755, true);
+    }
+    @file_put_contents($cacheFile, $css, LOCK_EX);
     @chmod($cacheFile, 0644);
     return $cacheFile;
 }

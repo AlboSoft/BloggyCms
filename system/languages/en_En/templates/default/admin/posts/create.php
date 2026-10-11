@@ -51,7 +51,7 @@ define('LANG_TEMPLATE_POSTS_CREATE_VISIBILITY_SHOW_HINT', 'Leave empty to show t
 define('LANG_TEMPLATE_POSTS_CREATE_VISIBILITY_HIDE_LABEL', 'Hide from groups');
 define('LANG_TEMPLATE_POSTS_CREATE_VISIBILITY_NO_HIDE', 'Hide from no one');
 define('LANG_TEMPLATE_POSTS_CREATE_VISIBILITY_HIDE_HINT', 'Select groups to hide this post from');
-define('LANG_TEMPLATE_POSTS_CREATE_ALLOW_COMMENTS_LABEL', 'Allow comments');
+define('LANG_TEMPLATE_POSTS_CREATE_DISABLE_COMMENTS_LABEL', 'Disable comments');
 define('LANG_TEMPLATE_POSTS_CREATE_ADULT_CONTENT', 'Adult Content 18+');
 define('LANG_TEMPLATE_POSTS_CREATE_ADULT_HINT', 'Check this box if this post contains adult content');
 define('LANG_TEMPLATE_POSTS_CREATE_SEO_TITLE', 'SEO Settings');

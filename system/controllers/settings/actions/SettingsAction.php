@@ -312,35 +312,4 @@ abstract class SettingsAction {
             file_put_contents($configFile, $newContent);
         }
     }
-
-    /**
-    * Обрабатывает настройки резервного копирования шаблонов
-    * @param array $postSettings Массив настроек из POST-запроса
-    * @return array Обработанный массив настроек
-    */
-    protected function handleBackupSettings($postSettings) {
-        $currentSettings = $this->settingsModel->get('site');
-        
-        if (!isset($postSettings['template_backups_enabled'])) {
-            $postSettings['template_backups_enabled'] = '0';
-            
-            if (isset($currentSettings['template_backups_count'])) {
-                $postSettings['template_backups_count'] = $currentSettings['template_backups_count'];
-            }
-            if (isset($currentSettings['template_backups_cleanup'])) {
-                $postSettings['template_backups_cleanup'] = $currentSettings['template_backups_cleanup'];
-            }
-        } else {
-            $postSettings['template_backups_enabled'] = '1';
-            
-            if (!isset($postSettings['template_backups_count'])) {
-                $postSettings['template_backups_count'] = $currentSettings['template_backups_count'] ?? '5';
-            }
-            if (!isset($postSettings['template_backups_cleanup'])) {
-                $postSettings['template_backups_cleanup'] = $currentSettings['template_backups_cleanup'] ?? 'auto';
-            }
-        }
-        
-        return $postSettings;
-    }
 }

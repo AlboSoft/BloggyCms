@@ -63,8 +63,7 @@ class AdminIndex extends ControllersAction {
             return $controllers;
         }
 
-        $items = scandir($controllersDir);
-        
+        $items = @scandir($controllersDir) ?: [];
         foreach ($items as $item) {
             if ($item === '.' || $item === '..' || $item === 'controllers') continue;
             
@@ -156,7 +155,7 @@ class AdminIndex extends ControllersAction {
         
         $actionsDir = $controllerPath . '/actions';
         if (is_dir($actionsDir)) {
-            $phpFiles = glob($actionsDir . '/*.php');
+            $phpFiles = glob($actionsDir . '/*.php') ?: [];
             $info['actions_count'] = count($phpFiles);
         }
         

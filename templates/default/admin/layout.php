@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<?php echo html(substr(SettingsHelper::get('general', 'admin_language', 'ru_RU'), 0, 2)); ?>">
+<html lang="<?php echo html(substr((string)SettingsHelper::get('general', 'admin_language', 'ru_RU'), 0, 2)); ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +8,7 @@
     <meta name="author" content="Albo Soft">
     <meta name="copyright" content="© <?php echo date('Y'); ?> Albo Soft. <?php echo LANG_ADMIN_ALL_RIGHTS_RESERVED; ?>">
     <meta name="application-name" content="BloggyCms">
-    <meta name="admin-language" content="<?php echo html(substr(SettingsHelper::get('general', 'admin_language', 'ru_RU'), 0, 2)); ?>">
+    <meta name="admin-language" content="<?php echo html(substr((string)SettingsHelper::get('general', 'admin_language', 'ru_RU'), 0, 2)); ?>">
     <?php echo favicon(); ?>
     <?php echo base_admin_css(['bootstrap', 'icons', 'main', 'actions', 'notifications']); ?>
     <link rel="stylesheet" href="/templates/default/admin/assets/css/controllers/docs.css">
@@ -81,7 +81,7 @@
                                 <?php } ?>
                                 
                                 <?php if (SettingsHelper::get('controller_admin', 'show_site_name_in_logo', true)) {
-                                    $customSiteName = trim(SettingsHelper::get('controller_admin', 'custom_site_name', ''));
+                                    $customSiteName = trim((string)SettingsHelper::get('controller_admin', 'custom_site_name', ''));
                                     $siteName = !empty($customSiteName) ? $customSiteName : SettingsHelper::get('general', 'site_name', 'BloggyCMS');
                                 ?>
                                     <span><?php echo html($siteName); ?></span>
@@ -115,7 +115,6 @@
                         ['section' => 'seo', 'url' => ADMIN_URL . '/seo', 'icon' => 'rss', 'title' => LANG_ADMIN_SEO, 'priority' => 130],
                         ['section' => 'debug', 'url' => ADMIN_URL . '/debug', 'icon' => 'bug', 'title' => LANG_ADMIN_DEBUG, 'priority' => 140],
                         ['section' => 'settings', 'url' => ADMIN_URL . '/settings', 'icon' => 'gear', 'title' => LANG_ADMIN_SETTINGS, 'priority' => 150],
-                        ['section' => 'templates', 'url' => ADMIN_URL . '/templates', 'icon' => 'palette', 'title' => LANG_ADMIN_TEMPLATE, 'priority' => 160],
                     ];
                     
                     $menuItems = Event::filter('admin.menu.items', $menuItems);

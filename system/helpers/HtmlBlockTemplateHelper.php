@@ -16,15 +16,14 @@ class HtmlBlockTemplateHelper {
         $templatesDir = BASE_PATH . '/templates';
         
         if (is_dir($templatesDir)) {
-            $templateDirs = scandir($templatesDir);
-            
+            $templateDirs = @scandir($templatesDir) ?: [];
             foreach ($templateDirs as $templateDir) {
                 if ($templateDir === '.' || $templateDir === '..') continue;
                 
                 $blockDir = $templatesDir . '/' . $templateDir . '/front/assets/html_blocks/' . $blockSystemName;
                 
                 if (is_dir($blockDir)) {
-                    $templateFiles = glob($blockDir . '/*.php');
+                    $templateFiles = glob($blockDir . '/*.php') ?: [];
                     foreach ($templateFiles as $file) {
                         $templateName = pathinfo($file, PATHINFO_FILENAME);
                         $templates[$templateName] = $templateDir . ' - ' . $templateName;

@@ -26,7 +26,7 @@ class PermissionManager {
         $permissions = [];
         $controllersPath = CONTROLLERS_PATH;
         
-        foreach (glob($controllersPath . '/*/permissions.php') as $file) {
+        foreach ((glob($controllersPath . '/*/permissions.php') ?: []) as $file) {
             $controllerPermissions = include $file;
             $controllerName = basename(dirname($file));
             $permissions[$controllerName] = $controllerPermissions;

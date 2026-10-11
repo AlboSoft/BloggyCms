@@ -100,8 +100,7 @@ class AdminGetBlockAssets extends HtmlBlockAction {
             return $files;
         }
         
-        $items = scandir($dir);
-        
+        $items = @scandir($dir) ?: [];
         foreach ($items as $item) {
             if ($item === '.' || $item === '..') {
                 continue;

@@ -84,7 +84,7 @@ class AdminGroupPermissions extends AdminGroupAction {
         
         $controllersPath = ROOT_PATH . '/system/controllers';
         
-        $permissionFiles = glob($controllersPath . '/*/permissions.php');
+        $permissionFiles = glob($controllersPath . '/*/permissions.php') ?: [];
         
         foreach ($permissionFiles as $file) {
             if (file_exists($file) && is_readable($file)) {

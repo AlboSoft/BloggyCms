@@ -16,7 +16,7 @@ define('LANG_ADMIN_ICONS', 'Иконки');
 define('LANG_ADMIN_SEO', 'SEO');
 define('LANG_ADMIN_DEBUG', 'Отладка');
 define('LANG_ADMIN_SETTINGS', 'Настройки');
-define('LANG_ADMIN_TEMPLATE', 'Шаблон');
+
 define('LANG_ADMIN_NOTIFICATIONS', 'Уведомления');
 define('LANG_ADMIN_ALL_NOTIFICATIONS', 'Все');
 define('LANG_ADMIN_MARK_ALL_READ', 'Прочитать все');

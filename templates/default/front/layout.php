@@ -11,7 +11,7 @@ if ($maintenanceMode && !$isAdmin) {
     header('Retry-After: 3600');
     ?>
     <!DOCTYPE html>
-    <html lang="<?php echo html(substr(SettingsHelper::get('general', 'site_language', 'ru_RU'), 0, 2)); ?>">
+    <html lang="<?php echo html(substr((string)SettingsHelper::get('general', 'site_language', 'ru_RU'), 0, 2)); ?>">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,7 +40,7 @@ $faviconUrl = !empty($favicon) ? BASE_URL . '/' . $favicon : BASE_URL . '/templa
 ?>
 
 <!DOCTYPE html>
-<html lang="<?php echo html(substr(SettingsHelper::get('general', 'site_language', 'ru_RU'), 0, 2)); ?>">
+<html lang="<?php echo html(substr((string)SettingsHelper::get('general', 'site_language', 'ru_RU'), 0, 2)); ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -48,7 +48,7 @@ $faviconUrl = !empty($favicon) ? BASE_URL . '/' . $favicon : BASE_URL . '/templa
     <link rel="icon" type="image/x-icon" href="<?= $faviconUrl ?>">
     <link rel="shortcut icon" type="image/x-icon" href="<?= $faviconUrl ?>">
     <link rel="apple-touch-icon" href="<?= $faviconUrl ?>">
-    <meta name="site-language" content="<?php echo html(substr(SettingsHelper::get('general', 'site_language', 'ru_RU'), 0, 2)); ?>">
+    <meta name="site-language" content="<?php echo html(substr((string)SettingsHelper::get('general', 'site_language', 'ru_RU'), 0, 2)); ?>">
     <?php if(!empty(SettingsHelper::get('general', 'site_description'))) { ?>
     <meta name="description" content="<?php echo SettingsHelper::get('general', 'site_description'); ?>">
     <?php } ?>

@@ -78,8 +78,7 @@ class App {
             return;
         }
         
-        $controllers = scandir($controllersPath);
-        
+        $controllers = @scandir($controllersPath) ?: [];
         foreach ($controllers as $controller) {
             if ($controller === '.' || $controller === '..') {
                 continue;
@@ -88,7 +87,7 @@ class App {
             $hooksPath = $controllersPath . '/' . $controller . '/hooks';
             
             if (is_dir($hooksPath)) {
-                $hookFiles = glob($hooksPath . '/*.php');
+                $hookFiles = glob($hooksPath . '/*.php') ?: [];
                 foreach ($hookFiles as $hookFile) {
                     try {
                         if (class_exists('ConstantHelper')) {
@@ -117,7 +116,7 @@ class App {
     * @param string $controllerName Имя контроллера
     */
     private function loadHooksFromDirectory($hooksPath, $controllerName) {
-        $hookFiles = glob($hooksPath . '/*.php');
+        $hookFiles = glob($hooksPath . '/*.php') ?: [];
         
         foreach ($hookFiles as $hookFile) {
             try {

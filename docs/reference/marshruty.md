@@ -128,13 +128,12 @@
 
 | URL | Назначение |
 |---|---|
-| `/admin/settings`, `/reset`, `/cleanup-backups` | Настройки |
+| `/admin/settings`, `/reset` | Настройки |
 | `/admin/upload/settings-image` | Загрузка изображений настроек |
 | `/admin/language`, `/admin/language/save` | Языки интерфейса |
 | `/admin/icons`, `/admin/icons/data` | Иконки |
 | `/admin/menu`, `/create`, `/edit/{id}`, `/delete/{id}`, `/items/{id}`, `/reorder`, `/preview/{id}` | Меню |
 | `/admin/menu/item/create/{menuId}`, `/item/edit/{id}`, `/item/delete/{id}` | Пункты меню |
-| `/admin/templates`, `/get-files`, `/get-file`, `/save`, `/download-file`, `/upload-file`, `/create-front-folder` | Редактор шаблонов |
 | `/admin/controllers`, `/admin/controllers/toggle` | Модули |
 | `/admin/seo`, `/settings`, `/schema`, `/clear-cache`, `/test-indexnow`, `/process-queue` | SEO |
 | `/admin/debug`, `/logs`, `/log/{id}`, `/delete/{id}`, `/delete-all`, `/mark-fixed/{id}`, `/stats`, `/toggle` | Отладка |

@@ -104,10 +104,10 @@ spl_autoload_register(function ($class) {
 
         $helpersDir = ROOT_PATH . '/system/helpers';
         if (is_dir($helpersDir)) {
-            foreach (glob($helpersDir . '/*', GLOB_ONLYDIR) as $subdir) {
+            foreach ((glob($helpersDir . '/*', GLOB_ONLYDIR) ?: []) as $subdir) {
                 $helperSubdirs[] = $subdir;
             }
-            foreach (glob($helpersDir . '/*.php') as $file) {
+            foreach ((glob($helpersDir . '/*.php') ?: []) as $file) {
                 $name = basename($file, '.php');
                 $classMap[$name] = $file;
             }
@@ -115,19 +115,19 @@ spl_autoload_register(function ($class) {
 
         $controllersDir = ROOT_PATH . '/system/controllers';
         if (is_dir($controllersDir)) {
-            foreach (glob($controllersDir . '/*', GLOB_ONLYDIR) as $moduleDir) {
+            foreach ((glob($controllersDir . '/*', GLOB_ONLYDIR) ?: []) as $moduleDir) {
                 $moduleName = basename($moduleDir);
                 $modulePaths[] = $moduleDir;
 
-                foreach (glob($moduleDir . '/*.php') as $file) {
+                foreach ((glob($moduleDir . '/*.php') ?: []) as $file) {
                     $name = basename($file, '.php');
                     $classMap[$name] = $file;
                 }
-                foreach (glob($moduleDir . '/models/*.php') as $file) {
+                foreach ((glob($moduleDir . '/models/*.php') ?: []) as $file) {
                     $name = basename($file, '.php');
                     $classMap[$name] = $file;
                 }
-                foreach (glob($moduleDir . '/actions/*.php') as $file) {
+                foreach ((glob($moduleDir . '/actions/*.php') ?: []) as $file) {
                     $name = basename($file, '.php');
                     $classMap[$name] = $file;
                 }
@@ -136,21 +136,21 @@ spl_autoload_register(function ($class) {
 
         $coreDir = ROOT_PATH . '/system/core';
         if (is_dir($coreDir)) {
-            foreach (glob($coreDir . '/*.php') as $file) {
+            foreach ((glob($coreDir . '/*.php') ?: []) as $file) {
                 $name = basename($file, '.php');
                 $classMap[$name] = $file;
             }
         }
 
         $systemDir = ROOT_PATH . '/system';
-        foreach (glob($systemDir . '/*.php') as $file) {
+        foreach ((glob($systemDir . '/*.php') ?: []) as $file) {
             $name = basename($file, '.php');
             $classMap[$name] = $file;
         }
 
         $fieldsDir = ROOT_PATH . '/system/fields';
         if (is_dir($fieldsDir)) {
-            foreach (glob($fieldsDir . '/*.php') as $file) {
+            foreach ((glob($fieldsDir . '/*.php') ?: []) as $file) {
                 $name = basename($file, '.php');
                 $classMap[$name] = $file;
             }
@@ -158,7 +158,7 @@ spl_autoload_register(function ($class) {
 
         $htmlBlocksDir = ROOT_PATH . '/system/html_blocks';
         if (is_dir($htmlBlocksDir)) {
-            foreach (glob($htmlBlocksDir . '/*.php') as $file) {
+            foreach ((glob($htmlBlocksDir . '/*.php') ?: []) as $file) {
                 $name = basename($file, '.php');
                 $classMap[$name] = $file;
             }
@@ -166,7 +166,7 @@ spl_autoload_register(function ($class) {
 
         $postBlocksDir = ROOT_PATH . '/system/post_blocks';
         if (is_dir($postBlocksDir)) {
-            foreach (glob($postBlocksDir . '/*.php') as $file) {
+            foreach ((glob($postBlocksDir . '/*.php') ?: []) as $file) {
                 $name = basename($file, '.php');
                 $classMap[$name] = $file;
             }
@@ -202,7 +202,7 @@ spl_autoload_register(function ($class) {
             }
         }
 
-        $controllerDirs = glob(ROOT_PATH . '/system/controllers/*', GLOB_ONLYDIR);
+        $controllerDirs = glob(ROOT_PATH . '/system/controllers/*', GLOB_ONLYDIR) ?: [];
         $possibleFiles = [
             $class . '.php',
             $classNameWithoutModel . 'Model.php',
@@ -336,7 +336,7 @@ function loadLanguageFiles($dir, &$loadedFiles, &$loadedConstants = []) {
         return;
     }
     
-    $items = scandir($dir);
+    $items = @scandir($dir) ?: [];
     
     $manifestFiles = [];
     $languageFiles = [];
@@ -406,7 +406,7 @@ define('CURRENT_LOCALE', $currentLocale);
 
 $templatesLanguageRoot = ROOT_PATH . '/templates';
 if (is_dir($templatesLanguageRoot)) {
-    foreach (scandir($templatesLanguageRoot) as $themeDirectory) {
+    foreach (@scandir($templatesLanguageRoot) ?: [] as $themeDirectory) {
         if ($themeDirectory === '.' || $themeDirectory === '..') {
             continue;
         }
@@ -428,7 +428,7 @@ require_once SYSTEM_PATH . '/helpers/ConstantHelper.php';
 function loadAllHelpers($dir) {
     if (!is_dir($dir)) return;
     
-    $files = scandir($dir);
+    $files = @scandir($dir) ?: [];
     foreach ($files as $file) {
         if ($file === '.' || $file === '..') continue;
         
@@ -451,7 +451,7 @@ if (is_dir($helpersPath)) {
 }
 
 define('CONTROLLERS_PATH', ROOT_PATH . '/system/controllers');
-$permissionsFiles = glob(CONTROLLERS_PATH . '/*/permissions.php');
+$permissionsFiles = glob(CONTROLLERS_PATH . '/*/permissions.php') ?: [];
 foreach ($permissionsFiles as $file) {
     if (file_exists($file) && is_readable($file)) {
         require_once $file;

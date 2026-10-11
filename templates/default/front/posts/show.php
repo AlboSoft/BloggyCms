@@ -80,10 +80,12 @@ $totalComments = $totalComments ?? ($post['comments_count'] ?? 0);
                     <span><?php echo LANG_TEMPLATE_POST_BOOKMARK_BTN_TEXT; ?></span>
                 </button>
                 
+                <?php if ($allowComments) { ?>
                 <a href="#comments" class="tg-action-btn">
                     <?php echo bloggy_icon('bs', 'chat-dots', '18', 'currentColor', 'tg-mr-1'); ?>
                     <span class="tg-action-count"><?php echo $post['comments_count'] ?? 0; ?></span>
                 </a>
+                <?php } ?>
                 
                 <div class="tg-post-views tg-ml-auto">
                     <?php echo bloggy_icon('bs', 'eye', '16', 'currentColor', 'tg-mr-1'); ?>

@@ -269,8 +269,7 @@ class LanguageController extends Controller {
             return $locales;
         }
         
-        $dirs = scandir($langPath);
-        
+        $dirs = @scandir($langPath) ?: [];
         foreach ($dirs as $dir) {
             if ($dir === '.' || $dir === '..') continue;
             if (!is_dir($langPath . '/' . $dir)) continue;

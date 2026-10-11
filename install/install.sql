@@ -408,28 +408,6 @@ CREATE TABLE IF NOT EXISTS `{#}page_blocks` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `{#}page_templates`
---
-
-CREATE TABLE IF NOT EXISTS `{#}page_templates` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `route` varchar(255) NOT NULL,
-  `controller` varchar(100) DEFAULT NULL,
-  `action` varchar(100) DEFAULT NULL,
-  `template_name` varchar(100) NOT NULL,
-  `template_file` varchar(255) DEFAULT 'layout.php',
-  `description` text,
-  `priority` int DEFAULT '0',
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `route` (`route`),
-  KEY `idx_route` (`route`),
-  KEY `idx_template` (`template_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Структура таблицы `{#}password_resets`
 --
 
@@ -632,25 +610,6 @@ CREATE TABLE IF NOT EXISTS `{#}tags` (
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_tags_slug` (`slug`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `{#}template_blocks`
---
-
-CREATE TABLE IF NOT EXISTS `{#}template_blocks` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `template_id` int NOT NULL,
-  `html_block_id` int NOT NULL,
-  `position` varchar(100) NOT NULL,
-  `sort_order` int DEFAULT '0',
-  `settings` json DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  KEY `html_block_id` (`html_block_id`),
-  KEY `idx_template_position` (`template_id`,`position`,`sort_order`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -942,13 +901,6 @@ ALTER TABLE `{#}post_likes`
 ALTER TABLE `{#}post_tags`
   ADD CONSTRAINT `fk_{#}post_tags_post` FOREIGN KEY (`post_id`) REFERENCES `{#}posts` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `fk_{#}post_tags_tag` FOREIGN KEY (`tag_id`) REFERENCES `{#}tags` (`id`) ON DELETE CASCADE;
-
---
--- Ограничения внешнего ключа таблицы `{#}template_blocks`
---
-ALTER TABLE `{#}template_blocks`
-  ADD CONSTRAINT `fk_{#}template_blocks_template` FOREIGN KEY (`template_id`) REFERENCES `{#}page_templates` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_{#}template_blocks_block` FOREIGN KEY (`html_block_id`) REFERENCES `{#}html_blocks` (`id`) ON DELETE CASCADE;
 
 --
 -- Ограничения внешнего ключа таблицы `{#}users_groups`

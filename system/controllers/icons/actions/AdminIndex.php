@@ -65,7 +65,7 @@ class AdminIndex {
         $icons = [];
         $iconsDir = TEMPLATES_PATH . '/default/admin/icons/';
         
-        $files = glob($iconsDir . '*.svg');
+        $files = glob($iconsDir . '*.svg') ?: [];
         
         foreach ($files as $file) {
             $set = basename($file, '.svg');

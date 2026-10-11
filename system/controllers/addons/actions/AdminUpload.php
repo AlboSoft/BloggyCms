@@ -106,7 +106,7 @@ class AdminUpload extends AddonAction {
             return;
         }
         
-        $files = array_diff(scandir($dir), ['.', '..']);
+        $files = array_diff(@scandir($dir) ?: [], ['.', '..']);
         foreach ($files as $file) {
             $path = $dir . '/' . $file;
             if (is_dir($path)) {
@@ -373,7 +373,7 @@ class AdminUpload extends AddonAction {
             return;
         }
         
-        $items = scandir($source);
+        $items = @scandir($source) ?: [];
         foreach ($items as $item) {
             if ($item === '.' || $item === '..') {
                 continue;

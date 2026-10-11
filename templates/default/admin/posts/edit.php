@@ -398,10 +398,10 @@ add_admin_css('templates/default/admin/assets/css/controllers/post-builder.css')
 
                 <div class="mb-3">
                     <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="allow_comments" name="allow_comments" 
-                            value="1" <?php echo isset($post['allow_comments']) && $post['allow_comments'] == 1 ? 'checked' : 'checked'; ?>>
-                        <label class="form-check-label" for="allow_comments">
-                            <?php echo LANG_TEMPLATE_POSTS_EDIT_ALLOW_COMMENTS_LABEL; ?>
+                        <input class="form-check-input" type="checkbox" id="disable_comments" name="disable_comments" 
+                            value="1" <?php echo (!empty($post['disable_comments'])) || (isset($post['allow_comments']) && (int)$post['allow_comments'] === 0) ? 'checked' : ''; ?>>
+                        <label class="form-check-label" for="disable_comments">
+                            <?php echo LANG_TEMPLATE_POSTS_EDIT_DISABLE_COMMENTS_LABEL; ?>
                         </label>
                     </div>
                 </div>

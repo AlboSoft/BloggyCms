@@ -39,7 +39,7 @@ class ControllerManager {
     private function scanControllersDirectory($path) {
         if (!is_dir($path)) return;
         
-        $items = scandir($path);
+        $items = @scandir($path) ?: [];
         foreach ($items as $item) {
             if ($item === '.' || $item === '..') continue;
             
@@ -58,7 +58,7 @@ class ControllerManager {
     * @param string $dirName Имя директории
     */
     private function findControllersInDirectory($dirPath, $dirName) {
-        $phpFiles = glob($dirPath . '/*.php');
+        $phpFiles = glob($dirPath . '/*.php') ?: [];
         
         foreach ($phpFiles as $phpFile) {
             $fileName = basename($phpFile, '.php');

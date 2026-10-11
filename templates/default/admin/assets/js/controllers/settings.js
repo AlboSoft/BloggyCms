@@ -1,4 +1,4 @@
-﻿document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
     function toggleDependentSettings() {
         const readingTime = document.getElementById('show_reading_time');
         const disableReadingTime = document.getElementById('allow_disable_reading_time');
@@ -51,16 +51,6 @@
                 setting.disabled = !isCommentsEnabled;
             });
         }
-
-        const backupsEnabled = document.getElementById('template_backups_enabled');
-        const backupSettings = document.querySelectorAll('[name*="template_backups_count"], [name*="template_backups_cleanup"]');
-        
-        if (backupsEnabled) {
-            const isBackupsEnabled = backupsEnabled.checked;
-            backupSettings.forEach(setting => {
-                setting.disabled = !isBackupsEnabled;
-            });
-        }
     }
 
     toggleDependentSettings();
@@ -69,8 +59,7 @@
         'show_reading_time', 
         'enable_rating', 
         'enable_tags', 
-        'enable_comments',
-        'template_backups_enabled'
+        'enable_comments'
     ];
 
     dependentCheckboxes.forEach(checkboxId => {
@@ -136,7 +125,7 @@
         const firstInput = document.querySelector('form input:not([type="hidden"]), form select, form textarea');
         if (firstInput && !firstInput.disabled) {}
 
-        const dangerousButtons = document.querySelectorAll('a[href*="cleanup-backups"], .btn-danger');
+        const dangerousButtons = document.querySelectorAll('.btn-danger');
         dangerousButtons.forEach(button => {
             button.addEventListener('click', function(e) {
                 if (!confirm(lang === 'ru' ? 'Вы уверены, что хотите выполнить это действие? Это действие нельзя отменить.' : 'Are you sure you want to perform this action? This action cannot be undone.')) {

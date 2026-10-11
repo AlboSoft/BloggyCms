@@ -35,7 +35,7 @@ class PostBlockManager {
 
         $blocksDir = __DIR__ . '/../post_blocks';
         if (is_dir($blocksDir)) {
-            $files = scandir($blocksDir);
+            $files = @scandir($blocksDir) ?: [];
             foreach ($files as $file) {
                 if (pathinfo($file, PATHINFO_EXTENSION) === 'php' && $file !== 'BasePostBlock.php') {
                     $className = pathinfo($file, PATHINFO_FILENAME);

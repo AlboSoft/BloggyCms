@@ -40,7 +40,7 @@ class Router {
             return;
         }
         
-        $modules = glob($controllersDir . '*', GLOB_ONLYDIR);
+        $modules = glob($controllersDir . '*', GLOB_ONLYDIR) ?: [];
         
         $allRoutes = [];
         

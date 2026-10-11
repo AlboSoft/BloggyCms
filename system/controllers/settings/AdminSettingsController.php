@@ -50,16 +50,6 @@ class AdminSettingsController extends Controller {
     }
 
     /**
-    * Выполняет очистку старых резервных копий настроек
-    * @return void
-    */
-    public function cleanupBackupsAction() {
-        $action = new \settings\actions\AdminCleanupBackups($this->db);
-        $action->setController($this);
-        return $action->execute();
-    }
-
-    /**
     * Загружает изображения для настроек (логотипы, иконки и т.д.)
     * @return void
     */

@@ -2,6 +2,8 @@
 define('LANG_ACTION_COMMENTS_ADD_INVALID_METHOD', 'Неверный метод запроса');
 define('LANG_ACTION_COMMENTS_ADD_NO_PERMISSION', 'У вас нет прав на добавление комментариев');
 define('LANG_ACTION_COMMENTS_ADD_NO_POST_ID', 'Ошибка: ID поста не указан');
+define('LANG_ACTION_COMMENTS_ADD_POST_NOT_FOUND', 'Пост не найден');
+define('LANG_ACTION_COMMENTS_ADD_DISABLED', 'Комментирование к этому посту отключено');
 define('LANG_ACTION_COMMENTS_ADD_EMPTY_CONTENT', 'Пожалуйста, напишите комментарий');
 define('LANG_ACTION_COMMENTS_ADD_ANONYMOUS', 'Аноним');
 define('LANG_ACTION_COMMENTS_ADD_USER', 'Пользователь');

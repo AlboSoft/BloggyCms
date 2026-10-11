@@ -200,11 +200,16 @@ class ConstantHelper {
                 continue;
             }
 
-            $iterator = new RecursiveIteratorIterator(
-                new RecursiveDirectoryIterator($scanDir, FilesystemIterator::SKIP_DOTS),
-                RecursiveIteratorIterator::SELF_FIRST
-            );
+            try {
+                $iterator = new RecursiveIteratorIterator(
+                    new RecursiveDirectoryIterator($scanDir, FilesystemIterator::SKIP_DOTS),
+                    RecursiveIteratorIterator::SELF_FIRST
+                );
+            } catch (\Throwable $e) {
+                continue;
+            }
 
+            try {
             foreach ($iterator as $fileInfo) {
                 if (!$fileInfo->isFile() || strtolower($fileInfo->getExtension()) !== 'php') {
                     continue;
@@ -235,6 +240,9 @@ class ConstantHelper {
                 foreach ($fileConsts as $constName) {
                     $allConstants[$constName] = $path;
                 }
+            }
+            } catch (\Throwable $e) {
+                continue;
             }
         }
 

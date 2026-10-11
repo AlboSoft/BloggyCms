@@ -66,7 +66,7 @@ class FieldManager {
             mkdir($this->fieldsPath, 0755, true);
         }
         
-        $files = glob($this->fieldsPath . '/*.php');
+        $files = glob($this->fieldsPath . '/*.php') ?: [];
         
         foreach ($files as $file) {
             $className = pathinfo($file, PATHINFO_FILENAME);

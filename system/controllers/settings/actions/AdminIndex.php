@@ -48,7 +48,6 @@ class AdminIndex extends SettingsAction {
                         $postSettings = $_POST['settings'] ?? [];
                         
                         if ($activeTab === 'site' || $activeTab === 'general') {
-                            $postSettings = $this->handleBackupSettings($postSettings);
                             $postSettings = $this->handleFaviconUpload($postSettings);
                         }
                         

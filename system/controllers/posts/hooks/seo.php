@@ -4,28 +4,42 @@
 * Автоматически подключается при загрузке контроллера
 */
 
-// Добавление мета-тегов для поста
-\Event::listen('controller.render.before', function($data) {
-    if (!isset($data['template']) || strpos($data['template'], 'posts/show') === false) {
+\Event::listen('controller.render.before', function($eventData) {
+    if (!isset($eventData['template']) || strpos($eventData['template'], 'posts/show') === false) {
         return;
     }
     
-    if (!isset($data['post'])) {
+    $post = null;
+    if (isset($eventData['post'])) {
+        $post = $eventData['post'];
+    } elseif (isset($eventData['data']['post'])) {
+        $post = $eventData['data']['post'];
+    }
+    
+    if (!$post) {
         return;
     }
     
-    $post = $data['post'];
-    $seoModel = new SeoModel($GLOBALS['db']);
-    $metaSettings = $seoModel->getMetaSettings();
+    try {
+        $db = $GLOBALS['db'] ?? null;
+        if (!$db && class_exists('Database')) {
+            $db = Database::getInstance();
+        }
+        if (!$db) {
+            return;
+        }
+        $seoModel = new SeoModel($db);
+        $metaSettings = $seoModel->getMetaSettings();
+    } catch (Throwable $e) {
+        return;
+    }
     
-    // Canonical URL
     if ($metaSettings['canonical_enabled']) {
         $canonical = BASE_URL . '/post/' . $post['slug'];
         \Event::trigger('seo.meta.canonical', ['url' => &$canonical]);
         $data['canonical_url'] = $canonical;
     }
     
-    // Open Graph
     if ($metaSettings['og_enabled']) {
         $data['og_data'] = [
             'title' => $post['title'],
@@ -38,7 +52,6 @@
         ];
     }
     
-    // Schema.org
     if ($metaSettings['schema_enabled']) {
         $data['schema_data'] = [
             '@context' => 'https://schema.org',

@@ -211,7 +211,7 @@ API::clearCache();                   // сбросить кэш сканиров
 | `post_likes`, `bookmarks` | Лайки и закладки |
 | `post_blocks`, `page_blocks` | Блоки контента постов и страниц |
 | `block_types`, `post_block_settings`, `post_block_presets` | Настройки и пресеты пост-блоков |
-| `html_blocks`, `html_block_types`, `template_blocks` | HTML-блоки и их типы |
+| `html_blocks`, `html_block_types` | HTML-блоки и их типы |
 | `menus` | Меню: структура (дерево пунктов), шаблон вывода, видимость |
 | `fields`, `field_values` | Пользовательские поля и значения |
 | `fragments`, `fragments_fields`, `fragment_entries` | Фрагменты, их поля и записи |

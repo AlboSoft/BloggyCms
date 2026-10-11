@@ -2,6 +2,8 @@
 define('LANG_ACTION_COMMENTS_ADD_INVALID_METHOD', 'Invalid request method');
 define('LANG_ACTION_COMMENTS_ADD_NO_PERMISSION', 'You do not have permission to add comments');
 define('LANG_ACTION_COMMENTS_ADD_NO_POST_ID', 'Error: Post ID not specified');
+define('LANG_ACTION_COMMENTS_ADD_POST_NOT_FOUND', 'Post not found');
+define('LANG_ACTION_COMMENTS_ADD_DISABLED', 'Comments are disabled for this post');
 define('LANG_ACTION_COMMENTS_ADD_EMPTY_CONTENT', 'Please write a comment');
 define('LANG_ACTION_COMMENTS_ADD_ANONYMOUS', 'Anonymous');
 define('LANG_ACTION_COMMENTS_ADD_USER', 'User');

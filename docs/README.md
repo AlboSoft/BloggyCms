@@ -41,7 +41,7 @@
 | 7 | [Меню сайта](administrator/07-menyu.md) | Конструктор меню, шорткоды, видимость |
 | 8 | [Настройки](administrator/08-nastroyki.md) | Общие настройки, настройки контроллеров, языки, иконки |
 | 9 | [SEO](administrator/09-seo.md) | Мета-теги, sitemap, RSS, robots.txt, Schema.org, IndexNow |
-| 10 | [Тема и оформление](administrator/10-tema.md) | Смена темы, редактор шаблонов, бэкапы файлов |
+| 10 | [Тема и оформление](administrator/10-tema.md) | Смена темы, устройство темы, своя тема |
 | 11 | [Дополнения и обновления](administrator/11-dopolneniya-i-obnovleniya.md) | Установка ZIP-пакетов, обновление движка |
 | 12 | [Обслуживание и безопасность](administrator/12-obsluzhivanie-i-bezopasnost.md) | Бэкапы, права на файлы, диагностика, чек-лист запуска |
 

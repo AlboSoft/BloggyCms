@@ -1,6 +1,6 @@
 # 🗃️ Таблицы базы данных
 
-Схема базы BloggyCMS: **41 таблица**. Префикс по умолчанию — `bloggy_` (задаётся при установке, в этом документе опущен).
+Схема базы BloggyCMS: **39 таблиц**. Префикс по умолчанию — `bloggy_` (задаётся при установке, в этом документе опущен).
 
 Все таблицы — `InnoDB`, `utf8mb4_unicode_ci`.
 
@@ -33,24 +33,22 @@
 | 21 | `post_block_presets` | Пресеты пост-блоков |
 | 22 | `html_blocks` | HTML-блоки |
 | 23 | `html_block_types` | Типы HTML-блоков |
-| 24 | `template_blocks` | Привязка блоков к шаблонам страниц |
-| 25 | `page_templates` | Шаблоны маршрутов страниц |
-| 26 | `menus` | Меню |
-| 27 | `fields` | Пользовательские поля |
-| 28 | `field_values` | Значения пользовательских полей |
-| 29 | `fragments` | Фрагменты |
-| 30 | `fragments_fields` | Поля фрагментов |
-| 31 | `fragment_entries` | Записи фрагментов |
-| 32 | `user_achievements` | Достижения |
-| 33 | `user_achievements_data` | Прогресс и выдача достижений |
-| 34 | `achievement_conditions` | Условия автоматических достижений |
-| 35 | `achievement_assignment_history` | История ручной выдачи |
-| 36 | `notifications` | Уведомления |
-| 37 | `settings` | Настройки (JSON по группам) |
-| 38 | `search_queries` | Поисковые запросы |
-| 39 | `debug_logs` | Журнал отладки |
-| 40 | `queue_tasks` | Очередь задач (IndexNow и др.) |
-| 41 | `installed_addons` | Установленные пакеты |
+| 24 | `menus` | Меню |
+| 25 | `fields` | Пользовательские поля |
+| 24 | `field_values` | Значения пользовательских полей |
+| 25 | `fragments` | Фрагменты |
+| 24 | `fragments_fields` | Поля фрагментов |
+| 25 | `fragment_entries` | Записи фрагментов |
+| 24 | `user_achievements` | Достижения |
+| 25 | `user_achievements_data` | Прогресс и выдача достижений |
+| 24 | `achievement_conditions` | Условия автоматических достижений |
+| 25 | `achievement_assignment_history` | История ручной выдачи |
+| 24 | `notifications` | Уведомления |
+| 25 | `settings` | Настройки (JSON по группам) |
+| 24 | `search_queries` | Поисковые запросы |
+| 25 | `debug_logs` | Журнал отладки |
+| 24 | `queue_tasks` | Очередь задач (IndexNow и др.) |
+| 25 | `installed_addons` | Установленные пакеты |
 
 ---
 
@@ -133,8 +131,6 @@ $general = SettingsHelper::get('general');   // уже декодированн�
 | `post_block_presets` | `block_system_name`, `preset_name`, `preset_template` |
 | `html_blocks` | `name`, `slug`, `content`, `type_id`, `settings`, `css_files`, `js_files`, `inline_css`, `inline_js`, `template` |
 | `html_block_types` | `name`, `system_name`, `description`, `template`, `is_active` |
-| `template_blocks` | `template_id`, `html_block_id`, `position`, `sort_order`, `settings` |
-| `page_templates` | `route`, `controller`, `action`, `template_name`, `template_file`, `priority` |
 
 ### Фрагменты
 

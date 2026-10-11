@@ -37,7 +37,7 @@ class IconWithStyleField extends BaseField {
             return $icons;
         }
         
-        $files = glob($iconsDir . '*.svg');
+        $files = glob($iconsDir . '*.svg') ?: [];
         
         foreach ($files as $file) {
             $set = basename($file, '.svg');

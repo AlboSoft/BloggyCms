@@ -296,7 +296,6 @@ UserActivityManager::getInstance()->getLastActivityInfo($userId);
 | `SimpleFormRenderer` | Рендер простых форм (`render_simple_form`) |
 | `QuickActionsHelper` | Быстрые действия в админке (`hasQuickActions`, `renderQuickActions`) |
 | `AdminActions` | Кнопки действий в админке + глобальные функции `admin_action()`, `admin_action_group()` |
-| `BackupHelper` | Бэкапы файлов шаблонов (`createBackup`, `cleanupOldBackups`, `getBackupStats`) |
 | `Fieldset`, `Field`, `FieldFactory`, `FieldShortcodes` | Формы и поля (см. [Формы и поля](05-formy-i-polya.md)) |
 | `assets.php` | Подключение CSS/JS (см. [Ассеты](10-assets-i-frontend.md)) |
 | `navigation_helper.php` | Пункты меню админки (`admin_menu_item`, `is_admin_section_active`) |

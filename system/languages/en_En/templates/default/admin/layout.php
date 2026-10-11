@@ -16,7 +16,7 @@ define('LANG_ADMIN_ICONS', 'Icons');
 define('LANG_ADMIN_SEO', 'SEO');
 define('LANG_ADMIN_DEBUG', 'Debug');
 define('LANG_ADMIN_SETTINGS', 'Settings');
-define('LANG_ADMIN_TEMPLATE', 'Template');
+
 define('LANG_ADMIN_NOTIFICATIONS', 'Notifications');
 define('LANG_ADMIN_ALL_NOTIFICATIONS', 'All');
 define('LANG_ADMIN_MARK_ALL_READ', 'Mark all as read');

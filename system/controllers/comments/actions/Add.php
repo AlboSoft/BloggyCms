@@ -42,6 +42,17 @@ class Add extends CommentAction {
                 return;
             }
 
+            $post = $this->postModel->getById((int)$_POST['post_id']);
+            if (!$post) {
+                $this->sendError(LANG_ACTION_COMMENTS_ADD_POST_NOT_FOUND, $isAjax);
+                return;
+            }
+
+            if (isset($post['allow_comments']) && (int)$post['allow_comments'] !== 1) {
+                $this->sendError(LANG_ACTION_COMMENTS_ADD_DISABLED, $isAjax);
+                return;
+            }
+
             if (empty($_POST['content'])) {
                 $this->sendError(LANG_ACTION_COMMENTS_ADD_EMPTY_CONTENT, $isAjax);
                 return;

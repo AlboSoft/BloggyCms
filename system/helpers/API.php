@@ -24,8 +24,7 @@ class API {
             return;
         }
         
-        $items = scandir($controllersPath);
-        
+        $items = @scandir($controllersPath) ?: [];
         foreach ($items as $item) {
             if ($item === '.' || $item === '..') {
                 continue;

@@ -56,7 +56,7 @@ define('LANG_TEMPLATE_POSTS_EDIT_VISIBILITY_SHOW_HINT', 'Оставьте пус
 define('LANG_TEMPLATE_POSTS_EDIT_VISIBILITY_HIDE_LABEL', 'Не показывать группам');
 define('LANG_TEMPLATE_POSTS_EDIT_VISIBILITY_NO_HIDE', 'Никому не скрывать');
 define('LANG_TEMPLATE_POSTS_EDIT_VISIBILITY_HIDE_HINT', 'Выберите группы которым скрыть этот пост');
-define('LANG_TEMPLATE_POSTS_EDIT_ALLOW_COMMENTS_LABEL', 'Разрешить комментарии');
+define('LANG_TEMPLATE_POSTS_EDIT_DISABLE_COMMENTS_LABEL', 'Отключить комментарии');
 define('LANG_TEMPLATE_POSTS_EDIT_ADULT_CONTENT', 'Контент 18+');
 define('LANG_TEMPLATE_POSTS_EDIT_ADULT_HINT', 'Отметьте, если этот пост содержит контент для взрослых');
 define('LANG_TEMPLATE_POSTS_EDIT_SEO_TITLE', 'SEO настройки');

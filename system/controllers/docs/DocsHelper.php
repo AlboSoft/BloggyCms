@@ -51,7 +51,7 @@ class DocsHelper {
             $fullDir = $base . '/' . $dir;
             if (!is_dir($fullDir)) continue;
 
-            $files = scandir($fullDir);
+            $files = @scandir($fullDir) ?: [];
             sort($files);
             foreach ($files as $file) {
                 if ($file === '.' || $file === '..' || substr($file, -3) !== '.md') continue;
@@ -103,7 +103,6 @@ class DocsHelper {
             'menu'              => 'administrator/07-menyu.md',
             'settings'          => 'administrator/08-nastroyki.md',
             'seo'               => 'administrator/09-seo.md',
-            'templates'         => 'administrator/10-tema.md',
             'addons'            => 'administrator/11-dopolneniya-i-obnovleniya.md',
             'updates'           => 'administrator/11-dopolneniya-i-obnovleniya.md',
             'check-updates'     => 'administrator/11-dopolneniya-i-obnovleniya.md',

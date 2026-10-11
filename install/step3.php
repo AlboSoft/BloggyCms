@@ -191,10 +191,7 @@ function updateSiteSettings(PDO $pdo, string $prefix, array $siteConfig): void {
     
     $siteSettings = [
         'base_url' => rtrim($siteConfig['site_url'], '/'),
-        'site_template' => 'default',
-        'template_backups_enabled' => '0',
-        'template_backups_count' => '5',
-        'template_backups_cleanup' => 'auto'
+        'site_template' => 'default'
     ];
     $siteJson = json_encode($siteSettings, JSON_UNESCAPED_UNICODE);
     

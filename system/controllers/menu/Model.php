@@ -165,8 +165,7 @@ class MenuModel implements ModelAPI {
             return $templates;
         }
         
-        $files = scandir($menuTemplatesPath);
-        
+        $files = @scandir($menuTemplatesPath) ?: [];
         foreach ($files as $file) {
             if ($file === '.' || $file === '..') continue;
             

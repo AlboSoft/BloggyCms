@@ -47,8 +47,7 @@ class RouteHelper {
             return $routes;
         }
         
-        $controllerFolders = scandir($controllersDir);
-        
+        $controllerFolders = @scandir($controllersDir) ?: [];
         foreach ($controllerFolders as $folder) {
             if ($folder === '.' || $folder === '..' || !is_dir($controllersDir . $folder)) {
                 continue;

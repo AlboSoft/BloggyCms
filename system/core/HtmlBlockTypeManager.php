@@ -32,7 +32,7 @@ class HtmlBlockTypeManager {
 
         $systemBlocksDir = __DIR__ . '/../html_blocks';
         if (is_dir($systemBlocksDir)) {
-            $files = scandir($systemBlocksDir);
+            $files = @scandir($systemBlocksDir) ?: [];
             foreach ($files as $file) {
                 if ($file === '.' || $file === '..' || $file === 'BaseHtmlBlock.php') {
                     continue;
@@ -60,7 +60,7 @@ class HtmlBlockTypeManager {
             return;
         }
 
-        foreach (scandir($templatesDir) as $themeName) {
+        foreach (@scandir($templatesDir) ?: [] as $themeName) {
             if ($themeName === '.' || $themeName === '..' || !preg_match('/^[A-Za-z0-9_-]+$/', $themeName)) {
                 continue;
             }
