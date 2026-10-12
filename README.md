@@ -39,7 +39,7 @@
 ---
 
 > [!NOTE]
-> BloggyCMS is in its **1.0.0 Release Candidate** series (latest published build: **v1.0.0-rc.9**). The system is stable and production-ready, but small API details may still change before the 1.0 stable release.
+> BloggyCMS is in its **1.0.0 Release Candidate** series (latest published build: **v1.0.0-rc.11**). The system is stable and production-ready, but small API details may still change before the 1.0 stable release.
 
 ## Table of contents
 
