@@ -26,6 +26,10 @@ class DefaultHeaderBlock extends BaseHtmlBlock {
         return 'all';
     }
 
+    public function getIcon(): string {
+        return 'bi-window-dock';
+    }
+
     public function getSettingsForm($currentSettings = []): string {
         $allMenus = MenuRenderer::getAllMenusForSelect();
         

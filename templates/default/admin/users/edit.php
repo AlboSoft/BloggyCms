@@ -305,8 +305,13 @@ $customFields = $fieldModel->getActiveByEntityType('user');
                         <h5 class="card-title mb-0"><?php echo LANG_TEMPLATE_USERS_EDIT_USER_SETTINGS_TITLE; ?></h5>
                     </div>
                     <div class="card-body">
+                        <?php
+                            $isMainAdmin = ((int)($user['id'] ?? 0) === 1);
+                            $isSelfAdmin = ((int)($user['id'] ?? 0) === (int)($_SESSION['user_id'] ?? 0)) && !empty($user['is_admin']);
+                            $isTargetAdmin = $isMainAdmin || !empty($user['is_admin']);
+                        ?>
                         <div class="mb-4">
-                            <?php if ($user['id'] == 1) { ?>
+                            <?php if ($isMainAdmin) { ?>
                                 <div class="alert alert-warning mb-0">
                                     <?php echo bloggy_icon('bs', 'shield-lock', '16', '#856404', 'me-2'); ?>
                                     <?php echo LANG_TEMPLATE_USERS_EDIT_MAIN_ADMIN_WARNING; ?>
@@ -314,7 +319,12 @@ $customFields = $fieldModel->getActiveByEntityType('user');
                                 <input type="hidden" name="is_admin" value="1">
                             <?php } else { ?>
                                 <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" name="is_admin" id="is_admin" value="1" <?php echo ($user['is_admin'] ?? 0) ? 'checked' : ''; ?>>
+                                    <input class="form-check-input" type="checkbox" name="is_admin" id="is_admin" value="1"
+                                        <?php echo ($user['is_admin'] ?? 0) ? 'checked' : ''; ?>
+                                        <?php echo $isSelfAdmin ? 'disabled' : ''; ?>>
+                                    <?php if ($isSelfAdmin) { ?>
+                                        <input type="hidden" name="is_admin" value="1">
+                                    <?php } ?>
                                     <label class="form-check-label" for="is_admin">
                                         <?php echo bloggy_icon('bs', 'shield-lock', '16', '#000', 'me-1'); ?>
                                         <?php echo LANG_TEMPLATE_USERS_EDIT_IS_ADMIN_LABEL; ?>
@@ -325,11 +335,16 @@ $customFields = $fieldModel->getActiveByEntityType('user');
                         </div>
                         
                         <div class="mb-4">
-                            <label class="form-label"><?php echo LANG_TEMPLATE_USERS_EDIT_STATUS_LABEL; ?></label>
-                            <select class="form-select" name="status" required>
-                                <option value="active" <?php echo ($user['status'] ?? 'active') === 'active' ? 'selected' : ''; ?>><?php echo LANG_TEMPLATE_USERS_EDIT_STATUS_ACTIVE; ?></option>
-                                <option value="banned" <?php echo ($user['status'] ?? 'active') === 'banned' ? 'selected' : ''; ?>><?php echo LANG_TEMPLATE_USERS_EDIT_STATUS_BANNED; ?></option>
+                            <label class="form-label" for="user_status_select"><?php echo LANG_TEMPLATE_USERS_EDIT_STATUS_LABEL; ?></label>
+                            <select class="form-select" name="status" id="user_status_select" required <?php echo $isTargetAdmin ? 'disabled' : ''; ?>>
+                                <option value="active" <?php echo ($isTargetAdmin || ($user['status'] ?? 'active') === 'active') ? 'selected' : ''; ?>><?php echo LANG_TEMPLATE_USERS_EDIT_STATUS_ACTIVE; ?></option>
+                                <option value="banned" <?php echo (!$isTargetAdmin && ($user['status'] ?? 'active') === 'banned') ? 'selected' : ''; ?> <?php echo $isTargetAdmin ? 'disabled' : ''; ?>><?php echo LANG_TEMPLATE_USERS_EDIT_STATUS_BANNED; ?></option>
                             </select>
+                            <input type="hidden" name="status" id="user_status_hidden" value="active" <?php echo $isTargetAdmin ? '' : 'disabled'; ?>>
+                            <div class="form-text text-warning d-flex align-items-center mt-2" id="admin_status_lock_hint" style="<?php echo $isTargetAdmin ? '' : 'display: none !important;'; ?>">
+                                <?php echo bloggy_icon('bs', 'shield-exclamation', '14', '#d97706', 'me-1'); ?>
+                                <span><?php echo LANG_TEMPLATE_USERS_EDIT_ADMIN_CANNOT_BE_BANNED; ?></span>
+                            </div>
                         </div>
 
                         <div class="text-muted small">

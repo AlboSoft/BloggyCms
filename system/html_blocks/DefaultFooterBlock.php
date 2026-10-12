@@ -25,6 +25,10 @@ class DefaultFooterBlock extends BaseHtmlBlock {
         return 'all';
     }
 
+    public function getIcon(): string {
+        return 'bi-layout-split';
+    }
+
     public $categories = [];
     public $recentPosts = [];
     public $recentTags = [];

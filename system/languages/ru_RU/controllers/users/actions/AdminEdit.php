@@ -14,3 +14,4 @@ define('LANG_ACTION_USERS_ADMINEDIT_ERROR_FIELD_SAVE', 'Ошибка при со
 define('LANG_ACTION_USERS_ADMINEDIT_PAGE_TITLE', 'Редактирование пользователя');
 define('LANG_ACTION_USERS_ADMINEDIT_CANNOT_REMOVE_OWN_ADMIN', 'Вы не можете снять статус администратора у самого себя');
 define('LANG_ACTION_USERS_ADMINEDIT_CANNOT_REMOVE_MAIN_ADMIN_ADMIN', 'Нельзя снять статус администратора у главного администратора системы');
+define('LANG_ACTION_USERS_ADMINEDIT_CANNOT_BAN_ADMIN', 'Нельзя заблокировать пользователя с правами администратора');

@@ -26,6 +26,10 @@ class DefaultHeroBlock extends BaseHtmlBlock {
         return 'all';
     }
 
+    public function getIcon(): string {
+        return 'bi-stars';
+    }
+
     public function getSettingsForm($currentSettings = []): string {
         
         $settings = array_merge([], $currentSettings);

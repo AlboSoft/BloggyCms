@@ -202,6 +202,12 @@ class UserModel implements ModelAPI {
         if ($id == 1 && isset($data['is_admin']) && $data['is_admin'] != 1) {
             unset($data['is_admin']);
         }
+        if ($id == 1 && isset($data['status']) && $data['status'] === 'banned') {
+            $data['status'] = 'active';
+        }
+        if (!empty($data['is_admin']) && isset($data['status']) && $data['status'] === 'banned') {
+            $data['status'] = 'active';
+        }
         
         if (method_exists($this->db, 'update')) {
             $validFields = ['display_name', 'email', 'website', 'bio', 'avatar', 'password', 'username', 'status', 'last_login', 'last_admin_ip', 'is_admin'];

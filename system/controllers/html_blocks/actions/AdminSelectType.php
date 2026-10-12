@@ -31,8 +31,14 @@ class AdminSelectType extends HtmlBlockAction {
             ]
         ];
 
+        $allTypes = $defaultBlock + $blockTypes;
+        foreach ($allTypes as $systemName => &$type) {
+            $type['blocks_count'] = $this->blockTypeManager->getBlocksCountByType($systemName);
+        }
+        unset($type);
+
         $this->render('admin/html_blocks/select_type', [
-            'blockTypes' => $defaultBlock + $blockTypes,
+            'blockTypes' => $allTypes,
             'currentTemplate' => $currentTemplate,
             'pageTitle' => LANG_ACTION_HTMLBLOCKS_ADMINSELECTTYPE_PAGE_TITLE
         ]);

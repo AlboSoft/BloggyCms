@@ -38,6 +38,12 @@ class AdminToggleStatus extends UserAction {
             if (!$user) {
                 throw new \Exception(LANG_ACTION_USERS_ADMINTOGGLESTATUS_USER_NOT_FOUND);
             }
+
+            if (!empty($user['is_admin']) && $user['status'] === 'active') {
+                \Notification::error(LANG_ACTION_USERS_ADMINTOGGLESTATUS_CANNOT_TOGGLE_ADMIN);
+                $this->redirect(ADMIN_URL . '/users');
+                return;
+            }
             
             $newStatus = $user['status'] === 'active' ? 'banned' : 'active';
             

@@ -367,50 +367,54 @@ class AdminNotificationsSystem {
     updateBadge(count) {
         const badge = this.notificationBell.querySelector('.notification-badge');
         const prevCount = this.unreadCount;
-        this.unreadCount = count;
+        const numCount = Math.max(0, parseInt(count, 10) || 0);
+        this.unreadCount = numCount;
+        this.notificationBell.setAttribute('data-notifications-count', String(numCount));
+
+        if (numCount > 0) {
+            this.notificationBell.classList.add('has-notifications');
+        } else {
+            this.notificationBell.classList.remove('has-notifications');
+        }
 
         if (badge) {
-            if (count > 0) {
+            if (numCount > 0) {
                 let sizeClass = '';
-                if (count < 10) {
+                let displayCount = numCount;
+                if (numCount < 10) {
                     sizeClass = 'small';
-                } else if (count > 99) {
+                } else if (numCount > 99) {
                     sizeClass = 'large';
-                    count = '99+';
-                } else {
-                    sizeClass = '';
+                    displayCount = '99+';
                 }
                 
-                badge.textContent = count;
+                badge.textContent = displayCount;
                 badge.style.display = 'flex';
                 badge.className = 'notification-badge ' + sizeClass + ' inside';
                 
-                if (count > prevCount) {
+                if (numCount > prevCount) {
                     badge.classList.add('pulse');
                     setTimeout(() => badge.classList.remove('pulse'), 2000);
-                    
-                    this.updatePageTitle(count);
 
                     this.animateBell();
                 }
+
+                this.updatePageTitle(displayCount);
             } else {
                 badge.style.display = 'none';
+                badge.textContent = '';
                 this.updatePageTitle(0);
             }
         }
     }
 
     animateBell() {
-        const bellIcon = this.notificationBell.querySelector('.btn-icon-wrapper i');
-        if (bellIcon) {
-            bellIcon.style.transform = 'rotate(20deg)';
-            setTimeout(() => {
-                bellIcon.style.transform = 'rotate(-20deg)';
-                setTimeout(() => {
-                    bellIcon.style.transform = 'rotate(0deg)';
-                }, 150);
-            }, 150);
-        }
+        this.notificationBell.classList.remove('bell-burst');
+        void this.notificationBell.offsetWidth;
+        this.notificationBell.classList.add('bell-burst');
+        setTimeout(() => {
+            this.notificationBell.classList.remove('bell-burst');
+        }, 1200);
     }
 
     updatePageTitle(count) {

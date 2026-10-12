@@ -43,3 +43,4 @@ define('LANG_TEMPLATE_USERS_EDIT_CANCEL_BTN', 'Отмена');
 define('LANG_TEMPLATE_USERS_EDIT_IS_ADMIN_LABEL', 'Администратор');
 define('LANG_TEMPLATE_USERS_EDIT_IS_ADMIN_HINT', 'Предоставить пользователю полный доступ к админ-панели');
 define('LANG_TEMPLATE_USERS_EDIT_MAIN_ADMIN_WARNING', 'Главный администратор системы - статус нельзя изменить');
+define('LANG_TEMPLATE_USERS_EDIT_ADMIN_CANNOT_BE_BANNED', 'Администратор не может быть заблокирован');

@@ -26,6 +26,10 @@ class DefaultBreadcrumbsBlock extends BaseHtmlBlock {
         return 'all';
     }
 
+    public function getIcon(): string {
+        return 'bi-signpost-split';
+    }
+
     public function getSettingsForm($currentSettings = []): string {
         $settings = array_merge([], $currentSettings);
         

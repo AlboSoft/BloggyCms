@@ -177,10 +177,10 @@
                                     </td>
                                     <td>
                                         <?php echo admin_action_group([
-                                            ($user['id'] != 1 && $user['status'] === 'active' && $user['id'] != $_SESSION['user_id'])
+                                            ($user['id'] != 1 && empty($user['is_admin']) && $user['status'] === 'active' && $user['id'] != $_SESSION['user_id'])
                                                 ? ['type' => 'ban', 'url' => ADMIN_URL . '/users/toggle-status/' . $user['id'], 'title' => LANG_TEMPLATE_USERS_INDEX_BAN_TITLE, 'confirm' => LANG_TEMPLATE_USERS_INDEX_BAN_CONFIRM]
                                                 : null,
-                                            ($user['id'] != 1 && $user['status'] === 'banned' && $user['id'] != $_SESSION['user_id'])
+                                            ($user['id'] != 1 && empty($user['is_admin']) && $user['status'] === 'banned' && $user['id'] != $_SESSION['user_id'])
                                                 ? ['type' => 'unban', 'url' => ADMIN_URL . '/users/toggle-status/' . $user['id'], 'title' => LANG_TEMPLATE_USERS_INDEX_UNBAN_TITLE, 'confirm' => LANG_TEMPLATE_USERS_INDEX_UNBAN_CONFIRM]
                                                 : null,
                                             ['type' => 'edit', 'url' => ADMIN_URL . '/users/edit/' . $user['id'], 'title' => LANG_TEMPLATE_USERS_INDEX_EDIT_TITLE],

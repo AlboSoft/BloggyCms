@@ -139,122 +139,153 @@
             </aside>
 
             <main class="content-wrapper">
-                <div class="top-bar d-flex justify-content-between align-items-center">
-
-                    <div class="d-flex align-items-center">
-                        <div class="version-wrapper-top">
-                            <span class="version-badge-top"><?php echo LANG_ADMIN_VERSION; ?> <?php echo VersionHelper::getVersion(); ?></span>
+                <header class="top-bar">
+                    <div class="topbar-left">
+                        <div class="version-wrapper-top" title="BloggyCMS <?php echo html(VersionHelper::getVersion()); ?>">
+                            <span class="version-status-dot"></span>
+                            <span class="version-badge-top"><?php echo LANG_ADMIN_VERSION; ?> <strong><?php echo html(VersionHelper::getVersion()); ?></strong></span>
                         </div>
-                        
-                        <div class="ms-2" id="updateBadgePlaceholder">
-                            <a href="/admin/check-updates" class="text-decoration-none">
-                                <span class="badge bg-success rounded-pill px-3 py-2 d-flex align-items-center gap-1">
-                                    <?php echo bloggy_icon('bs', 'arrow-repeat', '14', '#32A34A'); ?>
-                                    <span class="fw-semibold">New Version!</span>
+
+                        <div id="updateBadgePlaceholder">
+                            <a href="<?php echo ADMIN_URL ?>/check-updates" class="topbar-update-pill" title="<?php echo LANG_ADMIN_CHECK_UPDATES; ?>">
+                                <span class="topbar-update-icon">
+                                    <?php echo bloggy_icon('bs', 'arrow-repeat', '14', 'currentColor'); ?>
                                 </span>
+                                <span class="topbar-update-text"><?php echo LANG_ADMIN_CHECK_UPDATES; ?></span>
                             </a>
                         </div>
+
+                        <a href="<?php echo BASE_URL ?>" target="_blank" class="topbar-site-pill" title="<?php echo LANG_ADMIN_GO_TO_SITE; ?>">
+                            <span class="topbar-site-icon">
+                                <?php echo bloggy_icon('bs', 'box-arrow-up-right', '13', 'currentColor'); ?>
+                            </span>
+                            <span class="topbar-site-text"><?php echo LANG_ADMIN_GO_TO_SITE; ?></span>
+                        </a>
                     </div>
 
-                    <div class="d-flex align-items-center">
-                        <div class="d-flex align-items-center me-3" style="gap: 10px;">
-                            <div class="dropdown">
-                                <a href="#" class="admin-header-btn admin-btn-notifications d-flex align-items-center dropdown-toggle" 
-                                data-bs-toggle="dropdown" 
-                                data-notifications-count="0"
-                                title="<?php echo LANG_ADMIN_NOTIFICATIONS; ?>">
-                                    <div class="btn-icon-wrapper">
-                                        <i class="bi bi-bell"></i>
-                                        <span class="notification-badge" style="display: none;"></span>
-                                    </div>
-                                    <span class="btn-text"><?php echo LANG_ADMIN_NOTIFICATIONS; ?></span>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-end shadow-lg p-0" style="min-width: 320px;">
-                                    <div class="dropdown-header bg-primary text-white d-flex justify-content-between align-items-center">
-                                        <h6 class="mb-0"><?php echo LANG_ADMIN_NOTIFICATIONS; ?></h6>
-                                        <a href="<?php echo ADMIN_URL ?>/notifications" class="text-white text-decoration-none">
-                                            <small><?php echo LANG_ADMIN_ALL_NOTIFICATIONS; ?></small>
-                                        </a>
-                                    </div>
-                                    <div class="dropdown-body" style="max-height: 400px; overflow-y: auto;">
-                                        <div id="notifications-dropdown-content" class="p-3">
-                                            <div class="text-center py-3">
-                                                <div class="spinner-border spinner-border-sm text-primary" role="status">
-                                                    <span class="visually-hidden"><?php echo LANG_ADMIN_LOADING_NOTIFICATIONS; ?></span>
-                                                </div>
-                                                <p class="text-muted mt-2 mb-0"><?php echo LANG_ADMIN_LOADING_NOTIFICATIONS; ?></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="dropdown-footer p-2 border-top">
-                                        <div class="d-flex justify-content-between">
-                                            <a href="#" class="btn btn-sm btn-outline-success" id="mark-all-read-dropdown">
-                                                <i class="bi bi-check2-all me-1"></i> <?php echo LANG_ADMIN_MARK_ALL_READ; ?>
-                                            </a>
-                                            <a href="<?php echo ADMIN_URL ?>/notifications" class="btn btn-sm btn-outline-primary">
-                                                <i class="bi bi-arrow-right me-1"></i> <?php echo LANG_ADMIN_GO_TO_NOTIFICATIONS; ?>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <a href="<?php echo ADMIN_URL ?>/addons" class="admin-header-btn admin-btn-addons d-flex align-items-center" title="<?php echo LANG_ADMIN_PACKAGES; ?>">
+                    <div class="topbar-right">
+                        <nav class="topbar-actions" aria-label="Quick navigation">
+                            <a href="<?php echo ADMIN_URL ?>/addons"
+                               class="admin-header-btn admin-btn-addons <?php echo $currentSection === 'addons' ? 'is-active' : ''; ?>"
+                               title="<?php echo LANG_ADMIN_PACKAGES; ?>">
                                 <div class="btn-icon-wrapper">
-                                    <?php echo bloggy_icon('bs', 'box', '16 16', '#28a745') ?>
+                                    <?php echo bloggy_icon('bs', 'box', '15 15', 'currentColor') ?>
                                 </div>
                                 <span class="btn-text"><?php echo LANG_ADMIN_PACKAGES; ?></span>
                             </a>
 
-                            <a href="<?php echo ADMIN_URL ?>/controllers" class="admin-header-btn admin-btn-addons d-flex align-items-center" title="<?php echo LANG_ADMIN_CONTROLLERS; ?>">
+                            <a href="<?php echo ADMIN_URL ?>/controllers"
+                               class="admin-header-btn admin-btn-controllers-nav <?php echo $currentSection === 'controllers' ? 'is-active' : ''; ?>"
+                               title="<?php echo LANG_ADMIN_CONTROLLERS; ?>">
                                 <div class="btn-icon-wrapper">
-                                    <?php echo bloggy_icon('bs', 'cpu', '16 16', '#7b1fa2') ?>
+                                    <?php echo bloggy_icon('bs', 'cpu', '15 15', 'currentColor') ?>
                                 </div>
                                 <span class="btn-text"><?php echo LANG_ADMIN_CONTROLLERS; ?></span>
                             </a>
 
-                            <a href="<?php echo ADMIN_URL ?>/docs" class="admin-header-btn admin-btn-addons d-flex align-items-center" title="<?php echo LANG_DOCS_HEADER_BTN_TITLE; ?>">
+                            <a href="<?php echo ADMIN_URL ?>/docs"
+                               class="admin-header-btn admin-btn-docs <?php echo $currentSection === 'docs' ? 'is-active' : ''; ?>"
+                               title="<?php echo LANG_DOCS_HEADER_BTN_TITLE; ?>">
                                 <div class="btn-icon-wrapper">
-                                    <?php echo bloggy_icon('bs', 'book-half', '16 16', '#0d6efd') ?>
+                                    <?php echo bloggy_icon('bs', 'book-half', '15 15', 'currentColor') ?>
                                 </div>
                                 <span class="btn-text"><?php echo LANG_DOCS_MENU_TITLE; ?></span>
                             </a>
-                        </div>
-                        <div class="dropdown">
-                            <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                <?php if(!empty($currentUser['avatar']) && $currentUser['avatar'] !== 'default.jpg') { ?>
-                                    <img src="<?php echo BASE_URL ?>/uploads/avatars/<?php echo $currentUser['avatar'] ?>" 
-                                         class="rounded-circle me-2" 
-                                         style="width: 32px; height: 32px; object-fit: cover;"
-                                         alt="<?php echo html($currentUser['username']) ?>">
-                                <?php } else { ?>
-                                    <div class="rounded-circle me-2 d-flex align-items-center justify-content-center bg-secondary text-white" 
-                                         style="width: 32px; height: 32px;">
-                                        <i class="bi bi-person" style="font-size: 16px;"></i>
-                                    </div>
-                                <?php } ?>
-                                <span class="text-muted">
-                                    <?php echo html($currentUser['display_name'] ?: $currentUser['username']) ?>
-                                </span>
+                        </nav>
+
+                        <span class="topbar-divider" aria-hidden="true"></span>
+
+                        <div class="dropdown topbar-notifications-wrap">
+                            <a href="#"
+                               class="admin-header-btn admin-btn-notifications dropdown-toggle"
+                               data-bs-toggle="dropdown"
+                               data-bs-auto-close="outside"
+                               data-notifications-count="0"
+                               aria-label="<?php echo LANG_ADMIN_NOTIFICATIONS; ?>"
+                               title="<?php echo LANG_ADMIN_NOTIFICATIONS; ?>">
+                                <div class="btn-icon-wrapper">
+                                    <i class="bi bi-bell bell-icon"></i>
+                                    <span class="notification-ring-wave" aria-hidden="true"></span>
+                                    <span class="notification-badge" style="display: none;"></span>
+                                </div>
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-end shadow">
+                            <div class="dropdown-menu dropdown-menu-end notifications-dropdown-menu shadow-lg p-0">
+                                <div class="dropdown-header d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <i class="bi bi-bell-fill"></i>
+                                        <h6 class="mb-0"><?php echo LANG_ADMIN_NOTIFICATIONS; ?></h6>
+                                    </div>
+                                    <a href="<?php echo ADMIN_URL ?>/notifications" class="notifications-header-link">
+                                        <?php echo LANG_ADMIN_ALL_NOTIFICATIONS; ?> <i class="bi bi-chevron-right"></i>
+                                    </a>
+                                </div>
+                                <div class="dropdown-body" style="max-height: 380px; overflow-y: auto;">
+                                    <div id="notifications-dropdown-content" class="p-3">
+                                        <div class="text-center py-3">
+                                            <div class="spinner-border spinner-border-sm text-primary" role="status">
+                                                <span class="visually-hidden"><?php echo LANG_ADMIN_LOADING_NOTIFICATIONS; ?></span>
+                                            </div>
+                                            <p class="text-muted mt-2 mb-0 small"><?php echo LANG_ADMIN_LOADING_NOTIFICATIONS; ?></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="dropdown-footer p-2 border-top">
+                                    <div class="d-flex justify-content-between gap-2">
+                                        <a href="#" class="btn btn-sm btn-outline-success flex-fill justify-content-center" id="mark-all-read-dropdown">
+                                            <i class="bi bi-check2-all me-1"></i> <?php echo LANG_ADMIN_MARK_ALL_READ; ?>
+                                        </a>
+                                        <a href="<?php echo ADMIN_URL ?>/notifications" class="btn btn-sm btn-outline-primary flex-fill justify-content-center">
+                                            <i class="bi bi-arrow-right me-1"></i> <?php echo LANG_ADMIN_GO_TO_NOTIFICATIONS; ?>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dropdown topbar-profile-wrap">
+                            <a href="#"
+                               class="topbar-profile-btn dropdown-toggle"
+                               data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                <span class="topbar-avatar-wrap">
+                                    <?php if(!empty($currentUser['avatar']) && $currentUser['avatar'] !== 'default.jpg') { ?>
+                                        <img src="<?php echo BASE_URL ?>/uploads/avatars/<?php echo $currentUser['avatar'] ?>" 
+                                             class="topbar-avatar-img"
+                                             alt="<?php echo html($currentUser['username']) ?>">
+                                    <?php } else { ?>
+                                        <span class="topbar-avatar-fallback">
+                                            <i class="bi bi-person"></i>
+                                        </span>
+                                    <?php } ?>
+                                    <span class="topbar-avatar-status"></span>
+                                </span>
+                                <span class="topbar-user-info">
+                                    <span class="topbar-user-name"><?php echo html($currentUser['display_name'] ?: $currentUser['username']) ?></span>
+                                </span>
+                                <i class="bi bi-chevron-down topbar-profile-caret"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end topbar-profile-menu shadow-lg">
+                                <li class="topbar-profile-header">
+                                    <div class="fw-semibold text-dark text-truncate"><?php echo html($currentUser['display_name'] ?: $currentUser['username']) ?></div>
+                                    <div class="text-muted small text-truncate">@<?php echo html($currentUser['username']) ?></div>
+                                </li>
+                                <li><hr class="dropdown-divider my-1"></li>
                                 <li>
                                     <a class="dropdown-item d-flex align-items-center" href="<?php echo ADMIN_URL ?>/users/edit/<?php echo $currentUser['id'] ?>">
-                                        <i class="bi bi-pencil me-2"></i> <?php echo LANG_ADMIN_EDIT_PROFILE; ?>
+                                        <i class="bi bi-pencil-square me-2 text-primary"></i> <?php echo LANG_ADMIN_EDIT_PROFILE; ?>
                                     </a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item d-flex align-items-center" href="<?php echo BASE_URL ?>/profile/<?php echo html($currentUser['username']) ?>" target="_blank">
-                                        <i class="bi bi-person-circle me-2"></i> <?php echo LANG_ADMIN_MY_PUBLIC_PROFILE; ?>
+                                        <i class="bi bi-person-circle me-2 text-info"></i> <?php echo LANG_ADMIN_MY_PUBLIC_PROFILE; ?>
                                     </a>
                                 </li>
-                                <li><hr class="dropdown-divider"></li>
                                 <li>
                                     <a class="dropdown-item d-flex align-items-center" href="<?php echo BASE_URL ?>" target="_blank">
-                                        <i class="bi bi-eye me-2"></i> <?php echo LANG_ADMIN_GO_TO_SITE; ?>
+                                        <i class="bi bi-globe2 me-2 text-success"></i> <?php echo LANG_ADMIN_GO_TO_SITE; ?>
                                     </a>
                                 </li>
-                                <li><hr class="dropdown-divider"></li>
+                                <li><hr class="dropdown-divider my-1"></li>
                                 <li>
                                     <a class="dropdown-item d-flex align-items-center text-danger" href="<?php echo ADMIN_URL ?>/logout">
                                         <i class="bi bi-box-arrow-right me-2"></i> <?php echo LANG_ADMIN_LOGOUT; ?>
@@ -263,7 +294,7 @@
                             </ul>
                         </div>
                     </div>
-                </div>
+                </header>
 
                 <?php if (isset($breadcrumbs) && $breadcrumbs instanceof BreadcrumbsManager && !$breadcrumbs->isEmpty()) { ?>
                     <div class="breadcrumb-wrapper-modern">

@@ -7,3 +7,4 @@ define('LANG_ACTION_USERS_ADMINTOGGLESTATUS_BANNED', 'banned');
 define('LANG_ACTION_USERS_ADMINTOGGLESTATUS_SUCCESS', 'User %s');
 define('LANG_ACTION_USERS_ADMINTOGGLESTATUS_ERROR', 'Error changing user status: %s');
 define('LANG_ACTION_USERS_ADMINTOGGLESTATUS_CANNOT_TOGGLE_MAIN_ADMIN', 'Cannot change the status of the main system administrator');
+define('LANG_ACTION_USERS_ADMINTOGGLESTATUS_CANNOT_TOGGLE_ADMIN', 'Cannot ban an administrator');

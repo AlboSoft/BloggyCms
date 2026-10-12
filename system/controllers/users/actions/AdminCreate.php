@@ -100,6 +100,9 @@ class AdminCreate extends UserAction {
     * @return array Массив с данными пользователя
     */
     private function prepareUserData() {
+        $isAdmin = isset($_POST['is_admin']) ? 1 : 0;
+        $status = $isAdmin ? 'active' : ($_POST['status'] ?? 'active');
+
         return [
             'username' => $_POST['username'],
             'email' => $_POST['email'],
@@ -107,8 +110,8 @@ class AdminCreate extends UserAction {
             'display_name' => $_POST['display_name'] ?? null,
             'bio' => $_POST['bio'] ?? null,
             'website' => $_POST['website'] ?? null,
-            'is_admin' => isset($_POST['is_admin']) ? 1 : 0,
-            'status' => $_POST['status'] ?? 'active'
+            'is_admin' => $isAdmin,
+            'status' => $status
         ];
     }
     

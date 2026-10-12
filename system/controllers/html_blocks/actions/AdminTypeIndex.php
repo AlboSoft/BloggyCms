@@ -28,7 +28,9 @@ class AdminTypeIndex extends HtmlBlockAction {
                 $type['is_active'] = $this->blockTypeManager->isBlockTypeActive($systemName);
                 $type['is_template_compatible'] = $this->blockTypeManager->isBlockTypeCompatibleWithCurrentTemplate($systemName);
                 $type['is_visible_in_creation'] = isset($activeBlockTypes[$systemName]);
+                $type['blocks_count'] = $this->blockTypeManager->getBlocksCountByType($systemName);
             }
+            unset($type);
             
             $this->render('admin/html_blocks/types_index', [
                 'blockTypes' => $allBlockTypes,

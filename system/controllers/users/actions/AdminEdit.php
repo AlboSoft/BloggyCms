@@ -77,13 +77,18 @@ class AdminEdit extends UserAction {
         $this->validateRequiredFields();
         $this->checkUniqueness($id);
         
-        if ($id == 1 && isset($_POST['is_admin']) && $_POST['is_admin'] != 1) {
+        if ($id == 1 && (!isset($_POST['is_admin']) || $_POST['is_admin'] != 1)) {
             throw new \Exception(LANG_ACTION_USERS_ADMINEDIT_CANNOT_REMOVE_MAIN_ADMIN_ADMIN);
         }
         
         $currentUserId = $this->getCurrentUserId();
-        if ($id == $currentUserId && isset($_POST['is_admin']) && $_POST['is_admin'] != 1 && $user['is_admin'] == 1) {
+        if ($id == $currentUserId && (!isset($_POST['is_admin']) || $_POST['is_admin'] != 1) && $user['is_admin'] == 1) {
             throw new \Exception(LANG_ACTION_USERS_ADMINEDIT_CANNOT_REMOVE_OWN_ADMIN);
+        }
+
+        $isTargetAdmin = ($id == 1) || !empty($user['is_admin']) || (isset($_POST['is_admin']) && $_POST['is_admin'] == 1);
+        if ($isTargetAdmin && ($_POST['status'] ?? 'active') === 'banned') {
+            throw new \Exception(LANG_ACTION_USERS_ADMINEDIT_CANNOT_BAN_ADMIN);
         }
         
         $userData = $this->prepareUserData($user);
@@ -141,14 +146,17 @@ class AdminEdit extends UserAction {
     * @return array Данные для обновления
     */
     private function prepareUserData($user) {
+        $isAdmin = ($user['id'] == 1) ? 1 : (isset($_POST['is_admin']) ? 1 : 0);
+        $status = $isAdmin ? 'active' : ($_POST['status'] ?? 'active');
+
         return [
             'username' => $_POST['username'],
             'email' => $_POST['email'],
             'display_name' => $_POST['display_name'] ?? null,
             'website' => $_POST['website'] ?? null,
             'bio' => $_POST['bio'] ?? null,
-            'is_admin' => isset($_POST['is_admin']) ? 1 : 0,
-            'status' => $_POST['status'] ?? 'active'
+            'is_admin' => $isAdmin,
+            'status' => $status
         ];
     }
     

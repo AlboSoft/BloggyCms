@@ -26,6 +26,10 @@ class CategoriesListBlock extends BaseHtmlBlock {
         return 'all';
     }
 
+    public function getIcon(): string {
+        return 'bi-folder2-open';
+    }
+
     public $categories = [];
 
     public function getSettingsForm($currentSettings = []): string {

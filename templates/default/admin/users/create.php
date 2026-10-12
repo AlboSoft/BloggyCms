@@ -270,11 +270,12 @@
                         </div>
                         
                         <div class="mb-4">
-                            <label class="form-label"><?php echo LANG_TEMPLATE_USERS_CREATE_STATUS_LABEL; ?></label>
-                            <select class="form-select" name="status" required>
+                            <label class="form-label" for="user_status_select"><?php echo LANG_TEMPLATE_USERS_CREATE_STATUS_LABEL; ?></label>
+                            <select class="form-select" name="status" id="user_status_select" required>
                                 <option value="active"><?php echo LANG_TEMPLATE_USERS_CREATE_STATUS_ACTIVE; ?></option>
                                 <option value="banned"><?php echo LANG_TEMPLATE_USERS_CREATE_STATUS_BANNED; ?></option>
                             </select>
+                            <input type="hidden" name="status" id="user_status_hidden" value="active" disabled>
                         </div>
                     </div>
                 </div>
@@ -292,6 +293,30 @@
 <?php ob_start(); ?>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    const isAdminCheckbox = document.getElementById('is_admin');
+    const statusSelect = document.getElementById('user_status_select');
+    const statusHidden = document.getElementById('user_status_hidden');
+
+    if (isAdminCheckbox && statusSelect) {
+        const bannedOpt = statusSelect.querySelector('option[value="banned"]');
+        isAdminCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                statusSelect.value = 'active';
+                statusSelect.disabled = true;
+                if (bannedOpt) bannedOpt.disabled = true;
+                if (statusHidden) {
+                    statusHidden.disabled = false;
+                    statusHidden.value = 'active';
+                }
+            } else {
+                statusSelect.disabled = false;
+                if (bannedOpt) bannedOpt.disabled = false;
+                if (statusHidden) {
+                    statusHidden.disabled = true;
+                }
+            }
+        });
+    }
     const passwordInput = document.querySelector('input[name="password"]');
     const confirmInput = document.querySelector('input[name="password_confirm"]');
     const form = document.querySelector('form');

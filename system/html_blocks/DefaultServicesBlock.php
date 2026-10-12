@@ -26,6 +26,10 @@ class DefaultServicesBlock extends BaseHtmlBlock {
         return 'all';
     }
 
+    public function getIcon(): string {
+        return 'bi-grid-1x2';
+    }
+
     public function getSettingsForm($currentSettings = []): string {
         
         $settings = array_merge([], $currentSettings);

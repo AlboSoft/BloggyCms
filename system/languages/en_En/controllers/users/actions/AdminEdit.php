@@ -14,3 +14,4 @@ define('LANG_ACTION_USERS_ADMINEDIT_ERROR_FIELD_SAVE', 'Error saving field %s: %
 define('LANG_ACTION_USERS_ADMINEDIT_PAGE_TITLE', 'Edit User');
 define('LANG_ACTION_USERS_ADMINEDIT_CANNOT_REMOVE_OWN_ADMIN', 'You cannot remove administrator status from yourself');
 define('LANG_ACTION_USERS_ADMINEDIT_CANNOT_REMOVE_MAIN_ADMIN_ADMIN', 'Cannot remove administrator status from the main system administrator');
+define('LANG_ACTION_USERS_ADMINEDIT_CANNOT_BAN_ADMIN', 'Cannot ban a user with administrator privileges');

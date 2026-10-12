@@ -24,6 +24,10 @@ class DefaultLatestPostsBlock extends BaseHtmlBlock {
         return 'all';
     }
 
+    public function getIcon(): string {
+        return 'bi-newspaper';
+    }
+
     public $posts = [];
     
     private function getCategoriesOptions(): array {

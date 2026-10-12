@@ -43,3 +43,4 @@ define('LANG_TEMPLATE_USERS_EDIT_CANCEL_BTN', 'Cancel');
 define('LANG_TEMPLATE_USERS_EDIT_IS_ADMIN_LABEL', 'Administrator');
 define('LANG_TEMPLATE_USERS_EDIT_IS_ADMIN_HINT', 'Grant the user full access to the admin panel');
 define('LANG_TEMPLATE_USERS_EDIT_MAIN_ADMIN_WARNING', 'Main system administrator - status cannot be changed');
+define('LANG_TEMPLATE_USERS_EDIT_ADMIN_CANNOT_BE_BANNED', 'An administrator cannot be banned');

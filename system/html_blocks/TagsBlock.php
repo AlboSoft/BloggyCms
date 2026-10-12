@@ -26,6 +26,10 @@ class TagsBlock extends BaseHtmlBlock {
         return 'all';
     }
 
+    public function getIcon(): string {
+        return 'bi-tags';
+    }
+
     public $tags = [];
 
     public function getSettingsForm($currentSettings = []): string {

@@ -1,5 +1,43 @@
 document.addEventListener('DOMContentLoaded', function() {
 
+    const isAdminCheckbox = document.getElementById('is_admin');
+    const statusSelect = document.getElementById('user_status_select') || document.querySelector('select[name="status"]');
+    const statusHidden = document.getElementById('user_status_hidden');
+    const adminStatusHint = document.getElementById('admin_status_lock_hint');
+
+    function syncAdminStatusLock() {
+        if (!statusSelect) return;
+        const bannedOpt = statusSelect.querySelector('option[value="banned"]');
+        const isLockedAdmin = isAdminCheckbox ? isAdminCheckbox.checked : statusSelect.disabled;
+
+        if (isLockedAdmin) {
+            statusSelect.value = 'active';
+            statusSelect.disabled = true;
+            if (bannedOpt) bannedOpt.disabled = true;
+            if (statusHidden) {
+                statusHidden.disabled = false;
+                statusHidden.value = 'active';
+            }
+            if (adminStatusHint) {
+                adminStatusHint.style.removeProperty('display');
+            }
+        } else {
+            statusSelect.disabled = false;
+            if (bannedOpt) bannedOpt.disabled = false;
+            if (statusHidden) {
+                statusHidden.disabled = true;
+            }
+            if (adminStatusHint) {
+                adminStatusHint.style.setProperty('display', 'none', 'important');
+            }
+        }
+    }
+
+    if (isAdminCheckbox) {
+        isAdminCheckbox.addEventListener('change', syncAdminStatusLock);
+        syncAdminStatusLock();
+    }
+
     const changePasswordCheckbox = document.getElementById('change_password');
     const passwordFields = document.querySelector('.password-fields');
     const passwordInput = document.querySelector('input[name="password"]');

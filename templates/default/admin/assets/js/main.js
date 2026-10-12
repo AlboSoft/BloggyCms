@@ -24,10 +24,12 @@ function initBootstrapComponents() {
 }
 
 function initProfileDropdown() {
-    const profileDropdown = document.querySelector('.dropdown-toggle[data-bs-toggle="dropdown"]');
+    const profileDropdown = document.querySelector('.topbar-profile-btn[data-bs-toggle="dropdown"]') ||
+                            document.querySelector('.dropdown-toggle[data-bs-toggle="dropdown"]');
     
     if (profileDropdown) {
         document.addEventListener('click', function(event) {
+            if (!profileDropdown.nextElementSibling) return;
             const isClickInside = profileDropdown.contains(event.target) || 
                                 profileDropdown.nextElementSibling.contains(event.target);
             
@@ -41,18 +43,20 @@ function initProfileDropdown() {
 
         profileDropdown.addEventListener('show.bs.dropdown', function() {
             const dropdownMenu = this.nextElementSibling;
+            if (!dropdownMenu) return;
             dropdownMenu.style.opacity = '0';
             dropdownMenu.style.transform = 'translateY(-10px)';
             
             setTimeout(() => {
-                dropdownMenu.style.transition = 'all 0.3s ease';
+                dropdownMenu.style.transition = 'all 0.25s ease';
                 dropdownMenu.style.opacity = '1';
                 dropdownMenu.style.transform = 'translateY(0)';
-            }, 50);
+            }, 30);
         });
 
         profileDropdown.addEventListener('hide.bs.dropdown', function() {
             const dropdownMenu = this.nextElementSibling;
+            if (!dropdownMenu) return;
             dropdownMenu.style.transition = 'all 0.2s ease';
             dropdownMenu.style.opacity = '0';
             dropdownMenu.style.transform = 'translateY(-10px)';
