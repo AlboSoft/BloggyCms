@@ -35,7 +35,10 @@ class AdminGetFragments extends HtmlBlockAction {
                     'system_name' => $fragment['system_name'],
                     'fields' => $fieldList,
                     'shortcode_simple' => '{' . $fragment['system_name'] . '}',
-                    'shortcode_loop' => '{ctype:' . $fragment['system_name'] . '}...{/ctype:' . $fragment['system_name'] . '}'
+                    'shortcode_loop' => '{ctype:' . $fragment['system_name'] . '}...{/ctype:' . $fragment['system_name'] . '}',
+                    'entry_template_enabled' => !empty($fragment['entry_template_enabled']),
+                    'entry_url_shortcode' => '{url}',
+                    'entry_url_example' => rtrim(BASE_URL, '/') . '/f-' . $fragment['system_name'] . '/{slug}.html'
                 ];
             }
             

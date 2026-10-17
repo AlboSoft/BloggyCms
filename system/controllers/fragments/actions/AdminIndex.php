@@ -22,7 +22,8 @@ class AdminIndex extends FragmentAction {
             LANG_ACTION_FRAGMENTS_ADMININDEX_HINT_2,
             LANG_ACTION_FRAGMENTS_ADMININDEX_HINT_3,
             LANG_ACTION_FRAGMENTS_ADMININDEX_HINT_4,
-            LANG_ACTION_FRAGMENTS_ADMININDEX_HINT_5
+            LANG_ACTION_FRAGMENTS_ADMININDEX_HINT_5,
+            LANG_ACTION_FRAGMENTS_ADMININDEX_HINT_6
         ];
         
         $randomHint = $hints[array_rand($hints)];

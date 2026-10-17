@@ -66,6 +66,12 @@ PHP 8.0+ с расширениями <code>pdo_mysql</code>, <code>mysqli</code>
 </details>
 
 <details>
+<summary><b>Как открыть запись фрагмента по отдельному адресу?</b></summary>
+<br>
+Включите у фрагмента переключатель «Включить шаблон для записей фрагмента» и заполните «Шаблон записи». Адрес записи — <code>/f-{system_name}/{slug}.html</code>. Slug формируется из первого текстового поля или задаётся вручную при редактировании записи. В шаблоне доступны <code>{field:имя}</code>, <code>{field_display:имя}</code>, <code>{url}</code>, <code>{slug}</code>, <code>{id}</code>. В цикле <code>{ctype:...}</code> шорткод <code>{url}</code> выводит ссылку на страницу текущей записи.
+</details>
+
+<details>
 <summary><b>Комментарии уходят на модерацию. Как отключить?</b></summary>
 <br>
 Либо выдайте право <code>comment_add_no_moderations</code> группе, либо настройте премодерацию в настройках модуля <code>comments</code>.

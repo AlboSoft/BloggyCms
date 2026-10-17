@@ -35,3 +35,14 @@ define('LANG_TEMPLATE_FRAGMENTS_FORM_HOWTO_FIELD_VALUE', 'Вывод значе�
 define('LANG_TEMPLATE_FRAGMENTS_FORM_HOWTO_FIELD_RENDERED', 'Вывод отрендеренного значения поля (изображения, ссылки и т.д.)');
 define('LANG_TEMPLATE_FRAGMENTS_FORM_SAVE_BTN', 'Сохранить изменения');
 define('LANG_TEMPLATE_FRAGMENTS_FORM_CREATE_BTN', 'Создать фрагмент');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_ENTRY_PAGES_TITLE', 'Страницы записей');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_ENTRY_TEMPLATE_ENABLED_LABEL', 'Включить шаблон для записей фрагмента');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_ENTRY_TEMPLATE_ENABLED_HINT', 'Каждую запись фрагмента можно будет просматривать на сайте по отдельному адресу');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_ENTRY_TEMPLATE_LABEL', 'Шаблон записи');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_ENTRY_TEMPLATE_HINT', 'Разметьте шаблон одной записи при помощи HTML и шорткодов. Шаблон применяется только к записям этого фрагмента');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_ENTRY_TEMPLATE_FIELD', 'Значение поля записи');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_ENTRY_TEMPLATE_FIELD_DISPLAY', 'Отрендеренное значение поля (изображения, ссылки и т.д.)');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_ENTRY_TEMPLATE_URL', 'Публичный адрес записи (доступен, если включён шаблон записей)');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_ENTRY_TEMPLATE_SLUG', 'URL-идентификатор записи (slug)');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_ENTRY_TEMPLATE_URL_LABEL', 'Адрес записи на сайте:');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_HOWTO_ENTRY_URL', 'Ссылка на запись внутри цикла {ctype:...} и в шаблоне записи');

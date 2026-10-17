@@ -21,3 +21,6 @@ define('LANG_TEMPLATE_FRAGMENTS_ENTRY_FORM_SHORTCODE_RENDERED', 'Output of rende
 define('LANG_TEMPLATE_FRAGMENTS_ENTRY_FORM_SAVE_BTN', 'Save changes');
 define('LANG_TEMPLATE_FRAGMENTS_ENTRY_FORM_CREATE_BTN', 'Create entry');
 define('LANG_TEMPLATE_FRAGMENTS_ENTRY_FORM_CANCEL_BTN', 'Cancel');
+define('LANG_TEMPLATE_FRAGMENTS_ENTRY_FORM_SLUG_LABEL', 'Entry URL (slug)');
+define('LANG_TEMPLATE_FRAGMENTS_ENTRY_FORM_SLUG_HINT', 'Leave empty to generate the URL automatically from the first text field. Latin letters, digits and hyphens are allowed');
+define('LANG_TEMPLATE_FRAGMENTS_ENTRY_FORM_SLUG_URL_LABEL', 'Entry URL on the site:');

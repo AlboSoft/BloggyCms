@@ -55,6 +55,10 @@ class AdminEdit extends FragmentAction {
                 $data = $this->handleFragmentAssets($data);
                 $this->fragmentModel->update($id, $data);
                 
+                if (!empty($data['entry_template_enabled'])) {
+                    $this->entryModel->ensureSlugs($id);
+                }
+                
                 \Notification::success(LANG_ACTION_FRAGMENTS_ADMINEDIT_SUCCESS);
                 $this->redirect(ADMIN_URL . '/fragments/edit/' . $id);
                 

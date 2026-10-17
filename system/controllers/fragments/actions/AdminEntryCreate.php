@@ -37,7 +37,10 @@ class AdminEntryCreate extends FragmentAction {
             try {
                 $data = $this->processEntryData($fields, $_POST, $_FILES);
                 
-                $this->entryModel->create($fragmentId, $data);
+                $status = ($_POST['status'] ?? 'active') === 'inactive' ? 'inactive' : 'active';
+                $slug = isset($_POST['slug']) ? trim((string)$_POST['slug']) : '';
+                
+                $this->entryModel->create($fragmentId, $data, 0, $status, $slug !== '' ? $slug : null);
                 
                 \Notification::success(LANG_ACTION_FRAGMENTS_ADMINENTRYCREATE_SUCCESS);
                 $this->redirect(ADMIN_URL . '/fragments/entries/' . $fragmentId);

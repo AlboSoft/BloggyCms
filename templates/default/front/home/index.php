@@ -1,7 +1,7 @@
 <?php
 /**
- * Template Name: Макет главной страницы
- */
+* Template Name: Макет главной страницы
+*/
 ?>
 <?php echo render_html_block('hero'); ?>
 <?php echo render_html_block('cats'); ?>

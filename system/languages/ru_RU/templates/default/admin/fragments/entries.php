@@ -18,3 +18,5 @@ define('LANG_TEMPLATE_FRAGMENTS_ENTRIES_CREATED_LABEL', 'Создана:');
 define('LANG_TEMPLATE_FRAGMENTS_ENTRIES_UPDATED_LABEL', 'Обновлена:');
 define('LANG_TEMPLATE_FRAGMENTS_ENTRIES_DRAG_HINT', 'Перетаскивайте записи для изменения порядка отображения');
 define('LANG_TEMPLATE_FRAGMENTS_ENTRIES_ORDER_UPDATED', 'Порядок записей обновлен');
+define('LANG_TEMPLATE_FRAGMENTS_ENTRIES_VIEW_TITLE', 'Открыть на сайте');
+define('LANG_TEMPLATE_FRAGMENTS_ENTRIES_URL_LABEL', 'Адрес:');

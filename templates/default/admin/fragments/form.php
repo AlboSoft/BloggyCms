@@ -1,6 +1,7 @@
 <?php
     add_admin_js('templates/default/admin/assets/js/controllers/ace.js');
     add_admin_js('templates/default/admin/assets/js/controllers/mode-css.js');
+    add_admin_js('templates/default/admin/assets/js/controllers/mode-html.js');
     add_admin_js('templates/default/admin/assets/js/controllers/mode-javascript.js');
     add_admin_js('templates/default/admin/assets/js/controllers/theme-monokai.js');
 ?>
@@ -68,6 +69,64 @@
                                       class="form-control" 
                                       rows="3" 
                                       placeholder="<?php echo LANG_TEMPLATE_FRAGMENTS_FORM_DESCRIPTION_PLACEHOLDER; ?>"><?php echo html($fragment['description'] ?? ''); ?></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-header bg-white border-0">
+                        <h5 class="card-title mb-0">
+                            <?php echo bloggy_icon('bs', 'link-45deg', '20', '#000', 'me-2'); ?>
+                            <?php echo LANG_TEMPLATE_FRAGMENTS_FORM_ENTRY_PAGES_TITLE; ?>
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input"
+                                   type="checkbox"
+                                   id="entry_template_enabled"
+                                   name="entry_template_enabled"
+                                   value="1"
+                                   <?php echo !empty($fragment['entry_template_enabled']) ? 'checked' : ''; ?>>
+                            <label class="form-check-label fw-semibold" for="entry_template_enabled">
+                                <?php echo LANG_TEMPLATE_FRAGMENTS_FORM_ENTRY_TEMPLATE_ENABLED_LABEL; ?>
+                            </label>
+                            <div class="form-text">
+                                <?php echo LANG_TEMPLATE_FRAGMENTS_FORM_ENTRY_TEMPLATE_ENABLED_HINT; ?>
+                            </div>
+                        </div>
+
+                        <div id="entry-template-container" style="display: <?php echo !empty($fragment['entry_template_enabled']) ? 'block' : 'none'; ?>;">
+                            <label class="form-label fw-semibold d-flex align-items-center">
+                                <?php echo bloggy_icon('bs', 'code', '16', '#1889d0', 'me-2'); ?>
+                                <?php echo LANG_TEMPLATE_FRAGMENTS_FORM_ENTRY_TEMPLATE_LABEL; ?>
+                            </label>
+                            <div class="border rounded">
+                                <div id="entry-template-editor" style="height: 300px;"></div>
+                            </div>
+                            <textarea name="entry_template" id="entry_template" style="display: none;"><?php echo html($fragment['entry_template'] ?? ''); ?></textarea>
+                            <div class="form-text mb-3">
+                                <?php echo LANG_TEMPLATE_FRAGMENTS_FORM_ENTRY_TEMPLATE_HINT; ?>
+                            </div>
+
+                            <div class="bg-light p-2 rounded mb-2">
+                                <code class="small">{field:имя_поля}</code>
+                                <div class="text-muted small mt-1"><?php echo LANG_TEMPLATE_FRAGMENTS_FORM_ENTRY_TEMPLATE_FIELD; ?></div>
+                                <code class="small mt-1 d-block">{field_display:имя_поля}</code>
+                                <div class="text-muted small mt-1"><?php echo LANG_TEMPLATE_FRAGMENTS_FORM_ENTRY_TEMPLATE_FIELD_DISPLAY; ?></div>
+                            </div>
+
+                            <div class="bg-light p-2 rounded mb-2">
+                                <code class="small">{url}</code>
+                                <div class="text-muted small mt-1"><?php echo LANG_TEMPLATE_FRAGMENTS_FORM_ENTRY_TEMPLATE_URL; ?></div>
+                                <code class="small mt-1 d-block">{slug}</code>
+                                <div class="text-muted small mt-1"><?php echo LANG_TEMPLATE_FRAGMENTS_FORM_ENTRY_TEMPLATE_SLUG; ?></div>
+                            </div>
+
+                            <div class="alert alert-light border mb-0">
+                                <strong class="small"><?php echo LANG_TEMPLATE_FRAGMENTS_FORM_ENTRY_TEMPLATE_URL_LABEL; ?></strong>
+                                <code id="entry-url-preview" class="small d-block mt-1"><?php echo html(rtrim(BASE_URL, '/') . '/f-' . ($fragment['system_name'] ?? '{system_name}') . '/{slug}.html'); ?></code>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -273,6 +332,13 @@
                             </div>
                         </div>
                         
+                        <div class="bg-light p-2 rounded mb-2">
+                            <code class="small">{url}</code>
+                            <div class="text-muted small mt-1">
+                                <?php echo LANG_TEMPLATE_FRAGMENTS_FORM_HOWTO_ENTRY_URL; ?>
+                            </div>
+                        </div>
+                        
                         <div class="bg-light p-2 rounded">
                             <code class="small">{field:название_поля}</code>
                             <div class="text-muted small mt-1">
@@ -340,6 +406,46 @@ document.addEventListener('DOMContentLoaded', function() {
     
     document.querySelectorAll('.remove-asset').forEach(attachRemoveHandler);
     
+    const entryTemplateToggle = document.getElementById('entry_template_enabled');
+    const entryTemplateContainer = document.getElementById('entry-template-container');
+    let entryTemplateEditor = null;
+    
+    function toggleEntryTemplate() {
+        if (!entryTemplateToggle || !entryTemplateContainer) {
+            return;
+        }
+        entryTemplateContainer.style.display = entryTemplateToggle.checked ? 'block' : 'none';
+        
+        if (entryTemplateToggle.checked && entryTemplateEditor) {
+            setTimeout(function() {
+                entryTemplateEditor.resize();
+            }, 50);
+        }
+    }
+    
+    if (entryTemplateToggle) {
+        entryTemplateToggle.addEventListener('change', toggleEntryTemplate);
+        toggleEntryTemplate();
+    }
+    
+    const systemNameInput = document.querySelector('input[name="system_name"]');
+    const entryUrlPreview = document.getElementById('entry-url-preview');
+    
+    function updateEntryUrlPreview() {
+        if (!systemNameInput || !entryUrlPreview) {
+            return;
+        }
+        
+        const systemName = systemNameInput.value.trim() || '{system_name}';
+        const baseUrl = <?php echo json_encode(rtrim(BASE_URL, '/'), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE); ?>;
+        entryUrlPreview.textContent = baseUrl + '/f-' + systemName + '/{slug}.html';
+    }
+    
+    if (systemNameInput) {
+        systemNameInput.addEventListener('input', updateEntryUrlPreview);
+        updateEntryUrlPreview();
+    }
+    
     if (typeof ace !== 'undefined') {
         const cssEditor = ace.edit("inline-css-editor", {
             theme: "ace/theme/monokai",
@@ -377,6 +483,26 @@ document.addEventListener('DOMContentLoaded', function() {
         form.addEventListener('submit', function() {
             jsTextarea.value = jsEditor.getValue();
         });
+        
+        const entryTemplateTextarea = document.getElementById('entry_template');
+        
+        if (entryTemplateTextarea) {
+            entryTemplateEditor = ace.edit("entry-template-editor", {
+                theme: "ace/theme/monokai",
+                mode: "ace/mode/html",
+                showPrintMargin: false,
+                fontSize: "14px",
+                tabSize: 4
+            });
+            
+            if (entryTemplateTextarea.value) {
+                entryTemplateEditor.setValue(entryTemplateTextarea.value);
+            }
+            
+            form.addEventListener('submit', function() {
+                entryTemplateTextarea.value = entryTemplateEditor.getValue();
+            });
+        }
     }
 });
 </script>

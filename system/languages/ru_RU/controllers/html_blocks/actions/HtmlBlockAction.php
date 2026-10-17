@@ -17,3 +17,4 @@ define('LANG_ACTION_HTMLBLOCKS_HTMLBLOCKACTION_FRAGMENT_FIELDS', 'Поля фр�
 define('LANG_ACTION_HTMLBLOCKS_HTMLBLOCKACTION_IMAGE_DESC', 'Отображает изображение');
 define('LANG_ACTION_HTMLBLOCKS_HTMLBLOCKACTION_VALUE_DESC', 'Отображает значение поля');
 define('LANG_ACTION_HTMLBLOCKS_HTMLBLOCKACTION_FIELDS_COUNT', 'полей');
+define('LANG_ACTION_HTMLBLOCKS_HTMLBLOCKACTION_ENTRY_URL_DESC', 'Ссылка на страницу записи фрагмента (если для фрагмента включён шаблон записей)');

@@ -36,10 +36,26 @@ class FragmentController extends Controller {
         
         $this->loadFragmentAssets($fragment);
         
-        $entries = $this->entryModel->getByFragment($fragment['id']);
+        $entries = $this->entryModel->getByFragment($fragment['id'], 'active');
         $fields = $this->fragmentModel->getFields($fragment['id']);
         
         $this->renderFragment($fragment, $entries, $fields);
+    }
+    
+    /**
+    * Отображение отдельной записи фрагмента
+    * Адрес: {BASE_URL}/f-{системное_имя}/{slug}.html
+    * 
+    * @param string $systemName
+    * @param string $slug
+    */
+    public function entryAction($systemName = null, $slug = null) {
+        $action = new \fragments\actions\Entry($this->db, [
+            'systemName' => $systemName,
+            'slug' => $slug
+        ]);
+        $action->setController($this);
+        return $action->execute();
     }
     
     /**

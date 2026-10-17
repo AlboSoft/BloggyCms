@@ -7,3 +7,4 @@ define('LANG_ACTION_FRAGMENTS_ADMININDEX_HINT_2', 'После создания �
 define('LANG_ACTION_FRAGMENTS_ADMININDEX_HINT_3', 'Для вывода фрагмента на сайте используйте шорткод {имя_фрагмента} или {ctype:имя_фрагмента}...{/ctype:имя_фрагмента}');
 define('LANG_ACTION_FRAGMENTS_ADMININDEX_HINT_4', 'Вы можете подключить CSS и JS файлы для стилизации фрагмента');
 define('LANG_ACTION_FRAGMENTS_ADMININDEX_HINT_5', 'Поля фрагмента создаются точно так же, как и обычные поля в системе');
+define('LANG_ACTION_FRAGMENTS_ADMININDEX_HINT_6', 'Включите шаблон записей фрагмента, чтобы каждую запись можно было открыть по адресу /f-{имя_фрагмента}/{slug}.html');

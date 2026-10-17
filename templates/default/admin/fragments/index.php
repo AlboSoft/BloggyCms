@@ -64,7 +64,7 @@
                                     <td>
                                         <a href="<?php echo ADMIN_URL; ?>/fragments/entries/<?php echo $fragment['id']; ?>" 
                                            class="badge bg-info text-decoration-none">
-                                            <?php echo $stats['total']; ?> <?php echo LANG_TEMPLATE_FRAGMENTS_INDEX_ENTRIES_COUNT; ?>
+                                            <?php echo $stats['total']; ?> <?php echo plural_form((int)$stats['total'], explode('|', LANG_TEMPLATE_FRAGMENTS_INDEX_ENTRIES_COUNT)); ?>
                                         </a>
                                     </td>
                                     <td>

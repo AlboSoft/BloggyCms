@@ -30,6 +30,10 @@ class AdminEntries extends FragmentAction {
         $this->addBreadcrumb(LANG_ACTION_FRAGMENTS_ADMINENTRIES_BREADCRUMB_ENTRIES);
         $this->setPageTitle(LANG_ACTION_FRAGMENTS_ADMINENTRIES_PAGE_TITLE . $fragment['name']);
         
+        if (!empty($fragment['entry_template_enabled'])) {
+            $this->entryModel->ensureSlugs($id);
+        }
+        
         $entries = $this->entryModel->getByFragment($id);
         $fields = $this->fragmentModel->getFields($id);
         $stats = $this->fragmentModel->getStats($id);

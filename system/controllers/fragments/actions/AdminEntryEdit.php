@@ -45,7 +45,10 @@ class AdminEntryEdit extends FragmentAction {
             try {
                 $data = $this->processEntryData($fields, $_POST, $_FILES, $entry['data']);
                 
-                $this->entryModel->update($entryId, $data);
+                $status = ($_POST['status'] ?? 'active') === 'inactive' ? 'inactive' : 'active';
+                $slug = isset($_POST['slug']) ? trim((string)$_POST['slug']) : null;
+                
+                $this->entryModel->update($entryId, $data, $status, $slug);
                 
                 \Notification::success(LANG_ACTION_FRAGMENTS_ADMINENTRYEDIT_SUCCESS);
                 $this->redirect(ADMIN_URL . '/fragments/entries/' . $fragment['id']);

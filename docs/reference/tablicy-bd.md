@@ -136,9 +136,9 @@ $general = SettingsHelper::get('general');   // уже декодированн�
 
 | Таблица | Колонки |
 |---|---|
-| `fragments` | `system_name`, `name`, `description`, `css_files`, `js_files`, `inline_css`, `inline_js`, `status` |
+| `fragments` | `system_name`, `name`, `description`, `css_files`, `js_files`, `inline_css`, `inline_js`, `entry_template_enabled`, `entry_template`, `status` |
 | `fragments_fields` | `fragment_id`, `system_name`, `name`, `type`, `config`, `sort_order`, `is_required`, `is_active`, `show_in_list` |
-| `fragment_entries` | Записи фрагмента (значения полей) |
+| `fragment_entries` | `fragment_id`, `slug` (уникален в рамках фрагмента), `data` (JSON значений полей), `sort_order`, `status` |
 
 ### Пользователи и права
 

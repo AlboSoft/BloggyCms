@@ -21,3 +21,6 @@ define('LANG_TEMPLATE_FRAGMENTS_ENTRY_FORM_SHORTCODE_RENDERED', 'Вывод от
 define('LANG_TEMPLATE_FRAGMENTS_ENTRY_FORM_SAVE_BTN', 'Сохранить изменения');
 define('LANG_TEMPLATE_FRAGMENTS_ENTRY_FORM_CREATE_BTN', 'Создать запись');
 define('LANG_TEMPLATE_FRAGMENTS_ENTRY_FORM_CANCEL_BTN', 'Отмена');
+define('LANG_TEMPLATE_FRAGMENTS_ENTRY_FORM_SLUG_LABEL', 'URL записи (slug)');
+define('LANG_TEMPLATE_FRAGMENTS_ENTRY_FORM_SLUG_HINT', 'Оставьте пустым, чтобы сформировать адрес автоматически по первому текстовому полю. Допустимы латинские буквы, цифры и дефис');
+define('LANG_TEMPLATE_FRAGMENTS_ENTRY_FORM_SLUG_URL_LABEL', 'Адрес записи на сайте:');

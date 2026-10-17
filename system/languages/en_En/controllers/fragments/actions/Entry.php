@@ -1,0 +1,2 @@
+<?php
+define('LANG_ACTION_FRAGMENTS_ENTRY_BREADCRUMB_HOME', 'Home');

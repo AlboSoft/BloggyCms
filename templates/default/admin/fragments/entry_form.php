@@ -85,6 +85,28 @@
                             </div>
                         </div>
                         
+                        <?php if (!empty($fragment['entry_template_enabled'])) { ?>
+                            <div class="mb-3">
+                                <label class="form-label"><?php echo LANG_TEMPLATE_FRAGMENTS_ENTRY_FORM_SLUG_LABEL; ?></label>
+                                <input type="text"
+                                       name="slug"
+                                       class="form-control"
+                                       value="<?php echo html($entry['slug'] ?? ''); ?>"
+                                       placeholder="primer-zapisi">
+                                <div class="form-text"><?php echo LANG_TEMPLATE_FRAGMENTS_ENTRY_FORM_SLUG_HINT; ?></div>
+                                
+                                <?php $entryUrl = !empty($entry) ? \FragmentHelper::getEntryUrl($fragment, $entry) : ''; ?>
+                                <?php if ($entryUrl !== '') { ?>
+                                    <div class="small text-muted mt-2">
+                                        <?php echo LANG_TEMPLATE_FRAGMENTS_ENTRY_FORM_SLUG_URL_LABEL; ?>
+                                        <a href="<?php echo html($entryUrl); ?>" target="_blank" rel="noopener">
+                                            <?php echo html($entryUrl); ?>
+                                        </a>
+                                    </div>
+                                <?php } ?>
+                            </div>
+                        <?php } ?>
+                        
                         <?php if ($isEdit && isset($entry)) { ?>
                             <div class="text-muted small">
                                 <div class="mb-1">

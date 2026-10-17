@@ -35,3 +35,14 @@ define('LANG_TEMPLATE_FRAGMENTS_FORM_HOWTO_FIELD_VALUE', 'Output field value ins
 define('LANG_TEMPLATE_FRAGMENTS_FORM_HOWTO_FIELD_RENDERED', 'Output rendered field value (images, links, etc.)');
 define('LANG_TEMPLATE_FRAGMENTS_FORM_SAVE_BTN', 'Save changes');
 define('LANG_TEMPLATE_FRAGMENTS_FORM_CREATE_BTN', 'Create Fragment');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_ENTRY_PAGES_TITLE', 'Entry pages');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_ENTRY_TEMPLATE_ENABLED_LABEL', 'Enable entry template for the fragment');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_ENTRY_TEMPLATE_ENABLED_HINT', 'Each fragment entry will be available on the site at its own URL');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_ENTRY_TEMPLATE_LABEL', 'Entry template');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_ENTRY_TEMPLATE_HINT', 'Mark up a single entry template with HTML and shortcodes. The template applies only to entries of this fragment');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_ENTRY_TEMPLATE_FIELD', 'Entry field value');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_ENTRY_TEMPLATE_FIELD_DISPLAY', 'Rendered field value (images, links, etc.)');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_ENTRY_TEMPLATE_URL', 'Public entry URL (available when the entry template is enabled)');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_ENTRY_TEMPLATE_SLUG', 'Entry URL identifier (slug)');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_ENTRY_TEMPLATE_URL_LABEL', 'Entry URL on the site:');
+define('LANG_TEMPLATE_FRAGMENTS_FORM_HOWTO_ENTRY_URL', 'Link to an entry inside a {ctype:...} loop and in the entry template');

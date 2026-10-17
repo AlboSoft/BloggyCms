@@ -191,6 +191,63 @@ abstract class FragmentAction {
         $postSettings['inline_css'] = trim($_POST['inline_css'] ?? '');
         $postSettings['inline_js'] = trim($_POST['inline_js'] ?? '');
         
+        $postSettings['entry_template_enabled'] = !empty($_POST['entry_template_enabled']) ? 1 : 0;
+        $postSettings['entry_template'] = trim($_POST['entry_template'] ?? '');
+        
         return $postSettings;
+    }
+    
+    /**
+    * Подключает CSS/JS файлы и инлайн-код фрагмента к странице
+    * @param array $fragment
+    * @return void
+    */
+    protected function loadFragmentAssets($fragment) {
+        if (!empty($fragment['css_files'])) {
+            foreach ($fragment['css_files'] as $cssFile) {
+                if (!empty($cssFile)) {
+                    front_css($cssFile);
+                }
+            }
+        }
+        
+        if (!empty($fragment['js_files'])) {
+            foreach ($fragment['js_files'] as $jsFile) {
+                if (!empty($jsFile)) {
+                    front_js($jsFile);
+                }
+            }
+        }
+        
+        if (!empty($fragment['inline_css'])) {
+            front_inline_css($fragment['inline_css']);
+        }
+        
+        if (!empty($fragment['inline_js'])) {
+            front_inline_js($fragment['inline_js']);
+        }
+    }
+    
+    /**
+    * Отображает стандартную страницу 404
+    * @return void
+    */
+    protected function notFound() {
+        http_response_code(404);
+        
+        $currentTemplate = function_exists('get_current_template') ? get_current_template() : 'default';
+        $template404 = TEMPLATES_PATH . '/' . $currentTemplate . '/404.php';
+        
+        if (!file_exists($template404)) {
+            $template404 = TEMPLATES_PATH . '/404.php';
+        }
+        
+        if (file_exists($template404)) {
+            include $template404;
+        } else {
+            echo '404 - Page not found';
+        }
+        
+        exit;
     }
 }

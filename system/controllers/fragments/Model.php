@@ -27,12 +27,49 @@ class FragmentModel implements ModelAPI {
     private $tableName;
     
     /**
+    * @var bool Флаг, что структура таблицы уже проверена в текущем запросе
+    */
+    private static $schemaChecked = false;
+    
+    /**
     * Конструктор
     * @param \Database $db
     */
     public function __construct($db) {
         $this->db = $db;
         $this->tableName = $this->db->getPrefix() . 'fragments';
+    }
+    
+    /**
+    * Добавляет недостающие колонки в таблицу фрагментов (для установок,
+    * обновлённых без переустановки).
+    * @return void
+    */
+    private function ensureSchema() {
+        if (self::$schemaChecked) {
+            return;
+        }
+        
+        self::$schemaChecked = true;
+        
+        try {
+            $columns = $this->db->fetchAll("SHOW COLUMNS FROM `{$this->tableName}`");
+            $existing = array_column($columns, 'Field');
+            
+            if (!in_array('entry_template_enabled', $existing, true)) {
+                $this->db->query(
+                    "ALTER TABLE `{$this->tableName}` ADD COLUMN `entry_template_enabled` tinyint(1) NOT NULL DEFAULT 0 AFTER `inline_js`"
+                );
+            }
+            
+            if (!in_array('entry_template', $existing, true)) {
+                $this->db->query(
+                    "ALTER TABLE `{$this->tableName}` ADD COLUMN `entry_template` text DEFAULT NULL AFTER `entry_template_enabled`"
+                );
+            }
+        } catch (\Throwable $e) {
+            error_log('FragmentModel schema update failed: ' . $e->getMessage());
+        }
     }
     
     /**
@@ -50,7 +87,13 @@ class FragmentModel implements ModelAPI {
     */
     public function getActive() {
         $sql = "SELECT * FROM `{$this->tableName}` WHERE status = 'active' ORDER BY name ASC";
-        return $this->db->fetchAll($sql);
+        $fragments = $this->db->fetchAll($sql);
+        
+        foreach ($fragments as &$fragment) {
+            $this->normalizeEntryTemplateData($fragment);
+        }
+        
+        return $fragments;
     }
     
     /**
@@ -77,6 +120,8 @@ class FragmentModel implements ModelAPI {
             } elseif (!isset($fragment['js_files'])) {
                 $fragment['js_files'] = [];
             }
+            
+            $this->normalizeEntryTemplateData($fragment);
         }
         
         return $fragment;
@@ -104,6 +149,8 @@ class FragmentModel implements ModelAPI {
     * @return int
     */
     public function create($data) {
+        $this->ensureSchema();
+        
         $data['created_at'] = date('Y-m-d H:i:s');
         $data['updated_at'] = date('Y-m-d H:i:s');
         
@@ -111,8 +158,9 @@ class FragmentModel implements ModelAPI {
         
         $sql = "INSERT INTO `{$this->tableName}` (
             system_name, name, description, css_files, js_files, 
-            inline_css, inline_js, status, created_at, updated_at
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            inline_css, inline_js, entry_template_enabled, entry_template,
+            status, created_at, updated_at
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         $result = $this->db->query($sql, [
             $data['system_name'] ?? '',
@@ -122,6 +170,8 @@ class FragmentModel implements ModelAPI {
             $data['js_files'] ?? null,
             $data['inline_css'] ?? '',
             $data['inline_js'] ?? '',
+            !empty($data['entry_template_enabled']) ? 1 : 0,
+            $data['entry_template'] ?? '',
             $data['status'] ?? 'active',
             $data['created_at'],
             $data['updated_at']
@@ -137,6 +187,8 @@ class FragmentModel implements ModelAPI {
     * @return bool
     */
     public function update($id, $data) {
+        $this->ensureSchema();
+        
         $data['updated_at'] = date('Y-m-d H:i:s');
         
         $data = $this->encodeFragmentData($data);
@@ -149,6 +201,8 @@ class FragmentModel implements ModelAPI {
             js_files = ?,
             inline_css = ?,
             inline_js = ?,
+            entry_template_enabled = ?,
+            entry_template = ?,
             status = ?,
             updated_at = ?
         WHERE id = ?";
@@ -161,6 +215,8 @@ class FragmentModel implements ModelAPI {
             $data['js_files'] ?? null,
             $data['inline_css'] ?? '',
             $data['inline_js'] ?? '',
+            !empty($data['entry_template_enabled']) ? 1 : 0,
+            $data['entry_template'] ?? '',
             $data['status'] ?? 'active',
             $data['updated_at'],
             $id
@@ -304,6 +360,21 @@ class FragmentModel implements ModelAPI {
             $data['js_files'] = is_array($decoded) ? $decoded : [];
         } elseif (!isset($data['js_files'])) {
             $data['js_files'] = [];
+        }
+        
+        $this->normalizeEntryTemplateData($data);
+    }
+    
+    /**
+    * Приводит поля шаблона записей к ожидаемым типам
+    * @param array $data
+    * @return void
+    */
+    private function normalizeEntryTemplateData(&$data) {
+        $data['entry_template_enabled'] = !empty($data['entry_template_enabled']) ? 1 : 0;
+        
+        if (!isset($data['entry_template']) || !is_string($data['entry_template'])) {
+            $data['entry_template'] = '';
         }
     }
 

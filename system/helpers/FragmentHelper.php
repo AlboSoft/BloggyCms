@@ -97,41 +97,126 @@ class FragmentHelper {
             return '<!-- Фрагмент "' . htmlspecialchars($systemName) . '" не найден -->';
         }
         
-        $entries = self::$entryModel->getByFragment($fragment['id']);
+        $entries = self::$entryModel->getByFragment($fragment['id'], 'active');
         
         if (empty($entries)) {
             return '<!-- Нет записей во фрагменте "' . htmlspecialchars($systemName) . '" -->';
         }
         
+        $fields = self::$fragmentModel->getFields($fragment['id']);
         $output = '';
         $index = 0;
         $total = count($entries);
         
         foreach ($entries as $entry) {
             $index++;
-            $itemOutput = $template;
+            $output .= self::applyEntryPlaceholders($template, $fragment, $entry, $fields, $index, $total);
+        }
+        
+        return $output;
+    }
+    
+    /**
+    * Рендеринг шаблона одной записи фрагмента (страница записи)
+    * 
+    * @param array $fragment
+    * @param array $entry
+    * @param array $fields
+    * @return string
+    */
+    public static function renderEntryContent($fragment, $entry, $fields) {
+        self::init();
+        
+        $template = (string)($fragment['entry_template'] ?? '');
+        
+        if (trim($template) === '') {
+            return self::renderDefaultEntry($fragment, $entry, $fields);
+        }
+        
+        $output = self::applyEntryPlaceholders($template, $fragment, $entry, $fields, 1, 1);
+        
+        if (class_exists('Shortcodes')) {
+            $output = \Shortcodes::process($output);
+        }
+        
+        if (function_exists('process_shortcodes')) {
+            $output = process_shortcodes($output);
+        }
+        
+        return $output;
+    }
+    
+    /**
+    * Возвращает публичный адрес записи фрагмента
+    * 
+    * @param array $fragment
+    * @param array $entry
+    * @return string
+    */
+    public static function getEntryUrl($fragment, $entry) {
+        if (empty($fragment['entry_template_enabled'])) {
+            return '';
+        }
+        
+        $systemName = trim((string)($fragment['system_name'] ?? ''));
+        $slug = trim((string)($entry['slug'] ?? ''));
+        
+        if ($systemName === '' || $slug === '') {
+            return '';
+        }
+        
+        $baseUrl = defined('BASE_URL') ? rtrim(BASE_URL, '/') : '';
+        
+        return $baseUrl . '/f-' . rawurlencode($systemName) . '/' . rawurlencode($slug) . '.html';
+    }
+    
+    /**
+    * Подставляет значения записи в шаблон
+    * 
+    * @param string $template
+    * @param array $fragment
+    * @param array $entry
+    * @param array $fields
+    * @param int $index
+    * @param int $total
+    * @return string
+    */
+    private static function applyEntryPlaceholders($template, $fragment, $entry, $fields, $index, $total) {
+        $url = self::getEntryUrl($fragment, $entry);
+        $slug = (string)($entry['slug'] ?? '');
+        
+        $replacements = [
+            '{index}' => (string)$index,
+            '{total}' => (string)$total,
+            '{is_first}' => $index === 1 ? 'true' : 'false',
+            '{is_last}' => $index === $total ? 'true' : 'false',
+            '{is_even}' => $index % 2 === 0 ? 'true' : 'false',
+            '{is_odd}' => $index % 2 !== 0 ? 'true' : 'false',
+            '{id}' => (string)($entry['id'] ?? ''),
+            '{slug}' => htmlspecialchars($slug, ENT_QUOTES, 'UTF-8'),
+            '{entry_slug}' => htmlspecialchars($slug, ENT_QUOTES, 'UTF-8'),
+            '{url}' => $url !== '' ? htmlspecialchars($url, ENT_QUOTES, 'UTF-8') : '',
+            '{entry_url}' => $url !== '' ? htmlspecialchars($url, ENT_QUOTES, 'UTF-8') : '',
+            '{fragment_name}' => htmlspecialchars((string)($fragment['name'] ?? ''), ENT_QUOTES, 'UTF-8'),
+            '{fragment_system_name}' => htmlspecialchars((string)($fragment['system_name'] ?? ''), ENT_QUOTES, 'UTF-8'),
+        ];
+        
+        $output = str_replace(array_keys($replacements), array_values($replacements), $template);
+        
+        foreach ($fields as $field) {
+            $fieldName = $field['system_name'];
+            $value = $entry['data'][$fieldName] ?? '';
             
-            $itemOutput = str_replace('{index}', $index, $itemOutput);
-            $itemOutput = str_replace('{total}', $total, $itemOutput);
-            $itemOutput = str_replace('{is_first}', $index === 1 ? 'true' : 'false', $itemOutput);
-            $itemOutput = str_replace('{is_last}', $index === $total ? 'true' : 'false', $itemOutput);
-            $itemOutput = str_replace('{is_even}', $index % 2 === 0 ? 'true' : 'false', $itemOutput);
-            $itemOutput = str_replace('{is_odd}', $index % 2 !== 0 ? 'true' : 'false', $itemOutput);
-            
-            $fields = self::$fragmentModel->getFields($fragment['id']);
-            
-            foreach ($fields as $field) {
-                $fieldName = $field['system_name'];
-                $value = $entry['data'][$fieldName] ?? '';
-                
-                $placeholder = '{field:' . $fieldName . '}';
-                $displayPlaceholder = '{field_display:' . $fieldName . '}';
-                
-                $itemOutput = str_replace($placeholder, htmlspecialchars($value), $itemOutput);
-                $itemOutput = str_replace($displayPlaceholder, self::renderFieldValue($field, $value), $itemOutput);
-            }
-            
-            $output .= $itemOutput;
+            $output = str_replace(
+                '{field:' . $fieldName . '}',
+                htmlspecialchars(is_scalar($value) ? (string)$value : '', ENT_QUOTES, 'UTF-8'),
+                $output
+            );
+            $output = str_replace(
+                '{field_display:' . $fieldName . '}',
+                self::renderFieldValue($field, $value),
+                $output
+            );
         }
         
         return $output;
@@ -154,7 +239,7 @@ class FragmentHelper {
         
         self::loadFragmentAssets($fragment);
         
-        $entries = self::$entryModel->getByFragment($fragment['id']);
+        $entries = self::$entryModel->getByFragment($fragment['id'], 'active');
         $fields = self::$fragmentModel->getFields($fragment['id']);
         
         $templateFile = self::findFragmentTemplate($fragment['system_name']);
@@ -246,22 +331,59 @@ class FragmentHelper {
                 <div class="fragment-entries">
                     <?php foreach ($entries as $entry) { ?>
                         <div class="fragment-entry">
-                            <?php foreach ($fields as $field) { ?>
-                                <?php $value = $entry['data'][$field['system_name']] ?? null; ?>
-                                <?php if ($value !== null && $value !== '') { ?>
-                                    <div class="fragment-field fragment-field-<?php echo htmlspecialchars($field['system_name']); ?>">
-                                        <div class="field-label"><?php echo htmlspecialchars($field['name']); ?>:</div>
-                                        <div class="field-value">
-                                            <?php echo self::renderFieldValue($field, $value); ?>
-                                        </div>
-                                    </div>
-                                <?php } ?>
-                            <?php } ?>
+                            <?php echo self::renderEntryFields($entry, $fields); ?>
                         </div>
                     <?php } ?>
                 </div>
             <?php } ?>
         </div>
+        <?php
+        return ob_get_clean();
+    }
+    
+    /**
+    * Стандартный рендеринг одной записи (если шаблон записи не задан)
+    * 
+    * @param array $fragment
+    * @param array $entry
+    * @param array $fields
+    * @return string
+    */
+    private static function renderDefaultEntry($fragment, $entry, $fields) {
+        ob_start();
+        ?>
+        <div class="fragment fragment-<?php echo htmlspecialchars($fragment['system_name']); ?>">
+            <div class="fragment-entries">
+                <div class="fragment-entry">
+                    <?php echo self::renderEntryFields($entry, $fields); ?>
+                </div>
+            </div>
+        </div>
+        <?php
+        return ob_get_clean();
+    }
+    
+    /**
+    * Рендеринг полей одной записи
+    * 
+    * @param array $entry
+    * @param array $fields
+    * @return string
+    */
+    private static function renderEntryFields($entry, $fields) {
+        ob_start();
+        ?>
+        <?php foreach ($fields as $field) { ?>
+            <?php $value = $entry['data'][$field['system_name']] ?? null; ?>
+            <?php if ($value !== null && $value !== '') { ?>
+                <div class="fragment-field fragment-field-<?php echo htmlspecialchars($field['system_name']); ?>">
+                    <div class="field-label"><?php echo htmlspecialchars($field['name']); ?>:</div>
+                    <div class="field-value">
+                        <?php echo self::renderFieldValue($field, $value); ?>
+                    </div>
+                </div>
+            <?php } ?>
+        <?php } ?>
         <?php
         return ob_get_clean();
     }

@@ -377,8 +377,16 @@ abstract class HtmlBlockAction {
                                 let html = '<div class="mb-3"><strong><?php echo LANG_ACTION_HTMLBLOCKS_HTMLBLOCKACTION_BASIC_SHORTCODES; ?></strong>';
                                 html += '<div class="bg-white rounded p-2 mb-2"><code class="d-block">' + fragment.shortcode_simple + '</code>';
                                 html += '<small class="text-muted"><?php echo LANG_ACTION_HTMLBLOCKS_HTMLBLOCKACTION_SIMPLE_OUTPUT; ?></small></div>';
-                                html += '<div class="bg-white rounded p-2"><code class="d-block">' + fragment.shortcode_loop + '</code>';
-                                html += '<small class="text-muted"><?php echo LANG_ACTION_HTMLBLOCKS_HTMLBLOCKACTION_CUSTOM_OUTPUT; ?></small></div></div>';
+                                html += '<div class="bg-white rounded p-2 mb-2"><code class="d-block">' + fragment.shortcode_loop + '</code>';
+                                html += '<small class="text-muted"><?php echo LANG_ACTION_HTMLBLOCKS_HTMLBLOCKACTION_CUSTOM_OUTPUT; ?></small></div>';
+                                
+                                if (fragment.entry_template_enabled) {
+                                    html += '<div class="bg-white rounded p-2"><code class="d-block">' + fragment.entry_url_shortcode + '</code>';
+                                    html += '<small class="text-muted"><?php echo LANG_ACTION_HTMLBLOCKS_HTMLBLOCKACTION_ENTRY_URL_DESC; ?></small>';
+                                    html += '<code class="d-block small mt-1">' + fragment.entry_url_example + '</code></div>';
+                                }
+                                
+                                html += '</div>';
                                 
                                 html += '<strong><?php echo LANG_ACTION_HTMLBLOCKS_HTMLBLOCKACTION_FRAGMENT_FIELDS; ?></strong>';
                                 fragment.fields.forEach(field => {

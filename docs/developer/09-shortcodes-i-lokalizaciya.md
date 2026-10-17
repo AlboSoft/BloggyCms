@@ -79,6 +79,8 @@ Shortcodes::add('spoiler', function ($attrs, $content = null) {
 | `{fragment:<system_name>}` | Вывод фрагмента |
 | `{<system_name>}` | То же, короткая форма (`{reviews}`) |
 | `{ctype:<system_name>}...{/ctype:<system_name>}` | Вывод фрагмента с собственным шаблоном |
+| `{url}`, `{slug}`, `{id}` | Адрес, slug и id записи — только внутри `{ctype:...}` и в шаблоне записи |
+| `{field:<имя>}`, `{field_display:<имя>}` | Значение поля записи внутри `{ctype:...}` и в шаблоне записи |
 | `{menu ...}` | Вывод меню (`render_menu_by_id`, `render_menu_by_name`) |
 
 Примеры:
@@ -87,7 +89,7 @@ Shortcodes::add('spoiler', function ($attrs, $content = null) {
 Цена: {field name="price" type="post" id="42" default="по запросу"}
 {post_rating}
 {fragment:reviews}
-{ctype:partners}<a href="{url}">{name}</a>{/ctype:partners}
+{ctype:partners}<a href="{url}">{field:name}</a>{/ctype:partners}
 ```
 
 > [!TIP]

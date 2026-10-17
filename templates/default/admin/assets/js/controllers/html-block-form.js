@@ -169,7 +169,7 @@ function initFragmentHandlers() {
                     if (fragment) {
                         const badge = document.getElementById('shortcode-badge');
                         if (badge) {
-                            const totalShortcodes = 2 + (fragment.fields.length * 2);
+                            const totalShortcodes = 2 + (fragment.entry_template_enabled ? 1 : 0) + (fragment.fields.length * 2);
                             badge.textContent = totalShortcodes;
                         }
                         
@@ -183,6 +183,13 @@ function initFragmentHandlers() {
                             { code: fragment.shortcode_simple, desc: (lang === 'ru' ? 'Простой вывод всех записей' : 'Simple output of all posts') },
                             { code: fragment.shortcode_loop, desc: (lang === 'ru' ? 'Кастомный цикл по записям' : 'Custom posts loop') }
                         ];
+                        
+                        if (fragment.entry_template_enabled) {
+                            baseShortcodes.push({
+                                code: fragment.entry_url_shortcode,
+                                desc: (lang === 'ru' ? 'Ссылка на страницу записи (внутри цикла)' : 'Entry page URL (inside the loop)')
+                            });
+                        }
                         
                         baseShortcodes.forEach(item => {
                             html += `

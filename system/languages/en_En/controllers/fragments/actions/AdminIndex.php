@@ -7,3 +7,4 @@ define('LANG_ACTION_FRAGMENTS_ADMININDEX_HINT_2', 'After creating a fragment, yo
 define('LANG_ACTION_FRAGMENTS_ADMININDEX_HINT_3', 'To display a fragment on the site, use shortcode {fragment_name} or {ctype:fragment_name}...{/ctype:fragment_name}');
 define('LANG_ACTION_FRAGMENTS_ADMININDEX_HINT_4', 'You can include CSS and JS files for fragment styling');
 define('LANG_ACTION_FRAGMENTS_ADMININDEX_HINT_5', 'Fragment fields are created exactly like regular fields in the system');
+define('LANG_ACTION_FRAGMENTS_ADMININDEX_HINT_6', 'Enable the entry template to make every fragment entry available at /f-{fragment_name}/{slug}.html');

@@ -16,4 +16,5 @@ return [
     'admin/fragments/entry/delete/{id}' => ['controller' => 'AdminFragment', 'action' => 'entryDelete', 'admin' => true],
     'admin/fragments/reorder-entries' => ['controller' => 'AdminFragment', 'action' => 'reorderEntries', 'admin' => true],
     'fragment/{systemName}' => ['controller' => 'Fragment', 'action' => 'show'],
+    'f-{systemName}/{slug}' => ['controller' => 'Fragment', 'action' => 'entry'],
 ];

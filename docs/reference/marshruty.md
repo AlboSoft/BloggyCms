@@ -34,6 +34,7 @@
 | `/users/achievements` | users | Достижения |
 | `/achievement/{id}` | users | Достижение по id |
 | `/fragment/{systemName}` | fragments | Вывод фрагмента |
+| `/f-{systemName}/{slug}` | fragments | Страница записи фрагмента (если включён шаблон записей); `.html` в адресе необязателен |
 | `/block/{slug}` | html_blocks | Вывод HTML-блока |
 | `/profile` | profile | Профиль (свой) |
 | `/profile/{username}` | profile | Профиль пользователя |

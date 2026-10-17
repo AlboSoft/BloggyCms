@@ -17,3 +17,4 @@ define('LANG_ACTION_HTMLBLOCKS_HTMLBLOCKACTION_FRAGMENT_FIELDS', 'Fragment field
 define('LANG_ACTION_HTMLBLOCKS_HTMLBLOCKACTION_IMAGE_DESC', 'Displays image');
 define('LANG_ACTION_HTMLBLOCKS_HTMLBLOCKACTION_VALUE_DESC', 'Displays field value');
 define('LANG_ACTION_HTMLBLOCKS_HTMLBLOCKACTION_FIELDS_COUNT', 'fields');
+define('LANG_ACTION_HTMLBLOCKS_HTMLBLOCKACTION_ENTRY_URL_DESC', 'Link to a fragment entry page (when the fragment entry template is enabled)');

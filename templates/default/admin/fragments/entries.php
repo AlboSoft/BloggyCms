@@ -101,6 +101,13 @@
                                                 <span class="badge bg-secondary ms-2"><?php echo LANG_TEMPLATE_FRAGMENTS_ENTRIES_STATUS_INACTIVE; ?></span>
                                             <?php } ?>
                                             
+                                            <?php if (!empty($fragment['entry_template_enabled']) && !empty($entry['slug'])) { ?>
+                                                <div class="small text-muted mt-1">
+                                                    <?php echo LANG_TEMPLATE_FRAGMENTS_ENTRIES_URL_LABEL; ?>
+                                                    <code>/f-<?php echo html($fragment['system_name']); ?>/<?php echo html($entry['slug']); ?>.html</code>
+                                                </div>
+                                            <?php } ?>
+                                            
                                             <?php if (!empty($fields)) { ?>
                                                 <div class="text-muted small mt-1">
                                                     <?php 
@@ -133,10 +140,25 @@
                                                 </div>
                                             <?php } ?>
                                         </div>
-                                        <?php echo admin_action_group([
-                                            ['type' => 'edit', 'url' => ADMIN_URL . '/fragments/entry/edit/' . $entry['id'], 'title' => LANG_TEMPLATE_FRAGMENTS_ENTRIES_EDIT_TITLE],
-                                            ['type' => 'delete', 'url' => ADMIN_URL . '/fragments/entry/delete/' . $entry['id'], 'title' => LANG_TEMPLATE_FRAGMENTS_ENTRIES_DELETE_TITLE, 'confirm' => LANG_TEMPLATE_FRAGMENTS_ENTRIES_DELETE_CONFIRM],
-                                        ]); ?>
+                                        <?php
+                                        $entryActions = [];
+                                        $entryUrl = \FragmentHelper::getEntryUrl($fragment, $entry);
+                                        
+                                        if ($entryUrl !== '' && ($entry['status'] ?? 'active') === 'active' && ($fragment['status'] ?? 'active') === 'active') {
+                                            $entryActions[] = [
+                                                'type' => 'view',
+                                                'url' => $entryUrl,
+                                                'title' => LANG_TEMPLATE_FRAGMENTS_ENTRIES_VIEW_TITLE,
+                                                'target' => '_blank',
+                                                'rel' => 'noopener'
+                                            ];
+                                        }
+                                        
+                                        $entryActions[] = ['type' => 'edit', 'url' => ADMIN_URL . '/fragments/entry/edit/' . $entry['id'], 'title' => LANG_TEMPLATE_FRAGMENTS_ENTRIES_EDIT_TITLE];
+                                        $entryActions[] = ['type' => 'delete', 'url' => ADMIN_URL . '/fragments/entry/delete/' . $entry['id'], 'title' => LANG_TEMPLATE_FRAGMENTS_ENTRIES_DELETE_TITLE, 'confirm' => LANG_TEMPLATE_FRAGMENTS_ENTRIES_DELETE_CONFIRM];
+                                        
+                                        echo admin_action_group($entryActions);
+                                        ?>
                                     </div>
                                     
                                     <div class="small text-muted mt-2">
