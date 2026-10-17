@@ -47,7 +47,7 @@ class AdminIndex extends SettingsAction {
                         
                         $postSettings = $_POST['settings'] ?? [];
                         
-                        if ($activeTab === 'site' || $activeTab === 'general') {
+                        if ($activeTab === 'general') {
                             $postSettings = $this->handleFaviconUpload($postSettings);
                         }
                         
@@ -252,7 +252,7 @@ class AdminIndex extends SettingsAction {
     */
     private function handleFaviconUpload($postSettings) {
 
-        $currentSettings = $this->settingsModel->get('site');
+        $currentSettings = $this->settingsModel->get('general');
         
         if (isset($_FILES['favicon_file']) && $_FILES['favicon_file']['error'] === UPLOAD_ERR_OK) {
             try {
@@ -306,6 +306,8 @@ class AdminIndex extends SettingsAction {
             }
             $postSettings['favicon'] = '';
             \Notification::success(LANG_ACTION_SETTINGS_ADMININDEX_FAVICON_REMOVED);
+        } elseif (!array_key_exists('favicon', $postSettings)) {
+            $postSettings['favicon'] = $currentSettings['favicon'] ?? '';
         }
         
         return $postSettings;

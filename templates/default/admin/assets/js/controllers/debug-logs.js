@@ -147,29 +147,23 @@ function clearErrorLogs() {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                if (typeof showNotification === 'function') {
-                    showNotification(lang === 'ru' ? 'Системный лог очищен' : 'System log cleared', 'success');
-                } else {
-                    alert(lang === 'ru' ? 'Системный лог очищен' : 'System log cleared');
-                }
+                notifySystem(lang === 'ru' ? 'Системный лог очищен' : 'System log cleared', 'success');
                 loadErrorLogs();
             } else {
                 const msg = data.message || (lang === 'ru' ? 'Ошибка при очистке лога' : 'Error clearing log');
-                if (typeof showNotification === 'function') {
-                    showNotification(msg, 'error');
-                } else {
-                    alert(msg);
-                }
+                notifySystem(msg, 'danger');
             }
         })
         .catch(error => {
             console.error('Error clearing logs:', error);
-            if (typeof showNotification === 'function') {
-                showNotification(lang === 'ru' ? 'Ошибка сети при очистке лога' : 'Network error while clearing log', 'error');
-            } else {
-                alert(lang === 'ru' ? 'Ошибка сети при очистке лога' : 'Network error while clearing log');
-            }
+            notifySystem(lang === 'ru' ? 'Ошибка сети при очистке лога' : 'Network error while clearing log', 'danger');
         });
+    }
+}
+
+function notifySystem(message, type) {
+    if (typeof window.notify === 'function') {
+        window.notify(message, type);
     }
 }
 

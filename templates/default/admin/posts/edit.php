@@ -255,15 +255,14 @@ add_admin_css('templates/default/admin/assets/css/controllers/post-builder.css')
 
                         <div class="mb-3">
                             <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="change_publish_date" name="change_publish_date" 
-                                    <?php echo (isset($post['created_at']) && $post['created_at'] != date('Y-m-d H:i:s')) ? 'checked' : ''; ?>>
+                                <input class="form-check-input" type="checkbox" id="change_publish_date" name="change_publish_date" value="1">
                                 <label class="form-check-label" for="change_publish_date">
                                     <?php echo LANG_TEMPLATE_POSTS_EDIT_CHANGE_DATE_LABEL; ?>
                                 </label>
                             </div>
                         </div>
                         
-                        <div class="publish-date-field" style="display: <?php echo (isset($post['created_at']) && $post['created_at'] != date('Y-m-d H:i:s')) ? 'block' : 'none'; ?>;">
+                        <div class="publish-date-field" style="display: none;">
                             <label class="form-label"><?php echo LANG_TEMPLATE_POSTS_EDIT_DATETIME_LABEL; ?></label>
                             <input type="datetime-local" class="form-control" name="publish_date" 
                                 max="<?php echo date('Y-m-d\TH:i'); ?>" 
