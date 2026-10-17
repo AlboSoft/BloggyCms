@@ -23,7 +23,7 @@ $lang = [
         'password_weak' => 'Слабый пароль',
         'password_medium' => 'Средний пароль',
         'password_strong' => 'Надёжный пароль',
-        'generate' => 'Сгенерировать',
+        'generate_password' => 'Создать случайный пароль',
         'important' => 'Важно',
         'save_credentials' => 'Сохраните данные администратора в надёжном месте',
         'back' => 'Назад',
@@ -54,7 +54,7 @@ $lang = [
         'password_weak' => 'Weak password',
         'password_medium' => 'Medium password',
         'password_strong' => 'Strong password',
-        'generate' => 'Generate',
+        'generate_password' => 'Generate a random password',
         'important' => 'Important',
         'save_credentials' => 'Save your administrator credentials in a safe place',
         'back' => 'Back',
@@ -427,9 +427,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="form-row">
         <div class="form-group">
             <label class="form-label"><?php echo $t['password']; ?> <span class="required">*</span></label>
-            <div class="password-wrapper">
+            <div class="password-wrapper password-wrapper--with-generator">
                 <input type="password" name="admin_password" id="admin_password"
                        class="form-input" required minlength="6">
+                <button type="button" class="password-generate"
+                        onclick="generatePassword()"
+                        title="<?php echo $t['generate_password']; ?>"
+                        aria-label="<?php echo $t['generate_password']; ?>">
+                    <?php echo icon('solid', 'dice', '16'); ?>
+                </button>
                 <button type="button" class="password-toggle" title="<?php echo $t['password']; ?>">
                     <?php echo icon('bs', 'eye', '16'); ?>
                 </button>
@@ -460,9 +466,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="mt-4 flex-between">
         <a href="index.php" class="btn btn-outline"><?php echo icon('bs', 'arrow-left', '16'); ?> <?php echo $t['back']; ?></a>
         <div class="flex">
-            <button type="button" onclick="generatePassword()" class="btn btn-secondary">
-                <?php echo icon('bs', 'shuffle', '16'); ?> <?php echo $t['generate']; ?>
-            </button>
             <button type="submit" class="btn btn-primary" id="install-btn">
                 <?php echo $t['install']; ?> <?php echo icon('bs', 'check-lg', '16'); ?>
             </button>
@@ -472,42 +475,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <script>
     document.querySelectorAll('.password-toggle').forEach(btn => btn.addEventListener('click', function() {
-        const input = this.previousElementSibling;
-        const icon = this.querySelector('i');
-        if (input.type === 'password') {
-            input.type = 'text';
-            icon.classList.replace('fa-eye', 'fa-eye-slash');
-        } else {
-            input.type = 'password';
-            icon.classList.replace('fa-eye-slash', 'fa-eye');
+        const wrapper = this.closest('.password-wrapper');
+        const input = wrapper ? wrapper.querySelector('input') : null;
+        const icon = this.querySelector('svg use');
+
+        if (!input) return;
+
+        const isHidden = input.type === 'password';
+        input.type = isHidden ? 'text' : 'password';
+
+        if (icon) {
+            const href = icon.getAttribute('href') || '../templates/default/admin/icons/bs.svg#eye';
+            const iconPath = href.split('#')[0];
+            icon.setAttribute('href', iconPath + '#' + (isHidden ? 'eye-slash' : 'eye'));
         }
     }));
-
-    const pwd = document.getElementById('admin_password');
-    if (pwd) {
-        const bar = pwd.closest('.form-group').querySelector('.strength-bar');
-        const text = pwd.closest('.form-group').querySelector('.strength-text');
-        pwd.addEventListener('input', function() {
-            const p = this.value;
-            let s = 0;
-            if (p.length >= 8) s++;
-            if (p.length >= 12) s++;
-            if (/[A-Z]/.test(p)) s++;
-            if (/[0-9]/.test(p)) s++;
-            if (/[^A-Za-z0-9]/.test(p)) s++;
-            bar.className = 'strength-bar';
-            if (s <= 1) {
-                bar.classList.add('weak');
-                text.textContent = '<?php echo $t['password_weak']; ?>';
-            } else if (s === 2) {
-                bar.classList.add('medium');
-                text.textContent = '<?php echo $t['password_medium']; ?>';
-            } else {
-                bar.classList.add('strong');
-                text.textContent = '<?php echo $t['password_strong']; ?>';
-            }
-        });
-    }
 
     document.querySelector('form').addEventListener('submit', function(e) {
         const p1 = document.getElementById('admin_password').value;
@@ -526,14 +508,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         btn.disabled = true;
         btn.innerHTML = '<span class="spinner"></span> <?php echo $t['install']; ?>...';
     });
-
-    window.generatePassword = function() {
-        const c = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()';
-        let p = '';
-        for(let i = 0; i < 12; i++) p += c.charAt(Math.floor(Math.random() * c.length));
-        document.getElementById('admin_password').value = p;
-        document.getElementById('admin_password_confirm').value = p;
-        if (pwd) pwd.dispatchEvent(new Event('input'));
-        alert('🎉 <?php echo $current_lang == 'ru' ? 'Пароль сгенерирован!' : 'Password generated!'; ?>');
-    };
 </script>

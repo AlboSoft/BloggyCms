@@ -825,20 +825,25 @@ h3 i {
     width: 100%;
     padding: 0.75rem 1rem;
     padding-right: 40px !important;
-    border: 1px solid var(--tg-border);
+    border: 1px solid var(--border);
     border-radius: 8px;
     font-size: 1rem;
     transition: all 0.2s ease;
 }
 
-.password-toggle {
+.password-wrapper--with-generator input[type="password"],
+.password-wrapper--with-generator input[type="text"] {
+    padding-right: 76px !important;
+}
+
+.password-toggle,
+.password-generate {
     position: absolute !important;
-    right: 12px !important;
     top: 50% !important;
     transform: translateY(-50%) !important;
     background: none !important;
     border: none !important;
-    color: var(--tg-gray) !important;
+    color: var(--text-muted) !important;
     cursor: pointer !important;
     padding: 4px !important;
     font-size: 1rem !important;
@@ -851,11 +856,21 @@ h3 i {
     height: 24px;
 }
 
-.password-toggle:hover {
-    color: var(--tg-blue) !important;
+.password-toggle {
+    right: 12px !important;
 }
 
-.password-toggle i {
+.password-generate {
+    right: 44px !important;
+}
+
+.password-toggle:hover,
+.password-generate:hover {
+    color: var(--accent) !important;
+}
+
+.password-toggle svg,
+.password-generate svg {
     pointer-events: none;
     line-height: 1;
 }

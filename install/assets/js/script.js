@@ -140,25 +140,38 @@ function initPasswordStrength() {
     const weakText = lang === 'ru' ? 'Слабый пароль' : 'Weak password';
     const mediumText = lang === 'ru' ? 'Средний пароль' : 'Medium password';
     const strongText = lang === 'ru' ? 'Надёжный пароль' : 'Strong password';
-    
-    const strengthContainer = document.createElement('div');
-    strengthContainer.className = 'password-strength';
-    strengthContainer.innerHTML = `
-        <div class="strength-meter">
-            <div class="strength-bar" style="width: 0"></div>
-        </div>
-        <div class="strength-text" style="font-size: 0.85rem; color: var(--tg-gray);"></div>
-    `;
-    
-    passwordInput.parentElement.appendChild(strengthContainer);
+    const formGroup = passwordInput.closest('.form-group');
+    let strengthContainer = formGroup ? formGroup.querySelector('.password-strength') : null;
+
+    if (!strengthContainer) {
+        strengthContainer = document.createElement('div');
+        strengthContainer.className = 'password-strength';
+        strengthContainer.innerHTML = `
+            <div class="strength-meter">
+                <div class="strength-bar" style="width: 0"></div>
+            </div>
+            <div class="strength-text" style="font-size: 0.85rem; color: var(--text-muted);"></div>
+        `;
+
+        const passwordWrapper = passwordInput.closest('.password-wrapper');
+        (passwordWrapper || passwordInput).insertAdjacentElement('afterend', strengthContainer);
+    }
+
     const strengthBar = strengthContainer.querySelector('.strength-bar');
     const strengthText = strengthContainer.querySelector('.strength-text');
-    
-    passwordInput.addEventListener('input', function() {
-        const password = this.value;
-        const strength = calculatePasswordStrength(password);
-        
+
+    if (!strengthBar || !strengthText) return;
+
+    const updateStrength = function() {
+        const password = passwordInput.value;
+
         strengthBar.className = 'strength-bar';
+        if (!password) {
+            strengthText.textContent = '';
+            return;
+        }
+
+        const strength = calculatePasswordStrength(password);
         if (strength.score <= 1) {
             strengthBar.classList.add('weak');
             strengthText.textContent = weakText;
@@ -169,7 +182,10 @@ function initPasswordStrength() {
             strengthBar.classList.add('strong');
             strengthText.textContent = strongText;
         }
-    });
+    };
+
+    passwordInput.addEventListener('input', updateStrength);
+    updateStrength();
     
     function calculatePasswordStrength(password) {
         let score = 0;
@@ -313,21 +329,58 @@ function showNotification(message, type = 'info') {
 }
 
 window.generatePassword = function() {
-    const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()';
-    let password = '';
+    const characterGroups = [
+        'abcdefghijkmnopqrstuvwxyz',
+        'ABCDEFGHJKLMNPQRSTUVWXYZ',
+        '23456789',
+        '!@#$%^&*'
+    ];
+    const allCharacters = characterGroups.join('');
+    const randomIndex = function(max) {
+        if (window.crypto && window.crypto.getRandomValues) {
+            const values = new Uint32Array(1);
+            const limit = Math.floor(0x100000000 / max) * max;
+
+            do {
+                window.crypto.getRandomValues(values);
+            } while (values[0] >= limit);
+
+            return values[0] % max;
+        }
+
+        return Math.floor(Math.random() * max);
+    };
+    const characters = characterGroups.map(group => group.charAt(randomIndex(group.length)));
+
+    while (characters.length < 16) {
+        characters.push(allCharacters.charAt(randomIndex(allCharacters.length)));
+    }
+
+    for (let index = characters.length - 1; index > 0; index--) {
+        const swapIndex = randomIndex(index + 1);
+        [characters[index], characters[swapIndex]] = [characters[swapIndex], characters[index]];
+    }
+
+    const password = characters.join('');
     const lang = getCurrentLang();
     const generatedText = lang === 'ru' ? 'Пароль сгенерирован' : 'Password generated';
-    
-    for (let i = 0; i < 12; i++) {
-        password += charset.charAt(Math.floor(Math.random() * charset.length));
-    }
-    
     const passwordField = document.getElementById('admin_password');
     const confirmField = document.getElementById('admin_password_confirm');
-    
+
     if (passwordField && confirmField) {
-        passwordField.value = password;
-        confirmField.value = password;
+        [passwordField, confirmField].forEach(field => {
+            field.value = password;
+            field.type = 'text';
+
+            const eyeIcon = field.closest('.password-wrapper')?.querySelector('.password-toggle use');
+            if (eyeIcon) {
+                const href = eyeIcon.getAttribute('href') || '../templates/default/admin/icons/bs.svg#eye';
+                eyeIcon.setAttribute('href', href.split('#')[0] + '#eye-slash');
+            }
+
+            field.dispatchEvent(new Event('input', { bubbles: true }));
+        });
+
         showNotification(generatedText, 'success');
     }
 };
