@@ -132,9 +132,46 @@ class TagModel implements ModelAPI {
                     ) as filtered_tags";
         $totalResult = $this->db->fetch($countSql, [$minPosts]);
         $total = $totalResult['total'];
-        
+
+        $totalPosts = 0;
+        try {
+            $postsResult = $this->db->fetch(
+                "SELECT COUNT(DISTINCT pt.post_id) as total
+                 FROM post_tags pt
+                 INNER JOIN (
+                     SELECT t.id
+                     FROM tags t
+                     LEFT JOIN post_tags pt2 ON t.id = pt2.tag_id
+                     GROUP BY t.id
+                     HAVING COUNT(pt2.post_id) >= ?
+                 ) filtered ON filtered.id = pt.tag_id",
+                [$minPosts]
+            );
+            $totalPosts = (int)($postsResult['total'] ?? 0);
+        } catch (\Throwable $e) {
+            $totalPosts = 0;
+        }
+
+        $popularTag = null;
+        try {
+            $popularTag = $this->db->fetch(
+                "SELECT t.id, t.name, t.slug, COUNT(pt.post_id) as posts_count
+                 FROM tags t
+                 LEFT JOIN post_tags pt ON t.id = pt.tag_id
+                 GROUP BY t.id
+                 HAVING posts_count >= ?
+                 ORDER BY posts_count DESC, t.name ASC
+                 LIMIT 1",
+                [$minPosts]
+            );
+        } catch (\Throwable $e) {
+            $popularTag = null;
+        }
+
         return [
             'tags' => $tags,
+            'total_posts' => $totalPosts,
+            'popular_tag' => $popularTag,
             'pagination' => [
                 'current_page' => (int)$page,
                 'per_page' => (int)$perPage,
@@ -177,6 +214,36 @@ class TagModel implements ModelAPI {
         );
     }    
     
+    /**
+    * Получить теги сразу для нескольких постов
+    * @param array $postIds Массив ID постов
+    * @return array Карта [post_id => [теги]]
+    */
+    public function getForPosts(array $postIds) {
+        if (empty($postIds)) {
+            return [];
+        }
+
+        $placeholders = implode(',', array_fill(0, count($postIds), '?'));
+        $rows = $this->db->fetchAll(
+            "SELECT pt.post_id, t.*
+             FROM tags t
+             JOIN post_tags pt ON t.id = pt.tag_id
+             WHERE pt.post_id IN ($placeholders)
+             ORDER BY t.name ASC",
+            $postIds
+        );
+
+        $map = [];
+        foreach ($rows as $row) {
+            $postId = (int)$row['post_id'];
+            unset($row['post_id']);
+            $map[$postId][] = $row;
+        }
+
+        return $map;
+    }
+
     /**
     * Создать новый тег 
     * @param array $data Данные тега (name, image, description)

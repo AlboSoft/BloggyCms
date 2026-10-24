@@ -43,10 +43,26 @@ class Show extends TagAction {
             
             $categories = $this->categoryModel->getAll();
             
-            $ipAddress = $_SERVER['REMOTE_ADDR'];
+            $postIds = array_column($result['posts'], 'id');
+            $commentsCount = !empty($postIds) ? $this->postModel->getCommentsCountForPosts($postIds) : [];
+            $postTags = !empty($postIds) ? $this->tagModel->getForPosts($postIds) : [];
+            $ipAddress = $_SERVER['REMOTE_ADDR'] ?? '';
+
             foreach ($result['posts'] as &$post) {
                 $post['userVote'] = $this->postModel->getUserVote($post['id'], $ipAddress);
+                $post['comments_count'] = $commentsCount[$post['id']] ?? 0;
+                $post['tags'] = $postTags[$post['id']] ?? [];
+                $post['password_protected'] = !empty($post['password_protected']);
+
+                if (isset($_SESSION['user_id'])) {
+                    $post['userLiked'] = $this->postModel->hasUserLiked($post['id'], $_SESSION['user_id']);
+                    $post['userBookmarked'] = $this->postModel->hasBookmark($post['id'], $_SESSION['user_id']);
+                } else {
+                    $post['userLiked'] = false;
+                    $post['userBookmarked'] = false;
+                }
             }
+            unset($post);
 
             $this->render('front/tags/tag', [
                 'tag' => $tag,

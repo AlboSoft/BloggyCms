@@ -234,7 +234,7 @@ if (isset($_POST['next']) && !$license_accepted) {
         </div>
     <?php } else { ?>
         <div class="alert alert-success">
-            <?php echo icon('bs', 'check-circle-fill', '20', '#27ae60'); ?>
+            <?php echo icon('bs', 'check-circle-fill', '20', '#ffffff'); ?>
             <div><strong><?php echo $t['all_good']; ?></strong><p style="margin-top:4px"><?php echo $t['server_ready']; ?></p></div>
         </div>
     <?php } ?>

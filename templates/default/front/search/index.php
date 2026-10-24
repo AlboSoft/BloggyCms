@@ -171,7 +171,7 @@
                             <div class="tg-search-stats-info">
                                 <?php echo bloggy_icon('bs', 'search', '16', 'var(--tg-primary)', 'tg-mr-2'); ?>
                                 <span>
-                                    <?php echo sprintf(LANG_TEMPLATE_SEARCH_STATS_FOUND, html($query), $total, $total); ?>
+                                    <?php echo sprintf(LANG_TEMPLATE_SEARCH_STATS_FOUND, html($query), (int)$total, plural_form((int)$total, [LANG_TEMPLATE_SEARCH_RESULT_1, LANG_TEMPLATE_SEARCH_RESULT_2, LANG_TEMPLATE_SEARCH_RESULT_3])); ?>
                                 </span>
                             </div>
                             <?php if (!empty($suggestedSearches) && is_array($suggestedSearches)) { ?>

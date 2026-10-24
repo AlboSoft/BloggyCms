@@ -13,6 +13,7 @@ abstract class CategoryAction {
     protected $params;
     protected $controller;
     protected $categoryModel;
+    protected $postModel;
     protected $breadcrumbs;
     protected $pageTitle;
     
@@ -25,6 +26,7 @@ abstract class CategoryAction {
         $this->db = $db;
         $this->params = $params;
         $this->categoryModel = new \CategoryModel($db);
+        $this->postModel = new \PostModel($db);
         $this->breadcrumbs = new \BreadcrumbsManager($db);
         $this->pageTitle = '';
         \BreadcrumbsHelper::setManager($this->breadcrumbs);

@@ -15,3 +15,6 @@ define('LANG_TEMPLATE_CATEGORIES_SHOW_MORE_BTN', 'Show more');
 define('LANG_TEMPLATE_CATEGORIES_EMPTY_TITLE', 'No categories found');
 define('LANG_TEMPLATE_CATEGORIES_EMPTY_TEXT', 'No categories have been created in the blog yet');
 define('LANG_TEMPLATE_CATEGORIES_EMPTY_POSTS_BTN', 'Go to posts');
+define('LANG_TEMPLATE_CATEGORIES_HERO_BADGE', 'Blog sections');
+define('LANG_TEMPLATE_CATEGORIES_DESCRIPTION', 'All blog topics are gathered in one place — pick a section and read what interests you.');
+define('LANG_TEMPLATE_CATEGORIES_OPEN_BTN', 'Open');

@@ -11,7 +11,7 @@ $lang = [
         'site_name' => 'Название блога',
         'site_name_hint' => 'Как будет называться ваш блог',
         'site_url' => 'URL блога',
-        'site_url_hint' => 'Полный адрес без слеша в конце',
+        'site_url_hint' => 'Определяется автоматически по адресу, по которому открыт установщик',
         'admin_data' => 'Данные администратора',
         'username' => 'Имя пользователя',
         'username_hint' => 'Минимум 3 символа',
@@ -42,7 +42,7 @@ $lang = [
         'site_name' => 'Site Name',
         'site_name_hint' => 'What will your blog be called',
         'site_url' => 'Site URL',
-        'site_url_hint' => 'Full address without trailing slash',
+        'site_url_hint' => 'Detected automatically from the address the installer is opened at',
         'admin_data' => 'Administrator Data',
         'username' => 'Username',
         'username_hint' => 'Minimum 3 characters',
@@ -248,13 +248,21 @@ $siteConfig = [
     'site_language' => 'ru_RU'
 ];
 $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
-$siteConfig['site_url'] = $protocol . $_SERVER['HTTP_HOST'] . rtrim(dirname(dirname($_SERVER['PHP_SELF'])), '/');
+$installBasePath = str_replace('\\', '/', (string)dirname(dirname($_SERVER['PHP_SELF'] ?? '')));
+$installBasePath = rtrim($installBasePath, '/');
+if ($installBasePath === '.' || $installBasePath === '/') {
+    $installBasePath = '';
+}
+$detectedSiteUrl = rtrim($protocol . ($_SERVER['HTTP_HOST'] ?? '') . $installBasePath, '/\\');
+
+$siteConfig['site_url'] = $detectedSiteUrl;
 if (isset($_SESSION['site_config'])) $siteConfig = array_merge($siteConfig, $_SESSION['site_config']);
+$siteConfig['site_url'] = $detectedSiteUrl;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $siteConfig = array_merge($siteConfig, [
         'site_name' => trim($_POST['site_name']),
-        'site_url' => rtrim($_POST['site_url'], '/'),
+        'site_url' => $detectedSiteUrl,
         'admin_email' => trim($_POST['admin_email']),
         'admin_username' => trim($_POST['admin_username']),
         'admin_password' => $_POST['admin_password'],
@@ -380,7 +388,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
         <div class="form-group">
             <label class="form-label"><?php echo $t['site_url']; ?> <span class="required">*</span></label>
-            <input type="url" name="site_url" id="site_url" class="form-input" value="<?php echo htmlspecialchars($siteConfig['site_url']); ?>" required>
+            <input type="url" name="site_url" id="site_url" class="form-input" value="<?php echo htmlspecialchars($siteConfig['site_url']); ?>" readonly aria-readonly="true" title="<?php echo htmlspecialchars($t['site_url_hint']); ?>">
             <div class="form-hint"><?php echo icon('bs', 'info-circle', '14'); ?> <?php echo $t['site_url_hint']; ?></div>
         </div>
     </div>

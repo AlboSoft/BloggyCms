@@ -6,61 +6,78 @@ namespace profile\actions;
 * Действие удаления аккаунта пользователя
 */
 class Delete extends ProfileAction {
-    
+
     /**
     * Метод выполнения удаления аккаунта
     * @return void
     */
     public function execute() {
+        header('Content-Type: application/json; charset=utf-8');
+
         if (!isset($_SESSION['user_id'])) {
             http_response_code(401);
-            header('Content-Type: application/json');
             echo json_encode(['success' => false, 'message' => LANG_ACTION_PROFILE_DELETE_UNAUTHORIZED]);
             return;
         }
-        
+
         $input = json_decode(file_get_contents('php://input'), true);
-        $password = $input['password'] ?? '';
+        $password = isset($input['password']) ? (string)$input['password'] : '';
         $csrfToken = $input['csrf_token'] ?? '';
-        
-        if (!$this->validateCsrfToken($csrfToken)) {
-            header('Content-Type: application/json');
+
+        if (!$this->validateApiCsrfToken($csrfToken)) {
             echo json_encode(['success' => false, 'message' => LANG_ACTION_PROFILE_DELETE_INVALID_CSRF]);
             return;
         }
-        
-        $userId = $_SESSION['user_id'];
-        
-        $user = $this->userModel->getById($userId);
-        if (!$user || !password_verify($password, $user['password'])) {
-            header('Content-Type: application/json');
+
+        if ($password === '') {
             echo json_encode(['success' => false, 'message' => LANG_ACTION_PROFILE_DELETE_INVALID_PASSWORD]);
             return;
         }
-        
-        if ($user['is_admin'] == 1) {
-            $adminsCount = $this->db->fetchValue(
-                "SELECT COUNT(*) FROM users WHERE is_admin = 1"
-            );
-            if ($adminsCount <= 1) {
-                header('Content-Type: application/json');
-                echo json_encode(['success' => false, 'message' => LANG_ACTION_PROFILE_DELETE_LAST_ADMIN]);
+
+        $userId = (int)$_SESSION['user_id'];
+
+        try {
+            $user = $this->userModel->getById($userId);
+
+            if (!$user || !password_verify($password, $user['password'])) {
+                echo json_encode(['success' => false, 'message' => LANG_ACTION_PROFILE_DELETE_INVALID_PASSWORD]);
                 return;
             }
-        }
-        
-        $this->deleteUserAvatar($user);
-        
-        if ($this->userModel->delete($userId)) {
-            session_destroy();
-            header('Content-Type: application/json');
+
+            if (!empty($user['is_admin'])) {
+                $adminsCount = (int)$this->db->fetchValue(
+                    "SELECT COUNT(*) FROM users WHERE is_admin = 1"
+                );
+
+                if ($adminsCount <= 1) {
+                    echo json_encode(['success' => false, 'message' => LANG_ACTION_PROFILE_DELETE_LAST_ADMIN]);
+                    return;
+                }
+            }
+
+            $this->deleteUserAvatar($user);
+
+            if (class_exists('\\SessionTracker')) {
+                try {
+                    \SessionTracker::terminateAllExceptCurrent($this->db, $userId);
+                } catch (\Throwable $e) {
+                    // не мешаем удалению аккаунта
+                }
+            }
+
+            if (!$this->userModel->delete($userId)) {
+                echo json_encode(['success' => false, 'message' => LANG_ACTION_PROFILE_DELETE_ERROR]);
+                return;
+            }
+
+            $this->destroySession();
+
             echo json_encode(['success' => true]);
-        } else {
-            header('Content-Type: application/json');
+        } catch (\Throwable $e) {
             echo json_encode(['success' => false, 'message' => LANG_ACTION_PROFILE_DELETE_ERROR]);
         }
     }
-    
+
     /**
     * Удаляет аватар пользователя
     * @param array $user Данные пользователя
@@ -74,16 +91,28 @@ class Delete extends ProfileAction {
             }
         }
     }
-    
+
     /**
-    * Проверяет CSRF токен
-    * @param string $token Токен для проверки
-    * @return bool Результат проверки
+    * Полностью уничтожает текущую сессию
+    * @return void
     */
-    private function validateCsrfToken($token) {
-        if (empty($_SESSION['csrf_token']) || empty($token)) {
-            return false;
+    private function destroySession() {
+        $_SESSION = [];
+
+        if (ini_get('session.use_cookies')) {
+            $params = session_get_cookie_params();
+            setcookie(
+                session_name(),
+                '',
+                time() - 42000,
+                $params['path'],
+                $params['domain'],
+                $params['secure'],
+                $params['httponly']
+            );
         }
-        return hash_equals($_SESSION['csrf_token'], $token);
+
+        session_destroy();
     }
+
 }

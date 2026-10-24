@@ -33,6 +33,9 @@ class Index extends TagAction {
             $this->render('front/tags/tags', [
                 'tags' => $result['tags'],
                 'pagination' => $result['pagination'],
+                'total_tags' => (int)$result['pagination']['total_items'],
+                'total_posts_in_tags' => (int)$result['total_posts'],
+                'popular_tag' => $result['popular_tag'],
                 'settings' => [
                     'tags_per_page' => $tagsPerPage,
                     'min_posts' => $minPostsToShow,

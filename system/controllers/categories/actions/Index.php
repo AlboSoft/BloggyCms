@@ -27,6 +27,15 @@ class Index extends CategoryAction {
             $categories = $this->categoryModel->getAll();
             $categories = $this->sortCategories($categories, $orderBy);
             $totalCategories = count($categories);
+            $totalPostsInCategories = 0;
+            $protectedCategories = 0;
+            foreach ($categories as $item) {
+                $totalPostsInCategories += (int)($item['posts_count'] ?? 0);
+                if (!empty($item['password_protected'])) {
+                    $protectedCategories++;
+                }
+            }
+
             $totalPages = ceil($totalCategories / $perPage);
             $offset = ($page - 1) * $perPage;
             $categories = array_slice($categories, $offset, $perPage);
@@ -34,6 +43,8 @@ class Index extends CategoryAction {
             $this->render('front/category/categories', [
                 'categories' => $categories,
                 'total_categories' => $totalCategories,
+                'total_posts_in_categories' => $totalPostsInCategories,
+                'protected_categories' => $protectedCategories,
                 'current_page' => $page,
                 'total_pages' => $totalPages,
                 'layout' => $layout,

@@ -1,7 +1,9 @@
 <?php
 /**
- * Template Name: Редактирование профиля
- */
+* Template Name: Редактирование профиля
+*/
+
+$bioMaxLength = 500;
 ?>
 
 <div class="tg-profile-edit">
@@ -104,55 +106,79 @@
                                 
                                 <div class="col-md-8">
                                     <div class="mb-3">
-                                        <label class="form-label"><?php echo LANG_TEMPLATE_PROFILE_EDIT_USERNAME_LABEL; ?></label>
-                                        <input type="text" 
-                                               class="form-control" 
-                                               value="<?php echo html($user['username']); ?>" 
-                                               disabled>
+                                        <label class="form-label" for="profile-username"><?php echo LANG_TEMPLATE_PROFILE_EDIT_USERNAME_LABEL; ?></label>
+                                        <div class="input-group tg-input-group-icon">
+                                            <span class="input-group-text"><?php echo bloggy_icon('bs', 'person', '16', 'currentColor'); ?></span>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   id="profile-username"
+                                                   value="<?php echo html($user['username']); ?>"
+                                                   disabled>
+                                        </div>
                                         <div class="form-text text-muted">
                                             <?php echo LANG_TEMPLATE_PROFILE_EDIT_USERNAME_HINT; ?>
                                         </div>
                                     </div>
                                     
                                     <div class="mb-3">
-                                        <label class="form-label"><?php echo LANG_TEMPLATE_PROFILE_EDIT_DISPLAY_NAME_LABEL; ?></label>
-                                        <input type="text" 
-                                               class="form-control" 
-                                               name="display_name" 
-                                               value="<?php echo html($user['display_name'] ?? ''); ?>"
-                                               placeholder="<?php echo LANG_TEMPLATE_PROFILE_EDIT_DISPLAY_NAME_PLACEHOLDER; ?>">
+                                        <label class="form-label" for="profile-display-name"><?php echo LANG_TEMPLATE_PROFILE_EDIT_DISPLAY_NAME_LABEL; ?></label>
+                                        <div class="input-group tg-input-group-icon">
+                                            <span class="input-group-text"><?php echo bloggy_icon('bs', 'person-badge', '16', 'currentColor'); ?></span>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   id="profile-display-name"
+                                                   name="display_name"
+                                                   value="<?php echo html($user['display_name'] ?? ''); ?>"
+                                                   placeholder="<?php echo LANG_TEMPLATE_PROFILE_EDIT_DISPLAY_NAME_PLACEHOLDER; ?>">
+                                        </div>
                                         <div class="form-text text-muted">
                                             <?php echo LANG_TEMPLATE_PROFILE_EDIT_DISPLAY_NAME_HINT; ?>
                                         </div>
                                     </div>
                                     
                                     <div class="mb-3">
-                                        <label class="form-label"><?php echo LANG_TEMPLATE_PROFILE_EDIT_EMAIL_LABEL; ?> <span class="text-danger">*</span></label>
-                                        <input type="email" 
-                                               class="form-control" 
-                                               name="email" 
-                                               value="<?php echo html($user['email']); ?>" 
-                                               required>
+                                        <label class="form-label" for="profile-email"><?php echo LANG_TEMPLATE_PROFILE_EDIT_EMAIL_LABEL; ?> <span class="text-danger">*</span></label>
+                                        <div class="input-group tg-input-group-icon">
+                                            <span class="input-group-text"><?php echo bloggy_icon('bs', 'envelope', '16', 'currentColor'); ?></span>
+                                            <input type="email"
+                                                   class="form-control"
+                                                   id="profile-email"
+                                                   name="email"
+                                                   value="<?php echo html($user['email']); ?>"
+                                                   required>
+                                        </div>
                                         <div class="form-text text-muted">
                                             <?php echo LANG_TEMPLATE_PROFILE_EDIT_EMAIL_HINT; ?>
                                         </div>
                                     </div>
                                     
                                     <div class="mb-3">
-                                        <label class="form-label"><?php echo LANG_TEMPLATE_PROFILE_EDIT_WEBSITE_LABEL; ?></label>
-                                        <input type="url" 
-                                               class="form-control" 
-                                               name="website" 
-                                               value="<?php echo html($user['website'] ?? ''); ?>"
-                                               placeholder="https://example.com">
+                                        <label class="form-label" for="profile-website"><?php echo LANG_TEMPLATE_PROFILE_EDIT_WEBSITE_LABEL; ?></label>
+                                        <div class="input-group tg-input-group-icon">
+                                            <span class="input-group-text"><?php echo bloggy_icon('bs', 'globe2', '16', 'currentColor'); ?></span>
+                                            <input type="url"
+                                                   class="form-control"
+                                                   id="profile-website"
+                                                   name="website"
+                                                   value="<?php echo html($user['website'] ?? ''); ?>"
+                                                   placeholder="https://example.com">
+                                        </div>
                                     </div>
                                     
                                     <div class="mb-3">
-                                        <label class="form-label"><?php echo LANG_TEMPLATE_PROFILE_EDIT_BIO_LABEL; ?></label>
-                                        <textarea class="form-control" 
-                                                  name="bio" 
-                                                  rows="4" 
-                                                  placeholder="<?php echo LANG_TEMPLATE_PROFILE_EDIT_BIO_PLACEHOLDER; ?>"><?php echo html($user['bio'] ?? ''); ?></textarea>
+                                        <label class="form-label" for="profile-bio">
+                                            <?php echo bloggy_icon('bs', 'card-text', '16', 'currentColor', 'tg-mr-1'); ?>
+                                            <?php echo LANG_TEMPLATE_PROFILE_EDIT_BIO_LABEL; ?>
+                                        </label>
+                                        <div class="tg-bio-wrapper">
+                                            <span class="tg-bio-counter" id="bio-counter" aria-live="polite"><?php echo $bioMaxLength; ?></span>
+                                            <textarea class="form-control tg-bio-textarea"
+                                                      id="profile-bio"
+                                                      name="bio"
+                                                      rows="5"
+                                                      maxlength="<?php echo $bioMaxLength; ?>"
+                                                      placeholder="<?php echo LANG_TEMPLATE_PROFILE_EDIT_BIO_PLACEHOLDER; ?>"><?php echo html($user['bio'] ?? ''); ?></textarea>
+                                        </div>
                                         <div class="form-text text-muted">
                                             <?php echo LANG_TEMPLATE_PROFILE_EDIT_BIO_HINT; ?>
                                         </div>
@@ -301,10 +327,12 @@
                                                 </div>
                                                 
                                                 <div class="mb-3">
-                                                    <label class="form-label"><?php echo LANG_TEMPLATE_PROFILE_EDIT_DELETE_PASSWORD_LABEL; ?></label>
-                                                    <input type="password" 
-                                                           class="form-control" 
-                                                           id="delete-password" 
+                                                    <label class="form-label" for="delete-password"><?php echo LANG_TEMPLATE_PROFILE_EDIT_DELETE_PASSWORD_LABEL; ?></label>
+                                                    <input type="password"
+                                                           class="form-control"
+                                                           id="delete-password"
+                                                           autocomplete="current-password"
+                                                           disabled
                                                            placeholder="<?php echo LANG_TEMPLATE_PROFILE_EDIT_DELETE_PASSWORD_PLACEHOLDER; ?>">
                                                 </div>
                                                 
@@ -325,8 +353,9 @@
                             <?php echo bloggy_icon('bs', 'check-lg', '16', 'currentColor', 'me-1'); ?>
                             <?php echo LANG_TEMPLATE_PROFILE_EDIT_SAVE_BTN; ?>
                         </button>
-                        <a href="<?php echo BASE_URL; ?>/profile/<?php echo html($user['username']); ?>" class="btn btn-outline-secondary">
-                            <?php echo LANG_TEMPLATE_PROFILE_EDIT_CANCEL_BTN; ?>
+                        <a href="<?php echo BASE_URL; ?>/profile/<?php echo html($user['username']); ?>" class="btn btn-outline-secondary" id="back-to-profile-btn">
+                            <?php echo bloggy_icon('bs', 'arrow-left', '16', 'currentColor', 'me-1'); ?>
+                            <?php echo LANG_TEMPLATE_PROFILE_EDIT_BACK_BTN; ?>
                         </a>
                     </div>
                 </form>
@@ -359,6 +388,20 @@ function previewAvatar(input) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+    const bioField = document.getElementById('profile-bio');
+    const bioCounter = document.getElementById('bio-counter');
+    
+    if (bioField && bioCounter) {
+        const bioMax = parseInt(bioField.getAttribute('maxlength'), 10) || 500;
+        const updateBioCounter = function() {
+            const left = bioMax - bioField.value.length;
+            bioCounter.textContent = left;
+            bioCounter.classList.toggle('is-low', left <= 50);
+        };
+        bioField.addEventListener('input', updateBioCounter);
+        updateBioCounter();
+    }
+    
     const newPassword = document.getElementById('new_password');
     const confirmPassword = document.getElementById('confirm_password');
     const submitBtn = document.getElementById('submit-btn');
@@ -429,7 +472,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 ${isCurrent ? '<span class="current-badge ms-2"><?php echo LANG_TEMPLATE_PROFILE_EDIT_CURRENT_BADGE; ?></span>' : ''}
                             </div>
                             <div class="session-meta">
-                                IP: ${session.ip} • <?php echo LANG_TEMPLATE_PROFILE_EDIT_LAST_ACTIVITY_LABEL; ?> ${session.last_activity}
+                                ${session.ip ? `IP: ${session.ip} • ` : ''}<?php echo LANG_TEMPLATE_PROFILE_EDIT_LAST_ACTIVITY_LABEL; ?> ${session.last_activity}
                             </div>
                         </div>
                     </div>
@@ -507,7 +550,22 @@ document.addEventListener('DOMContentLoaded', function() {
             deleteBtn.disabled = !(deleteCheckbox.checked && deletePassword.value.length > 0);
         }
         
-        deleteCheckbox.addEventListener('change', checkDeleteForm);
+        function toggleDeleteConfirm() {
+            const enabled = deleteCheckbox.checked;
+            deletePassword.disabled = !enabled;
+            
+            if (!enabled) {
+                deletePassword.value = '';
+            } else {
+                deletePassword.focus();
+            }
+            
+            checkDeleteForm();
+        }
+        
+        toggleDeleteConfirm();
+        
+        deleteCheckbox.addEventListener('change', toggleDeleteConfirm);
         deletePassword.addEventListener('input', checkDeleteForm);
         
         deleteBtn.addEventListener('click', function() {

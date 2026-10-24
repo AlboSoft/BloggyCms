@@ -454,6 +454,20 @@ h3 i {
     font-family: inherit;
 }
 
+.form-input[readonly],
+.form-input[disabled] {
+    background: var(--surface-alt, #f5f7fa);
+    color: var(--text-secondary, #6b7280);
+    cursor: not-allowed;
+    border-color: var(--border, #e4e6e9);
+}
+
+.form-input[readonly]:focus,
+.form-input[disabled]:focus {
+    border-color: var(--border, #e4e6e9);
+    box-shadow: none;
+}
+
 .form-input:focus {
     outline: none;
     border-color: var(--accent);

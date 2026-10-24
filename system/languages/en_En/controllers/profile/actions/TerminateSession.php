@@ -3,3 +3,4 @@ define('LANG_ACTION_PROFILE_TERMINATESESSION_UNAUTHORIZED', 'Unauthorized');
 define('LANG_ACTION_PROFILE_TERMINATESESSION_INVALID_CSRF', 'Invalid CSRF token');
 define('LANG_ACTION_PROFILE_TERMINATESESSION_NO_SESSION_ID', 'Session ID not specified');
 define('LANG_ACTION_PROFILE_TERMINATESESSION_ERROR', 'Failed to terminate session');
+define('LANG_ACTION_PROFILE_TERMINATESESSION_CURRENT', 'You cannot terminate the current session');

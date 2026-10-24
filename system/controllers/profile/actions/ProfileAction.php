@@ -159,10 +159,25 @@ abstract class ProfileAction {
     * Проверяет валидность CSRF-токена из POST-запроса
     * @return bool true если токен валидный
     */
-    protected function validateCsrfToken() {
-        return !empty($_POST['csrf_token']) && 
-               !empty($_SESSION['csrf_token']) && 
-               $_POST['csrf_token'] === $_SESSION['csrf_token'];
+    protected function validateCsrfToken($token = null) {
+        if ($token === null) {
+            $token = $_POST['csrf_token'] ?? '';
+        }
+
+        return $this->validateApiCsrfToken($token);
+    }
+
+    /**
+    * Проверяет CSRF-токен, переданный в теле JSON/AJAX-запроса
+    * @param string|null $token Токен для проверки
+    * @return bool true если токен валидный
+    */
+    protected function validateApiCsrfToken($token = null) {
+        if (empty($_SESSION['csrf_token']) || empty($token)) {
+            return false;
+        }
+
+        return hash_equals((string)$_SESSION['csrf_token'], (string)$token);
     }
     
     /**

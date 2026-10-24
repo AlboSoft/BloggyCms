@@ -59,6 +59,23 @@ class Show extends CategoryAction {
                     'current_page' => 1
                 ];
         
+            $postIds = array_column($result['posts'], 'id');
+            $commentsCount = !empty($postIds) ? $this->postModel->getCommentsCountForPosts($postIds) : [];
+
+            foreach ($result['posts'] as &$post) {
+                $post['comments_count'] = $commentsCount[$post['id']] ?? 0;
+                $post['password_protected'] = !empty($post['password_protected']);
+
+                if (isset($_SESSION['user_id'])) {
+                    $post['userLiked'] = $this->postModel->hasUserLiked($post['id'], $_SESSION['user_id']);
+                    $post['userBookmarked'] = $this->postModel->hasBookmark($post['id'], $_SESSION['user_id']);
+                } else {
+                    $post['userLiked'] = false;
+                    $post['userBookmarked'] = false;
+                }
+            }
+            unset($post);
+
             $categories = $this->categoryModel->getAll();
             
             if (!$hasAccess) {

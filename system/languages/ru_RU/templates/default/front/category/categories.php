@@ -15,3 +15,6 @@ define('LANG_TEMPLATE_CATEGORIES_SHOW_MORE_BTN', 'Показать еще');
 define('LANG_TEMPLATE_CATEGORIES_EMPTY_TITLE', 'Категории не найдены');
 define('LANG_TEMPLATE_CATEGORIES_EMPTY_TEXT', 'В блоге пока нет созданных категорий');
 define('LANG_TEMPLATE_CATEGORIES_EMPTY_POSTS_BTN', 'Перейти к постам');
+define('LANG_TEMPLATE_CATEGORIES_HERO_BADGE', 'Разделы блога');
+define('LANG_TEMPLATE_CATEGORIES_DESCRIPTION', 'Все темы блога собраны в одном месте — выбирайте раздел и читайте то, что вам интересно.');
+define('LANG_TEMPLATE_CATEGORIES_OPEN_BTN', 'Открыть');

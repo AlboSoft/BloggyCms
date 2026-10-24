@@ -282,10 +282,14 @@ class UserModel implements ModelAPI {
             $result = $this->db->query("DELETE FROM users WHERE id = ?", [$id]);
             $this->db->query("COMMIT");
             
-            return $result;
+            return $result !== false;
             
-        } catch (\Exception $e) {
-            $this->db->query("ROLLBACK");
+        } catch (\Throwable $e) {
+            try {
+                $this->db->query("ROLLBACK");
+            } catch (\Throwable $rollbackError) {
+                // транзакция могла быть уже завершена — не заслоняем исходную ошибку
+            }
             throw $e;
         }
     }

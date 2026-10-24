@@ -7,7 +7,12 @@ namespace profile\actions;
 * @package profile\actions
 */
 class Update extends ProfileAction {
-    
+
+    /**
+    * Максимальная длина поля «О себе»
+    */
+    const BIO_MAX_LENGTH = 500;
+
     /**
     * Метод выполнения обновления профиля
     * @return void
@@ -36,7 +41,7 @@ class Update extends ProfileAction {
         $updateData = $this->prepareUpdateData();
         
         if ($this->processUpdate($user, $updateData)) {
-            $this->redirectWithSuccess('/profile/' . $user['username']);
+            $this->redirectWithSuccess('/profile/edit');
         }
     }
     
@@ -49,7 +54,7 @@ class Update extends ProfileAction {
             'display_name' => trim($_POST['display_name'] ?? ''),
             'email' => $this->validateEmail($_POST['email'] ?? ''),
             'website' => $this->validateWebsite($_POST['website'] ?? ''),
-            'bio' => trim($_POST['bio'] ?? ''),
+            'bio' => mb_substr(trim($_POST['bio'] ?? ''), 0, self::BIO_MAX_LENGTH),
             'updated_at' => date('Y-m-d H:i:s')
         ];
 
@@ -61,7 +66,7 @@ class Update extends ProfileAction {
         }
 
         return array_filter($data, function($value) {
-            return $value !== null && $value !== '';
+            return $value !== null;
         });
     }
     
@@ -141,7 +146,7 @@ class Update extends ProfileAction {
                     );
                     
                     if (!$result) {
-                        throw new Exception(sprintf(LANG_ACTION_PROFILE_UPDATE_FIELD_SAVE_ERROR, $field['name']));
+                        throw new \Exception(sprintf(LANG_ACTION_PROFILE_UPDATE_FIELD_SAVE_ERROR, $field['name']));
                     }
                 } elseif ($field['type'] === 'flag') {
                     $this->fieldModel->saveFieldValue(
@@ -155,7 +160,7 @@ class Update extends ProfileAction {
             
             return true;
             
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->redirectWithError(sprintf(LANG_ACTION_PROFILE_UPDATE_FIELDS_ERROR, $e->getMessage()), '/profile/edit');
             return false;
         }
@@ -271,7 +276,7 @@ class Update extends ProfileAction {
         $website = trim($website);
         
         if (empty($website)) {
-            return null;
+            return '';
         }
         
         if (!preg_match('/^https?:\/\//', $website)) {

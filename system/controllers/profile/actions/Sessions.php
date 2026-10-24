@@ -6,78 +6,57 @@ namespace profile\actions;
 * Действие получения списка активных сессий пользователя
 */
 class Sessions extends ProfileAction {
-    
+
     /**
     * Метод выполнения получения сессий
     * @return void
     */
     public function execute() {
+        header('Content-Type: application/json; charset=utf-8');
+
         if (!isset($_SESSION['user_id'])) {
             http_response_code(401);
-            header('Content-Type: application/json');
             echo json_encode(['success' => false, 'message' => LANG_ACTION_PROFILE_SESSIONS_UNAUTHORIZED]);
             return;
         }
-        
-        $userId = $_SESSION['user_id'];
-        $sessions = $this->getUserSessions($userId);
-        
-        header('Content-Type: application/json');
-        echo json_encode(['success' => true, 'sessions' => $sessions]);
-    }
-    
-    /**
-    * Получает активные сессии пользователя
-    * @param int $userId ID пользователя
-    * @return array Массив сессий
-    */
-    private function getUserSessions($userId) {
-        $sessions = [];
-        
-        $tableExists = $this->db->fetch(
-            "SELECT 1 FROM information_schema.tables 
-             WHERE table_schema = DATABASE() AND table_name = 'user_sessions'"
-        );
-        
-        if ($tableExists) {
-            $results = $this->db->fetchAll(
-                "SELECT id, session_id, ip_address, user_agent, last_activity, created_at 
-                 FROM user_sessions 
-                 WHERE user_id = ? 
-                 ORDER BY last_activity DESC",
-                [$userId]
-            );
-            
-            foreach ($results as $row) {
-                $sessions[] = [
-                    'id' => $row['id'],
-                    'session_id' => $row['session_id'],
-                    'ip' => $row['ip_address'],
-                    'device' => $this->parseUserAgent($row['user_agent']),
-                    'last_activity' => date('d.m.Y H:i', strtotime($row['last_activity'])),
-                    'created_at' => date('d.m.Y H:i', strtotime($row['created_at'])),
-                    'is_current' => ($row['session_id'] === session_id())
-                ];
-            }
+
+        $userId = (int)$_SESSION['user_id'];
+
+        if (class_exists('\\SessionTracker')) {
+            \SessionTracker::cleanup($this->db, $userId);
+            \SessionTracker::touch($this->db, $userId);
+            $sessions = \SessionTracker::getForUser($this->db, $userId);
+        } else {
+            $sessions = [];
         }
-        
+
         if (empty($sessions)) {
             $sessions[] = [
-                'id' => 0,
+                'id' => session_id(),
                 'session_id' => session_id(),
-                'ip' => $_SERVER['REMOTE_ADDR'] ?? 'unknown',
+                'ip' => $_SERVER['REMOTE_ADDR'] ?? '',
                 'device' => $this->parseUserAgent($_SERVER['HTTP_USER_AGENT'] ?? ''),
                 'last_activity' => date('d.m.Y H:i'),
                 'created_at' => date('d.m.Y H:i'),
                 'is_current' => true
             ];
+        } else {
+            foreach ($sessions as &$session) {
+                if (!empty($session['is_current'])) {
+                    $session['ip'] = $_SERVER['REMOTE_ADDR'] ?? '';
+                    $session['device'] = $this->parseUserAgent($_SERVER['HTTP_USER_AGENT'] ?? '');
+                } else {
+                    $session['device'] = LANG_ACTION_PROFILE_SESSIONS_DEVICE_UNKNOWN;
+                }
+            }
+            unset($session);
         }
-        
-        return $sessions;
+
+        echo json_encode(['success' => true, 'sessions' => $sessions]);
     }
-    
+
     /**
-    * Парсит User Agent для определения устройства 
+    * Парсит User Agent для определения устройства
     * @param string $userAgent Строка User Agent
     * @return string Название устройства
     */
@@ -85,7 +64,7 @@ class Sessions extends ProfileAction {
         if (empty($userAgent)) {
             return LANG_ACTION_PROFILE_SESSIONS_DEVICE_UNKNOWN;
         }
-        
+
         if (strpos($userAgent, 'Windows') !== false) {
             return LANG_ACTION_PROFILE_SESSIONS_DEVICE_WINDOWS;
         } elseif (strpos($userAgent, 'Macintosh') !== false) {
@@ -98,8 +77,8 @@ class Sessions extends ProfileAction {
             return LANG_ACTION_PROFILE_SESSIONS_DEVICE_ANDROID;
         } elseif (strpos($userAgent, 'Linux') !== false) {
             return LANG_ACTION_PROFILE_SESSIONS_DEVICE_LINUX;
-        } else {
-            return LANG_ACTION_PROFILE_SESSIONS_DEVICE_OTHER;
         }
+
+        return LANG_ACTION_PROFILE_SESSIONS_DEVICE_OTHER;
     }
 }
