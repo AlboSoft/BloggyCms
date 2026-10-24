@@ -137,9 +137,9 @@ class Controller {
         
         extract($data);
         
-        $isAdmin = strpos($template, 'admin/') === 0;
+        $isAdminTemplate = strpos($template, 'admin/') === 0;
         $currentTemplate = function_exists('get_current_template') ? get_current_template() : DEFAULT_TEMPLATE;
-        $templateBase = $isAdmin ? 'default' : $currentTemplate;
+        $templateBase = $isAdminTemplate ? 'default' : $currentTemplate;
         $templateFile = TEMPLATES_PATH . '/' . $templateBase . '/' . $template . '.php';
         
         if (!file_exists($templateFile)) {
@@ -178,7 +178,7 @@ class Controller {
             'controller' => $this
         ]);
         
-        if ($isAdmin) {
+        if ($isAdminTemplate) {
             $layoutFile = TEMPLATES_PATH . '/default/admin/layout.php';
         } else {
             $layoutFile = TEMPLATES_PATH . '/' . $currentTemplate . '/front/layout.php';

@@ -98,7 +98,7 @@ class AdminCreate extends HtmlBlockAction {
 
                 \Notification::success(LANG_ACTION_HTMLBLOCKS_ADMINCREATE_SUCCESS);
 
-                $this->redirect(ADMIN_URL . '/html-blocks');
+                $this->redirect(ADMIN_URL . '/html-blocks/edit/' . $id);
                 
             } catch (\Exception $e) {
                 \Notification::error(LANG_ACTION_HTMLBLOCKS_ADMINCREATE_ERROR . $e->getMessage());

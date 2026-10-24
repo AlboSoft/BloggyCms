@@ -93,7 +93,7 @@ class HtmlBlockModel implements ModelAPI {
 
         $sql = "INSERT INTO html_blocks (name, slug, content, type_id, settings, css_files, js_files, inline_css, inline_js, template) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
-        return $this->db->query($sql, [
+        $this->db->query($sql, [
             $data['name'],
             $data['slug'],
             '',
@@ -105,6 +105,8 @@ class HtmlBlockModel implements ModelAPI {
             $data['inline_js'] ?? '',
             $data['template'] ?? 'default'
         ]);
+
+        return (int)$this->db->lastInsertId();
     }
     
     /**

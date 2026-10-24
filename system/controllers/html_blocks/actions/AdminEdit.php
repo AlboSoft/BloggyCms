@@ -110,7 +110,7 @@ class AdminEdit extends HtmlBlockAction {
                     
                     \Notification::success(LANG_ACTION_HTMLBLOCKS_ADMINEDIT_SUCCESS);
                     
-                    $this->redirect(ADMIN_URL . '/html-blocks');
+                    $this->redirect(ADMIN_URL . '/html-blocks/edit/' . $this->id);
                     
                 } catch (\Exception $e) {
                     \Notification::error(LANG_ACTION_HTMLBLOCKS_ADMINEDIT_ERROR . $e->getMessage());

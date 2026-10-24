@@ -36,11 +36,15 @@ class FrontIndex extends UserAction {
             }
             
             $customFields = $this->fieldModel->getActiveByEntityType('user');
+            $onlineCount = count(array_filter($users, function($user) {
+                return !empty($user['is_online']);
+            }));
             
             $this->render('front/users/users', [
                 'users' => $users,
                 'customFields' => $customFields,
                 'total_users' => count($users),
+                'online_count' => $onlineCount,
                 'showLastAchievement' => $showLastAchievement
             ]);
             

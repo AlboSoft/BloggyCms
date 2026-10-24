@@ -17,7 +17,7 @@ class FrontIndex extends AdminAchievementAction {
             $this->addBreadcrumb(LANG_ACTION_USERS_FRONTINDEX_BREADCRUMB_HOME, BASE_URL);
             $this->addBreadcrumb(LANG_ACTION_USERS_FRONTINDEX_BREADCRUMB_USERS, BASE_URL . '/users');
             $this->addBreadcrumb(LANG_ACTION_USERS_FRONTINDEX_BREADCRUMB_ACHIEVEMENTS);
-            $this->setPageTitle(LANG_ACTION_USERS_FRONTINDEX_PAGE_TITLE);
+            $this->setPageTitle(LANG_ACTION_ACHIEVEMENTS_FRONTINDEX_PAGE_TITLE);
             
             $achievements = $this->userModel->getAllAchievements(['active' => true]);
             

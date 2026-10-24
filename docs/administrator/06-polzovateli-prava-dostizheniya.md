@@ -145,7 +145,7 @@
 | Контрольный вопрос на входе | Настройки → Авторизация (`show_qa`, `qa_param`) |
 | Восстановление пароля | Настройки → Авторизация (`disable_restore`); письмо отправляет хелпер `Email` |
 | Регистрация | Настройки → Авторизация (`enable_register`, `disable_register_reason`) |
-| Активные сессии | Профиль → Сессии; таблица `user_activity` |
+| Активные сессии | Профиль → Сессии; таблица `user_sessions_online` |
 | Последние входы и IP | Поля `last_login`, `last_activity`, `last_admin_ip` в таблице `users` |
 
 > [!WARNING]
