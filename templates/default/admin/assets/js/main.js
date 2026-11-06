@@ -192,28 +192,6 @@ function createGlobalLoader() {
     return loader;
 }
 
-document.getElementById('faviconInput')?.addEventListener('change', function(e) {
-    const file = e.target.files[0];
-    if (file) {
-        const validTypes = ['image/x-icon', 'image/png', 'image/svg+xml', 'image/vnd.microsoft.icon'];
-        const validExtensions = ['.ico', '.png', '.svg'];
-        
-        const fileExtension = '.' + file.name.split('.').pop().toLowerCase();
-        
-        if (!validTypes.includes(file.type) && !validExtensions.includes(fileExtension)) {
-            alert(lang === 'ru' ? 'Пожалуйста, выберите файл в формате ICO, PNG или SVG' : 'Please select a file in ICO, PNG or SVG format');
-            e.target.value = '';
-            return;
-        }
-        const reader = new FileReader();
-        reader.onload = function(event) {
-            document.getElementById('faviconPreview').src = event.target.result;
-            document.getElementById('faviconFormat').textContent = fileExtension.substring(1).toUpperCase();
-        };
-        reader.readAsDataURL(file);
-    }
-});
-
 document.addEventListener('DOMContentLoaded', function() {
     const titleInput = document.getElementById('page-title') || 
                        document.querySelector('input[name="title"]');

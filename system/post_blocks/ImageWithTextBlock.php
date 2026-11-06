@@ -77,7 +77,7 @@ class ImageWithTextBlock extends BasePostBlock {
         ob_start();
         ?>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6" data-image-upload-group data-image-upload-size="large">
                 <div class="mb-4">
                     <label class="form-label"><?php echo LANG_POSTBLOCK_IMAGETEXT_FORM_UPLOAD_LABEL; ?> *</label>
                     <input type="file" 
@@ -105,7 +105,7 @@ class ImageWithTextBlock extends BasePostBlock {
                            required>
                 </div>
 
-                <div class="new-image-preview mb-4" style="display: none;">
+                <div data-image-upload-legacy class="new-image-preview mb-4" style="display: none;">
                     <label class="form-label"><?php echo LANG_POSTBLOCK_IMAGETEXT_FORM_PREVIEW_LABEL; ?></label>
                     <div class="border rounded p-3 text-center">
                         <img src="" alt="<?php echo LANG_POSTBLOCK_IMAGETEXT_FORM_PREVIEW_ALT; ?>" class="img-thumbnail preview-image" style="max-height: 200px;">
@@ -113,7 +113,7 @@ class ImageWithTextBlock extends BasePostBlock {
                 </div>
 
                 <?php if ($imageUrl) { ?>
-                    <div class="mb-4">
+                    <div class="mb-4" data-image-upload-legacy>
                         <label class="form-label"><?php echo LANG_POSTBLOCK_IMAGETEXT_FORM_CURRENT_LABEL; ?></label>
                         <div class="current-image-preview border rounded p-3 text-center bg-light">
                             <img src="<?= html($imageUrl) ?>" 

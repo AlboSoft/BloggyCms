@@ -166,9 +166,9 @@
             
             <div class="col-lg-4">
                 <div class="card border-0 shadow-sm mb-4">
-                    <div class="card-body">
+                    <div class="card-body" data-image-upload-group>
                         <?php if (!empty($achievement['image'])) { ?>
-                        <div class="mb-3 text-center">
+                        <div class="mb-3 text-center" data-image-upload-legacy>
                             <img src="<?php echo BASE_URL; ?>/uploads/achievements/<?php echo $achievement['image']; ?>" 
                                 class="img-thumbnail mb-2" 
                                 style="max-width: 128px; max-height: 128px;"
@@ -191,7 +191,7 @@
                             <div class="form-text"><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_EDIT_IMAGE_HINT; ?></div>
                         </div>
                         
-                        <div id="imagePreview" class="text-center mt-3" style="display: none;">
+                        <div id="imagePreview" class="text-center mt-3" style="display: none;" data-image-upload-legacy>
                             <img src="" alt="Preview" class="img-thumbnail" style="max-width: 128px;">
                         </div>
                     </div>
@@ -348,19 +348,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     document.querySelectorAll('.condition-item').forEach(addConditionHandlers);
     
-    document.getElementById('imageUpload')?.addEventListener('change', function(e) {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const preview = document.getElementById('imagePreview');
-                const img = preview.querySelector('img');
-                img.src = e.target.result;
-                preview.style.display = 'block';
-            };
-            reader.readAsDataURL(file);
-        }
-    });
+
     
     const iconInput = document.querySelector('input[name="icon"]');
     const iconPreview = document.getElementById('iconPreviewIcon');

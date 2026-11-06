@@ -99,7 +99,7 @@ $customFields = $fieldModel->getActiveByEntityType('user');
                     <div class="card-header bg-white border-0">
                         <h5 class="card-title mb-0"><?php echo LANG_TEMPLATE_USERS_EDIT_AVATAR_TITLE; ?></h5>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body" data-image-upload-group>
                         <div class="mb-3">
                             <label class="form-label"><?php echo LANG_TEMPLATE_USERS_EDIT_UPLOAD_AVATAR_LABEL; ?></label>
                             <input type="file" class="form-control" name="avatar" accept="image/*">
@@ -109,7 +109,7 @@ $customFields = $fieldModel->getActiveByEntityType('user');
                         </div>
                         
                         <?php if (!empty($user['avatar']) && $user['avatar'] !== 'default.jpg') { ?>
-                        <div class="mt-3">
+                        <div class="mt-3" data-image-upload-legacy>
                             <label class="form-label"><?php echo LANG_TEMPLATE_USERS_EDIT_CURRENT_AVATAR_LABEL; ?></label>
                             <div>
                                 <img src="<?php echo BASE_URL; ?>/uploads/avatars/<?php echo $user['avatar']; ?>" 

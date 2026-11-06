@@ -38,12 +38,12 @@ class ImageField extends BaseField {
         
         $fieldName = 'field_' . ($this->systemName ?? '');
         
-        $html = "<div class='image-field' data-max-size='{$maxSize}' data-allowed-types='{$allowedTypes}'>";
+        $html = "<div class='image-field' data-image-upload-group data-max-size='{$maxSize}' data-allowed-types='{$allowedTypes}'>";
         
         if (!empty($safeValue)) {
             $safeValueEscaped = html($safeValue, ENT_QUOTES, 'UTF-8');
             $html .= "
-                <div class='mb-2'>
+                <div class='mb-2' data-image-upload-legacy>
                     <img src='" . BASE_URL . "/uploads/images/{$safeValueEscaped}' 
                          class='img-thumbnail' 
                          style='max-height: 100px;'

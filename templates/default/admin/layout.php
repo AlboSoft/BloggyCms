@@ -352,6 +352,7 @@
 
     <?php echo base_admin_js(['jquery-3.6.0.min', 'bootstrap', 'Sortable.min', 'main', 'jquery-ui.min', 'notifications', 'actions']); ?>
     <script src="/templates/default/admin/assets/js/controllers/docs-drawer.js"></script>
+    <script src="<?php echo BASE_URL; ?>/templates/default/admin/assets/js/image-fields.js"></script>
     <?php echo render_admin_js(); ?>
     <?php echo render_admin_bottom_js() ?>
     

@@ -224,7 +224,7 @@ class VideoBlock extends BasePostBlock {
                 </select>
             </div>
 
-            <div class="upload-section" data-upload-section style="<?= $videoType !== 'upload' ? 'display: none;' : '' ?>">
+            <div class="upload-section" data-image-upload-group data-image-upload-current="<?= $poster ?>" data-upload-section style="<?= $videoType !== 'upload' ? 'display: none;' : '' ?>">
                 <div class="mb-3">
                     <label class="form-label"><?php echo LANG_POSTBLOCK_VIDEO_FORM_VIDEO_LABEL; ?></label>
                     <input type="file" 
@@ -264,7 +264,7 @@ class VideoBlock extends BasePostBlock {
                 <?php } ?>
 
                 <?php if (!empty($poster)) { ?>
-                    <div class="current-file mb-2 p-2 bg-light border rounded">
+                    <div class="current-file mb-2 p-2 bg-light border rounded" data-image-upload-legacy>
                         <div class="d-flex align-items-center">
                             <i class="bi bi-image me-2 text-primary"></i>
                             <span class="flex-grow-1"><?= html(basename($poster)) ?></span>

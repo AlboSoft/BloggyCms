@@ -108,7 +108,7 @@
                             <div class="form-text"><?php echo LANG_TEMPLATE_USERS_ACHIEVEMENT_CREATE_IMAGE_HINT; ?></div>
                         </div>
                         
-                        <div id="imagePreview" class="text-center mt-3" style="display: none;">
+                        <div id="imagePreview" class="text-center mt-3" style="display: none;" data-image-upload-legacy>
                             <img src="" alt="Preview" class="img-thumbnail" style="max-width: 128px;">
                         </div>
                     </div>
@@ -244,19 +244,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     document.querySelectorAll('.condition-item').forEach(addConditionHandlers);
     
-    document.getElementById('imageUpload').addEventListener('change', function(e) {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const preview = document.getElementById('imagePreview');
-                const img = preview.querySelector('img');
-                img.src = e.target.result;
-                preview.style.display = 'block';
-            };
-            reader.readAsDataURL(file);
-        }
-    });
+
     
     document.getElementById('achievementForm').addEventListener('submit', function(e) {
         const nameInput = this.querySelector('input[name="name"]');

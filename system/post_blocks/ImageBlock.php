@@ -146,6 +146,7 @@ class ImageBlock extends BasePostBlock {
 
         ob_start();
         ?>
+        <div data-image-upload-group data-image-upload-size="large">
         <div class="mb-4">
             <label class="form-label"><?php echo LANG_POSTBLOCK_IMAGE_FORM_UPLOAD_LABEL; ?> *</label>
             <input type="file" 
@@ -163,7 +164,7 @@ class ImageBlock extends BasePostBlock {
                class="image-url-input" 
                value="<?= html($imageUrl) ?>">
         <?php if ($imageUrl) { ?>
-            <div class="mb-4">
+            <div class="mb-4" data-image-upload-legacy>
                 <label class="form-label"><?php echo LANG_POSTBLOCK_IMAGE_FORM_CURRENT_LABEL; ?></label>
                 <div class="current-image-preview border rounded p-3 text-center bg-light">
                     <img src="<?= html($imageUrl) ?>" 
@@ -205,11 +206,12 @@ class ImageBlock extends BasePostBlock {
                       rows="2"
                       placeholder="<?php echo LANG_POSTBLOCK_IMAGE_FORM_CAPTION_PLACEHOLDER; ?>"><?= html($caption) ?></textarea>
         </div>
-        <div class="new-image-preview mb-4" style="display: none;">
+        <div data-image-upload-legacy class="new-image-preview mb-4" style="display: none;">
             <label class="form-label"><?php echo LANG_POSTBLOCK_IMAGE_FORM_PREVIEW_LABEL; ?></label>
             <div class="border rounded p-3 text-center">
                 <img src="" alt="<?php echo LANG_POSTBLOCK_IMAGE_FORM_PREVIEW_ALT; ?>" class="img-thumbnail preview-image" style="max-height: 200px; max-width: 100%;">
             </div>
+        </div>
         </div>
         <?php
         return ob_get_clean();

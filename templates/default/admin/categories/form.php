@@ -145,9 +145,9 @@
                     <div class="card-header bg-white border-0">
                         <h5 class="card-title mb-0"><?php echo LANG_TEMPLATE_CATEGORIES_FORM_IMAGE_TITLE; ?></h5>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body" data-image-upload-group>
                         <?php if (!empty($category['image'])) { ?>
-                            <div class="mb-3 text-center">
+                            <div class="mb-3 text-center" data-image-upload-legacy>
                                 <img src="/uploads/images/<?php echo html($category['image']); ?>" 
                                     class="img-thumbnail mb-2" 
                                     style="max-height: 150px;"
@@ -177,7 +177,7 @@
                         </div>
                         
                         <?php if (!empty($category['image'])) { ?>
-                            <div class="form-check">
+                            <div class="form-check" data-image-upload-legacy>
                                 <input class="form-check-input" 
                                     type="checkbox" 
                                     name="delete_image" 

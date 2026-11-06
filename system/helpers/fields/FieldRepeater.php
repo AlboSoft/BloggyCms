@@ -40,7 +40,7 @@ class FieldRepeater extends Field {
                                         $fieldType = $fieldConfig['type'] ?? 'string';
                                         $fieldValue = $item[$fieldName] ?? '';
                                         ?>
-                                        <div class="repeater-field-item mb-3">
+                                        <div class="repeater-field-item mb-3" data-image-upload-group>
                                             <label class="form-label small fw-bold mb-1"><?= $fieldTitle ?></label>
                                             <?php
                                             $hiddenFieldName = "settings[{$this->name}][{$index}][{$fieldName}]";
@@ -83,7 +83,7 @@ class FieldRepeater extends Field {
                                     $fieldTitle = $fieldConfig['title'] ?? '';
                                     $fieldType = $fieldConfig['type'] ?? 'string';
                                     ?>
-                                    <div class="repeater-field-item mb-3">
+                                    <div class="repeater-field-item mb-3" data-image-upload-group>
                                         <label class="form-label small fw-bold mb-1"><?= $fieldTitle ?></label>
                                         <?php
                                         $hiddenFieldName = "settings[{$this->name}][__INDEX__][{$fieldName}]";
@@ -271,7 +271,7 @@ class FieldRepeater extends Field {
         
         if ($previewUrl && !$isTemplate) {
             ?>
-            <div class="image-preview mb-2">
+            <div class="image-preview mb-2" data-image-upload-legacy>
                 <div class="border rounded p-2 text-center">
                     <img src="<?= htmlspecialchars($previewUrl) ?>" 
                          alt="Preview" 

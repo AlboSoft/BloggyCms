@@ -112,8 +112,6 @@ class GalleryBlockAdmin {
             reader.readAsDataURL(fileInput.files[0]);
         }
         
-        const urlInput = item?.querySelector('.gallery-image-url');
-        if (urlInput) urlInput.value = '';
     }
 
     updateIndices() {

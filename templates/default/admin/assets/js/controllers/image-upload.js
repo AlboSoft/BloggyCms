@@ -1,4 +1,4 @@
-﻿if (typeof ImageUploader !== 'undefined') {
+if (typeof ImageUploader !== 'undefined') {
 
 } else {
     class ImageUploader {
@@ -18,6 +18,7 @@
                 ...options
             };
 
+            this.uploadVersion = 0;
             this.init();
         }
 
@@ -161,9 +162,9 @@
                 
                 if (this.elements.keepImageCheckbox) {
                     this.elements.keepImageCheckbox.checked = false;
-                    if (this.elements.removeImageField) {
-                        this.elements.removeImageField.value = '0';
-                    }
+                }
+                if (this.elements.removeImageField) {
+                    this.elements.removeImageField.value = '0';
                 }
                 
                 this.showUploadProgress();
@@ -172,8 +173,11 @@
         }
 
         processFile(file) {
+            const version = ++this.uploadVersion;
+            this.clearUploadedInputs();
             const reader = new FileReader();
             reader.onload = (e) => {
+                if (version !== this.uploadVersion) return;
                 if (this.elements.imagePreview) {
                     this.elements.imagePreview.src = e.target.result;
                 }
@@ -183,7 +187,7 @@
                 
                 this.showPreview();
                 this.hideProgress();
-                this.uploadToServer(file);
+                this.uploadToServer(file, version);
                 
                 const dataTransfer = new DataTransfer();
                 dataTransfer.items.add(file);
@@ -194,7 +198,7 @@
             reader.readAsDataURL(file);
         }
 
-        async uploadToServer(file) {
+        async uploadToServer(file, version) {
             const formData = new FormData();
             formData.append('featured_image', file);
             
@@ -211,6 +215,7 @@
                 clearTimeout(timeoutId);
                 
                 const result = await response.json();
+                if (version !== this.uploadVersion) return;
                 
                 if (result.success) {
                     if (this.elements.imagePreview && document.body.contains(this.elements.imagePreview)) {
@@ -225,6 +230,7 @@
                     this.showUploadForm();
                 }
             } catch (error) {
+                if (version !== this.uploadVersion) return;
                 if (error.name === 'AbortError') {
                 } else {
                     this.showError(lang === 'ru' ? 'Ошибка сети при загрузке изображения' : 'Network error during image upload');
@@ -297,17 +303,19 @@
             }
         }
 
+        clearUploadedInputs() {
+            const form = document.getElementById('post-form');
+            if (!form) return;
+            form.querySelectorAll('input[name="uploaded_image_path"], input[name="uploaded_image_url"]').forEach(input => input.remove());
+        }
+
         removeImage() {
-            if (this.elements.keepImageCheckbox) {
-                this.elements.keepImageCheckbox.checked = false;
-                this.showUploadForm();
-                if (this.elements.removeImageField) {
-                    this.elements.removeImageField.value = '1';
-                }
-            } else {
-                this.showUploadForm();
-                this.elements.fileInput.value = '';
-            }
+            ++this.uploadVersion;
+            this.clearUploadedInputs();
+            this.elements.fileInput.value = '';
+            if (this.elements.keepImageCheckbox) this.elements.keepImageCheckbox.checked = false;
+            if (this.elements.removeImageField) this.elements.removeImageField.value = '1';
+            this.showUploadForm();
         }
 
         showError(message) {
@@ -316,7 +324,7 @@
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-        const uploadAreas = document.querySelectorAll('.image-upload-area');
+        const uploadAreas = document.querySelectorAll('#imageUploadArea');
         
         uploadAreas.forEach((area, index) => {
             const areaId = area.id || `imageUploadArea-${index}`;

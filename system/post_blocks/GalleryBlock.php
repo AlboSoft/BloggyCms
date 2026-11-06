@@ -84,7 +84,7 @@ class GalleryBlock extends BasePostBlock {
             
             <div id="gallery-items-container" class="gallery-items-container">
                 <?php if (empty($images)) { ?>
-                    <div class="gallery-item card mb-3" data-index="0">
+                    <div class="gallery-item card mb-3" data-image-upload-group data-index="0">
                         <div class="card-body">
                             <div class="row align-items-start">
                                 <div class="col-auto pe-0">
@@ -95,7 +95,7 @@ class GalleryBlock extends BasePostBlock {
                                 <div class="col">
                                     <div class="row g-3">
                                         <div class="col-md-12">
-                                            <div class="image-upload-area">
+                                            <div class="gallery-image-upload">
                                                 <label class="form-label small fw-semibold"><?php echo LANG_POSTBLOCK_GALLERY_FORM_IMAGE_LABEL; ?> *</label>
                                                 <input type="file" 
                                                     name="gallery_image_0" 
@@ -127,7 +127,7 @@ class GalleryBlock extends BasePostBlock {
                                                 placeholder="<?php echo LANG_POSTBLOCK_GALLERY_FORM_CAPTION_PLACEHOLDER; ?>">
                                         </div>
                                         <div class="col-12">
-                                            <div class="new-image-preview" style="display: none;">
+                                            <div data-image-upload-legacy class="new-image-preview" style="display: none;">
                                                 <div class="preview-card p-2 bg-light rounded">
                                                     <img src="" alt="<?php echo LANG_POSTBLOCK_GALLERY_FORM_PREVIEW_ALT; ?>" class="preview-image" style="max-height: 80px; max-width: 100%; border-radius: 0.5rem;">
                                                     <div class="small text-muted mt-1"><?php echo LANG_POSTBLOCK_GALLERY_FORM_NEW_IMAGE; ?></div>
@@ -146,7 +146,7 @@ class GalleryBlock extends BasePostBlock {
                     </div>
                 <?php } else { ?>
                     <?php foreach ($images as $index => $image) { ?>
-                        <div class="gallery-item card mb-3" data-index="<?= $index ?>">
+                        <div class="gallery-item card mb-3" data-image-upload-group data-index="<?= $index ?>">
                             <div class="card-body">
                                 <div class="row align-items-start">
                                     <div class="col-auto pe-0">
@@ -158,7 +158,7 @@ class GalleryBlock extends BasePostBlock {
                                         <div class="row g-3">
                                             <?php if (empty($image['image_url'])) { ?>
                                                 <div class="col-md-12">
-                                                    <div class="image-upload-area">
+                                                    <div class="gallery-image-upload">
                                                         <label class="form-label small fw-semibold"><?php echo LANG_POSTBLOCK_GALLERY_FORM_IMAGE_LABEL; ?> *</label>
                                                         <input type="file" 
                                                             name="gallery_image_<?= $index ?>" 
@@ -174,7 +174,8 @@ class GalleryBlock extends BasePostBlock {
                                                 <input type="hidden" name="content[images][<?= $index ?>][image_url]" class="gallery-image-url" value="">
                                             <?php } else { ?>
                                                 <div class="col-md-12">
-                                                    <div class="current-image-preview">
+                                                    <input type="file" name="gallery_image_<?= $index ?>" class="form-control form-control-sm gallery-image-input" accept="image/*">
+                                                    <div data-image-upload-legacy class="current-image-preview">
                                                         <div class="d-flex align-items-center gap-3 p-2 bg-light rounded">
                                                             <img src="<?= html($image['image_url']) ?>" 
                                                                 alt="<?php echo LANG_POSTBLOCK_GALLERY_FORM_CURRENT_IMAGE_ALT; ?>" 
@@ -217,7 +218,7 @@ class GalleryBlock extends BasePostBlock {
                                                     placeholder="<?php echo LANG_POSTBLOCK_GALLERY_FORM_CAPTION_PLACEHOLDER; ?>">
                                             </div>
                                             <div class="col-12">
-                                                <div class="new-image-preview" style="display: none;">
+                                                <div data-image-upload-legacy class="new-image-preview" style="display: none;">
                                                     <div class="preview-card p-2 bg-light rounded">
                                                         <img src="" alt="<?php echo LANG_POSTBLOCK_GALLERY_FORM_PREVIEW_ALT; ?>" class="preview-image" style="max-height: 80px; max-width: 100%; border-radius: 0.5rem;">
                                                         <div class="small text-muted mt-1"><?php echo LANG_POSTBLOCK_GALLERY_FORM_NEW_IMAGE; ?></div>
@@ -244,7 +245,7 @@ class GalleryBlock extends BasePostBlock {
         </div>
 
         <template id="gallery-template">
-            <div class="gallery-item card mb-3" data-index="__INDEX__">
+            <div class="gallery-item card mb-3" data-image-upload-group data-index="__INDEX__">
                 <div class="card-body">
                     <div class="row align-items-start">
                         <div class="col-auto pe-0">
@@ -255,7 +256,7 @@ class GalleryBlock extends BasePostBlock {
                         <div class="col">
                             <div class="row g-3">
                                 <div class="col-md-12">
-                                    <div class="image-upload-area">
+                                    <div class="gallery-image-upload">
                                         <label class="form-label small fw-semibold"><?php echo LANG_POSTBLOCK_GALLERY_FORM_IMAGE_LABEL; ?> *</label>
                                         <input type="file" 
                                             name="gallery_image___INDEX__" 
@@ -287,7 +288,7 @@ class GalleryBlock extends BasePostBlock {
                                         placeholder="<?php echo LANG_POSTBLOCK_GALLERY_FORM_CAPTION_PLACEHOLDER; ?>">
                                 </div>
                                 <div class="col-12">
-                                    <div class="new-image-preview" style="display: none;">
+                                    <div data-image-upload-legacy class="new-image-preview" style="display: none;">
                                         <div class="preview-card p-2 bg-light rounded">
                                             <img src="" alt="<?php echo LANG_POSTBLOCK_GALLERY_FORM_PREVIEW_ALT; ?>" class="preview-image" style="max-height: 80px; max-width: 100%; border-radius: 0.5rem;">
                                             <div class="small text-muted mt-1"><?php echo LANG_POSTBLOCK_GALLERY_FORM_NEW_IMAGE; ?></div>

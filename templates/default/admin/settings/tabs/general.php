@@ -21,7 +21,7 @@
             <?php echo bloggy_icon('bs', 'image', '16', '#000', 'me-2 controller-svg'); ?><?php echo LANG_TEMPLATE_SETTINGS_SITE_TAB_FAVICON_TITLE; ?>
         </h6>
         
-        <div class="row">
+        <div class="row" data-image-upload-group>
             <div class="col-md-8">
                 <div class="mb-3">
                     <label class="form-label"><?php echo LANG_TEMPLATE_SETTINGS_SITE_TAB_FAVICON_UPLOAD_LABEL; ?></label>
@@ -34,7 +34,7 @@
                 </div>
                 
                 <?php if (!empty($settings['favicon'])) { ?>
-                <div class="mb-2">
+                <div class="mb-2" data-image-upload-legacy>
                     <label class="form-label"><?php echo LANG_TEMPLATE_SETTINGS_SITE_TAB_FAVICON_CURRENT_LABEL; ?></label>
                     <div class="d-flex align-items-center">
                         <div class="me-3">
@@ -60,7 +60,7 @@
                 <?php } ?>
             </div>
             
-            <div class="col-md-4">
+            <div class="col-md-4" data-image-upload-legacy>
                 <div class="favicon-preview border rounded p-3 text-center bg-white">
                     <label class="form-label text-muted small"><?php echo LANG_TEMPLATE_SETTINGS_SITE_TAB_FAVICON_PREVIEW_LABEL; ?></label>
                     <div class="d-flex justify-content-center align-items-center" style="min-height: 64px;">

@@ -41,9 +41,9 @@ class FieldBlockImage extends Field {
         
         ob_start();
         ?>
-        <div class="image-field">
+        <div class="image-field" data-image-upload-group>
             <?php if ($previewUrl) { ?>
-                <div class="mb-3">
+                <div class="mb-3" data-image-upload-legacy>
                     <label class="form-label"><?php echo htmlspecialchars($currentLabel) ?></label>
                     <div class="border rounded p-3 text-center">
                         <img src="<?php echo htmlspecialchars($previewUrl) ?>" alt="Preview" class="<?php echo htmlspecialchars($previewClass) ?>" style="max-width: <?php echo htmlspecialchars($previewSize) ?>; max-height: <?php echo htmlspecialchars($previewSize) ?>;">

@@ -5090,3 +5090,30 @@ h6.card-title {
         padding: 10px 16px;
     }
 }
+
+.shared-image-upload {
+    border: 2px dashed #dee2e6;
+    background: #f8f9fa;
+    padding: 1.25rem;
+    transition: all .3s ease;
+}
+.shared-image-upload:hover, .shared-image-upload.dragover {
+    border-color: #0d6efd;
+    background: #e3f2fd;
+}
+.shared-image-icon { font-size: 2rem; color: #6c6c6c; line-height: 1; }
+.shared-image-upload-large { padding: 3rem; }
+.shared-image-upload-large .shared-image-icon { font-size: 3rem; }
+.shared-image-upload-large .shared-image-drag { font-size: 1.25rem; font-weight: 500; }
+.shared-image-upload-large .shared-image-preview img { max-height: 200px; }
+.shared-image-preview img { max-height: 150px; max-width: 100%; }
+.shared-image-remove { border-radius: 50%; width: 30px; height: 30px; padding: 0; }
+.shared-image-input {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    opacity: 0;
+    overflow: hidden;
+}
+.shared-image-upload:has(+ .shared-image-input:focus-visible) { outline: 2px solid #0d6efd; }
+.image-upload-enhanced [data-image-upload-legacy] { display: none !important; }
